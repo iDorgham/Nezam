@@ -1,0 +1,16 @@
+name: ci
+
+on:
+  push:
+    branches: [main, 'release/**', 'feature/**']
+  pull_request:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No-op scaffold
+        run: |
+          echo "Replace this job with your real toolchain (pnpm test, mise, cargo, …)."
+          test -f README.md

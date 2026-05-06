@@ -1,0 +1,117 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Semver version without prefix (example: 1.2.3)"
+        required: true
+        type: string
+      target:
+        description: "Branch or commit SHA to tag"
+        required: false
+        default: "main"
+        type: string
+      prerelease:
+        description: "Mark GitHub release as prerelease"
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - "release/**"
+
+permissions:
+  contents: write
+
+jobs:
+  preview-notes:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Generate release notes preview
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Release branch detected: ${GITHUB_REF_NAME}"
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
+            -f tag_name="preview-${GITHUB_SHA}" \
+            -f target_commitish="${GITHUB_SHA}" \
+            > release-notes-preview.json
+          echo "Generated release-notes-preview.json"
+      - name: Upload release notes preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes-preview
+          path: release-notes-preview.json
+
+  publish:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate requested version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Version must match MAJOR.MINOR.PATCH (for example: 1.2.3)"
+            exit 1
+          fi
+          if [[ ! -f "docs/specs/sdd/VERSIONING.md" ]]; then
+            echo "Missing versioning policy: docs/specs/sdd/VERSIONING.md"
+            exit 1
+          fi
+      - name: Create tag and GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          TAG="v${VERSION}"
+          TARGET="${{ github.event.inputs.target }}"
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag already exists: $TAG"
+            exit 1
+          fi
+
+          git fetch --tags origin
+          if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q "$TAG"; then
+            echo "Remote tag already exists: $TAG"
+            exit 1
+          fi
+
+          if ! git rev-parse "$TARGET" >/dev/null 2>&1; then
+            echo "Target not found locally, fetching origin..."
+            git fetch origin "$TARGET":"$TARGET" || true
+          fi
+
+          if ! git rev-parse "$TARGET" >/dev/null 2>&1; then
+            echo "Invalid target branch or SHA: $TARGET"
+            exit 1
+          fi
+
+          git tag -a "$TAG" "$TARGET" -m "Release $TAG"
+          git push origin "$TAG"
+
+          NOTES_FILE="$(mktemp)"
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
+            -f tag_name="$TAG" \
+            -f target_commitish="$TARGET" \
+            --jq '.body' > "$NOTES_FILE"
+
+          if [[ "${{ github.event.inputs.prerelease }}" == "true" ]]; then
+            gh release create "$TAG" --target "$TARGET" --prerelease --notes-file "$NOTES_FILE" --title "$TAG"
+          else
+            gh release create "$TAG" --target "$TARGET" --notes-file "$NOTES_FILE" --title "$TAG"
+          fi

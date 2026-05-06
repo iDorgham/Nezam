@@ -1,0 +1,55 @@
+# Thin dispatcher for tag/release only. Branch and commit stay local (`/SAVE branch`, `/SAVE commit`) — never run arbitrary git writes from CI without review.
+# Manual releases remain canonical via `release.yml`; this workflow re-dispatches it for convenience.
+
+name: git-automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "tag or release (dispatches release.yml). branch/commit are rejected — use local git."
+        required: true
+        type: choice
+        options:
+          - tag
+          - release
+          - branch
+          - commit
+      version:
+        description: "Semver without v prefix (example: 1.2.3)"
+        required: true
+        type: string
+      target:
+        description: "Branch or commit SHA to tag"
+        required: false
+        default: main
+        type: string
+      prerelease:
+        description: "Mark GitHub release as prerelease"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reject local-only operations
+        if: ${{ inputs.command == 'branch' || inputs.command == 'commit' }}
+        run: |
+          echo "Local-only operation; use /SAVE branch or /SAVE commit in Cursor (or git locally), not CI."
+          exit 1
+
+      - name: Dispatch release workflow
+        if: ${{ inputs.command == 'tag' || inputs.command == 'release' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run release.yml \
+            -f version="${{ inputs.version }}" \
+            -f target="${{ inputs.target }}" \
+            -f prerelease=${{ inputs.prerelease }}

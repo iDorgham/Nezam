@@ -1,0 +1,63 @@
+---
+name: coi-cms-integration
+description: Headless CMS integration patterns — Contentful/Sanity/Strapi/Payload — with webhooks, ISR, and fallback rendering.
+---
+
+# Purpose
+
+Specify how a headless CMS connects to the application: API client, webhooks, cache invalidation, preview mode, and fallback rendering. Single-responsibility: CMS↔app integration contract.
+
+# Inputs
+
+- Content model from `@.cursor/skills/coi-content-modeling/SKILL.md`.
+- Editorial workflow from `@.cursor/skills/coi-editorial-workflows/SKILL.md`.
+- Caching policy from `@.cursor/skills/coi-cache-strategies/SKILL.md`.
+- Hosting/runtime from `@.cursor/skills/coi-vercel-deploy/SKILL.md` or `@.cursor/skills/coi-cloudflare-edge/SKILL.md`.
+
+# Step-by-Step Workflow
+
+1. Choose CMS based on team workflow: Sanity (developer-friendly), Contentful (enterprise), Strapi/Payload (self-host), Hygraph (GraphQL-first).
+2. Define API client contract: typed SDK, environment-scoped tokens, query patterns (GROQ, GraphQL, REST).
+3. Configure webhooks: on publish/unpublish/update → invalidate cache tags / trigger ISR revalidation.
+4. Implement preview mode: signed token, draft-only fetch, dedicated preview route.
+5. Define fallback rendering: cached snapshot, `notFound()` policy, error boundary.
+6. Add image pipeline: `next/image` loader, Sanity image URL builder, Contentful Images API.
+7. Document content sync to local for offline editing or migration.
+
+# Validation & Metrics
+
+- Webhook delivery success rate ≥ 99% (with retry).
+- ISR / cache-tag invalidation propagates in ≤ 30s.
+- Preview mode loads draft within ≤ 1s; impossible to leak draft to public.
+- Fallback rendering works when CMS is unreachable (cached snapshot).
+
+# Output Format
+
+- `docs/specs/sdd/CMS_INTEGRATION.md` (vendor, client, webhooks, preview, fallback).
+- Environment variable manifest (`CMS_PROJECT_ID`, `CMS_TOKEN`, `CMS_PREVIEW_TOKEN`, `CMS_WEBHOOK_SECRET`).
+- Webhook payload schema and verification rules.
+- Image pipeline configuration.
+
+# Integration Hooks
+
+- `/PLAN content` produces integration spec.
+- `/DEVELOP` consumes the contract (without writing app code here).
+- Pairs with `@.cursor/skills/coi-cache-strategies/SKILL.md`, `@.cursor/skills/coi-content-modeling/SKILL.md`, `@.cursor/skills/coi-editorial-workflows/SKILL.md`.
+- Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
+
+# Anti-Patterns
+
+- Webhooks without HMAC signature verification.
+- Preview tokens shared in plain text.
+- Synchronous CMS fetches in render-critical paths without cache.
+- Mixing draft and published content in the same query.
+- Skipping fallback rendering — CMS outage = full site down.
+
+# External Reference
+
+- Sanity webhooks + GROQ docs (current).
+- Contentful Sync / Webhooks / Preview API (current).
+- Strapi v5 docs (current).
+- Payload v3 docs (current).
+- Next.js 15 Cache & Revalidation (https://nextjs.org/docs/app/api-reference/functions/revalidate-tag).
+- Closest skills.sh/official analog: headless-cms / cms-integration.

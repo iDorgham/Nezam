@@ -1,0 +1,35 @@
+---
+description: Workspace orchestration — pipeline order, recommendation footer for every agent reply, and team roles surfaced via commands/skills (not inlined here).
+alwaysApply: true
+---
+
+# Workspace orchestration
+
+## Pipeline order (never skip knowingly)
+
+Planning → SEO research & keywords → Information architecture/menus → Content map → UI & design system (including `DESIGN.md` example pages) → Development → Product hardening/release.
+
+Use **Specification-Driven Development (SDD)**: roadmap → phases → specs → docs. Prefer Plan Mode before large edits.
+
+## Memory layers (conceptual)
+
+1. **Source of truth**: repository files (`docs/specs/**`, templates, tracked decisions).
+2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
+3. **Durable project memory**: `docs/context/MEMORY.md` plus phase logs under `docs/context/` (maintain via `/SAVE log`).
+4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/external-ai/GROK_INSTRUCTIONS.md`.
+
+Formal mapping: `docs/context/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
+
+Do not contradict committed specs without an explicit decision record note.
+
+## Recommendation footer — required on substantive replies
+
+End substantive assistant messages with exactly one short section titled **Recommendation** containing **one primary** actionable item plus optional alternates:
+
+- Prefer a **`/COMMAND sub ...`** suggestion from this workspace command set, OR a fenced shell command users can paste.
+- Prefer a **compact copy-prompt** fenced block (markdown ` ```prompt ` fence label) unless a shell command alone is clearer.
+- Exactly one Recommendation section per substantive reply unless the reply is trivially affirmative or the user forbids extras.
+
+## Compatibility with external Antigravity `/guide` rules
+
+[`docs/reference/rules/guide-response-style.mdc`](../../docs/reference/rules/guide-response-style.mdc) and [`guide-handoff-footer.mdc`](../../docs/reference/rules/guide-handoff-footer.mdc) prescribe alternate reply shells (`### What to do next`, horizontal rules). **They are not activated globally here** because they conflict with the single **Recommendation** footer contract above. Use those reference files only when maintaining an Antigravity-parity fork or a dedicated `/guide` bridge—not stacked alongside this rule on every reply.

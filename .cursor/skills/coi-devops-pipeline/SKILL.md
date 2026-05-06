@@ -1,0 +1,64 @@
+---
+name: coi-devops-pipeline
+description: GitHub Actions / GitLab CI pipelines with environment promotion, artifact versioning, and rollback.
+---
+
+# Purpose
+
+Specify the CI/CD pipeline: build, test, security scans, artifact publish, environment promotion, and rollback. Single-responsibility: deploy pipeline contract.
+
+# Inputs
+
+- Repo conventions from `@.cursor/skills/git-workflow/SKILL.md`.
+- Hosting target(s) from `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`, or `@.cursor/skills/coi-cloudflare-edge/SKILL.md`.
+- Secrets policy from `@.cursor/skills/coi-secret-management/SKILL.md`.
+- Test strategy from `@.cursor/skills/coi-testing-strategy/SKILL.md`.
+
+# Step-by-Step Workflow
+
+1. Define stages: `lint → typecheck → unit → build → integration → e2e → security → publish → deploy → smoke`.
+2. Use a single source of truth (matrix-driven workflow); reuse via composite actions / reusable workflows.
+3. Cache toolchain (`actions/setup-node` cache, pnpm/npm/yarn lockfile-based keys) for fast builds.
+4. Sign and version artifacts: SHA-tagged container images, immutable tarballs; record in release notes.
+5. Environment promotion: build once, deploy many; promote the same artifact through `dev → staging → prod` with manual gates for prod.
+6. Rollback: store last N artifacts; one-command rollback via workflow dispatch.
+7. Security: secret scanning (gitleaks), dependency review (Renovate/Dependabot), SAST (CodeQL), SBOM (Syft + Grype).
+
+# Validation & Metrics
+
+- Average pipeline runtime within budget (e.g., < 12 min main).
+- Cache hit rate ≥ 80% for toolchain.
+- Required checks (lint, typecheck, unit, e2e, security) gate merge.
+- Artifact provenance recorded (SLSA level ≥ 2 target).
+- Rollback completes in ≤ 5 min.
+
+# Output Format
+
+- `.github/workflows/*.yml` (composite + reusable).
+- Pipeline diagram (mermaid).
+- Environment promotion runbook.
+- Artifact retention + rollback policy.
+
+# Integration Hooks
+
+- `/SAVE branch` triggers preview pipeline.
+- `/DEPLOY tag` triggers production promotion.
+- `/SCAN security` runs CodeQL + dependency scans.
+- Pairs with `@.cursor/skills/git-workflow/SKILL.md`, `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`, `@.cursor/skills/coi-cloudflare-edge/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`.
+- Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
+
+# Anti-Patterns
+
+- Building separate artifacts per environment (drift risk).
+- Storing secrets in workflow files instead of GitHub Encrypted Secrets / OIDC.
+- Skipping pipeline for "quick fixes" pushed to main.
+- No required-check enforcement on protected branches.
+- No rollback path tested.
+
+# External Reference
+
+- GitHub Actions docs (https://docs.github.com/actions) — current.
+- GitLab CI/CD (https://docs.gitlab.com/ee/ci/) — current.
+- SLSA framework (https://slsa.dev/) — current.
+- Sigstore / cosign (https://www.sigstore.dev/) — current.
+- Closest skills.sh/official analog: ci-cd / devops-pipeline.

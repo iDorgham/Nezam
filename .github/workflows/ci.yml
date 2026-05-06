@@ -4,13 +4,126 @@ on:
   push:
     branches: [main, 'release/**', 'feature/**']
   pull_request:
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
 
 jobs:
+  branch-policy:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate source branch naming
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          if [[ -z "$BRANCH_NAME" ]]; then
+            echo "Missing head branch name from pull request context."
+            exit 1
+          fi
+
+          if [[ "$BRANCH_NAME" =~ ^(feature|release|hotfix)\/[a-z0-9._-]+$ ]]; then
+            echo "Branch naming check passed: $BRANCH_NAME"
+            exit 0
+          fi
+
+          echo "Branch naming check failed: $BRANCH_NAME"
+          echo "Expected one of:"
+          echo "  feature/<spec-id-or-topic>"
+          echo "  release/<x.y.z>"
+          echo "  hotfix/<x.y.z>"
+          exit 1
+
+  conventional-commits:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate conventional commit messages
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          COMMITS="$(git rev-list --reverse "${BASE_SHA}..${HEAD_SHA}")"
+          if [[ -z "$COMMITS" ]]; then
+            echo "No commits found in PR range."
+            exit 1
+          fi
+
+          INVALID=0
+          REGEX='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))?!?: .+'
+
+          for SHA in $COMMITS; do
+            SUBJECT="$(git log --format=%s -n 1 "$SHA")"
+            if [[ ! "$SUBJECT" =~ $REGEX ]]; then
+              echo "Invalid conventional commit: $SHA -> $SUBJECT"
+              INVALID=1
+            fi
+          done
+
+          if [[ "$INVALID" -ne 0 ]]; then
+            echo "Conventional commit validation failed."
+            echo "Format: type(scope): summary"
+            echo "Allowed types: feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
+            exit 1
+          fi
+
+          echo "Conventional commit validation passed."
+
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify onboarding planning artifacts
+        run: ./scripts/checks/check-onboarding-readiness.sh
+
+  design-gate-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify design-system gate artifacts and references
+        run: |
+          set -euo pipefail
+
+          # Required template sections for design-first development.
+          rg -q "## 5\\. Typography" docs/templates/DESIGN.template.md
+          rg -q "### 5\\.1 Fluid type scale" docs/templates/DESIGN.template.md
+          rg -q "### 5\\.2 Breakpoint and container-query matrix" docs/templates/DESIGN.template.md
+          rg -q "### 7\\.1 Motion tokens" docs/templates/DESIGN.template.md
+          rg -q "### 7\\.3 Progressive 3D fallback specification" docs/templates/DESIGN.template.md
+
+          rg -q "## Component API and variant map" docs/templates/FEATURE_SPEC.template.md
+          rg -q "## Motion and reduced-motion contract" docs/templates/FEATURE_SPEC.template.md
+
+          # Hardening contract must be populated, not empty.
+          if [[ ! -s plan/04-harden/perf.md ]]; then
+            echo "plan/04-harden/perf.md must be populated before merge."
+            exit 1
+          fi
+
+          # Prevent drift back to deleted legacy rule names.
+          if rg -n "coia-orchestration\\.mdc|coia-sdd-design\\.mdc" docs/context; then
+            echo "Found legacy rule references in docs/context."
+            exit 1
+          fi
+
+          echo "Design gate readiness checks passed."
+
   placeholder:
     runs-on: ubuntu-latest
+    needs: readiness
     steps:
       - uses: actions/checkout@v4
       - name: No-op scaffold
         run: |
           echo "Replace this job with your real toolchain (pnpm test, mise, cargo, …)."
           test -f README.md
+
+  policy-gate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: [branch-policy, conventional-commits, readiness, design-gate-readiness]
+    steps:
+      - name: Confirm governance checks passed
+        run: echo "Branch naming, commit policy, and readiness checks passed."

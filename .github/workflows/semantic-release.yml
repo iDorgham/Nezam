@@ -1,0 +1,44 @@
+# Opt-in: analyzes conventional commits on `main` and publishes semver tag + GitHub release.
+#
+# Trade-off vs `.github/workflows/release.yml`:
+# - **release.yml** — explicit `version` input + target SHA (human-driven).
+# - **This workflow** — semantic-release decides version from commits (run manually via Actions UI).
+# Pick one primary strategy per repo to avoid duplicate tags.
+#
+# Trigger: workflow_dispatch ONLY (not auto on push to main).
+
+name: semantic-release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,52 @@
+# Purpose
+Enforce runtime-safe CSS architecture that keeps layout stable, token-driven, and performance-conscious across React applications.
+
+# Inputs
+- Token output files and CSS variable maps.
+- `DESIGN.md` layout and visual rules.
+- Component specs and responsive behavior definitions.
+- Existing CSS architecture (modules, utility layers, or hybrid).
+- Performance and accessibility targets for the release phase.
+
+# Step-by-Step Workflow
+1. Establish CSS layering strategy (`base`, `tokens`, `components`, `utilities`, `overrides`) and lock import order.
+2. Wire token variables into global scopes and optional theme scopes without literal style values in component CSS.
+3. Implement responsive layout contracts:
+   - container queries for component isolation
+   - grid templates for page-level structure
+   - flex patterns for intra-component alignment
+4. Define typography and spacing utilities that consume token aliases exclusively.
+5. Add guardrails for runtime safety:
+   - no expensive selectors
+   - no deep specificity escalation
+   - no unbounded `will-change`
+6. Protect layout from shifts:
+   - reserve media dimensions
+   - use stable skeleton/loading patterns
+   - avoid async content jumps
+7. Integrate motion-safe CSS transitions only on composited properties.
+8. Add static checks for hardcoded values outside token sources and reject violations.
+9. Document architecture decisions and exceptions in `DESIGN.md` or related SDD docs.
+
+# Validation & Metrics
+- Core Web Vitals targets: LCP `< 2.5s`, CLS `< 0.1`, INP `< 200ms`.
+- CSS consistency: 100% design primitives sourced from variables.
+- Runtime safety: no selector/pathological specificity regressions.
+- Layout integrity: zero unplanned shift in primary templates.
+- Accessibility: focus visibility and contrast maintained under themes.
+- Build health: CSS bundle and critical path style size within budget.
+
+# Output Format
+- `css/tokens.css`
+- `css/layers.css`
+- `css/utilities.css`
+- `css/components/*.css`
+- `docs/specs/sdd/CSS_ARCHITECTURE.md`
+- `docs/reports/audit/css-runtime-audit.md`
+
+# Integration Hooks
+- `/PLAN design`: define architecture before component implementation.
+- `/DEVELOP`: enforce layer boundaries and token-only style decisions.
+- `/SCAN code|perf|a11y`: run CSS architecture audits.
+- CI: block hardcoded value leaks and budget regressions.
+- `DESIGN.md`: keep implementation constraints synchronized with design intent.

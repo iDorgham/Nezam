@@ -1,0 +1,7 @@
+{
+  "color": true,
+  "compact": false,
+  "progress_bar": true,
+  "collapsible_max_lines": 20,
+  "table_max_width": 120
+}

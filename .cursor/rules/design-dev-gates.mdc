@@ -1,0 +1,104 @@
+---
+description: Design-system, motion, and component gates before development.
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Design Dev Gates
+
+This rule enforces design-system-first execution across SDD pipeline stages:
+Planning -> SEO/IA -> Content -> `DESIGN.md` -> Development -> Hardening.
+
+Block implementation-oriented `/DEVELOP` actions until design, token, motion, and component contracts are in place and auditable.
+
+## Activation & Cross-References
+
+Use these agents as reasoning charters:
+- `.cursor/agents/art-director-brand.md`
+- `.cursor/agents/design-systems-token-architect.md`
+- `.cursor/agents/motion-3d-choreographer.md`
+- `.cursor/agents/react-component-lead.md`
+- `.cursor/agents/a11y-performance-auditor.md`
+
+Use these skills as deterministic procedures:
+- `.cursor/skills/brand-visual-direction/SKILL.md`
+- `.cursor/skills/token-grid-typography/SKILL.md`
+- `.cursor/skills/motion-3d-progressive/SKILL.md`
+- `.cursor/skills/component-library-api/SKILL.md`
+- `.cursor/skills/css-architecture-runtime/SKILL.md`
+
+No circular control flow: agent charters define intent/review lens; skills define executable procedures; this rule defines hard gates.
+
+## Gate 1: Token-First CSS (Hard Block)
+
+- Zero hardcoded design primitives (`px`, `rem`, hex color literals, ad-hoc z-index/radius/spacing) outside governed token sources.
+- Approved sources: token files, generated token CSS variables, and documented values in `DESIGN.md`.
+- All spacing, color, radius, elevation, z-index, and typography must map to CSS variables or W3C-style token references.
+- Any hardcoded primitive in component/application styles fails the gate.
+
+## Gate 2: Fluid Typography and Grid Systems
+
+- Typography roles must use `clamp(min, preferred, max)`-style fluid scales.
+- Layout must use CSS Grid/Flex (macro/micro split) with token-driven gaps and sizing.
+- Container queries are required for component-level responsiveness where components are reusable across layouts.
+- Breakpoint matrix must be explicit: `mobile -> tablet -> desktop -> wide`.
+- No one-off layout constants that bypass the token/grid contract.
+
+## Gate 3: Animation and Motion Budget
+
+- Animate only composited properties (`transform`, `opacity`) unless explicitly justified and approved.
+- `will-change` must be scoped and temporary, not globally persistent.
+- `@media (prefers-reduced-motion: reduce)` alternatives are mandatory for all non-essential motion.
+- Use governed timelines/presets in Framer Motion, GSAP, or CSS animation layers.
+- Layout-triggering animation patterns fail the gate by default.
+
+## Gate 4: Progressive 3D Enhancement
+
+- WebGL/Three.js/R3F experiences must degrade gracefully.
+- Required fallback chain: interactive 3D -> static/animated SVG or Canvas -> static illustration/CSS fallback.
+- Use `Suspense` boundaries around 3D loading paths.
+- Account for reduced-motion and low-power contexts before enabling rich 3D scenes.
+- Missing fallback behavior or uncontrolled 3D payloads fail the gate.
+
+## Gate 5: Component Architecture and Library Quality
+
+- Public component APIs must be typed and variant-driven.
+- Use `forwardRef` for reusable interactive primitives.
+- Keyboard navigation, focus rings, semantic roles, and ARIA patterns are mandatory where applicable.
+- Exports must remain tree-shakeable.
+- Storybook-ready `argTypes` coverage is required for reusable components.
+- Naming consistency required for canonical primitives (`Button`, `Card`, `Section`, etc.).
+
+## Gate 6: Performance and Accessibility
+
+All must pass before `/DEVELOP` proceeds on production-facing work:
+- LCP `< 2.5s`
+- CLS `< 0.1`
+- INP `< 200ms`
+- WCAG 2.2 AA contrast compliance
+- Semantic landmarks and visible focus states
+- Reduced-motion compliance across motion features
+
+Failing any threshold triggers `/SCAN a11y perf` followed by `/FIX` before resuming.
+
+## Gate 7: Design Alignment and Editorial Discipline
+
+- All implemented UI must trace to current `DESIGN.md`.
+- Visual deviations require explicit spec/design update before implementation.
+- Enforce editorial hierarchy, whitespace discipline, and readable rhythm.
+- Token or brand drift without documentation fails the gate.
+
+## Pre-Develop Checklist
+
+Before `/DEVELOP`:
+1. Confirm token contracts and typography/grid matrix are documented.
+2. Confirm motion/3D specifications include reduced-motion and fallback chains.
+3. Confirm component API contracts and accessibility behaviors are defined.
+4. Confirm alignment with `DESIGN.md` and active SDD docs.
+5. Run `/SCAN a11y perf` for baseline readiness when scope is significant.
+
+If any checklist item fails, halt and route back to `/PLAN design` or `/FIX` as appropriate.
+
+## Compatibility Note
+
+If workspace orchestration rules already exist (for example legacy `coia-orchestration` variants), append this rule as a focused design/dev gate layer instead of replacing orchestration governance.

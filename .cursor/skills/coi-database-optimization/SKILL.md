@@ -1,0 +1,63 @@
+---
+name: coi-database-optimization
+description: Index strategies, query planning, connection pooling, and read-replica routing for predictable database performance.
+---
+
+# Purpose
+
+Govern database performance: index design, query plan analysis, pooling, replicas, and slow-query elimination. Single-responsibility: DB performance contract.
+
+# Inputs
+
+- Schema from `@.cursor/skills/coi-prisma-orm/SKILL.md` or `@.cursor/skills/coi-supabase-architect/SKILL.md`.
+- Top queries from observability (`@.cursor/skills/coi-monitoring-observability/SKILL.md`).
+- Traffic profile (read/write ratio, peak QPS).
+- SLA / latency budget from `@.cursor/skills/coi-performance-optimization/SKILL.md`.
+
+# Step-by-Step Workflow
+
+1. Capture top-N slow queries (pg_stat_statements / Prisma Pulse / RDS Performance Insights).
+2. Run `EXPLAIN (ANALYZE, BUFFERS)` on each; identify Seq Scans, sort spills, hash joins on large rels.
+3. Add indexes (B-tree default; GIN for JSONB/text-search; BRIN for time-series; partial indexes for filtered hot paths).
+4. Audit index churn: drop unused (`pg_stat_user_indexes`), avoid duplicate covering indexes.
+5. Configure connection pooler (PgBouncer transaction mode, Prisma Accelerate, Neon proxy); set max connections per service.
+6. Route reads to replicas when consistency tolerance allows; tag queries with consistency level.
+7. Schedule `VACUUM (ANALYZE)` and statistics refresh; monitor bloat.
+
+# Validation & Metrics
+
+- p99 query latency within SLA per endpoint.
+- Cache hit ratio ≥ 99% (`pg_statio_user_tables`).
+- No Seq Scan on tables > 100k rows in critical paths.
+- Connection-pool saturation < 80% at peak.
+- Slow-query log items decreasing release-over-release.
+
+# Output Format
+
+- `docs/specs/sdd/DB_OPTIMIZATION.md` (slow queries, plans, fixes).
+- Index inventory and rationale.
+- Pool configuration (`pgbouncer.ini` / Prisma Accelerate config).
+- Replica routing matrix (read/write/strict).
+
+# Integration Hooks
+
+- `/SCAN perf` runs slow-query analysis.
+- `/DEVELOP` consumes index plans (without writing app code here).
+- Pairs with `@.cursor/skills/coi-prisma-orm/SKILL.md`, `@.cursor/skills/coi-supabase-architect/SKILL.md`, `@.cursor/skills/coi-cache-strategies/SKILL.md`, `@.cursor/skills/coi-monitoring-observability/SKILL.md`.
+- Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
+
+# Anti-Patterns
+
+- Indexing every column; ignoring write amplification.
+- `SELECT *` in hot paths.
+- Long-running transactions blocking VACUUM.
+- Reading from replicas where strong consistency is required.
+- Pool overflow ignored (Prisma defaults silently exhaust pool).
+
+# External Reference
+
+- PostgreSQL 15+ docs (https://www.postgresql.org/docs/) — current.
+- Use The Index, Luke! (https://use-the-index-luke.com/) — current.
+- pgBouncer (https://www.pgbouncer.org/) — current.
+- Prisma Accelerate (https://www.prisma.io/data-platform/accelerate) — current.
+- Closest skills.sh/official analog: database-optimization / sql-performance.

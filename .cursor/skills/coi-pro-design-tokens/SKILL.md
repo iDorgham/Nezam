@@ -1,6 +1,17 @@
 ---
 name: coi-pro-design-tokens
 description: W3C-style design tokens, theme switching, fluid typography, and spacing matrices — the design-system core contract.
+version: 1.0.0
+updated: 2026-05-08
+breaking_changes: false
+changelog:
+  - version: 1.0.0
+    date: 2026-05-08
+    notes: "Initial version metadata added."
+compatible_with:
+  - react: ">=18"
+  - next: ">=14"
+  - node: ">=20"
 ---
 
 # Purpose
@@ -9,7 +20,7 @@ Build deterministic token manifests, theme scopes, and CSS-variable exports that
 
 # Inputs
 
-- `DESIGN.md` sections: Visual Theme, Color Roles, Typography, Layout, Components.
+- `docs/DESIGN.md` sections: Visual Theme, Color Roles, Typography, Layout, Components.
 - Existing token drafts (if any) under design/spec docs.
 - SEO/IA constraints affecting content density and hierarchy.
 - A11y contrast requirements from `@.cursor/skills/coi-a11y-automation/SKILL.md`.
@@ -31,7 +42,7 @@ Build deterministic token manifests, theme scopes, and CSS-variable exports that
 - Typography scales use `clamp()` for primary roles.
 - Theme switching does not cause CLS; FOUC prevented.
 - Contrast pairings (token × token) satisfy WCAG 2.2 AA (4.5:1 / 3:1).
-- Token traceability to `DESIGN.md` maintained (round-trip identifiable).
+- Token traceability to `docs/DESIGN.md` maintained (round-trip identifiable).
 
 # Output Format
 

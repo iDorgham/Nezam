@@ -20,6 +20,7 @@ Format: `/<COMMAND> <subcommand>` (use `<subcommand>` = `help` to list options).
 
 | Command | Subcommands (short) | default → |
 |---|---|---|
+| `/FOUNDER` | `idea, status, help` | `idea` |
 | `/START` | `repo, docs, prompts, companion, prd, prompt, gates, report, all` | `all` |
 | `/PLAN` | `seo, ia, content, design, versioning, roadmap, phases, specs, docs, all` | `all` (after gates) |
 | `/CREATE` | `prd, prompt, design, sdd, seo, spec, report, agent, skill, claude-*` | `all` |
@@ -39,9 +40,9 @@ Format: `/<COMMAND> <subcommand>` (use `<subcommand>` = `help` to list options).
 
 Do **not** create new command template files for these. Treat them as user-facing aliases that route to existing flows:
 
-- `/STATUS` → Use `/GUIDE status`, then (if present) read `docs/reports/PROGRESS_REPORT.latest.md`.
-- `/PROGRESS` → Use `/SCAN all`, then summarize `docs/reports/PROGRESS_REPORT.latest.md` (or recommend `/SAVE report` to generate it if missing).
-- `/REVIEW` → Use `/SCAN code`, then verify planning gates via `/START gates` (and reference `plan/INDEX.md` if it exists).
+- `/STATUS` → Use `/GUIDE status`, then (if present) read `docs/reports/progress/PROGRESS_REPORT.latest.md`.
+- `/PROGRESS` → Use `/SCAN all`, then summarize `docs/reports/progress/PROGRESS_REPORT.latest.md` (or recommend `/SAVE report` to generate it if missing).
+- `/REVIEW` → Use `/SCAN code`, then verify planning gates via `/START gates` (and reference `docs/workspace/plans/INDEX.md` if it exists).
 - `/STOP` → Confirm pause, then recommend `/SAVE report` (or `/SAVE log`) to avoid losing context.
 - `/RESET` → Warn about data loss; require explicit `confirm: true`. Then clear `.cursor/scratch/` **if it exists** (otherwise do nothing) and recommend rerunning `/START gates`.
 

@@ -13,6 +13,7 @@ This rule extends the SDD sequencing contract from `coia-sdd-design.mdc` (legacy
 - All style primitives must resolve through governed tokens.
 - Zero hardcoded `px`/`rem`/hex literals outside token definition sources.
 - Token output must support semantic aliases and CSS variable export.
+- CI enforcement: `.github/workflows/design-gates.yml` executes `scripts/checks/check-design-tokens.sh` on pull requests.
 
 ## Gate 2: Fluid Type and Grid Matrix
 
@@ -47,6 +48,7 @@ This rule extends the SDD sequencing contract from `coia-sdd-design.mdc` (legacy
 - WCAG 2.2 AA contrast and interaction compliance
 
 Failing thresholds require `/SCAN perf` + `/SCAN a11y` and remediation via `/FIX` before phase progression.
+- CI enforcement: `.github/workflows/design-gates.yml` validates thresholds via `.lighthouserc.json`.
 
 ## Gate 7: Gate Alignment
 
@@ -54,3 +56,6 @@ Block `/DEVELOP` until:
 1. Planning, SEO/IA, and content artifacts are complete.
 2. `DESIGN.md` is approved with token, motion, and component contracts.
 3. Handoff evidence from `coi-multi-agent-handoff` is present for multi-agent flows.
+4. Active sub-phases under `docs/workspace/plans/**` include `prompt.json` + `PROMPT.md`.
+5. `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json` exists for gate policy source-of-truth.
+6. `DESIGN.md` exists and is non-template (validated in CI by `.github/workflows/design-gates.yml`).

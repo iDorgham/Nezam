@@ -11,6 +11,10 @@ Planning -> SEO/IA -> Content -> `DESIGN.md` -> Development -> Hardening.
 
 Block implementation-oriented `/DEVELOP` actions until design, token, motion, and component contracts are in place and auditable.
 
+Additionally block `/DEVELOP` until SDD prompt artifacts are complete for active sub-phases:
+- `docs/workspace/plans/<phase>/<subphase>/prompt.json`
+- `docs/workspace/plans/<phase>/<subphase>/PROMPT.md`
+
 ## Activation & Cross-References
 
 Use these agents as reasoning charters:
@@ -32,9 +36,10 @@ No circular control flow: agent charters define intent/review lens; skills defin
 ## Gate 1: Token-First CSS (Hard Block)
 
 - Zero hardcoded design primitives (`px`, `rem`, hex color literals, ad-hoc z-index/radius/spacing) outside governed token sources.
-- Approved sources: token files, generated token CSS variables, and documented values in `DESIGN.md`.
+- Approved sources: token files, generated token CSS variables, and documented values in `DESIGN.md` (or `docs/DESIGN.md` for legacy compatibility).
 - All spacing, color, radius, elevation, z-index, and typography must map to CSS variables or W3C-style token references.
 - Any hardcoded primitive in component/application styles fails the gate.
+- CI enforcement: `.github/workflows/design-gates.yml` runs `scripts/checks/check-design-tokens.sh` on pull requests. Local baseline command: `pnpm run check:tokens`.
 
 ## Gate 2: Fluid Typography and Grid Systems
 
@@ -80,6 +85,7 @@ All must pass before `/DEVELOP` proceeds on production-facing work:
 - Reduced-motion compliance across motion features
 
 Failing any threshold triggers `/SCAN a11y perf` followed by `/FIX` before resuming.
+- CI enforcement: `.github/workflows/design-gates.yml` runs Lighthouse assertions from `.lighthouserc.json`.
 
 ## Gate 7: Design Alignment and Editorial Discipline
 
@@ -87,6 +93,13 @@ Failing any threshold triggers `/SCAN a11y perf` followed by `/FIX` before resum
 - Visual deviations require explicit spec/design update before implementation.
 - Enforce editorial hierarchy, whitespace discipline, and readable rhythm.
 - Token or brand drift without documentation fails the gate.
+- CI enforcement: `.github/workflows/design-gates.yml` verifies `DESIGN.md` exists and is non-template.
+
+## RTL and Arabic Readiness (MENA)
+
+- When Arabic content is served, components must be validated in RTL mode and root HTML direction must be set with `dir="rtl"`.
+- Bidirectional UI states (navigation, spacing, icon direction, animations) must be tested for parity between LTR and RTL layouts.
+- `/START mena` is the preferred activation flow for workspace-wide RTL and dialect-aware requirements.
 
 ## Pre-Develop Checklist
 

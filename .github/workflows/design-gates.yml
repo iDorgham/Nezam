@@ -1,0 +1,45 @@
+name: Design Gates
+
+on:
+  pull_request:
+
+jobs:
+  token-gate:
+    name: Gate 1 - Token-First CSS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for hardcoded design primitives
+        run: bash scripts/checks/check-design-tokens.sh
+
+  a11y-gate:
+    name: Gate 6 - Performance and Accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - name: Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          budgetPath: .lighthouserc.json
+          uploadArtifacts: true
+
+  design-alignment:
+    name: Gate 7 - DESIGN.md exists and is non-template
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify DESIGN.md
+        run: |
+          if [ ! -f "DESIGN.md" ]; then
+            echo "Gate 7 FAIL: DESIGN.md missing. Run /DEVELOP start to select a design profile."
+            exit 1
+          fi
+          if rg -q "TODO|PLACEHOLDER|<!-- template" DESIGN.md; then
+            echo "Gate 7 FAIL: DESIGN.md contains placeholder content."
+            exit 1
+          fi
+          echo "Gate 7 PASS: DESIGN.md present and non-template"

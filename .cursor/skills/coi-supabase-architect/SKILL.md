@@ -1,6 +1,17 @@
 ---
 name: coi-supabase-architect
 description: Postgres RLS, Auth flows, Realtime, Edge Functions, and schema management for Supabase-backed apps.
+version: 1.0.0
+updated: 2026-05-08
+breaking_changes: false
+changelog:
+  - version: 1.0.0
+    date: 2026-05-08
+    notes: "Initial version metadata added."
+compatible_with:
+  - react: ">=18"
+  - next: ">=14"
+  - node: ">=20"
 ---
 
 # Purpose
@@ -60,5 +71,5 @@ Architect Supabase usage: schema with Row-Level Security (RLS), auth providers, 
 
 - Supabase docs (https://supabase.com/docs) — current.
 - PostgreSQL 15+ Row Security (https://www.postgresql.org/docs/current/ddl-rowsecurity.html).
-- Supabase CLI (https://supabase.com/docs/reference/cli/introduction) — current.
+- Supabase CLI (https://supabase.com/docs/cli/introduction) — current.
 - Closest skills.sh/official analog: supabase / postgres-rls.

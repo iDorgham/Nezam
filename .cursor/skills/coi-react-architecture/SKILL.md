@@ -1,6 +1,17 @@
 ---
 name: coi-react-architecture
 description: React 19 / Next.js 15 patterns — Server Components, Suspense, Server Actions, state strategy, and rendering modes.
+version: 2.0.0
+updated: 2026-05-08
+breaking_changes: true
+changelog:
+  - version: 2.0.0
+    date: 2026-05-08
+    notes: "React 19 and Next.js 15 architecture defaults with RSC-first guidance."
+compatible_with:
+  - react: ">=19"
+  - next: ">=15"
+  - node: ">=20"
 ---
 
 # Purpose
@@ -9,7 +20,7 @@ Specify the React/Next.js architecture choices that govern the application: serv
 
 # Inputs
 
-- `DESIGN.md` page archetypes and interaction states.
+- `docs/DESIGN.md` page archetypes and interaction states.
 - IA + URL hierarchy from `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
 - Tokens & component contracts from `@.cursor/skills/coi-pro-design-tokens/SKILL.md` and `@.cursor/skills/coi-component-library-api/SKILL.md`.
 - Performance budget from `@.cursor/skills/coi-performance-optimization/SKILL.md`.
@@ -34,7 +45,7 @@ Specify the React/Next.js architecture choices that govern the application: serv
 
 # Output Format
 
-- `docs/specs/sdd/REACT_ARCHITECTURE.md` (RSC/CC split, data fetching, state, routing).
+- `docs/core/required/sdd/REACT_ARCHITECTURE.md` (RSC/CC split, data fetching, state, routing).
 - Per-route rendering-mode table.
 - Suspense boundary map.
 - Server Action contract list.

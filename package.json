@@ -2,6 +2,19 @@
   "name": "coia-workspace-kit",
   "private": true,
   "description": "Cursor orchestration kit — optional semantic-release for workflow_dispatch automation",
+  "scripts": {
+    "ai:sync": "node scripts/sync-ai-folders.js --write",
+    "ai:check": "node scripts/check-ai-drift.js && node scripts/check-sdd-swarm-integrity.js && node scripts/check-skill-frontmatter.js",
+    "ai:check:sdd": "node scripts/check-sdd-swarm-integrity.js",
+    "check:tokens": "bash scripts/checks/check-design-tokens.sh",
+    "check:onboarding": "bash scripts/checks/check-onboarding-readiness.sh",
+    "changelog:draft": "node scripts/changelog/draft-from-tasks.js",
+    "changelog:finalize": "node scripts/changelog/finalize-from-commit.js",
+    "continual-learning": "node scripts/continual-learning/run-silent.js",
+    "continual-learning:prepare": "node scripts/continual-learning/prepare-incremental.js --json --silent",
+    "continual-learning:benchmark": "node scripts/continual-learning/benchmark.js",
+    "hooks:install": "bash scripts/context/install-context-hooks.sh && bash scripts/context/auto-memory-hooks.sh --install"
+  },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/github": "^11.0.0",

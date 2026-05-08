@@ -9,25 +9,28 @@ You are coordinating **/SAVE**.
 Parse **subcommands**:  
 `help | branch | commit | sync | tagplan | tag | release | push | report | log | hooks`
 
-- **branch**: Propose feature/release/hotfix branch names from active spec ID; show `git checkout -b` flow tied to `docs/specs/sdd/VERSIONING.md`.
+- **branch**: Propose feature/release/hotfix branch names from active spec ID; show `git checkout -b` flow tied to `docs/core/required/sdd/VERSIONING.md`.
 - **commit**: Craft Conventional Commit messages (`feat:`, `fix:`, `docs:`, `chore(release):` …) with scoped bodies; list staged path intent.
+- **commit**: After commit, run `pnpm run changelog:finalize` (if configured) to move Drafts into `## [Unreleased]`.
 - **sync**: `git fetch`, rebase vs merge guidance, conflict strategy; never force-push main without explicit user confirmation text.
 - **tagplan**: Draft next semver + annotated tag message **before** `/DEPLOY tag`; include `/DEPLOY tag` inputs (`version`, `target`, `prerelease`) for `.github/workflows/release.yml`.
 - **tag**: Execution handoff — after `tagplan`, route user to **`/DEPLOY tag`** with the same semver/target/prerelease inputs (GitHub `release` workflow or documented manual tag push).
 - **release**: End-to-end release prep — notes outline (`/DEPLOY notes`), confirm CI, then **`/DEPLOY tag`** / workflow_dispatch per `@git-workflow`; never bypass branch protections verbally.
 - **push**: Safe publish steps — `git push -u origin <branch>` after commit; note fork/PR flow if contributor model.
-- **report**: Regenerate `docs/reports/PROGRESS_REPORT.latest.md` for external AI consumption (`@external-ai-report`).
-- **log**: Append decision/truth snippets to `docs/context/MEMORY.md` + dated entry file.
+- **report**: Regenerate `docs/reports/progress/PROGRESS_REPORT.latest.md` for external AI consumption (`@external-ai-report`), then auto-build `docs/reports/progress/COMPANION_BUNDLE.md` by running `bash scripts/context/auto-memory-hooks.sh --bundle-report`.
+- **log**: Append decision/truth snippets to `docs/workspace/context/MEMORY.md` + dated entry file, and write qualifying decisions to `docs/workspace/context/DECISIONS_PLAIN.md` via `@coi-decision-journal`.
 - **hooks**: Install local context refresh hooks and explain behavior:
   - `bash scripts/context/install-context-hooks.sh`
-  - Hooks refresh `docs/context/workspace.md` and `docs/context/project.md` on commit/merge.
+  - Hooks refresh `docs/workspace/context/CONTEXT.md` and `docs/workspace/context/CONTEXT.md` on commit/merge.
 
 For `report`, require companion bundle pointers:
 
-- `docs/context/workspace.md`
-- `docs/context/project.md`
-- `DESIGN.md` (if present)
-- `docs/specs/sdd/SEO_RESEARCH.md` (if present)
+- `docs/workspace/context/CONTEXT.md`
+- `docs/reports/progress/PROGRESS_REPORT.latest.md`
+- `HEALTH.md`
+- `docs/reports/progress/COMPANION_BUNDLE.md`
+- `docs/DESIGN.md` (if present)
+- `docs/core/required/sdd/SEO_RESEARCH.md` (if present)
 
 Git automation expectations live in `@git-workflow`.
 

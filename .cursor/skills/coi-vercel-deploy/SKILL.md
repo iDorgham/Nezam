@@ -1,6 +1,17 @@
 ---
 name: coi-vercel-deploy
 description: Vercel CLI, vercel.json, Edge Config, ISR/SSR, and deployment hooks for Next.js and framework-aware projects.
+version: 1.0.0
+updated: 2026-05-08
+breaking_changes: false
+changelog:
+  - version: 1.0.0
+    date: 2026-05-08
+    notes: "Initial version metadata added."
+compatible_with:
+  - react: ">=18"
+  - next: ">=14"
+  - node: ">=20"
 ---
 
 # Purpose
@@ -35,7 +46,7 @@ Specify Vercel deployment topology: project linking, env vars, build config, run
 # Output Format
 
 - `vercel.json` (routes, headers, functions config).
-- Env-var manifest (`docs/specs/sdd/ENV_VARS.md`).
+- Env-var manifest (`docs/core/required/sdd/ENV_VARS.md`).
 - Deployment runbook (deploy, rollback, env rotation).
 - Function topology table (route → runtime → region).
 

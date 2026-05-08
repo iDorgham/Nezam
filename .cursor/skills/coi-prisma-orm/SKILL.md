@@ -1,6 +1,17 @@
 ---
 name: coi-prisma-orm
 description: Prisma 6 schema, migrations, type-safe client, seeding, and relations for typed database access.
+version: 1.0.0
+updated: 2026-05-08
+breaking_changes: false
+changelog:
+  - version: 1.0.0
+    date: 2026-05-08
+    notes: "Initial version metadata added with Prisma 6 note."
+compatible_with:
+  - react: ">=18"
+  - next: ">=14"
+  - node: ">=20"
 ---
 
 # Purpose
@@ -9,7 +20,7 @@ Specify the Prisma 6 schema, migration policy, seeding strategy, and client usag
 
 # Inputs
 
-- Domain model + entity inventory from `docs/specs/sdd/` and `@.cursor/skills/coi-content-modeling/SKILL.md`.
+- Domain model + entity inventory from `docs/core/required/sdd/` and `@.cursor/skills/coi-content-modeling/SKILL.md`.
 - API contract from `@.cursor/skills/coi-api-design/SKILL.md`.
 - Performance constraints from `@.cursor/skills/coi-database-optimization/SKILL.md`.
 - Hosting target (Postgres, MySQL, SQLite, MongoDB) and Prisma 6 capabilities.

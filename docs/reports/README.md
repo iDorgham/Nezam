@@ -1,5 +1,20 @@
-# Reports
+# Generated reports
 
-- `PROGRESS_REPORT.latest.md` — upload this to your external browser AI after major milestones.
-- Include `docs/context/workspace.md` and `docs/context/project.md` in the same upload bundle.
-- `audit/` — optional outputs from `/SCAN`.
+All machine- or assistant-generated **reports** live under `docs/reports/<category>/`.
+
+Approved categories:
+
+| Folder | Purpose |
+| --- | --- |
+| `a11y/` | Accessibility scans and audits |
+| `audits/` | Fix triage, combined reviews |
+| `coverage/` | Test coverage summaries |
+| `lighthouse/` | Lighthouse / CWV exports |
+| `perf/` | Profiling, bundle analysis |
+| `progress/` | Progress reports, handoffs |
+| `security/` | Security scan summaries |
+| `tests/` | Test matrices, failure digests |
+
+Canonical working docs (PRD, SDD, plans, templates) live under [`docs/core/`](../core/).
+
+See each category `README.md` for naming and ownership.

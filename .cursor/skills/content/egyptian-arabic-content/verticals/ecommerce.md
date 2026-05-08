@@ -1,0 +1,29 @@
+# Vertical — ecommerce (مصرية تسويقية)
+
+**Skill:** Egyptian Arabic Content Master — synthetic reference only (Law 151/2020: no real client data).
+
+## Vocabulary (Masri + terms of art)
+
+- شحن، توصيل، إرجاع، استبدال، كود خصم، دفع عند الاستلام، سلة، متابعة الطلب
+- تجنب "متاح دائماً" إلا مع مخزون متزامن
+
+## Objections to pre-empt
+
+- "التوصيل امتى؟" — نافذة تقديرية حسب المحافظة
+- "لو المنتج مختلف؟" — سياسة الإرجاع في الصفحة قبل الدفع
+
+## Banned claims (sector-specific)
+
+- أقل سعر في تاريخ البشرية، توصيل خارق لكل زمن، منتجات مقلدة
+
+## Tone default
+
+- **Persuasive / Sales** للعروض؛ **Friendly** لخدمة العملاء
+
+## Snippet A (synthetic)
+
+"اتأكد من مقاسك من الجدول تحت، واحسب الشحن قبل ما تدفع — السعر اللي شايفه هو اللي في السلة."
+
+## Snippet B (synthetic)
+
+"لو حاجة وصلت ومش مناسبة، راجع سياسة الإرجاع في أول تعليق وابعتلنا برقم الأوردر."

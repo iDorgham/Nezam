@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GitHub Gate Matrix",
+  "type": "object",
+  "required": [
+    "manifestVersion",
+    "generatedAt",
+    "owners",
+    "gateProfiles",
+    "gates",
+    "taxonomy",
+    "severityModel",
+    "bypassBanRules"
+  ],
+  "properties": {
+    "manifestVersion": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "owners": { "type": "array", "minItems": 1 },
+    "gateProfiles": {
+      "type": "array",
+      "items": {
+        "enum": ["spec_only", "subphase", "phase", "release_affecting"]
+      }
+    },
+    "gates": { "type": "array", "minItems": 1 },
+    "taxonomy": { "type": "array", "minItems": 1 },
+    "severityModel": { "type": "array", "minItems": 3 },
+    "bypassBanRules": { "type": "array", "minItems": 1 }
+  }
+}

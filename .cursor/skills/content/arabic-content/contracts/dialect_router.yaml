@@ -1,0 +1,40 @@
+# Advisory dialect routing — (target_market, audience, register) → module path
+# Relative to arabic_content_master skill root.
+
+routes:
+  - target_market: EG
+    audience: consumer
+    register: informal
+    dialect_module: dialect_modules/egyptian.md
+    notes: Load Egyptian pack for full Masri depth.
+
+  - target_market: EG
+    audience: b2b
+    register: mixed
+    dialect_module: dialect_modules/egyptian.md
+
+  - target_market: GCC
+    audience: consumer
+    register: informal
+    dialect_module: dialect_modules/khaleeji.md
+
+  - target_market: LB
+    audience: consumer
+    register: informal
+    dialect_module: dialect_modules/levantine.md
+
+  - target_market: MA
+    audience: consumer
+    register: informal
+    dialect_module: dialect_modules/maghrebi.md
+
+  - target_market: pan-arab
+    audience: enterprise
+    register: formal
+    dialect_module: dialect_modules/msa_formal.md
+
+  - legal_ux_summary
+    audience: any
+    register: formal
+    dialect_module: dialect_modules/msa_formal.md
+    notes: Pair with counsel for binding Arabic legal text.

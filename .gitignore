@@ -8,3 +8,7 @@ build/
 .turbo/
 .next/
 .vercel/
+.codex/cache/
+.opencode/cache/
+.gemini/cache/
+.qwen/cache/

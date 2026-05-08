@@ -1,151 +1,350 @@
-# COIA — Cursor workspace orchestration kit
+# COIA
 
-Composable **slash commands**, **skills**, **rules**, and **templates** for Specification-Driven Development with SEO-first wording, prototype-first `DESIGN.md`, disciplined Git versioning, and browser-based “outside brain” assistants (**Grok**, **Qwen**, **Gemini**, etc.). Companion briefing: [docs/external-ai/GROK_INSTRUCTIONS.md](docs/external-ai/GROK_INSTRUCTIONS.md).
+AI workspace orchestration system for **Swarm Teams**, **Specification-Driven Development (SDD)**, and **deterministic GitHub automation**.
 
-## Quick orientation
+[![Methodology: SDD](https://img.shields.io/badge/Methodology-SDD-1f6feb)](#sdd-core-model-design-first)
+[![Execution: Swarm Teams](https://img.shields.io/badge/Execution-Swarm%20Teams-6f42c1)](#swarm-teams-operating-model)
+[![Design Gate](https://img.shields.io/badge/Design-Gate%20Required-d97706)](#sdd-core-model-design-first)
+[![Automation](https://img.shields.io/badge/Automation-Deterministic%20GitHub-0e8a16)](#deterministic-github-automation)
+[![Commands](https://img.shields.io/badge/Commands-START%20PLAN%20DEVELOP-0366d6)](#command-surface)
+[![Context Sync](https://img.shields.io/badge/Context-Synced%20Memory-8250df)](#context-memory-and-reporting)
+[![Monorepo](https://img.shields.io/badge/Workspace-Multi%20Client-24292f)](#supported-ai-clients)
+[![Package Manager](https://img.shields.io/badge/Package%20Manager-pnpm-F69220?logo=pnpm&logoColor=fff)](#most-important-pnpm-commands)
 
+Start here: [`docs/START.md`](docs/START.md)
 
-| Command    | Role                                                                               |
-| ---------- | ---------------------------------------------------------------------------------- |
-| `/START`   | Onboarding: clone/link repo, scaffold PRD/Prompt/`DESIGN.md`, external-AI briefing |
-| `/PLAN`    | SDD: roadmap→phases→specs→docs; SEO→IA→content; release/version/tag plan           |
-| `/DEVELOP` | Implement from approved specs/design prototypes                                    |
-| `/DEPLOY`  | Release mechanics, tagging, deployment checklist                                   |
-| `/CREATE`  | Instantiate templates/doc shells                                                   |
-| `/SCAN`    | Security/perf/accessibility/content/SEO-AEO-GEO auditing                           |
-| `/FIX`     | Triage findings and produce minimal safe patches                                   |
-| `/SAVE`    | Git hygiene: branching, commits, checkpoints, versioning alignment                 |
-| `/GUIDE`   | “Best friend”: where am I, what next, unblock copy-pastes                          |
+---
 
+## Long Description
 
-### Quick reference card (aliases)
+COIA is a governance-first workspace that turns AI-assisted delivery into a predictable system.
+It is built for teams that want:
 
-Optional shorthand (same commands): `/START` → `/st`, `/PLAN` → `/pl`, `/DEVELOP` → `/dv`, `/DEPLOY` → `/dp`, `/CREATE` → `/cr`, `/SCAN` → `/sc`, `/FIX` → `/fx`, `/SAVE` → `/sv`, `/GUIDE` → `/gd`.
+- strict sequencing from discovery to release
+- design-approved implementation only (no bypassing design contracts)
+- deterministic CI behavior and explicit GitHub gate policies
+- swarm collaboration where each specialist role has bounded responsibilities
+- cross-client compatibility (Cursor, Claude, Codex, Antigravity, Gemini, Qwen, and others)
 
-**Team & memory:** Personas live in `[.cursor/agents/README.md](.cursor/agents/README.md)`. Layered memory model: `[docs/context/MEMORY_ARCHITECTURE.md](docs/context/MEMORY_ARCHITECTURE.md)`.
+At its core, COIA prevents random coding by enforcing a single delivery spine:
 
-Skills hold long procedures (`/.cursor/skills/<name>/SKILL.md`). Rules inject short guardrails (`/.cursor/rules/*.mdc`).
+`Planning -> SEO/IA -> Content -> Design -> Development -> Hardening -> Ship`
 
-## TUI Features
+This keeps architecture decisions auditable, design quality measurable, and automation outcomes reproducible.
 
-Structured output (banners, badges, collapsible sections, box-drawing ASCII tables, optional live progress bar) is implemented in `[scripts/ui/workspace-tui.sh](scripts/ui/workspace-tui.sh)` and documented for every slash command.
+---
 
-- `**--format=auto|markdown|terminal`:** Set `COIA_TUI_FORMAT` when sourcing the script, or ask the agent for a profile in chat. `**auto`** selects **markdown** when `CURSOR_CHAT=1` or stdout is not a TTY (CI logs, Cursor chat); otherwise **terminal** (ANSI when supported).
-- **Preferences:** [.cursor/tui.json](.cursor/tui.json) — colours, progress bar, compact layout hooks.
-- **Local check:** `bash scripts/testing/test-tui.sh` (optional `COIA_TUI_TEST_SLEEP=0.1` for faster runs).
+## Table of Contents
 
-## Trusted external lists (skills & agents)
+- [Long Description](#long-description)
+- [Swarm Teams Operating Model](#swarm-teams-operating-model)
+- [SDD Core Model (Design First)](#sdd-core-model-design-first)
+- [Deterministic GitHub Automation](#deterministic-github-automation)
+- [Command Surface](#command-surface)
+- [Most Important pnpm Commands](#most-important-pnpm-commands)
+- [Quick Start](#quick-start)
+- [Prompt Artifacts and Gate Contracts](#prompt-artifacts-and-gate-contracts)
+- [Supported AI Clients](#supported-ai-clients)
+- [Context, Memory, and Reporting](#context-memory-and-reporting)
+- [Directory Map](#directory-map)
+- [Daily Operating Loops](#daily-operating-loops)
+- [Troubleshooting](#troubleshooting)
+- [References](#references)
 
-- [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) — curated Cursor rules ecosystem
-- [spencerpauly/awesome-cursor-skills](https://github.com/spencerpauly/awesome-cursor-skills) — `SKILL.md` patterns
-- [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) — large multi-tool skill collections (Cursor + others)
-- [babysor/awesome-agent-skills](https://github.com/babysor/awesome-agent-skills) — vendor + community skill index
+---
 
-Bring in third-party snippets deliberately: review licensing, shrink to project needs, cite sources in commit messages.
+## Swarm Teams Operating Model
 
-## Minimum manual setup
+COIA supports a swarm pattern where specialized agents/roles collaborate through explicit handoffs rather than ad-hoc overlap.
 
-1. Import/attach GitHub repo (or `git init` / clone) and open in Cursor
-2. Run `/START repo` then scaffold docs (`/START docs`)
-3. Create PRD at `docs/specs/prd/PRD.md` (`/CREATE prd`)
-4. Create prompt doc at `docs/prompts/PROJECT_PROMPT.md` (`/CREATE prompt`)
-5. Run `/START gates` (hard requirement before planning)
-6. Generate Claude handoff prompts: `/CREATE claude-cli-prompt` and `/CREATE claude-code-handoff` (optional `/CREATE claude-md` for root `CLAUDE.md`). Open **Claude CLI** (`claude` in the repo root) or **Claude Code** in your editor and run planning using `docs/prompts/CLAUDE_CLI_PLAN.md` / `docs/prompts/CLAUDE_CODE_HANDOFF.md` — details in `[docs/external-ai/CLAUDE_CLI_AND_CODE.md](docs/external-ai/CLAUDE_CLI_AND_CODE.md)`.
-7. Run `/PLAN sdd seo ia content design versioning` in Cursor (refine / align SDD outputs).
-8. After `DESIGN.md` sign-off analog in docs, `/DEVELOP feature ...`
+### Primary leadership roles
 
-## GitHub automation baseline
+- `PM-01-Swarm-Leader`: scope governance, prioritization, orchestration
+- `ARCH-01-Project-Architect`: architecture integrity and sequencing decisions
+- `DESIGN-01-UIUX-Lead`: design-system and UX contract ownership
+- `FE-01-Frontend-Lead`: frontend implementation strategy and quality
+- `BE-01-Backend-Lead`: backend services/data contract ownership
 
-To guarantee automation starts from day zero:
+### Why this model works
 
-1. Add/import the GitHub repository first (`/START repo`).
-2. Complete planning gates before implementation.
-3. Define version/tag intent in `docs/specs/sdd/VERSIONING.md`.
-4. Use branch names `feature/`*, `release/`*, or `hotfix/*`.
-5. Use Conventional Commits so release automation stays deterministic.
+- responsibilities are explicit, reducing duplicate work
+- each phase has an owner and acceptance criteria
+- handoff artifacts (`prompt.json`, `PROMPT.md`, gate checklists) create predictable transitions
+- delivery can scale across multiple parallel tracks without losing governance
 
-Current automation scaffolding:
+---
 
-- CI policy checks: `.github/workflows/ci.yml`
-- Release/tag workflow: `.github/workflows/release.yml` (`workflow_dispatch` + annotated tag + GitHub release)
-- Convenience dispatcher (tag/release only; rejects branch/commit): `.github/workflows/git-automation.yml`
-- **Semantic-release (opt-in):** `.github/workflows/semantic-release.yml` — `workflow_dispatch` only; uses `[release.config.cjs](release.config.cjs)` + `[package.json](package.json)`. Do **not** combine blindly with `[release.yml](.github/workflows/release.yml)` on the same release line (duplicate tags risk).
-- SemVer helper: `scripts/release/version-plan.sh`
+## SDD Core Model (Design First)
 
-## Context auto-sync setup
+COIA enforces **Specification-Driven Development** as a hard contract:
 
-Canonical assistant context docs live in:
+1. plan and scope work
+2. complete SEO/IA/content and design artifacts
+3. enforce design gates
+4. allow implementation only after prerequisites pass
 
-- `docs/context/instructions.md`
-- `docs/context/workspace.md`
-- `docs/context/project.md`
+### Hardlock prerequisites for development
 
-Install local hooks once per clone:
+Development remains locked until all required artifacts exist:
+
+1. `docs/core/required/prd/PRD.md`
+2. `docs/core/required/PROJECT_PROMPT.md`
+3. `.cursor/design/<brand>/design.md` (UI-facing scopes)
+4. `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
+5. every active `docs/workspace/plans/<phase>/<subphase>/` has both:
+   - `prompt.json`
+   - `PROMPT.md`
+
+Current repository note:
+- PRD may be tracked under `docs/reference/prd/PRD.md` during migration phases; keep `/GUIDE` and gate checks as the source of truth for readiness status.
+
+### Design-focus quality principles
+
+- token-first styling and governed design primitives
+- fluid typography and responsive grid systems
+- accessibility and reduced-motion support as defaults
+- component API contracts before implementation
+- measurable quality gates before merge/release
+
+---
+
+## Deterministic GitHub Automation
+
+COIA treats GitHub automation as a deterministic system with visible policy and explicit guardrails.
+
+### Core automation goals
+
+- deterministic checks (same inputs -> same outcomes)
+- no silent gate bypass
+- explicit failure taxonomy and remediation mapping
+- reproducible release choreography
+
+### Primary workflow and gate assets
+
+- `.github/workflows/ci.yml`
+- `.github/workflows/release.yml`
+- `scripts/checks/check-onboarding-readiness.sh`
+- `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
+
+### Typical enforced policies
+
+- branch and commit hygiene
+- onboarding/readiness validation
+- plan artifact and prompt contract checks
+- gate matrix validation
+- nightly automation self-test
+
+---
+
+## Command Surface
+
+| Command | Purpose |
+| --- | --- |
+| `/START` | Onboard repo, initialize required docs, verify readiness |
+| `/PLAN` | Build SDD roadmap/phases/specs with SEO/IA/content/design sequencing |
+| `/DEVELOP` | Implement only from approved specs and design contracts |
+| `/GUIDE` | Explain lock state, next steps, and unblock sequence |
+| `/CREATE` | Generate required docs and template-driven artifacts |
+| `/SCAN` | Run quality/security/perf/a11y scans |
+| `/FIX` | Triage and remediate defects systematically |
+| `/SAVE` | Preserve progress, commit/report/version hygiene |
+| `/DEPLOY` | Run release choreography and verification |
+
+Aliases:
+
+- `/START` -> `/st`
+- `/PLAN` -> `/pl`
+- `/DEVELOP` -> `/dv`
+- `/GUIDE` -> `/gd`
+- `/CREATE` -> `/cr`
+- `/SCAN` -> `/sc`
+- `/FIX` -> `/fx`
+- `/SAVE` -> `/sv`
+- `/DEPLOY` -> `/dp`
+
+---
+
+## Most Important pnpm Commands
+
+These are the highest-value `pnpm` commands for day-to-day COIA workflows.
+
+### Workspace bootstrap and validation
+
+```sh
+pnpm install
+pnpm run check:onboarding
+pnpm run validate
+```
+
+### AI surface sync and drift protection
+
+```sh
+pnpm ai:sync
+pnpm ai:check
+```
+
+### Operational command runners (if defined in your workspace scripts)
+
+```sh
+pnpm run welcome
+pnpm run tools:list
+pnpm run tools:check
+```
+
+### Practical usage notes
+
+- run `pnpm ai:sync` after editing canonical `.cursor/` commands/agents/skills/rules
+- run `pnpm ai:check` before PR creation to catch sync drift early
+- run `pnpm run check:onboarding` whenever readiness or hardlock state is unclear
+
+---
+
+## Quick Start
+
+1. Open repository in Cursor.
+2. Run onboarding:
+   - `/START repo`
+   - `/START docs`
+3. Create required specs:
+   - `/CREATE prd`
+   - `/CREATE prompt`
+4. Ensure gate manifest exists:
+   - `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
+5. Run planning:
+   - `/PLAN all`
+6. Ensure each active subphase includes:
+   - `prompt.json`
+   - `PROMPT.md`
+7. Start implementation:
+   - `/DEVELOP start`
+
+---
+
+## Prompt Artifacts and Gate Contracts
+
+Template root:
+
+- `docs/workspace/templates/plan/README.md`
+
+Key templates:
+
+- `PROMPT_SCHEMA.template.json`
+- `SPEC_PROMPT.template.md`
+- `SUBPHASE_PROMPT.template.md`
+- `GITHUB_GATE_MATRIX_SCHEMA.template.json`
+- `GITHUB_START_GATE.template.md`
+- `GITHUB_END_GATE.template.md`
+- `PRE_MERGE_GATE_CHECKLIST.template.md`
+- `POST_MERGE_GATE_CHECKLIST.template.md`
+- `NIGHTLY_AUTOMATION_SELF_TEST.template.md`
+- `SILENT_AUTOMATION_FAILURE_TAXONOMY.template.md`
+- `SILENT_AUTOMATION_FIX_MAPPING.template.md`
+
+---
+
+## Supported AI Clients
+
+COIA keeps `.cursor/` as canonical and syncs generated surfaces for other clients.
+
+| Client group | Entry files |
+| --- | --- |
+| Cursor IDE | `.cursor/**` |
+| Claude Code / Claude CLI | `CLAUDE.md`, `.claude/**` |
+| Codex app / Codex CLI / Copilot CLI | `AGENTS.md`, `.codex/AGENTS.md` |
+| Opencode CLI | `AGENTS.md`, `.opencode/**` |
+| Antigravity IDE | `.antigravity/**` |
+| Gemini CLI | `GEMINI.md`, `.gemini/commands/*.toml` |
+| Qwen CLI | `QWEN.md`, `.qwen/commands/*.toml` |
+| Kilo Code CLI | `.kilocode/rules/**` |
+
+Reference index: `docs/workspace/context/MULTI_TOOL_INDEX.md`
+
+---
+
+## Context, Memory, and Reporting
+
+Core context sources:
+
+- `docs/workspace/context/CONTEXT.md`
+- `docs/workspace/context/MEMORY.md`
+- `docs/workspace/context/WORKSPACE_INDEX.md`
+- `docs/reports/progress/PROGRESS_REPORT.latest.md`
+
+Update helpers:
 
 ```sh
 bash scripts/context/install-context-hooks.sh
-```
-
-Manual refresh (dry-run friendly):
-
-```sh
 python3 scripts/context/update-context-docs.py
 ```
 
-Recommended operating loop:
+Generated reports policy:
 
-1. `/START all`
-2. `/CREATE claude-cli-prompt` (and `claude-code-handoff` / `claude-md` as needed); plan once in **Claude CLI** or **Claude Code** per `[docs/external-ai/CLAUDE_CLI_AND_CODE.md](docs/external-ai/CLAUDE_CLI_AND_CODE.md)`
+- Place generated outputs under `docs/reports/<category>/`
+- Avoid writing generated reports to repository root or non-report `docs/` paths
+
+---
+
+## Directory Map
+
+```text
+.cursor/
+  commands/          # Slash command contracts
+  rules/             # Always-on governance gates
+  skills/            # Reusable procedures
+  agents/            # Role/persona definitions
+docs/
+  core/              # Required docs, architecture, versioning
+  workspace/         # plans, context, templates, governance docs
+  reports/           # generated reports by category
+.github/workflows/   # deterministic CI/release automation
+scripts/             # checks, context updates, workspace tooling
+```
+
+---
+
+## Daily Operating Loops
+
+### Planning loop
+
+1. `/GUIDE status`
+2. `/START gates`
 3. `/PLAN all`
-4. Work in `/DEVELOP ...`
-5. `/SAVE report` after milestones
-6. Upload `docs/reports/PROGRESS_REPORT.latest.md` + `docs/context/workspace.md` + `docs/context/project.md` to your external AI
+4. fill missing `prompt.json` + `PROMPT.md` per active subphase
 
-## Recommended workflows
+### Development loop
 
-**Daily development**
+1. `/GUIDE next`
+2. `/DEVELOP start`
+3. `/DEVELOP slice` or `/DEVELOP feature <id>`
+4. `/DEVELOP test`
+5. `/SAVE commit` and `/SAVE report`
 
-1. `/GUIDE next` (or `/DEVELOP start`) — confirm branch + active spec.
-2. `/DEVELOP slice` or `/DEVELOP feature <id>` — vertical slice.
-3. `/DEVELOP test` — tests mandated by spec.
-4. `/SAVE commit` then `/SAVE push` — conventional commits only.
+### Hardening/release loop
 
-**Release**
+1. `/SCAN all`
+2. `/FIX triage` and `/FIX patch`
+3. `/DEPLOY rc`
+4. `/DEPLOY verify`
 
-1. `/SCAN security` and `/SCAN all` as appropriate.
-2. `/SAVE tagplan` → `/DEPLOY tag` (or GitHub **Actions → git-automation → tag/release** to dispatch `release.yml`).
-3. `/DEPLOY verify` after ship; `/DEPLOY rollback` plan if needed.
+---
 
-**Troubleshooting**
+## Troubleshooting
 
-1. `/SCAN perf` or `/SCAN code` — narrow signal.
-2. `/FIX triage` → `/FIX patch` → `/FIX verify`.
-3. `/GUIDE recommend` — unblock with one next command.
+- Hardlock active:
+  - run `/GUIDE status` and complete missing artifacts in strict order
+- Onboarding/readiness failure:
+  - run `pnpm run check:onboarding` and resolve reported paths
+- Drift between canonical and generated AI surfaces:
+  - run `pnpm ai:sync` then `pnpm ai:check`
+- Automation appears silent:
+  - use taxonomy + fix mapping templates in `docs/workspace/templates/plan/`
 
-## Phase checklist (first-time)
+---
 
-**Before starting**
+## References
 
-- GitHub repo attached or created; `git remote -v` shows `origin`
-- External companion brief reviewed: `[docs/external-ai/GROK_INSTRUCTIONS.md](docs/external-ai/GROK_INSTRUCTIONS.md)`
-- Cursor + git installed
-
-**Phase 1 — Planning**
-
-- `/START repo` / `/START docs` as needed
-- `/CREATE prd` + `/CREATE prompt`; `/START gates` passes
-- `/CREATE claude-cli-prompt` + `/CREATE claude-code-handoff` (optional `/CREATE claude-md`); plan in **Claude CLI** or **Claude Code** — `[docs/external-ai/CLAUDE_CLI_AND_CODE.md](docs/external-ai/CLAUDE_CLI_AND_CODE.md)`
-- `/PLAN seo` → `/PLAN ia` → `/PLAN content` → `/PLAN design` → `/CREATE design` if missing
-- `/PLAN versioning`; `/PLAN specs` or `/PLAN sdd` for full spine
-
-**Phase 2 — Development**
-
-- `/DEVELOP` aligned with `DESIGN.md`
-- `/SAVE commit` per logical slice; `/SAVE report` for external handoff
-
-**Phase 3–5 — Hardening & ship**
-
-- `/SCAN all`; `/FIX` as needed
-- `/DEPLOY rc` → `/DEPLOY tag` / release workflow
-- `/DEPLOY verify` on staging/production targets
+- Team role map: `.cursor/agents/README.md`
+- Memory model: `docs/workspace/context/MEMORY_ARCHITECTURE.md`
+- External companion context: `docs/workspace/context/CONTEXT.md`
+- Plan index: `docs/workspace/plans/INDEX.md`
 

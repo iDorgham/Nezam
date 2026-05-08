@@ -51,15 +51,28 @@ function checkLegacyPathRefs() {
 }
 
 function checkHandoffPacketFields() {
-  const skillPath = path.join(
-    repoRoot,
-    ".cursor",
-    "skills",
-    "coi-multi-agent-handoff",
-    "SKILL.md"
-  );
-  if (!fs.existsSync(skillPath)) {
-    failures.push("Missing .cursor/skills/coi-multi-agent-handoff/SKILL.md");
+  const candidatePaths = [
+    path.join(
+      repoRoot,
+      ".cursor",
+      "skills",
+      "system",
+      "multi-agent-handoff",
+      "SKILL.md"
+    ),
+    path.join(
+      repoRoot,
+      ".cursor",
+      "skills",
+      "coi-multi-agent-handoff",
+      "SKILL.md"
+    ),
+  ];
+  const skillPath = candidatePaths.find((p) => fs.existsSync(p));
+  if (!skillPath) {
+    failures.push(
+      "Missing handoff skill file (expected .cursor/skills/system/multi-agent-handoff/SKILL.md or legacy .cursor/skills/coi-multi-agent-handoff/SKILL.md)"
+    );
     return;
   }
   const content = readUtf8(skillPath);
@@ -91,19 +104,19 @@ function parseActiveSubphaseDirsFromIndex(indexPath) {
     if (cols.length < 6) continue;
     const specCol = cols[3];
     const statusCol = cols[4] ? cols[4].toLowerCase() : "";
-    if (!specCol.startsWith("`docs/core/plan/")) continue;
+    if (!specCol.startsWith("`docs/workspace/plans/")) continue;
     if (statusCol === "not started" || statusCol === "status") continue;
     const specPath = specCol.replaceAll("`", "");
-    const match = specPath.match(/^docs\/core\/plan\/([^/]+)\/([^/]+)\//);
-    if (match) dirs.add(path.join(repoRoot, "docs", "core", "plan", match[1], match[2]));
+    const match = specPath.match(/^docs\/workspace\/plans\/([^/]+)\/([^/]+)\//);
+    if (match) dirs.add(path.join(repoRoot, "docs", "workspace", "plans", match[1], match[2]));
   }
   return [...dirs];
 }
 
 function checkActiveSubphaseArtifacts() {
-  const indexPath = path.join(repoRoot, "docs", "core", "plan", "INDEX.md");
+  const indexPath = path.join(repoRoot, "docs", "workspace", "plans", "INDEX.md");
   if (!fs.existsSync(indexPath)) {
-    failures.push("Missing docs/core/plan/INDEX.md");
+    failures.push("Missing docs/workspace/plans/INDEX.md");
     return;
   }
   const activeDirs = parseActiveSubphaseDirsFromIndex(indexPath);

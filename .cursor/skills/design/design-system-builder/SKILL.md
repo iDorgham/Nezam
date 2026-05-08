@@ -1,0 +1,77 @@
+---
+name: design-system-builder
+description: Define tokenized design-system contracts (color, type, spacing, themes, a11y) for enforceable implementation.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+
+# Design System Builder
+
+Use during `/PLAN system` or any design-system alignment pass before implementation.
+
+## Objective
+
+Create a governed design-system contract that implementation teams can follow without design drift.
+
+## Output artifacts
+
+Create or update:
+- `docs/workspace/templates/ui-ux/UI_FOUNDATION.md`
+- `docs/workspace/templates/ui-ux/tokens.css`
+- `docs/workspace/templates/ui-ux/TOKEN_NAMING.md`
+- `docs/workspace/templates/ui-ux/COMPONENT_BLUEPRINT.md`
+
+Include:
+
+1. Token taxonomy
+   - color (semantic roles)
+   - typography (roles + clamp strategy)
+   - spacing, radius, elevation, z-index
+2. Theme model
+   - light/dark mapping
+   - contrast targets (WCAG 2.2 AA minimum)
+   - CSS-variable-first theming with `prefers-color-scheme` baseline
+3. Component primitives
+   - canonical component naming
+   - variant and state conventions
+   - CVA-friendly typed API contracts with `className` passthrough
+   - direction-safe (`dir`-aware) composition and logical CSS guidance
+4. Motion hooks
+   - references to approved easing/timing primitives
+   - reduced-motion contract
+5. Implementation constraints
+   - no hardcoded primitives outside token sources
+
+## Output structure
+
+```yaml
+token_sets:
+  - colors
+  - typography
+  - spacing
+themes:
+  - light
+  - dark
+component_contracts:
+  - "Button"
+  - "Card"
+compliance:
+  wcag_level: "2.2 AA"
+  reduced_motion_required: true
+  rtl_support_required: true
+```
+
+## Core rules
+
+- Token-first always.
+- Accessibility is a system requirement, not optional polish.
+- Keep naming consistent with existing component architecture.
+- Design-system docs must be detailed enough for FE/BE handoff.
+
+## Dependencies
+
+- `wireframe-to-spec-converter`
+- `token-grid-typography`
+- `css-architecture-runtime`
+

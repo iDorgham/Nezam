@@ -1,0 +1,32 @@
+{
+  "$schemaVersion": "1.0.0",
+  "notes": [
+    "This file is the single source of truth for hardlock-critical file locations.",
+    "Edit paths here if you intentionally move/rename required artifacts.",
+    "Do not point hardlock paths into docs/reference/ (reference-only)."
+  ],
+  "intake": {
+    "prd": "docs/core/required/PRD.md",
+    "projectPrompt": "docs/core/required/PROJECT_PROMPT.md"
+  },
+  "planning": {
+    "changelog": "CHANGELOG.md",
+    "versioning": "docs/core/VERSIONING.md",
+    "gateManifest": "docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json"
+  },
+  "design": {
+    "designSpec": "DESIGN.md"
+  },
+  "architecture": {
+    "allowed": [
+      "docs/03_architecture/ARCHITECTURE.md",
+      "docs/core/required/architecture/ARCHITECTURE.md"
+    ]
+  },
+  "subphasePrompts": {
+    "plansRoot": "docs/workspace/plans",
+    "taskFileGlob": "**/*/*/TASKS.md",
+    "requiredFiles": ["prompt.json", "PROMPT.md"]
+  }
+}
+

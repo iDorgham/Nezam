@@ -1,0 +1,15 @@
+# Dialect stub — Levantine
+
+**Scope:** Informal routing cues — Lebanon, Syria, Jordan, Palestine markets.
+
+## When to use
+
+- Brief names Levant audience or country-specific launch.
+
+## Contrast with Masri
+
+- Vocabulary and rhythm differ (`هيك`, `منيح`, `هلا`); do not paste Egyptian street humour onto Levant corporate copy without review.
+
+## Escalation
+
+Market-specific campaigns and TV → **in-market native speaker or vendor**.

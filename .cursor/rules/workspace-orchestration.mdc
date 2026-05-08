@@ -11,16 +11,60 @@ Planning → SEO research & keywords → Information architecture/menus → Cont
 
 Use **Specification-Driven Development (SDD)**: roadmap → phases → specs → docs. Prefer Plan Mode before large edits.
 
+## Planning hardlock prerequisite
+
+Treat planning as hardlocked unless `docs/core/required/PRD.md` exists and is fully prepared (not a template or placeholder draft).
+
+If PRD is missing or still template-like, halt planning and route the user to `/CREATE prd`, then require completion of real PRD content before planning-phase execution.
+Planning is also hardlocked unless `docs/core/required/PROJECT_PROMPT.md` is aligned with PRD scope (same product/scope intent, no conflicting objective framing).
+
+Planning is also hardlocked unless:
+
+- `CHANGELOG.md` exists at workspace root (initialized).
+- `docs/core/VERSIONING.md` exists and defines SemVer rules + initial version number.
+
+## SDD hardlock prerequisites for development
+
+Treat development as hardlocked unless all are true:
+
+1. `docs/core/required/PRD.md` exists.
+2. `docs/core/required/PROJECT_PROMPT.md` exists.
+3. `docs/core/required/PRD.md` is fully prepared (non-template; no placeholder-only content).
+4. PRD and PROJECT_PROMPT are aligned in scope (no title/domain mismatch).
+5. `CHANGELOG.md` exists and is initialized.
+6. `docs/core/VERSIONING.md` exists and locks SemVer rules + initial version.
+7. Architecture artifact exists at one of:
+   - `docs/03_architecture/ARCHITECTURE.md` (preferred), or
+   - `docs/core/required/architecture/ARCHITECTURE.md` (legacy-compatible).
+8. Design artifact exists at one of:
+   - `DESIGN.md` (preferred), or
+   - `docs/DESIGN.md` (legacy-compatible).
+9. `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json` exists and is current.
+10. Every active `docs/workspace/plans/<phase>/<subphase>/` includes both `prompt.json` and `PROMPT.md`.
+
+No implementation-oriented command may bypass this hardlock set.
+
+When `/DEVELOP start` uses a selected profile from `.cursor/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
+
 ## Memory layers (conceptual)
 
-1. **Source of truth**: repository files (`docs/specs/**`, templates, tracked decisions).
+1. **Source of truth**: repository files (`docs/core/required/**`, templates, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
-3. **Durable project memory**: `docs/context/MEMORY.md` plus phase logs under `docs/context/` (maintain via `/SAVE log`).
-4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/external-ai/GROK_INSTRUCTIONS.md`.
+3. **Durable project memory**: `docs/workspace/context/MEMORY.md` plus phase logs under `docs/workspace/context/` (maintain via `/SAVE log`).
+4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/workspace/context/CONTEXT.md`.
 
-Formal mapping: `docs/context/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
+Formal mapping: `docs/workspace/context/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
 
 Do not contradict committed specs without an explicit decision record note.
+
+## Cross-client governance precedence
+
+Treat non-Cursor tool surfaces as generated artifacts:
+
+- Generated files include `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, and directories `.claude/`, `.antigravity/`, `.gemini/`, `.qwen/`, `.codex/`, `.opencode/`, `.kilocode/`.
+- Do not hand-edit generated files as source of truth.
+- Edit canonical `.cursor/` commands/agents/skills/rules, then run `pnpm ai:sync`.
+- CI drift checks (`pnpm ai:check`) are authoritative for sync integrity.
 
 ## Recommendation footer — required on substantive replies
 
@@ -32,4 +76,4 @@ End substantive assistant messages with exactly one short section titled **Recom
 
 ## Compatibility with external Antigravity `/guide` rules
 
-[`docs/reference/rules/guide-response-style.mdc`](../../docs/reference/rules/guide-response-style.mdc) and [`guide-handoff-footer.mdc`](../../docs/reference/rules/guide-handoff-footer.mdc) prescribe alternate reply shells (`### What to do next`, horizontal rules). **They are not activated globally here** because they conflict with the single **Recommendation** footer contract above. Use those reference files only when maintaining an Antigravity-parity fork or a dedicated `/guide` bridge—not stacked alongside this rule on every reply.
+[`docs/rules/guide-response-style.mdc`](../../docs/rules/guide-response-style.mdc) and [`guide-handoff-footer.mdc`](../../docs/rules/guide-handoff-footer.mdc) prescribe alternate reply shells (`### What to do next`, horizontal rules). **They are not activated globally here** because they conflict with the single **Recommendation** footer contract above. Use those reference files only when maintaining an Antigravity-parity fork or a dedicated `/guide` bridge—not stacked alongside this rule on every reply.

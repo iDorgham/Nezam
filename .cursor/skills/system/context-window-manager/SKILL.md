@@ -1,0 +1,51 @@
+---
+name: context-window-manager
+description: Build the minimal high-signal working context for each command/session.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+
+# Context Window Manager
+
+Use at session start, before heavy planning, and before complex multi-domain execution.
+
+## Objective
+
+Assemble a compact, high-signal context window that keeps:
+- active objective
+- governing constraints
+- current phase/gates
+- immediate files and validation commands
+
+## Procedure
+
+1. Load current objective and phase.
+2. Pull governing rules and command contract.
+3. Include only files directly tied to current step.
+4. Attach cached summaries for previously completed analysis.
+5. Emit a compact working-context manifest.
+
+## Output contract
+
+```yaml
+objective: "current objective"
+phase: "current phase"
+must_keep:
+  - "critical item"
+nice_to_have:
+  - "secondary item"
+deferred:
+  - "not needed now"
+```
+
+## Core rules
+
+- Always keep hardlock and acceptance criteria in window.
+- Defer unrelated domain context.
+- Prefer machine-checkable lists over prose-heavy summaries.
+
+## Dependencies
+
+- `token-budget-manager`
+

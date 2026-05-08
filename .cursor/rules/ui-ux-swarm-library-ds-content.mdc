@@ -1,0 +1,142 @@
+# UI/UX Swarm Library + Design System + Content Rule
+
+This rule extends the existing orchestration and design-gate contracts for advanced UI library/design-system alignment and constrained content generation.
+
+## Rule precedence
+
+This rule is additive and cannot weaken existing workspace hardlocks.
+Existing authoritative gates remain mandatory:
+
+- `.cursor/rules/workspace-orchestration.mdc`
+- `.cursor/rules/sdd-design.mdc`
+- `.cursor/rules/design-dev-gates.mdc`
+- `.cursor/rules/coia-design-gates-pro.mdc`
+- `.cursor/rules/docs-reports-policy.mdc`
+- `.cursor/rules/workspace-client-onboarding-gate.mdc`
+
+If any conflict is detected, apply existing hardlocks first and treat this rule as constrained by them.
+
+## Swarm leadership delegation model
+
+Primary ownership model:
+
+- `PM-01-Swarm-Leader`: task routing policy, acceptance gates, handoff sequencing.
+- `ARCH-01-Project-Architect`: architectural compatibility, canonical-path enforcement, and governance coherence.
+- `DESIGN-01-UIUX-Lead`: design-system, token, accessibility, and motion quality ownership.
+- `FE-01-Frontend-Lead`: component implementation strategy, bundle impact constraints, UI library integration.
+- `BE-01-Backend-Lead`: content/data/API contract dependencies for componentized dashboards and workflows.
+
+Specialist execution lanes:
+
+- Library component expert lane
+- Design system architect lane
+- Color profile/theme sync lane
+- Content bridge lane
+- Content creator lane
+
+## Required routing contract
+
+Before execution:
+
+1. Resolve command route with `slash-command-router`.
+2. Enforce hardlocks with `sdd-hardlock-manager`.
+3. Use context controls (`context-window-manager`, `token-budget-manager`) for large multi-domain requests.
+4. Require explicit `ownerTeam`, `requiredSkills`, and `appliedRules` metadata in swarm artifacts.
+
+## Library and design-system coverage
+
+Library and design-system coverage must be practical and scoped:
+
+- Detect stack from `@workspace` first.
+- Load only relevant library/design-system pairs for the active component scope.
+- Do not regenerate complete catalog mappings if the current scope is narrow.
+- Track selected mappings in `LIBRARY_DS_MAP` artifact.
+
+## Dynamic lookup protocol
+
+Use this workflow:
+
+1. Detect active stack and component surface from workspace context.
+2. Select active UI library and design-system pair(s).
+3. Map component API -> design-system principle -> token/color/motion contract.
+4. Emit update to `LIBRARY_DS_MAP`.
+5. Validate against current hardlocks and quality gates before implementation output.
+
+## Content pipeline contract
+
+Content generation is a two-step handoff:
+
+1. Content bridge produces constrained schema.
+2. Content creator generates text that must pass schema validation.
+
+Required `ContentSpecSchema` fields:
+
+```json
+{
+  "component": "string",
+  "library": "string",
+  "designSystem": "string",
+  "maxWords": "number",
+  "minWords": "number",
+  "tone": "professional|friendly|technical|marketing|neutral",
+  "structure": ["heading", "subtext", "cta", "placeholder"],
+  "placeholders": {"icon": "string", "link": "url", "metric": "number"},
+  "rtlReady": true,
+  "a11yContext": "screen-reader-label|aria-describedby|focus-trap",
+  "validationRules": ["no-jargon", "max-1-line-cta", "sentence-case"]
+}
+```
+
+Content guardrails:
+
+- Never exceed `maxWords`.
+- Preserve tone and structure requirements.
+- Enforce RTL-safe length budgeting.
+- Include accessibility labels/context where required.
+- If truncation is applied, set `CONTENT_ADJUSTED: true`.
+
+## Color and theme synchronization rules
+
+All color synchronization must be token-driven:
+
+1. Extract semantic color roles and map to token sources.
+2. Support dark/light parity using CSS variables and `prefers-color-scheme`.
+3. Validate contrast thresholds:
+   - AA >= 4.5:1 for normal text
+   - AAA target >= 7:1 where specified
+4. Respect RTL visual behavior for directional accents/icons.
+5. Emit color synchronization evidence in `COLOR_SYNC_REPORT`.
+
+## Output contract per agent pass
+
+Each agent pass must return:
+
+1. Agent name and focus
+2. Files modified
+3. Code/content diffs
+4. Rationale and applied skills
+5. Validation results (contrast, RTL, word limits, bundle)
+6. Next agent trigger
+
+Final integration artifact:
+
+- `SWARM_COMPLETE` with:
+  - library/design-system alignment summary
+  - color sync summary
+  - content audit summary
+  - accessibility/performance summary
+  - next optimization steps
+
+## Quality gates
+
+Must pass before completion:
+
+- Library components follow selected design-system spacing/type/color/motion contracts.
+- Word limits and content schema constraints are satisfied.
+- Dark/light/RTL parity checks are documented.
+- Bundle-size increase per added library/system stays <= 15% unless justified.
+- Outputs are production-ready and typed where code is emitted.
+
+## Reports placement
+
+Generated outputs belong under `docs/reports/<category>/` only, following `docs-reports-policy.mdc`.

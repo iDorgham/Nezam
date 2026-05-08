@@ -1,22 +1,29 @@
-# COIA `.cursor/skills` index
+# Skills Directory
 
-Skills are **executable workflows** (YAML frontmatter + `SKILL.md`). Prefer upgrading an existing skill over duplicating [`docs/reference/skills/`](../../docs/reference/skills/).
+Skills are organized into 9 categories. Each skill folder contains a `SKILL.md`
+with: Purpose, Inputs, Step-by-Step Workflow, Validation, Output Format,
+Integration Hooks, Anti-Patterns, External References.
 
-## Core orchestration
+## Categories
 
-| Slug | Folder |
-| ---- | ------ |
-| plan-full | [plan-full](plan-full/) |
-| design-md | [design-md](design-md/) |
-| git-workflow | [git-workflow](git-workflow/) |
-| seo-ia-content | [seo-ia-content](seo-ia-content/) |
-| external-ai-report | [external-ai-report](external-ai-report/) |
-| guide-instructor-domains | [guide-instructor-domains](guide-instructor-domains/) |
+| Category | Description | Skills |
+|---|---|---|
+| system/ | Workspace orchestration, routing, memory, gating | ~17 |
+| research/ | SEO, AEO, IA, audience, competitive | ~7 |
+| design/ | Tokens, typography, UI, motion, components | ~13 |
+| content/ | Editorial, content modeling, Arabic content | ~4 |
+| frontend/ | React, Next.js, component implementation | ~1 |
+| backend/ | API, DB, auth, payments, CMS | ~9 |
+| infrastructure/ | DevOps, cloud, CDN, monitoring | ~8 |
+| quality/ | Security, testing, performance, a11y | ~10 |
+| external/ | External AI, git, reporting | ~4 |
 
-## Bulk reference library
+## Naming Convention
 
-- **`docs/reference/skills/nexu_open_design/**`** — thousands of supplemental recipes; ingest selectively per [`docs/reference/INGEST_QUEUE.md`](../../docs/reference/INGEST_QUEUE.md).
+All skill folders use `kebab-case`. No prefixes. No underscores.
+Format: `<category>/<descriptive-name>/SKILL.md`
 
-## Aliases
+## Adding a new skill
 
-Informal `coi-*` names → real folders: [`.cursor/ORCHESTRATION_ALIASES.md`](../ORCHESTRATION_ALIASES.md).
+Run: /CREATE skill
+Or copy from docs/workspace/templates/skill-template/ and fill in SKILL.md.

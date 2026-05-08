@@ -1,0 +1,66 @@
+---
+name: coi-strategic-planning
+description: Anchor product roadmap, milestone gating, scope control, and resource mapping before any SDD phase begins.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+
+# Purpose
+
+Convert business intent and PRD signals into a deterministic, phase-gated roadmap that controls scope, sequences milestones, and aligns resources before SDD specs are authored. Single-responsibility: strategic intent → phased roadmap.
+
+# Inputs
+
+- `docs/core/required/prd/PRD.md` (problem, audience, success metrics).
+- `docs/core/required/PROJECT_PROMPT.md` (north-star + guardrails).
+- `docs/CONSTITUTION.md` if present.
+- Stakeholder list, capacity model, time horizon, regulatory constraints.
+- External market signals (browser companion progress reports under `docs/workspace/context/`).
+
+# Step-by-Step Workflow
+
+1. Extract north-star outcome and 3–5 strategic objectives from PRD; tag each with measurable KPI.
+2. Derive phase candidates aligned to the canonical SDD spine: Planning → SEO/AEO/GEO → IA → Content → DESIGN → Development → Hardening.
+3. Map each objective to a phase; reject any that violate pipeline order.
+4. Build resource matrix: capability × phase × owner; flag gaps and dependencies.
+5. Define exit metrics for each milestone (LCP/CLS/INP, WCAG 2.2 AA, coverage %, security gates).
+6. Write `docs/workspace/plans/MASTER_TASKS.md` outcomes/metrics/risk summary; cross-link to `docs/workspace/plans/INDEX.md` traceability matrix.
+7. Run `/PLAN sdd` to expand into spec scaffolds; require explicit acceptance before phase 2.
+
+# Validation & Metrics
+
+- Every objective has at least one measurable KPI and a target threshold.
+- No phase ordering violations against `workspace-orchestration.mdc`.
+- Capacity matrix shows ≤ 100% allocation per owner per phase.
+- Roadmap fits within stated time horizon with ≥ 15% buffer.
+
+# Output Format
+
+- `docs/workspace/plans/MASTER_TASKS.md` (objectives, KPIs, risk summary).
+- `docs/workspace/plans/INDEX.md` (MT/PT traceability matrix, phase-gate map).
+- Resource matrix table (markdown).
+- Milestone exit-metric checklist per phase.
+
+# Integration Hooks
+
+- `/PLAN sdd` and `/PLAN all` consume the roadmap.
+- Pairs with `@.cursor/skills/coi-phase-gating-roadmap/SKILL.md` for gate transitions.
+- Feeds `@.cursor/skills/coi-task-decomposition/SKILL.md` for epic→task breakdown.
+- Risk surface routes to `@.cursor/skills/coi-risk-mitigation/SKILL.md`.
+- Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)` pipeline order.
+
+# Anti-Patterns
+
+- Skipping pipeline order (e.g., committing visuals before SEO/IA exist).
+- Roadmap with unmeasurable "improve UX" objectives.
+- Resource over-allocation (>100% per owner per phase).
+- Milestones without exit metrics or gate criteria.
+- Treating PRD as immutable when scope drift demands a recorded decision note.
+
+# External Reference
+
+- PMI PMBOK 7th Edition (principles & performance domains) — current.
+- OKR practice (Google re:Work) — current.
+- W3C Project Lifecycle guidance for accessibility milestones (WCAG 2.2) — current.
+- Closest skills.sh/official analog: project-planning / strategic-roadmap (canonical scaffolds).

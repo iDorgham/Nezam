@@ -6,6 +6,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
 
 jobs:
   branch-policy:
@@ -77,6 +79,42 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify onboarding planning artifacts
         run: ./scripts/checks/check-onboarding-readiness.sh
+      - name: Validate canonical gate manifest structure
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json")
+          if not path.exists():
+              raise SystemExit("Missing docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json")
+
+          data = json.loads(path.read_text())
+          required = [
+              "manifestVersion",
+              "generatedAt",
+              "owners",
+              "gateProfiles",
+              "gates",
+              "taxonomy",
+              "severityModel",
+              "bypassBanRules",
+          ]
+          missing = [k for k in required if k not in data]
+          if missing:
+              raise SystemExit(f"Gate manifest missing keys: {', '.join(missing)}")
+
+          if not data["gates"]:
+              raise SystemExit("Gate manifest must include at least one gate")
+
+          valid_stages = {"start", "end", "pre_merge", "post_merge", "nightly_self_test"}
+          stages = {gate.get("stage") for gate in data["gates"]}
+          absent = valid_stages - stages
+          if absent:
+              raise SystemExit(f"Gate manifest missing stage examples: {', '.join(sorted(absent))}")
+
+          print("Gate manifest structure checks passed.")
+          PY
 
   design-gate-readiness:
     runs-on: ubuntu-latest
@@ -87,28 +125,43 @@ jobs:
           set -euo pipefail
 
           # Required template sections for design-first development.
-          rg -q "## 5\\. Typography" docs/templates/DESIGN.template.md
-          rg -q "### 5\\.1 Fluid type scale" docs/templates/DESIGN.template.md
-          rg -q "### 5\\.2 Breakpoint and container-query matrix" docs/templates/DESIGN.template.md
-          rg -q "### 7\\.1 Motion tokens" docs/templates/DESIGN.template.md
-          rg -q "### 7\\.3 Progressive 3D fallback specification" docs/templates/DESIGN.template.md
+          rg -q "## 5\\. Typography" docs/workspace/templates/research-design/DESIGN.template.md
+          rg -q "### 5\\.1 Fluid type scale" docs/workspace/templates/research-design/DESIGN.template.md
+          rg -q "### 5\\.2 Breakpoint and container-query matrix" docs/workspace/templates/research-design/DESIGN.template.md
+          rg -q "### 7\\.1 Motion tokens" docs/workspace/templates/research-design/DESIGN.template.md
+          rg -q "### 7\\.3 Progressive 3D fallback specification" docs/workspace/templates/research-design/DESIGN.template.md
 
-          rg -q "## Component API and variant map" docs/templates/FEATURE_SPEC.template.md
-          rg -q "## Motion and reduced-motion contract" docs/templates/FEATURE_SPEC.template.md
+          rg -q "## Component API and variant map" docs/workspace/templates/specs/FEATURE_SPEC.template.md
+          rg -q "## Motion and reduced-motion contract" docs/workspace/templates/specs/FEATURE_SPEC.template.md
 
           # Hardening contract must be populated, not empty.
-          if [[ ! -s plan/04-harden/perf.md ]]; then
-            echo "plan/04-harden/perf.md must be populated before merge."
+          if [[ ! -s docs/workspace/plans/04-harden/perf.md ]]; then
+            echo "docs/workspace/plans/04-harden/perf.md must be populated before merge."
             exit 1
           fi
 
           # Prevent drift back to deleted legacy rule names.
-          if rg -n "coia-orchestration\\.mdc|coia-sdd-design\\.mdc" docs/context; then
-            echo "Found legacy rule references in docs/context."
+          if rg -n "coia-orchestration\\.mdc|coia-sdd-design\\.mdc" docs/workspace/context; then
+            echo "Found legacy rule references in docs/workspace/context."
             exit 1
           fi
 
           echo "Design gate readiness checks passed."
+
+  ai-sync-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify cross-client AI sync drift
+        run: |
+          node scripts/check-ai-drift.js
+
+  docs-layout-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce docs/core + docs/reports layout
+        run: bash scripts/checks/docs-layout-policy.sh
 
   placeholder:
     runs-on: ubuntu-latest
@@ -120,10 +173,23 @@ jobs:
           echo "Replace this job with your real toolchain (pnpm test, mise, cargo, …)."
           test -f README.md
 
+  nightly-automation-self-test:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Nightly automation baseline self-test
+        run: |
+          set -euo pipefail
+          test -f docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f scripts/checks/check-onboarding-readiness.sh
+          test -f .github/workflows/ci.yml
+          echo "Nightly automation self-test baseline passed."
+
   policy-gate:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    needs: [branch-policy, conventional-commits, readiness, design-gate-readiness]
+    needs: [branch-policy, conventional-commits, readiness, design-gate-readiness, ai-sync-drift, docs-layout-policy]
     steps:
       - name: Confirm governance checks passed
         run: echo "Branch naming, commit policy, and readiness checks passed."

@@ -9,7 +9,7 @@ todos:
     content: Extend create.md with claude-cli-prompt, claude-code-handoff, claude-md + all wiring
     status: completed
   - id: signoff-template
-    content: Add docs/templates/CLAUDE_PLANNING_SIGNOFF.template.md (YAML frontmatter status/tool/completed_at + checklist)
+    content: Add docs/workspace/templates/CLAUDE_PLANNING_SIGNOFF.template.md (YAML frontmatter status/tool/completed_at + checklist)
     status: pending
   - id: start-gates-lock
     content: Update start.md gates (and all) — tiered PASS onboarding vs FAIL planning lock until signoff exists
@@ -21,7 +21,7 @@ todos:
     content: Extend scripts/checks/check-onboarding-readiness.sh (and ci.yml if needed) for planning lock / document escape hatch
     status: pending
   - id: readme-docs-guide
-    content: README, docs/external-ai/CLAUDE_CLI_AND_CODE.md, guide.md; optional GROK_INSTRUCTIONS link
+    content: README, docs/workspace/context/CONTEXT.md, guide.md; optional GROK_INSTRUCTIONS link
     status: pending
 isProject: false
 ---
@@ -31,7 +31,7 @@ isProject: false
 ## Context
 
 - Onboarding today: [`README.md`](README.md) steps 1–5 through [`/START gates`](.cursor/commands/start.md); planning is [`/PLAN`](.cursor/commands/plan.md) inside Cursor.
-- Existing prompt surface: [`docs/templates/PROMPT_DOCUMENT.template.md`](docs/templates/PROMPT_DOCUMENT.template.md) → `docs/prompts/PROJECT_PROMPT.md`, not tailored to **Claude CLI** or **Claude Code**.
+- Existing prompt surface: [`docs/workspace/templates/PROMPT_DOCUMENT.template.md`](docs/workspace/templates/PROMPT_DOCUMENT.template.md) → `docs/core/required/PROJECT_PROMPT.md`, not tailored to **Claude CLI** or **Claude Code**.
 - No root [`CLAUDE.md`](CLAUDE.md) today; optional via `/CREATE`.
 
 ## Product decision (confirmed)
@@ -41,7 +41,7 @@ isProject: false
 
 ## Planning lock — definition
 
-**Sentinel file (required):** `docs/specs/sdd/CLAUDE_PLANNING_SIGNOFF.md`
+**Sentinel file (required):** `docs/core/required/sdd/CLAUDE_PLANNING_SIGNOFF.md`
 
 - Produced **last** by the Claude CLI/Code mission (instructions embedded in generated prompts).
 - **YAML frontmatter** (machine-frugal): e.g. `status: complete`, `tool: cli | code`, `completed_at` ISO timestamp.
@@ -49,9 +49,9 @@ isProject: false
 
 **Minimal artifact set (required)** — enforced alongside sentinel so “done” is substantive, not an empty stamp:
 
-- `docs/specs/sdd/SEO_RESEARCH.md`
-- `docs/specs/sdd/ROADMAP.md`
-- `docs/specs/sdd/PHASES.md`
+- `docs/core/required/sdd/SEO_RESEARCH.md`
+- `docs/core/required/sdd/ROADMAP.md`
+- `docs/core/required/sdd/PHASES.md`
 
 (Aligned with [`plan-full`](.cursor/skills/plan-full/SKILL.md) entry outputs; Claude prompt text instructs creating/updating these.)
 
@@ -88,24 +88,24 @@ flowchart TD
 
 ## Handoff artifacts (prompts)
 
-- **`docs/prompts/CLAUDE_CLI_PLAN.md`** — paste prompt: mission, read PRD + PROJECT_PROMPT + context docs, execute SDD order, **write sign-off last**, create minimal SDD set.
-- **`docs/prompts/CLAUDE_CODE_HANDOFF.md`** — same mission, Claude Code-specific framing (`CLAUDE.md` optional).
-- **`docs/templates/CLAUDE_CLI_PLAN_PROMPT.template.md`**, **`docs/templates/CLAUDE_MD_AGENT.template.md`**, **`docs/templates/CLAUDE_PLANNING_SIGNOFF.template.md`** — `/CREATE` sources.
+- **`docs/core/required/CLAUDE_CLI_PLAN.md`** — paste prompt: mission, read PRD + PROJECT_PROMPT + context docs, execute SDD order, **write sign-off last**, create minimal SDD set.
+- **`docs/core/required/CLAUDE_CODE_HANDOFF.md`** — same mission, Claude Code-specific framing (`CLAUDE.md` optional).
+- **`docs/workspace/templates/CLAUDE_CLI_PLAN_PROMPT.template.md`**, **`docs/workspace/templates/CLAUDE_MD_AGENT.template.md`**, **`docs/workspace/templates/CLAUDE_PLANNING_SIGNOFF.template.md`** — `/CREATE` sources.
 
 ## `/CREATE` extensions
 
 Extend [`.cursor/commands/create.md`](.cursor/commands/create.md):
 
-- `claude-cli-prompt` → `docs/prompts/CLAUDE_CLI_PLAN.md`
-- `claude-code-handoff` → `docs/prompts/CLAUDE_CODE_HANDOFF.md`
+- `claude-cli-prompt` → `docs/core/required/CLAUDE_CLI_PLAN.md`
+- `claude-code-handoff` → `docs/core/required/CLAUDE_CODE_HANDOFF.md`
 - `claude-md` → root `CLAUDE.md` (non-clobber unless `force`)
-- `claude-plan-signoff` → optional scaffold empty sign-off **stub** is risky (would bypass lock) — **do not** scaffold completed sign-off via `/CREATE`; only document that Claude fills it. Template lives under `docs/templates/` for Claude to copy if needed, not auto-installed as “complete”.
+- `claude-plan-signoff` → optional scaffold empty sign-off **stub** is risky (would bypass lock) — **do not** scaffold completed sign-off via `/CREATE`; only document that Claude fills it. Template lives under `docs/workspace/templates/` for Claude to copy if needed, not auto-installed as “complete”.
 
 ## Docs & README
 
 - [`README.md`](README.md) — after `/START gates`, sequence: generate Claude prompts → **must** complete Claude planning → `/START gates` shows planning unlocked → then `/PLAN` refine / `/DEVELOP`.
-- New [`docs/external-ai/CLAUDE_CLI_AND_CODE.md`](docs/external-ai/CLAUDE_CLI_AND_CODE.md) — CLI vs Code, lock semantics, sign-off path.
-- Optional one-line link from [`docs/external-ai/GROK_INSTRUCTIONS.md`](docs/external-ai/GROK_INSTRUCTIONS.md).
+- New [`docs/workspace/context/CONTEXT.md`](docs/workspace/context/CONTEXT.md) — CLI vs Code, lock semantics, sign-off path.
+- Optional one-line link from [`docs/workspace/context/CONTEXT.md`](docs/workspace/context/CONTEXT.md).
 
 ## Verification
 

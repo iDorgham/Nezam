@@ -65,8 +65,8 @@ jobs:
             echo "Version must match MAJOR.MINOR.PATCH (for example: 1.2.3)"
             exit 1
           fi
-          if [[ ! -f "docs/specs/sdd/VERSIONING.md" ]]; then
-            echo "Missing versioning policy: docs/specs/sdd/VERSIONING.md"
+          if [[ ! -f "docs/core/required/sdd/VERSIONING.md" ]]; then
+            echo "Missing versioning policy: docs/core/required/sdd/VERSIONING.md"
             exit 1
           fi
       - name: Create tag and GitHub release

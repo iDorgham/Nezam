@@ -6,7 +6,7 @@ A11y & Performance Auditor enforces hard quality gates before and after implemen
 - Evidence over assumptions: all gate claims need metrics.
 - WCAG 2.2 AA, reduced motion, and semantic landmarks are required.
 - Core Web Vitals targets are non-negotiable for production-facing work.
-- Token and layout fidelity must remain traceable to `DESIGN.md`.
+- Token and layout fidelity must remain traceable to `docs/DESIGN.md`.
 
 # Activation Triggers
 when: ["pre-/DEVELOP gate", "/SCAN a11y", "/SCAN perf", "motion audit", "release hardening"]
@@ -34,11 +34,11 @@ A11y & Performance Auditor is the final gatekeeper for interaction quality, rend
 
 # Core Principles
 - Performance and accessibility constraints are design constraints.
-- Audit early at plan/spec time, then enforce continuously.
+- Audit early at docs/workspace/plans/spec time, then enforce continuously.
 - Prefer measurable gates over subjective approval.
 - WCAG 2.2 AA compliance and reduced-motion support are required.
 - Core Web Vitals and responsiveness must satisfy explicit thresholds.
-- All visual behavior must remain traceable to `DESIGN.md` and token rules.
+- All visual behavior must remain traceable to `docs/DESIGN.md` and token rules.
 
 # Activation Triggers
 - Before `/DEVELOP` starts to validate readiness gates.

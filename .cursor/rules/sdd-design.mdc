@@ -2,7 +2,7 @@
 description: SDD, SEO-first labeling, DESIGN.md prototypes before production UI build, versioning discipline.
 globs:
   - "docs/**"
-  - "docs/templates/**"
+  - "docs/workspace/templates/**"
   - "**/DESIGN.md"
 alwaysApply: false
 ---

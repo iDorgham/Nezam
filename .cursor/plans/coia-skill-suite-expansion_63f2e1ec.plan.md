@@ -30,7 +30,7 @@ todos:
     content: Merge into 6 existing skills (seo-ia-content, coi-component-library-api, coi-pro-design-tokens, coi-motion-3d-progressive, token-grid-typography, git-workflow); reformat to 8-section structure
     status: completed
   - id: update_workspace_index
-    content: Append the 42 entries to docs/context/WORKSPACE_INDEX.md under a new 'Expanded skill suite' subsection
+    content: Append the 42 entries to docs/workspace/context/WORKSPACE_INDEX.md under a new 'Expanded skill suite' subsection
     status: completed
   - id: verify_format_and_links
     content: Verify every SKILL.md has all 8 mandatory sections, valid frontmatter, working internal links, and version-locked External Reference
@@ -62,7 +62,7 @@ description: <one-line load-when-and-what-it-produces>
 Body sections, in order:
 
 1. `# Purpose` — single-responsibility statement aligned to an official standard.
-2. `# Inputs` — required specs, `DESIGN.md` sections, env vars, schema drafts, security requirements.
+2. `# Inputs` — required specs, `docs/DESIGN.md` sections, env vars, schema drafts, security requirements.
 3. `# Step-by-Step Workflow` — deterministic, file-safe steps with explicit CLI/API commands.
 4. `# Validation & Metrics` — lint, type, perf budgets, a11y scores, coverage, security scans.
 5. `# Output Format` — concrete artifact list (config, stubs, SQL, CI yml, OpenAPI, token JSON).
@@ -202,7 +202,7 @@ flowchart LR
 
 ## Index & Documentation Updates
 
-- Update [docs/context/WORKSPACE_INDEX.md](docs/context/WORKSPACE_INDEX.md) — append a new "COIA expanded skill suite" subsection under "Cursor skills" listing all 42 entries grouped by category, each as a markdown link.
+- Update [docs/workspace/context/WORKSPACE_INDEX.md](docs/workspace/context/WORKSPACE_INDEX.md) — append a new "COIA expanded skill suite" subsection under "Cursor skills" listing all 42 entries grouped by category, each as a markdown link.
 - No changes to slash commands; the new skills are referenceable via `@.cursor/skills/<name>/SKILL.md` and via `/PLAN`, `/DEVELOP`, `/SCAN`, `/SAVE`, `/DEPLOY` integration hooks declared inside each skill.
 
 ## Constraints (carried from prompt)

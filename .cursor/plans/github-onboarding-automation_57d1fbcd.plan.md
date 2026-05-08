@@ -43,8 +43,8 @@ isProject: false
 - Update `[/Users/Dorgham/Documents/Work/Devleopment/COIA/.cursor/commands/start.md](/Users/Dorgham/Documents/Work/Devleopment/COIA/.cursor/commands/start.md)`:
   - Make `/START gates` explicitly fail unless all of the following are true:
     - repo import/attach is confirmed (Git remote configured)
-    - `docs/specs/prd/PRD.md` exists
-    - `docs/prompts/PROJECT_PROMPT.md` exists
+    - `docs/core/required/prd/PRD.md` exists
+    - `docs/core/required/PROJECT_PROMPT.md` exists
   - Keep gate output actionable with exact remediation commands.
 - Update `[/Users/Dorgham/Documents/Work/Devleopment/COIA/.cursor/commands/plan.md](/Users/Dorgham/Documents/Work/Devleopment/COIA/.cursor/commands/plan.md)`:
   - Add hard preflight: refuse `/PLAN` execution when onboarding gate conditions are missing.
@@ -61,8 +61,8 @@ isProject: false
 
 - Expand `[/Users/Dorgham/Documents/Work/Devleopment/COIA/.github/workflows/ci.yml](/Users/Dorgham/Documents/Work/Devleopment/COIA/.github/workflows/ci.yml)`:
   - Add a dedicated validation job that fails PR/push checks if required onboarding artifacts are missing:
-    - `docs/specs/prd/PRD.md`
-    - `docs/prompts/PROJECT_PROMPT.md`
+    - `docs/core/required/prd/PRD.md`
+    - `docs/core/required/PROJECT_PROMPT.md`
   - Add checks that repository context is valid for GitHub workflow execution (e.g., remote present in checkout context when applicable).
 - Add a lightweight script for reusable validation logic (new file under `scripts/`) and call it from CI + local command guidance.
 

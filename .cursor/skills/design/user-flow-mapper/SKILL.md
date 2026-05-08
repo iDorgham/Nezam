@@ -1,0 +1,54 @@
+---
+name: user-flow-mapper
+description: Define user journeys, edge cases, and navigation decisions before UI implementation.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+
+# User Flow Mapper
+
+Use during planning and before major UI feature implementation.
+
+## Objective
+
+Produce unambiguous user-flow artifacts that connect product intent to UI behavior.
+
+## Deliverables
+
+- Primary journey map (happy path)
+- Alternate and failure paths
+- Decision points and recovery paths
+- Navigation structure implications
+- Accessibility and mobile-first considerations
+
+## Output format
+
+Create or update:
+- `docs/core/required/sdd/USER_FLOW.md` (or equivalent phase artifact)
+
+Include for each flow:
+
+```yaml
+flow_id: "onboarding-001"
+entry_point: "where user starts"
+steps:
+  - "step"
+decision_points:
+  - "branch condition"
+failure_recovery:
+  - "fallback"
+success_metric: "observable outcome"
+```
+
+## Core rules
+
+- Mobile-first first pass.
+- Explicitly capture empty/error/loading states.
+- Align labels and route naming to SEO/IA decisions.
+
+## Dependencies
+
+- planning and content artifacts
+- `seo-ia-content`
+

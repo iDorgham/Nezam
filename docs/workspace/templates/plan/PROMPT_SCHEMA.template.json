@@ -1,0 +1,30 @@
+{
+  "specId": "PT-XX-YY-001",
+  "phase": "01-content",
+  "subphase": "01-research",
+  "title": "Spec prompt title",
+  "objectives": [
+    "Primary objective"
+  ],
+  "constraints": [
+    "Constraint with rationale"
+  ],
+  "dependencies": [
+    "PT-XX-YY-000"
+  ],
+  "acceptanceChecks": [
+    "Measurable validation criteria"
+  ],
+  "requiredEnvKeys": [
+    "EXAMPLE_API_KEY"
+  ],
+  "agentLane": {
+    "primaryAgent": "pm",
+    "supportingSubagents": [
+      "qa",
+      "security"
+    ]
+  },
+  "githubGateProfile": "spec_only",
+  "unlockStatus": "blocked"
+}

@@ -1,0 +1,29 @@
+# Vertical — food & beverage (مصرية تسويقية)
+
+**Skill:** Egyptian Arabic Content Master — synthetic reference only (Law 151/2020: no real client data).
+
+## Vocabulary (Masri + terms of art)
+
+- منيو، طلب، توصيل، فروع، سفرة، أطباق بلدي، مكونات، حساسية، حجز طاولة
+- تجنب ادعاءات صحية غير مثبتة
+
+## Objections to pre-empt
+
+- "المكونات إيه؟" — إظهار مسببات الحساسية الرئيسية عند الطلب
+- "التوصيل هياخد قد إيه؟" — وقت تقديري حسب المنطقة والزحمة
+
+## Banned claims (sector-specific)
+
+- علاج بالأكل، نظافة مطلقة مطلقة، أسعار وهمية للبوست
+
+## Tone default
+
+- **Friendly / Warm** للعائلات؛ **Humorous** فقط للعلامات اللي سياستها تسمح
+
+## Snippet A (synthetic)
+
+"الأكل يطلع سخن، والريحة توصلك قبل ما توصل الأوردر — لكن وقت التوصيل رقم تقريبي يظهر في التطبيق."
+
+## Snippet B (synthetic)
+
+"لو عندك حساسية، صنّف طلبك من الملاحظات واستشر الطبيب للأطباق الجديدة."

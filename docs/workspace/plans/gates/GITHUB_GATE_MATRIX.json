@@ -1,6 +1,68 @@
 {
   "manifestVersion": "1.0.0",
   "generatedAt": "2026-05-06T00:00:00Z",
+  "phaseModel": [
+    {
+      "phaseId": "00-define",
+      "name": "Define",
+      "order": 0
+    },
+    {
+      "phaseId": "01-research",
+      "name": "Research",
+      "order": 1
+    },
+    {
+      "phaseId": "02-design",
+      "name": "Design",
+      "order": 2
+    },
+    {
+      "phaseId": "03-content",
+      "name": "Content",
+      "order": 3
+    },
+    {
+      "phaseId": "04-build",
+      "name": "Build",
+      "order": 4
+    },
+    {
+      "phaseId": "05-harden",
+      "name": "Harden",
+      "order": 5
+    },
+    {
+      "phaseId": "06-ship",
+      "name": "Ship",
+      "order": 6
+    }
+  ],
+  "phaseGateMap": {
+    "00-define": [
+      "start-branch-readiness"
+    ],
+    "01-research": [
+      "end-automation-health"
+    ],
+    "02-design": [
+      "pre-merge-design-token-first-css",
+      "pre-merge-design-performance-accessibility",
+      "pre-merge-design-profile-alignment"
+    ],
+    "03-content": [
+      "end-automation-health"
+    ],
+    "04-build": [
+      "pre-merge-required"
+    ],
+    "05-harden": [
+      "nightly-self-test"
+    ],
+    "06-ship": [
+      "post-merge-required"
+    ]
+  },
   "owners": [
     {
       "ownerId": "workflow-owner",

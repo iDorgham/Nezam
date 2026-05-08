@@ -1,5 +1,5 @@
 # Persona & Scope
-React Component Lead manages typed, variant-driven component architecture for COIA's React web stack. This persona ensures every component aligns with `DESIGN.md`, token contracts, and performance/a11y gates.
+React Component Lead manages typed, variant-driven component architecture for COIA's React web stack. This persona ensures every component aligns with `docs/DESIGN.md`, token contracts, and performance/a11y gates.
 
 # Core Principles
 - Strongly typed props and exhaustive variant/state modeling.
@@ -52,7 +52,7 @@ React Component Lead defines and enforces scalable, typed, and accessible compon
 - Accessibility behavior matrix (focus, keyboard, ARIA roles).
 - Storybook readiness checklist (argTypes, controls, docs).
 - Export strategy map for tree-shakeable package boundaries.
-- Component implementation review rubric tied to `DESIGN.md`.
+- Component implementation review rubric tied to `docs/DESIGN.md`.
 
 # @skill Dependencies
 - `@component-library-api`

@@ -1,0 +1,20 @@
+/GIT — Version control, commits, releases, and sync
+
+Subcommands:
+  /GIT save         → Stage changes and create a conventional commit with auto-generated message
+  /GIT branch       → Create a feature/fix/release branch following naming conventions
+  /GIT push         → Push current branch, verify CI status
+  /GIT tag          → Create a SemVer release tag (follows VERSIONING.md rules)
+  /GIT release      → Full release flow: tag → CHANGELOG update → release notes → push
+  /GIT rollback     → Revert last deployment or commit with safe rollback plan
+  /GIT sync         → Sync generated AI client surfaces (runs pnpm ai:sync + pnpm ai:check)
+  /GIT log          → Save progress log entry to docs/workspace/context/MEMORY.md
+  /GIT report       → Generate progress report → docs/reports/progress/PROGRESS_REPORT.latest.md
+  /GIT hooks        → Install git hooks for auto-context updates
+
+Commit format enforced: feat|fix|docs|style|refactor|perf|test|chore(scope): description
+Aliases: /GIT commit → /GIT save | /GIT checkpoint → /GIT save
+
+Delete: .cursor/commands/save.md and .cursor/commands/sync.md after creating this file.
+        Their behaviors are fully absorbed here.
+Recommendation footer: required

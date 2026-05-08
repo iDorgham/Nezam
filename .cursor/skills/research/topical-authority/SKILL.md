@@ -1,0 +1,64 @@
+---
+name: coi-topical-authority
+description: Hub-and-spoke content architecture, semantic clustering, and internal linking strategy for topic dominance.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+
+# Purpose
+
+Build defensible topical authority by organizing content into hub-and-spoke clusters with semantically coherent internal linking. Single-responsibility: cluster architecture and link graph.
+
+# Inputs
+
+- Keyword clusters from `docs/core/required/sdd/SEO_RESEARCH.md`.
+- Entity inventory from `@.cursor/skills/coi-geo-optimization/SKILL.md`.
+- Existing nav/IA from `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
+- Crawl/log file data (if available) for current internal-link distribution.
+
+# Step-by-Step Workflow
+
+1. Identify hub topics (broad pillars) and spoke topics (specific subtopics) from keyword clusters; document in `docs/core/required/sdd/TOPICAL_MAP.md`.
+2. For each hub, list 5–15 spokes; spokes link up to hub with descriptive anchors; hub summarizes and links down to spokes.
+3. Add cross-spoke links only where semantic relationship is real (avoid "related articles" boilerplate).
+4. Define anchor-text patterns: descriptive, varied, entity-bearing; avoid duplicate anchors across the cluster.
+5. Compute link-equity flow: ensure each spoke is reachable in ≤ 2 clicks from the homepage.
+6. Set up periodic content gap analysis: missing spokes, orphaned pages, decaying spokes.
+7. Validate via crawl tools and log file checks; document outcomes in `docs/workspace/context/`.
+
+# Validation & Metrics
+
+- Every spoke has ≥ 1 inbound hub link and ≥ 1 inbound peer-spoke link where appropriate.
+- Click depth from home: ≤ 2 to any priority page.
+- No orphaned priority pages.
+- Anchor diversity: no single anchor used for > 30% of inbound links to a target.
+
+# Output Format
+
+- `docs/core/required/sdd/TOPICAL_MAP.md` (hub list, spokes, internal links).
+- Anchor-text variation rules.
+- Link-equity flow diagram (mermaid).
+- Gap analysis report.
+
+# Integration Hooks
+
+- `/PLAN seo` and `/PLAN content` consume topical map.
+- `/SCAN seo` checks orphans and click depth.
+- Pairs with `@.cursor/skills/coi-ia-taxonomy/SKILL.md`, `@.cursor/skills/coi-geo-optimization/SKILL.md`, `@.cursor/skills/coi-serp-feature-targeting/SKILL.md`.
+- Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
+
+# Anti-Patterns
+
+- Auto-generated "related posts" with no semantic relationship.
+- Identical anchor text across the cluster.
+- Spokes that only link up to hub but never to peers.
+- Treating each blog post as standalone (no cluster identity).
+- Allowing thin "ghost" pages that dilute topical authority.
+
+# External Reference
+
+- HubSpot / Search Engine Land topic-cluster model literature (current).
+- Google "Helpful Content" guidelines (current).
+- Bing Webmaster Guidelines on site structure (current).
+- Closest skills.sh/official analog: topical-authority / content-clusters.

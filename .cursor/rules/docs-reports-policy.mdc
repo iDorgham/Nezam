@@ -1,0 +1,20 @@
+---
+description: Generated reports must live under docs/reports/<category>/ only.
+alwaysApply: true
+---
+
+# Reports placement
+
+All **generated** scan outputs, test digests, coverage summaries, perf/Lighthouse exports, security summaries, and progress handoff files MUST be written under:
+
+`docs/reports/<category>/`
+
+Approved categories: `a11y`, `audits`, `coverage`, `lighthouse`, `perf`, `progress`, `security`, `tests`.
+
+Do **not** write generated reports to:
+
+- repository root
+- `docs/` (except `docs/reports/**` and this policy)
+- `docs/core/**` (canonical specs, plans, templates, context memory)
+
+Use timestamped filenames or `*.latest.md` only where a rolling file is intentional (see each category `README.md`).

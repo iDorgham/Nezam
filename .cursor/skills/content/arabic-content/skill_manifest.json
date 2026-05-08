@@ -1,0 +1,37 @@
+{
+  "name": "arabic_content_master",
+  "version": "1.0.0",
+  "description": "MENA Arabic content umbrella: dialect routing, Ramadan/religious tone, extended channels (WhatsApp, IVR, push), Arabic typography and a11y, and import of the Egyptian (Masri) module as primary depth pack.",
+  "author": "COIA",
+  "license": "Proprietary",
+  "tags": [
+    "arabic",
+    "mena",
+    "egyptian arabic",
+    "masri",
+    "dialect routing",
+    "seo",
+    "aeo",
+    "ramadan",
+    "rtl",
+    "accessibility"
+  ],
+  "capabilities": [
+    "dialect_routing",
+    "arabic_typography_a11y",
+    "ramadan_religious_tone",
+    "extended_channels",
+    "golden_pairs_qa"
+  ],
+  "dependencies": ["egyptian_arabic_content_master"],
+  "main": "arabic_content_master.md",
+  "dialect_modules": "dialect_modules/",
+  "shared": "shared/",
+  "evaluation": "evaluation/",
+  "contracts": "contracts/",
+  "agents_bound": [
+    "arabic-content-master",
+    "masri-content-specialist",
+    "arabic-seo-aeo-specialist"
+  ]
+}

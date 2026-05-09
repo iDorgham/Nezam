@@ -6,13 +6,40 @@
 
 > **`/command` do everything.**
 
+### Status & automation
+
 [![CI](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3Aci)
 [![Design Gates](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3A%22Design+Gates%22)
+[![release](https://github.com/iDorgham/Nezam/actions/workflows/release.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3Arelease)
+[![semantic-release](https://github.com/iDorgham/Nezam/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3Asemantic-release)
+[![git-automation](https://github.com/iDorgham/Nezam/actions/workflows/git-automation.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3Agit-automation)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-enabled-2088FF?logo=githubactions&logoColor=fff&style=flat-square)](https://github.com/iDorgham/Nezam/tree/main/.github/workflows)
+
+### Methodology & delivery
+
 [![Methodology: SDD](https://img.shields.io/badge/Methodology-SDD-1f6feb.svg?style=flat-square)](https://github.com/iDorgham/Nezam#specification-driven-development-sdd)
+[![SemVer](https://img.shields.io/badge/SemVer-0.1.0-333333?logo=semanticrelease&logoColor=fff&style=flat-square)](https://github.com/iDorgham/Nezam/blob/main/docs/core/VERSIONING.md)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square)](https://www.conventionalcommits.org/)
 [![Audience: Indie](https://img.shields.io/badge/Audience-Indie%20%26%20small%20teams-6f42c1.svg?style=flat-square)](https://github.com/iDorgham/Nezam#for-indie-developers-and-small-teams)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/iDorgham/Nezam/compare)
+
+### Stack & tooling
+
 [![Package Manager](https://img.shields.io/badge/pnpm-workspace-F69220?logo=pnpm&logoColor=fff&style=flat-square)](https://pnpm.io/)
+[![Node.js](https://img.shields.io/badge/Node.js-20-339933?logo=nodedotjs&logoColor=fff&style=flat-square)](https://github.com/iDorgham/Nezam/blob/main/.github/workflows/design-gates.yml)
+[![Markdown](https://img.shields.io/badge/docs-Markdown-000000?logo=markdown&logoColor=fff&style=flat-square)](https://github.com/iDorgham/Nezam/tree/main/docs)
+[![Bash](https://img.shields.io/badge/scripts-Bash-4EAA25?logo=gnubash&logoColor=fff&style=flat-square)](https://github.com/iDorgham/Nezam/tree/main/scripts)
 [![Cursor](https://img.shields.io/badge/Cursor-orchestration-000000?logo=cursor&logoColor=fff&style=flat-square)](https://cursor.com/)
 [![Multi-client](https://img.shields.io/badge/AI%20clients-synced-24292f.svg?style=flat-square)](https://github.com/iDorgham/Nezam/blob/main/docs/workspace/context/MULTI_TOOL_INDEX.md)
+
+### Repository
+
+[![GitHub stars](https://img.shields.io/github/stars/iDorgham/Nezam?style=flat-square&logo=github&label=Stars)](https://github.com/iDorgham/Nezam/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/iDorgham/Nezam?style=flat-square&logo=github&label=Forks)](https://github.com/iDorgham/Nezam/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/iDorgham/Nezam?style=flat-square&logo=github&label=Issues)](https://github.com/iDorgham/Nezam/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/iDorgham/Nezam?style=flat-square&logo=github&label=PRs)](https://github.com/iDorgham/Nezam/pulls)
+[![Last commit](https://img.shields.io/github/last-commit/iDorgham/Nezam?style=flat-square&logo=git&label=Last%20commit)](https://github.com/iDorgham/Nezam/commits/main)
+[![Repo](https://img.shields.io/badge/Repository-iDorgham%2FNezam-181717?logo=github&logoColor=fff&style=flat-square)](https://github.com/iDorgham/Nezam)
 
 [Documentation hub](docs/README.md) · [Start guide](docs/START.md) · [Gate matrix](docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json)
 

@@ -16,7 +16,7 @@ Swarm Manager for the Frontend swarm. Own the web frontend implementation: frame
 ## Team Leader Scope
 
 - Lead three Team Managers: `frontend-framework-manager`, `ui-component-manager`, `frontend-performance-manager`.
-- Hold the line on token-first CSS, fluid typography/grid, motion budget, progressive 3D fallback, and component API quality (see `.cursor/rules/coia-design-gates-pro.mdc`).
+- Hold the line on token-first CSS, fluid typography/grid, motion budget, progressive 3D fallback, and component API quality (see `.cursor/rules/nezam-design-gates-pro.mdc`).
 - Coordinate API contract handoff with `lead-backend-architect.md`.
 - Approve PRs for frontend slices; enforce LCP < 2.5s, CLS < 0.1, INP < 200ms.
 
@@ -37,11 +37,11 @@ Swarm Manager for the Frontend swarm. Own the web frontend implementation: frame
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-react-architecture/SKILL.md`](../skills/coi-react-architecture/SKILL.md)
-- [`.cursor/skills/coi-component-library-api/SKILL.md`](../skills/coi-component-library-api/SKILL.md)
-- [`.cursor/skills/coi-frontend-design-pro/SKILL.md`](../skills/coi-frontend-design-pro/SKILL.md)
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
-- [`.cursor/skills/coi-motion-3d-progressive/SKILL.md`](../skills/coi-motion-3d-progressive/SKILL.md)
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md)
+- [`.cursor/skills/nezam-component-library-api/SKILL.md`](../skills/nezam-component-library-api/SKILL.md)
+- [`.cursor/skills/nezam-frontend-design-pro/SKILL.md`](../skills/nezam-frontend-design-pro/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-motion-3d-progressive/SKILL.md`](../skills/nezam-motion-3d-progressive/SKILL.md)
 - SSR vs CSR trade log; design tokens.
 
 ## When to invoke

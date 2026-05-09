@@ -27,7 +27,7 @@ Ask these questions **exactly as written**, one at a time, and wait for an answe
 
 After all 7 answers are collected:
 
-1. Run `@coi-founder-onboarding` to synthesize and generate:
+1. Run `@nezam-founder-onboarding` to synthesize and generate:
    - PRD
    - project brief
    - versioning policy

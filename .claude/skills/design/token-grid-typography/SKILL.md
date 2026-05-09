@@ -10,7 +10,7 @@ changelog: []
 
 # Purpose
 
-Define and enforce a deterministic token, typography, and layout grid foundation for React UI work before component implementation. Single-responsibility: typography + grid + container-query matrix. (Absorbs the previously-proposed `coi-grid-systems`.)
+Define and enforce a deterministic token, typography, and layout grid foundation for React UI work before component implementation. Single-responsibility: typography + grid + container-query matrix. (Absorbs the previously-proposed `nezam-grid-systems`.)
 
 # Inputs
 
@@ -18,12 +18,12 @@ Define and enforce a deterministic token, typography, and layout grid foundation
 - `docs/core/required/sdd/SEO_RESEARCH.md` and IA constraints when available.
 - Brand direction notes and editorial style intent.
 - Existing token drafts or legacy style variables.
-- Page templates + component inventories from `@.cursor/skills/coi-component-library-api/SKILL.md`.
+- Page templates + component inventories from `@.cursor/skills/nezam-component-library-api/SKILL.md`.
 
 # Step-by-Step Workflow
 
 1. Extract design primitives from `docs/DESIGN.md` into categories: color, spacing, radius, typography, shadow, z-index, motion.
-2. Normalize into W3C-style token JSON (base + semantic tiers); pair with `@.cursor/skills/coi-pro-design-tokens/SKILL.md`.
+2. Normalize into W3C-style token JSON (base + semantic tiers); pair with `@.cursor/skills/nezam-pro-design-tokens/SKILL.md`.
 3. Define typography scale with `clamp(min, preferred, max)` for each role (`display`, `h1`..`h6`, `body`, `caption`, `label`); set line-height + letter-spacing tokens.
 4. Create breakpoint and container matrices (`mobile`, `tablet`, `desktop`, `wide`); map layout tokens to each tier.
 5. Emit CSS variable layers (`:root`, theme scopes, dark-mode scope); avoid inline literal fallbacks except governed defaults.
@@ -31,7 +31,7 @@ Define and enforce a deterministic token, typography, and layout grid foundation
 7. Adopt container queries (`@container`) for components that vary by parent width rather than viewport.
 8. Produce component-level token alias guidance (e.g., `--surface-card`, `--text-muted`) to isolate implementation from base-token churn.
 9. Add drift detection: lint hardcoded spacing/color/type values outside approved token sources.
-10. Hand off contracts to `@.cursor/skills/coi-component-library-api/SKILL.md` and motion roles for cross-system parity.
+10. Hand off contracts to `@.cursor/skills/nezam-component-library-api/SKILL.md` and motion roles for cross-system parity.
 
 # Validation & Metrics
 
@@ -56,8 +56,8 @@ Define and enforce a deterministic token, typography, and layout grid foundation
 - `/DEVELOP`: block component work until token contracts exist.
 - `/SCAN code|a11y|perf`: enforce token + typography checks.
 - CI: add token drift and hardcoded-value lint gates.
-- Pairs with `@.cursor/skills/coi-pro-design-tokens/SKILL.md`, `@.cursor/skills/coi-component-library-api/SKILL.md`, `@.cursor/skills/coi-motion-3d-progressive/SKILL.md`, `@.cursor/skills/coi-react-architecture/SKILL.md`.
-- Enforces `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)` Gates 1 & 2 and `[.cursor/rules/coia-design-gates-pro.mdc](.cursor/rules/coia-design-gates-pro.mdc)`.
+- Pairs with `@.cursor/skills/nezam-pro-design-tokens/SKILL.md`, `@.cursor/skills/nezam-component-library-api/SKILL.md`, `@.cursor/skills/nezam-motion-3d-progressive/SKILL.md`, `@.cursor/skills/nezam-react-architecture/SKILL.md`.
+- Enforces `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)` Gates 1 & 2 and `[.cursor/rules/nezam-design-gates-pro.mdc](.cursor/rules/nezam-design-gates-pro.mdc)`.
 
 # Anti-Patterns
 

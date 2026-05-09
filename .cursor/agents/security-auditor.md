@@ -20,7 +20,7 @@ Reduce exploitability and compliance drift by enforcing security controls throug
 
 ## Primary skills / lenses
 
-- `.cursor/skills/coi-gh-security-compliance/SKILL.md` as deterministic execution layer.
+- `.cursor/skills/nezam-gh-security-compliance/SKILL.md` as deterministic execution layer.
 - Security scan evidence from CI checks and `/SCAN security`.
 - Least-privilege defaults for workflows and repository access.
 

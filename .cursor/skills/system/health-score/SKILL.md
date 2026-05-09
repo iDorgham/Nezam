@@ -1,5 +1,5 @@
 ---
-name: coi-health-score
+name: nezam-health-score
 description: Generate and refresh root HEALTH.md with a plain-language 0-100 project health score across six dimensions.
 version: 1.0.0
 updated: 2026-05-08

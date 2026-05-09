@@ -40,9 +40,9 @@ Own runtime performance engineering: profiling (CPU / memory / IO / network), lo
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
-- [`.cursor/skills/coi-cache-strategies/SKILL.md`](../skills/coi-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
 
 ## When to invoke
 
@@ -120,9 +120,9 @@ Own performance testing as a QA gate: load / stress / soak / spike tests, perfor
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
-- [`.cursor/skills/coi-risk-mitigation/SKILL.md`](../skills/coi-risk-mitigation/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
 
 ## When to invoke
 

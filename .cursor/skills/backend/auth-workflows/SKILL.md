@@ -1,5 +1,5 @@
 ---
-name: coi-auth-workflows
+name: nezam-auth-workflows
 description: OAuth 2.1 / OIDC, JWT vs session, MFA, RBAC, and token rotation patterns for production auth.
 version: 1.0.0
 updated: 2026-05-08
@@ -13,9 +13,9 @@ Specify authentication and authorization: identity provider, session strategy, t
 # Inputs
 
 - Identity provider choice (Auth0, Clerk, Supabase Auth, Cognito, custom OIDC).
-- API contract from `@.cursor/skills/coi-api-design/SKILL.md`.
-- Compliance constraints from `@.cursor/skills/coi-privacy-compliance/SKILL.md`.
-- Secrets policy from `@.cursor/skills/coi-secret-management/SKILL.md`.
+- API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
+- Compliance constraints from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
+- Secrets policy from `@.cursor/skills/nezam-secret-management/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -47,7 +47,7 @@ Specify authentication and authorization: identity provider, session strategy, t
 - `/PLAN security` consumes the contract.
 - `/DEVELOP` builds against the spec (without writing app code here).
 - `/SCAN security` validates flows and headers.
-- Pairs with `@.cursor/skills/coi-security-hardening/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`, `@.cursor/skills/coi-supabase-architect/SKILL.md`, `@.cursor/skills/coi-api-gateway/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-security-hardening/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`, `@.cursor/skills/nezam-supabase-architect/SKILL.md`, `@.cursor/skills/nezam-api-gateway/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

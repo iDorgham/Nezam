@@ -26,9 +26,9 @@ You are the Mobile Offline & Sync Specialist within the Mobile swarm, reporting 
 
 # @skill Dependencies
 
-- `@coi-cache-strategies` for local cache layering.
-- `@coi-monitoring-observability` for sync-health dashboards.
-- `@coi-error-tracking` for offline error pipelines.
+- `@nezam-cache-strategies` for local cache layering.
+- `@nezam-monitoring-observability` for sync-health dashboards.
+- `@nezam-error-tracking` for offline error pipelines.
 
 # Anti-Patterns
 

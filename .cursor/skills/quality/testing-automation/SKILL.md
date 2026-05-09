@@ -1,5 +1,5 @@
 ---
-name: coi-testing-automation
+name: nezam-testing-automation
 description: Deterministic testing automation workflow for unit, E2E, and visual coverage with `/SCAN tests` integration.
 version: 1.0.0
 updated: 2026-05-08

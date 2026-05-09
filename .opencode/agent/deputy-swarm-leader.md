@@ -31,9 +31,9 @@ Run the day-to-day operating rhythm of the 12-swarm system on behalf of the CPO.
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-multi-agent-handoff/SKILL.md`](../skills/coi-multi-agent-handoff/SKILL.md) for handoff packets.
-- [`.cursor/skills/coi-phase-gating-roadmap/SKILL.md`](../skills/coi-phase-gating-roadmap/SKILL.md) for gate evidence.
-- [`.cursor/skills/coi-task-decomposition/SKILL.md`](../skills/coi-task-decomposition/SKILL.md) for sprint slicing.
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md) for handoff packets.
+- [`.cursor/skills/nezam-phase-gating-roadmap/SKILL.md`](../skills/nezam-phase-gating-roadmap/SKILL.md) for gate evidence.
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md) for sprint slicing.
 - [`docs/workspace/context/governance/SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md) lifecycle phases.
 
 ## When to invoke

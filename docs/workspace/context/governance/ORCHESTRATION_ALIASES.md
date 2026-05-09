@@ -8,16 +8,16 @@ Workflow contract: the canonical 6-phase swarm lifecycle (intake, planning/desig
 
 | Prompt / matrix slug | Repo folder | SKILL.md |
 | -------------------- | ----------- | -------- |
-| `coi-git-workflow` | [`git-workflow`](../../../.cursor/skills/git-workflow/SKILL.md) | `.cursor/skills/git-workflow/SKILL.md` |
-| `coi-plan-full` | [`plan-full`](../../../.cursor/skills/plan-full/SKILL.md) | `.cursor/skills/plan-full/SKILL.md` |
-| `coi-design-md` | [`design-md`](../../../.cursor/skills/design-md/SKILL.md) | `.cursor/skills/design-md/SKILL.md` |
-| `coi-seo-ia-content` | [`seo-ia-content`](../../../.cursor/skills/seo-ia-content/SKILL.md) | `.cursor/skills/seo-ia-content/SKILL.md` |
-| `coi-external-ai-report` | [`external-ai-report`](../../../.cursor/skills/external-ai-report/SKILL.md) | `.cursor/skills/external-ai-report/SKILL.md` |
-| `coi-guide-instructor-domains` | [`guide-instructor-domains`](../../../.cursor/skills/guide-instructor-domains/SKILL.md) | `.cursor/skills/guide-instructor-domains/SKILL.md` |
+| `nezam-git-workflow` | [`git-workflow`](../../../.cursor/skills/git-workflow/SKILL.md) | `.cursor/skills/git-workflow/SKILL.md` |
+| `nezam-plan-full` | [`plan-full`](../../../.cursor/skills/plan-full/SKILL.md) | `.cursor/skills/plan-full/SKILL.md` |
+| `nezam-design-md` | [`design-md`](../../../.cursor/skills/design-md/SKILL.md) | `.cursor/skills/design-md/SKILL.md` |
+| `nezam-seo-ia-content` | [`seo-ia-content`](../../../.cursor/skills/seo-ia-content/SKILL.md) | `.cursor/skills/seo-ia-content/SKILL.md` |
+| `nezam-external-ai-report` | [`external-ai-report`](../../../.cursor/skills/external-ai-report/SKILL.md) | `.cursor/skills/external-ai-report/SKILL.md` |
+| `nezam-guide-instructor-domains` | [`guide-instructor-domains`](../../../.cursor/skills/guide-instructor-domains/SKILL.md) | `.cursor/skills/guide-instructor-domains/SKILL.md` |
 | `arabic_content_master` | [`arabic_content_master`](../../../.cursor/skills/arabic_content_master/skill.md) | `.cursor/skills/arabic_content_master/skill.md` |
 | `egyptian_arabic_content_master` | [`egyptian_arabic_content_master`](../../../.cursor/skills/egyptian_arabic_content_master/skill.md) | `.cursor/skills/egyptian_arabic_content_master/skill.md` |
 
-**Upstream library (not coi-prefixed):** `docs/skills/` — especially `nexu_open_design/**`; promote selectively per `docs/INGEST_QUEUE.md`.
+**Upstream library (not nezam-prefixed):** `docs/skills/` — especially `nexu_open_design/**`; promote selectively per `docs/INGEST_QUEUE.md`.
 
 ## Prompt personas → `.cursor/agents`
 
@@ -83,7 +83,7 @@ Cross-swarm coordination is owned by `deputy-orchestrator` with help from `daily
 - Prefer a single specialist when scope is narrow and self-contained.
 - Use parallel specialists only for independent domains with isolated write scope.
 - When quality/speed/cost conflict: quality first, speed second, cost third.
-- Every routed task must include a handoff packet from `coi-multi-agent-handoff`.
+- Every routed task must include a handoff packet from `nezam-multi-agent-handoff`.
 - Every routed task must name `Swarm Manager`, `Team Manager`, and `specialists` before execution begins.
 - Honor phase gates from [`SWARM_WORKFLOW.md`](SWARM_WORKFLOW.md); do not bypass.
 
@@ -121,4 +121,4 @@ Generated via `pnpm ai:sync` from canonical `.cursor/` sources.
 
 ## `docs/agents` (traceability)
 
-Registry-style upstream personas live under `docs/agents/` (`core/`, `specialized/`). They map to COIA lenses in `.cursor/agents/README.md` (*Reference agents catalog* section)—upstream bodies are mostly placeholders; **do not** treat them as overrides to `.cursor/agents/*.md` unless explicitly merged.
+Registry-style upstream personas live under `docs/agents/` (`core/`, `specialized/`). They map to NEZAM lenses in `.cursor/agents/README.md` (*Reference agents catalog* section)—upstream bodies are mostly placeholders; **do not** treat them as overrides to `.cursor/agents/*.md` unless explicitly merged.

@@ -1,5 +1,5 @@
 ---
-name: coi-prisma-orm
+name: nezam-prisma-orm
 description: Prisma 6 schema, migrations, type-safe client, seeding, and relations for typed database access.
 version: 1.0.0
 updated: 2026-05-08
@@ -20,9 +20,9 @@ Specify the Prisma 6 schema, migration policy, seeding strategy, and client usag
 
 # Inputs
 
-- Domain model + entity inventory from `docs/core/required/sdd/` and `@.cursor/skills/coi-content-modeling/SKILL.md`.
-- API contract from `@.cursor/skills/coi-api-design/SKILL.md`.
-- Performance constraints from `@.cursor/skills/coi-database-optimization/SKILL.md`.
+- Domain model + entity inventory from `docs/core/required/sdd/` and `@.cursor/skills/nezam-content-modeling/SKILL.md`.
+- API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
+- Performance constraints from `@.cursor/skills/nezam-database-optimization/SKILL.md`.
 - Hosting target (Postgres, MySQL, SQLite, MongoDB) and Prisma 6 capabilities.
 
 # Step-by-Step Workflow
@@ -56,7 +56,7 @@ Specify the Prisma 6 schema, migration policy, seeding strategy, and client usag
 - `/PLAN db` consumes schema.
 - `/DEVELOP` runs migrations and queries (without writing app code here).
 - `/SCAN perf security` audits queries and exposure.
-- Pairs with `@.cursor/skills/coi-database-optimization/SKILL.md`, `@.cursor/skills/coi-api-design/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-database-optimization/SKILL.md`, `@.cursor/skills/nezam-api-design/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

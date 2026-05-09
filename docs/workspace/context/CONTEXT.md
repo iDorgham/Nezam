@@ -1,20 +1,22 @@
-# Context Pack
+# NEZAM — Context Pack
+
+> **`/command` do everything.**
 
 This is the primary upload/briefing document for AI assistants when file-count limits are strict.
 
 ## Pipeline Contract
 
-Planning -> SEO -> IA -> Content -> Design -> Development -> Hardening/Release.
+Planning → SEO → IA → Content → Design → Development → Hardening/Release.
 
 Use Specification-Driven Development with repository docs as source of truth.
 
 ## Core Paths
 
 - Product requirements (contract): `docs/core/required/prd/PRD.md`
-- Product requirements (current workspace): `docs/reference/prd/PRD.md`
+- Product requirements (reference copy when used): `docs/reference/prd/PRD.md`
 - SDD docs: `docs/core/required/sdd/`
 - Feature specs: `docs/core/required/features/`
-- Design authority (selected profile): `.cursor/design/<brand>/design.md`
+- Design catalog: `.cursor/design/<brand>/design.md` — **project design system:** root `DESIGN.md` (copy chosen profile with `/START design` or `pnpm run design:apply -- <brand>`)
 - Test matrix: `docs/reports/tests/TEST_MATRIX.md`
 - Progress report: `docs/reports/progress/PROGRESS_REPORT.latest.md`
 - Prompt docs: `docs/core/required/` (or active planning package under `docs/workspace/plans/`)
@@ -48,11 +50,11 @@ Optional fourth file:
 
 AUTO-MANAGED:BEGIN
 ## Auto-Managed Snapshot
-- Last updated UTC: 2026-05-08T11:10:00+00:00
-- Current git branch: template-prep
-- Last commit: 260950f reorganize docs and scripts into category folders; update references
-- Current phase guess: planning/design governance
-- PRD present: yes
-- Design present: yes
-- Progress report present: yes
+- Last updated UTC: _(run hooks or edit after meaningful change)_
+- Current git branch: _(unknown)_
+- Last commit: _(unknown)_
+- Current phase guess: not started (template)
+- PRD present: unknown
+- Design present: unknown
+- Progress report present: yes (template)
 AUTO-MANAGED:END

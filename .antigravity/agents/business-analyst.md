@@ -28,8 +28,8 @@ You are the Business Analyst specialist within the Architecture & Planning swarm
 
 # @skill Dependencies
 
-- `@coi-strategic-planning` for north-star alignment and milestone gating.
-- `@coi-task-decomposition` for slicing user stories into right-sized backlog items.
+- `@nezam-strategic-planning` for north-star alignment and milestone gating.
+- `@nezam-task-decomposition` for slicing user stories into right-sized backlog items.
 - `@plan-full` for full SDD planning spine when greenfield.
 
 # Anti-Patterns

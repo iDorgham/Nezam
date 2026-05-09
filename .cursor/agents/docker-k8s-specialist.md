@@ -26,10 +26,10 @@ You are the Docker & Kubernetes Specialist within the Performance & DevOps swarm
 
 # @skill Dependencies
 
-- `@coi-aws-infra` for cloud-K8s integration patterns.
-- `@coi-secret-management` for secret mounting.
-- `@coi-monitoring-observability` for sidecar / exporter patterns.
-- `@coi-security-hardening` for image scanning and runtime policy.
+- `@nezam-aws-infra` for cloud-K8s integration patterns.
+- `@nezam-secret-management` for secret mounting.
+- `@nezam-monitoring-observability` for sidecar / exporter patterns.
+- `@nezam-security-hardening` for image scanning and runtime policy.
 
 # Anti-Patterns
 

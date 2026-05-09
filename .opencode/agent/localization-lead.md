@@ -33,9 +33,9 @@ Own the locale surface — i18n engineering, RTL/bidi behavior, MENA-market voic
 
 - `.cursor/skills/arabic_content_master/skill.md` for MENA Arabic umbrella and dialect routing.
 - `.cursor/skills/egyptian_arabic_content_master/skill.md` for Masri voice and quality bar.
-- `.cursor/skills/coi-content-modeling/SKILL.md` for locale-aware content schemas.
-- `.cursor/skills/coi-cdn-optimization/SKILL.md` for locale-aware delivery and font loading.
-- `.cursor/skills/coi-ia-taxonomy/SKILL.md` for locale-aware IA and URL strategy.
+- `.cursor/skills/nezam-content-modeling/SKILL.md` for locale-aware content schemas.
+- `.cursor/skills/nezam-cdn-optimization/SKILL.md` for locale-aware delivery and font loading.
+- `.cursor/skills/nezam-ia-taxonomy/SKILL.md` for locale-aware IA and URL strategy.
 
 ## When to invoke
 

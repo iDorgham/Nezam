@@ -34,10 +34,10 @@ Hold the line on Core Web Vitals (LCP < 2.5s, CLS < 0.1, INP < 200ms), bundle si
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
-- [`.cursor/skills/coi-motion-3d-progressive/SKILL.md`](../skills/coi-motion-3d-progressive/SKILL.md)
-- [`.cursor/skills/coi-cdn-optimization/SKILL.md`](../skills/coi-cdn-optimization/SKILL.md)
-- [`.cursor/skills/coi-cache-strategies/SKILL.md`](../skills/coi-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-motion-3d-progressive/SKILL.md`](../skills/nezam-motion-3d-progressive/SKILL.md)
+- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
 
 ## When to invoke
 

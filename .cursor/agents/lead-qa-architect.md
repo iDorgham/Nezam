@@ -33,10 +33,10 @@ Swarm Manager for the QA swarm. Own test strategy: unit, integration, contract, 
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-testing-strategy/SKILL.md`](../skills/coi-testing-strategy/SKILL.md)
-- [`.cursor/skills/coi-testing-automation/SKILL.md`](../skills/coi-testing-automation/SKILL.md)
-- [`.cursor/skills/coi-a11y-automation/SKILL.md`](../skills/coi-a11y-automation/SKILL.md)
-- [`.cursor/skills/coi-scan-fix-loop/SKILL.md`](../skills/coi-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-testing-strategy/SKILL.md`](../skills/nezam-testing-strategy/SKILL.md)
+- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
 
 ## When to invoke
 

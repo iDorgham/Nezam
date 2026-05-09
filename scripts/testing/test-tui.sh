@@ -11,7 +11,7 @@ run_demo() {
   local label="${2:?}"
   local export_cursor="${3:-}"
 
-  COIA_ROOT="${ROOT}" COIA_TUI_FORMAT="${fmt}" CURSOR_CHAT="${export_cursor:-}" bash -s <<'EOSCRIPT' "${SRC}" "${label}"
+  NEZAM_ROOT="${ROOT}" NEZAM_TUI_FORMAT="${fmt}" CURSOR_CHAT="${export_cursor:-}" bash -s <<'EOSCRIPT' "${SRC}" "${label}"
 set -euo pipefail
 SRC="${1:?}"
 LABEL="${2:?}"
@@ -31,15 +31,15 @@ render_table 'Package|Current|Severity' 'lodash|4.17.20|HIGH' 'axios|0.21.1|MEDI
 
 print_badge INFO "Synthetic SCAN-style output"
 
-DELAY="${COIA_TUI_TEST_SLEEP:-0.2}"
+DELAY="${NEZAM_TUI_TEST_SLEEP:-0.2}"
 progress_bar_start 5 "timing demo" || true
 for i in 1 2 3 4 5; do
-  progress_bar_update "${COIA_PB_HANDLE:-}" "${i}" "step ${i}"
+  progress_bar_update "${NEZAM_PB_HANDLE:-}" "${i}" "step ${i}"
   sleep "${DELAY}"
 done
 progress_bar_finish
 
-start_ts="${COIA_CMD_START_TS:-$(date +%s)}"
+start_ts="${NEZAM_CMD_START_TS:-$(date +%s)}"
 end_ts="$(date +%s)"
 print_footer "$(( end_ts - start_ts ))" 0
 EOSCRIPT
@@ -48,7 +48,7 @@ EOSCRIPT
 
 run_demo markdown SCAN_MARKDOWN_SAMPLE ""
 run_demo terminal SCAN_TERMINAL_SAMPLE ""
-COIA_ROOT="${ROOT}" CURSOR_CHAT=1 COIA_TUI_FORMAT=auto bash -s <<'EOSCRIPT' "${SRC}"
+NEZAM_ROOT="${ROOT}" CURSOR_CHAT=1 NEZAM_TUI_FORMAT=auto bash -s <<'EOSCRIPT' "${SRC}"
 set -euo pipefail
 SRC="${1:?}"
 source "${SRC}"

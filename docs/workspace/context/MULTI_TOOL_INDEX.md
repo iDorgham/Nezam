@@ -40,6 +40,26 @@ pnpm ai:check
 - `.cursor/skills/**` -> `.claude/skills/**`, `.antigravity/skills/**`
 - `.cursor/rules/*.mdc` -> memory injection (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`) and rules copy (`.antigravity/rules/**`, `.kilocode/rules/**`)
 
+## Design system contract (same in every client)
+
+Orchestration treats **repository root `DESIGN.md`** as the primary design artifact (legacy: `docs/DESIGN.md`).
+
+| Step | What to do (any tool / terminal) |
+|------|-----------------------------------|
+| Browse profiles | Folders under `.cursor/design/<brand>/` each contain `design.md` (see [`.cursor/design/README.md`](../../.cursor/design/README.md)). |
+| Lock the contract | `pnpm run design:apply -- <brand>` copies the chosen file to **`DESIGN.md`** at repo root. |
+| Cursor shortcut | `/START design` mirrors the same intent (see `.cursor/commands/start.md`). |
+| After changing commands/agents/skills/rules | `pnpm ai:sync` then `pnpm ai:check` so Claude, Codex, Antigravity, Gemini, Qwen, Opencode, and Kilo stay aligned. |
+
+### Clients without a root “memory” file
+
+**Antigravity** and **Kilo** do not receive a generated `CLAUDE.md`-style bundle at repo root. Use:
+
+- Mirrored **commands** (`.antigravity/commands/`, or rules under `.kilocode/rules/`)
+- Human-readable onboarding: **[`docs/START.md`](../START.md)**, **[`docs/workspace/context/CONTEXT.md`](CONTEXT.md)**, and this file
+
+So design selection and `pnpm run design:apply` work the same from any terminal; only the *slash command* UX is Cursor-native.
+
 ## Operational notes
 
 - Generated artifacts are tracked in Git for reviewability.

@@ -1,5 +1,5 @@
 ---
-name: coi-cdn-optimization
+name: nezam-cdn-optimization
 description: Image optimization, prefetch/preload, cache tags, and edge routing for fast global delivery.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Optimize delivery at the CDN/edge: image pipelines, asset prefetch/preload, cach
 
 # Inputs
 
-- Cache strategy from `@.cursor/skills/coi-cache-strategies/SKILL.md`.
-- Hosting target from `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`, or `@.cursor/skills/coi-cloudflare-edge/SKILL.md`.
-- Performance budget from `@.cursor/skills/coi-performance-optimization/SKILL.md`.
-- IA + URL hierarchy from `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
+- Cache strategy from `@.cursor/skills/nezam-cache-strategies/SKILL.md`.
+- Hosting target from `@.cursor/skills/nezam-vercel-deploy/SKILL.md`, `@.cursor/skills/nezam-aws-infra/SKILL.md`, or `@.cursor/skills/nezam-cloudflare-edge/SKILL.md`.
+- Performance budget from `@.cursor/skills/nezam-performance-optimization/SKILL.md`.
+- IA + URL hierarchy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -46,8 +46,8 @@ Optimize delivery at the CDN/edge: image pipelines, asset prefetch/preload, cach
 
 - `/SCAN perf` validates LCP and hit ratio.
 - `/DEVELOP` consumes presets (without writing app code here).
-- Pairs with `@.cursor/skills/coi-cache-strategies/SKILL.md`, `@.cursor/skills/coi-performance-optimization/SKILL.md`, `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-cloudflare-edge/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`.
-- Honors `[.cursor/rules/coia-design-gates-pro.mdc](.cursor/rules/coia-design-gates-pro.mdc)` Gate 6.
+- Pairs with `@.cursor/skills/nezam-cache-strategies/SKILL.md`, `@.cursor/skills/nezam-performance-optimization/SKILL.md`, `@.cursor/skills/nezam-vercel-deploy/SKILL.md`, `@.cursor/skills/nezam-cloudflare-edge/SKILL.md`, `@.cursor/skills/nezam-aws-infra/SKILL.md`.
+- Honors `[.cursor/rules/nezam-design-gates-pro.mdc](.cursor/rules/nezam-design-gates-pro.mdc)` Gate 6.
 
 # Anti-Patterns
 

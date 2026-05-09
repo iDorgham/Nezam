@@ -1,5 +1,5 @@
 ---
-name: coi-github-actions-ci
+name: nezam-github-actions-ci
 description: Deterministic CI/CD workflow authoring for GitHub Actions with required checks, artifact hygiene, and release safety controls.
 version: 1.0.0
 updated: 2026-05-08
@@ -7,7 +7,7 @@ changelog: []
 ---
 
 # Purpose
-Create and maintain production-grade GitHub Actions workflows aligned with COIA SDD gates and `/SCAN`/`/FIX` quality loops.
+Create and maintain production-grade GitHub Actions workflows aligned with NEZAM SDD gates and `/SCAN`/`/FIX` quality loops.
 
 # Inputs
 - Existing `.github/workflows/*.yml` files.

@@ -1,5 +1,5 @@
 ---
-name: coi-serp-feature-targeting
+name: nezam-serp-feature-targeting
 description: Target featured snippets, PAA, local pack, and image/video carousels through deliberate content shaping.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,9 +12,9 @@ Engineer pages to win specific SERP features (featured snippet, People Also Ask,
 
 # Inputs
 
-- Q&A map from `@.cursor/skills/coi-aeo-answer-engines/SKILL.md`.
-- Topical map and anchor strategy from `@.cursor/skills/coi-topical-authority/SKILL.md`.
-- Schema templates from `@.cursor/skills/coi-structured-data-schema/SKILL.md`.
+- Q&A map from `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`.
+- Topical map and anchor strategy from `@.cursor/skills/nezam-topical-authority/SKILL.md`.
+- Schema templates from `@.cursor/skills/nezam-structured-data-schema/SKILL.md`.
 - SERP audit (manual or via Semrush/Ahrefs/SERanking) listing currently-occupied features per query.
 
 # Step-by-Step Workflow
@@ -43,13 +43,13 @@ Engineer pages to win specific SERP features (featured snippet, People Also Ask,
 - `docs/core/required/sdd/SERP_TARGETS.md` (query, feature, eligibility steps, status).
 - Per-page feature checklist.
 - Weekly occupancy report.
-- Schema cross-link to `@.cursor/skills/coi-structured-data-schema/SKILL.md` outputs.
+- Schema cross-link to `@.cursor/skills/nezam-structured-data-schema/SKILL.md` outputs.
 
 # Integration Hooks
 
 - `/PLAN seo` and `/PLAN content` consume SERP targets.
 - `/SCAN seo` validates eligibility checks.
-- Pairs with `@.cursor/skills/coi-aeo-answer-engines/SKILL.md`, `@.cursor/skills/coi-structured-data-schema/SKILL.md`, `@.cursor/skills/coi-topical-authority/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`, `@.cursor/skills/nezam-structured-data-schema/SKILL.md`, `@.cursor/skills/nezam-topical-authority/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
 
 # Anti-Patterns

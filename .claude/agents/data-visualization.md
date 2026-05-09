@@ -42,9 +42,9 @@ Own visual conventions for data: chart selection rules, color systems for catego
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-dashboard-patterns/SKILL.md`](../skills/coi-dashboard-patterns/SKILL.md)
-- [`.cursor/skills/coi-pro-design-tokens/SKILL.md`](../skills/coi-pro-design-tokens/SKILL.md)
-- [`.cursor/skills/coi-a11y-automation/SKILL.md`](../skills/coi-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/nezam-dashboard-patterns/SKILL.md)
+- [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
 
 ## When to invoke
 
@@ -113,9 +113,9 @@ You are the Data Visualization Specialist within the Analytics & Dashboard swarm
 
 # @skill Dependencies
 
-- `@coi-dashboard-patterns` for layout and density patterns.
-- `@coi-performance-optimization` for chart render budgets.
-- `@coi-a11y-automation` for chart a11y testing.
+- `@nezam-dashboard-patterns` for layout and density patterns.
+- `@nezam-performance-optimization` for chart render budgets.
+- `@nezam-a11y-automation` for chart a11y testing.
 
 # Anti-Patterns
 

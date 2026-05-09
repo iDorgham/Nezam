@@ -28,7 +28,7 @@ Route commands, enforce SDD hardlocks, and keep all active swarms aligned to app
 ## Runtime Team Routing
 
 - Assign one manager, one leader, and non-overlapping specialists per workstream.
-- Require handoff packets from `@coi-multi-agent-handoff` for parallel tracks.
+- Require handoff packets from `@nezam-multi-agent-handoff` for parallel tracks.
 - Close every slice with `go`, `no-go`, or `replan` and one next legal command.
 
 ## Standard Response Footer (required)

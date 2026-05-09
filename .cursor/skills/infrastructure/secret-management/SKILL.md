@@ -1,5 +1,5 @@
 ---
-name: coi-secret-management
+name: nezam-secret-management
 description: Secret stores (Vault / AWS SM / Vercel / Doppler), env injection, rotation policies, and least-privilege access.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Specify how secrets are stored, injected, rotated, and accessed across environme
 
 # Inputs
 
-- Hosting target(s) from cloud skills (`coi-vercel-deploy`, `coi-aws-infra`, `coi-cloudflare-edge`).
-- Auth contract from `@.cursor/skills/coi-auth-workflows/SKILL.md`.
-- Compliance regime from `@.cursor/skills/coi-privacy-compliance/SKILL.md`.
-- DevOps pipeline from `@.cursor/skills/coi-devops-pipeline/SKILL.md`.
+- Hosting target(s) from cloud skills (`nezam-vercel-deploy`, `nezam-aws-infra`, `nezam-cloudflare-edge`).
+- Auth contract from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
+- Compliance regime from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
+- DevOps pipeline from `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -46,7 +46,7 @@ Specify how secrets are stored, injected, rotated, and accessed across environme
 
 - `/SCAN security` runs secret scanners.
 - `/SAVE log` records rotations.
-- Pairs with `@.cursor/skills/coi-auth-workflows/SKILL.md`, `@.cursor/skills/coi-security-hardening/SKILL.md`, `@.cursor/skills/coi-devops-pipeline/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-auth-workflows/SKILL.md`, `@.cursor/skills/nezam-security-hardening/SKILL.md`, `@.cursor/skills/nezam-devops-pipeline/SKILL.md`, `@.cursor/skills/nezam-aws-infra/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

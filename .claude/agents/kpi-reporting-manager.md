@@ -36,8 +36,8 @@ Own the KPI definitions, executive reporting cadence, and OKR tracking artifacts
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-strategic-planning/SKILL.md`](../skills/coi-strategic-planning/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/nezam-strategic-planning/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
 
 ## When to invoke
 

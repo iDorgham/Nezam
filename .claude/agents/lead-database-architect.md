@@ -37,10 +37,10 @@ Swarm Manager for the Data & Database swarm. Own schema design, migration safety
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-prisma-orm/SKILL.md`](../skills/coi-prisma-orm/SKILL.md)
-- [`.cursor/skills/coi-supabase-architect/SKILL.md`](../skills/coi-supabase-architect/SKILL.md)
-- [`.cursor/skills/coi-database-optimization/SKILL.md`](../skills/coi-database-optimization/SKILL.md)
-- [`.cursor/skills/coi-cache-strategies/SKILL.md`](../skills/coi-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/nezam-prisma-orm/SKILL.md)
+- [`.cursor/skills/nezam-supabase-architect/SKILL.md`](../skills/nezam-supabase-architect/SKILL.md)
+- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
 
 ## When to invoke
 

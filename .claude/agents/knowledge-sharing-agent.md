@@ -31,8 +31,8 @@ Propagate decisions, learnings, and context across swarms so each swarm doesn't 
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-docs-context-sync/SKILL.md`](../skills/coi-docs-context-sync/SKILL.md)
-- [`.cursor/skills/coi-multi-agent-handoff/SKILL.md`](../skills/coi-multi-agent-handoff/SKILL.md)
+- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/nezam-docs-context-sync/SKILL.md)
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md)
 - [`.cursor/skills/external-ai-report/SKILL.md`](../skills/external-ai-report/SKILL.md)
 
 ## When to invoke

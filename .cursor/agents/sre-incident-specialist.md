@@ -26,10 +26,10 @@ You are the SRE & Incident Response Specialist within the Performance & DevOps s
 
 # @skill Dependencies
 
-- `@coi-monitoring-observability` for incident detection and signals.
-- `@coi-error-tracking` for error correlation.
-- `@coi-risk-mitigation` for fallback planning.
-- `@coi-scan-fix-loop` for follow-up remediation.
+- `@nezam-monitoring-observability` for incident detection and signals.
+- `@nezam-error-tracking` for error correlation.
+- `@nezam-risk-mitigation` for fallback planning.
+- `@nezam-scan-fix-loop` for follow-up remediation.
 
 # Anti-Patterns
 

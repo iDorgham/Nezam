@@ -26,9 +26,9 @@ You are the Real-Time / Streaming Specialist within the Analytics & Dashboard sw
 
 # @skill Dependencies
 
-- `@coi-monitoring-observability` for streaming health metrics.
-- `@coi-cache-strategies` for hot-window state.
-- `@coi-database-optimization` for replica routing.
+- `@nezam-monitoring-observability` for streaming health metrics.
+- `@nezam-cache-strategies` for hot-window state.
+- `@nezam-database-optimization` for replica routing.
 
 # Anti-Patterns
 

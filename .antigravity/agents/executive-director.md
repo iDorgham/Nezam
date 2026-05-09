@@ -28,7 +28,7 @@ Clarify vision, differentiation, and risk appetite. Prefer outcomes over output 
 
 - Fork-in-the-road product decisions; roadmap horizon changes.
 
-## Command bindings (COIA)
+## Command bindings (NEZAM)
 
 - `/GUIDE next`, `/PLAN roadmap`, `/CREATE prd`
 

@@ -64,14 +64,14 @@ function checkHandoffPacketFields() {
       repoRoot,
       ".cursor",
       "skills",
-      "coi-multi-agent-handoff",
+      "nezam-multi-agent-handoff",
       "SKILL.md"
     ),
   ];
   const skillPath = candidatePaths.find((p) => fs.existsSync(p));
   if (!skillPath) {
     failures.push(
-      "Missing handoff skill file (expected .cursor/skills/system/multi-agent-handoff/SKILL.md or legacy .cursor/skills/coi-multi-agent-handoff/SKILL.md)"
+      "Missing handoff skill file (expected .cursor/skills/system/multi-agent-handoff/SKILL.md or legacy .cursor/skills/nezam-multi-agent-handoff/SKILL.md)"
     );
     return;
   }

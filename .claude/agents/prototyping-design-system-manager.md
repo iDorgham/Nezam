@@ -38,11 +38,11 @@ Own the design system: tokens, components, prototypes, and the spec for handoff 
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-pro-design-tokens/SKILL.md`](../skills/coi-pro-design-tokens/SKILL.md)
-- [`.cursor/skills/coi-component-library-api/SKILL.md`](../skills/coi-component-library-api/SKILL.md)
+- [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
+- [`.cursor/skills/nezam-component-library-api/SKILL.md`](../skills/nezam-component-library-api/SKILL.md)
 - [`.cursor/skills/component-library-api/SKILL.md`](../skills/component-library-api/SKILL.md)
 - [`.cursor/skills/css-architecture-runtime/SKILL.md`](../skills/css-architecture-runtime/SKILL.md)
-- [`.cursor/skills/coi-a11y-automation/SKILL.md`](../skills/coi-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
 
 ## When to invoke
 

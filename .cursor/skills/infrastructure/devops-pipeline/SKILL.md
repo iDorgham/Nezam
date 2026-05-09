@@ -1,5 +1,5 @@
 ---
-name: coi-devops-pipeline
+name: nezam-devops-pipeline
 description: GitHub Actions / GitLab CI pipelines with environment promotion, artifact versioning, and rollback.
 version: 1.0.0
 updated: 2026-05-08
@@ -13,9 +13,9 @@ Specify the CI/CD pipeline: build, test, security scans, artifact publish, envir
 # Inputs
 
 - Repo conventions from `@.cursor/skills/git-workflow/SKILL.md`.
-- Hosting target(s) from `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`, or `@.cursor/skills/coi-cloudflare-edge/SKILL.md`.
-- Secrets policy from `@.cursor/skills/coi-secret-management/SKILL.md`.
-- Test strategy from `@.cursor/skills/coi-testing-strategy/SKILL.md`.
+- Hosting target(s) from `@.cursor/skills/nezam-vercel-deploy/SKILL.md`, `@.cursor/skills/nezam-aws-infra/SKILL.md`, or `@.cursor/skills/nezam-cloudflare-edge/SKILL.md`.
+- Secrets policy from `@.cursor/skills/nezam-secret-management/SKILL.md`.
+- Test strategy from `@.cursor/skills/nezam-testing-strategy/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -47,7 +47,7 @@ Specify the CI/CD pipeline: build, test, security scans, artifact publish, envir
 - `/SAVE branch` triggers preview pipeline.
 - `/DEPLOY tag` triggers production promotion.
 - `/SCAN security` runs CodeQL + dependency scans.
-- Pairs with `@.cursor/skills/git-workflow/SKILL.md`, `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-aws-infra/SKILL.md`, `@.cursor/skills/coi-cloudflare-edge/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`.
+- Pairs with `@.cursor/skills/git-workflow/SKILL.md`, `@.cursor/skills/nezam-vercel-deploy/SKILL.md`, `@.cursor/skills/nezam-aws-infra/SKILL.md`, `@.cursor/skills/nezam-cloudflare-edge/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

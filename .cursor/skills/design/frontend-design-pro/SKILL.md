@@ -1,6 +1,6 @@
 ---
-name: coi-frontend-design-pro
-description: Apply high-quality frontend design patterns with token-first implementation rules and COIA gate compliance.
+name: nezam-frontend-design-pro
+description: Apply high-quality frontend design patterns with token-first implementation rules and NEZAM gate compliance.
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

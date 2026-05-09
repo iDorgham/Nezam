@@ -26,9 +26,9 @@ You are the Mobile Push Notifications Specialist within the Mobile swarm, report
 
 # @skill Dependencies
 
-- `@coi-monitoring-observability` for delivery / open-rate dashboards.
-- `@coi-error-tracking` for token / provider error pipelines.
-- `@coi-secret-management` for APNs key / FCM credentials.
+- `@nezam-monitoring-observability` for delivery / open-rate dashboards.
+- `@nezam-error-tracking` for token / provider error pipelines.
+- `@nezam-secret-management` for APNs key / FCM credentials.
 
 # Anti-Patterns
 

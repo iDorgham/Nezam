@@ -28,9 +28,9 @@ You are the Feature Flags Specialist within the CMS & SaaS swarm, reporting to `
 
 # @skill Dependencies
 
-- `@coi-monitoring-observability` for flag-evaluation telemetry.
-- `@coi-cache-strategies` for low-latency edge / runtime evaluation.
-- `@coi-secret-management` for flag-platform credentials.
+- `@nezam-monitoring-observability` for flag-evaluation telemetry.
+- `@nezam-cache-strategies` for low-latency edge / runtime evaluation.
+- `@nezam-secret-management` for flag-platform credentials.
 
 # Anti-Patterns
 

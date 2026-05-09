@@ -33,9 +33,9 @@ Own the test pyramid: unit, integration, contract, and end-to-end tests across w
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-testing-strategy/SKILL.md`](../skills/coi-testing-strategy/SKILL.md)
-- [`.cursor/skills/coi-testing-automation/SKILL.md`](../skills/coi-testing-automation/SKILL.md)
-- [`.cursor/skills/coi-scan-fix-loop/SKILL.md`](../skills/coi-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-testing-strategy/SKILL.md`](../skills/nezam-testing-strategy/SKILL.md)
+- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
 
 ## When to invoke
 

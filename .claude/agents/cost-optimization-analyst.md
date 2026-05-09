@@ -28,10 +28,10 @@ You are the Cost Optimization Analyst within the Architecture & Planning swarm, 
 
 # @skill Dependencies
 
-- `@coi-aws-infra` for cloud cost levers (S3 classes, reserved, savings plans).
-- `@coi-cdn-optimization` for egress and cache-hit cost wins.
-- `@coi-cache-strategies` for compute reduction at the edge / app tier.
-- `@coi-vercel-deploy` for platform pricing tradeoffs.
+- `@nezam-aws-infra` for cloud cost levers (S3 classes, reserved, savings plans).
+- `@nezam-cdn-optimization` for egress and cache-hit cost wins.
+- `@nezam-cache-strategies` for compute reduction at the edge / app tier.
+- `@nezam-vercel-deploy` for platform pricing tradeoffs.
 
 # Anti-Patterns
 

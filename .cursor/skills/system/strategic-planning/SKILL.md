@@ -1,5 +1,5 @@
 ---
-name: coi-strategic-planning
+name: nezam-strategic-planning
 description: Anchor product roadmap, milestone gating, scope control, and resource mapping before any SDD phase begins.
 version: 1.0.0
 updated: 2026-05-08
@@ -45,9 +45,9 @@ Convert business intent and PRD signals into a deterministic, phase-gated roadma
 # Integration Hooks
 
 - `/PLAN sdd` and `/PLAN all` consume the roadmap.
-- Pairs with `@.cursor/skills/coi-phase-gating-roadmap/SKILL.md` for gate transitions.
-- Feeds `@.cursor/skills/coi-task-decomposition/SKILL.md` for epic→task breakdown.
-- Risk surface routes to `@.cursor/skills/coi-risk-mitigation/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-phase-gating-roadmap/SKILL.md` for gate transitions.
+- Feeds `@.cursor/skills/nezam-task-decomposition/SKILL.md` for epic→task breakdown.
+- Risk surface routes to `@.cursor/skills/nezam-risk-mitigation/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)` pipeline order.
 
 # Anti-Patterns

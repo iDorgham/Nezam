@@ -35,9 +35,9 @@ Own the test automation framework, CI integration, parallelization, and the visu
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-testing-automation/SKILL.md`](../skills/coi-testing-automation/SKILL.md)
-- [`.cursor/skills/coi-a11y-automation/SKILL.md`](../skills/coi-a11y-automation/SKILL.md)
-- [`.cursor/skills/coi-github-actions-ci/SKILL.md`](../skills/coi-github-actions-ci/SKILL.md)
+- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
 
 ## When to invoke
 

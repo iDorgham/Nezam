@@ -26,9 +26,9 @@ You are the Observability Specialist within the Performance & DevOps swarm, repo
 
 # @skill Dependencies
 
-- `@coi-monitoring-observability` for tracing and alert routing.
-- `@coi-error-tracking` for crash / error pipelines.
-- `@coi-secret-management` for telemetry credentials.
+- `@nezam-monitoring-observability` for tracing and alert routing.
+- `@nezam-error-tracking` for crash / error pipelines.
+- `@nezam-secret-management` for telemetry credentials.
 
 # Anti-Patterns
 

@@ -33,9 +33,9 @@ Own inbound bug triage: intake from support / observability / customers, severit
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-scan-fix-loop/SKILL.md`](../skills/coi-scan-fix-loop/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
 
 ## When to invoke
 

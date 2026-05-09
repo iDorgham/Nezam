@@ -2,7 +2,7 @@
 
 ---
 name: guide-instructor-domains
-description: Repo-grounded teaching map — which COIA paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
+description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:
   - "docs/workspace/context/CONTEXT.md"
   - "docs/workspace/context/CONTEXT.md"
@@ -15,20 +15,20 @@ updated: 2026-05-08
 changelog: []
 ---
 
-# Guide instructor domains (COIA)
+# Guide instructor domains (NEZAM)
 
 Adapted from [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/skills/guide_instructor_domains/skill.md). Use when teaching **where truth lives** in this repo — do not invent vendor APIs or paths from other workspaces.
 
 ## Domain → where to look
 
-| Domain | COIA anchors |
+| Domain | NEZAM anchors |
 | ------ | ------------- |
-| Security / secrets | [`.github/workflows/`](../../../.github/workflows), [`coi-security-hardening`](../coi-security-hardening/SKILL.md), [`coi-secret-management`](../coi-secret-management/SKILL.md) |
+| Security / secrets | [`.github/workflows/`](../../../.github/workflows), [`nezam-security-hardening`](../nezam-security-hardening/SKILL.md), [`nezam-secret-management`](../nezam-secret-management/SKILL.md) |
 | Planning / SDD | [`docs/workspace/plans/`](../../../docs/workspace/plans), [`docs/core/required/prd/PRD.md`](../../../docs/core/required/prd/PRD.md), [`plan-full`](../plan-full/SKILL.md) |
-| Design / tokens | [`docs/DESIGN.md`](../../../DESIGN.md), [`.cursor/design/<brand>/`](../../design), [`design-md`](../design-md/SKILL.md), [`coi-pro-design-tokens`](../coi-pro-design-tokens/SKILL.md) |
+| Design / tokens | [`docs/DESIGN.md`](../../../DESIGN.md), [`.cursor/design/<brand>/`](../../design), [`design-md`](../design-md/SKILL.md), [`nezam-pro-design-tokens`](../nezam-pro-design-tokens/SKILL.md) |
 | SEO / IA / content | [`seo-ia-content`](../seo-ia-content/SKILL.md), `docs/core/required/sdd/SEO_RESEARCH.md` (when present) |
-| GitHub / CI | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`git-workflow`](../git-workflow/SKILL.md), [`coi-github-actions-ci`](../coi-github-actions-ci/SKILL.md) |
-| Deploy | [`coi-vercel-deploy`](../coi-vercel-deploy/SKILL.md), [`coi-devops-pipeline`](../coi-devops-pipeline/SKILL.md) |
+| GitHub / CI | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`git-workflow`](../git-workflow/SKILL.md), [`nezam-github-actions-ci`](../nezam-github-actions-ci/SKILL.md) |
+| Deploy | [`nezam-vercel-deploy`](../nezam-vercel-deploy/SKILL.md), [`nezam-devops-pipeline`](../nezam-devops-pipeline/SKILL.md) |
 | Agents / skills | [`.cursor/agents/README.md`](../../agents/README.md), [`docs/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md) |
 
 ## Anti-patterns

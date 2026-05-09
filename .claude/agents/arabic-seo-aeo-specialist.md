@@ -23,9 +23,9 @@ Own Arabic **discoverability**: organic keyword strategy, answer-engine optimiza
 
 ## Primary skills / lenses
 
-- `.cursor/skills/coi-aeo-answer-engines/SKILL.md`
-- `.cursor/skills/coi-geo-optimization/SKILL.md`
-- `.cursor/skills/coi-topical-authority/SKILL.md`
+- `.cursor/skills/nezam-aeo-answer-engines/SKILL.md`
+- `.cursor/skills/nezam-geo-optimization/SKILL.md`
+- `.cursor/skills/nezam-topical-authority/SKILL.md`
 - `.cursor/skills/seo-ia-content/SKILL.md`
 - `.cursor/skills/arabic_content_master/skill.md`
 - `.cursor/skills/egyptian_arabic_content_master/seo_keywords_egypt.md`

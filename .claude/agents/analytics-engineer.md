@@ -21,10 +21,10 @@ when: ["/PLAN data", "/DEVELOP data", "metric definition request", "dashboard bu
 - Deprecation plan for any metric or event being retired.
 
 # @skill Dependencies
-- `@coi-database-optimization`
-- `@coi-monitoring-observability`
-- `@coi-content-modeling`
-- `@coi-privacy-compliance`
+- `@nezam-database-optimization`
+- `@nezam-monitoring-observability`
+- `@nezam-content-modeling`
+- `@nezam-privacy-compliance`
 
 # Anti-Patterns
 - Two dashboards computing the "same" metric two different ways.

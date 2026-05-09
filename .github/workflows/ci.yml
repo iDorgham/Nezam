@@ -140,9 +140,9 @@ jobs:
             exit 1
           fi
 
-          # Prevent drift back to deleted legacy rule names.
-          if rg -n "coia-orchestration\\.mdc|coia-sdd-design\\.mdc" docs/workspace/context; then
-            echo "Found legacy rule references in docs/workspace/context."
+          # Prevent drift back to deleted legacy rule names (pre-NEZAM rebrand).
+          if rg -n "coia-orchestration\\.mdc|coia-sdd-design\\.mdc|coia-design-gates-pro\\.mdc" docs/workspace/context; then
+            echo "Found legacy COIA rule references in docs/workspace/context."
             exit 1
           fi
 

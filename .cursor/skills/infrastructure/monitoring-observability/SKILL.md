@@ -1,5 +1,5 @@
 ---
-name: coi-monitoring-observability
+name: nezam-monitoring-observability
 description: OpenTelemetry, structured logging, distributed tracing, and alerting strategy for production observability.
 version: 1.0.0
 updated: 2026-05-08
@@ -14,7 +14,7 @@ Specify the observability stack: structured logs, metrics, distributed traces (O
 
 - Service inventory + SLOs from `docs/core/required/sdd/`.
 - API + gateway specs.
-- Risk register from `@.cursor/skills/coi-risk-mitigation/SKILL.md`.
+- Risk register from `@.cursor/skills/nezam-risk-mitigation/SKILL.md`.
 - DevOps pipeline + cloud target.
 
 # Step-by-Step Workflow
@@ -47,7 +47,7 @@ Specify the observability stack: structured logs, metrics, distributed traces (O
 
 - `/SCAN perf security` consumes monitoring data.
 - `/SAVE log` records SLO reviews.
-- Pairs with `@.cursor/skills/coi-error-tracking/SKILL.md`, `@.cursor/skills/coi-performance-optimization/SKILL.md`, `@.cursor/skills/coi-risk-mitigation/SKILL.md`, `@.cursor/skills/coi-devops-pipeline/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-error-tracking/SKILL.md`, `@.cursor/skills/nezam-performance-optimization/SKILL.md`, `@.cursor/skills/nezam-risk-mitigation/SKILL.md`, `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

@@ -13,7 +13,7 @@ changelog: []
 
 # Purpose
 
-Run the SEO foundation: keyword clustering, meta optimization, canonicalization, crawl-budget control, and translate that into IA + on-page content shells aligned with AEO/GEO. Single-responsibility: SEO fundamentals + IA + content sequencing. (Absorbs the previously-proposed `coi-seo-fundamentals`.)
+Run the SEO foundation: keyword clustering, meta optimization, canonicalization, crawl-budget control, and translate that into IA + on-page content shells aligned with AEO/GEO. Single-responsibility: SEO fundamentals + IA + content sequencing. (Absorbs the previously-proposed `nezam-seo-fundamentals`.)
 
 # Inputs
 
@@ -30,7 +30,7 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 4. Per route define: title-tag pattern (≤ 60 chars), meta-description skeleton (140–160 chars), H1/H2 scaffolding aligned to intent, internal links, canonical URL.
 5. Set canonical + crawl controls: rel-canonical per page, `robots.txt`, `sitemap.xml`, hreflang for locales; control crawl budget on faceted/paginated surfaces.
 6. CTA + microcopy per route consistent with voice guidelines; maintain a glossary for product-specific terminology.
-7. Hand off to GEO (`@.cursor/skills/coi-geo-optimization/SKILL.md`), AEO (`@.cursor/skills/coi-aeo-answer-engines/SKILL.md`), schema (`@.cursor/skills/coi-structured-data-schema/SKILL.md`), topical-authority (`@.cursor/skills/coi-topical-authority/SKILL.md`), and SERP-feature (`@.cursor/skills/coi-serp-feature-targeting/SKILL.md`).
+7. Hand off to GEO (`@.cursor/skills/nezam-geo-optimization/SKILL.md`), AEO (`@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`), schema (`@.cursor/skills/nezam-structured-data-schema/SKILL.md`), topical-authority (`@.cursor/skills/nezam-topical-authority/SKILL.md`), and SERP-feature (`@.cursor/skills/nezam-serp-feature-targeting/SKILL.md`).
 
 # Validation & Metrics
 
@@ -52,7 +52,7 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 - `/PLAN seo|ia|content` runs this skill.
 - `/SCAN seo` validates titles, metas, canonical, sitemap, robots.
-- Pairs with `@.cursor/skills/coi-geo-optimization/SKILL.md`, `@.cursor/skills/coi-aeo-answer-engines/SKILL.md`, `@.cursor/skills/coi-structured-data-schema/SKILL.md`, `@.cursor/skills/coi-topical-authority/SKILL.md`, `@.cursor/skills/coi-serp-feature-targeting/SKILL.md`, `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-geo-optimization/SKILL.md`, `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`, `@.cursor/skills/nezam-structured-data-schema/SKILL.md`, `@.cursor/skills/nezam-topical-authority/SKILL.md`, `@.cursor/skills/nezam-serp-feature-targeting/SKILL.md`, `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)` and `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns
@@ -73,4 +73,4 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 ## Reference library provenance
 
-- Instructor-oriented domain routing (teaching, not execution): [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/skills/guide_instructor_domains/skill.md). Use for pedagogy patterns only; **this** skill owns COIA SEO/IA artifact paths (`docs/core/required/sdd/`, PRD).
+- Instructor-oriented domain routing (teaching, not execution): [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/skills/guide_instructor_domains/skill.md). Use for pedagogy patterns only; **this** skill owns NEZAM SEO/IA artifact paths (`docs/core/required/sdd/`, PRD).

@@ -1,5 +1,5 @@
 ---
-name: coi-risk-mitigation
+name: nezam-risk-mitigation
 description: Track technical debt, run failure-mode analysis, and define fallback plans for high-risk slices before /DEVELOP.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 
 # Inputs
 
-- Risk-tagged tasks from `@.cursor/skills/coi-task-decomposition/SKILL.md`.
+- Risk-tagged tasks from `@.cursor/skills/nezam-task-decomposition/SKILL.md`.
 - Architectural decisions in `docs/core/required/sdd/`.
 - `docs/DESIGN.md` motion/3D/perf-sensitive surfaces.
-- Security baseline from `@.cursor/skills/coi-security-hardening/SKILL.md`.
+- Security baseline from `@.cursor/skills/nezam-security-hardening/SKILL.md`.
 - Past incident notes under `docs/workspace/context/`.
 
 # Step-by-Step Workflow
@@ -24,7 +24,7 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 2. For high-risk tasks, perform FMEA: failure mode → effect → cause → detection → severity × likelihood × detectability score.
 3. Define fallback plan per high-risk surface (e.g., 3D fallback chain, feature flag, circuit breaker, cached response).
 4. Link mitigation tasks back to `docs/workspace/plans/<phase>/<slice>/TASKS.md` so they cannot be skipped.
-5. Add observability hooks (alerts, error budgets) routed to `@.cursor/skills/coi-monitoring-observability/SKILL.md`.
+5. Add observability hooks (alerts, error budgets) routed to `@.cursor/skills/nezam-monitoring-observability/SKILL.md`.
 6. Schedule debt-paydown windows per phase; cap accepted debt at agreed threshold.
 7. Re-score risks at every phase gate; raise blocker if score regresses.
 
@@ -47,8 +47,8 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 - `/PLAN risk` (and `/PLAN all`) consume the register.
 - `/SCAN security`, `/SCAN perf`, `/SCAN a11y` feed evidence into the register.
 - `/SAVE log` records review timestamps.
-- Pairs with `@.cursor/skills/coi-task-decomposition/SKILL.md` upstream and `@.cursor/skills/coi-monitoring-observability/SKILL.md` for runtime detection.
-- Honors `[.cursor/rules/coia-design-gates-pro.mdc](.cursor/rules/coia-design-gates-pro.mdc)` Gate 4 (3D fallback) and Gate 6 (perf/a11y).
+- Pairs with `@.cursor/skills/nezam-task-decomposition/SKILL.md` upstream and `@.cursor/skills/nezam-monitoring-observability/SKILL.md` for runtime detection.
+- Honors `[.cursor/rules/nezam-design-gates-pro.mdc](.cursor/rules/nezam-design-gates-pro.mdc)` Gate 4 (3D fallback) and Gate 6 (perf/a11y).
 
 # Anti-Patterns
 

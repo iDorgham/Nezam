@@ -36,9 +36,9 @@ Swarm Manager for the Architecture & Planning swarm. Owns system shape, boundari
 ## Primary skills / lenses
 
 - `ARCHITECTURE.md`, ADRs in specs, `/SCAN all` triage
-- [`.cursor/skills/coi-strategic-planning/SKILL.md`](../skills/coi-strategic-planning/SKILL.md)
-- [`.cursor/skills/coi-task-decomposition/SKILL.md`](../skills/coi-task-decomposition/SKILL.md)
-- [`.cursor/skills/coi-risk-mitigation/SKILL.md`](../skills/coi-risk-mitigation/SKILL.md)
+- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/nezam-strategic-planning/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
 - [`.cursor/skills/plan-full/SKILL.md`](../skills/plan-full/SKILL.md)
 
 ## When to invoke

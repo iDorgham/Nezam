@@ -26,9 +26,9 @@ You are the Vector Store Specialist within the Data & Database swarm, reporting 
 
 # @skill Dependencies
 
-- `@coi-cache-strategies` for caching expensive embedding calls.
-- `@coi-monitoring-observability` for retrieval-quality dashboards.
-- `@coi-database-optimization` when vectors live in pgvector.
+- `@nezam-cache-strategies` for caching expensive embedding calls.
+- `@nezam-monitoring-observability` for retrieval-quality dashboards.
+- `@nezam-database-optimization` when vectors live in pgvector.
 
 # Anti-Patterns
 

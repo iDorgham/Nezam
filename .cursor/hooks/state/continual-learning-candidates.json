@@ -1,12 +1,15 @@
 {
-  "generatedAt": "2026-05-08T08:22:00.770Z",
+  "generatedAt": "2026-05-09T17:19:00.843Z",
   "transcriptsRoot": "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts",
-  "totalCandidates": 2,
+  "totalCandidates": 5,
   "batchSize": 25,
   "batches": [
     [
+      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts/f71cd1a1-3779-46f3-ab55-d36c4a506e1c/f71cd1a1-3779-46f3-ab55-d36c4a506e1c.jsonl",
       "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts/a8563d4d-56f6-4998-80d8-46fb8f8ed768/a8563d4d-56f6-4998-80d8-46fb8f8ed768.jsonl",
-      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts/5c205c21-2ac1-4230-aaab-3c0095bd70c3/5c205c21-2ac1-4230-aaab-3c0095bd70c3.jsonl"
+      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts/4b367fbe-7f0b-4a9e-ac18-b158d4c9106f/4b367fbe-7f0b-4a9e-ac18-b158d4c9106f.jsonl",
+      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts/4b367fbe-7f0b-4a9e-ac18-b158d4c9106f/subagents/9cfede50-625a-4d21-9c21-eb716a45f5a6.jsonl",
+      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-COIA/agent-transcripts/02deae1a-70c1-434c-8156-efdc1d79caec/subagents/325eac3d-e2b5-4ba1-8926-59041e88519b.jsonl"
     ]
   ]
 }

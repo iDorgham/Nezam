@@ -1,5 +1,5 @@
 ---
-name: coi-database-optimization
+name: nezam-database-optimization
 description: Index strategies, query planning, connection pooling, and read-replica routing for predictable database performance.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Govern database performance: index design, query plan analysis, pooling, replica
 
 # Inputs
 
-- Schema from `@.cursor/skills/coi-prisma-orm/SKILL.md` or `@.cursor/skills/coi-supabase-architect/SKILL.md`.
-- Top queries from observability (`@.cursor/skills/coi-monitoring-observability/SKILL.md`).
+- Schema from `@.cursor/skills/nezam-prisma-orm/SKILL.md` or `@.cursor/skills/nezam-supabase-architect/SKILL.md`.
+- Top queries from observability (`@.cursor/skills/nezam-monitoring-observability/SKILL.md`).
 - Traffic profile (read/write ratio, peak QPS).
-- SLA / latency budget from `@.cursor/skills/coi-performance-optimization/SKILL.md`.
+- SLA / latency budget from `@.cursor/skills/nezam-performance-optimization/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -46,7 +46,7 @@ Govern database performance: index design, query plan analysis, pooling, replica
 
 - `/SCAN perf` runs slow-query analysis.
 - `/DEVELOP` consumes index plans (without writing app code here).
-- Pairs with `@.cursor/skills/coi-prisma-orm/SKILL.md`, `@.cursor/skills/coi-supabase-architect/SKILL.md`, `@.cursor/skills/coi-cache-strategies/SKILL.md`, `@.cursor/skills/coi-monitoring-observability/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-prisma-orm/SKILL.md`, `@.cursor/skills/nezam-supabase-architect/SKILL.md`, `@.cursor/skills/nezam-cache-strategies/SKILL.md`, `@.cursor/skills/nezam-monitoring-observability/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

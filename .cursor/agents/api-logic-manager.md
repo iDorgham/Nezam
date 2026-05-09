@@ -34,9 +34,9 @@ Own API contracts (REST / GraphQL / RPC), request validation, business-logic ser
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-api-design/SKILL.md`](../skills/coi-api-design/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/nezam-api-design/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
 
 ## When to invoke
 

@@ -26,9 +26,9 @@ You are the Threat Modeling Specialist within the Security swarm, reporting to `
 
 # @skill Dependencies
 
-- `@coi-security-hardening` for control taxonomy.
-- `@coi-api-design` for boundary contract review.
-- `@coi-error-tracking` for attack-signal observability.
+- `@nezam-security-hardening` for control taxonomy.
+- `@nezam-api-design` for boundary contract review.
+- `@nezam-error-tracking` for attack-signal observability.
 
 # Anti-Patterns
 

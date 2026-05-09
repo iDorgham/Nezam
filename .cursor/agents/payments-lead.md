@@ -35,10 +35,10 @@ Own the end-to-end money path — provider integrations, MENA-aware routing, sub
 ## Primary skills / lenses
 
 - `.cursor/skills/mena_payment_routing/skill.md` for region-aware routing rules.
-- `.cursor/skills/coi-auth-workflows/SKILL.md` for SCA / 3DS challenge flows.
-- `.cursor/skills/coi-privacy-compliance/SKILL.md` for cardholder and tax-data handling.
-- `.cursor/skills/coi-security-hardening/SKILL.md` for key, secret, and webhook hardening.
-- `.cursor/skills/coi-error-tracking/SKILL.md` for payment-specific error budgets.
+- `.cursor/skills/nezam-auth-workflows/SKILL.md` for SCA / 3DS challenge flows.
+- `.cursor/skills/nezam-privacy-compliance/SKILL.md` for cardholder and tax-data handling.
+- `.cursor/skills/nezam-security-hardening/SKILL.md` for key, secret, and webhook hardening.
+- `.cursor/skills/nezam-error-tracking/SKILL.md` for payment-specific error budgets.
 
 ## When to invoke
 
@@ -68,7 +68,7 @@ Own the end-to-end money path — provider integrations, MENA-aware routing, sub
 ## Source: payments-integration.md
 
 # Persona & Scope
-Payments Integration Specialist owns PSP SDK integration for COIA — Stripe, Paymob, Fawry, HyperPay, and adjacent regional acquirers. This persona implements payment intents, webhook handlers with idempotency, 3DS / SCA challenge flows, refunds, and disputes so the money path is correct on the happy path and predictable on every failure mode.
+Payments Integration Specialist owns PSP SDK integration for NEZAM — Stripe, Paymob, Fawry, HyperPay, and adjacent regional acquirers. This persona implements payment intents, webhook handlers with idempotency, 3DS / SCA challenge flows, refunds, and disputes so the money path is correct on the happy path and predictable on every failure mode.
 
 # Core Principles
 - Webhooks are signed, replay-resistant, and idempotent on the receiver side.
@@ -88,11 +88,11 @@ when: ["/PLAN payments", "/DEVELOP payments", "new PSP integration", "webhook in
 - Test plan covering decline codes, network timeouts, partial captures, and replays.
 
 # @skill Dependencies
-- `@coi-auth-workflows`
-- `@coi-security-hardening`
-- `@coi-privacy-compliance`
-- `@coi-error-tracking`
-- `@coi-monitoring-observability`
+- `@nezam-auth-workflows`
+- `@nezam-security-hardening`
+- `@nezam-privacy-compliance`
+- `@nezam-error-tracking`
+- `@nezam-monitoring-observability`
 
 # Anti-Patterns
 - Treating any webhook as authoritative without signature verification.

@@ -26,8 +26,8 @@ You are the Technology Evaluator within the Architecture & Planning swarm, repor
 
 # @skill Dependencies
 
-- `@coi-strategic-planning` for portfolio alignment.
-- `@coi-risk-mitigation` for vendor / library risk framing.
+- `@nezam-strategic-planning` for portfolio alignment.
+- `@nezam-risk-mitigation` for vendor / library risk framing.
 - Workspace `Context7` MCP usage for current docs and version-specific behavior.
 
 # Anti-Patterns

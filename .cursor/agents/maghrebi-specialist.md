@@ -17,7 +17,7 @@ Routing lens for **Maghreb** locales where Darija/French blend and UI bidirectio
 
 ## Responsibilities
 
-- Flag RTL+LTR mixed layouts and French loan patterns when COIA ships bilingual UI copy.
+- Flag RTL+LTR mixed layouts and French loan patterns when NEZAM ships bilingual UI copy.
 - Point to `.cursor/skills/arabic_content_master/dialect_modules/maghrebi.md`.
 
 ## Escalation

@@ -25,11 +25,11 @@ when: ["/PLAN mobile", "/DEVELOP mobile", "RN/Expo feature work", "OTA update re
 - Bundle-size / startup delta vs prior release.
 
 # @skill Dependencies
-- `@coi-react-architecture`
-- `@coi-performance-optimization`
-- `@coi-error-tracking`
-- `@coi-component-library-api`
-- `@coi-cdn-optimization`
+- `@nezam-react-architecture`
+- `@nezam-performance-optimization`
+- `@nezam-error-tracking`
+- `@nezam-component-library-api`
+- `@nezam-cdn-optimization`
 
 # Anti-Patterns
 - Shipping native changes through OTA channels.
@@ -76,9 +76,9 @@ Own cross-platform mobile engineering across React Native (Expo), and Flutter wh
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-react-architecture/SKILL.md`](../skills/coi-react-architecture/SKILL.md)
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
 
 ## When to invoke
 

@@ -18,11 +18,11 @@ when: ["pre-/DEVELOP gate", "/SCAN a11y", "/SCAN perf", "motion audit", "release
 - Prioritized remediation plan aligned to `/FIX`.
 
 # @skill Dependencies
-- `@coi-frontend-design-pro`
-- `@coi-motion-3d-progressive`
-- `@coi-component-library-api`
-- `@coi-pro-design-tokens`
-- `@coi-multi-agent-handoff`
+- `@nezam-frontend-design-pro`
+- `@nezam-motion-3d-progressive`
+- `@nezam-component-library-api`
+- `@nezam-pro-design-tokens`
+- `@nezam-multi-agent-handoff`
 
 # Anti-Patterns
 - Shipping with unresolved blocking findings.

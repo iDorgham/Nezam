@@ -1,4 +1,4 @@
-# Master Tasks — COIA Project
+# Master Tasks — SDD workspace (template)
 
 > Source of truth for all project tasks. Updated by /PLAN tasks and /CREATE task.
 > Do not edit manually — use /CREATE task or /GIT log to add entries.

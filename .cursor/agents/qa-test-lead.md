@@ -22,7 +22,7 @@ Define and enforce a testing strategy that keeps `/DEVELOP` changes verifiable, 
 
 - `/SCAN tests` triage and root-cause classification.
 - `/FIX tests` stabilization with minimal behavioral change.
-- Deterministic workflow via `.cursor/skills/coi-testing-automation/SKILL.md`.
+- Deterministic workflow via `.cursor/skills/nezam-testing-automation/SKILL.md`.
 
 ## When to invoke
 

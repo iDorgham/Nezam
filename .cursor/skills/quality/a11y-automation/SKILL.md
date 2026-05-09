@@ -1,5 +1,5 @@
 ---
-name: coi-a11y-automation
+name: nezam-a11y-automation
 description: axe-core integration, keyboard-nav testing, screen-reader audits, and contrast checks in CI for WCAG 2.2 AA.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Automate accessibility verification across CI, local dev, and pre-release so WCA
 
 # Inputs
 
-- WCAG mapping from `@.cursor/skills/coi-ui-ux-design/SKILL.md`.
-- Component contracts from `@.cursor/skills/coi-component-library-api/SKILL.md`.
-- Tokens (contrast pairs) from `@.cursor/skills/coi-pro-design-tokens/SKILL.md`.
-- E2E suite scaffold from `@.cursor/skills/coi-testing-strategy/SKILL.md`.
+- WCAG mapping from `@.cursor/skills/nezam-ui-ux-design/SKILL.md`.
+- Component contracts from `@.cursor/skills/nezam-component-library-api/SKILL.md`.
+- Tokens (contrast pairs) from `@.cursor/skills/nezam-pro-design-tokens/SKILL.md`.
+- E2E suite scaffold from `@.cursor/skills/nezam-testing-strategy/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -47,7 +47,7 @@ Automate accessibility verification across CI, local dev, and pre-release so WCA
 
 - `/SCAN a11y` runs the full pipeline.
 - `/FIX` consumes axe reports for triage.
-- Pairs with `@.cursor/skills/coi-ui-ux-design/SKILL.md`, `@.cursor/skills/coi-component-library-api/SKILL.md`, `@.cursor/skills/coi-testing-strategy/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-ui-ux-design/SKILL.md`, `@.cursor/skills/nezam-component-library-api/SKILL.md`, `@.cursor/skills/nezam-testing-strategy/SKILL.md`.
 - Enforces `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)` Gate 6.
 
 # Anti-Patterns

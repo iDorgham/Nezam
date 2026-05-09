@@ -12,12 +12,12 @@ changelog: []
 
 # Purpose
 
-Govern repository hygiene end-to-end: branching model, conventional commits, annotated tags, PR-required checks, branch protection, and dependency automation (Renovate / Dependabot). Single-responsibility: git + GitHub workflow contract. (Absorbs the previously-proposed `coi-github-workflows`.)
+Govern repository hygiene end-to-end: branching model, conventional commits, annotated tags, PR-required checks, branch protection, and dependency automation (Renovate / Dependabot). Single-responsibility: git + GitHub workflow contract. (Absorbs the previously-proposed `nezam-github-workflows`.)
 
 # Inputs
 
 - `docs/core/required/sdd/VERSIONING.md` for semver policy.
-- DevOps pipeline from `@.cursor/skills/coi-devops-pipeline/SKILL.md`.
+- DevOps pipeline from `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
 - Team conventions and repo defaults.
 - Compliance regime affecting retention and audit.
 
@@ -59,7 +59,7 @@ Govern repository hygiene end-to-end: branching model, conventional commits, ann
 - `/SAVE branch|commit|tagplan` runs branching + commit hygiene.
 - `/DEPLOY tag` triggers the release path.
 - `/SCAN security` runs CodeQL + secret scanning.
-- Pairs with `@.cursor/skills/coi-devops-pipeline/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`, `@.cursor/skills/coi-security-hardening/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-devops-pipeline/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`, `@.cursor/skills/nezam-security-hardening/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

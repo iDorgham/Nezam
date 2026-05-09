@@ -1,5 +1,5 @@
 ---
-name: coi-structured-data-schema
+name: nezam-structured-data-schema
 description: JSON-LD implementation, schema.org validation, and rich-snippet targeting aligned to canonical entities.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,9 +12,9 @@ Specify and validate JSON-LD structured data so pages qualify for rich results, 
 
 # Inputs
 
-- Entity inventory from `@.cursor/skills/coi-geo-optimization/SKILL.md`.
-- Q&A map from `@.cursor/skills/coi-aeo-answer-engines/SKILL.md`.
-- Page taxonomy and URL hierarchy from `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
+- Entity inventory from `@.cursor/skills/nezam-geo-optimization/SKILL.md`.
+- Q&A map from `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`.
+- Page taxonomy and URL hierarchy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - Brand identity (logo URL, sameAs links) from `docs/core/required/sdd/`.
 
 # Step-by-Step Workflow
@@ -46,7 +46,7 @@ Specify and validate JSON-LD structured data so pages qualify for rich results, 
 - `/PLAN seo` produces archetype map.
 - `/SCAN seo` runs validation pass.
 - `/DEVELOP` consumes JSON-LD templates during page implementation (without writing app code here).
-- Pairs with `@.cursor/skills/coi-geo-optimization/SKILL.md`, `@.cursor/skills/coi-aeo-answer-engines/SKILL.md`, `@.cursor/skills/coi-serp-feature-targeting/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-geo-optimization/SKILL.md`, `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`, `@.cursor/skills/nezam-serp-feature-targeting/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
 
 # Anti-Patterns

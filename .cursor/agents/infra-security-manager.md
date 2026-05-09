@@ -34,10 +34,10 @@ Own infrastructure-layer security: network policy, container / Kubernetes securi
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-secret-management/SKILL.md`](../skills/coi-secret-management/SKILL.md)
-- [`.cursor/skills/coi-aws-infra/SKILL.md`](../skills/coi-aws-infra/SKILL.md)
-- [`.cursor/skills/coi-cloudflare-edge/SKILL.md`](../skills/coi-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/coi-security-hardening/SKILL.md`](../skills/coi-security-hardening/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/nezam-aws-infra/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
 
 ## When to invoke
 

@@ -24,8 +24,8 @@ You are the Code Review Specialist within the Maintenance & Support swarm, repor
 
 # @skill Dependencies
 
-- `@coi-scan-fix-loop` for actionable follow-up routing.
-- `@coi-risk-mitigation` for safety-of-change framing.
+- `@nezam-scan-fix-loop` for actionable follow-up routing.
+- `@nezam-risk-mitigation` for safety-of-change framing.
 - `@git-workflow` for branch / merge etiquette.
 
 # Anti-Patterns

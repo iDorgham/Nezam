@@ -81,11 +81,11 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Final gate checklist confirming readiness for next phase.
 
 # @skill Dependencies
-- `@coi-multi-agent-handoff`
-- `@coi-frontend-design-pro`
-- `@coi-pro-design-tokens`
-- `@coi-component-library-api`
-- `@coi-motion-3d-progressive`
+- `@nezam-multi-agent-handoff`
+- `@nezam-frontend-design-pro`
+- `@nezam-pro-design-tokens`
+- `@nezam-component-library-api`
+- `@nezam-motion-3d-progressive`
 
 # References
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](README.md).

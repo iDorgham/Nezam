@@ -36,9 +36,9 @@ Own brand expression, visual language, layout systems, typography, color, and mo
 ## Primary skills / lenses
 
 - [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/brand-visual-direction/SKILL.md)
-- [`.cursor/skills/coi-pro-design-tokens/SKILL.md`](../skills/coi-pro-design-tokens/SKILL.md)
+- [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
 - [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
-- [`.cursor/skills/coi-frontend-design-pro/SKILL.md`](../skills/coi-frontend-design-pro/SKILL.md)
+- [`.cursor/skills/nezam-frontend-design-pro/SKILL.md`](../skills/nezam-frontend-design-pro/SKILL.md)
 
 ## When to invoke
 

@@ -2,7 +2,7 @@
   "name": "arabic_content_master",
   "version": "1.0.0",
   "description": "MENA Arabic content umbrella: dialect routing, Ramadan/religious tone, extended channels (WhatsApp, IVR, push), Arabic typography and a11y, and import of the Egyptian (Masri) module as primary depth pack.",
-  "author": "COIA",
+  "author": "NEZAM",
   "license": "Proprietary",
   "tags": [
     "arabic",

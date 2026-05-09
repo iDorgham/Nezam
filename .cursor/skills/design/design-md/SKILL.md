@@ -30,4 +30,4 @@ Iterate with user until narrative reads buildable **without opening Figma** (Fig
 ## Reference library provenance
 
 - Brand palettes and mood boards also live under **`.cursor/design/<brand>/design.md`** (see [`.cursor/design/README.md`](../../design/README.md)). When swapping brands, re-extract tokens into root `docs/DESIGN.md` — do not drift from the chosen brand file.
-- Large third-party design skill packs remain under [`docs/skills/nexu_open_design/`](../../../docs/skills/nexu_open_design/) as a **library only**; promote individual procedures into COIA skills via [`docs/INGEST_QUEUE.md`](../../../docs/INGEST_QUEUE.md), not bulk copy.
+- Large third-party design skill packs remain under [`docs/skills/nexu_open_design/`](../../../docs/skills/nexu_open_design/) as a **library only**; promote individual procedures into NEZAM skills via [`docs/INGEST_QUEUE.md`](../../../docs/INGEST_QUEUE.md), not bulk copy.

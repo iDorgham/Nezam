@@ -33,10 +33,10 @@ Swarm Manager for the Maintenance & Support swarm. Own bug triage, tech-debt spr
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-scan-fix-loop/SKILL.md`](../skills/coi-scan-fix-loop/SKILL.md)
-- [`.cursor/skills/coi-docs-context-sync/SKILL.md`](../skills/coi-docs-context-sync/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/nezam-docs-context-sync/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
 - [`.cursor/skills/git-workflow/SKILL.md`](../skills/git-workflow/SKILL.md)
 
 ## When to invoke

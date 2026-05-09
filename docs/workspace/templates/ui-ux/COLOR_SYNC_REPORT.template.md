@@ -10,7 +10,7 @@ Document semantic color alignment and contrast validation across themes/directio
   - `micro-interaction-designer`
 - appliedRules:
   - `design-dev-gates.mdc`
-  - `coia-design-gates-pro.mdc`
+  - `nezam-design-gates-pro.mdc`
   - `docs-reports-policy.mdc`
 
 ## RACI

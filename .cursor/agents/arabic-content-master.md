@@ -35,10 +35,10 @@ Own Arabic-language content strategy and execution across MENA with **Egyptian A
 - `.cursor/skills/arabic_content_master/skill.md`
 - `.cursor/skills/arabic_content_master/arabic_content_master.md`
 - `.cursor/skills/egyptian_arabic_content_master/skill.md`
-- `.cursor/skills/coi-aeo-answer-engines/SKILL.md`
-- `.cursor/skills/coi-geo-optimization/SKILL.md`
-- `.cursor/skills/coi-topical-authority/SKILL.md`
-- `.cursor/skills/coi-content-modeling/SKILL.md`
+- `.cursor/skills/nezam-aeo-answer-engines/SKILL.md`
+- `.cursor/skills/nezam-geo-optimization/SKILL.md`
+- `.cursor/skills/nezam-topical-authority/SKILL.md`
+- `.cursor/skills/nezam-content-modeling/SKILL.md`
 
 ## Activation triggers
 

@@ -1,5 +1,5 @@
 ---
-name: coi-task-decomposition
+name: nezam-task-decomposition
 description: Decompose epics into right-sized features and tasks with explicit dependencies, slice sizing, and acceptance hooks.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,7 +12,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 
 # Inputs
 
-- Roadmap and phase gates from `@.cursor/skills/coi-strategic-planning/SKILL.md` and `@.cursor/skills/coi-phase-gating-roadmap/SKILL.md`.
+- Roadmap and phase gates from `@.cursor/skills/nezam-strategic-planning/SKILL.md` and `@.cursor/skills/nezam-phase-gating-roadmap/SKILL.md`.
 - `docs/core/required/features/` SPEC.md drafts.
 - `docs/DESIGN.md` component inventory and example pages.
 - Capacity matrix and skill availability.
@@ -24,7 +24,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 3. Decompose each feature into tasks (≤ 1 day scope) sized in points or hours.
 4. Build dependency DAG; flag cycles and cross-phase dependencies as blockers.
 5. Attach acceptance criteria per task: file paths, inputs, expected outputs, verification command.
-6. Tag risk per task (low/medium/high) and route high-risk to `@.cursor/skills/coi-risk-mitigation/SKILL.md`.
+6. Tag risk per task (low/medium/high) and route high-risk to `@.cursor/skills/nezam-risk-mitigation/SKILL.md`.
 7. Persist breakdown to `docs/workspace/plans/<phase>/<feature>/TASKS.md`; update `docs/workspace/plans/MASTER_TASKS.md` rollup.
 
 # Validation & Metrics
@@ -46,7 +46,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 - `/PLAN sdd` and `/PLAN all` consume decomposition.
 - `/DEVELOP` runs against per-task acceptance criteria.
 - `/SAVE branch` creates `feature/<spec-id>-slug` branches per slice.
-- Pairs with `@.cursor/skills/coi-risk-mitigation/SKILL.md` for high-risk routing.
+- Pairs with `@.cursor/skills/nezam-risk-mitigation/SKILL.md` for high-risk routing.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

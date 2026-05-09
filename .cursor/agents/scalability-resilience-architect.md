@@ -27,10 +27,10 @@ You are the Scalability & Resilience Architect within the Architecture & Plannin
 
 # @skill Dependencies
 
-- `@coi-risk-mitigation` for failure-mode analysis and fallback planning.
-- `@coi-performance-optimization` for budget setting on user-facing tiers.
-- `@coi-api-gateway` for rate limiting and resilience at the edge.
-- `@coi-cache-strategies` for stampede prevention and tag-based invalidation.
+- `@nezam-risk-mitigation` for failure-mode analysis and fallback planning.
+- `@nezam-performance-optimization` for budget setting on user-facing tiers.
+- `@nezam-api-gateway` for rate limiting and resilience at the edge.
+- `@nezam-cache-strategies` for stampede prevention and tag-based invalidation.
 
 # Anti-Patterns
 

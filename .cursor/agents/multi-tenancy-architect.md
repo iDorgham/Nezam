@@ -26,10 +26,10 @@ You are the Multi-Tenancy Architect within the CMS & SaaS swarm, reporting to `s
 
 # @skill Dependencies
 
-- `@coi-supabase-architect` for Postgres + RLS patterns.
-- `@coi-prisma-orm` when ORM-mediated access is in scope.
-- `@coi-secret-management` for tenant-scoped secrets.
-- `@coi-monitoring-observability` for per-tenant metrics.
+- `@nezam-supabase-architect` for Postgres + RLS patterns.
+- `@nezam-prisma-orm` when ORM-mediated access is in scope.
+- `@nezam-secret-management` for tenant-scoped secrets.
+- `@nezam-monitoring-observability` for per-tenant metrics.
 
 # Anti-Patterns
 

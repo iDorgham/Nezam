@@ -1,5 +1,5 @@
 ---
-name: coi-vercel-deploy
+name: nezam-vercel-deploy
 description: Vercel CLI, vercel.json, Edge Config, ISR/SSR, and deployment hooks for Next.js and framework-aware projects.
 version: 1.0.0
 updated: 2026-05-08
@@ -20,10 +20,10 @@ Specify Vercel deployment topology: project linking, env vars, build config, run
 
 # Inputs
 
-- React/Next.js architecture from `@.cursor/skills/coi-react-architecture/SKILL.md`.
-- Cache strategy from `@.cursor/skills/coi-cache-strategies/SKILL.md`.
-- Secrets policy from `@.cursor/skills/coi-secret-management/SKILL.md`.
-- CI pipeline from `@.cursor/skills/coi-devops-pipeline/SKILL.md`.
+- React/Next.js architecture from `@.cursor/skills/nezam-react-architecture/SKILL.md`.
+- Cache strategy from `@.cursor/skills/nezam-cache-strategies/SKILL.md`.
+- Secrets policy from `@.cursor/skills/nezam-secret-management/SKILL.md`.
+- CI pipeline from `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -54,7 +54,7 @@ Specify Vercel deployment topology: project linking, env vars, build config, run
 
 - `/DEPLOY` triggers Vercel deploy (with explicit user approval).
 - `/SAVE branch` triggers preview deploys via Git integration.
-- Pairs with `@.cursor/skills/coi-devops-pipeline/SKILL.md`, `@.cursor/skills/coi-cache-strategies/SKILL.md`, `@.cursor/skills/coi-cdn-optimization/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-devops-pipeline/SKILL.md`, `@.cursor/skills/nezam-cache-strategies/SKILL.md`, `@.cursor/skills/nezam-cdn-optimization/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

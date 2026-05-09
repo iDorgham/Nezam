@@ -116,4 +116,4 @@ If any checklist item fails, halt and route back to `/PLAN design` or `/FIX` as 
 
 ## Compatibility Note
 
-If workspace orchestration rules already exist (for example legacy `coia-orchestration` variants), append this rule as a focused design/dev gate layer instead of replacing orchestration governance.
+If workspace orchestration rules already exist (for example legacy `nezam-orchestration` variants), append this rule as a focused design/dev gate layer instead of replacing orchestration governance.

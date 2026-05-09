@@ -37,10 +37,10 @@ Own CI / CD pipelines, environment topology (preview / staging / canary / produc
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-devops-pipeline/SKILL.md`](../skills/coi-devops-pipeline/SKILL.md)
-- [`.cursor/skills/coi-github-actions-ci/SKILL.md`](../skills/coi-github-actions-ci/SKILL.md)
+- [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/nezam-devops-pipeline/SKILL.md)
+- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
 - [`.cursor/skills/git-workflow/SKILL.md`](../skills/git-workflow/SKILL.md)
-- [`.cursor/skills/coi-vercel-deploy/SKILL.md`](../skills/coi-vercel-deploy/SKILL.md)
+- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
 
 ## When to invoke
 

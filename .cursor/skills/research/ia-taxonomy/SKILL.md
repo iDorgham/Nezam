@@ -1,5 +1,5 @@
 ---
-name: coi-ia-taxonomy
+name: nezam-ia-taxonomy
 description: Define navigation hierarchy, URL structure, breadcrumb logic, and taxonomy maps before content creation.
 version: 1.0.0
 updated: 2026-05-08
@@ -13,7 +13,7 @@ Lock site information architecture before content or visuals: navigation labels,
 # Inputs
 
 - Keyword and intent map from `docs/core/required/sdd/SEO_RESEARCH.md`.
-- Topical clusters from `@.cursor/skills/coi-topical-authority/SKILL.md`.
+- Topical clusters from `@.cursor/skills/nezam-topical-authority/SKILL.md`.
 - Audience personas and primary tasks from `docs/core/required/prd/PRD.md`.
 - Existing nav (if redesign) and analytics drop-off data.
 
@@ -46,7 +46,7 @@ Lock site information architecture before content or visuals: navigation labels,
 - `/PLAN ia` produces the artifact.
 - `/PLAN content` and `/PLAN design` depend on locked IA.
 - `/SCAN a11y` validates nav landmarks.
-- Pairs with `@.cursor/skills/coi-topical-authority/SKILL.md`, `@.cursor/skills/coi-content-modeling/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-topical-authority/SKILL.md`, `@.cursor/skills/nezam-content-modeling/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)` and `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

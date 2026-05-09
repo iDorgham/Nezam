@@ -22,8 +22,8 @@ Keep repository organization and contextual documentation accurate, navigable, a
 
 ## Primary skills / lenses
 
-- `.cursor/skills/coi-docs-context-sync/SKILL.md` for deterministic update procedures.
-- `.cursor/skills/coi-repo-file-org/SKILL.md` for structure-safe moves and refactors.
+- `.cursor/skills/nezam-docs-context-sync/SKILL.md` for deterministic update procedures.
+- `.cursor/skills/nezam-repo-file-org/SKILL.md` for structure-safe moves and refactors.
 - `/SAVE log` discipline for durable memory updates.
 
 ## When to invoke

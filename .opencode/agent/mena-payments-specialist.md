@@ -22,10 +22,10 @@ when: ["/PLAN payments", "MENA market rollout", "auth-rate regression", "PSP fai
 
 # @skill Dependencies
 - `@mena_payment_routing`
-- `@coi-monitoring-observability`
-- `@coi-error-tracking`
-- `@coi-privacy-compliance`
-- `@coi-risk-mitigation`
+- `@nezam-monitoring-observability`
+- `@nezam-error-tracking`
+- `@nezam-privacy-compliance`
+- `@nezam-risk-mitigation`
 
 # Anti-Patterns
 - Static, undocumented routing rules buried in code.

@@ -34,9 +34,9 @@ Own the tech-debt register and the periodic debt sprints that pay it down. Decid
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-scan-fix-loop/SKILL.md`](../skills/coi-scan-fix-loop/SKILL.md)
-- [`.cursor/skills/coi-risk-mitigation/SKILL.md`](../skills/coi-risk-mitigation/SKILL.md)
-- [`.cursor/skills/coi-task-decomposition/SKILL.md`](../skills/coi-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
 
 ## When to invoke
 

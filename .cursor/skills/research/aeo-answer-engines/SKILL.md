@@ -1,5 +1,5 @@
 ---
-name: coi-aeo-answer-engines
+name: nezam-aeo-answer-engines
 description: Answer Engine Optimization — concise Q&A structures and voice/assistant-ready formatting for direct answers.
 version: 1.0.0
 updated: 2026-05-08
@@ -45,7 +45,7 @@ Format content so answer engines (Google PAA, voice assistants, chat search) can
 
 - `/PLAN seo` and `/PLAN content` populate Q&A map.
 - `/SCAN seo` validates schema and answer length.
-- Pairs with `@.cursor/skills/coi-geo-optimization/SKILL.md`, `@.cursor/skills/coi-structured-data-schema/SKILL.md`, `@.cursor/skills/coi-serp-feature-targeting/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-geo-optimization/SKILL.md`, `@.cursor/skills/nezam-structured-data-schema/SKILL.md`, `@.cursor/skills/nezam-serp-feature-targeting/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
 
 # Anti-Patterns

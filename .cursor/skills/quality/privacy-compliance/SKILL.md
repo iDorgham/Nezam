@@ -1,5 +1,5 @@
 ---
-name: coi-privacy-compliance
+name: nezam-privacy-compliance
 description: GDPR / CCPA patterns — consent gating, audit logging, right-to-delete, and data residency.
 version: 1.0.0
 updated: 2026-05-08
@@ -13,8 +13,8 @@ Specify privacy controls so the application meets GDPR, CCPA/CPRA, and similar r
 # Inputs
 
 - Data inventory + flow map from `docs/core/required/sdd/`.
-- Auth + access controls from `@.cursor/skills/coi-auth-workflows/SKILL.md`.
-- Editorial workflows for privacy-sensitive content from `@.cursor/skills/coi-editorial-workflows/SKILL.md`.
+- Auth + access controls from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
+- Editorial workflows for privacy-sensitive content from `@.cursor/skills/nezam-editorial-workflows/SKILL.md`.
 - Hosting/regions from cloud skills.
 
 # Step-by-Step Workflow
@@ -48,7 +48,7 @@ Specify privacy controls so the application meets GDPR, CCPA/CPRA, and similar r
 - `/PLAN security` consumes the contract.
 - `/SCAN security` validates consent + tag firing order.
 - `/FIX` consumes DSR backlog.
-- Pairs with `@.cursor/skills/coi-auth-workflows/SKILL.md`, `@.cursor/skills/coi-editorial-workflows/SKILL.md`, `@.cursor/skills/coi-monitoring-observability/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-auth-workflows/SKILL.md`, `@.cursor/skills/nezam-editorial-workflows/SKILL.md`, `@.cursor/skills/nezam-monitoring-observability/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

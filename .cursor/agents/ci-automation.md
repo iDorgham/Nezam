@@ -20,7 +20,7 @@ Design and maintain resilient GitHub automation so `/SCAN` and `/FIX` outcomes a
 
 ## Primary skills / lenses
 
-- `.cursor/skills/coi-github-actions-ci/SKILL.md`.
+- `.cursor/skills/nezam-github-actions-ci/SKILL.md`.
 - CI gate alignment for `/DEVELOP` -> `/SCAN` -> `/FIX` -> `/SAVE`.
 - GitHub Actions best practices: cache discipline, permission hardening, matrix tuning.
 

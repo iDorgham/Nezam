@@ -26,10 +26,10 @@ You are the Encryption & Privacy Specialist within the Security swarm, reporting
 
 # @skill Dependencies
 
-- `@coi-secret-management` for key custody and rotation.
-- `@coi-privacy-compliance` for regulatory alignment.
-- `@coi-security-hardening` for transport / config.
-- `@coi-monitoring-observability` for access-log pipelines.
+- `@nezam-secret-management` for key custody and rotation.
+- `@nezam-privacy-compliance` for regulatory alignment.
+- `@nezam-security-hardening` for transport / config.
+- `@nezam-monitoring-observability` for access-log pipelines.
 
 # Anti-Patterns
 

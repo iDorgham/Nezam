@@ -12,7 +12,7 @@ Existing authoritative gates remain mandatory:
 - `.cursor/rules/workspace-orchestration.mdc`
 - `.cursor/rules/sdd-design.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
-- `.cursor/rules/coia-design-gates-pro.mdc`
+- `.cursor/rules/nezam-design-gates-pro.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/workspace-client-onboarding-gate.mdc`
 

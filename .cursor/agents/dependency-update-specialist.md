@@ -26,9 +26,9 @@ You are the Dependency Update Specialist within the Maintenance & Support swarm,
 
 # @skill Dependencies
 
-- `@coi-scan-fix-loop` for safe iteration.
-- `@coi-gh-security-compliance` for advisory pipelines.
-- `@coi-testing-strategy` to validate behavior.
+- `@nezam-scan-fix-loop` for safe iteration.
+- `@nezam-gh-security-compliance` for advisory pipelines.
+- `@nezam-testing-strategy` to validate behavior.
 
 # Anti-Patterns
 

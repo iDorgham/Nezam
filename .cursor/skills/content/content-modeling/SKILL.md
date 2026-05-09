@@ -1,5 +1,5 @@
 ---
-name: coi-content-modeling
+name: nezam-content-modeling
 description: Design content types, field schemas, reusable blocks, and preview/revision workflows for headless CMSes.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Define a portable, validated content model — types, fields, references, blocks
 
 # Inputs
 
-- IA + taxonomy from `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
-- Page archetype map from `@.cursor/skills/coi-structured-data-schema/SKILL.md`.
-- Editorial role definitions from `@.cursor/skills/coi-editorial-workflows/SKILL.md`.
-- CMS target (Contentful, Sanity, Strapi, Payload, etc.) — from `@.cursor/skills/coi-cms-integration/SKILL.md`.
+- IA + taxonomy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
+- Page archetype map from `@.cursor/skills/nezam-structured-data-schema/SKILL.md`.
+- Editorial role definitions from `@.cursor/skills/nezam-editorial-workflows/SKILL.md`.
+- CMS target (Contentful, Sanity, Strapi, Payload, etc.) — from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -45,7 +45,7 @@ Define a portable, validated content model — types, fields, references, blocks
 
 - `/PLAN content` produces the model.
 - `/DEVELOP` uses migration stubs (without writing app code here).
-- Pairs with `@.cursor/skills/coi-cms-integration/SKILL.md`, `@.cursor/skills/coi-editorial-workflows/SKILL.md`, `@.cursor/skills/coi-ia-taxonomy/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-cms-integration/SKILL.md`, `@.cursor/skills/nezam-editorial-workflows/SKILL.md`, `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
 
 # Anti-Patterns

@@ -1,6 +1,6 @@
 ---
 name: system/skill-composer
-description: Resolve natural-language feature requests into an ordered COIA skill stack with MENA-aware routing.
+description: Resolve natural-language feature requests into an ordered NEZAM skill stack with MENA-aware routing.
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
@@ -23,21 +23,21 @@ Translate a user task description into the correct ordered skill stack automatic
 
 | Signal | Primary skill | Secondary skills |
 |--------|---------------|------------------|
-| add login / auth / sign in | coi-auth-workflows | coi-api-design, coi-security-hardening |
-| payments / stripe / checkout | coi-api-design | coi-auth-workflows, mena_payment_routing (if MENA) |
-| MENA payments / fawry / paymob / tabby | mena_payment_routing | coi-api-design, coi-auth-workflows |
-| database / schema / migrations | coi-supabase-architect OR coi-prisma-orm | coi-database-optimization |
-| design system / tokens / components | coi-pro-design-tokens | token-grid-typography, coi-component-library-api |
-| animation / motion / 3D | coi-motion-3d-progressive | coi-a11y-automation |
-| SEO / ranking / search | seo-ia-content | coi-structured-data-schema, coi-topical-authority |
-| Arabic content / MENA content | arabic_content_master OR egyptian_arabic_content_master | coi-aeo-answer-engines |
-| deploy / hosting / vercel | coi-vercel-deploy | coi-devops-pipeline, coi-cdn-optimization |
-| security / scan / harden | coi-security-hardening | coi-gh-security-compliance, coi-secret-management |
-| performance / speed / lighthouse | coi-performance-optimization | coi-cdn-optimization, coi-cache-strategies |
-| dashboard / analytics / charts | coi-dashboard-patterns | coi-monitoring-observability |
-| CMS / content management / headless | coi-cms-integration | coi-editorial-workflows, coi-content-modeling |
-| test / testing / coverage | coi-testing-strategy | coi-testing-automation |
-| plan / roadmap / phases | coi-strategic-planning | coi-phase-gating-roadmap, plan-full |
+| add login / auth / sign in | nezam-auth-workflows | nezam-api-design, nezam-security-hardening |
+| payments / stripe / checkout | nezam-api-design | nezam-auth-workflows, mena_payment_routing (if MENA) |
+| MENA payments / fawry / paymob / tabby | mena_payment_routing | nezam-api-design, nezam-auth-workflows |
+| database / schema / migrations | nezam-supabase-architect OR nezam-prisma-orm | nezam-database-optimization |
+| design system / tokens / components | nezam-pro-design-tokens | token-grid-typography, nezam-component-library-api |
+| animation / motion / 3D | nezam-motion-3d-progressive | nezam-a11y-automation |
+| SEO / ranking / search | seo-ia-content | nezam-structured-data-schema, nezam-topical-authority |
+| Arabic content / MENA content | arabic_content_master OR egyptian_arabic_content_master | nezam-aeo-answer-engines |
+| deploy / hosting / vercel | nezam-vercel-deploy | nezam-devops-pipeline, nezam-cdn-optimization |
+| security / scan / harden | nezam-security-hardening | nezam-gh-security-compliance, nezam-secret-management |
+| performance / speed / lighthouse | nezam-performance-optimization | nezam-cdn-optimization, nezam-cache-strategies |
+| dashboard / analytics / charts | nezam-dashboard-patterns | nezam-monitoring-observability |
+| CMS / content management / headless | nezam-cms-integration | nezam-editorial-workflows, nezam-content-modeling |
+| test / testing / coverage | nezam-testing-strategy | nezam-testing-automation |
+| plan / roadmap / phases | nezam-strategic-planning | nezam-phase-gating-roadmap, plan-full |
 
 3. Build execution stack in dependency-safe order.
 4. If MENA signals are present, force `mena_mode: true` and include regional payment/content handling.

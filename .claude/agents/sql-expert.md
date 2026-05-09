@@ -28,9 +28,9 @@ You are the SQL Expert specialist within the Data & Database swarm, reporting to
 
 # @skill Dependencies
 
-- `@coi-database-optimization` for indexing and query-plan strategy.
-- `@coi-prisma-orm` for ORM-aware tuning when Prisma is used.
-- `@coi-supabase-architect` for Postgres-on-Supabase specifics (RLS, extensions).
+- `@nezam-database-optimization` for indexing and query-plan strategy.
+- `@nezam-prisma-orm` for ORM-aware tuning when Prisma is used.
+- `@nezam-supabase-architect` for Postgres-on-Supabase specifics (RLS, extensions).
 
 # Anti-Patterns
 

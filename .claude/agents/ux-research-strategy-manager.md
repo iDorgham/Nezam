@@ -36,8 +36,8 @@ Lead user research, journey mapping, and information architecture strategy. Conv
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-ui-ux-design/SKILL.md`](../skills/coi-ui-ux-design/SKILL.md)
-- [`.cursor/skills/coi-ia-taxonomy/SKILL.md`](../skills/coi-ia-taxonomy/SKILL.md)
+- [`.cursor/skills/nezam-ui-ux-design/SKILL.md`](../skills/nezam-ui-ux-design/SKILL.md)
+- [`.cursor/skills/nezam-ia-taxonomy/SKILL.md`](../skills/nezam-ia-taxonomy/SKILL.md)
 - [`.cursor/skills/seo-ia-content/SKILL.md`](../skills/seo-ia-content/SKILL.md)
 
 ## When to invoke

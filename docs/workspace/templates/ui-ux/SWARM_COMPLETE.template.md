@@ -13,7 +13,7 @@ Final execution summary artifact for multi-agent UI/UX swarm runs.
   - `workspace-orchestration.mdc`
   - `sdd-design.mdc`
   - `design-dev-gates.mdc`
-  - `coia-design-gates-pro.mdc`
+  - `nezam-design-gates-pro.mdc`
   - `docs-reports-policy.mdc`
 
 ## RACI

@@ -26,9 +26,9 @@ You are the White-Label / Theming Specialist within the CMS & SaaS swarm, report
 
 # @skill Dependencies
 
-- `@coi-pro-design-tokens` for token override discipline.
-- `@coi-cdn-optimization` for per-tenant asset delivery.
-- `@coi-cloudflare-edge` or `@coi-vercel-deploy` for custom-domain plumbing.
+- `@nezam-pro-design-tokens` for token override discipline.
+- `@nezam-cdn-optimization` for per-tenant asset delivery.
+- `@nezam-cloudflare-edge` or `@nezam-vercel-deploy` for custom-domain plumbing.
 
 # Anti-Patterns
 

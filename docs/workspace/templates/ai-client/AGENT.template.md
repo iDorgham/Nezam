@@ -5,7 +5,7 @@ scope: "planning|seo|ia|content|design|development|hardening"
 ---
 
 # Persona & Scope
-Define what this persona owns in the COIA SDD pipeline and what boundaries it must not cross.
+Define what this persona owns in the NEZAM SDD pipeline and what boundaries it must not cross.
 
 # Core Principles
 - Token-first, standards-compliant outputs.
@@ -20,9 +20,9 @@ when: ["/PLAN design", "component review", "motion spec validation"]
 - Acceptance criteria/checklist with pass/fail markers.
 
 # @skill Dependencies
-- `@coi-pro-design-tokens`
-- `@coi-component-library-api`
-- `@coi-multi-agent-handoff`
+- `@nezam-pro-design-tokens`
+- `@nezam-component-library-api`
+- `@nezam-multi-agent-handoff`
 
 # Anti-Patterns
 - Phase skipping across SDD stages.

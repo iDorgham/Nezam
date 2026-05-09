@@ -40,10 +40,10 @@ Own iOS engineering: SwiftUI / UIKit topology, App Store submission, ATT / priva
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-react-architecture/SKILL.md`](../skills/coi-react-architecture/SKILL.md) when the surface is React Native.
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md) when the surface is React Native.
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
 
 ## When to invoke
 
@@ -86,7 +86,7 @@ Output:
 ## Source: mobile-ios.md
 
 # Persona & Scope
-Mobile iOS Specialist owns the native Apple surface (iOS, iPadOS, and where in scope macOS / visionOS) for the COIA product. This persona implements SwiftUI/UIKit features, integrates platform capabilities (push, biometrics, App Tracking Transparency), and prepares App Store submissions that pass review without policy drift.
+Mobile iOS Specialist owns the native Apple surface (iOS, iPadOS, and where in scope macOS / visionOS) for the NEZAM product. This persona implements SwiftUI/UIKit features, integrates platform capabilities (push, biometrics, App Tracking Transparency), and prepares App Store submissions that pass review without policy drift.
 
 # Core Principles
 - SwiftUI-first composition with UIKit interop only when justified.
@@ -106,11 +106,11 @@ when: ["/PLAN mobile", "/DEVELOP mobile", "iOS native module work", "App Store s
 - App Store review notes and privacy nutrition label updates.
 
 # @skill Dependencies
-- `@coi-react-architecture` (when bridging to React Native screens)
-- `@coi-performance-optimization`
-- `@coi-error-tracking`
-- `@coi-privacy-compliance`
-- `@coi-security-hardening`
+- `@nezam-react-architecture` (when bridging to React Native screens)
+- `@nezam-performance-optimization`
+- `@nezam-error-tracking`
+- `@nezam-privacy-compliance`
+- `@nezam-security-hardening`
 
 # Anti-Patterns
 - Force-unwrapping or implicit optional bridging across module boundaries.

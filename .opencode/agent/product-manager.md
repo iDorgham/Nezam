@@ -28,7 +28,7 @@ Turn specs into phased milestones, acceptance criteria, and exit checks. Surface
 
 - Scoping a vertical slice; reconciling plan vs reality.
 
-## Command bindings (COIA)
+## Command bindings (NEZAM)
 
 - `/PLAN phases`, `/DEVELOP slice`, `/SAVE branch`
 

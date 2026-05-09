@@ -37,9 +37,9 @@ Own compliance posture across GDPR / CCPA, SOC 2, HIPAA, PCI-DSS, and regional d
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-privacy-compliance/SKILL.md`](../skills/coi-privacy-compliance/SKILL.md)
-- [`.cursor/skills/coi-gh-security-compliance/SKILL.md`](../skills/coi-gh-security-compliance/SKILL.md)
-- [`.cursor/skills/coi-secret-management/SKILL.md`](../skills/coi-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
+- [`.cursor/skills/nezam-gh-security-compliance/SKILL.md`](../skills/nezam-gh-security-compliance/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
 
 ## When to invoke
 

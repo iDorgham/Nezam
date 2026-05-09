@@ -26,9 +26,9 @@ You are the NoSQL Expert specialist within the Data & Database swarm, reporting 
 
 # @skill Dependencies
 
-- `@coi-database-optimization` for general indexing and query patterns.
-- `@coi-cache-strategies` when treating Redis as a data layer.
-- `@coi-monitoring-observability` for partition / throughput observability.
+- `@nezam-database-optimization` for general indexing and query patterns.
+- `@nezam-cache-strategies` when treating Redis as a data layer.
+- `@nezam-monitoring-observability` for partition / throughput observability.
 
 # Anti-Patterns
 

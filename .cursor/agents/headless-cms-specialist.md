@@ -26,10 +26,10 @@ You are the Headless CMS Specialist within the CMS & SaaS swarm, reporting to `c
 
 # @skill Dependencies
 
-- `@coi-cms-integration` for vendor patterns and ISR strategies.
-- `@coi-content-modeling` for type design and reusable blocks.
-- `@coi-editorial-workflows` for role + state alignment.
-- `@coi-cdn-optimization` for asset delivery.
+- `@nezam-cms-integration` for vendor patterns and ISR strategies.
+- `@nezam-content-modeling` for type design and reusable blocks.
+- `@nezam-editorial-workflows` for role + state alignment.
+- `@nezam-cdn-optimization` for asset delivery.
 
 # Anti-Patterns
 

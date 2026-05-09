@@ -1,5 +1,5 @@
 ---
-name: coi-decision-journal
+name: nezam-decision-journal
 description: Write plain-language decision entries to docs/workspace/context/DECISIONS_PLAIN.md for founder-readable audit trails.
 version: 1.0.0
 updated: 2026-05-08
@@ -54,7 +54,7 @@ Use this markdown template:
 ```
 
 # Integration Hooks
-- Required at end of `coi-multi-agent-handoff` output flow.
+- Required at end of `nezam-multi-agent-handoff` output flow.
 - Trigger from `/SAVE log` for session-level decisions.
 - Referenced by `/GUIDE status` for recent decision count summary.
 
@@ -66,6 +66,6 @@ Use this markdown template:
 
 # External Reference
 - `docs/workspace/context/DECISIONS_PLAIN.md`
-- `.cursor/skills/coi-multi-agent-handoff/SKILL.md`
+- `.cursor/skills/nezam-multi-agent-handoff/SKILL.md`
 - `.cursor/commands/save.md`
 - `.cursor/commands/guide.md`

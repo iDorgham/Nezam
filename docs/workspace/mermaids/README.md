@@ -1,6 +1,6 @@
 # Workspace Mermaid Index
 
-This folder contains canonical Mermaid diagrams for the COIA workspace governance and Arabic content orchestration model. The goal is to provide visual references that are easy to reuse in planning docs, onboarding material, and execution handoffs.
+This folder contains canonical Mermaid diagrams for the NEZAM workspace governance and Arabic content orchestration model. The goal is to provide visual references that are easy to reuse in planning docs, onboarding material, and execution handoffs.
 
 ## Diagram Catalog
 

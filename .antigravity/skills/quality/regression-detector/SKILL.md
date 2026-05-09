@@ -46,5 +46,5 @@ recommended_actions:
 
 ## Dependencies
 
-- existing testing workflows (`coi-testing-strategy`, `coi-testing-automation`)
+- existing testing workflows (`nezam-testing-strategy`, `nezam-testing-automation`)
 

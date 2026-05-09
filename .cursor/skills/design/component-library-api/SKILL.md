@@ -1,5 +1,5 @@
 ---
-name: coi-component-library-api
+name: nezam-component-library-api
 description: Design typed, variant-driven React component APIs with Storybook, forwardRef, tree-shaking, and a11y defaults.
 version: 1.0.0
 updated: 2026-05-08
@@ -8,15 +8,15 @@ changelog: []
 
 # Purpose
 
-Define reusable React component APIs that are typed, variant-driven, accessible, tree-shakeable, and Storybook-documented. Single-responsibility: component library contract. (Absorbs the previously-proposed `coi-component-library`.)
+Define reusable React component APIs that are typed, variant-driven, accessible, tree-shakeable, and Storybook-documented. Single-responsibility: component library contract. (Absorbs the previously-proposed `nezam-component-library`.)
 
 # Inputs
 
 - `docs/DESIGN.md` component inventory and states.
-- Token contracts from `@.cursor/skills/coi-pro-design-tokens/SKILL.md`.
+- Token contracts from `@.cursor/skills/nezam-pro-design-tokens/SKILL.md`.
 - Grid + typography matrix from `@.cursor/skills/token-grid-typography/SKILL.md`.
-- UX flows + interaction states from `@.cursor/skills/coi-ui-ux-design/SKILL.md`.
-- A11y plan from `@.cursor/skills/coi-a11y-automation/SKILL.md`.
+- UX flows + interaction states from `@.cursor/skills/nezam-ui-ux-design/SKILL.md`.
+- A11y plan from `@.cursor/skills/nezam-a11y-automation/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -48,8 +48,8 @@ Define reusable React component APIs that are typed, variant-driven, accessible,
 
 - `/PLAN design` and `/DEVELOP` consume the contract.
 - `/SCAN code a11y` validates contracts.
-- Pairs with `@.cursor/skills/coi-pro-design-tokens/SKILL.md`, `@.cursor/skills/token-grid-typography/SKILL.md`, `@.cursor/skills/coi-ui-ux-design/SKILL.md`, `@.cursor/skills/coi-a11y-automation/SKILL.md`, `@.cursor/skills/coi-react-architecture/SKILL.md`, `@.cursor/skills/coi-motion-3d-progressive/SKILL.md`.
-- Enforces `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)` Gate 5 and `[.cursor/rules/coia-design-gates-pro.mdc](.cursor/rules/coia-design-gates-pro.mdc)`.
+- Pairs with `@.cursor/skills/nezam-pro-design-tokens/SKILL.md`, `@.cursor/skills/token-grid-typography/SKILL.md`, `@.cursor/skills/nezam-ui-ux-design/SKILL.md`, `@.cursor/skills/nezam-a11y-automation/SKILL.md`, `@.cursor/skills/nezam-react-architecture/SKILL.md`, `@.cursor/skills/nezam-motion-3d-progressive/SKILL.md`.
+- Enforces `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)` Gate 5 and `[.cursor/rules/nezam-design-gates-pro.mdc](.cursor/rules/nezam-design-gates-pro.mdc)`.
 
 # Anti-Patterns
 

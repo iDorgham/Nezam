@@ -34,10 +34,10 @@ Own search engines (Elasticsearch / OpenSearch / Meilisearch), vector stores (pg
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-cache-strategies/SKILL.md`](../skills/coi-cache-strategies/SKILL.md)
-- [`.cursor/skills/coi-cdn-optimization/SKILL.md`](../skills/coi-cdn-optimization/SKILL.md)
-- [`.cursor/skills/coi-cloudflare-edge/SKILL.md`](../skills/coi-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/coi-database-optimization/SKILL.md`](../skills/coi-database-optimization/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md)
 
 ## When to invoke
 

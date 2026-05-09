@@ -36,10 +36,10 @@ Own backend authentication, authorization, session / token boundary, RBAC / ABAC
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-auth-workflows/SKILL.md`](../skills/coi-auth-workflows/SKILL.md)
-- [`.cursor/skills/coi-secret-management/SKILL.md`](../skills/coi-secret-management/SKILL.md)
-- [`.cursor/skills/coi-security-hardening/SKILL.md`](../skills/coi-security-hardening/SKILL.md)
-- [`.cursor/skills/coi-privacy-compliance/SKILL.md`](../skills/coi-privacy-compliance/SKILL.md)
+- [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/nezam-auth-workflows/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
 
 ## When to invoke
 

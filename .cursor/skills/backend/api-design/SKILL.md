@@ -1,5 +1,5 @@
 ---
-name: coi-api-design
+name: nezam-api-design
 description: OpenAPI 3.1 contracts, REST/GraphQL guidelines, versioning, idempotency, and error schemas before implementation.
 version: 1.0.0
 updated: 2026-05-08
@@ -13,9 +13,9 @@ Author API contracts that are typed, versioned, idempotent, and consumer-friendl
 # Inputs
 
 - Domain entities + use cases from `docs/core/required/prd/PRD.md` and `docs/core/required/features/`.
-- Data model from `@.cursor/skills/coi-prisma-orm/SKILL.md` or `@.cursor/skills/coi-supabase-architect/SKILL.md`.
-- Auth model from `@.cursor/skills/coi-auth-workflows/SKILL.md`.
-- Performance & cache constraints from `@.cursor/skills/coi-cache-strategies/SKILL.md`.
+- Data model from `@.cursor/skills/nezam-prisma-orm/SKILL.md` or `@.cursor/skills/nezam-supabase-architect/SKILL.md`.
+- Auth model from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
+- Performance & cache constraints from `@.cursor/skills/nezam-cache-strategies/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -47,7 +47,7 @@ Author API contracts that are typed, versioned, idempotent, and consumer-friendl
 - `/PLAN api` produces the contract.
 - `/DEVELOP` builds handlers against the spec (without writing app code here).
 - `/SCAN security` validates auth and input handling.
-- Pairs with `@.cursor/skills/coi-api-gateway/SKILL.md`, `@.cursor/skills/coi-auth-workflows/SKILL.md`, `@.cursor/skills/coi-cache-strategies/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-api-gateway/SKILL.md`, `@.cursor/skills/nezam-auth-workflows/SKILL.md`, `@.cursor/skills/nezam-cache-strategies/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

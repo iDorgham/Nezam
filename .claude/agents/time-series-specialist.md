@@ -28,9 +28,9 @@ You are the Time-Series Specialist within the Data & Database swarm, reporting t
 
 # @skill Dependencies
 
-- `@coi-database-optimization` for indexing and query-plan strategy.
-- `@coi-monitoring-observability` for metric pipelines.
-- `@coi-cache-strategies` for hot-window caching.
+- `@nezam-database-optimization` for indexing and query-plan strategy.
+- `@nezam-monitoring-observability` for metric pipelines.
+- `@nezam-cache-strategies` for hot-window caching.
 
 # Anti-Patterns
 

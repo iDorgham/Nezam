@@ -8,7 +8,7 @@ Subcommands:
   /START repo       → Link or initialize your git repository
   /START docs       → Create required folder structure and context files
   /START gates      → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
-  /START design     → Browse available design profiles, pick one, copy to DESIGN.md
+  /START design     → Browse `.cursor/design/<brand>/`, pick one, copy to root DESIGN.md (parity: `pnpm run design:apply -- <brand>` in any CLI)
   /START companion  → Generate a briefing you can paste into any external AI (Claude.ai, Gemini, ChatGPT)
   /START all        → Run everything above in sequence (recommended for new projects)
 

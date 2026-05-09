@@ -28,9 +28,9 @@ You are the Technical Feasibility Analyst within the Architecture & Planning swa
 
 # @skill Dependencies
 
-- `@coi-strategic-planning` for milestone alignment.
-- `@coi-risk-mitigation` for pre-mortem framing.
-- `@coi-task-decomposition` for slicing high-risk work.
+- `@nezam-strategic-planning` for milestone alignment.
+- `@nezam-risk-mitigation` for pre-mortem framing.
+- `@nezam-task-decomposition` for slicing high-risk work.
 
 # Anti-Patterns
 

@@ -1,5 +1,5 @@
 ---
-name: coi-editorial-workflows
+name: nezam-editorial-workflows
 description: Draft → review → publish pipelines, role permissions, and version control for content operations.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Govern how content moves from draft through review to publish, with explicit rol
 
 # Inputs
 
-- Content model from `@.cursor/skills/coi-content-modeling/SKILL.md`.
+- Content model from `@.cursor/skills/nezam-content-modeling/SKILL.md`.
 - Brand voice + editorial guidelines from `docs/core/required/PROJECT_PROMPT.md`.
-- CMS capabilities from `@.cursor/skills/coi-cms-integration/SKILL.md`.
-- Compliance requirements from `@.cursor/skills/coi-privacy-compliance/SKILL.md`.
+- CMS capabilities from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
+- Compliance requirements from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -45,7 +45,7 @@ Govern how content moves from draft through review to publish, with explicit rol
 
 - `/PLAN content` produces workflow spec.
 - `/SAVE log` records workflow changes.
-- Pairs with `@.cursor/skills/coi-content-modeling/SKILL.md`, `@.cursor/skills/coi-cms-integration/SKILL.md`, `@.cursor/skills/coi-privacy-compliance/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-content-modeling/SKILL.md`, `@.cursor/skills/nezam-cms-integration/SKILL.md`, `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 - Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
 
 # Anti-Patterns

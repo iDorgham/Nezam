@@ -1,4 +1,6 @@
-# COIA
+# NEZAM
+
+> **`/command` do everything.**
 
 AI workspace orchestration system for **Swarm Teams**, **Specification-Driven Development (SDD)**, and **deterministic GitHub automation**.
 
@@ -11,13 +13,13 @@ AI workspace orchestration system for **Swarm Teams**, **Specification-Driven De
 [![Monorepo](https://img.shields.io/badge/Workspace-Multi%20Client-24292f)](#supported-ai-clients)
 [![Package Manager](https://img.shields.io/badge/Package%20Manager-pnpm-F69220?logo=pnpm&logoColor=fff)](#most-important-pnpm-commands)
 
-Start here: [`docs/START.md`](docs/START.md)
+Start here: [`docs/README.md`](docs/README.md) → [`docs/START.md`](docs/START.md)
 
 ---
 
 ## Long Description
 
-COIA is a governance-first workspace that turns AI-assisted delivery into a predictable system.
+NEZAM is a governance-first workspace that turns AI-assisted delivery into a predictable system.
 It is built for teams that want:
 
 - strict sequencing from discovery to release
@@ -26,11 +28,13 @@ It is built for teams that want:
 - swarm collaboration where each specialist role has bounded responsibilities
 - cross-client compatibility (Cursor, Claude, Codex, Antigravity, Gemini, Qwen, and others)
 
-At its core, COIA prevents random coding by enforcing a single delivery spine:
+At its core, NEZAM prevents random coding by enforcing a single delivery spine:
 
 `Planning -> SEO/IA -> Content -> Design -> Development -> Hardening -> Ship`
 
 This keeps architecture decisions auditable, design quality measurable, and automation outcomes reproducible.
+
+The tagline — **`/command` do everything** — captures the workspace ethos: every meaningful action has a slash command, every command has a deterministic contract, and every contract is enforced before code ships.
 
 ---
 
@@ -55,7 +59,7 @@ This keeps architecture decisions auditable, design quality measurable, and auto
 
 ## Swarm Teams Operating Model
 
-COIA supports a swarm pattern where specialized agents/roles collaborate through explicit handoffs rather than ad-hoc overlap.
+NEZAM supports a swarm pattern where specialized agents/roles collaborate through explicit handoffs rather than ad-hoc overlap.
 
 ### Primary leadership roles
 
@@ -76,7 +80,7 @@ COIA supports a swarm pattern where specialized agents/roles collaborate through
 
 ## SDD Core Model (Design First)
 
-COIA enforces **Specification-Driven Development** as a hard contract:
+NEZAM enforces **Specification-Driven Development** as a hard contract:
 
 1. plan and scope work
 2. complete SEO/IA/content and design artifacts
@@ -89,7 +93,7 @@ Development remains locked until all required artifacts exist:
 
 1. `docs/core/required/prd/PRD.md`
 2. `docs/core/required/PROJECT_PROMPT.md`
-3. `.cursor/design/<brand>/design.md` (UI-facing scopes)
+3. **`DESIGN.md` at repository root** — copy from the chosen catalog profile: `.cursor/design/<brand>/design.md` (see [`.cursor/design/README.md`](.cursor/design/README.md)). Use `/START design` or `pnpm run design:apply -- <brand>`.
 4. `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
 5. every active `docs/workspace/plans/<phase>/<subphase>/` has both:
    - `prompt.json`
@@ -110,7 +114,7 @@ Current repository note:
 
 ## Deterministic GitHub Automation
 
-COIA treats GitHub automation as a deterministic system with visible policy and explicit guardrails.
+NEZAM treats GitHub automation as a deterministic system with visible policy and explicit guardrails.
 
 ### Core automation goals
 
@@ -137,6 +141,8 @@ COIA treats GitHub automation as a deterministic system with visible policy and 
 ---
 
 ## Command Surface
+
+> **`/command` do everything** — every workspace action is a slash command with a deterministic contract.
 
 | Command | Purpose |
 | --- | --- |
@@ -166,7 +172,7 @@ Aliases:
 
 ## Most Important pnpm Commands
 
-These are the highest-value `pnpm` commands for day-to-day COIA workflows.
+These are the highest-value `pnpm` commands for day-to-day NEZAM workflows.
 
 ### Workspace bootstrap and validation
 
@@ -244,7 +250,7 @@ Key templates:
 
 ## Supported AI Clients
 
-COIA keeps `.cursor/` as canonical and syncs generated surfaces for other clients.
+NEZAM keeps `.cursor/` as canonical and syncs generated surfaces for other clients.
 
 | Client group | Entry files |
 | --- | --- |
@@ -293,6 +299,8 @@ Generated reports policy:
   skills/            # Reusable procedures
   agents/            # Role/persona definitions
 docs/
+  README.md          # Documentation hub (entrypoints)
+  assets/            # Static images and artwork for specs/docs
   core/              # Required docs, architecture, versioning
   workspace/         # plans, context, templates, governance docs
   reports/           # generated reports by category
@@ -347,4 +355,3 @@ scripts/             # checks, context updates, workspace tooling
 - Memory model: `docs/workspace/context/MEMORY_ARCHITECTURE.md`
 - External companion context: `docs/workspace/context/CONTEXT.md`
 - Plan index: `docs/workspace/plans/INDEX.md`
-

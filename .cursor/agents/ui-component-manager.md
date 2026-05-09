@@ -34,9 +34,9 @@ Own the implementation of the UI component library: typed, variant-driven primit
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-component-library-api/SKILL.md`](../skills/coi-component-library-api/SKILL.md)
+- [`.cursor/skills/nezam-component-library-api/SKILL.md`](../skills/nezam-component-library-api/SKILL.md)
 - [`.cursor/skills/component-library-api/SKILL.md`](../skills/component-library-api/SKILL.md)
-- [`.cursor/skills/coi-a11y-automation/SKILL.md`](../skills/coi-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
 - [`.cursor/skills/css-architecture-runtime/SKILL.md`](../skills/css-architecture-runtime/SKILL.md)
 
 ## When to invoke

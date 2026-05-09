@@ -1,5 +1,5 @@
 ---
-name: coi-security-hardening
+name: nezam-security-hardening
 description: OWASP Top 10 controls, CSP/security headers, dependency scanning, and SAST/DAST in CI.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Apply baseline security hardening across the application: OWASP Top 10 controls,
 
 # Inputs
 
-- Auth contract from `@.cursor/skills/coi-auth-workflows/SKILL.md`.
-- Gateway policy from `@.cursor/skills/coi-api-gateway/SKILL.md`.
-- DevOps pipeline from `@.cursor/skills/coi-devops-pipeline/SKILL.md`.
-- Compliance regime from `@.cursor/skills/coi-privacy-compliance/SKILL.md`.
+- Auth contract from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
+- Gateway policy from `@.cursor/skills/nezam-api-gateway/SKILL.md`.
+- DevOps pipeline from `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
+- Compliance regime from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -25,7 +25,7 @@ Apply baseline security hardening across the application: OWASP Top 10 controls,
 4. Input validation: Zod schemas at API boundary; reject unknown fields; enforce length/range/regex.
 5. Dependency hygiene: Renovate/Dependabot, weekly; pin majors; verify provenance (npm provenance, Sigstore where possible).
 6. SAST: CodeQL on every PR; secret scanning (gitleaks); SBOM generation (Syft) + vuln scan (Grype/Trivy).
-7. DAST: weekly ZAP/Burp scan against staging; document findings; route to `coi-risk-mitigation`.
+7. DAST: weekly ZAP/Burp scan against staging; document findings; route to `nezam-risk-mitigation`.
 
 # Validation & Metrics
 
@@ -46,7 +46,7 @@ Apply baseline security hardening across the application: OWASP Top 10 controls,
 
 - `/SCAN security` runs scanners.
 - `/FIX` consumes findings.
-- Pairs with `@.cursor/skills/coi-auth-workflows/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`, `@.cursor/skills/coi-privacy-compliance/SKILL.md`, `@.cursor/skills/coi-devops-pipeline/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-auth-workflows/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`, `@.cursor/skills/nezam-privacy-compliance/SKILL.md`, `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

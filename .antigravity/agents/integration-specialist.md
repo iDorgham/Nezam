@@ -28,11 +28,11 @@ You are the Integration Specialist within the Architecture & Planning swarm, rep
 
 # @skill Dependencies
 
-- `@coi-api-design` for contract authoring and schema discipline.
-- `@coi-api-gateway` for inbound rate limits and routing.
-- `@coi-error-tracking` for vendor-error correlation.
-- `@coi-secret-management` for credentials and rotation.
-- `@coi-monitoring-observability` for tracing and alert routing.
+- `@nezam-api-design` for contract authoring and schema discipline.
+- `@nezam-api-gateway` for inbound rate limits and routing.
+- `@nezam-error-tracking` for vendor-error correlation.
+- `@nezam-secret-management` for credentials and rotation.
+- `@nezam-monitoring-observability` for tracing and alert routing.
 
 # Anti-Patterns
 

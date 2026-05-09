@@ -28,9 +28,9 @@ You are the Risk Assessment Specialist within the Architecture & Planning swarm,
 
 # @skill Dependencies
 
-- `@coi-risk-mitigation` for fallback planning and FMEA framing.
-- `@coi-strategic-planning` for risk roll-up at portfolio level.
-- `@coi-phase-gating-roadmap` for risk gates between phases.
+- `@nezam-risk-mitigation` for fallback planning and FMEA framing.
+- `@nezam-strategic-planning` for risk roll-up at portfolio level.
+- `@nezam-phase-gating-roadmap` for risk gates between phases.
 
 # Anti-Patterns
 

@@ -1,10 +1,10 @@
-# Product Requirements Document — COIA Workspace Kit
+# Product Requirements Document — NEZAM Workspace Kit
 
 | Field                | Value |
 | -------------------- | ----- |
 | Owner                | Product |
 | Status               | Draft |
-| Repo                 | COIA (Cursor orchestration workspace) |
+| Repo                 | NEZAM (Cursor orchestration workspace) |
 | Companion AI project | External AI handoff via `docs/core/required/` + `docs/workspace/context/` |
 
 ## Problem & outcomes

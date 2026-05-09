@@ -17,7 +17,7 @@ Own the external boundary of the system: third-party APIs, payment gateways, aut
 ## Team Leader Scope
 
 - Maintain the integration map (vendor -> data flow -> auth model -> SLO).
-- Approve net-new integrations against `coi-api-design`, `coi-api-gateway`, `coi-auth-workflows` skills.
+- Approve net-new integrations against `nezam-api-design`, `nezam-api-gateway`, `nezam-auth-workflows` skills.
 - Coordinate with `payments-lead.md` on PSP routing and `lead-security-officer.md` on auth boundary.
 - Define retry, idempotency, dead-letter, and circuit-breaker policy per integration.
 
@@ -36,10 +36,10 @@ Own the external boundary of the system: third-party APIs, payment gateways, aut
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-api-design/SKILL.md`](../skills/coi-api-design/SKILL.md)
-- [`.cursor/skills/coi-api-gateway/SKILL.md`](../skills/coi-api-gateway/SKILL.md)
-- [`.cursor/skills/coi-auth-workflows/SKILL.md`](../skills/coi-auth-workflows/SKILL.md)
-- [`.cursor/skills/coi-secret-management/SKILL.md`](../skills/coi-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/nezam-api-design/SKILL.md)
+- [`.cursor/skills/nezam-api-gateway/SKILL.md`](../skills/nezam-api-gateway/SKILL.md)
+- [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/nezam-auth-workflows/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
 
 ## When to invoke
 

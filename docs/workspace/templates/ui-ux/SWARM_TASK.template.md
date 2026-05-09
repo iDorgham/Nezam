@@ -16,7 +16,7 @@ Use this template to open a multi-agent UI/UX swarm task with unambiguous routin
 - appliedRules:
   - `workspace-orchestration.mdc`
   - `design-dev-gates.mdc`
-  - `coia-design-gates-pro.mdc`
+  - `nezam-design-gates-pro.mdc`
   - `docs-reports-policy.mdc`
 
 ## RACI

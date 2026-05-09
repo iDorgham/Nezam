@@ -34,11 +34,11 @@ Swarm Manager for the Security swarm. Own threat modeling, secure defaults, depe
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-security-hardening/SKILL.md`](../skills/coi-security-hardening/SKILL.md)
-- [`.cursor/skills/coi-secret-management/SKILL.md`](../skills/coi-secret-management/SKILL.md)
-- [`.cursor/skills/coi-privacy-compliance/SKILL.md`](../skills/coi-privacy-compliance/SKILL.md)
-- [`.cursor/skills/coi-gh-security-compliance/SKILL.md`](../skills/coi-gh-security-compliance/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
+- [`.cursor/skills/nezam-gh-security-compliance/SKILL.md`](../skills/nezam-gh-security-compliance/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
 - OWASP-aligned review for stack; `/SCAN security`.
 
 ## When to invoke

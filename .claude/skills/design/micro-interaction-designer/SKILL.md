@@ -63,5 +63,5 @@ reduced_motion_fallback: "no movement, contrast-only feedback"
 
 - `design-md`
 - `token-grid-typography`
-- `coi-motion-3d-progressive`
+- `nezam-motion-3d-progressive`
 

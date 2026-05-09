@@ -12,7 +12,7 @@ Map active component/library usage to design-system principles and token contrac
   - `token-budget-manager`
 - appliedRules:
   - `design-dev-gates.mdc`
-  - `coia-design-gates-pro.mdc`
+  - `nezam-design-gates-pro.mdc`
 
 ## RACI
 

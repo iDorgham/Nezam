@@ -36,9 +36,9 @@ Own the frontend framework topology: React 19 + Next.js 15 (App Router) by defau
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-react-architecture/SKILL.md`](../skills/coi-react-architecture/SKILL.md)
-- [`.cursor/skills/coi-cache-strategies/SKILL.md`](../skills/coi-cache-strategies/SKILL.md)
-- [`.cursor/skills/coi-vercel-deploy/SKILL.md`](../skills/coi-vercel-deploy/SKILL.md)
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
 
 ## When to invoke
 

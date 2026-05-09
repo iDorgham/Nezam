@@ -1,13 +1,14 @@
 {
-  "name": "coia-workspace-kit",
+  "name": "nezam-workspace-kit",
   "private": true,
-  "description": "Cursor orchestration kit — optional semantic-release for workflow_dispatch automation",
+  "description": "NEZAM — /command do everything. Cursor orchestration kit with optional semantic-release for workflow_dispatch automation.",
   "scripts": {
     "ai:sync": "node scripts/sync-ai-folders.js --write",
     "ai:check": "node scripts/check-ai-drift.js && node scripts/check-sdd-swarm-integrity.js && node scripts/check-skill-frontmatter.js",
     "ai:check:sdd": "node scripts/check-sdd-swarm-integrity.js",
     "check:tokens": "bash scripts/checks/check-design-tokens.sh",
     "check:onboarding": "bash scripts/checks/check-onboarding-readiness.sh",
+    "design:apply": "bash scripts/design/copy-profile-to-design-md.sh",
     "changelog:draft": "node scripts/changelog/draft-from-tasks.js",
     "changelog:finalize": "node scripts/changelog/finalize-from-commit.js",
     "continual-learning": "node scripts/continual-learning/run-silent.js",

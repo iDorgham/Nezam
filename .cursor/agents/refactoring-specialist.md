@@ -26,9 +26,9 @@ You are the Refactoring Specialist within the Maintenance & Support swarm, repor
 
 # @skill Dependencies
 
-- `@coi-scan-fix-loop` for safe iteration.
-- `@coi-task-decomposition` for slicing the refactor.
-- `@coi-testing-strategy` to ensure coverage protects behavior.
+- `@nezam-scan-fix-loop` for safe iteration.
+- `@nezam-task-decomposition` for slicing the refactor.
+- `@nezam-testing-strategy` to ensure coverage protects behavior.
 
 # Anti-Patterns
 

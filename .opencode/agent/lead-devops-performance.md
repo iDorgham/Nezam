@@ -39,14 +39,14 @@ Swarm Manager for the Performance & DevOps swarm. Own CI / CD pipelines, infrast
 ## Primary skills / lenses
 
 - `.github/workflows/**`, `/DEPLOY ship`, `@git-workflow`.
-- [`.cursor/skills/coi-devops-pipeline/SKILL.md`](../skills/coi-devops-pipeline/SKILL.md)
-- [`.cursor/skills/coi-github-actions-ci/SKILL.md`](../skills/coi-github-actions-ci/SKILL.md)
-- [`.cursor/skills/coi-aws-infra/SKILL.md`](../skills/coi-aws-infra/SKILL.md)
-- [`.cursor/skills/coi-vercel-deploy/SKILL.md`](../skills/coi-vercel-deploy/SKILL.md)
-- [`.cursor/skills/coi-cloudflare-edge/SKILL.md`](../skills/coi-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
-- [`.cursor/skills/coi-cdn-optimization/SKILL.md`](../skills/coi-cdn-optimization/SKILL.md)
-- [`.cursor/skills/coi-performance-optimization/SKILL.md`](../skills/coi-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/nezam-devops-pipeline/SKILL.md)
+- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
+- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/nezam-aws-infra/SKILL.md)
+- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
 
 ## When to invoke
 

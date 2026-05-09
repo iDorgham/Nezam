@@ -26,9 +26,9 @@ You are the Flutter Specialist within the Mobile swarm, reporting to `cross-plat
 
 # @skill Dependencies
 
-- `@coi-react-architecture` for adjacent JS-side patterns when relevant.
-- `@coi-performance-optimization` for budget setting and profiling.
-- `@coi-error-tracking` for crash + Dart-error pipelines.
+- `@nezam-react-architecture` for adjacent JS-side patterns when relevant.
+- `@nezam-performance-optimization` for budget setting and profiling.
+- `@nezam-error-tracking` for crash + Dart-error pipelines.
 
 # Anti-Patterns
 

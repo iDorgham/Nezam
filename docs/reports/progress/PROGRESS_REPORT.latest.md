@@ -1,44 +1,33 @@
-# Progress Report — COIA Workspace Kit
+# Progress report — template
 
-Date (UTC): 2026-05-06T12:12:33Z  
-Branch: main  
-Last tag: unknown  
-Phase: Onboarding → alignment (PRD + prompt + DESIGN + TEST_MATRIX)
+Date (UTC): _(update when you refresh this file)_  
+Branch: _(git branch)_  
+Last tag: _(optional)_  
+Phase: _(e.g. 00-define — not started)_
 
 ## Snapshot
 
-Onboarding readiness script passes. Canonical PRD and project prompt are committed. Root `docs/DESIGN.md` and `docs/reports/tests/TEST_MATRIX.md` are being brought online per orchestration alignment plan.
+Workspace reset to template state. Populate this file after meaningful milestones for external AI companions.
 
 ## Done since last report
 
-- Authored `docs/core/required/prd/PRD.md` and `docs/core/required/PROJECT_PROMPT.md`.
-- Verified `bash scripts/checks/check-onboarding-readiness.sh` exits successfully.
+- _(Bullets or “None.”)_
 
 ## In flight
 
-- Resolve active design reference brand → `.cursor/design/` sync.
-- Author root `docs/DESIGN.md` and `docs/reports/tests/TEST_MATRIX.md`.
+- _(Active work.)_
 
-## Risks / questions for external AI
+## Risks / questions
 
-- No production app package at repo root yet—automated tests attach when framework choice lands.
-
-## Helpful prompts used
-
-```prompt
-Implement COIA orchestration alignment plan: unblock /START, sync design reference, DESIGN.md + TEST_MATRIX.md only until approved.
-```
+- _(Optional.)_
 
 ## Next three actions
 
-1. Sync chosen reference `design.md` into `.cursor/design/<brand>/`.
-2. Publish token/component contracts in root `docs/DESIGN.md`.
-3. Fill `docs/reports/tests/TEST_MATRIX.md` from `docs/workspace/plans/INDEX.md` and PRD requirements.
+1. _(_)
+2. _(_)
+3. _(_)
 
 ## Files companion should read next
 
 - `docs/workspace/context/CONTEXT.md`
-- `docs/workspace/context/CONTEXT.md`
-- `docs/DESIGN.md`
-- `docs/core/required/sdd/SEO_RESEARCH.md`
-- `docs/core/required/features/.../SPEC.md`
+- `docs/core/required/prd/PRD.md` (when present and non-template)

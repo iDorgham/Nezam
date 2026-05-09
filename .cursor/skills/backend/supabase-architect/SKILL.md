@@ -1,5 +1,5 @@
 ---
-name: coi-supabase-architect
+name: nezam-supabase-architect
 description: Postgres RLS, Auth flows, Realtime, Edge Functions, and schema management for Supabase-backed apps.
 version: 1.0.0
 updated: 2026-05-08
@@ -20,10 +20,10 @@ Architect Supabase usage: schema with Row-Level Security (RLS), auth providers, 
 
 # Inputs
 
-- Domain model from `@.cursor/skills/coi-prisma-orm/SKILL.md` or direct Postgres schema drafts.
-- API contract from `@.cursor/skills/coi-api-design/SKILL.md`.
-- Auth flows from `@.cursor/skills/coi-auth-workflows/SKILL.md`.
-- Compliance requirements from `@.cursor/skills/coi-privacy-compliance/SKILL.md`.
+- Domain model from `@.cursor/skills/nezam-prisma-orm/SKILL.md` or direct Postgres schema drafts.
+- API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
+- Auth flows from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
+- Compliance requirements from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -56,7 +56,7 @@ Architect Supabase usage: schema with Row-Level Security (RLS), auth providers, 
 - `/PLAN db` consumes schema spec.
 - `/DEVELOP` runs migrations (without writing app code here).
 - `/SCAN security` validates RLS coverage.
-- Pairs with `@.cursor/skills/coi-auth-workflows/SKILL.md`, `@.cursor/skills/coi-database-optimization/SKILL.md`, `@.cursor/skills/coi-secret-management/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-auth-workflows/SKILL.md`, `@.cursor/skills/nezam-database-optimization/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

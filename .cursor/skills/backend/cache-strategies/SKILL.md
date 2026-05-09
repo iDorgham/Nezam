@@ -1,5 +1,5 @@
 ---
-name: coi-cache-strategies
+name: nezam-cache-strategies
 description: HTTP, Redis, edge cache, and tag-based invalidation strategies that prevent stampedes and stale data.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,10 +12,10 @@ Specify caching layers and invalidation contracts: HTTP, runtime cache (Redis/Ve
 
 # Inputs
 
-- API contract from `@.cursor/skills/coi-api-design/SKILL.md`.
-- Gateway policy from `@.cursor/skills/coi-api-gateway/SKILL.md`.
-- CMS webhook spec from `@.cursor/skills/coi-cms-integration/SKILL.md`.
-- Performance budget from `@.cursor/skills/coi-performance-optimization/SKILL.md`.
+- API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
+- Gateway policy from `@.cursor/skills/nezam-api-gateway/SKILL.md`.
+- CMS webhook spec from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
+- Performance budget from `@.cursor/skills/nezam-performance-optimization/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -47,7 +47,7 @@ Specify caching layers and invalidation contracts: HTTP, runtime cache (Redis/Ve
 - `/PLAN api` produces caching map.
 - `/SCAN perf` validates ratios.
 - `/DEVELOP` consumes presets (without writing app code here).
-- Pairs with `@.cursor/skills/coi-api-design/SKILL.md`, `@.cursor/skills/coi-api-gateway/SKILL.md`, `@.cursor/skills/coi-cdn-optimization/SKILL.md`, `@.cursor/skills/coi-vercel-deploy/SKILL.md`, `@.cursor/skills/coi-cloudflare-edge/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-api-design/SKILL.md`, `@.cursor/skills/nezam-api-gateway/SKILL.md`, `@.cursor/skills/nezam-cdn-optimization/SKILL.md`, `@.cursor/skills/nezam-vercel-deploy/SKILL.md`, `@.cursor/skills/nezam-cloudflare-edge/SKILL.md`.
 - Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
 
 # Anti-Patterns

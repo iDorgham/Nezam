@@ -4,7 +4,7 @@ Lightweight routing stubs for MENA Arabic. **Egyptian depth** lives in the sibli
 
 | Module | File | When to load |
 |--------|------|--------------|
-| Egyptian (Masri) | [egyptian.md](egyptian.md) | Egypt market, Egyptian consumer/B2B, default COIA Egyptian work |
+| Egyptian (Masri) | [egyptian.md](egyptian.md) | Egypt market, Egyptian consumer/B2B, default NEZAM Egyptian work |
 | Khaleeji | [khaleeji.md](khaleeji.md) | GCC: UAE, SA, KW, BH, QA, OM |
 | Levantine | [levantine.md](levantine.md) | LB, SY, JO, PS |
 | Maghrebi | [maghrebi.md](maghrebi.md) | MA, DZ, TN, etc. |

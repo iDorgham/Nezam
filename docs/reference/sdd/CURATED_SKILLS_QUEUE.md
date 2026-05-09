@@ -1,8 +1,8 @@
-# Curated external skills queue (COIA)
+# Curated external skills queue (NEZAM)
 
 Allowlist for promoting skills from [skills.sh](https://skills.sh/), [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills), or upstream repos into `.cursor/skills/`.
 
-**Policy:** No bulk copy. Each row requires: source URL, pinned commit SHA, license note, COIA gate checklist (token-first, no absolute paths, progressive disclosure), and owner approval.
+**Policy:** No bulk copy. Each row requires: source URL, pinned commit SHA, license note, NEZAM gate checklist (token-first, no absolute paths, progressive disclosure), and owner approval.
 
 | Skill id (upstream) | Source URL | Commit SHA | License | Gate notes | Status |
 | ------------------- | ----------- | ---------- | ------- | ---------- | ------ |

@@ -34,9 +34,9 @@ Own headless CMS implementation: content models, field schemas, reusable blocks,
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-cms-integration/SKILL.md`](../skills/coi-cms-integration/SKILL.md)
-- [`.cursor/skills/coi-content-modeling/SKILL.md`](../skills/coi-content-modeling/SKILL.md)
-- [`.cursor/skills/coi-editorial-workflows/SKILL.md`](../skills/coi-editorial-workflows/SKILL.md)
+- [`.cursor/skills/nezam-cms-integration/SKILL.md`](../skills/nezam-cms-integration/SKILL.md)
+- [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/nezam-content-modeling/SKILL.md)
+- [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/nezam-editorial-workflows/SKILL.md)
 
 ## When to invoke
 

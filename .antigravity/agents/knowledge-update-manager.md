@@ -36,9 +36,9 @@ Own the knowledge base, runbooks, and post-mortem index for the live product. En
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-docs-context-sync/SKILL.md`](../skills/coi-docs-context-sync/SKILL.md)
-- [`.cursor/skills/coi-multi-agent-handoff/SKILL.md`](../skills/coi-multi-agent-handoff/SKILL.md)
-- [`.cursor/skills/coi-error-tracking/SKILL.md`](../skills/coi-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/nezam-docs-context-sync/SKILL.md)
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
 
 ## When to invoke
 

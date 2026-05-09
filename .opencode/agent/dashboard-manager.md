@@ -36,9 +36,9 @@ Own the dashboard surface for product, growth, ops, and executive consumers. Dec
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/coi-dashboard-patterns/SKILL.md`](../skills/coi-dashboard-patterns/SKILL.md)
-- [`.cursor/skills/coi-monitoring-observability/SKILL.md`](../skills/coi-monitoring-observability/SKILL.md)
-- [`.cursor/skills/coi-frontend-design-pro/SKILL.md`](../skills/coi-frontend-design-pro/SKILL.md)
+- [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/nezam-dashboard-patterns/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-frontend-design-pro/SKILL.md`](../skills/nezam-frontend-design-pro/SKILL.md)
 
 ## When to invoke
 

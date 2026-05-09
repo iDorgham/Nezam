@@ -1,5 +1,5 @@
 ---
-name: coi-dashboard-patterns
+name: nezam-dashboard-patterns
 description: Dense data layouts, filtering/sorting UX, KPI cards, responsive tables, and admin panel composition.
 version: 1.0.0
 updated: 2026-05-08
@@ -13,9 +13,9 @@ Specify dashboard surfaces — KPI cards, filterable tables, charts, panels — 
 # Inputs
 
 - Domain entities + KPIs from `docs/core/required/prd/PRD.md`.
-- Component library contract from `@.cursor/skills/coi-component-library-api/SKILL.md`.
-- Token + grid systems from `@.cursor/skills/coi-pro-design-tokens/SKILL.md` and `@.cursor/skills/token-grid-typography/SKILL.md`.
-- Data API contract from `@.cursor/skills/coi-api-design/SKILL.md`.
+- Component library contract from `@.cursor/skills/nezam-component-library-api/SKILL.md`.
+- Token + grid systems from `@.cursor/skills/nezam-pro-design-tokens/SKILL.md` and `@.cursor/skills/token-grid-typography/SKILL.md`.
+- Data API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
 
 # Step-by-Step Workflow
 
@@ -47,7 +47,7 @@ Specify dashboard surfaces — KPI cards, filterable tables, charts, panels — 
 - `/PLAN design` and `/PLAN dev` consume patterns.
 - `/DEVELOP` builds dashboards against the spec (without writing app code here).
 - `/SCAN a11y perf` validates virtualization and contrast.
-- Pairs with `@.cursor/skills/coi-component-library-api/SKILL.md`, `@.cursor/skills/coi-api-design/SKILL.md`, `@.cursor/skills/coi-performance-optimization/SKILL.md`.
+- Pairs with `@.cursor/skills/nezam-component-library-api/SKILL.md`, `@.cursor/skills/nezam-api-design/SKILL.md`, `@.cursor/skills/nezam-performance-optimization/SKILL.md`.
 - Honors `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)`.
 
 # Anti-Patterns

@@ -45,6 +45,7 @@ Do not proceed to development unless all exist:
 - When changing agents, commands, rules, or skills, edit `.cursor/` as canonical and run `pnpm ai:sync`; avoid hand-editing generated mirrors for those assets.
 - When expanding swarm-style orchestration in this repo, align leadership with PM-01, ARCH-01, DESIGN-01, FE-01, and BE-01 as the primary authorities over specialist agents.
 - Add or revise learned memory only in `docs/workspace/templates/ai-client/AGENTS.md.template.md`, then run `pnpm ai:sync` so root `AGENTS.md` and `.codex/AGENTS.md` regenerate correctly.
+- With Continual Learning enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `docs/workspace/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
 - Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
 - When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `docs/workspace/templates/ai-client/` and `docs/workspace/context/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
 

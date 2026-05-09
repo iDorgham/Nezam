@@ -6,7 +6,52 @@ const path = require("node:path");
 
 const repoRoot = process.cwd();
 const configPath = path.join(repoRoot, "scripts", "tools.config.json");
-const args = new Set(process.argv.slice(2));
+
+function printHelp() {
+  console.log(`sync-ai-folders.js — copy NEZAM .cursor/ governance into generated client trees (per scripts/tools.config.json).
+
+Usage:
+  node scripts/sync-ai-folders.js [options]
+
+Options:
+  --write              Write generated files (omit for drift-only check; exits 1 if drift)
+  --diff               With --write, also print the drift-style file list (check mode always prints drift)
+  --target=<tool-id>   Sync only one tool (e.g. claude, codex, gemini). Default skips id "cursor".
+
+Examples:
+  pnpm run ai:sync
+  node scripts/sync-ai-folders.js --write
+  node scripts/sync-ai-folders.js
+  node scripts/sync-ai-folders.js --target=claude --write
+
+Tool ids (see scripts/tools.config.json): cursor, claude, codex, copilot, opencode, antigravity, gemini, qwen, kilo
+
+Exit codes:
+  0  No drift (check mode), or --write finished
+  1  Drift detected in check mode (no --write)
+  2  Bad CLI flags or unknown --target value
+`);
+}
+
+const rawArgs = process.argv.slice(2);
+if (rawArgs.includes("--help") || rawArgs.includes("-h")) {
+  printHelp();
+  process.exit(0);
+}
+
+for (const arg of rawArgs) {
+  if (!arg.startsWith("-")) continue;
+  if (arg === "--write" || arg === "--diff") continue;
+  if (arg.startsWith("--target=")) continue;
+  console.error(
+    `sync-ai-folders: unknown option "${arg}"\n` +
+      "  node scripts/sync-ai-folders.js --help\n" +
+      "  Typical apply after editing .cursor/: pnpm run ai:sync"
+  );
+  process.exit(2);
+}
+
+const args = new Set(rawArgs);
 const writeMode = args.has("--write");
 const diffMode = args.has("--diff");
 const targetArg = [...args].find((arg) => arg.startsWith("--target="));
@@ -176,7 +221,11 @@ function main() {
   );
 
   if (targetFilter && tools.length === 0) {
-    console.error(`Unknown target tool: ${targetFilter}`);
+    console.error(
+      `Unknown target tool: ${targetFilter}\n` +
+        "  node scripts/sync-ai-folders.js --target=<tool-id> --write\n" +
+        "  Valid ids are listed under tools[].id in scripts/tools.config.json (e.g. claude, codex, gemini)."
+    );
     process.exit(2);
   }
 

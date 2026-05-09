@@ -1,195 +1,258 @@
+<div align="center">
+
 # NEZAM
+
+**Turn AI from a chat toy into a repeatable delivery system — built for solo founders and tiny teams.**
 
 > **`/command` do everything.**
 
-AI workspace orchestration system for **Swarm Teams**, **Specification-Driven Development (SDD)**, and **deterministic GitHub automation**.
+[![CI](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3Aci)
+[![Design Gates](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml/badge.svg)](https://github.com/iDorgham/Nezam/actions?query=workflow%3A%22Design+Gates%22)
+[![Methodology: SDD](https://img.shields.io/badge/Methodology-SDD-1f6feb.svg?style=flat-square)](https://github.com/iDorgham/Nezam#specification-driven-development-sdd)
+[![Audience: Indie](https://img.shields.io/badge/Audience-Indie%20%26%20small%20teams-6f42c1.svg?style=flat-square)](https://github.com/iDorgham/Nezam#for-indie-developers-and-small-teams)
+[![Package Manager](https://img.shields.io/badge/pnpm-workspace-F69220?logo=pnpm&logoColor=fff&style=flat-square)](https://pnpm.io/)
+[![Cursor](https://img.shields.io/badge/Cursor-orchestration-000000?logo=cursor&logoColor=fff&style=flat-square)](https://cursor.com/)
+[![Multi-client](https://img.shields.io/badge/AI%20clients-synced-24292f.svg?style=flat-square)](https://github.com/iDorgham/Nezam/blob/main/docs/workspace/context/MULTI_TOOL_INDEX.md)
 
-[![Methodology: SDD](https://img.shields.io/badge/Methodology-SDD-1f6feb)](#sdd-core-model-design-first)
-[![Execution: Swarm Teams](https://img.shields.io/badge/Execution-Swarm%20Teams-6f42c1)](#swarm-teams-operating-model)
-[![Design Gate](https://img.shields.io/badge/Design-Gate%20Required-d97706)](#sdd-core-model-design-first)
-[![Automation](https://img.shields.io/badge/Automation-Deterministic%20GitHub-0e8a16)](#deterministic-github-automation)
-[![Commands](https://img.shields.io/badge/Commands-START%20PLAN%20DEVELOP-0366d6)](#command-surface)
-[![Context Sync](https://img.shields.io/badge/Context-Synced%20Memory-8250df)](#context-memory-and-reporting)
-[![Monorepo](https://img.shields.io/badge/Workspace-Multi%20Client-24292f)](#supported-ai-clients)
-[![Package Manager](https://img.shields.io/badge/Package%20Manager-pnpm-F69220?logo=pnpm&logoColor=fff)](#most-important-pnpm-commands)
+[Documentation hub](docs/README.md) · [Start guide](docs/START.md) · [Gate matrix](docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json)
 
-Start here: [`docs/README.md`](docs/README.md) → [`docs/START.md`](docs/START.md)
-
----
-
-## Long Description
-
-NEZAM is a governance-first workspace that turns AI-assisted delivery into a predictable system.
-It is built for teams that want:
-
-- strict sequencing from discovery to release
-- design-approved implementation only (no bypassing design contracts)
-- deterministic CI behavior and explicit GitHub gate policies
-- swarm collaboration where each specialist role has bounded responsibilities
-- cross-client compatibility (Cursor, Claude, Codex, Antigravity, Gemini, Qwen, and others)
-
-At its core, NEZAM prevents random coding by enforcing a single delivery spine:
-
-`Planning -> SEO/IA -> Content -> Design -> Development -> Hardening -> Ship`
-
-This keeps architecture decisions auditable, design quality measurable, and automation outcomes reproducible.
-
-The tagline — **`/command` do everything** — captures the workspace ethos: every meaningful action has a slash command, every command has a deterministic contract, and every contract is enforced before code ships.
+</div>
 
 ---
 
-## Table of Contents
+## Table of contents
 
-- [Long Description](#long-description)
-- [Swarm Teams Operating Model](#swarm-teams-operating-model)
-- [SDD Core Model (Design First)](#sdd-core-model-design-first)
-- [Deterministic GitHub Automation](#deterministic-github-automation)
-- [Command Surface](#command-surface)
-- [Most Important pnpm Commands](#most-important-pnpm-commands)
-- [Quick Start](#quick-start)
-- [Prompt Artifacts and Gate Contracts](#prompt-artifacts-and-gate-contracts)
-- [Supported AI Clients](#supported-ai-clients)
-- [Context, Memory, and Reporting](#context-memory-and-reporting)
-- [Directory Map](#directory-map)
-- [Daily Operating Loops](#daily-operating-loops)
+- [In plain English (for everyone)](#in-plain-english-for-everyone)
+- [For indie developers and small teams](#for-indie-developers-and-small-teams)
+- [What NEZAM gives you](#what-nezam-gives-you)
+- [How delivery works (visual)](#how-delivery-works-visual)
+- [Specification-Driven Development (SDD)](#specification-driven-development-sdd)
+- [Swarm teams (who does what)](#swarm-teams-who-does-what)
+- [Am I ready to build with AI?](#am-i-ready-to-build-with-ai)
+- [Deterministic GitHub automation](#deterministic-github-automation)
+- [Command surface](#command-surface)
+- [Most important pnpm commands](#most-important-pnpm-commands)
+- [Quick start](#quick-start)
+- [Prompt artifacts and gate contracts](#prompt-artifacts-and-gate-contracts)
+- [Supported AI clients](#supported-ai-clients)
+- [Context, memory, and reporting](#context-memory-and-reporting)
+- [Directory map](#directory-map)
+- [Daily operating loops](#daily-operating-loops)
 - [Troubleshooting](#troubleshooting)
 - [References](#references)
 
 ---
 
-## Swarm Teams Operating Model
+## In plain English (for everyone)
 
-NEZAM supports a swarm pattern where specialized agents/roles collaborate through explicit handoffs rather than ad-hoc overlap.
+**NEZAM is a workspace playbook** for building software with AI assistants (like Cursor, Claude, or others). It does not replace your judgment — it **organizes** how ideas become shipped product.
 
-### Primary leadership roles
+Think of it like a **flight checklist** for a product:
 
-- `PM-01-Swarm-Leader`: scope governance, prioritization, orchestration
-- `ARCH-01-Project-Architect`: architecture integrity and sequencing decisions
-- `DESIGN-01-UIUX-Lead`: design-system and UX contract ownership
-- `FE-01-Frontend-Lead`: frontend implementation strategy and quality
-- `BE-01-Backend-Lead`: backend services/data contract ownership
+- You agree **what** you are building (product intent and requirements).
+- You agree **how it should look and behave** (design contract) before heavy coding.
+- You use **slash commands** so every step has a name, a template, and a clear “done” definition.
+- **Automation on GitHub** checks the same things every time, so surprises show up early — not on launch night.
 
-### Why this model works
-
-- responsibilities are explicit, reducing duplicate work
-- each phase has an owner and acceptance criteria
-- handoff artifacts (`prompt.json`, `PROMPT.md`, gate checklists) create predictable transitions
-- delivery can scale across multiple parallel tracks without losing governance
+If you are **not** a developer: you can still read the “story” of the project from the docs this repo expects (`PRD`, `DESIGN.md`, plans). Your builder (or future hire) uses NEZAM so work stays **traceable** and **reviewable**.
 
 ---
 
-## SDD Core Model (Design First)
+## For indie developers and small teams
 
-NEZAM enforces **Specification-Driven Development** as a hard contract:
+Indie life often means **you are the PM, the designer, and the engineer** — sometimes on the same day. NEZAM helps by:
 
-1. plan and scope work
-2. complete SEO/IA/content and design artifacts
-3. enforce design gates
-4. allow implementation only after prerequisites pass
+- Giving you a **single delivery spine** so AI does not “skip to code” and paint you into a corner.
+- Providing **role-based agents** (“swarm”) so you can ask for architecture, UI, or QA points of view without inventing a process from scratch.
+- Keeping **cross-tool parity**: edit canonical rules in `.cursor/`, then sync to other AI clients so everyone reads the same contract.
+- Making **quality gates explicit** (tokens, typography, motion, accessibility, CI) so “ship fast” does not mean “ship blind”.
 
-### Hardlock prerequisites for development
+You do **not** need a big company process. You need **lightweight discipline** that survives busy weeks. NEZAM is that layer.
 
-Development remains locked until all required artifacts exist:
+---
+
+## What NEZAM gives you
+
+| You want… | NEZAM provides… |
+| --- | --- |
+| A clear path from idea to release | Specification-Driven Development (SDD) sequencing + commands |
+| Design that matches implementation | Root `DESIGN.md` contract + design gate checks |
+| Repeatable AI collaboration | Slash commands with deterministic contracts (`/PLAN`, `/DEVELOP`, …) |
+| Less drift between tools | `pnpm ai:sync` / `pnpm ai:check` from canonical `.cursor/` |
+| Audit-friendly delivery | Plans under `docs/workspace/plans/`, gate matrix, CI workflows |
+
+---
+
+## How delivery works (visual)
+
+### The journey (non-technical view)
+
+```mermaid
+flowchart LR
+  subgraph Discover["Discover and decide"]
+    I[Idea]
+    P[Priorities]
+  end
+  subgraph Shape["Shape the product"]
+    S[Specs & content]
+    D[Design system]
+  end
+  subgraph Build["Build & prove"]
+    C[Code]
+    T[Tests & scans]
+  end
+  subgraph Ship["Ship with confidence"]
+    R[Release]
+  end
+  I --> P --> S --> D --> C --> T --> R
+```
+
+### The SDD spine (technical view)
+
+This is the **order** NEZAM enforces so implementation stays aligned with intent:
+
+```mermaid
+flowchart LR
+  A[Planning] --> B[SEO / IA]
+  B --> C[Content]
+  C --> D[Design]
+  D --> E[Development]
+  E --> F[Hardening]
+  F --> G[Release]
+```
+
+### Swarm leadership (who owns which concerns)
+
+Specialists are **bounded roles** — useful when you prompt AI with “act as architect” vs “act as design lead”:
+
+```mermaid
+flowchart TB
+  PM["PM / Swarm Leader\nscope & priorities"]
+  AR["Project Architect\nintegrity & sequencing"]
+  DS["Design / UX Lead\nDESIGN.md & UX contracts"]
+  FE["Frontend Lead\nUI implementation"]
+  BE["Backend Lead\ndata & services"]
+  PM --> AR
+  PM --> DS
+  AR --> FE
+  AR --> BE
+  DS --> FE
+```
+
+### “Should we let AI write code yet?”
+
+```mermaid
+flowchart TD
+  Q1{"PRD + PROJECT_PROMPT\naligned?"}
+  Q1 -->|No| H1["/CREATE + /GUIDE\nfinish specs first"]
+  Q1 -->|Yes| Q2{"DESIGN.md + plans\n+ gate matrix ready?"}
+  Q2 -->|No| H2["/PLAN design\n/START design"]
+  Q2 -->|Yes| Q3{"prompt.json + PROMPT.md\nper active subphase?"}
+  Q3 -->|No| H3["/PLAN all\nfill plan prompts"]
+  Q3 -->|Yes| OK["/DEVELOP start\nimplement from contract"]
+```
+
+---
+
+## Specification-Driven Development (SDD)
+
+NEZAM enforces **Specification-Driven Development**: plan and scope work, complete SEO/IA/content and design artifacts, run design gates, then implement. That single spine keeps decisions **auditable** and outcomes **reproducible**.
+
+**Hardlock prerequisites for development** (implementation stays locked until these exist):
 
 1. `docs/core/required/prd/PRD.md`
 2. `docs/core/required/PROJECT_PROMPT.md`
-3. **`DESIGN.md` at repository root** — copy from the chosen catalog profile: `.cursor/design/<brand>/design.md` (see [`.cursor/design/README.md`](.cursor/design/README.md)). Use `/START design` or `pnpm run design:apply -- <brand>`.
+3. **`DESIGN.md` at repository root** — from the chosen catalog profile: `.cursor/design/<brand>/design.md` (see [`.cursor/design/README.md`](.cursor/design/README.md)). Use `/START design` or `pnpm run design:apply -- <brand>`.
 4. `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
-5. every active `docs/workspace/plans/<phase>/<subphase>/` has both:
-   - `prompt.json`
-   - `PROMPT.md`
+5. Every active `docs/workspace/plans/<phase>/<subphase>/` includes both `prompt.json` and `PROMPT.md`
 
-Current repository note:
-- PRD may be tracked under `docs/reference/prd/PRD.md` during migration phases; keep `/GUIDE` and gate checks as the source of truth for readiness status.
+Repository note: PRD may also appear under `docs/reference/prd/PRD.md` during migration; treat `/GUIDE` and gate checks as the source of truth for readiness.
 
-### Design-focus quality principles
-
-- token-first styling and governed design primitives
-- fluid typography and responsive grid systems
-- accessibility and reduced-motion support as defaults
-- component API contracts before implementation
-- measurable quality gates before merge/release
+**Design-quality defaults** include token-first styling, fluid typography, responsive grids, accessibility and reduced-motion considerations, component API contracts before implementation, and measurable gates before merge/release.
 
 ---
 
-## Deterministic GitHub Automation
+## Swarm teams (who does what)
 
-NEZAM treats GitHub automation as a deterministic system with visible policy and explicit guardrails.
+NEZAM supports a **swarm** pattern: specialized agents collaborate through **explicit handoffs** instead of vague “help me with everything” prompts.
 
-### Core automation goals
+**Primary leadership roles**
 
-- deterministic checks (same inputs -> same outcomes)
-- no silent gate bypass
-- explicit failure taxonomy and remediation mapping
-- reproducible release choreography
+- `PM-01-Swarm-Leader` — scope governance, prioritization, orchestration  
+- `ARCH-01-Project-Architect` — architecture integrity and sequencing  
+- `DESIGN-01-UIUX-Lead` — design-system and UX contract ownership  
+- `FE-01-Frontend-Lead` — frontend implementation strategy and quality  
+- `BE-01-Backend-Lead` — backend services and data contract ownership  
 
-### Primary workflow and gate assets
+**Why it works**
 
-- `.github/workflows/ci.yml`
-- `.github/workflows/release.yml`
-- `scripts/checks/check-onboarding-readiness.sh`
-- `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
-
-### Typical enforced policies
-
-- branch and commit hygiene
-- onboarding/readiness validation
-- plan artifact and prompt contract checks
-- gate matrix validation
-- nightly automation self-test
+- Responsibilities are explicit → less duplicate or contradictory work  
+- Each phase has an owner and acceptance criteria  
+- Handoff artifacts (`prompt.json`, `PROMPT.md`, gate checklists) make transitions predictable  
+- Parallel tracks stay governable  
 
 ---
 
-## Command Surface
+## Deterministic GitHub automation
 
-> **`/command` do everything** — every workspace action is a slash command with a deterministic contract.
+Automation is treated as a **deterministic system**: same inputs → same checks, with visible policy and guardrails.
 
-| Command | Purpose |
+**Key assets**
+
+- `.github/workflows/ci.yml` — continuous integration and policy checks  
+- `.github/workflows/design-gates.yml` — token, motion, accessibility, and related design gates  
+- `.github/workflows/release.yml` — release choreography (as configured in this repo)  
+- `scripts/checks/check-onboarding-readiness.sh` — readiness validation  
+- `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json` — gate policy source of truth  
+
+**Typical themes**
+
+- Branch and commit hygiene  
+- Onboarding and readiness validation  
+- Plan artifacts and prompt contract checks  
+- Gate matrix validation  
+- Scheduled automation self-checks where enabled  
+
+---
+
+## Command surface
+
+> **`/command` do everything** — meaningful workspace actions are slash commands with deterministic contracts (in Cursor; mirrored clients consume synced copies).
+
+| Command | Purpose (plain language) |
 | --- | --- |
-| `/START` | Onboard repo, initialize required docs, verify readiness |
-| `/PLAN` | Build SDD roadmap/phases/specs with SEO/IA/content/design sequencing |
-| `/DEVELOP` | Implement only from approved specs and design contracts |
-| `/GUIDE` | Explain lock state, next steps, and unblock sequence |
-| `/CREATE` | Generate required docs and template-driven artifacts |
-| `/SCAN` | Run quality/security/perf/a11y scans |
-| `/FIX` | Triage and remediate defects systematically |
-| `/SAVE` | Preserve progress, commit/report/version hygiene |
-| `/DEPLOY` | Run release choreography and verification |
+| `/START` | Onboard the repo, initialize docs, verify readiness |
+| `/PLAN` | Shape roadmap, phases, and specs in SDD order |
+| `/DEVELOP` | Implement only from approved specs and `DESIGN.md` |
+| `/GUIDE` | Explain what is blocked and the next unblock steps |
+| `/CREATE` | Generate required docs from templates |
+| `/SCAN` | Run quality, security, performance, or accessibility scans |
+| `/FIX` | Triage and fix issues in a structured loop |
+| `/SAVE` | Save progress: commits, reports, version hygiene |
+| `/DEPLOY` | Release choreography and verification |
 
-Aliases:
-
-- `/START` -> `/st`
-- `/PLAN` -> `/pl`
-- `/DEVELOP` -> `/dv`
-- `/GUIDE` -> `/gd`
-- `/CREATE` -> `/cr`
-- `/SCAN` -> `/sc`
-- `/FIX` -> `/fx`
-- `/SAVE` -> `/sv`
-- `/DEPLOY` -> `/dp`
+**Aliases:** `/st` `/pl` `/dv` `/gd` `/cr` `/sc` `/fx` `/sv` `/dp` (see command docs under `.cursor/commands/`).
 
 ---
 
-## Most Important pnpm Commands
+## Most important pnpm commands
 
-These are the highest-value `pnpm` commands for day-to-day NEZAM workflows.
-
-### Workspace bootstrap and validation
+**Bootstrap and validate**
 
 ```sh
 pnpm install
 pnpm run check:onboarding
-pnpm run validate
+pnpm ai:check
 ```
 
-### AI surface sync and drift protection
+**Keep AI surfaces in sync (after editing `.cursor/`)**
 
 ```sh
 pnpm ai:sync
 pnpm ai:check
 ```
 
-### Operational command runners (if defined in your workspace scripts)
+**Optional workspace helpers** (if present in your fork)
 
 ```sh
 pnpm run welcome
@@ -197,161 +260,153 @@ pnpm run tools:list
 pnpm run tools:check
 ```
 
-### Practical usage notes
+**Practical rhythm**
 
-- run `pnpm ai:sync` after editing canonical `.cursor/` commands/agents/skills/rules
-- run `pnpm ai:check` before PR creation to catch sync drift early
-- run `pnpm run check:onboarding` whenever readiness or hardlock state is unclear
-
----
-
-## Quick Start
-
-1. Open repository in Cursor.
-2. Run onboarding:
-   - `/START repo`
-   - `/START docs`
-3. Create required specs:
-   - `/CREATE prd`
-   - `/CREATE prompt`
-4. Ensure gate manifest exists:
-   - `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
-5. Run planning:
-   - `/PLAN all`
-6. Ensure each active subphase includes:
-   - `prompt.json`
-   - `PROMPT.md`
-7. Start implementation:
-   - `/DEVELOP start`
+- After editing canonical `.cursor/` commands, agents, skills, or rules → `pnpm ai:sync` then `pnpm ai:check`  
+- When hardlock status is unclear → `pnpm run check:onboarding`  
 
 ---
 
-## Prompt Artifacts and Gate Contracts
+## Quick start
 
-Template root:
+1. Open the repository in **Cursor** (primary orchestration surface).  
+2. Onboard: `/START repo` and `/START docs`.  
+3. Create core specs: `/CREATE prd`, `/CREATE prompt` (follow workspace templates).  
+4. Ensure the gate manifest exists: `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`.  
+5. Plan in SDD order: `/PLAN all`.  
+6. For each active subphase, ensure `prompt.json` and `PROMPT.md` exist.  
+7. When prerequisites pass: `/DEVELOP start`.  
 
-- `docs/workspace/templates/plan/README.md`
-
-Key templates:
-
-- `PROMPT_SCHEMA.template.json`
-- `SPEC_PROMPT.template.md`
-- `SUBPHASE_PROMPT.template.md`
-- `GITHUB_GATE_MATRIX_SCHEMA.template.json`
-- `GITHUB_START_GATE.template.md`
-- `GITHUB_END_GATE.template.md`
-- `PRE_MERGE_GATE_CHECKLIST.template.md`
-- `POST_MERGE_GATE_CHECKLIST.template.md`
-- `NIGHTLY_AUTOMATION_SELF_TEST.template.md`
-- `SILENT_AUTOMATION_FAILURE_TAXONOMY.template.md`
-- `SILENT_AUTOMATION_FIX_MAPPING.template.md`
+Deep links: [`docs/README.md`](docs/README.md) · [`docs/START.md`](docs/START.md)
 
 ---
 
-## Supported AI Clients
+## Prompt artifacts and gate contracts
 
-NEZAM keeps `.cursor/` as canonical and syncs generated surfaces for other clients.
+Template root: `docs/workspace/templates/plan/README.md`
 
-| Client group | Entry files |
+Examples of template families (names may vary slightly by version):
+
+- `PROMPT_SCHEMA.template.json`  
+- `SPEC_PROMPT.template.md`  
+- `SUBPHASE_PROMPT.template.md`  
+- `GITHUB_GATE_MATRIX_SCHEMA.template.json`  
+- `GITHUB_START_GATE.template.md` / `GITHUB_END_GATE.template.md`  
+- `PRE_MERGE_GATE_CHECKLIST.template.md` / `POST_MERGE_GATE_CHECKLIST.template.md`  
+- `NIGHTLY_AUTOMATION_SELF_TEST.template.md`  
+- `SILENT_AUTOMATION_FAILURE_TAXONOMY.template.md` / `SILENT_AUTOMATION_FIX_MAPPING.template.md`  
+
+---
+
+## Supported AI clients
+
+NEZAM keeps **`.cursor/` as canonical** and syncs generated surfaces for other tools.
+
+| Client group | Typical entry files |
 | --- | --- |
 | Cursor IDE | `.cursor/**` |
 | Claude Code / Claude CLI | `CLAUDE.md`, `.claude/**` |
-| Codex app / Codex CLI / Copilot CLI | `AGENTS.md`, `.codex/AGENTS.md` |
+| Codex / Copilot CLI | `AGENTS.md`, `.codex/AGENTS.md` |
 | Opencode CLI | `AGENTS.md`, `.opencode/**` |
 | Antigravity IDE | `.antigravity/**` |
 | Gemini CLI | `GEMINI.md`, `.gemini/commands/*.toml` |
 | Qwen CLI | `QWEN.md`, `.qwen/commands/*.toml` |
 | Kilo Code CLI | `.kilocode/rules/**` |
 
-Reference index: `docs/workspace/context/MULTI_TOOL_INDEX.md`
+Full map: [`docs/workspace/context/MULTI_TOOL_INDEX.md`](docs/workspace/context/MULTI_TOOL_INDEX.md)
 
 ---
 
-## Context, Memory, and Reporting
+## Context, memory, and reporting
 
-Core context sources:
+**Core context**
 
-- `docs/workspace/context/CONTEXT.md`
-- `docs/workspace/context/MEMORY.md`
-- `docs/workspace/context/WORKSPACE_INDEX.md`
-- `docs/reports/progress/PROGRESS_REPORT.latest.md`
+- `docs/workspace/context/CONTEXT.md`  
+- `docs/workspace/context/MEMORY.md`  
+- `docs/workspace/context/WORKSPACE_INDEX.md`  
+- `docs/reports/progress/PROGRESS_REPORT.latest.md`  
 
-Update helpers:
+**Optional local helpers**
 
 ```sh
 bash scripts/context/install-context-hooks.sh
 python3 scripts/context/update-context-docs.py
 ```
 
-Generated reports policy:
-
-- Place generated outputs under `docs/reports/<category>/`
-- Avoid writing generated reports to repository root or non-report `docs/` paths
+**Reports policy:** write generated outputs under `docs/reports/<category>/` — not the repo root or unstructured `docs/` paths. See workspace rules and each category’s `README.md` under `docs/reports/`.
 
 ---
 
-## Directory Map
+## Directory map
 
 ```text
 .cursor/
   commands/          # Slash command contracts
   rules/             # Always-on governance gates
   skills/            # Reusable procedures
-  agents/            # Role/persona definitions
+  agents/            # Role / persona definitions
 docs/
-  README.md          # Documentation hub (entrypoints)
-  assets/            # Static images and artwork for specs/docs
+  README.md          # Documentation hub
+  assets/            # Images for specs and docs
   core/              # Required docs, architecture, versioning
-  workspace/         # plans, context, templates, governance docs
-  reports/           # generated reports by category
-.github/workflows/   # deterministic CI/release automation
-scripts/             # checks, context updates, workspace tooling
+  workspace/         # Plans, context, templates, governance
+  reports/           # Generated reports by category
+.github/workflows/ # CI, design gates, release automation
+scripts/             # Checks, context updates, tooling
 ```
 
 ---
 
-## Daily Operating Loops
+## Daily operating loops
 
-### Planning loop
+**Planning loop**
 
-1. `/GUIDE status`
-2. `/START gates`
-3. `/PLAN all`
-4. fill missing `prompt.json` + `PROMPT.md` per active subphase
+1. `/GUIDE status`  
+2. `/START gates`  
+3. `/PLAN all`  
+4. Fill missing `prompt.json` + `PROMPT.md` per active subphase  
 
-### Development loop
+**Development loop**
 
-1. `/GUIDE next`
-2. `/DEVELOP start`
-3. `/DEVELOP slice` or `/DEVELOP feature <id>`
-4. `/DEVELOP test`
-5. `/SAVE commit` and `/SAVE report`
+1. `/GUIDE next`  
+2. `/DEVELOP start`  
+3. `/DEVELOP slice` or `/DEVELOP feature <id>`  
+4. `/DEVELOP test`  
+5. `/SAVE commit` and `/SAVE report`  
 
-### Hardening/release loop
+**Hardening / release loop**
 
-1. `/SCAN all`
-2. `/FIX triage` and `/FIX patch`
-3. `/DEPLOY rc`
-4. `/DEPLOY verify`
+1. `/SCAN all`  
+2. `/FIX triage` and `/FIX patch`  
+3. `/DEPLOY rc`  
+4. `/DEPLOY verify`  
 
 ---
 
 ## Troubleshooting
 
-- Hardlock active:
-  - run `/GUIDE status` and complete missing artifacts in strict order
-- Onboarding/readiness failure:
-  - run `pnpm run check:onboarding` and resolve reported paths
-- Drift between canonical and generated AI surfaces:
-  - run `pnpm ai:sync` then `pnpm ai:check`
-- Automation appears silent:
-  - use taxonomy + fix mapping templates in `docs/workspace/templates/plan/`
+| Symptom | What to do |
+| --- | --- |
+| Hardlock: “cannot develop yet” | `/GUIDE status` — complete missing artifacts in SDD order |
+| Onboarding / readiness failures | `pnpm run check:onboarding` and fix listed paths |
+| Drift between Cursor and other AI clients | `pnpm ai:sync` then `pnpm ai:check` |
+| Automation feels “silent” or unclear | Use taxonomy + fix-mapping templates under `docs/workspace/templates/plan/` |
 
 ---
 
 ## References
 
-- Team role map: `.cursor/agents/README.md`
-- Memory model: `docs/workspace/context/MEMORY_ARCHITECTURE.md`
-- External companion context: `docs/workspace/context/CONTEXT.md`
-- Plan index: `docs/workspace/plans/INDEX.md`
+- Role map: [`.cursor/agents/README.md`](.cursor/agents/README.md)  
+- Memory architecture: [`docs/workspace/context/MEMORY_ARCHITECTURE.md`](docs/workspace/context/MEMORY_ARCHITECTURE.md)  
+- Companion briefing: [`docs/workspace/context/CONTEXT.md`](docs/workspace/context/CONTEXT.md)  
+- Plan index: [`docs/workspace/plans/INDEX.md`](docs/workspace/plans/INDEX.md)  
+
+---
+
+<div align="center">
+
+**Built for people who ship — with AI, not by accident.**
+
+[`/command` do everything.](#nezam)
+
+</div>

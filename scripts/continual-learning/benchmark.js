@@ -3,6 +3,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
+const { isEnabled } = require("./control-state");
 
 const repoRoot = process.cwd();
 const indexPath = path.join(repoRoot, ".cursor/hooks/state/continual-learning-index.json");
@@ -91,6 +92,10 @@ function writeReport(baseline, optimized) {
 }
 
 function main() {
+  if (!isEnabled(repoRoot)) {
+    process.stdout.write("Continual learning disabled; benchmark skipped.\n");
+    return;
+  }
   const baseline = runPythonBaseline();
   const optimized = runOptimized();
   ensureReportDir();

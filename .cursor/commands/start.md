@@ -6,7 +6,8 @@ Subcommands:
   /START gates      → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
   /START design     → Browse `.cursor/design/<brand>/`, pick one, copy to root DESIGN.md (parity: `pnpm run design:apply -- <brand>` in any CLI)
   /START companion  → Generate a briefing you can paste into any external AI (Claude.ai, Gemini, ChatGPT)
-  /START all        → Run everything above in sequence (recommended for new projects)
+  /START continual-learning → **Opt-in:** enable transcript mining / incremental prepare (`pnpm continual-learning:on`). Continual learning stays **off** by default until you run this (or the pnpm script). To clear transcript index state only: `pnpm continual-learning:reset-memory`.
+  /START all        → Run repo → docs → gates → design → companion in sequence (recommended for new projects). **Does not** enable continual-learning; use `/START continual-learning` separately when you want transcript mining.
 
 Aliases: /START check → /START gates
 

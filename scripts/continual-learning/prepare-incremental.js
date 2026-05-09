@@ -3,6 +3,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
+const { isEnabled } = require("./control-state");
 
 const repoRoot = process.cwd();
 const defaultIndexPath = path.join(
@@ -123,6 +124,40 @@ function buildBatches(items, batchSize) {
 function main() {
   const startedAtMs = Date.now();
   const opts = parseArgs(process.argv);
+
+  if (!isEnabled(repoRoot)) {
+    const summary = {
+      totalTranscripts: 0,
+      indexEntries: 0,
+      mtimeCandidates: 0,
+      finalCandidates: 0,
+      batches: 0,
+      hashComputations: 0,
+      fingerprintSkips: 0,
+      elapsedMs: Date.now() - startedAtMs,
+      candidatesPath: opts.candidatesPath,
+      disabled: true,
+    };
+    writeJsonFile(opts.candidatesPath, {
+      generatedAt: new Date().toISOString(),
+      transcriptsRoot: opts.transcriptsRoot,
+      totalCandidates: 0,
+      batchSize: opts.batchSize,
+      batches: [],
+    });
+    if (opts.outputJson) {
+      process.stdout.write(JSON.stringify(summary, null, 2) + "\n");
+      return;
+    }
+    if (opts.silent) {
+      process.stdout.write("Continual learning disabled (skipped).\n");
+      return;
+    }
+    process.stdout.write(
+      "Continual learning is disabled. Enable with /START continual-learning (see .cursor/commands/start.md) or: pnpm continual-learning:on\n"
+    );
+    return;
+  }
 
   const index = normalizeIndex(readJsonFile(opts.indexPath, {}));
   const fingerprints = normalizeFingerprintCache(readJsonFile(opts.fingerprintPath, {}));

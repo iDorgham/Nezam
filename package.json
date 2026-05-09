@@ -14,6 +14,9 @@
     "continual-learning": "node scripts/continual-learning/run-silent.js",
     "continual-learning:prepare": "node scripts/continual-learning/prepare-incremental.js --json --silent",
     "continual-learning:benchmark": "node scripts/continual-learning/benchmark.js",
+    "continual-learning:on": "node scripts/continual-learning/enable.js",
+    "continual-learning:off": "node scripts/continual-learning/disable.js",
+    "continual-learning:reset-memory": "node scripts/continual-learning/reset-memory.js",
     "hooks:install": "bash scripts/context/install-context-hooks.sh && bash scripts/context/auto-memory-hooks.sh --install"
   },
   "devDependencies": {

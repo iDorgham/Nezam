@@ -3,6 +3,7 @@
 const { spawnSync } = require("node:child_process");
 const fs = require("node:fs");
 const path = require("node:path");
+const { isEnabled } = require("./control-state");
 
 const repoRoot = process.cwd();
 const prepareScript = path.join(repoRoot, "scripts/continual-learning/prepare-incremental.js");
@@ -24,6 +25,13 @@ function runPrepare() {
 }
 
 function main() {
+  if (!isEnabled(repoRoot)) {
+    process.stdout.write(
+      "Continual learning is disabled. Enable with /START continual-learning or: pnpm continual-learning:on\n"
+    );
+    return;
+  }
+
   const prep = runPrepare();
   if (prep.status !== 0) {
     process.stderr.write(prep.stderr || "continual-learning prepare failed.\n");

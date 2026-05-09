@@ -6,32 +6,67 @@
 
 > **`/command` do everything.**
 
+<p align="center"><em>Workspace orchestration kit — Cursor-first, multi-client synced.</em></p>
+
 <p align="center">
-  <a href="https://github.com/iDorgham/Nezam/actions?query=workflow%3Aci"><img src="https://github.com/iDorgham/Nezam/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
+  <a href="https://github.com/iDorgham/Nezam/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&amp;label=CI&amp;logo=github&amp;style=flat" alt="CI workflow status" /></a>
   &nbsp;
-  <a href="https://github.com/iDorgham/Nezam/actions?query=workflow%3A%22Design+Gates%22"><img src="https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml/badge.svg" alt="Design gates" /></a>
+  <a href="https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml"><img src="https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&amp;label=design%20gates&amp;logo=github&amp;style=flat" alt="Design gates workflow status" /></a>
   &nbsp;
-  <a href="https://github.com/iDorgham/Nezam/tree/main/.github/workflows"><img src="https://img.shields.io/badge/workflows-view%20all-24292f?logo=githubactions&logoColor=fff&style=flat" alt="All GitHub workflows" /></a>
+  <a href="https://github.com/iDorgham/Nezam/commits/main/"><img src="https://img.shields.io/github/last-commit/iDorgham/Nezam/main?label=last%20commit&amp;logo=git&amp;style=flat" alt="Last commit on main" /></a>
+  &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/tree/main/.github/workflows"><img src="https://img.shields.io/badge/workflows-view%20all-24292f?logo=githubactions&amp;logoColor=fff&amp;style=flat" alt="All GitHub workflows" /></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/iDorgham/Nezam#specification-driven-development-sdd"><img src="https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat" alt="Specification-driven development" /></a>
   <a href="https://github.com/iDorgham/Nezam/blob/main/docs/core/VERSIONING.md"><img src="https://img.shields.io/badge/SemVer-0.1.0-555555?style=flat" alt="Semantic versioning" /></a>
-  <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=flat" alt="pnpm workspace" /></a>
-  <a href="https://github.com/iDorgham/Nezam/blob/main/.github/workflows/design-gates.yml"><img src="https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=flat" alt="Node.js 20" /></a>
+  <a href="https://www.conventionalcommits.org/"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow?style=flat" alt="Conventional Commits" /></a>
+  <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&amp;logoColor=fff&amp;style=flat" alt="pnpm workspace" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/.github/workflows/design-gates.yml"><img src="https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&amp;logoColor=fff&amp;style=flat" alt="Node.js 20" /></a>
   <a href="https://github.com/iDorgham/Nezam/blob/main/docs/workspace/context/MULTI_TOOL_INDEX.md"><img src="https://img.shields.io/badge/AI%20clients-synced-6e7681?style=flat" alt="Multi-client AI sync" /></a>
 </p>
 
-<p align="center"><sub>Manual workflows (run from the Actions tab): <a href="https://github.com/iDorgham/Nezam/actions/workflows/release.yml"><code>release</code></a> · <a href="https://github.com/iDorgham/Nezam/actions/workflows/semantic-release.yml"><code>semantic-release</code></a> · <a href="https://github.com/iDorgham/Nezam/actions/workflows/git-automation.yml"><code>git-automation</code></a></sub></p>
+<p align="center">
+  <a href="https://cursor.com/"><img src="https://img.shields.io/badge/Cursor-orchestration-141321?logo=cursor&amp;logoColor=fff&amp;style=flat" alt="Cursor" /></a>
+  <a href="https://github.com/iDorgham/Nezam/tree/main/.cursor/commands"><img src="https://img.shields.io/badge/slash-commands-24292f?style=flat" alt="Slash commands (.cursor/commands)" /></a>
+  <a href="https://github.com/iDorgham/Nezam/compare"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat" alt="Pull requests welcome" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/docs/reports/README.md"><img src="https://img.shields.io/badge/reports-docs%20hub-24292f?style=flat" alt="Generated reports hub" /></a>
+</p>
 
-[Documentation hub](docs/README.md) · [Start guide](docs/START.md) · [Gate matrix](docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json)
+<p align="center"><sub>Manual workflows (Actions tab): <a href="https://github.com/iDorgham/Nezam/actions/workflows/release.yml"><code>release</code></a> · <a href="https://github.com/iDorgham/Nezam/actions/workflows/semantic-release.yml"><code>semantic-release</code></a> · <a href="https://github.com/iDorgham/Nezam/actions/workflows/git-automation.yml"><code>git-automation</code></a></sub></p>
+
+<p align="center">
+  <a href="docs/README.md">Documentation hub</a> · <a href="docs/START.md">Start guide</a> · <a href=".cursor/commands/start.md"><code>/START</code> command</a> · <a href="docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json">Gate matrix</a>
+</p>
 
 </div>
 
 ---
 
+## Onboarding and START
+
+1. **Open this repo in Cursor** (canonical orchestration surface).
+2. Run **`/START`** subcommands in order, or **`/START all`** for repo → docs → gates → design → companion in one pass. Command definitions live in [`.cursor/commands/start.md`](.cursor/commands/start.md) (synced to other clients via `pnpm ai:sync`).
+3. Follow the human-readable checklist in **[`docs/START.md`](docs/START.md)** (PRD, prompts, gates, then planning).
+4. **Continual Learning** (transcript mining into `AGENTS.md` templates) stays **off** until you opt in: **`/START continual-learning`** or `pnpm continual-learning:on`. Reset transcript index state only with `pnpm continual-learning:reset-memory`.
+
+| `/START` shortcut | Purpose |
+| --- | --- |
+| `/START repo` | Link or initialize git remote |
+| `/START docs` | Required folders and context stubs |
+| `/START gates` | Readiness checks (plain-language pass/fail) |
+| `/START design` | Apply a design profile to root `DESIGN.md` |
+| `/START companion` | Briefing for external AIs |
+| `/START continual-learning` | Enable continual-learning (`pnpm continual-learning:on`) |
+
+> **Badge note:** CI and design gates shields reflect the latest workflow runs on **`main`**. If a badge shows **failing**, open [Actions](https://github.com/iDorgham/Nezam/actions) for logs and fix forward on a `feature/*` branch so PR checks stay green.
+
+---
+
 ## Table of contents
 
+- [Onboarding and START](#onboarding-and-start)
 - [In plain English (for everyone)](#in-plain-english-for-everyone)
 - [For indie developers and small teams](#for-indie-developers-and-small-teams)
 - [What NEZAM gives you](#what-nezam-gives-you)
@@ -186,6 +221,32 @@ Repository note: PRD may also appear under `docs/reference/prd/PRD.md` during mi
 
 NEZAM supports a **swarm** pattern: specialized agents collaborate through **explicit handoffs** instead of vague “help me with everything” prompts.
 
+### Arabic language agents & skills (MENA coverage)
+
+Arabic and broader MENA language work is covered by **dedicated agents** under [`.cursor/agents/`](.cursor/agents/) and **content skills** under [`.cursor/skills/content/`](.cursor/skills/content/). Use them when shipping Arabic copy, dialect-specific content, RTL UI, or regional SEO/AEO — see workspace rules (for example `/START mena`) for activation.
+
+```mermaid
+flowchart TB
+  subgraph AG["Agents — Arabic & MENA (.cursor/agents/)"]
+    CM[arabic-content-master]
+    SEO[arabic-seo-aeo-specialist]
+    DIA["Dialect specialists:\nkhaleeji · levantine · masri · maghrebi · msa-formal"]
+    X["Cross-cutting:\nrtl-specialist · i18n-engineer · localization-lead"]
+  end
+  subgraph SK["Skills — Arabic-related content (.cursor/skills/content/)"]
+    AR[arabic-content / SKILL.md]
+    EG[egyptian-arabic-content / SKILL.md]
+    ED[editorial-workflows / SKILL.md]
+  end
+  CM --> AR
+  SEO --> AR
+  SEO --> ED
+  DIA --> AR
+  DIA --> EG
+  X --> AR
+  X --> EG
+```
+
 **Primary leadership roles**
 
 - `PM-01-Swarm-Leader` — scope governance, prioritization, orchestration  
@@ -279,8 +340,8 @@ pnpm run tools:check
 
 ## Quick start
 
-1. Open the repository in **Cursor** (primary orchestration surface).  
-2. Onboard: `/START repo` and `/START docs`.  
+1. Open the repository in **Cursor** (primary orchestration surface).
+2. Onboard using **[Onboarding and START](#onboarding-and-start)** (e.g. `/START repo`, `/START docs`, or `/START all`).
 3. Create core specs: `/CREATE prd`, `/CREATE prompt` (follow workspace templates).  
 4. Ensure the gate manifest exists: `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`.  
 5. Plan in SDD order: `/PLAN all`.  

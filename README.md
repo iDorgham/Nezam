@@ -44,6 +44,44 @@
 
 ---
 
+## Overview
+
+### What NEZAM is
+
+**NEZAM is a workspace playbook** for building software with AI assistants (like Cursor, Claude, or others). It does not replace your judgment — it **organizes** how ideas become shipped product.
+
+Think of it like a **flight checklist** for a product:
+
+- You agree **what** you are building (product intent and requirements).
+- You agree **how it should look and behave** (design contract) before heavy coding.
+- You use **slash commands** so every step has a name, a template, and a clear “done” definition.
+- **Automation on GitHub** checks the same things every time, so surprises show up early — not on launch night.
+
+If you are **not** a developer: you can still read the “story” of the project from the docs this repo expects (`PRD`, `DESIGN.md`, plans). Your builder (or future hire) uses NEZAM so work stays **traceable** and **reviewable**.
+
+### Who it is for
+
+Indie life often means **you are the PM, the designer, and the engineer** — sometimes on the same day. NEZAM helps by:
+
+- Giving you a **single delivery spine** so AI does not “skip to code” and paint you into a corner.
+- Providing **role-based agents** (“swarm”) so you can ask for architecture, UI, or QA points of view without inventing a process from scratch.
+- Keeping **cross-tool parity**: edit canonical rules in `.cursor/`, then sync to other AI clients so everyone reads the same contract.
+- Making **quality gates explicit** (tokens, typography, motion, accessibility, CI) so “ship fast” does not mean “ship blind”.
+
+You do **not** need a big company process. You need **lightweight discipline** that survives busy weeks. NEZAM is that layer.
+
+### Capabilities
+
+| You want… | NEZAM provides… |
+| --- | --- |
+| A clear path from idea to release | Specification-Driven Development (SDD) sequencing + commands |
+| Design that matches implementation | Root `DESIGN.md` contract + design gate checks |
+| Repeatable AI collaboration | Slash commands with deterministic contracts (`/PLAN`, `/DEVELOP`, …) |
+| Less drift between tools | `pnpm ai:sync` / `pnpm ai:check` from canonical `.cursor/` |
+| Audit-friendly delivery | Plans under `docs/workspace/plans/`, gate matrix, CI workflows |
+
+---
+
 ## Onboarding and START
 
 1. **Open this repo in Cursor** (canonical orchestration surface).
@@ -66,13 +104,14 @@
 
 ## Table of contents
 
+- [Overview](#overview)
 - [Onboarding and START](#onboarding-and-start)
-- [In plain English (for everyone)](#in-plain-english-for-everyone)
-- [For indie developers and small teams](#for-indie-developers-and-small-teams)
-- [What NEZAM gives you](#what-nezam-gives-you)
-- [How delivery works (visual)](#how-delivery-works-visual)
+- [How to install](#how-to-install)
+- [How to use](#how-to-use)
+- [Delivery model](#delivery-model)
 - [Specification-Driven Development (SDD)](#specification-driven-development-sdd)
 - [Swarm teams (who does what)](#swarm-teams-who-does-what)
+- [MENA language stack (agents, skills, RTL)](#mena-language-stack-agents-skills-rtl)
 - [Am I ready to build with AI?](#am-i-ready-to-build-with-ai)
 - [Deterministic GitHub automation](#deterministic-github-automation)
 - [Command surface](#command-surface)
@@ -88,114 +127,79 @@
 
 ---
 
-## In plain English (for everyone)
+## How to install
 
-**NEZAM is a workspace playbook** for building software with AI assistants (like Cursor, Claude, or others). It does not replace your judgment — it **organizes** how ideas become shipped product.
+**Prerequisites**
 
-Think of it like a **flight checklist** for a product:
+- **Node.js** 20 or newer (matches design-gate and typical CI images).  
+- **pnpm** 9+ ([install pnpm](https://pnpm.io/installation)).  
+- **Git** and a GitHub account if you plan to use Actions and PR checks.  
+- **Cursor** (recommended) or another client listed under [Supported AI clients](#supported-ai-clients).
 
-- You agree **what** you are building (product intent and requirements).
-- You agree **how it should look and behave** (design contract) before heavy coding.
-- You use **slash commands** so every step has a name, a template, and a clear “done” definition.
-- **Automation on GitHub** checks the same things every time, so surprises show up early — not on launch night.
+**Steps**
 
-If you are **not** a developer: you can still read the “story” of the project from the docs this repo expects (`PRD`, `DESIGN.md`, plans). Your builder (or future hire) uses NEZAM so work stays **traceable** and **reviewable**.
+1. **Clone** this repository (or copy the kit into an existing project root).
 
----
+   ```sh
+   git clone https://github.com/iDorgham/Nezam.git
+   cd Nezam
+   ```
 
-## For indie developers and small teams
+2. **Install** JavaScript dependencies from the repo root:
 
-Indie life often means **you are the PM, the designer, and the engineer** — sometimes on the same day. NEZAM helps by:
+   ```sh
+   pnpm install
+   ```
 
-- Giving you a **single delivery spine** so AI does not “skip to code” and paint you into a corner.
-- Providing **role-based agents** (“swarm”) so you can ask for architecture, UI, or QA points of view without inventing a process from scratch.
-- Keeping **cross-tool parity**: edit canonical rules in `.cursor/`, then sync to other AI clients so everyone reads the same contract.
-- Making **quality gates explicit** (tokens, typography, motion, accessibility, CI) so “ship fast” does not mean “ship blind”.
+3. **Validate** that the workspace scripts resolve (optional but useful on a fresh machine):
 
-You do **not** need a big company process. You need **lightweight discipline** that survives busy weeks. NEZAM is that layer.
+   ```sh
+   pnpm run check:onboarding
+   pnpm ai:check
+   ```
 
----
+4. **Optional:** install local context hooks if your team uses them (see [Context, memory, and reporting](#context-memory-and-reporting)).
 
-## What NEZAM gives you
-
-| You want… | NEZAM provides… |
-| --- | --- |
-| A clear path from idea to release | Specification-Driven Development (SDD) sequencing + commands |
-| Design that matches implementation | Root `DESIGN.md` contract + design gate checks |
-| Repeatable AI collaboration | Slash commands with deterministic contracts (`/PLAN`, `/DEVELOP`, …) |
-| Less drift between tools | `pnpm ai:sync` / `pnpm ai:check` from canonical `.cursor/` |
-| Audit-friendly delivery | Plans under `docs/workspace/plans/`, gate matrix, CI workflows |
+This repo is a **workspace kit**, not a single deployable app: there may be no `pnpm dev` at the root unless your fork adds one. Use **`/START`** and the docs hub to scaffold product-specific apps or packages.
 
 ---
 
-## How delivery works (visual)
+## How to use
 
-### The journey (non-technical view)
+1. **Open the folder in Cursor** so `.cursor/commands` and rules load as first-class slash commands.  
+2. **Run onboarding** — follow [Onboarding and START](#onboarding-and-start): at minimum `/START repo` and `/START docs`, or `/START all` for the full sequence (continual-learning is opt-in separately).  
+3. **Work in SDD order** — specs and `DESIGN.md` before `/DEVELOP start`; use [Delivery model](#delivery-model) and [Am I ready to build with AI?](#am-i-ready-to-build-with-ai) as guardrails.  
+4. **Edit canonical AI config only under `.cursor/`** (commands, agents, skills, rules). After changes, regenerate mirrors:
 
-```mermaid
-flowchart LR
-  subgraph Discover["Discover and decide"]
-    I[Idea]
-    P[Priorities]
-  end
-  subgraph Shape["Shape the product"]
-    S[Specs & content]
-    D[Design system]
-  end
-  subgraph Build["Build & prove"]
-    C[Code]
-    T[Tests & scans]
-  end
-  subgraph Ship["Ship with confidence"]
-    R[Release]
-  end
-  I --> P --> S --> D --> C --> T --> R
-```
+   ```sh
+   pnpm ai:sync
+   pnpm ai:check
+   ```
 
-### The SDD spine (technical view)
+5. **Use slash commands** for day-to-day work — see [Command surface](#command-surface) and [Daily operating loops](#daily-operating-loops). When blocked, run **`/GUIDE`** for the next unblock step.
 
-This is the **order** NEZAM enforces so implementation stays aligned with intent:
+6. **MENA and RTL** — when building localized or RTL surfaces, follow [MENA language stack (agents, skills, RTL)](#mena-language-stack-agents-skills-rtl) and workspace **`/START mena`** where applicable.
 
-```mermaid
-flowchart LR
-  A[Planning] --> B[SEO / IA]
-  B --> C[Content]
-  C --> D[Design]
-  D --> E[Development]
-  E --> F[Hardening]
-  F --> G[Release]
-```
+For a minimal numbered path from empty repo to development, see **[Quick start](#quick-start)**.
 
-### Swarm leadership (who owns which concerns)
+---
 
-Specialists are **bounded roles** — useful when you prompt AI with “act as architect” vs “act as design lead”:
+## Delivery model
 
-```mermaid
-flowchart TB
-  PM["PM / Swarm Leader\nscope & priorities"]
-  AR["Project Architect\nintegrity & sequencing"]
-  DS["Design / UX Lead\nDESIGN.md & UX contracts"]
-  FE["Frontend Lead\nUI implementation"]
-  BE["Backend Lead\ndata & services"]
-  PM --> AR
-  PM --> DS
-  AR --> FE
-  AR --> BE
-  DS --> FE
-```
+NEZAM separates **discovery**, **shaping**, **building**, and **shipping** so AI work stays reviewable. You can describe the same journey in two ways:
 
-### “Should we let AI write code yet?”
+**Non-technical journey**
 
-```mermaid
-flowchart TD
-  Q1{"PRD + PROJECT_PROMPT\naligned?"}
-  Q1 -->|No| H1["/CREATE + /GUIDE\nfinish specs first"]
-  Q1 -->|Yes| Q2{"DESIGN.md + plans\n+ gate matrix ready?"}
-  Q2 -->|No| H2["/PLAN design\n/START design"]
-  Q2 -->|Yes| Q3{"prompt.json + PROMPT.md\nper active subphase?"}
-  Q3 -->|No| H3["/PLAN all\nfill plan prompts"]
-  Q3 -->|Yes| OK["/DEVELOP start\nimplement from contract"]
-```
+1. **Discover and decide** — clarify the idea and priorities.  
+2. **Shape the product** — specs, content, information architecture, and a design system direction.  
+3. **Build and prove** — implementation plus tests and scans (performance, accessibility, security as configured).  
+4. **Ship with confidence** — release only after gates and checklists pass.
+
+**Technical SDD order** (hard sequencing for implementation readiness)
+
+1. **Planning** → **SEO and IA** → **Content** → **Design** (`DESIGN.md` and tokens) → **Development** → **Hardening** → **Release**.
+
+GitHub Mermaid blocks here were removed on purpose: chained `flowchart LR` diagrams with subgraphs and special characters (for example slashes inside labels) are a common source of **“Unable to render rich display”** on github.com. The diagrams below are limited to **three** simple charts: **swarm hierarchy**, **MENA agents**, and **skills plus RTL**.
 
 ---
 
@@ -219,35 +223,25 @@ Repository note: PRD may also appear under `docs/reference/prd/PRD.md` during mi
 
 ## Swarm teams (who does what)
 
-NEZAM supports a **swarm** pattern: specialized agents collaborate through **explicit handoffs** instead of vague “help me with everything” prompts.
+NEZAM supports a **swarm** pattern: specialized agents collaborate through **explicit handoffs** instead of vague “help me with everything” prompts. Specialists are **bounded roles** — useful when you prompt AI with “act as architect” versus “act as design lead”. Leadership stays narrow; execution stays traceable.
 
-### Arabic language agents & skills (MENA coverage)
-
-Arabic and broader MENA language work is covered by **dedicated agents** under [`.cursor/agents/`](.cursor/agents/) and **content skills** under [`.cursor/skills/content/`](.cursor/skills/content/). Use them when shipping Arabic copy, dialect-specific content, RTL UI, or regional SEO/AEO — see workspace rules (for example `/START mena`) for activation.
+### Swarm hierarchy (primary roles)
 
 ```mermaid
 flowchart TB
-  subgraph AG["Agents — Arabic & MENA (.cursor/agents/)"]
-    CM[arabic-content-master]
-    SEO[arabic-seo-aeo-specialist]
-    DIA["Dialect specialists:\nkhaleeji · levantine · masri · maghrebi · msa-formal"]
-    X["Cross-cutting:\nrtl-specialist · i18n-engineer · localization-lead"]
-  end
-  subgraph SK["Skills — Arabic-related content (.cursor/skills/content/)"]
-    AR[arabic-content / SKILL.md]
-    EG[egyptian-arabic-content / SKILL.md]
-    ED[editorial-workflows / SKILL.md]
-  end
-  CM --> AR
-  SEO --> AR
-  SEO --> ED
-  DIA --> AR
-  DIA --> EG
-  X --> AR
-  X --> EG
+  PM[PM swarm leader]
+  AR[Project architect]
+  DS[Design UX lead]
+  FE[Frontend lead]
+  BE[Backend lead]
+  PM --> AR
+  PM --> DS
+  AR --> FE
+  AR --> BE
+  DS --> FE
 ```
 
-**Primary leadership roles**
+**Role IDs (canonical)**
 
 - `PM-01-Swarm-Leader` — scope governance, prioritization, orchestration  
 - `ARCH-01-Project-Architect` — architecture integrity and sequencing  
@@ -255,12 +249,80 @@ flowchart TB
 - `FE-01-Frontend-Lead` — frontend implementation strategy and quality  
 - `BE-01-Backend-Lead` — backend services and data contract ownership  
 
-**Why it works**
+**Why swarms stay governable**
 
 - Responsibilities are explicit → less duplicate or contradictory work  
 - Each phase has an owner and acceptance criteria  
 - Handoff artifacts (`prompt.json`, `PROMPT.md`, gate checklists) make transitions predictable  
-- Parallel tracks stay governable  
+- Parallel tracks stay bounded by the same gate matrix and `DESIGN.md` contracts  
+
+Role index: [`.cursor/agents/README.md`](.cursor/agents/README.md).
+
+---
+
+## MENA language stack (agents, skills, RTL)
+
+Regional language work is a **first-class** concern: dialect specialists, SEO and answer-engine patterns, RTL UI parity, and editorial workflows live beside the core swarm. Canonical agent files are under [`.cursor/agents/`](.cursor/agents/); Arabic-related content skills live under [`.cursor/skills/content/`](.cursor/skills/content/). Activate MENA and RTL workflows with **`/START mena`** (see workspace rules) when shipping localized product surfaces.
+
+### MENA language agents
+
+```mermaid
+flowchart TB
+  CM[arabic-content-master]
+  SEO[arabic-seo-aeo-specialist]
+  KH[khaleeji-specialist]
+  LV[levantine-specialist]
+  MS[masri-content-specialist]
+  MG[maghrebi-specialist]
+  MFA[msa-formal-specialist]
+  RTL[rtl-specialist]
+  I18[i18n-engineer]
+  LOC[localization-lead]
+  SEO --> CM
+  KH --> CM
+  LV --> CM
+  MS --> CM
+  MG --> CM
+  MFA --> CM
+  RTL --> CM
+  I18 --> CM
+  LOC --> CM
+```
+
+Dialect specialists feed the same **content owner** agent; **rtl-specialist**, **i18n-engineer**, and **localization-lead** cut across UI and copy so layout, routing, and strings stay consistent.
+
+### Content skills and RTL
+
+```mermaid
+flowchart TB
+  AR[arabic-content skill]
+  EG[egyptian-arabic-content skill]
+  EW[editorial-workflows skill]
+  RTL[rtl-specialist]
+  UI[DESIGN and frontend RTL checks]
+  RTL --> AR
+  RTL --> EG
+  RTL --> UI
+  AR --> EW
+  EG --> EW
+```
+
+Skills package long-form prompts, dialect modules, and evaluation assets; **rtl-specialist** ties those contracts to **design gates** and UI implementation (for example `dir="rtl"`, mirrored layouts, and motion parity). Editorial workflows support SEO and AEO workstreams driven by **arabic-seo-aeo-specialist**.
+
+---
+
+## Am I ready to build with AI?
+
+Use this as a **binary gate** before heavy coding:
+
+| Gate | Question | If “no”, do this |
+| --- | --- | --- |
+| 1 | Are `PRD` and `PROJECT_PROMPT` aligned on scope? | `/CREATE` and `/GUIDE` until specs match |
+| 2 | Is root `DESIGN.md` real (not a template), with plans and `GITHUB_GATE_MATRIX.json` present? | `/PLAN design`, `/START design` |
+| 3 | Does every **active** plan subphase have `prompt.json` and `PROMPT.md`? | `/PLAN all` and fill plan prompts |
+| 4 | Did `/START gates` and CI readiness pass on your branch? | `pnpm run check:onboarding`, fix listed paths |
+
+When all rows are “yes”, run **`/DEVELOP start`** and keep changes scoped to the approved contracts.
 
 ---
 
@@ -339,6 +401,8 @@ pnpm run tools:check
 ---
 
 ## Quick start
+
+Prerequisites and dependency install: **[How to install](#how-to-install)**. Day-to-day command flow: **[How to use](#how-to-use)**.
 
 1. Open the repository in **Cursor** (primary orchestration surface).
 2. Onboard using **[Onboarding and START](#onboarding-and-start)** (e.g. `/START repo`, `/START docs`, or `/START all`).

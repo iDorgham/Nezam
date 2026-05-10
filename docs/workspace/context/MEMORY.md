@@ -36,3 +36,6 @@ _(No Tier‑1 evaluations recorded yet.)_
 ## External companion notes
 
 Link or paste synopsis of evolving strategy threads when relevant.
+- 2026-05-10T12:17:37Z — commit: chore(agents): consolidate hierarchy governance (files changed: 670)
+- 2026-05-10T12:17:38Z — commit: chore(agents): consolidate hierarchy governance (files changed: 670)
+- 2026-05-10T12:17:39Z — commit: chore(agents): consolidate hierarchy governance (files changed: 670)

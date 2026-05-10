@@ -50,11 +50,11 @@ Optional fourth file:
 
 AUTO-MANAGED:BEGIN
 ## Auto-Managed Snapshot
-- Last updated UTC: _(run hooks or edit after meaningful change)_
-- Current git branch: _(unknown)_
-- Last commit: _(unknown)_
-- Current phase guess: not started (template)
-- PRD present: unknown
-- Design present: unknown
-- Progress report present: yes (template)
+P26-05-10T12:17:37Z
+- Current git branch: template-prep
+- Last commit: 1413662 chore(agents): consolidate hierarchy governance
+- Current phase guess: Onboarding
+- PRD present: no
+- Design present: no
+- Progress report present: yes
 AUTO-MANAGED:END

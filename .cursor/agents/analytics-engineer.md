@@ -13,7 +13,7 @@ when: ["/PLAN data", "/DEVELOP data", "metric definition request", "dashboard bu
 
 # Expected Outputs
 - Event / metric taxonomy entry with owner, definition, and source-of-truth model.
-- Modeled SQL with tests and lineage to upstream sources owned by `data-engineer.md`.
+- Modeled SQL with tests and lineage to upstream sources owned by `data-pipeline-manager.md`.
 - Dashboard contract: audience, refresh cadence, definition links, and known limits.
 - Reconciliation note when warehouse and PostHog metrics diverge.
 - Deprecation plan for any metric or event being retired.

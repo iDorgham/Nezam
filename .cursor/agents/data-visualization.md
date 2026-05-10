@@ -23,7 +23,7 @@ Own visual conventions for data: chart selection rules, color systems for catego
 - Approve chart-type selection rules (line vs bar vs area vs scatter ...).
 - Maintain color tokens for data viz aligned with brand and a11y.
 - Define annotation / threshold / target patterns.
-- Coordinate with `prototyping-design-system-manager` on viz tokens.
+- Coordinate with `design-systems-token-architect` on viz tokens.
 
 ## Subagents (mental model)
 
@@ -58,7 +58,7 @@ Own visual conventions for data: chart selection rules, color systems for catego
 
 ## Escalation
 
-- Token / design-system change -> `prototyping-design-system-manager.md`.
+- Token / design-system change -> `design-systems-token-architect.md`.
 - Dashboard layout -> `dashboard-manager.md`.
 
 ## Invocation Prompt Template

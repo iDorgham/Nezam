@@ -44,7 +44,7 @@ Arbitrate conflicts between peer swarms before they reach the CPO: write-scope o
 
 - Conflict memo: parties, options, chosen path, rationale.
 - Owner + rollback note (when reversible).
-- Memory update via `knowledge-sharing-agent.md`.
+- Memory update via `knowledge-update-manager.md`.
 
 ## Escalation
 

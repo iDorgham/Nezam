@@ -32,7 +32,7 @@ Translate approved requirements into concrete system design: component boundarie
 ## Specialists (referenced)
 
 - [`scalability-resilience-architect.md`](./scalability-resilience-architect.md)
-- [`react-component-lead.md`](./react-component-lead.md)
+- [`frontend-framework-manager.md`](./frontend-framework-manager.md)
 - [`lead-database-architect.md`](./lead-database-architect.md) (database design tradeoffs cross-swarm)
 
 ## Primary skills / lenses

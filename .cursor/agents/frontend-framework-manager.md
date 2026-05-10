@@ -19,6 +19,16 @@ Own the frontend framework topology: React 19 + Next.js 15 (App Router) by defau
 - Approve state-management choice (URL state, server state, client state) per slice.
 - Coordinate API contract handoff with `api-logic-manager` (backend).
 
+## Component Architecture Responsibilities
+> Absorbed from react-component-lead (archived).
+
+- Strongly typed props with exhaustive variant and state modeling.
+- Composition-first component APIs with semantic, accessible DOM output.
+- Tree-shakeable exports; reusable primitives architecture.
+- Token-driven styles only — no ad-hoc primitive values in components.
+- API consistency across page, section, and primitive component layers.
+- Component taxonomy and ownership boundaries documented per feature slice.
+
 ## Subagents (mental model)
 
 | Subagent           | Responsibility                                  |
@@ -26,10 +36,10 @@ Own the frontend framework topology: React 19 + Next.js 15 (App Router) by defau
 | react-next         | RSC, Server Actions, route handlers             |
 | routing-rendering  | App Router topology, ISR / SSR / CSR / PPR     |
 | state-data         | URL / server / client state, cache layers       |
+| component-architecture | Typed variants, composition APIs, token-driven styling |
 
 ## Specialists (referenced)
 
-- [`react-component-lead.md`](react-component-lead.md)
 - [`a11y-performance-auditor.md`](a11y-performance-auditor.md)
 
 ## Primary skills / lenses
@@ -43,6 +53,9 @@ Own the frontend framework topology: React 19 + Next.js 15 (App Router) by defau
 - New route or rendering-mode decision.
 - State-architecture refactor.
 - Data-fetching contract change.
+- Component review.
+- Variant API review.
+- `/PLAN design`.
 
 ## Output contract
 

@@ -33,11 +33,19 @@ Route commands, enforce SDD hardlocks, and keep all active swarms aligned to app
 - Require handoff packets from `@nezam-multi-agent-handoff` for parallel tracks.
 - Close every slice with `go`, `no-go`, or `replan` and one next legal command.
 
+## Strategic Layer Protocol
+
+- Route to executive-director ONLY for: vision decisions, positioning pivots, risk appetite calls
+- Route to product-officer ONLY for: final go/no-go on scope/budget/timeline at phase gates
+- Default: handle all runtime routing directly without escalating to strategic layer
+- Never route strategic layer agents into normal task execution — they are escalation endpoints only
+
 ## Standard Response Footer (required)
 
 Use this exact block in substantive swarm replies:
 
 ---
+**Execution Mode**: [A / B / C]
 **Swarm Status**: [Active Swarms]
 **Assigned Agents**: [list]
 **Hardlocks**: [active or none]

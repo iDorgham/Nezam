@@ -46,6 +46,45 @@ No implementation-oriented command may bypass this hardlock set.
 
 When `/DEVELOP start` uses a selected profile from `.cursor/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
 
+## Rollback and amendment protocol (iteration)
+
+Hardlocks constrain **forward** motion into the next pipeline stage; they do **not** forbid **controlled** rework of upstream artifacts.
+
+### PARTIAL ROLLBACK
+
+Use when mid-phase discovery **invalidates only a specific upstream artifact** (examples: finalized design requires URL slug changes → **re-open IA only** with an amendment trail; CONTENT_MAP headings change nav labels → **SEO/IA revisit** without resetting PRD/architecture).
+
+- Re-run only the impacted phase and downstream phases that consumed the stale artifact.
+- Record the rollback trigger in **`## Decision Amendments`** on each touched artifact.
+
+### FULL REPLAN
+
+Use when **PRD scope, product type, or success criteria materially change**, or multi-tenant/billing primitives shift for SaaS. Assumes pipeline reset from **Planning / Define** onward and **full** gate re-verification.
+
+### AMENDMENT (no full replan)
+
+Use when refining a locked decision **without** reversing prerequisites (tone tweak, typo in locked nav label where URLs unchanged, clarification of acceptance criteria).
+
+- Append a **`## Decision Amendments`** subsection to the artifact being amended.
+
+### Decision amendments log format
+
+Append to any amended “locked” document:
+
+```markdown
+## Decision Amendments
+| Date (YYYY-MM-DD) | Changed field | Previous value | New value | Reason | Approved by |
+|---|---|---|---|---|---|
+```
+
+Default **Approved by**: **PM-01** (`swarm-leader`). Use project-specific RACI overrides when documented elsewhere.
+
+### Non-bypass rule
+
+Hardlocks block **starting** dependent forward work until prerequisites are satisfied again after rollback.  
+
+**Backward amendment rule:** Hardlocks never block documenting or applying backward amendments via this protocol — **unless** the amendment changes facts that underpin a downstream hardlock prerequisite, in which case **Partial Rollback** or **Full Replan** applies and affected gates must be re-verified explicitly.
+
 ## Memory layers (conceptual)
 
 1. **Source of truth**: repository files (`docs/core/required/**`, templates, tracked decisions).

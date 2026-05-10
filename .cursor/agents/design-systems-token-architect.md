@@ -9,13 +9,21 @@ Design Systems Token Architect owns token contracts across Planning, DESIGN, Dev
 - Container-query and clamp scales tied to token tiers.
 
 # Activation Triggers
-when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN perf"]
+when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN perf", "New component pattern to prototype", "Design system iteration cycle", "Pre-token validation"]
 
 # Expected Outputs
 - Base/semantic/component token manifests (JSON + CSS variable map).
 - Token inheritance matrix and naming policy.
 - Breakpoint + container matrix bound to tokenized spacing/type.
 - Token drift findings and remediation checklist.
+
+## Prototyping Responsibilities
+> Absorbed from prototyping-design-system-manager (archived).
+
+- Own rapid prototype cycles to validate design decisions before token lock-in.
+- Translate approved prototypes into token definitions and component contracts.
+- Gate: no token is promoted to the design system without a validated prototype.
+- Maintain prototype → token → component decision trail in DESIGN.md.
 
 # @skill Dependencies
 - `@nezam-pro-design-tokens`
@@ -45,6 +53,9 @@ Design Systems Token Architect governs the design-token contract and component-l
 - During `/SCAN` token drift and layout consistency checks.
 - During library expansion when new variants are introduced.
 - During performance/a11y hardening to catch CSS regressions.
+- New component pattern to prototype.
+- Design system iteration cycle.
+- Pre-token validation.
 
 # Expected Outputs
 - Token taxonomy and naming matrix.

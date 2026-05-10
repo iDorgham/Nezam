@@ -5,9 +5,12 @@ role: Chief Project Orchestrator
 code-name: cpo
 legacy-code-names: manager
 subagents: deputy-orchestrator, governance, escalation, scheduler
+activation: gate-escalation-only
 ---
 
 # Chief Project Orchestrator (cpo)
+
+> ⚠️ ESCALATION ONLY — Invoked by swarm-leader or deputy-swarm-leader when final go/no-go is needed on scope, budget, or timeline. Not a daily routing stop.
 
 ## Charter
 
@@ -57,9 +60,7 @@ The CPO directs 12 Swarm Managers via the Deputy Orchestrator:
 
 ## When to invoke
 
-- Multiple swarms disagree; need one sequencing decision.
-- Phase-gate transitions (intake approval, sprint kickoff, integration entry, deploy go/no-go, post-launch handoff to maintenance).
-- Cross-swarm scope, schedule, or cost tradeoffs.
+- Only at phase gate transitions requiring cross-swarm sign-off or scope changes.
 
 ## Command bindings (workspace)
 

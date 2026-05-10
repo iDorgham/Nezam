@@ -16,19 +16,21 @@ Usage:
 Options:
   --write              Write generated files (omit for drift-only check; exits 1 if drift)
   --diff               With --write, also print the drift-style file list (check mode always prints drift)
+  --status             Print one-line ✓ / ⚠ per mirrored tool target (included memory-inject roots); exits 1 if drift
   --target=<tool-id>   Sync only one tool (e.g. claude, codex, gemini). Default skips id "cursor".
 
 Examples:
   pnpm run ai:sync
   node scripts/sync-ai-folders.js --write
   node scripts/sync-ai-folders.js
+  node scripts/sync-ai-folders.js --status
   node scripts/sync-ai-folders.js --target=claude --write
 
 Tool ids (see scripts/tools.config.json): cursor, claude, codex, copilot, opencode, antigravity, gemini, qwen, kilo
 
 Exit codes:
-  0  No drift (check mode), or --write finished
-  1  Drift detected in check mode (no --write)
+  0  No drift (check mode), or --write finished, or --status all mirrors match
+  1  Drift detected in check mode (no --write), or --status found drift
   2  Bad CLI flags or unknown --target value
 `);
 }
@@ -41,7 +43,7 @@ if (rawArgs.includes("--help") || rawArgs.includes("-h")) {
 
 for (const arg of rawArgs) {
   if (!arg.startsWith("-")) continue;
-  if (arg === "--write" || arg === "--diff") continue;
+  if (arg === "--write" || arg === "--diff" || arg === "--status") continue;
   if (arg.startsWith("--target=")) continue;
   console.error(
     `sync-ai-folders: unknown option "${arg}"\n` +
@@ -54,6 +56,7 @@ for (const arg of rawArgs) {
 const args = new Set(rawArgs);
 const writeMode = args.has("--write");
 const diffMode = args.has("--diff");
+const statusMode = args.has("--status");
 const targetArg = [...args].find((arg) => arg.startsWith("--target="));
 const targetFilter = targetArg ? targetArg.split("=")[1] : null;
 
@@ -214,11 +217,43 @@ function computeOutputsForTool(tool) {
   return outputs;
 }
 
+function collectDiffsForTool(tool) {
+  const diffs = [];
+  const outputs = computeOutputsForTool(tool);
+  for (const out of outputs) {
+    const abs = path.join(repoRoot, out.path);
+    const exists = fs.existsSync(abs);
+    const current = exists ? readUtf8(abs) : null;
+    const changed = !exists || current !== out.content;
+    if (changed) diffs.push(relativeFromRepo(abs));
+  }
+  return diffs;
+}
+
 function main() {
   const config = JSON.parse(readUtf8(configPath));
   const tools = (config.tools || []).filter((tool) =>
     targetFilter ? tool.id === targetFilter : tool.id !== "cursor"
   );
+
+  if (statusMode && writeMode) {
+    console.error("sync-ai-folders: --status cannot be combined with --write");
+    process.exit(2);
+  }
+
+  if (statusMode) {
+    let anyDrift = false;
+    for (const tool of tools) {
+      const toolDiffs = collectDiffsForTool(tool);
+      if (toolDiffs.length === 0) {
+        console.log(`${tool.id}: ✓ in sync`);
+      } else {
+        anyDrift = true;
+        console.log(`${tool.id}: ⚠ drifted (${toolDiffs.length} file(s))`);
+      }
+    }
+    process.exit(anyDrift ? 1 : 0);
+  }
 
   if (targetFilter && tools.length === 0) {
     console.error(

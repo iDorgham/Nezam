@@ -25,6 +25,13 @@ See also **[MEMORY_ARCHITECTURE.md](MEMORY_ARCHITECTURE.md)** for the four-layer
 ## Tooling
 
 - **Drift recovery:** after local edits to mirrored AI client folders outside `.cursor/`, run `pnpm ai:sync` then `pnpm ai:check` before commit.
+- **Agent eval scorecards:** append Tier‑1 evaluation blocks here per [.cursor/agents/EVAL_FRAMEWORK.md](../../../.cursor/agents/EVAL_FRAMEWORK.md).
+
+## Agent scorecards
+
+```text
+_(No Tier‑1 evaluations recorded yet.)_
+```
 
 ## External companion notes
 

@@ -24,7 +24,7 @@ Run the day-to-day operating rhythm of the 12-swarm system on behalf of the CPO.
 | -------------------- | ------------------------------------------------------- |
 | daily-sync           | Daily standup digest across swarms                       |
 | conflict-resolution  | Write-scope, ordering, and ownership conflicts           |
-| knowledge-sync       | Project memory updates with `knowledge-sharing-agent`    |
+| knowledge-sync       | Project memory updates with `knowledge-update-manager`    |
 | gate-tracker         | Phase-gate evidence completeness                         |
 
 ## Primary skills / lenses

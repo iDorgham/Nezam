@@ -18,7 +18,7 @@ Own brand expression, visual language, layout systems, typography, color, and mo
 
 - Approve brand applications, hero treatments, marketing surfaces, and editorial layouts.
 - Maintain typographic scale, color system, spacing rhythm, and elevation tokens.
-- Coordinate with `prototyping-design-system-manager` on token definitions.
+- Coordinate with `design-systems-token-architect` on token definitions.
 - Coordinate with `motion-3d-choreographer.md` on motion direction and reduced-motion fallbacks.
 
 ## Subagents (mental model)

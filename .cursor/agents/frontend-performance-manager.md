@@ -54,7 +54,7 @@ Hold the line on Core Web Vitals (LCP < 2.5s, CLS < 0.1, INP < 200ms), bundle si
 ## Escalation
 
 - Edge / CDN / infra issues -> `lead-devops-performance.md`.
-- Token / asset issues -> `prototyping-design-system-manager.md`.
+- Token / asset issues -> `design-systems-token-architect.md`.
 
 ## Invocation Prompt Template
 

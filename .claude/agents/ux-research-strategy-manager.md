@@ -12,7 +12,7 @@ subagents: user-research, journey-mapping, ia-strategy
 
 ## Charter
 
-Lead user research, journey mapping, and information architecture strategy. Convert research insights into a navigation and IA contract that drives both content (`content.md`, `seo.md`) and design (`visual-design-manager`, `prototyping-design-system-manager`).
+Lead user research, journey mapping, and information architecture strategy. Convert research insights into a navigation and IA contract that drives both content (`content.md`, `seo.md`) and design (`visual-design-manager`, `design-systems-token-architect`).
 
 ## Team Leader Scope
 

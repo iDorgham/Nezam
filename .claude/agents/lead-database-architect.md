@@ -32,7 +32,7 @@ Swarm Manager for the Data & Database swarm. Own schema design, migration safety
 
 - [`sql-expert.md`](./sql-expert.md)
 - [`nosql-expert.md`](./nosql-expert.md)
-- [`data-engineer.md`](./data-engineer.md)
+- [`data-pipeline-manager.md`](./data-pipeline-manager.md)
 - [`analytics-engineer.md`](./analytics-engineer.md)
 
 ## Primary skills / lenses

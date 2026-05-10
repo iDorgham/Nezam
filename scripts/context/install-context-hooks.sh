@@ -10,7 +10,7 @@ if [[ ! -d "$hooks_dir" ]]; then
 fi
 
 git -C "$repo_root" config core.hooksPath .githooks
-chmod +x "$hooks_dir/post-commit" "$hooks_dir/post-merge"
+chmod +x "$hooks_dir/post-commit" "$hooks_dir/post-merge" "$hooks_dir/pre-commit"
 bash "$repo_root/scripts/context/auto-memory-hooks.sh" --install
 echo "Installed context hooks using core.hooksPath=.githooks"
 echo "Hooks will auto-refresh docs/workspace/context/CONTEXT.md and docs/workspace/context/CONTEXT.md"

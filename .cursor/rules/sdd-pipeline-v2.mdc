@@ -1,0 +1,698 @@
+---
+description: SDD v3 — correct per-type pipeline order, full folder structures, Monorepo/TurboRepo support
+alwaysApply: true
+---
+
+# SDD Pipeline v3
+
+## The Four Product Types
+
+NEZAM must detect product type from PRD.md before running any pipeline.
+Detection is automatic. If unclear, ask the user to confirm.
+
+| Type ID       | Label                         | Detect when PRD mentions...                          |
+|---------------|-------------------------------|------------------------------------------------------|
+| `website`     | Website / Marketing / Landing  | pages, SEO, content, blog, landing, marketing, CMS   |
+| `webapp`      | Web Application               | dashboard, auth, users, roles, CRUD, API, SaaS lite  |
+| `saas`        | SaaS Platform                 | subscriptions, billing, multi-tenant, plans, billing |
+| `mobile`      | Mobile Application            | iOS, Android, React Native, Flutter, app store       |
+
+Monorepo flag: detected when PRD mentions multiple apps, shared packages,
+turborepo, nx, or when project contains both web + mobile + api targets.
+
+---
+
+## ════════════════════════════════════════
+## TYPE 1: WEBSITE / Marketing / Landing Page
+## ════════════════════════════════════════
+
+### Pipeline Order: CONTENT-FIRST
+
+```
+0 → IDEA          PRD.md locked
+1 → VALIDATE      Risks + improvements confirmed
+2 → RESEARCH      SEO keywords + search intent + competitor gaps → SEO_RESEARCH.md
+3 → IA            Pages, nav labels (from keywords), URL map → IA_CONTENT.md
+4 → CONTENT       Copy, headlines, CTAs, microcopy, metadata → CONTENT_MAP.md
+5 → ARCHITECTURE  CMS choice, hosting, SSG/SSR, CDN, image pipeline → ARCHITECTURE.md
+6 → DESIGN        Tokens, typography, sections, components, motion → DESIGN.md
+7 → SCAFFOLD      Full file tree → PROJECT_SCAFFOLD.md + scaffold.sh
+8 → BUILD         Pages built section by section, content-first
+9 → HARDEN        Core Web Vitals + SEO audit + a11y + security
+10 → SHIP         Deploy + monitoring + search console verification
+```
+
+**Why this order:**
+- Nav labels come from keyword research → IA step locks them
+- URL slugs locked before design (permanent — changing costs SEO)
+- Design is sized around real copy, not placeholders
+- Architecture (CMS, CDN) chosen after content volume is known
+
+### Hardlock Table (Website)
+
+| To enter this step | Requires                                              | Rollback trigger (re-open this phase) |
+|--------------------|-------------------------------------------------------|----------------------------------------|
+| RESEARCH           | PRD.md locked                                         | Product/topic/strategy PRD shifts; new mandatory markets |
+| IA                 | SEO_RESEARCH.md with keyword → page mapping           | Locked URL/nav/slug set invalidated by SEO, legal, brand, or design |
+| CONTENT            | IA_CONTENT.md with all pages + URL map confirmed      | Page set, routes, or copy architecture change |
+| ARCHITECTURE       | CONTENT_MAP.md — content volume determines CMS/stack  | CMS/stack/SSR-SSG/CDN/hosting assumptions change materially |
+| DESIGN             | ARCHITECTURE.md + CONTENT_MAP.md both exist           | Tokens/motion/grid contracts force URL/section remap |
+| SCAFFOLD           | DESIGN.md + IA_CONTENT.md + ARCHITECTURE.md all exist | Target tree/monorepo shape no longer matches plan |
+| BUILD              | PROJECT_SCAFFOLD.md confirmed                         | SPEC.md invalid vs IA/DESIGN; major component API breaks |
+| HARDEN             | All pages built, content populated                    | New surfaces added without audits |
+| SHIP               | All harden audits pass                                | Regressions in perf/SEO/security gates |
+
+### SDD Folder Structure (Website)
+
+```
+docs/
+├── workspace/
+│   ├── plans/
+│   │   ├── 00-define/
+│   │   │   ├── PRD.md
+│   │   │   ├── PROJECT_PROMPT.md
+│   │   │   └── FOUNDER_MODE.md
+│   │   ├── 01-research/
+│   │   │   ├── SEO_RESEARCH.md          ← keyword clusters, intent map
+│   │   │   ├── COMPETITOR_ANALYSIS.md
+│   │   │   └── AUDIENCE_PERSONAS.md
+│   │   ├── 02-ia/
+│   │   │   ├── IA_CONTENT.md            ← page list, nav labels, URL map
+│   │   │   ├── SITEMAP.md
+│   │   │   └── NAVIGATION_CONTRACT.md
+│   │   ├── 03-content/
+│   │   │   ├── CONTENT_MAP.md           ← per-page copy briefs
+│   │   │   ├── VOICE_TONE.md
+│   │   │   └── SEO_METADATA.md          ← title tags, descriptions per page
+│   │   ├── 04-architecture/
+│   │   │   └── ARCHITECTURE.md          ← CMS, hosting, CDN, image pipeline
+│   │   ├── 05-design/
+│   │   │   ├── DESIGN.md                ← tokens, typography, components
+│   │   │   └── COMPONENT_INVENTORY.md
+│   │   ├── 06-scaffold/
+│   │   │   └── PROJECT_SCAFFOLD.md
+│   │   ├── 07-build/
+│   │   │   └── <page-slug>/SPEC.md      ← one spec per page
+│   │   ├── 08-harden/
+│   │   │   ├── LIGHTHOUSE_REPORT.md
+│   │   │   ├── SEO_AUDIT.md
+│   │   │   ├── A11Y_AUDIT.md
+│   │   │   └── SECURITY_AUDIT.md
+│   │   └── 09-ship/
+│   │       ├── DEPLOY_CHECKLIST.md
+│   │       └── SEARCH_CONSOLE_SETUP.md
+│   └── context/
+│       ├── MEMORY.md
+│       └── MASTER_TASKS.md
+
+Project source (Next.js / Astro / Nuxt):
+src/
+├── app/                     ← pages (Next.js App Router)
+│   ├── (marketing)/
+│   │   ├── page.tsx         ← homepage
+│   │   ├── about/page.tsx
+│   │   └── [slug]/page.tsx  ← dynamic pages
+│   ├── blog/
+│   │   ├── page.tsx
+│   │   └── [slug]/page.tsx
+│   └── layout.tsx
+├── components/
+│   ├── sections/            ← full-width page sections
+│   │   ├── Hero.tsx
+│   │   ├── Features.tsx
+│   │   ├── Testimonials.tsx
+│   │   └── CTA.tsx
+│   ├── ui/                  ← design system primitives
+│   └── layout/              ← header, footer, nav
+├── content/                 ← MDX / CMS content files
+├── lib/
+│   ├── cms.ts               ← CMS client (Contentful / Sanity / MDX)
+│   └── seo.ts               ← metadata helpers
+├── styles/
+│   └── tokens.css           ← design tokens
+└── public/
+    └── images/
+```
+
+---
+
+## ════════════════════════════════════════
+## TYPE 2: WEB APPLICATION
+## ════════════════════════════════════════
+
+### Pipeline Order: ARCHITECTURE-FIRST
+
+```
+0 → IDEA          PRD.md locked
+1 → VALIDATE      Risks + improvements confirmed
+2 → RESEARCH      Market research + competitor features → MARKET_RESEARCH.md
+3 → ARCHITECTURE  Data model + API design + auth + roles → ARCHITECTURE.md
+4 → IA            App navigation, user flows, screen map → IA_CONTENT.md
+5 → DESIGN        Design system: tokens, components, states, flows → DESIGN.md
+6 → CONTENT       UI copy, empty states, error messages, onboarding → CONTENT_MAP.md
+7 → SCAFFOLD      Full file tree → PROJECT_SCAFFOLD.md + scaffold.sh
+8 → BUILD         Feature slices (auth first, core features, extras)
+9 → HARDEN        Security + perf + a11y + data integrity audit
+10 → SHIP         Deploy + monitoring + error tracking live
+```
+
+**Why this order:**
+- Data model must be locked before UI is designed (forms, tables, relations)
+- Auth and roles defined before any screen is drawn
+- IA maps user flows, not just pages — requires architecture context
+- Content (UI copy) is last because it depends on knowing every screen state
+
+### Hardlock Table (Web App)
+
+| To enter this step | Requires                                                     | Rollback trigger (re-open this phase) |
+|--------------------|--------------------------------------------------------------|----------------------------------------|
+| RESEARCH           | PRD.md locked                                                | ICP/feature set pivot before arch lock |
+| ARCHITECTURE       | PRD.md + market research + PROJECT_PROMPT.md aligned         | Auth model, data model, or integration contracts change materially |
+| IA                 | ARCHITECTURE.md with data model + auth model confirmed       | User roles, flows, nav, or screen map invalid vs arch |
+| DESIGN             | IA_CONTENT.md with user flows + screen map                   | New major surfaces; token/component contracts break IA assumptions |
+| CONTENT            | DESIGN.md — need all screens to know all copy states         | Voice, empty/error states scope changes post-design |
+| SCAFFOLD           | ARCHITECTURE.md + DESIGN.md + IA_CONTENT.md all exist        | Package/tree no longer reflects arch or DESIGN |
+| BUILD              | PROJECT_SCAFFOLD.md confirmed + all SDD prereqs pass         | SPEC invalid vs IA/arch; cross-slice coupling explosion |
+| HARDEN             | All feature slices pass acceptance criteria                  | New risk surfaces added without hardened review |
+| SHIP               | All harden audits pass                                       | Regressions in security/perf/a11y gates |
+
+### SDD Folder Structure (Web App)
+
+```
+docs/
+├── workspace/
+│   ├── plans/
+│   │   ├── 00-define/
+│   │   │   ├── PRD.md
+│   │   │   ├── PROJECT_PROMPT.md
+│   │   │   └── FOUNDER_MODE.md
+│   │   ├── 01-research/
+│   │   │   ├── MARKET_RESEARCH.md
+│   │   │   └── COMPETITOR_FEATURES.md
+│   │   ├── 02-architecture/
+│   │   │   ├── ARCHITECTURE.md          ← stack, data model, API design
+│   │   │   ├── DATA_MODEL.md            ← full entity-relationship diagram
+│   │   │   ├── API_CONTRACT.md          ← all endpoints, request/response shapes
+│   │   │   ├── AUTH_MODEL.md            ← roles, permissions, session strategy
+│   │   │   └── COST_ESTIMATE.md
+│   │   ├── 03-ia/
+│   │   │   ├── IA_CONTENT.md            ← screen map, user flows
+│   │   │   ├── USER_FLOWS.md            ← per-role flow diagrams
+│   │   │   └── NAVIGATION_CONTRACT.md
+│   │   ├── 04-design/
+│   │   │   ├── DESIGN.md
+│   │   │   ├── COMPONENT_INVENTORY.md
+│   │   │   └── DESIGN_STATES.md         ← loading, empty, error, success states
+│   │   ├── 05-content/
+│   │   │   ├── CONTENT_MAP.md           ← UI copy, empty states, error messages
+│   │   │   └── ONBOARDING_COPY.md
+│   │   ├── 06-scaffold/
+│   │   │   └── PROJECT_SCAFFOLD.md
+│   │   ├── 07-build/
+│   │   │   └── <feature-slug>/SPEC.md
+│   │   ├── 08-harden/
+│   │   │   ├── SECURITY_AUDIT.md
+│   │   │   ├── PERF_AUDIT.md
+│   │   │   └── A11Y_AUDIT.md
+│   │   └── 09-ship/
+│   │       ├── DEPLOY_CHECKLIST.md
+│   │       └── MONITORING_SETUP.md
+
+Project source (Next.js App Router):
+src/
+├── app/
+│   ├── (auth)/
+│   │   ├── login/page.tsx
+│   │   ├── register/page.tsx
+│   │   └── layout.tsx
+│   ├── (dashboard)/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── [feature]/
+│   │       └── page.tsx
+│   └── api/
+│       ├── auth/[...nextauth]/route.ts
+│       └── [resource]/route.ts
+├── components/
+│   ├── ui/                  ← primitives (Button, Input, Card…)
+│   ├── features/            ← feature-specific components
+│   └── layouts/             ← shell, sidebar, topbar
+├── lib/
+│   ├── db/                  ← database client + queries
+│   ├── auth/                ← auth helpers, session, middleware
+│   ├── api/                 ← API client helpers
+│   └── utils/
+├── hooks/                   ← React hooks
+├── store/                   ← state management
+├── types/                   ← TypeScript types + schemas
+├── styles/
+│   └── tokens.css
+└── tests/
+    ├── unit/
+    ├── integration/
+    └── e2e/
+```
+
+---
+
+## ════════════════════════════════════════
+## TYPE 3: SAAS PLATFORM
+## ════════════════════════════════════════
+
+### Pipeline Order: ARCHITECTURE + BILLING-FIRST
+
+```
+0 → IDEA          PRD.md locked
+1 → VALIDATE      Risks + improvements + market fit confirmed
+2 → RESEARCH      Market research + ICP + pricing research → MARKET_RESEARCH.md
+3 → ARCHITECTURE  Multi-tenancy model + billing + data model + API → ARCHITECTURE.md
+4 → IA            App navigation, user flows, admin flows, onboarding → IA_CONTENT.md
+5 → DESIGN        Design system + dashboard patterns + onboarding UI → DESIGN.md
+6 → CONTENT       Marketing copy + in-app copy + email sequences → CONTENT_MAP.md
+7 → SEO           Public pages keyword research → SEO_RESEARCH.md
+8 → SCAFFOLD      Full file tree → PROJECT_SCAFFOLD.md + scaffold.sh
+9 → BUILD         Slices: auth→billing→core feature→admin→public site
+10 → HARDEN       Security + compliance + perf + a11y audit
+11 → SHIP         Deploy + monitoring + billing live + error tracking
+```
+
+**Why this order:**
+- Multi-tenancy architecture determines EVERYTHING: database schema, auth model, API design, data isolation
+- Billing model must be locked before first line of code (changing billing mid-build is catastrophic)
+- SaaS has two distinct UIs: the app (architecture-first) + the marketing site (content-first)
+- SEO for public pages comes after architecture, because the tech stack affects rendering strategy (SSG vs SSR)
+
+### Hardlock Table (SaaS)
+
+| To enter this step | Requires                                                          | Rollback trigger (re-open this phase) |
+|--------------------|-------------------------------------------------------------------|----------------------------------------|
+| RESEARCH           | PRD.md locked                                                     | Pricing tier/ICP that changes tenancy or billing model |
+| ARCHITECTURE       | Market research + pricing model confirmed in PRD                  | Multi-tenant isolation or billing primitives change materially |
+| IA                 | ARCHITECTURE.md with multi-tenancy model + billing model locked   | Admin/app/onboarding IA no longer fits tenancy or billing |
+| DESIGN             | IA_CONTENT.md with all flows (app + admin + onboarding)           | Dashboard/onboarding/token patterns invalidate IA flows |
+| CONTENT            | DESIGN.md — need all screens to write all copy states             | Marketing/legal copy scope shifts product promises |
+| SEO                | ARCHITECTURE.md — stack determines SSG/SSR rendering capability   | Public-marketing routing or rendering strategy changes |
+| SCAFFOLD           | All planning docs (arch + design + IA + content + SEO) exist       | Workspace layout/package map no longer valid |
+| BUILD              | PROJECT_SCAFFOLD.md confirmed                                     | Feature slices invalid vs billing/auth/tenant model |
+| HARDEN             | All feature slices pass acceptance criteria                       | New compliance/regulatory surface without audit |
+| SHIP               | All harden audits pass + billing tested end-to-end                | Billing regressions or production gate failures |
+
+### SDD Folder Structure (SaaS)
+
+```
+docs/
+├── workspace/
+│   ├── plans/
+│   │   ├── 00-define/
+│   │   │   ├── PRD.md
+│   │   │   ├── PROJECT_PROMPT.md
+│   │   │   └── ICP.md                    ← Ideal Customer Profile
+│   │   ├── 01-research/
+│   │   │   ├── MARKET_RESEARCH.md
+│   │   │   ├── PRICING_RESEARCH.md
+│   │   │   └── COMPETITOR_FEATURES.md
+│   │   ├── 02-architecture/
+│   │   │   ├── ARCHITECTURE.md
+│   │   │   ├── MULTI_TENANCY_MODEL.md    ← schema-per-tenant vs row isolation
+│   │   │   ├── DATA_MODEL.md
+│   │   │   ├── API_CONTRACT.md
+│   │   │   ├── AUTH_MODEL.md             ← roles: owner, admin, member, viewer
+│   │   │   ├── BILLING_MODEL.md          ← plans, limits, upgrade/downgrade
+│   │   │   └── COST_ESTIMATE.md
+│   │   ├── 03-ia/
+│   │   │   ├── IA_CONTENT.md
+│   │   │   ├── APP_FLOWS.md              ← authenticated app user flows
+│   │   │   ├── ADMIN_FLOWS.md            ← super-admin / internal flows
+│   │   │   ├── ONBOARDING_FLOW.md        ← signup → first value moment
+│   │   │   └── NAVIGATION_CONTRACT.md
+│   │   ├── 04-design/
+│   │   │   ├── DESIGN.md
+│   │   │   ├── DASHBOARD_PATTERNS.md
+│   │   │   ├── COMPONENT_INVENTORY.md
+│   │   │   └── DESIGN_STATES.md
+│   │   ├── 05-content/
+│   │   │   ├── CONTENT_MAP.md
+│   │   │   ├── ONBOARDING_COPY.md
+│   │   │   ├── EMAIL_SEQUENCES.md        ← welcome, trial expiry, upgrade
+│   │   │   └── IN_APP_COPY.md
+│   │   ├── 06-seo/
+│   │   │   ├── SEO_RESEARCH.md
+│   │   │   └── SEO_METADATA.md
+│   │   ├── 07-scaffold/
+│   │   │   └── PROJECT_SCAFFOLD.md
+│   │   ├── 08-build/
+│   │   │   └── <feature-slug>/SPEC.md
+│   │   ├── 09-harden/
+│   │   │   ├── SECURITY_AUDIT.md
+│   │   │   ├── COMPLIANCE_CHECKLIST.md   ← GDPR, SOC2 readiness
+│   │   │   ├── PERF_AUDIT.md
+│   │   │   └── A11Y_AUDIT.md
+│   │   └── 10-ship/
+│   │       ├── DEPLOY_CHECKLIST.md
+│   │       ├── BILLING_LAUNCH_CHECKLIST.md
+│   │       └── MONITORING_SETUP.md
+
+Project source (Next.js — app + marketing in one repo, or Monorepo):
+src/
+├── app/
+│   ├── (auth)/               ← public auth pages
+│   ├── (marketing)/          ← public marketing pages (SSG)
+│   │   ├── page.tsx          ← homepage
+│   │   ├── pricing/page.tsx
+│   │   └── blog/[slug]/page.tsx
+│   ├── (app)/                ← authenticated SaaS app (SSR)
+│   │   ├── layout.tsx        ← dashboard shell
+│   │   ├── onboarding/
+│   │   └── [orgSlug]/        ← tenant-scoped routes
+│   │       └── [feature]/
+│   └── api/
+│       ├── auth/
+│       ├── billing/          ← Stripe webhooks
+│       └── [resource]/
+├── components/
+│   ├── ui/
+│   ├── marketing/            ← sections for public pages
+│   ├── app/                  ← dashboard components
+│   └── shared/               ← used in both contexts
+├── lib/
+│   ├── db/
+│   ├── auth/
+│   ├── billing/              ← Stripe integration
+│   ├── email/                ← transactional emails
+│   └── tenant/               ← multi-tenancy helpers
+├── hooks/
+├── store/
+├── types/
+├── styles/
+│   └── tokens.css
+└── tests/
+```
+
+---
+
+## ════════════════════════════════════════
+## TYPE 4: MOBILE APPLICATION
+## ════════════════════════════════════════
+
+### Pipeline Order: ARCHITECTURE + OFFLINE-FIRST
+
+```
+0 → IDEA          PRD.md locked
+1 → VALIDATE      Risks + native capability requirements confirmed
+2 → RESEARCH      Market research + App Store research + competitor apps
+3 → ARCHITECTURE  Data model + offline strategy + push + native APIs → ARCHITECTURE.md
+4 → IA            Screen map + navigation patterns + user flows → IA_CONTENT.md
+5 → DESIGN        Design system: touch targets, gestures, safe areas → DESIGN.md
+6 → CONTENT       In-app copy + push notification copy + onboarding → CONTENT_MAP.md
+7 → SCAFFOLD      Full file tree → PROJECT_SCAFFOLD.md + scaffold.sh
+8 → BUILD         Slices: navigation shell → auth → core screens → extras
+9 → HARDEN        Performance + accessibility + offline testing + store checklist
+10 → SHIP         App store submission + CI/CD + crash monitoring
+```
+
+**Why this order:**
+- Offline strategy (sync model) determines the entire data architecture
+- Navigation pattern (tab bar / stack / drawer) must be locked before design — changing it mid-build breaks everything
+- Touch targets and safe areas are architectural constraints, not styling choices
+- App Store requirements affect architecture (privacy manifest, entitlements, permissions)
+
+### Hardlock Table (Mobile)
+
+| To enter this step | Requires                                                          | Rollback trigger (re-open this phase) |
+|--------------------|-------------------------------------------------------------------|----------------------------------------|
+| RESEARCH           | PRD.md locked                                                     | Store/category or core capability pivot |
+| ARCHITECTURE       | Platform confirmed (iOS / Android / RN / Flutter)                 | Offline/sync/push or native APIs change materially |
+| IA                 | ARCHITECTURE.md with offline model + push strategy confirmed      | Navigation shell (tabs/stack/drawer) or flows invalidated |
+| DESIGN             | IA_CONTENT.md with navigation pattern + screen map confirmed      | Touch/safe-area/motion/token rules break screen inventory |
+| CONTENT            | DESIGN.md — need all screens to write all copy + push copy        | Permission/push/message taxonomy scope changes |
+| SCAFFOLD           | ARCHITECTURE.md + DESIGN.md + IA_CONTENT.md all exist            | Repo/module layout diverges from plan |
+| BUILD              | PROJECT_SCAFFOLD.md confirmed                                     | SPEC vs navigation/offline mismatch |
+| HARDEN             | All screens built, offline tested on real device                  | New entitlement/privacy-critical path without QA |
+| SHIP               | App store checklist complete + crash monitoring configured        | Submission blockers or monitoring gaps |
+
+### SDD Folder Structure (Mobile — React Native)
+
+```
+docs/
+├── workspace/
+│   ├── plans/
+│   │   ├── 00-define/
+│   │   │   ├── PRD.md
+│   │   │   ├── PROJECT_PROMPT.md
+│   │   │   └── PLATFORM_CONTRACT.md      ← iOS / Android / both + min OS version
+│   │   ├── 01-research/
+│   │   │   ├── MARKET_RESEARCH.md
+│   │   │   ├── APP_STORE_RESEARCH.md     ← category rankings, keywords, screenshots
+│   │   │   └── COMPETITOR_APPS.md
+│   │   ├── 02-architecture/
+│   │   │   ├── ARCHITECTURE.md
+│   │   │   ├── OFFLINE_STRATEGY.md       ← sync model, conflict resolution
+│   │   │   ├── PUSH_STRATEGY.md          ← notification types, permission flow
+│   │   │   ├── DATA_MODEL.md
+│   │   │   ├── API_CONTRACT.md
+│   │   │   └── NATIVE_APIS.md            ← camera, location, biometrics, etc.
+│   │   ├── 03-ia/
+│   │   │   ├── IA_CONTENT.md
+│   │   │   ├── NAVIGATION_PATTERN.md     ← tab/stack/drawer decisions LOCKED
+│   │   │   ├── SCREEN_MAP.md
+│   │   │   └── USER_FLOWS.md
+│   │   ├── 04-design/
+│   │   │   ├── DESIGN.md
+│   │   │   ├── TOUCH_TARGETS.md          ← min sizes, gesture zones
+│   │   │   ├── SAFE_AREAS.md             ← notch, home indicator, status bar
+│   │   │   └── COMPONENT_INVENTORY.md
+│   │   ├── 05-content/
+│   │   │   ├── CONTENT_MAP.md
+│   │   │   ├── PUSH_COPY.md              ← notification copy by type
+│   │   │   └── ONBOARDING_COPY.md
+│   │   ├── 06-scaffold/
+│   │   │   └── PROJECT_SCAFFOLD.md
+│   │   ├── 07-build/
+│   │   │   └── <feature-slug>/SPEC.md
+│   │   ├── 08-harden/
+│   │   │   ├── PERF_AUDIT.md
+│   │   │   ├── OFFLINE_TEST_REPORT.md
+│   │   │   ├── A11Y_AUDIT.md
+│   │   │   └── APP_STORE_CHECKLIST.md
+│   │   └── 09-ship/
+│   │       ├── STORE_SUBMISSION.md
+│   │       └── CRASH_MONITORING_SETUP.md
+
+Project source (React Native):
+src/
+├── screens/
+│   ├── auth/
+│   │   ├── LoginScreen.tsx
+│   │   └── RegisterScreen.tsx
+│   ├── onboarding/
+│   │   └── OnboardingScreen.tsx
+│   └── [feature]/
+│       └── [Feature]Screen.tsx
+├── navigation/
+│   ├── RootNavigator.tsx
+│   ├── AuthNavigator.tsx
+│   └── AppNavigator.tsx
+├── components/
+│   ├── ui/                   ← primitives (Button, Input, Card…)
+│   └── features/             ← feature-specific components
+├── hooks/
+├── services/
+│   ├── api/                  ← API calls
+│   ├── sync/                 ← offline sync engine
+│   └── notifications/        ← push notification handlers
+├── store/                    ← Zustand / Redux state
+├── lib/
+│   ├── db/                   ← local SQLite / MMKV
+│   └── utils/
+├── assets/
+│   ├── images/
+│   └── fonts/
+└── types/
+```
+
+---
+
+## ════════════════════════════════════════
+## MONOREPO / TURBOREPO SUPPORT
+## ════════════════════════════════════════
+
+### When to use Monorepo
+
+Use Monorepo when the project has 2+ of these:
+- A web app + a public marketing website
+- A web app + a mobile app
+- A shared design system / component library used in multiple apps
+- A backend API used by multiple frontends
+- Multiple SaaS tiers (e.g., customer-facing app + internal admin app)
+
+### Monorepo Pipeline Addition
+
+After Step 3 (ARCHITECTURE), insert:
+
+```
+3a → MONOREPO DESIGN  Define workspace packages, shared contracts,
+                       dependency graph, build pipeline → MONOREPO.md
+```
+
+MONOREPO.md must define:
+- Each package: name, type, consumers
+- Shared packages: `packages/ui`, `packages/config`, `packages/types`, `packages/utils`
+- App packages: `apps/web`, `apps/app`, `apps/mobile`, `apps/api`
+- Build order and dependency graph
+- Which packages are publishable vs internal
+
+### TurboRepo Structure
+
+```
+/                               ← repo root
+├── apps/
+│   ├── web/                    ← marketing website (Next.js, SSG)
+│   ├── app/                    ← web application (Next.js, SSR)
+│   ├── mobile/                 ← mobile app (React Native / Expo)
+│   └── api/                    ← backend API (Node.js / Hono / Fastify)
+├── packages/
+│   ├── ui/                     ← shared component library
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   └── index.ts
+│   │   └── package.json
+│   ├── config/                 ← shared configs (tsconfig, eslint, tailwind)
+│   │   ├── tsconfig/
+│   │   ├── eslint/
+│   │   └── tailwind/
+│   ├── types/                  ← shared TypeScript types
+│   │   ├── src/
+│   │   └── package.json
+│   ├── utils/                  ← shared utilities
+│   │   ├── src/
+│   │   └── package.json
+│   └── db/                     ← shared database client + schema (Prisma / Drizzle)
+│       ├── prisma/
+│       │   └── schema.prisma
+│       ├── src/
+│       └── package.json
+├── docs/
+│   └── workspace/              ← ALL SDD planning docs live here (not per-app)
+│       ├── plans/              ← follows the active product type(s) structure
+│       └── context/
+├── turbo.json                  ← TurboRepo pipeline config
+├── package.json                ← workspace root (pnpm workspaces)
+├── pnpm-workspace.yaml
+├── CLAUDE.md                   ← generated (pnpm ai:sync)
+├── AGENTS.md                   ← generated (pnpm ai:sync)
+└── .cursor/                    ← canonical workspace contracts
+```
+
+### TurboRepo Pipeline Config Template
+
+```json
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", "build/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
+    },
+    "type-check": {
+      "dependsOn": ["^build"]
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    }
+  }
+}
+```
+
+### Monorepo SDD Docs Structure
+
+SDD planning docs are scoped by app within one shared docs tree:
+
+```
+docs/workspace/plans/
+├── 00-define/
+│   ├── PRD.md                         ← project-wide PRD
+│   └── MONOREPO.md                    ← workspace package map
+├── 01-research/
+│   ├── apps/
+│   │   ├── web/SEO_RESEARCH.md        ← website-specific SEO
+│   │   └── app/MARKET_RESEARCH.md     ← app-specific research
+├── 02-architecture/
+│   ├── ARCHITECTURE.md                ← system-wide architecture
+│   ├── apps/
+│   │   ├── web/ARCHITECTURE.md        ← app-specific overrides
+│   │   └── api/ARCHITECTURE.md
+│   └── packages/
+│       └── db/SCHEMA.md
+├── 03-ia/
+│   ├── apps/
+│   │   ├── web/IA_CONTENT.md
+│   │   └── app/IA_CONTENT.md
+├── 04-design/
+│   ├── DESIGN.md                      ← shared design system
+│   └── apps/
+│       └── web/MARKETING_DESIGN.md    ← website-specific extensions
+├── 05-content/
+│   ├── apps/
+│   │   ├── web/CONTENT_MAP.md
+│   │   └── app/CONTENT_MAP.md
+├── 06-scaffold/
+│   └── PROJECT_SCAFFOLD.md            ← full monorepo tree
+└── 07-build/
+    ├── apps/
+    │   ├── web/<page-slug>/SPEC.md
+    │   └── app/<feature-slug>/SPEC.md
+    └── packages/
+        └── ui/<component>/SPEC.md
+```
+
+### Monorepo Hardlock Addition
+
+Before `/DEVELOP` on any app, confirm:
+- `MONOREPO.md` exists and defines the package it belongs to
+- Shared packages (`ui`, `types`, `utils`) have their own SPEC.md entries
+- The app's specific scaffold section is confirmed in `PROJECT_SCAFFOLD.md`
+
+---
+
+## Agent Routing by Phase (all types)
+
+| Phase          | Lead Agent                    | Support Agents                                  |
+|----------------|-------------------------------|--------------------------------------------------|
+| Idea           | product-officer               | business-analyst, requirements-analysis-manager  |
+| Validate       | PM-01 (swarm-leader)          | technical-feasibility-analyst                    |
+| Research       | seo-specialist (web/saas)     | aeo-specialist, content-strategist               |
+|                | business-analyst (app/mobile) | market research focus                            |
+| Architecture   | lead-solution-architect       | lead-backend-architect, lead-database-architect  |
+| IA             | content-strategist (website)  | seo-specialist                                   |
+|                | lead-uiux-designer (app/saas) | ux-research-strategy-manager                     |
+| Design         | lead-uiux-designer            | design-systems-token-architect, a11y-auditor     |
+| Content        | content-strategist            | arabic-content-master (MENA), seo-specialist     |
+| Scaffold       | project-architect + PM-01     | all leads confirm their directories              |
+| Build          | swarm-leader (PM-01)          | feature-specific agents per vertical slice       |
+| Harden         | lead-qa-architect             | a11y-perf-auditor, security-auditor              |
+| Ship           | lead-devops-performance       | gitops-engineer, ci-automation                   |
+
+## Feature Slice Protocol (all types — Step BUILD)
+
+Each feature before coding begins:
+1. Spec: `docs/workspace/plans/0N-build/<feature-slug>/SPEC.md`
+2. Spec includes: acceptance criteria, data model changes, API contract, UI states, edge cases
+3. Agent assigned before work starts
+4. Slice reviewed by PM-01 before merge: `go` / `no-go` / `replan`
+
+No feature slice may begin without a complete SPEC.md.
+This is a non-bypass hardlock enforced by PM-01.

@@ -9,6 +9,7 @@ This document defines the required inter-agent communication format for the Top-
 - Escalate blockers early through PM-01.
 - Keep file ownership explicit during parallel tracks.
 - Route generated reports to `docs/reports/<category>/` only.
+- At phase boundaries or cross-domain work, synchronize via **`docs/workspace/context/PHASE_HANDOFF.md`** — see `.cursor/agents/subagent-controller.md`.
 
 ## Required response footer (all substantive agent replies)
 

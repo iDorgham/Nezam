@@ -10,7 +10,15 @@ subagents: kb-articles, runbooks, post-mortems
 
 ## Charter
 
-Own the knowledge base, runbooks, and post-mortem index for the live product. Ensure shared knowledge stays current as the system changes; coordinate with `agent-docs-hygiene.md` on doc rot and with `knowledge-sharing-agent.md` on cross-swarm propagation.
+Own the knowledge base, runbooks, and post-mortem index for the live product. Ensure shared knowledge stays current as the system changes; coordinate with `agent-docs-hygiene.md` on doc rot and handle cross-swarm propagation.
+
+## Cross-Swarm Sync Responsibilities
+> Absorbed from knowledge-sharing-agent (archived).
+
+- Sync `docs/workspace/context/MEMORY.md` and phase logs after substantive decisions.
+- Broadcast new ADRs and architecture decisions to affected swarms.
+- Watch for documentation rot; route stale docs to `docs-hygiene.md`.
+- Coordinate with `deputy-swarm-leader.md` on high-signal decision propagation.
 
 ## Team Leader Scope
 
@@ -26,11 +34,12 @@ Own the knowledge base, runbooks, and post-mortem index for the live product. En
 | kb-articles    | Customer / internal KB articles                      |
 | runbooks       | Operational runbooks (deploy, IR, DR, on-call)       |
 | post-mortems   | Index + action-item follow-through                   |
+| memory-sync    | MEMORY.md and phase log updates                      |
+| decision-broadcast | ADR / decision distribution                     |
 
 ## Specialists (referenced)
 
 - [`agent-docs-hygiene.md`](agent-docs-hygiene.md)
-- [`knowledge-sharing-agent.md`](knowledge-sharing-agent.md)
 
 ## Primary skills / lenses
 
@@ -43,6 +52,9 @@ Own the knowledge base, runbooks, and post-mortem index for the live product. En
 - New KB article need or stale article flagged.
 - Runbook change after a deploy / incident.
 - Post-mortem authorship and follow-through.
+- New ADR or architecture decision.
+- Cross-swarm misalignment detected.
+- Periodic doc-rot sweep (weekly).
 
 ## Output contract
 
@@ -52,7 +64,7 @@ Own the knowledge base, runbooks, and post-mortem index for the live product. En
 
 ## Escalation
 
-- Cross-team propagation -> `knowledge-sharing-agent.md` -> `deputy-orchestrator.md`.
+- Cross-team propagation -> `knowledge-update-manager.md` -> `deputy-orchestrator.md`.
 - Compliance / audit posture -> `compliance-manager.md`.
 
 ## Invocation Prompt Template

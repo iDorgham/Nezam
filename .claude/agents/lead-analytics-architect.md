@@ -31,7 +31,7 @@ Swarm Manager for the Analytics & Dashboard swarm. Own the end-to-end analytics 
 
 ## Specialists (referenced)
 
-- [`data-engineer.md`](./data-engineer.md)
+- [`data-pipeline-manager.md`](./data-pipeline-manager.md)
 - [`analytics-engineer.md`](./analytics-engineer.md)
 - [`experimentation-lead.md`](./experimentation-lead.md)
 - [`data-visualization-specialist.md`](./data-visualization-specialist.md)

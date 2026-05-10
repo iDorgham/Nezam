@@ -10,7 +10,7 @@ subagents: components, storybook, a11y-defaults
 
 ## Charter
 
-Own the implementation of the UI component library: typed, variant-driven primitives, Storybook coverage, accessibility defaults, and tree-shakeable exports. Bridge between the design system spec (`prototyping-design-system-manager`) and product UI.
+Own the implementation of the UI component library: typed, variant-driven primitives, Storybook coverage, accessibility defaults, and tree-shakeable exports. Bridge between the design system spec (`design-systems-token-architect`) and product UI.
 
 ## Team Leader Scope
 
@@ -29,7 +29,7 @@ Own the implementation of the UI component library: typed, variant-driven primit
 
 ## Specialists (referenced)
 
-- [`react-component-lead.md`](react-component-lead.md)
+- [`frontend-framework-manager.md`](frontend-framework-manager.md)
 - [`a11y-performance-auditor.md`](a11y-performance-auditor.md)
 
 ## Primary skills / lenses
@@ -53,7 +53,7 @@ Own the implementation of the UI component library: typed, variant-driven primit
 
 ## Escalation
 
-- Token or design-system change requests -> `prototyping-design-system-manager.md`.
+- Token or design-system change requests -> `design-systems-token-architect.md`.
 - Performance impact -> `frontend-performance-manager.md`.
 
 ## Invocation Prompt Template

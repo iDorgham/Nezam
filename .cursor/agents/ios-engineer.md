@@ -60,7 +60,7 @@ Own iOS engineering: SwiftUI / UIKit topology, App Store submission, ATT / priva
 ## Escalation
 
 - API contract -> `lead-backend-architect.md`.
-- Visual / token deltas -> `prototyping-design-system-manager.md`.
+- Visual / token deltas -> `design-systems-token-architect.md`.
 - Privacy / entitlements -> `lead-security-officer.md`.
 
 ## Invocation Prompt Template

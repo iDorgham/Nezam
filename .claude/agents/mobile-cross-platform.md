@@ -98,7 +98,7 @@ Own cross-platform mobile engineering across React Native (Expo), and Flutter wh
 
 - iOS- / Android-specific issues -> `ios-manager.md` / `android-manager.md`.
 - API contract -> `lead-backend-architect.md`.
-- Visual / token deltas -> `prototyping-design-system-manager.md`.
+- Visual / token deltas -> `design-systems-token-architect.md`.
 
 ## Invocation Prompt Template
 

@@ -2,9 +2,13 @@
 role: CEO
 code-name: ceo
 subagents: strategist, prioritizer
+activation: founder-lens-only
+when: ["/FOUNDER vision", "/FOUNDER risk", "strategic pivot decision", "product positioning review"]
 ---
 
 # CEO (ceo)
+
+> ⚠️ LENS ONLY — This agent is not a routing hop. Invoke directly when vision, positioning, or risk-appetite decisions are needed. Not part of the standard execution pipeline.
 
 ## Charter
 

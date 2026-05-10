@@ -36,6 +36,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `start.md`
 
 ## Synced agent index
+- `EVAL_FRAMEWORK.md`
 - `README.md`
 - `a11y-performance-auditor.md`
 - `aeo-specialist.md`
@@ -56,6 +57,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `bug-triage-manager.md`
 - `business-analyst.md`
 - `ci-automation.md`
+- `client-onboarding-agent.md`
 - `cms-manager.md`
 - `code-generation-supervisor.md`
 - `code-review-specialist.md`
@@ -130,6 +132,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `product-manager.md`
 - `product-officer.md`
 - `project-architect.md`
+- `prompt-engineer.md`
 - `prototyping-design-system-manager.md`
 - `qa-test-lead.md`
 - `react-component-lead.md`
@@ -145,6 +148,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `seo-specialist.md`
 - `services-microservices-manager.md`
 - `solution-design-manager.md`
+- `spec-writer.md`
 - `sql-expert.md`
 - `sre-incident-specialist.md`
 - `subagent-controller.md`
@@ -176,8 +180,11 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 ## Synced rule sources
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
+- `.cursor/rules/multi-tool-sync.mdc`
 - `.cursor/rules/nezam-design-gates-pro.mdc`
+- `.cursor/rules/plan-phase-scaffold.mdc`
 - `.cursor/rules/sdd-design.mdc`
+- `.cursor/rules/sdd-pipeline-v2.mdc`
 - `.cursor/rules/ui-ux-swarm-library-ds-content.mdc`
 - `.cursor/rules/workspace-client-onboarding-gate.mdc`
 - `.cursor/rules/workspace-orchestration.mdc`

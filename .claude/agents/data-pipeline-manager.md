@@ -21,6 +21,15 @@ Own ELT / ETL pipelines, change-data-capture, replica replication, and warehousi
 - Define data freshness SLOs and retry / replay paths.
 - Coordinate with `lead-analytics-architect.md` on consumer needs.
 
+## Inherited Responsibilities
+> Absorbed from data-engineer (archived).
+
+- Source-system schema changes are contracts; breaking changes require versioning and a deprecation window.
+- Pipelines are idempotent, restartable, and observable end-to-end (lineage + freshness + volume).
+- Warehouse layers follow raw → staging → marts with explicit ownership per layer.
+- Cost and performance are first-class: query plans and partitioning are reviewed at design time.
+- PII flows are tagged at ingest and respected through every downstream model.
+
 ## Subagents (mental model)
 
 | Subagent           | Responsibility                                    |
@@ -31,7 +40,6 @@ Own ELT / ETL pipelines, change-data-capture, replica replication, and warehousi
 
 ## Specialists (referenced)
 
-- [`data-engineer.md`](./data-engineer.md)
 - [`analytics-engineer.md`](./analytics-engineer.md)
 
 ## Primary skills / lenses
@@ -45,6 +53,10 @@ Own ELT / ETL pipelines, change-data-capture, replica replication, and warehousi
 - New data source or warehouse table.
 - Data freshness regression.
 - ELT / ETL platform migration.
+- `/PLAN data`.
+- Schema change review.
+- Pipeline freshness incident.
+- Warehouse cost spike.
 
 ## Output contract
 

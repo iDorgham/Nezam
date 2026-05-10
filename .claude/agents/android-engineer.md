@@ -61,7 +61,7 @@ Own Android engineering: Kotlin / Jetpack Compose topology, Play Store submissio
 ## Escalation
 
 - API contract -> `lead-backend-architect.md`.
-- Visual / token deltas -> `prototyping-design-system-manager.md`.
+- Visual / token deltas -> `design-systems-token-architect.md`.
 - Privacy / data-safety -> `lead-security-officer.md`.
 
 ## Invocation Prompt Template

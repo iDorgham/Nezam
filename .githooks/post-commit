@@ -4,3 +4,5 @@ set -euo pipefail
 repo_root="$(git rev-parse --show-toplevel)"
 python3 "$repo_root/scripts/context/update-context-docs.py" >/dev/null 2>&1 || true
 bash "$repo_root/scripts/context/auto-memory-hooks.sh" --post-commit >/dev/null 2>&1 || true
+bash "$repo_root/scripts/context/auto-memory-hooks.sh" --post-commit >/dev/null 2>&1 || true
+bash "$repo_root/scripts/context/auto-memory-hooks.sh" --post-commit >/dev/null 2>&1 || true

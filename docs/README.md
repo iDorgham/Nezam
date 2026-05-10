@@ -13,6 +13,7 @@ Canonical documentation for this workspace lives under `docs/`. Start with **[ST
 | SDD phase plans and tasks | [workspace/plans/](workspace/plans/) |
 | Design profile catalog (source) | [../.cursor/design/README.md](../.cursor/design/README.md) — copy chosen profile to repo root `DESIGN.md` via `/START design` or `pnpm run design:apply -- <brand>` |
 | Multi-client sync (Claude, Codex, Antigravity, Gemini, Qwen, …) | [workspace/context/MULTI_TOOL_INDEX.md](workspace/context/MULTI_TOOL_INDEX.md) |
+| Developer stack catalog (2026) | [reference/developer-tech-stack-2026.md](reference/developer-tech-stack-2026.md) |
 | Core required specs (PRD, SDD) | [core/required/](core/required/) |
 | Generated scan and progress reports | [reports/](reports/) |
 | Images for docs | [assets/](assets/) |

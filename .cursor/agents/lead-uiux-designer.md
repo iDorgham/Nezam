@@ -2,7 +2,7 @@
 role: Lead UI/UX Designer (Swarm Manager - UI/UX Design)
 code-name: lead-uiux-designer
 legacy-code-names: designer
-subagents: ux-research-strategy-manager, visual-design-manager, prototyping-design-system-manager
+subagents: ux-research-strategy-manager, visual-design-manager, design-systems-token-architect
 ---
 
 # Lead UI/UX Designer (lead-uiux-designer)
@@ -13,7 +13,7 @@ Swarm Manager for the UI/UX Design swarm. Own coherent product UX (information a
 
 ## Team Leader Scope
 
-- Lead three Team Managers: `ux-research-strategy-manager`, `visual-design-manager`, `prototyping-design-system-manager`.
+- Lead three Team Managers: `ux-research-strategy-manager`, `visual-design-manager`, `design-systems-token-architect`.
 - Maintain [`docs/DESIGN.md`](../../docs/DESIGN.md), token contracts, and the component inventory.
 - Approve accessibility (WCAG 2.2 AA) posture and motion budget for shipped UI.
 - Coordinate handoff packets to `lead-frontend-architect.md` and `lead-mobile-architect.md`.
@@ -24,7 +24,7 @@ Swarm Manager for the UI/UX Design swarm. Own coherent product UX (information a
 | ----------------------------------- | ----------------------------------------------- |
 | ux-research-strategy-manager        | User research, journeys, IA, taxonomy           |
 | visual-design-manager               | Brand, visual language, layout, typography      |
-| prototyping-design-system-manager   | Tokens, components, prototypes, motion          |
+| design-systems-token-architect      | Tokens, components, prototypes, motion          |
 
 ## Specialists (referenced)
 

@@ -40,7 +40,72 @@ Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager,
   12. Maintenance & Support (`lead-maintenance-agent`)
   13. AI Ethics & Responsible Development (`lead-ai-ethics-officer`)
 - Escalate to a reviewer lane when risk is high (security, migrations, release, or broad refactors).
-- Escalate to `deputy-orchestrator` when two Swarm Managers claim overlapping ownership.
+- Escalate to `deputy-orchestrator` / [`deputy-swarm-leader`](deputy-swarm-leader.md) when two Swarm Managers claim overlapping ownership or when the **Escalation Threshold** below fires.
+
+## Task complexity classifier (execution modes)
+
+Before routing, PM-01 classifies the ask into **MODE A**, **MODE B**, or **MODE C**. The active mode is declared in the swarm-leader response footer (see `swarm-leader.md`).
+
+### MODE A — SINGLE AGENT
+
+One specialist, one `allowed_paths` scope, **no** cross-swarm dependency, **no** phase-gate transition.
+
+Examples: targeted bugfix in a named file; component copy for one surface; one API route or handler per an existing `SPEC.md`.
+
+### MODE B — TEAM EXECUTION
+
+Two to four agents, **one** swarm (one Swarm Manager), shared context via [`PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md), **no** second swarm and **no** global hardlock re-verification unless a gate is explicitly re-opened.
+
+Examples: token system pass; one vertical feature slice; SEO audit of existing pages.
+
+### MODE C — FULL SWARM
+
+Multiple swarms and/or a **phase gate transition** and/or new **hardlock** verification (for example `/PLAN all`, `/DEVELOP start`, security or architecture cross-cuts).
+
+Examples: SDD phase changes, monorepo-wide refactors, simultaneous write scope across Architecture + Frontend + Backend swarms.
+
+### Classifier rules
+
+1. Requires writes or blocking decisions across **more than one swarm’s** directory or ownership? → **MODE C**
+2. Otherwise requires **more than one specialist** inside the **same** swarm? → **MODE B**
+3. Otherwise → **MODE A**
+
+### Speed contract
+
+- **MODE A** — complete in **one** agent turn unless the user expands scope mid-turn.
+- **MODE B** — complete within **three** agent turns; if not, return `replan` with blockers.
+- **MODE C** — no fixed turn cap; requires explicit phase-gate sign-off and recorded gate evidence.
+
+## Fast path routing
+
+### Three-tier chain (audit map)
+
+1. **PM-01** [`swarm-leader`](swarm-leader.md): command interpretation, hardlocks, priority, initial specialist pick.
+2. **Deputy layer** [`deputy-swarm-leader`](deputy-swarm-leader.md): cross-swarm cadence, conflict arbitration, gate tracking.
+3. **Controller** (`subagent-controller`, this file): 13-swarm routing map, standardized bundles, phase-gate completeness.
+
+**Stall points**: missing SDD artifact; ambiguous `team_owner` / Swarm Manager; two teams claiming the same `allowed_paths`; unclear `go`/`no-go`; handoff packet without acceptance checks; circular delegation PM-01 → deputy → controller with no terminal specialist.
+
+### FAST PATH rule
+
+If **MODE A** applies and **no** overlap with another swarm’s write scope exists, **route directly** from PM-01 → **one** specialist. **Skip** deputy coordination and **skip** invoking this controller as an extra hop. The specialist still returns a bundle that satisfies the **Standardized Output Bundle** minimally (routing map of one row, gate line `n/a`, blockers explicit).
+
+### Escalation threshold (when deputy layer is required)
+
+Invoke [`deputy-swarm-leader`](deputy-swarm-leader.md) only when:
+
+- **(a)** Two swarms or Swarm Managers assert **overlapping write scope**, or  
+- **(b)** A phase gate explicitly needs **multi-swarm sign-off** (evidence from more than one Swarm Manager before `go`).
+
+Otherwise keep ownership at PM-01 + specialist (MODE A) or PM-01 + intra-swarm team (MODE B).
+
+### Timeout protocol
+
+If a routing decision (owner, mode, or next command) cannot be resolved in **one agent turn**, set final decision status to **`replan`**, cite the blocker in one line, and output the **single** next legal command (`/PLAN`, `/SCAN`, `/FIX`, or `/SAVE log`). Do **not** leave routing pending across silent turns.
+
+### Hardlock carve-out
+
+Nothing in Fast Path overrides **Planning**, **Development**, or **Design** hardlocks in `.cursor/rules/workspace-orchestration.mdc`, `design-dev-gates.mdc`, or CI gate checks — only **routing depth**, not gate truth.
 
 ## Escalation Tiers
 1. Specialist -> Team Manager (own swarm).
@@ -50,7 +115,7 @@ Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager,
 
 Cross-swarm helpers reporting to the deputy:
 - [`daily-sync-agent`](daily-sync-agent.md) - daily standup digest across swarms.
-- [`knowledge-sharing-agent`](knowledge-sharing-agent.md) - propagate decisions and learnings.
+- [`knowledge-update-manager`](knowledge-update-manager.md) - propagate decisions and learnings.
 - [`code-generation-supervisor`](code-generation-supervisor.md) - govern AI-generated code reviews.
 - [`conflict-resolution-agent`](conflict-resolution-agent.md) - arbitrate peer-swarm disputes.
 
@@ -65,11 +130,22 @@ Cross-swarm helpers reporting to the deputy:
 ## Standardized Output Bundle
 - Swarm routing map (task -> assigned swarm/team/specialist lens -> rationale).
 - Team ownership map (Swarm Manager -> Team Manager -> Specialists).
-- Handoff packet references for each delegated task.
+- Handoff packet references for each delegated task (include **Shared Context Packet** fields drawn from [`PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md) when MODE B/C or any cross-domain work).
+- **`PHASE_HANDOFF.md`**: path + confirmation it was **read** before routing cross-domain slices.
+- **`Execution mode`**: [A | B | C] (mirror PM-01 footer).
 - Review loop result (`spec_review`, `quality_review`, `gate_status`).
 - Workflow phase status (`current_phase`, `entry_gates_met`, `exit_gates_pending`).
 - Blockers and mitigations with owner and next legal command.
 - Final decision status (`go`, `no-go`, `replan`) with explicit readiness statement for the next phase.
+- **Tier 1 scorecard**: for any **core pipeline / Tier 1** completion affecting a gate, confirm the eval scorecard append to [`MEMORY.md`](../../docs/workspace/context/MEMORY.md) per [`EVAL_FRAMEWORK.md`](EVAL_FRAMEWORK.md) before declaring the gate satisfied.
+
+### Cross-domain readiness rule
+
+No agent may begin **cross-domain** work (SEO + IA + design + content intersections, or any task touching **two or more** top-level governance domains at once) without **reading the current** [`docs/workspace/context/PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md).
+
+### Tier 1 scorecard gate rule
+
+**TIER 1** agent outputs that advance or close an SDD phase gate **require** a scorecard appendix in **`docs/workspace/context/MEMORY.md`** (format in [`EVAL_FRAMEWORK.md`](EVAL_FRAMEWORK.md)) **before** the phase gate may be marked complete.
 
 # Activation Triggers
 when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent review", "release readiness", "swarm cross-cutting work"]
@@ -93,6 +169,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Routing matrix and legacy aliases: [`ORCHESTRATION_ALIASES.md`](../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md).
 
 # Anti-Patterns
+- Starting cross-domain slices without reading **`PHASE_HANDOFF.md`**.
 - Jumping to `/DEVELOP` without approved `docs/DESIGN.md`.
 - Delegating without context bundle and acceptance criteria.
 - Parallel subagent edits with shared mutable scope.

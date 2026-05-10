@@ -30,7 +30,7 @@ Swarm Manager for the Frontend swarm. Own the web frontend implementation: frame
 
 ## Specialists (referenced)
 
-- [`react-component-lead.md`](./react-component-lead.md)
+- [`frontend-framework-manager.md`](./frontend-framework-manager.md)
 - [`motion-3d-choreographer.md`](./motion-3d-choreographer.md)
 - [`a11y-performance-auditor.md`](./a11y-performance-auditor.md)
 - [`design-systems-token-architect.md`](./design-systems-token-architect.md)

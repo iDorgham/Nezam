@@ -199,6 +199,18 @@ jobs:
       - name: Enforce docs/core + docs/reports layout
         run: bash scripts/checks/docs-layout-policy.sh
 
+  automation-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5.0.1
+      - name: Automation smoke (baseline wiring)
+        run: |
+          set -euo pipefail
+          test -f docs/plans/gates/GITHUB_GATE_MATRIX.json || test -f docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f scripts/checks/check-onboarding-readiness.sh
+          test -f .github/workflows/ci.yml
+          echo "Automation smoke passed."
+
   placeholder:
     runs-on: ubuntu-latest
     needs: readiness
@@ -225,7 +237,7 @@ jobs:
   policy-gate:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    needs: [branch-policy, conventional-commits, readiness, design-gate-readiness, ai-sync-drift, docs-layout-policy]
+    needs: [branch-policy, conventional-commits, readiness, design-gate-readiness, ai-sync-drift, docs-layout-policy, automation-smoke]
     steps:
       - name: Confirm governance checks passed
         run: echo "Branch naming, commit policy, and readiness checks passed."

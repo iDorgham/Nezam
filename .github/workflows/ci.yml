@@ -85,9 +85,17 @@ jobs:
           import json
           from pathlib import Path
 
-          path = Path("docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json")
-          if not path.exists():
-              raise SystemExit("Missing docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json")
+          candidates = [
+              Path("docs/plans/gates/GITHUB_GATE_MATRIX.json"),
+              Path("docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json"),
+          ]
+          path = next((p for p in candidates if p.exists()), None)
+          if path is None:
+              raise SystemExit(
+                  "Missing gate manifest (expected one of: "
+                  + ", ".join(str(p) for p in candidates)
+                  + ")"
+              )
 
           data = json.loads(path.read_text())
           required = [
@@ -124,24 +132,52 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Required template sections for design-first development.
-          rg -q "## 5\\. Typography" docs/workspace/templates/research-design/DESIGN.template.md
-          rg -q "### 5\\.1 Fluid type scale" docs/workspace/templates/research-design/DESIGN.template.md
-          rg -q "### 5\\.2 Breakpoint and container-query matrix" docs/workspace/templates/research-design/DESIGN.template.md
-          rg -q "### 7\\.1 Motion tokens" docs/workspace/templates/research-design/DESIGN.template.md
-          rg -q "### 7\\.3 Progressive 3D fallback specification" docs/workspace/templates/research-design/DESIGN.template.md
+          design_template="docs/workspace/templates/research-design/DESIGN.template.md"
+          feature_spec="docs/workspace/templates/specs/FEATURE_SPEC.template.md"
+          if [[ ! -f "$design_template" ]]; then
+            echo "Missing $design_template"
+            exit 1
+          fi
+          if [[ ! -f "$feature_spec" ]]; then
+            feature_spec="docs/templates/specs/FEATURE_SPEC.template.md"
+          fi
+          if [[ ! -f "$feature_spec" ]]; then
+            echo "Missing FEATURE_SPEC template (workspace or docs/templates)."
+            exit 1
+          fi
 
-          rg -q "## Component API and variant map" docs/workspace/templates/specs/FEATURE_SPEC.template.md
-          rg -q "## Motion and reduced-motion contract" docs/workspace/templates/specs/FEATURE_SPEC.template.md
+          # Required template sections (grep: portable on ubuntu-latest without ripgrep).
+          grep -Fq "## 5. Typography" "$design_template"
+          grep -Fq "### 5.1 Fluid type scale" "$design_template"
+          grep -Fq "### 5.2 Breakpoint and container-query matrix" "$design_template"
+          grep -Fq "### 7.1 Motion tokens" "$design_template"
+          grep -Fq "### 7.3 Progressive 3D fallback specification" "$design_template"
 
-          # Hardening contract must be populated, not empty.
-          if [[ ! -s docs/workspace/plans/04-harden/perf.md ]]; then
-            echo "docs/workspace/plans/04-harden/perf.md must be populated before merge."
+          grep -Fq "## Component API and variant map" "$feature_spec"
+          grep -Fq "## Motion and reduced-motion contract" "$feature_spec"
+
+          # Hardening performance contract must be populated (non-empty).
+          perf_populated=0
+          for candidate in \
+            "docs/plans/05-harden/02-performance/perf.md" \
+            "docs/workspace/plans/05-harden/02-performance/perf.md" \
+            "docs/workspace/plans/04-harden/perf.md"; do
+            if [[ -s "$candidate" ]]; then
+              perf_populated=1
+              break
+            fi
+          done
+          if [[ "$perf_populated" -ne 1 ]]; then
+            echo "Performance hardening contract must exist and be non-empty. Tried:"
+            echo "  docs/plans/05-harden/02-performance/perf.md"
+            echo "  docs/workspace/plans/05-harden/02-performance/perf.md"
+            echo "  docs/workspace/plans/04-harden/perf.md"
             exit 1
           fi
 
           # Prevent drift back to deleted legacy rule names (pre-NEZAM rebrand).
-          if rg -n "coia-orchestration\\.mdc|coia-sdd-design\\.mdc|coia-design-gates-pro\\.mdc" docs/workspace/context; then
+          if [[ -d docs/workspace/context ]] && \
+            grep -RInE 'coia-orchestration\.mdc|coia-sdd-design\.mdc|coia-design-gates-pro\.mdc' docs/workspace/context; then
             echo "Found legacy COIA rule references in docs/workspace/context."
             exit 1
           fi
@@ -181,7 +217,7 @@ jobs:
       - name: Nightly automation baseline self-test
         run: |
           set -euo pipefail
-          test -f docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f docs/plans/gates/GITHUB_GATE_MATRIX.json || test -f docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json
           test -f scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Nightly automation self-test baseline passed."

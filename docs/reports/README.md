@@ -14,6 +14,9 @@ Approved categories:
 | `progress/` | Progress reports, handoffs |
 | `security/` | Security scan summaries |
 | `tests/` | Test matrices, failure digests |
+| `html/` | Static HTML exports (reference packs, snapshots) |
+
+Rolling health snapshots live under `progress/` (for example `HEALTH.latest.md`), not at `docs/reports/` root.
 
 Canonical working docs (PRD, SDD, plans, templates) live under [`docs/core/`](../core/).
 

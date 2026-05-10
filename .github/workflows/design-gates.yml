@@ -38,7 +38,7 @@ jobs:
             echo "Gate 7 FAIL: DESIGN.md missing. Run /DEVELOP start to select a design profile."
             exit 1
           fi
-          if rg -q "TODO|PLACEHOLDER|<!-- template" DESIGN.md; then
+          if grep -qE 'TODO|PLACEHOLDER|<!--[[:space:]]*template' DESIGN.md; then
             echo "Gate 7 FAIL: DESIGN.md contains placeholder content."
             exit 1
           fi

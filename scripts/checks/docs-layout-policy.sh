@@ -4,7 +4,8 @@ set -euo pipefail
 
 fail=0
 
-for legacy in docs/context docs/plan docs/required docs/templates; do
+# Forbidden legacy roots only — do not list active trees like docs/templates/.
+for legacy in docs/context docs/plan docs/required; do
   if [[ -e "$legacy" ]]; then
     echo "FAIL: legacy path must not exist: $legacy (use docs/core/...)"
     fail=1
@@ -25,8 +26,13 @@ if [[ -d docs/reports ]]; then
     if [[ "$base" == "README.md" ]]; then
       continue
     fi
+    if [[ -f "$entry" ]]; then
+      echo "FAIL: docs/reports must not contain loose files at root (move under a category/): $base"
+      fail=1
+      continue
+    fi
     case "$base" in
-      a11y|audits|coverage|lighthouse|perf|progress|security|tests) ;;
+      a11y|audits|coverage|html|lighthouse|perf|progress|security|tests) ;;
       *)
         echo "FAIL: unknown docs/reports category: $base"
         fail=1

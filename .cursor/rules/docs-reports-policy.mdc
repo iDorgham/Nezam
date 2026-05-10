@@ -9,7 +9,7 @@ All **generated** scan outputs, test digests, coverage summaries, perf/Lighthous
 
 `docs/reports/<category>/`
 
-Approved categories: `a11y`, `audits`, `coverage`, `lighthouse`, `perf`, `progress`, `security`, `tests`.
+Approved categories: `a11y`, `audits`, `coverage`, `html`, `lighthouse`, `perf`, `progress`, `security`, `tests`.
 
 Do **not** write generated reports to:
 

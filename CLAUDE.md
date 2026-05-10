@@ -35,6 +35,7 @@ When conflicts appear, follow:
 - Prefer deterministic docs updates in `docs/workspace/context/` after substantive changes.
 
 ## Synced command index
+- `check.md`
 - `create.md`
 - `deploy.md`
 - `develop.md`
@@ -192,6 +193,7 @@ When conflicts appear, follow:
 - `system`
 
 ## Synced rule sources
+- `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

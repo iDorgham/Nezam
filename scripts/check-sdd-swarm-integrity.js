@@ -95,6 +95,26 @@ function checkHandoffPacketFields() {
   }
 }
 
+function resolvePlansSubphaseDir(specPath) {
+  const workspacePrefix = "docs/workspace/plans/";
+  const plansPrefix = "docs/plans/";
+  if (specPath.startsWith(workspacePrefix)) {
+    const rest = specPath.slice(workspacePrefix.length);
+    const parts = rest.split("/").filter(Boolean);
+    if (parts.length >= 2) {
+      return path.join(repoRoot, "docs", "workspace", "plans", parts[0], parts[1]);
+    }
+  }
+  if (specPath.startsWith(plansPrefix)) {
+    const rest = specPath.slice(plansPrefix.length);
+    const parts = rest.split("/").filter(Boolean);
+    if (parts.length >= 2) {
+      return path.join(repoRoot, "docs", "plans", parts[0], parts[1]);
+    }
+  }
+  return null;
+}
+
 function parseActiveSubphaseDirsFromIndex(indexPath) {
   const content = readUtf8(indexPath);
   const dirs = new Set();
@@ -104,19 +124,25 @@ function parseActiveSubphaseDirsFromIndex(indexPath) {
     if (cols.length < 6) continue;
     const specCol = cols[3];
     const statusCol = cols[4] ? cols[4].toLowerCase() : "";
-    if (!specCol.startsWith("`docs/workspace/plans/")) continue;
+    if (!specCol.includes("`docs/") || !specCol.includes("/plans/")) continue;
     if (statusCol === "not started" || statusCol === "status") continue;
     const specPath = specCol.replaceAll("`", "");
-    const match = specPath.match(/^docs\/workspace\/plans\/([^/]+)\/([^/]+)\//);
-    if (match) dirs.add(path.join(repoRoot, "docs", "workspace", "plans", match[1], match[2]));
+    const dir = resolvePlansSubphaseDir(specPath);
+    if (dir) dirs.add(dir);
   }
   return [...dirs];
 }
 
 function checkActiveSubphaseArtifacts() {
-  const indexPath = path.join(repoRoot, "docs", "workspace", "plans", "INDEX.md");
-  if (!fs.existsSync(indexPath)) {
-    failures.push("Missing docs/workspace/plans/INDEX.md");
+  const indexCandidates = [
+    path.join(repoRoot, "docs", "plans", "INDEX.md"),
+    path.join(repoRoot, "docs", "workspace", "plans", "INDEX.md"),
+  ];
+  const indexPath = indexCandidates.find((p) => fs.existsSync(p));
+  if (!indexPath) {
+    failures.push(
+      "Missing plan index (expected docs/plans/INDEX.md or docs/workspace/plans/INDEX.md)"
+    );
     return;
   }
   const activeDirs = parseActiveSubphaseDirsFromIndex(indexPath);

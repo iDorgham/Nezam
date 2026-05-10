@@ -36,3 +36,9 @@ When mode permits `.mdc` edits, mirror this wiring into:
 
 This will complete hard enforcement parity between command docs and always-apply rule layer.
 
+## Wave 2 Enforcement Closure (2026-05-10)
+- workspace-orchestration.mdc: updated with wireframe prerequisite (item 11)
+- design-dev-gates.mdc: updated with wireframe checklist step (step 6)
+- pre-commit hook: installed to block commits on ai:check failure
+- Status: CLOSED
+

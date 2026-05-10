@@ -41,8 +41,10 @@ Treat development as hardlocked unless all are true:
 8. Design artifact exists at one of:
    - `DESIGN.md` (preferred), or
    - `docs/DESIGN.md` (legacy-compatible).
-9. `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json` exists and is current.
-10. Every active `docs/workspace/plans/<phase>/<subphase>/` includes both `prompt.json` and `PROMPT.md`.
+9. `docs/plans/gates/GITHUB_GATE_MATRIX.json` exists and is current.
+10. Every active `docs/plans/<phase>/<subphase>/` includes both `prompt.json` and `PROMPT.md`.
+11. `docs/core/required/sdd/WIREFRAMES.md` must exist when any screen-level component is being developed (enforced by wireframe-to-spec skill).
+12. Every `SPEC.md` under `docs/plans/<phase>/<feature>/` must use the SPEC template format with `spec_version`, `status`, and `spec_id` fields present. Specs with `status: draft` may NOT have BUILD work begun; specs require `status: approved` before implementation.
 
 No implementation-oriented command may bypass this hardlock set.
 
@@ -91,10 +93,10 @@ Hardlocks block **starting** dependent forward work until prerequisites are sati
 
 1. **Source of truth**: repository files (`docs/core/required/**`, templates, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
-3. **Durable project memory**: `docs/workspace/context/MEMORY.md` plus phase logs under `docs/workspace/context/` (maintain via `/SAVE log`).
-4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/workspace/context/CONTEXT.md`.
+3. **Durable project memory**: `docs/memory/MEMORY.md` plus phase logs under `docs/memory/` (maintain via `/SAVE log`).
+4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/memory/CONTEXT.md`.
 
-Formal mapping: `docs/workspace/context/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
+Formal mapping: `docs/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
 
 Do not contradict committed specs without an explicit decision record note.
 
@@ -104,12 +106,14 @@ When assistants lock decisions in chat, persist them before finishing the reply 
 
 | Trigger | Persist to |
 |---------|------------|
-| Stack choice | `docs/workspace/context/MEMORY.md` → **Active Stack Decisions** |
+| Stack choice | `docs/memory/MEMORY.md` → **Active Stack Decisions** |
 | Architecture ADR summary | **Locked Architecture Decisions** |
 | Design lock (tokens/grid/motion) | **Locked Design Decisions** |
 | Tradeoff with expiry | **Accepted Tradeoffs** |
 | Tier-1 agent eval | **Agent Scorecards** |
-| Phase transition | `docs/workspace/context/PHASE_HANDOFF.md` |
+| Phase transition | `docs/memory/PHASE_HANDOFF.md` |
+| Session end | Write to `.cursor/state/agent-status.yaml`: last agent, last output, pending handoff, one-sentence resume prompt |
+| Go/no-go decision | Append to `docs/workspace/decisions/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
 
 ## Session Start Checklist
 
@@ -119,13 +123,47 @@ At session open:
 3. Temporarily demote failing tools for the current session and warn.
 4. Check free-tier quota posture (gemini/qwen lanes) and apply fallback routing if exhausted.
 5. If onboarding is incomplete, route to `/Settings ai-tools setup`.
+6. Read `.cursor/state/agent-status.yaml` — if `pending_handoff.status: pending`, deliver the handoff before any new work begins.
+7. If `active_spec` is set, confirm with user: "Last session left off at [spec]. Resume? Y/N"
+8. Print `session_resume_prompt` from `agent-status.yaml` as the first message.
+9. Check `docs/workspace/decisions/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
 
 ## MCP Usage Policy
 
-- When a registered MCP server exists for a service (see `docs/workspace/context/MCP_REGISTRY.md`), use it.
+- When a registered MCP server exists for a service (see `docs/memory/MCP_REGISTRY.md`), use it.
 - MCP-first saves tokens: structured results < prose descriptions of API calls.
 - Never write raw HTTP fetch code for a service that has an MCP.
 - Exception: when MCP is unavailable in current tool context — fall back to CLI (see CLI orchestration rules).
+
+### Wireframe MCP Policy
+When `/PLAN design wireframes` is invoked:
+1. Check `docs/memory/MCP_REGISTRY.md` for active Figma MCP.
+2. If active, use Mode A (Figma MCP) automatically.
+3. If inactive, check for uploaded Excalidraw/Penpot file and use Mode B.
+4. If neither is available, use Mode C (text interview fallback).
+5. Always write source mode to `WIREFRAMES.md` front-matter: `wireframe_source: figma|excalidraw|text`.
+
+## Agent Bus Protocol
+
+When one agent completes a task and must hand off to another:
+1. Write a message to `.cursor/state/agent-bus.yaml` with `type: handoff`.
+2. Set `to:` to the receiving agent's file name.
+3. Fill `payload.summary` and `payload.action_required`.
+4. Set `status: pending`.
+
+When an agent starts work:
+1. Check `.cursor/state/agent-bus.yaml` for messages addressed to it (`to: <agent-name>`).
+2. If any `status: pending` messages exist, read them before starting new work.
+3. Mark message `status: read` after reading.
+4. Mark `status: actioned` after completing the requested action.
+
+Escalation messages:
+- Use `type: escalation` with `to:` set to the escalation target.
+- Deputy Orchestrator reads all escalation messages at daily sync.
+
+Decision requests:
+- Use `type: decision-request` with `to: cpo`.
+- CPO must action or decline before further work in that scope proceeds.
 
 ## Token Economy Rules
 - Load files by path reference (@filename) not content paste
@@ -140,7 +178,7 @@ At session open:
 
 Before any task assignment, agents MUST:
 1. Read `.cursor/workspace.settings.yaml` and check `tools.<name>.active` for each tool.
-2. Read `docs/workspace/context/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
+2. Read `docs/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
 3. Route tasks only to tools marked active in settings.
 4. If the preferred tool is inactive, apply the deactivation chain from CLI tools context.
 5. Keep `security: true` tasks on primary reasoning lanes only (never free CLI lanes).
@@ -152,8 +190,8 @@ Tool activation state in workspace settings is the source of truth; never assume
 
 When `/Settings ai-tools off <tool>` is used:
 1. Persist `tools.<tool>.active: false` in workspace settings.
-2. Re-route tasks in `docs/workspace/plans/MASTER_TASKS.md` using deactivation chains from
-   `docs/workspace/context/CLI_TOOLS_CONTEXT.md`.
+2. Re-route tasks in `docs/plans/MASTER_TASKS.md` using deactivation chains from
+   `docs/memory/CLI_TOOLS_CONTEXT.md`.
 3. Keep an audit trail via `original_tool` where reassignment occurred.
 4. If no fallback exists, mark task blocked with `NO_ACTIVE_TOOL`.
 5. Keep `security: true` tasks on primary reasoning lanes only; otherwise block with

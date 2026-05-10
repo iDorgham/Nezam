@@ -27,7 +27,7 @@ On first run, ask:
 > **Team / Professional** → structured tone, formal governance, full agent
 >                           assignment, parallel work streams
 
-Save choice to `docs/workspace/context/FOUNDER_MODE.md`.
+Save choice to `docs/memory/FOUNDER_MODE.md`.
 This affects language complexity, governance doc generation, and swarm display.
 
 ---
@@ -101,7 +101,7 @@ Behavior:
    - `docs/core/required/PRD.md`
    - `docs/core/required/PROJECT_PROMPT.md`
    - `docs/03_architecture/ARCHITECTURE.md` (outline)
-   - `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json` (stub)
+   - `docs/plans/gates/GITHUB_GATE_MATRIX.json` (stub)
    - `docs/core/VERSIONING.md`
    - `CHANGELOG.md`
 3. Assigns lead agents to each domain with explicit swarm structure

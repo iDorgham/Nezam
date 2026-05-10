@@ -1,0 +1,21 @@
+---
+created: 2026-05-10
+version: 1.0.0
+owner: PM-01
+---
+# NEZAM Agent Communication Bus
+# Simulated message passing via file. Agents write here; next agent reads here on start.
+# Cleared after handoff is delivered.
+
+messages:
+  - id: ""
+    from: ""
+    to: ""
+    type: ""           # "handoff" | "escalation" | "blocker" | "decision-request"
+    timestamp: ""
+    payload:
+      subject: ""
+      artifact_path: ""
+      summary: ""
+      action_required: ""
+    status: ""         # "pending" | "read" | "actioned"

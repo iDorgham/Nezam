@@ -12,8 +12,8 @@ Planning -> SEO/IA -> Content -> `DESIGN.md` -> Development -> Hardening.
 Block implementation-oriented `/DEVELOP` actions until design, token, motion, and component contracts are in place and auditable.
 
 Additionally block `/DEVELOP` until SDD prompt artifacts are complete for active sub-phases:
-- `docs/workspace/plans/<phase>/<subphase>/prompt.json`
-- `docs/workspace/plans/<phase>/<subphase>/PROMPT.md`
+- `docs/plans/<phase>/<subphase>/prompt.json`
+- `docs/plans/<phase>/<subphase>/PROMPT.md`
 
 ## Activation & Cross-References
 
@@ -109,6 +109,10 @@ Before `/DEVELOP`:
 3. Confirm component API contracts and accessibility behaviors are defined.
 4. Confirm alignment with `DESIGN.md` and active SDD docs.
 5. Run `/SCAN a11y perf` for baseline readiness when scope is significant.
+6. Confirm wireframe-to-spec conversion is complete:
+   - `docs/core/required/sdd/WIREFRAMES.md` exists and is non-template.
+   - Each screen has a `screen_id`, `components`, `states`, and `accessibility_notes`.
+   - Run `grep -c "screen_id" docs/core/required/sdd/WIREFRAMES.md` to verify count > 0.
 
 If any checklist item fails, halt and route back to `/PLAN design` or `/FIX` as appropriate.
 

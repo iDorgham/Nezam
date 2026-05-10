@@ -1,0 +1,32 @@
+---
+created: 2026-05-10
+version: 1.0.0
+owner: PM-01
+---
+# NEZAM Agent State — updated automatically at session end
+# Do not edit manually. Updated by /GUIDE and swarm commands.
+# Source of truth for session resume.
+
+last_updated: ""           # ISO datetime
+active_swarm: ""           # e.g. "Swarm 3 — Frontend"
+active_agent: ""           # e.g. "lead-frontend-architect"
+active_phase: ""           # e.g. "05-build"
+active_feature_slice: ""   # e.g. "auth-login"
+active_spec: ""            # e.g. "docs/workspace/plans/05-build/auth-login/SPEC.md"
+
+last_output:
+  type: ""                 # "spec" | "design" | "component" | "decision" | "audit"
+  artifact_path: ""        # path to last produced artifact
+  status: ""               # "draft" | "approved" | "in-review"
+  summary: ""              # one sentence of what was produced
+
+pending_handoff:
+  from_agent: ""
+  to_agent: ""
+  handoff_packet_path: ""
+  status: ""               # "pending" | "delivered" | "none"
+
+open_blockers:
+  - ""
+
+session_resume_prompt: ""  # Auto-generated sentence to paste at next session start

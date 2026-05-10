@@ -5,7 +5,7 @@ prompt = """
 /Settings — Workspace control plane. Manage all configuration for NEZAM in one place.
 
 Settings are persisted to: `.cursor/workspace.settings.yaml`
-Tool context reference: `docs/workspace/context/CLI_TOOLS_CONTEXT.md`
+Tool context reference: `docs/memory/CLI_TOOLS_CONTEXT.md`
 Run `pnpm ai:sync` after any settings change to propagate to all AI clients.
 
 Hard blocks: none — /Settings is always available
@@ -180,7 +180,7 @@ Activate a single tool. Steps:
 4. Run `pnpm ai:sync`
 
 Reactivation restore:
-1. Scan `docs/workspace/plans/MASTER_TASKS.md` for `original_tool: <tool>`.
+1. Scan `docs/plans/MASTER_TASKS.md` for `original_tool: <tool>`.
 2. Restore those tasks to `assigned_tool: <tool>`.
 3. Preserve `fallback_tool`, then clear `original_tool` after restore.
 4. Report restored task count and remaining blocked tasks.
@@ -243,7 +243,7 @@ Routing Configuration
   Project policy: default
   Change policy: /Settings project tool-policy <strict|cost-optimized|arabic-heavy|default>
 
-  View full routing matrix: docs/workspace/context/CLI_TOOLS_CONTEXT.md
+  View full routing matrix: docs/memory/CLI_TOOLS_CONTEXT.md
 ```
 
 ### /Settings ai-tools test
@@ -345,8 +345,9 @@ Tool policy details:
 /Settings automations ci staging <on|off>     → Auto-deploy to staging
 /Settings automations ci prod <on|off>        → Auto-deploy to production
 /Settings automations scheduled               → Show scheduled task config
-/Settings automations scheduled tech-stack-review <frequency>
-/Settings automations scheduled token-audit <frequency>
+/Settings automations scheduled sync-check      → daily 2am UTC via nezam-nightly.yml
+/Settings automations scheduled spec-check      → on every PR via nezam-pr-gates.yml
+/Settings automations scheduled nightly-report  → writes to docs/reports/perf/nightly.md
 ```
 
 ---
@@ -375,10 +376,12 @@ MCP Server Status
   sentry        ❌ OFF   ⚠️ missing       observability-specialist
   neon          ❌ OFF   ⚠️ missing       lead-database-architect
   clerk         ❌ OFF   ⚠️ missing       auth-security-manager
+  figma         ❌ OFF   ⚠️ missing FIGMA_ACCESS_TOKEN   lead-uiux-designer
+  excalidraw    ✅ NO_MCP  (upload .excalidraw file directly)
 
   MCP-first policy: ON
   Configure env vars → then run /Settings mcp on <service>
-  Full registry: docs/workspace/context/MCP_REGISTRY.md
+  Full registry: docs/memory/MCP_REGISTRY.md
 ```
 
 ---
@@ -417,7 +420,7 @@ Reset any section to defaults. Asks for confirmation before resetting.
 
 ## /Settings export
 Export current workspace.settings.yaml to a dated backup file.
-Creates: `docs/workspace/context/settings-backup-YYYY-MM-DD.yaml`
+Creates: `docs/memory/settings-backup-YYYY-MM-DD.yaml`
 Useful before major upgrades or team onboarding.
 
 ---

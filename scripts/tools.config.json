@@ -17,7 +17,7 @@
       "id": "claude",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "CLAUDE.md", "template": "docs/workspace/templates/ai-client/CLAUDE.md.template.md" },
+        { "kind": "memory-inject", "path": "CLAUDE.md", "template": "docs/templates/ai-client/CLAUDE.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands", "path": ".claude/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents", "path": ".claude/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills", "path": ".claude/skills" },
@@ -28,8 +28,8 @@
       "id": "codex",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "AGENTS.md",         "template": "docs/workspace/templates/ai-client/AGENTS.md.template.md" },
-        { "kind": "memory-inject", "path": ".codex/AGENTS.md",  "template": "docs/workspace/templates/ai-client/AGENTS.md.template.md" },
+        { "kind": "memory-inject", "path": "AGENTS.md",         "template": "docs/templates/ai-client/AGENTS.md.template.md" },
+        { "kind": "memory-inject", "path": ".codex/AGENTS.md",  "template": "docs/templates/ai-client/AGENTS.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands", "path": ".codex/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",   "path": ".codex/agents" },
         { "kind": "rules-copy",    "source": ".cursor/rules",    "path": ".codex/rules" }
@@ -39,14 +39,14 @@
       "id": "copilot",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "AGENTS.md", "template": "docs/workspace/templates/ai-client/AGENTS.md.template.md" }
+        { "kind": "memory-inject", "path": "AGENTS.md", "template": "docs/templates/ai-client/AGENTS.md.template.md" }
       ]
     },
     {
       "id": "opencode",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "AGENTS.md",          "template": "docs/workspace/templates/ai-client/AGENTS.md.template.md" },
+        { "kind": "memory-inject", "path": "AGENTS.md",          "template": "docs/templates/ai-client/AGENTS.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands",  "path": ".opencode/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",    "path": ".opencode/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills",    "path": ".opencode/skills" },
@@ -67,7 +67,7 @@
       "id": "gemini",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "GEMINI.md", "template": "docs/workspace/templates/ai-client/GEMINI.md.template.md" },
+        { "kind": "memory-inject", "path": "GEMINI.md", "template": "docs/templates/ai-client/GEMINI.md.template.md" },
         { "kind": "toml-commands", "source": ".cursor/commands", "path": ".gemini/commands" }
       ]
     },
@@ -75,7 +75,7 @@
       "id": "qwen",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "QWEN.md", "template": "docs/workspace/templates/ai-client/QWEN.md.template.md" },
+        { "kind": "memory-inject", "path": "QWEN.md", "template": "docs/templates/ai-client/QWEN.md.template.md" },
         { "kind": "toml-commands", "source": ".cursor/commands", "path": ".qwen/commands" }
       ]
     },

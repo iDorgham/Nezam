@@ -23,4 +23,12 @@ Hard block: All 10 SDD prerequisites must pass (PRD, PROJECT_PROMPT, CHANGELOG, 
             ARCHITECTURE, DESIGN.md, GATE_MATRIX, subphase prompt artifacts).
 Gate failure → /GUIDE status shows exact unlock steps.
 Recommendation footer: required
+
+### Spec Version Check (runs before every /DEVELOP feature)
+1. Read the `SPEC.md` for the target feature.
+2. Confirm `status: approved` — if `draft`, halt and ask user to approve first.
+3. Record `built_at_version` in `SPEC.md` from current `CHANGELOG.md` top version.
+4. Bump `spec_version` patch on any amendment (e.g. 0.1.0 → 0.1.1).
+5. Bump `spec_version` minor on acceptance criteria changes (e.g. 0.1.0 → 0.2.0).
+6. Bump `spec_version` major on scope changes that require design rework (e.g. 0.1.0 → 1.0.0).
 """

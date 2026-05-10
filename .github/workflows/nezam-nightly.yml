@@ -1,0 +1,33 @@
+# created: 2026-05-10
+# version: 1.0.0
+# owner: PM-01
+name: NEZAM Nightly Automation
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync-check:
+    runs-on: ubuntu-latest
+    name: Sync Drift Check
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm ai:check
+      - name: Write sync status
+        run: |
+          echo "## Sync Check — $(date -u +%Y-%m-%d)" >> docs/reports/audits/sync-status.md
+          echo "Status: passed" >> docs/reports/audits/sync-status.md
+        if: success()
+      - name: Alert on drift
+        if: failure()
+        run: echo "::warning::Sync drift detected — run pnpm ai:sync"
+
+  spec-version-check:
+    runs-on: ubuntu-latest
+    name: Spec Version Compliance
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/check-spec-versions.sh

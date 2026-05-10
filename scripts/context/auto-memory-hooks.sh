@@ -5,8 +5,8 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 mode="${1:-}"
 
 health_file="$repo_root/HEALTH.md"
-memory_file="$repo_root/docs/workspace/context/MEMORY.md"
-context_file="$repo_root/docs/workspace/context/CONTEXT.md"
+memory_file="$repo_root/docs/memory/MEMORY.md"
+context_file="$repo_root/docs/memory/CONTEXT.md"
 bundle_file="$repo_root/docs/reports/progress/COMPANION_BUNDLE.md"
 post_commit_hook="$repo_root/.githooks/post-commit"
 
@@ -125,7 +125,7 @@ install_hook_call() {
 }
 
 build_companion_bundle() {
-  local context_path="$repo_root/docs/workspace/context/CONTEXT.md"
+  local context_path="$repo_root/docs/memory/CONTEXT.md"
   local progress_path="$repo_root/docs/reports/progress/PROGRESS_REPORT.latest.md"
   local health_path="$repo_root/HEALTH.md"
 

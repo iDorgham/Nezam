@@ -57,6 +57,7 @@ Do not proceed to development unless all exist:
 - Optional swarm- and skills-oriented Mermaid sources live under `docs/workspace/mermaids/` when that layout is maintained.
 
 ## Synced command index
+- `check.md`
 - `create.md`
 - `deploy.md`
 - `develop.md`
@@ -214,6 +215,7 @@ Do not proceed to development unless all exist:
 - `system`
 
 ## Synced rule sources
+- `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

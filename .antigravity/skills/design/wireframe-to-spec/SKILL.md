@@ -59,3 +59,27 @@ direction_notes:
 - `user-flow-mapper`
 - `design-md`
 
+## Input Sources
+
+### Mode A — Figma MCP (preferred when Figma is connected)
+When `mcp figma` is active in workspace settings:
+- Use Figma MCP to read frame data from the provided Figma URL.
+- Extract: frame name, child components, layout constraints, text content, auto-layout rules.
+- Map Figma component names to NEZAM component vocabulary from `DESIGN.md`.
+- Auto-generate the `WIREFRAMES.md` YAML blocks from Figma frame data.
+Command: `/Settings mcp on figma` to activate.
+
+### Mode B — Excalidraw / Penpot JSON import
+When user uploads or pastes an Excalidraw `.excalidraw` JSON or Penpot export:
+- Parse element IDs, labels, groupings, and position relationships.
+- Infer layout intent from element spatial arrangement.
+- Generate `WIREFRAMES.md` YAML blocks from parsed structure.
+- Flag ambiguous elements for user confirmation before generating spec.
+
+### Mode C — Text description (fallback, current behavior)
+When no tool is connected:
+- Ask user to describe each screen section by section.
+- Use structured interview: "What is the top-level layout goal of this section?"
+- Generate `WIREFRAMES.md` YAML blocks from interview answers.
+- Flag output as: `source: text-interview` so reviewers know it needs visual validation.
+

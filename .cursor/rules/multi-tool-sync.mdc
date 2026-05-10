@@ -50,7 +50,7 @@ directories are GENERATED MIRRORS. Never edit mirrors directly.
 
 When switching tools mid-session:
 1. Run `/SAVE log` in the current tool to persist session state.
-2. The next tool reads `docs/workspace/context/MEMORY.md` on boot.
+2. The next tool reads `docs/memory/MEMORY.md` on boot.
 3. Run `/GUIDE status` in the new tool to confirm sync before continuing.
 
 ## Mirror Sync Content Policy

@@ -50,6 +50,15 @@ If a gate is missing, GUIDE explains WHY it matters in one plain sentence.
 
 Output exactly in this order.
 
+### 0. Session Resume Card (shown FIRST if agent-status.yaml has content)
+
+  📍 Last session: [active_agent] working on [active_spec]
+  📦 Last output: [last_output.summary] → [status]
+  🔄 Pending handoff: [from_agent] → [to_agent] ([status])
+  ❌ Open blockers: [list]
+
+  → Resume: [session_resume_prompt]
+
 ### 1. Pipeline Bar
 
 8-segment bar — Define · Research · Design · Content · Scaffold · Build · Harden · Ship
@@ -99,6 +108,11 @@ If the next action is a slash command: write it exactly as typed, nothing else.
   ✅ [what's solid]
   ⚠️ [what needs attention]
   ❌ [what's blocking, if any]
+
+### Agent Bus Status
+- Pending messages: [count from agent-bus.yaml where status=pending]
+- Unread escalations: [count where type=escalation and status=pending]
+→ /CHECK swarm to view all
 
 ### 7. Recommendation footer (required, always last)
 

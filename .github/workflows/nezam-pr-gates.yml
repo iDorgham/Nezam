@@ -1,0 +1,18 @@
+# created: 2026-05-10
+# version: 1.0.0
+# owner: PM-01
+name: NEZAM PR Gates
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  design-tokens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run check:tokens
+      - run: pnpm ai:check
+      - run: bash scripts/check-spec-versions.sh

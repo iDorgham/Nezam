@@ -23,6 +23,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - Use generated `.qwen/commands/*.toml` command prompts as the command surface (same intent as `.cursor/commands/*.md`, TOML-wrapped).
 
 ## Synced command index
+- `check.md`
 - `create.md`
 - `deploy.md`
 - `develop.md`
@@ -180,6 +181,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `system`
 
 ## Synced rule sources
+- `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

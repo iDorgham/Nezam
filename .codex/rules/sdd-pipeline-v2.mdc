@@ -624,7 +624,7 @@ MONOREPO.md must define:
 SDD planning docs are scoped by app within one shared docs tree:
 
 ```
-docs/workspace/plans/
+docs/plans/
 ├── 00-define/
 │   ├── PRD.md                         ← project-wide PRD
 │   └── MONOREPO.md                    ← workspace package map
@@ -691,7 +691,7 @@ Before `/DEVELOP` on any app, confirm:
 ## Feature Slice Protocol (all types — Step BUILD)
 
 Each feature before coding begins:
-1. Spec: `docs/workspace/plans/0N-build/<feature-slug>/SPEC.md`
+1. Spec: `docs/plans/0N-build/<feature-slug>/SPEC.md`
 2. Spec includes: acceptance criteria, data model changes, API contract, UI states, edge cases
 3. Agent assigned before work starts
 4. Slice reviewed by PM-01 before merge: `go` / `no-go` / `replan`

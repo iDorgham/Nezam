@@ -1,0 +1,68 @@
+name: Monitor automation-smoke
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check-automation-smoke:
+    name: Check automation-smoke on main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check latest ci.yml run
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // Get latest run for ci.yml on main
+            const runs = await github.actions.listWorkflowRuns({ owner, repo, workflow_id: 'ci.yml', branch: 'main', per_page: 1 });
+            const run = runs.data.workflow_runs && runs.data.workflow_runs[0];
+
+            if (!run) {
+              core.info('No workflow run found for ci.yml on main');
+              // create an issue unless one already exists
+              const issues = await github.issues.listForRepo({ owner, repo, state: 'open', per_page: 100 });
+              const title = 'automation-smoke missing: no recent ci.yml run on main';
+              if (!issues.data.some(i => i.title === title)) {
+                await github.issues.create({ owner, repo, title, body: 'No recent ci.yml workflow run was found for main. Investigate CI scheduling or workflow configuration.' });
+              }
+              return;
+            }
+
+            const runId = run.id;
+            const runUrl = run.html_url;
+
+            const jobsResp = await github.actions.listJobsForWorkflowRun({ owner, repo, run_id: runId });
+            const jobs = jobsResp.data.jobs || [];
+
+            const automation = jobs.find(j => j.name === 'automation-smoke');
+
+            let shouldOpen = false;
+            let body = '';
+
+            if (!automation) {
+              shouldOpen = true;
+              body = `automation-smoke job not found for latest run (id ${runId}). See: ${runUrl}`;
+            } else if (automation.conclusion !== 'success') {
+              shouldOpen = true;
+              body = `automation-smoke conclusion: ${automation.conclusion} for run ${runUrl}`;
+            }
+
+            if (!shouldOpen) {
+              core.info('automation-smoke is green. No action needed.');
+              return;
+            }
+
+            const title = `automation-smoke failing on main — run ${runId}`;
+            // Avoid duplicate open issues with same title
+            const issues = await github.issues.listForRepo({ owner, repo, state: 'open', per_page: 100 });
+            if (issues.data.some(i => i.title === title)) {
+              core.info('An open issue already exists for this failure.');
+              return;
+            }
+
+            await github.issues.create({ owner, repo, title, body });

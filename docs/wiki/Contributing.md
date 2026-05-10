@@ -102,6 +102,18 @@ Use the PR template in `.github/`. Include:
 - Screenshots for UI changes
 - Confirmation that all checks pass
 
+#### Branch protection on `main`
+
+If **required status checks** on `main` list **`automation-smoke`** (or other `ci` jobs), GitHub expects those checks to succeed before the ref updates. Pushes that use **administrator bypass** may still land; GitHub can warn that a required check was bypassed or not yet reported.
+
+**Context:** **`policy-gate`** runs only on **`pull_request`**, not on **`push`**. So for **direct pushes** to `main`, required checks must be jobs that actually run on `push` (for example **`readiness`**, **`automation-smoke`**, **`design-gate-readiness`**). For **PR merges**, requiring **`policy-gate`** is enough to indirectly require **`automation-smoke`**, because `policy-gate` lists it under **`needs`**.
+
+**Practical options:**
+
+1. **Prefer a PR into `main`** from a `feature/…` branch so PR-only jobs (**`branch-policy`**, **`conventional-commits`**, **`policy-gate`**) run and merge stays aligned with governance.
+2. If you want a **single** required name on PRs, require **`policy-gate`** only; you do not also need **`automation-smoke`** as a separate required check unless you want that badge explicitly.
+3. If **bypass** is allowed for emergencies, use it sparingly; afterward confirm the latest **`ci`** run on `main` in the Actions tab.
+
 ---
 
 ## Adding a New Agent

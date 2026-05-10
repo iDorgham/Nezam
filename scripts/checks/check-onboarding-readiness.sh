@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 # Planning readiness for CI. Constitution (`docs/CONSTITUTION.md`) is intentionally optional —
 # scaffold with `/CREATE constitution` when invariants matter; do not gate `/PLAN` on it here.
+#
+# Portable: uses only grep/find/python3 (no ripgrep) so ubuntu-latest runners pass without extra packages.
 set -euo pipefail
 
 hardlock_paths_file="docs/core/hardlock-paths.json"
-
-have_rg() {
-  command -v rg >/dev/null 2>&1
-}
 
 read_json_string() {
   local file="$1"
@@ -90,18 +88,10 @@ fi
 # PRD quality gate: block obvious template/placeholder PRDs (avoid false positives on words like "templates/").
 if [[ -f "$prd_path" ]]; then
   prd_file="$prd_path"
-  if have_rg; then
-    if rg -qi "lorem ipsum|\\{\\{|fill in the blank|placeholder-only|\\bTBD:\\s*(here|replace|fixme)\\b|^# .*\\(draft template\\)" "$prd_file"; then
-      echo "PRD appears template/placeholder-based: $prd_file"
-      echo "Please complete PRD content before planning is unlocked."
-      missing=1
-    fi
-  else
-    if grep -qiE 'lorem ipsum|\{\{|fill in the blank|placeholder-only|\bTBD:\s*(here|replace|fixme)\b|^# .*\(draft template\)' "$prd_file"; then
-      echo "PRD appears template/placeholder-based: $prd_file"
-      echo "Please complete PRD content before planning is unlocked."
-      missing=1
-    fi
+  if grep -qiE 'lorem ipsum|\{\{|fill in the blank|placeholder-only|\bTBD:\s*(here|replace|fixme)\b|^# .*\(draft template\)' "$prd_file"; then
+    echo "PRD appears template/placeholder-based: $prd_file"
+    echo "Please complete PRD content before planning is unlocked."
+    missing=1
   fi
 fi
 
@@ -110,13 +100,8 @@ if [[ -f "$prd_path" && -f "$prompt_path" ]]; then
   prd_file="$prd_path"
   prompt_file="$prompt_path"
 
-  if have_rg; then
-    prd_title="$(rg -m1 "^# " "$prd_file" | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
-    prompt_title="$(rg -m1 "^# " "$prompt_file" | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
-  else
-    prd_title="$(grep -m1 '^# ' "$prd_file" 2>/dev/null | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
-    prompt_title="$(grep -m1 '^# ' "$prompt_file" 2>/dev/null | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
-  fi
+  prd_title="$(grep -m1 '^# ' "$prd_file" 2>/dev/null | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
+  prompt_title="$(grep -m1 '^# ' "$prompt_file" 2>/dev/null | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
 
   if [[ -n "$prd_title" && -n "$prompt_title" ]]; then
     if [[ "$prompt_title" != *"${prd_title%%—*}"* && "${prd_title%%—*}" != *"$prompt_title"* ]]; then
@@ -130,17 +115,9 @@ if [[ -f "$prd_path" && -f "$prompt_path" ]]; then
   # Require at least 2 shared domain keywords (length >= 5) between files.
   shared_keywords="$(
     {
-      if have_rg; then
-        rg -o "[A-Za-z][A-Za-z0-9_-]{4,}" "$prd_file" || true
-      else
-        grep -oE '[A-Za-z][A-Za-z0-9_-]{4,}' "$prd_file" || true
-      fi
+      grep -oE '[A-Za-z][A-Za-z0-9_-]{4,}' "$prd_file" || true
       echo "---"
-      if have_rg; then
-        rg -o "[A-Za-z][A-Za-z0-9_-]{4,}" "$prompt_file" || true
-      else
-        grep -oE '[A-Za-z][A-Za-z0-9_-]{4,}' "$prompt_file" || true
-      fi
+      grep -oE '[A-Za-z][A-Za-z0-9_-]{4,}' "$prompt_file" || true
     } | awk '
       BEGIN { section=1 }
       /^---$/ { section=2; next }
@@ -166,32 +143,17 @@ if [[ -f "$prd_path" && -f "$prompt_path" ]]; then
 fi
 
 if [[ -f "$gate_manifest_path" ]]; then
-  if have_rg; then
-    if ! rg -q '"manifestVersion"' "$gate_manifest_path"; then
-      echo "Invalid gate manifest: missing manifestVersion"
-      missing=1
-    fi
-    if ! rg -q '"gates"' "$gate_manifest_path"; then
-      echo "Invalid gate manifest: missing gates array"
-      missing=1
-    fi
-  else
-    if ! grep -Fq '"manifestVersion"' "$gate_manifest_path"; then
-      echo "Invalid gate manifest: missing manifestVersion"
-      missing=1
-    fi
-    if ! grep -Fq '"gates"' "$gate_manifest_path"; then
-      echo "Invalid gate manifest: missing gates array"
-      missing=1
-    fi
+  if ! grep -Fq '"manifestVersion"' "$gate_manifest_path"; then
+    echo "Invalid gate manifest: missing manifestVersion"
+    missing=1
+  fi
+  if ! grep -Fq '"gates"' "$gate_manifest_path"; then
+    echo "Invalid gate manifest: missing gates array"
+    missing=1
   fi
 fi
 
-if have_rg; then
-  subphase_tasks="$(rg --files "$plans_root" -g "$task_glob" || true)"
-else
-  subphase_tasks="$(find "$plans_root" -type f -name TASKS.md 2>/dev/null || true)"
-fi
+subphase_tasks="$(find "$plans_root" -type f -name TASKS.md 2>/dev/null || true)"
 if [[ -n "$subphase_tasks" ]]; then
   while IFS= read -r tasks_file; do
     [[ -z "$tasks_file" ]] && continue
@@ -222,12 +184,12 @@ if [[ "$missing" -ne 0 ]]; then
   echo "Planning readiness check failed."
   echo "Required order:"
   echo "1. /START repo"
-  echo "2. Add $prd_path manually (preferred)"
+  echo "2. Add $prd_path manually (preferred; copy from docs/prd/PRD.md if that is your canonical draft)"
   echo "3. Optional: /CREATE prd for guided drafting"
   echo "4. Add $prompt_path manually (or /CREATE prompt)"
-  echo "5. Create $gate_manifest_path (or scaffold from templates)"
+  echo "5. Create gate manifest at $gate_manifest_path (or docs/plans/gates/GITHUB_GATE_MATRIX.json per hardlock-paths.json)"
   echo "6. Initialize $versioning_path"
-  echo "7. Ensure each $plans_root/<phase>/<subphase>/ has prompt.json + PROMPT.md"
+  echo "7. Ensure each $plans_root/<phase>/<subphase>/ with TASKS.md has prompt.json + PROMPT.md"
   echo "8. /START gates"
   if [[ ! -f "$changelog_path" ]]; then
     echo "9. Ensure $changelog_path exists (auto-bootstrap runs silently when other gates pass)"

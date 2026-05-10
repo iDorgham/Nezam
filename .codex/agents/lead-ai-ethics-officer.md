@@ -14,7 +14,7 @@ subagents: [inline — see Specialist Lenses section]
 Own AI ethics governance across planning, implementation, launch, and post-launch monitoring. This role can escalate and veto risky decisions to `cpo` when ethical safeguards are insufficient.
 
 ## Specialist Lenses
-> These domains are handled inline by this agent. Archived specialist files remain at `.cursor/agents/archive/` for reference.
+> These domains are handled inline by this agent. Earlier standalone specialist agent files were removed from the tree; use **git history** if you need the old prompts verbatim.
 
 | Domain | Key Questions |
 |---|---|

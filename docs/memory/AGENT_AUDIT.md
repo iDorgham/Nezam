@@ -112,4 +112,4 @@ grep -Eho '[a-z0-9]+(-[a-z0-9]+)+' .cursor/rules/sdd-pipeline-v2.mdc | sort -u
 ## Next revision
 
 - After first **quarterly** scorecard review per `.cursor/agents/EVAL_FRAMEWORK.md`, reconcile Tier movement here.
-- When moving dormant agents physically, relocate to `.cursor/agents/archive/<name>.md` (no deletes).
+- When retiring dormant agents, use a **git-tracked** rename or removal in a dedicated PR (no silent deletion); keep a one-line pointer in this audit log if humans need to find the old prompt.

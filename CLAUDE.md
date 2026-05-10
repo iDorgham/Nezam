@@ -54,8 +54,6 @@ When conflicts appear, follow:
 - `README.md`
 - `a11y-performance-auditor.md`
 - `aeo-specialist.md`
-- `ai-safety-misuse-specialist.md`
-- `ai-sustainability-specialist.md`
 - `analytics-engineer.md`
 - `android-engineer.md`
 - `api-logic-manager.md`
@@ -66,7 +64,6 @@ When conflicts appear, follow:
 - `auth-security-manager.md`
 - `automation-manager.md`
 - `backend-lead.md`
-- `bias-fairness-specialist.md`
 - `billing-platform.md`
 - `bug-triage-manager.md`
 - `business-analyst.md`
@@ -82,7 +79,6 @@ When conflicts appear, follow:
 - `cost-optimization-analyst.md`
 - `daily-sync-agent.md`
 - `dashboard-manager.md`
-- `data-engineer.md`
 - `data-pipeline-manager.md`
 - `data-visualization.md`
 - `database-design-manager.md`
@@ -109,9 +105,7 @@ When conflicts appear, follow:
 - `integration-architecture-manager.md`
 - `integration-specialist.md`
 - `ios-engineer.md`
-- `ip-copyright-ethics-specialist.md`
 - `khaleeji-specialist.md`
-- `knowledge-sharing-agent.md`
 - `knowledge-update-manager.md`
 - `kpi-reporting-manager.md`
 - `lead-ai-ethics-officer.md`
@@ -142,14 +136,11 @@ When conflicts appear, follow:
 - `observability-specialist.md`
 - `payments-lead.md`
 - `performance-engineer.md`
-- `privacy-data-ethics-specialist.md`
 - `product-manager.md`
 - `product-officer.md`
 - `project-architect.md`
 - `prompt-engineer.md`
-- `prototyping-design-system-manager.md`
 - `qa-test-lead.md`
-- `react-component-lead.md`
 - `real-time-streaming-specialist.md`
 - `refactoring-specialist.md`
 - `requirements-analysis-manager.md`
@@ -173,7 +164,6 @@ When conflicts appear, follow:
 - `testing-manager.md`
 - `threat-modeling-specialist.md`
 - `time-series-specialist.md`
-- `transparency-explainability-specialist.md`
 - `ui-component-manager.md`
 - `ux-research-strategy-manager.md`
 - `vector-store-specialist.md`
@@ -181,7 +171,6 @@ When conflicts appear, follow:
 - `white-label-theming-specialist.md`
 
 ## Synced skill index
-- `archive`
 - `backend`
 - `content`
 - `design`

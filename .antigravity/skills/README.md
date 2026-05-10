@@ -20,17 +20,9 @@ Integration Hooks, Anti-Patterns, External References.
 | quality/ | Security, testing, performance, a11y | ~10 |
 | external/ | External AI, git, reporting | ~4 |
 
-**Totals:** ~84 active `SKILL.md` files under `.cursor/skills/` (excluding `archive/`). Run `find .cursor/skills -path '*/archive/*' -prune -o -name SKILL.md -print | wc -l` to verify.
+**Totals:** ~84 active `SKILL.md` files under `.cursor/skills/`. Run `find .cursor/skills -name SKILL.md -print | wc -l` to verify.
 
-## Archive (reference only)
-
-Merged skills are preserved under `.cursor/skills/archive/` — do not activate as primary paths:
-
-| Archived path | Absorbed into |
-|---------------|----------------|
-| `archive/system/context-compressor/` | `system/context-window-manager/SKILL.md` → **Compression Mode** |
-| `archive/design/design-system-builder/` | `design/design-tokens/SKILL.md` → **System Build Mode** |
-| `archive/design/frontend-design-pro/` | `design/design-tokens/SKILL.md` → **Frontend Integration Mode** |
+Historical merged skills (context-compressor, design-system-builder, frontend-design-pro) live in **git history** only; primary paths are `system/context-window-manager/SKILL.md` and `design/design-tokens/SKILL.md`.
 
 ## New in v2
 
@@ -55,4 +47,4 @@ Format: `<category>/<descriptive-name>/SKILL.md`
 ## Adding a new skill
 
 Run: /CREATE skill
-Or copy from docs/workspace/templates/skill-template/ and fill in SKILL.md.
+Or copy from `docs/templates/` skill templates and fill in `SKILL.md`.

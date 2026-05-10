@@ -40,24 +40,30 @@ jobs:
             const jobs = jobsResp.data.jobs || [];
 
             const automation = jobs.find(j => j.name === 'automation-smoke');
+            const nightly = jobs.find(j => j.name === 'nightly-automation-self-test');
 
-            let shouldOpen = false;
-            let body = '';
+            const badJobs = [];
 
             if (!automation) {
-              shouldOpen = true;
-              body = `automation-smoke job not found for latest run (id ${runId}). See: ${runUrl}`;
+              badJobs.push('automation-smoke (missing)');
             } else if (automation.conclusion !== 'success') {
-              shouldOpen = true;
-              body = `automation-smoke conclusion: ${automation.conclusion} for run ${runUrl}`;
+              badJobs.push(`automation-smoke (${automation.conclusion})`);
             }
 
-            if (!shouldOpen) {
-              core.info('automation-smoke is green. No action needed.');
+            if (!nightly) {
+              badJobs.push('nightly-automation-self-test (missing)');
+            } else if (nightly.conclusion !== 'success') {
+              badJobs.push(`nightly-automation-self-test (${nightly.conclusion})`);
+            }
+
+            if (badJobs.length === 0) {
+              core.info('automation-smoke and nightly-automation-self-test are green. No action needed.');
               return;
             }
 
-            const title = `automation-smoke failing on main — run ${runId}`;
+            const title = `CI jobs failing on main — ${badJobs.join(', ')}`;
+            const body = `The following jobs for run ${runUrl} are failing or missing: ${badJobs.join(', ')}. Run: ${runUrl}`;
+
             // Avoid duplicate open issues with same title
             const issues = await github.issues.listForRepo({ owner, repo, state: 'open', per_page: 100 });
             if (issues.data.some(i => i.title === title)) {

@@ -11,6 +11,8 @@ This changelog follows a **hybrid workflow**:
 
 ### Added
 
+- PRD §11 release roadmap: canonical `docs/prd/release-roadmap.json` with `pnpm prd:roadmap` / `prd:roadmap:check` and CI drift check.
+
 ### Changed
 
 ### Fixed

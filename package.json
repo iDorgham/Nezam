@@ -11,6 +11,8 @@
     "check:specs": "bash scripts/check-spec-versions.sh",
     "check:all": "pnpm check:tokens && pnpm check:specs && pnpm ai:check",
     "check:onboarding": "bash scripts/checks/check-onboarding-readiness.sh",
+    "prd:roadmap": "node scripts/prd/render-release-roadmap.mjs --write",
+    "prd:roadmap:check": "node scripts/prd/render-release-roadmap.mjs --check",
     "design:apply": "bash scripts/design/copy-profile-to-design-md.sh",
     "changelog:draft": "node scripts/changelog/draft-from-tasks.js",
     "changelog:finalize": "node scripts/changelog/finalize-from-commit.js",

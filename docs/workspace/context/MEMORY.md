@@ -61,3 +61,6 @@ _(Strategy summaries pasted from companion sessions.)_
 When using external chats (Grok/Qwen/Gemini/etc.), keep rolling progress suitable for uploads in [`docs/reports/progress/PROGRESS_REPORT.latest.md`](../../reports/progress/PROGRESS_REPORT.latest.md) and brief companions from [`CONTEXT.md`](./CONTEXT.md).
 
 - **Companion chat pattern:** Paste `CONTEXT.md` + `MEMORY.md` (this file) + `PRD.md` excerpts + current phase prompt for continuity.
+- 2026-05-10T15:02:40Z — commit: chore(workspace): complete PU-11 to PU-15 routing and docs refresh (files changed: 338)
+- 2026-05-10T15:02:45Z — commit: chore(workspace): complete PU-11 to PU-15 routing and docs refresh (files changed: 338)
+- 2026-05-10T15:02:51Z — commit: chore(workspace): complete PU-11 to PU-15 routing and docs refresh (files changed: 338)

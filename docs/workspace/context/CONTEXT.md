@@ -61,15 +61,11 @@ Optional fourth file:
 
 AUTO-MANAGED:BEGIN
 ## Auto-Managed Snapshot
-P26-05-10T12:32:50Z
+P26-05-10T15:02:40Z
 - Current git branch: template-prep
-- Last commit: 0786529 chore(workspace): sync context docs and continual-learning hook state
+- Last commit: 5cd3421 chore(workspace): complete PU-11 to PU-15 routing and docs refresh
 - Current phase guess: Onboarding
 - PRD present: no
 - Design present: no
 - Progress report present: yes
-- Tech stack reference: `docs/reference/developer-tech-stack-2026.md` (use when wired in PU-03)
-- Memory (v2): `docs/workspace/context/MEMORY.md`
-- Phase handoff: `docs/workspace/context/PHASE_HANDOFF.md`
-- Agents (approx.): `.cursor/agents/` ~117 active markdown charters; `archive/` ~10 archived
 AUTO-MANAGED:END

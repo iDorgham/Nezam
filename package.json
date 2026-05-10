@@ -1,6 +1,7 @@
 {
   "name": "nezam-workspace-kit",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
   "description": "NEZAM — /command do everything. Cursor orchestration kit with optional semantic-release for workflow_dispatch automation.",
   "scripts": {
     "ai:sync": "node scripts/sync-ai-folders.js --write",

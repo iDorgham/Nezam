@@ -15,7 +15,11 @@ This changelog follows a **hybrid workflow**:
 
 ### Changed
 
+- Root `DESIGN.md` applied from `minimal` design profile for design-gate Gate 7.
+
 ### Fixed
+
+- NEZAM PR Gates: pin `pnpm/action-setup` version and add `packageManager` so `design-tokens` job installs on CI.
 
 ### Security
 

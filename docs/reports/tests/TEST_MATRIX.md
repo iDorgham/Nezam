@@ -29,7 +29,7 @@ Each row lists the ten required fields as numbered bullets.
 
 ### TM-ONB-001 — PRD + prompt onboarding
 
-1. **Source:** [`docs/core/required/prd/PRD.md`](docs/core/required/prd/PRD.md) requirement R1; [`scripts/checks/check-onboarding-readiness.sh`](scripts/checks/check-onboarding-readiness.sh).
+1. **Source:** [`docs/core/required/PRD.md`](docs/core/required/PRD.md) requirement R1; [`scripts/checks/check-onboarding-readiness.sh`](scripts/checks/check-onboarding-readiness.sh).
 2. **Test type:** Integration (shell / CI).
 3. **Acceptance:** Script exits 0 when PRD and `docs/core/required/PROJECT_PROMPT.md` exist.
 4. **Mocking:** None; filesystem-only.

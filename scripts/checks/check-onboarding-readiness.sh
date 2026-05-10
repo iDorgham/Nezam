@@ -5,6 +5,10 @@ set -euo pipefail
 
 hardlock_paths_file="docs/core/hardlock-paths.json"
 
+have_rg() {
+  command -v rg >/dev/null 2>&1
+}
+
 read_json_string() {
   local file="$1"
   local key="$2"
@@ -83,13 +87,21 @@ if [[ ! -f "$changelog_path" ]]; then
   changelog_missing=1
 fi
 
-# PRD quality gate: block template/placeholder PRDs.
+# PRD quality gate: block obvious template/placeholder PRDs (avoid false positives on words like "templates/").
 if [[ -f "$prd_path" ]]; then
   prd_file="$prd_path"
-  if rg -qi "template|todo|tbd|fill in|placeholder|lorem ipsum|\\{\\{" "$prd_file"; then
-    echo "PRD appears template/placeholder-based: $prd_file"
-    echo "Please complete PRD content before planning is unlocked."
-    missing=1
+  if have_rg; then
+    if rg -qi "lorem ipsum|\\{\\{|fill in the blank|placeholder-only|\\bTBD:\\s*(here|replace|fixme)\\b|^# .*\\(draft template\\)" "$prd_file"; then
+      echo "PRD appears template/placeholder-based: $prd_file"
+      echo "Please complete PRD content before planning is unlocked."
+      missing=1
+    fi
+  else
+    if grep -qiE 'lorem ipsum|\{\{|fill in the blank|placeholder-only|\bTBD:\s*(here|replace|fixme)\b|^# .*\(draft template\)' "$prd_file"; then
+      echo "PRD appears template/placeholder-based: $prd_file"
+      echo "Please complete PRD content before planning is unlocked."
+      missing=1
+    fi
   fi
 fi
 
@@ -98,8 +110,13 @@ if [[ -f "$prd_path" && -f "$prompt_path" ]]; then
   prd_file="$prd_path"
   prompt_file="$prompt_path"
 
-  prd_title="$(rg -m1 "^# " "$prd_file" | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
-  prompt_title="$(rg -m1 "^# " "$prompt_file" | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
+  if have_rg; then
+    prd_title="$(rg -m1 "^# " "$prd_file" | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
+    prompt_title="$(rg -m1 "^# " "$prompt_file" | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
+  else
+    prd_title="$(grep -m1 '^# ' "$prd_file" 2>/dev/null | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
+    prompt_title="$(grep -m1 '^# ' "$prompt_file" 2>/dev/null | sed 's/^# *//' | tr '[:upper:]' '[:lower:]' || true)"
+  fi
 
   if [[ -n "$prd_title" && -n "$prompt_title" ]]; then
     if [[ "$prompt_title" != *"${prd_title%%—*}"* && "${prd_title%%—*}" != *"$prompt_title"* ]]; then
@@ -113,9 +130,17 @@ if [[ -f "$prd_path" && -f "$prompt_path" ]]; then
   # Require at least 2 shared domain keywords (length >= 5) between files.
   shared_keywords="$(
     {
-      rg -o "[A-Za-z][A-Za-z0-9_-]{4,}" "$prd_file" || true
+      if have_rg; then
+        rg -o "[A-Za-z][A-Za-z0-9_-]{4,}" "$prd_file" || true
+      else
+        grep -oE '[A-Za-z][A-Za-z0-9_-]{4,}' "$prd_file" || true
+      fi
       echo "---"
-      rg -o "[A-Za-z][A-Za-z0-9_-]{4,}" "$prompt_file" || true
+      if have_rg; then
+        rg -o "[A-Za-z][A-Za-z0-9_-]{4,}" "$prompt_file" || true
+      else
+        grep -oE '[A-Za-z][A-Za-z0-9_-]{4,}' "$prompt_file" || true
+      fi
     } | awk '
       BEGIN { section=1 }
       /^---$/ { section=2; next }
@@ -141,18 +166,32 @@ if [[ -f "$prd_path" && -f "$prompt_path" ]]; then
 fi
 
 if [[ -f "$gate_manifest_path" ]]; then
-  if ! rg -q '"manifestVersion"' "$gate_manifest_path"; then
-    echo "Invalid gate manifest: missing manifestVersion"
-    missing=1
-  fi
-
-  if ! rg -q '"gates"' "$gate_manifest_path"; then
-    echo "Invalid gate manifest: missing gates array"
-    missing=1
+  if have_rg; then
+    if ! rg -q '"manifestVersion"' "$gate_manifest_path"; then
+      echo "Invalid gate manifest: missing manifestVersion"
+      missing=1
+    fi
+    if ! rg -q '"gates"' "$gate_manifest_path"; then
+      echo "Invalid gate manifest: missing gates array"
+      missing=1
+    fi
+  else
+    if ! grep -Fq '"manifestVersion"' "$gate_manifest_path"; then
+      echo "Invalid gate manifest: missing manifestVersion"
+      missing=1
+    fi
+    if ! grep -Fq '"gates"' "$gate_manifest_path"; then
+      echo "Invalid gate manifest: missing gates array"
+      missing=1
+    fi
   fi
 fi
 
-subphase_tasks="$(rg --files "$plans_root" -g "$task_glob" || true)"
+if have_rg; then
+  subphase_tasks="$(rg --files "$plans_root" -g "$task_glob" || true)"
+else
+  subphase_tasks="$(find "$plans_root" -type f -name TASKS.md 2>/dev/null || true)"
+fi
 if [[ -n "$subphase_tasks" ]]; then
   while IFS= read -r tasks_file; do
     [[ -z "$tasks_file" ]] && continue

@@ -3,8 +3,7 @@
   "notes": [
     "This file is the single source of truth for hardlock-critical file locations.",
     "Edit paths here if you intentionally move/rename required artifacts.",
-    "Do not point hardlock paths into docs/reference/ (reference-only).",
-    "Keep in sync with docs/core/hardlock-paths.json (canonical for scripts)."
+    "Do not point hardlock paths into docs/reference/ (reference-only)."
   ],
   "intake": {
     "prd": "docs/core/required/PRD.md",

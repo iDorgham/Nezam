@@ -22,10 +22,10 @@ function ensureParentDir(filePath) {
 function main() {
   const repoRoot = process.cwd();
   const registryPath = path.join(repoRoot, "docs/core/hardlock-paths.json");
-  const templatePath = path.join(
-    repoRoot,
-    "docs/workspace/templates/specs/CHANGELOG.template.md"
-  );
+  const templateCandidates = [
+    path.join(repoRoot, "docs/workspace/templates/specs/CHANGELOG.template.md"),
+    path.join(repoRoot, "docs/templates/specs/CHANGELOG.template.md"),
+  ];
 
   if (!fileExists(registryPath)) {
     process.exit(1);
@@ -42,7 +42,8 @@ function main() {
     process.exit(0);
   }
 
-  if (!fileExists(templatePath)) {
+  const templatePath = templateCandidates.find((p) => fileExists(p));
+  if (!templatePath) {
     process.exit(1);
   }
 

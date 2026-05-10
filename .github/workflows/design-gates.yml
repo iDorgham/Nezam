@@ -8,7 +8,7 @@ jobs:
     name: Gate 1 - Token-First CSS
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5.0.1
       - name: Check for hardcoded design primitives
         run: bash scripts/checks/check-design-tokens.sh
 
@@ -16,7 +16,7 @@ jobs:
     name: Gate 6 - Performance and Accessibility
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5.0.1
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -31,7 +31,7 @@ jobs:
     name: Gate 7 - DESIGN.md exists and is non-template
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5.0.1
       - name: Verify DESIGN.md
         run: |
           if [ ! -f "DESIGN.md" ]; then

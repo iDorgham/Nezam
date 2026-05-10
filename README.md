@@ -2,7 +2,8 @@
 
 # NEZAM
 
-**Turn AI from a chat toy into a repeatable delivery system — built for solo founders and tiny teams.**
+**Still only chatting about your app idea? NEZAM turns curious visitors into people who ship.** Drop this kit into Cursor, follow **`/command`** — plain-language planning, built-in organization, and steady progress toward a real release — built for **vibecoders** and **beginners** who are tired of losing work every new chat. **Fork or clone, open your project in Cursor, and run `/START` as soon as you’re ready to build.**
+
 
 > **`/command` do everything.**
 
@@ -13,7 +14,21 @@
   &nbsp;
   <a href="https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml"><img src="https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&amp;label=design%20gates&amp;logo=github&amp;style=flat" alt="Design gates workflow status" /></a>
   &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/release.yml?branch=main&amp;label=release&amp;logo=github&amp;style=flat" alt="Release workflow status" /></a>
+  &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/actions/workflows/semantic-release.yml"><img src="https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/semantic-release.yml?branch=main&amp;label=semantic-release&amp;logo=github&amp;style=flat" alt="Semantic-release workflow status" /></a>
+  &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/actions/workflows/git-automation.yml"><img src="https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/git-automation.yml?branch=main&amp;label=git%20automation&amp;logo=github&amp;style=flat" alt="Git automation workflow status" /></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/iDorgham/Nezam/commits/main/"><img src="https://img.shields.io/github/last-commit/iDorgham/Nezam/main?label=last%20commit&amp;logo=git&amp;style=flat" alt="Last commit on main" /></a>
+  &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/stargazers"><img src="https://img.shields.io/github/stars/iDorgham/Nezam?label=stars&amp;logo=github&amp;style=flat" alt="GitHub stars" /></a>
+  &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/network/members"><img src="https://img.shields.io/github/forks/iDorgham/Nezam?label=forks&amp;logo=github&amp;style=flat" alt="GitHub forks" /></a>
+  &nbsp;
+  <a href="https://github.com/iDorgham/Nezam/graphs/contributors"><img src="https://img.shields.io/github/contributors/iDorgham/Nezam?label=contributors&amp;logo=github&amp;style=flat" alt="Contributors" /></a>
   &nbsp;
   <a href="https://github.com/iDorgham/Nezam/tree/main/.github/workflows"><img src="https://img.shields.io/badge/workflows-view%20all-24292f?logo=githubactions&amp;logoColor=fff&amp;style=flat" alt="All GitHub workflows" /></a>
 </p>
@@ -25,13 +40,31 @@
   <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&amp;logoColor=fff&amp;style=flat" alt="pnpm workspace" /></a>
   <a href="https://github.com/iDorgham/Nezam/blob/main/.github/workflows/design-gates.yml"><img src="https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&amp;logoColor=fff&amp;style=flat" alt="Node.js 20" /></a>
   <a href="https://github.com/iDorgham/Nezam/blob/main/docs/workspace/context/MULTI_TOOL_INDEX.md"><img src="https://img.shields.io/badge/AI%20clients-synced-6e7681?style=flat" alt="Multi-client AI sync" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/package.json"><img src="https://img.shields.io/badge/scripts-ai%3Async%20%C2%B7%20ai%3Acheck-24292f?style=flat" alt="Workspace scripts ai:sync and ai:check" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/iDorgham/Nezam/tree/main/.cursor/design"><img src="https://img.shields.io/badge/design-profiles-.cursor%2Fdesign-ea580c?style=flat" alt="Design profiles catalog" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/scripts/design/copy-profile-to-design-md.sh"><img src="https://img.shields.io/badge/design%3Aapply-profile-555555?style=flat" alt="design:apply script" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/scripts/checks/check-design-tokens.sh"><img src="https://img.shields.io/badge/check%3Atokens-design-24292f?style=flat" alt="Design token check script" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/scripts/checks/check-onboarding-readiness.sh"><img src="https://img.shields.io/badge/check%3Aonboarding-readiness-24292f?style=flat" alt="Onboarding readiness check" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/.lighthouserc.json"><img src="https://img.shields.io/badge/Lighthouse-.lighthouserc-f45342?style=flat" alt="Lighthouse configuration" /></a>
 </p>
 
 <p align="center">
   <a href="https://cursor.com/"><img src="https://img.shields.io/badge/Cursor-orchestration-141321?logo=cursor&amp;logoColor=fff&amp;style=flat" alt="Cursor" /></a>
   <a href="https://github.com/iDorgham/Nezam/tree/main/.cursor/commands"><img src="https://img.shields.io/badge/slash-commands-24292f?style=flat" alt="Slash commands (.cursor/commands)" /></a>
+  <a href="https://github.com/iDorgham/Nezam/tree/main/.cursor/agents"><img src="https://img.shields.io/badge/agents-.cursor%2Fagents-6e7681?style=flat" alt="Cursor agents" /></a>
+  <a href="https://github.com/iDorgham/Nezam/tree/main/.cursor/skills"><img src="https://img.shields.io/badge/skills-.cursor%2Fskills-6e7681?style=flat" alt="Cursor skills" /></a>
+  <a href="https://github.com/iDorgham/Nezam/tree/main/.cursor/rules"><img src="https://img.shields.io/badge/rules-.cursor%2Frules-6e7681?style=flat" alt="Cursor rules" /></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/iDorgham/Nezam/compare"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat" alt="Pull requests welcome" /></a>
   <a href="https://github.com/iDorgham/Nezam/blob/main/docs/reports/README.md"><img src="https://img.shields.io/badge/reports-docs%20hub-24292f?style=flat" alt="Generated reports hub" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/docs/README.md"><img src="https://img.shields.io/badge/docs-hub-docs%2FREADME-24292f?style=flat" alt="Documentation hub" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/docs/START.md"><img src="https://img.shields.io/badge/start-guide-docs%2FSTART-1f6feb?style=flat" alt="Start guide" /></a>
+  <a href="https://github.com/iDorgham/Nezam/blob/main/docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json"><img src="https://img.shields.io/badge/gate-matrix-GITHUB__GATE__MATRIX-555555?style=flat" alt="GitHub gate matrix JSON" /></a>
 </p>
 
 <p align="center"><sub>Manual workflows (Actions tab): <a href="https://github.com/iDorgham/Nezam/actions/workflows/release.yml"><code>release</code></a> · <a href="https://github.com/iDorgham/Nezam/actions/workflows/semantic-release.yml"><code>semantic-release</code></a> · <a href="https://github.com/iDorgham/Nezam/actions/workflows/git-automation.yml"><code>git-automation</code></a></sub></p>

@@ -20,7 +20,8 @@
     "continual-learning:on": "node scripts/continual-learning/enable.js",
     "continual-learning:off": "node scripts/continual-learning/disable.js",
     "continual-learning:reset-memory": "node scripts/continual-learning/reset-memory.js",
-    "hooks:install": "bash scripts/context/install-context-hooks.sh && bash scripts/context/auto-memory-hooks.sh --install"
+    "hooks:install": "bash scripts/context/install-context-hooks.sh && bash scripts/context/auto-memory-hooks.sh --install",
+    "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.0",

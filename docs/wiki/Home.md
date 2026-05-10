@@ -2,6 +2,8 @@
 
 **Welcome to the NEZAM knowledge base.**
 
+For the **sidebar + footer** experience, run `pnpm docs:wiki` from the repo root (see [Wiki site shell](README.md)).
+
 NEZAM is an AI workspace orchestration system built on Specification-Driven Development (SDD). It gives every AI assistant a shared contract — so your swarm stays aligned from the first `/START` to final `/DEPLOY`.
 
 ---
@@ -10,14 +12,14 @@ NEZAM is an AI workspace orchestration system built on Specification-Driven Deve
 
 | Topic | Page |
 |---|---|
-| What is NEZAM? | [Architecture](./Architecture) |
-| SDD delivery pipeline | [SDD Pipeline](./SDD-Pipeline) |
-| Agent system | [Agent Map](./Agent-Map) |
-| Design governance | [Design System](./Design-System) |
-| Slash commands | [Commands](./Commands) |
-| Memory & decisions | [Memory System](./Memory-System) |
-| Contributing | [Contributing](./Contributing) |
-| Deployment & CI | [Deployment](./Deployment) |
+| What is NEZAM? | [Architecture](./Architecture.md) |
+| SDD delivery pipeline | [SDD Pipeline](./SDD-Pipeline.md) |
+| Agent system | [Agent Map](./Agent-Map.md) |
+| Design governance | [Design System](./Design-System.md) |
+| Slash commands | [Commands](./Commands.md) |
+| Memory & decisions | [Memory System](./Memory-System.md) |
+| Contributing | [Contributing](./Contributing.md) |
+| Deployment & CI | [Deployment](./Deployment.md) |
 
 ---
 
@@ -45,4 +47,4 @@ docs/specs/    ← What each feature must do
 3. Open in Cursor and type `/START`
 4. Follow the SDD pipeline
 
-See the [SDD Pipeline](./SDD-Pipeline) page for details.
+See the [SDD Pipeline](./SDD-Pipeline.md) page for details.

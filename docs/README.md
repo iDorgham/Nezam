@@ -12,7 +12,7 @@
 | Quick start | [../README.md](../README.md) | Repo overview + setup |
 | Onboarding guide | [START.md](START.md) | Step-by-step onboarding |
 | PRD | [prd/PRD.md](prd/PRD.md) | What NEZAM is and why |
-| Wiki home | [wiki/Home.md](wiki/Home.md) | Full knowledge base |
+| Wiki home | [wiki/Home.md](wiki/Home.md) | Full knowledge base (sidebar/footer via [wiki/README.md](wiki/README.md) + `pnpm docs:wiki`) |
 
 ---
 

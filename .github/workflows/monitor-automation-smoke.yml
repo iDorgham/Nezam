@@ -41,6 +41,7 @@ jobs:
 
             const automation = jobs.find(j => j.name === 'automation-smoke');
             const nightly = jobs.find(j => j.name === 'nightly-automation-self-test');
+            const conventional = jobs.find(j => j.name === 'conventional-commits');
 
             const badJobs = [];
 
@@ -56,8 +57,14 @@ jobs:
               badJobs.push(`nightly-automation-self-test (${nightly.conclusion})`);
             }
 
+            if (!conventional) {
+              badJobs.push('conventional-commits (missing)');
+            } else if (conventional.conclusion !== 'success') {
+              badJobs.push(`conventional-commits (${conventional.conclusion})`);
+            }
+
             if (badJobs.length === 0) {
-              core.info('automation-smoke and nightly-automation-self-test are green. No action needed.');
+              core.info('automation-smoke, nightly-automation-self-test, and conventional-commits are green. No action needed.');
               return;
             }
 

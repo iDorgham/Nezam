@@ -25,16 +25,27 @@ This loads context, checks prerequisites, and identifies the current phase.
 
 ### 3. Create a Branch
 
-```bash
-git checkout -b feat/your-feature-name
+Pull requests are validated by the **`branch-policy`** job in [`.github/workflows/ci.yml`](https://github.com/iDorgham/Nezam/blob/main/.github/workflows/ci.yml) (`branch-policy`). The **head branch name** must match:
+
+```text
+feature/<slug>
+release/<slug>
+hotfix/<slug>
 ```
 
-Branch naming convention:
-- `feat/` — new feature or agent
-- `fix/` — bug fix
-- `docs/` — documentation update
-- `refactor/` — refactoring
-- `chore/` — maintenance
+`<slug>` is lowercase letters, digits, and `.`, `_`, `-` only (examples: `feature/onboarding-gate`, `release/1.2.0`, `hotfix/1.2.1`).
+
+```bash
+git checkout -b feature/your-topic-or-spec-id
+```
+
+**If `branch-policy` fails on your PR:** rename the head branch, then push (or open a new PR from a compliant branch):
+
+```bash
+git branch -m feature/my-topic
+git push -u origin HEAD
+# If the old branch already existed on the remote, delete it after the PR is updated or recreated.
+```
 
 ### 4. Follow SDD Order
 
@@ -60,7 +71,7 @@ body (optional)
 footer (optional)
 ```
 
-**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`
+**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert` (see `conventional-commits` in `.github/workflows/ci.yml`)
 
 **Scopes:** `agents`, `skills`, `rules`, `commands`, `docs`, `memory`, `ci`, `design`, `scripts`
 
@@ -82,6 +93,8 @@ pnpm run check         # Run all workspace checks
 ```
 
 ### 7. Open a Pull Request
+
+CI **`policy-gate`** waits on **`branch-policy`**, **`conventional-commits`**, **`readiness`**, and other checks defined in `.github/workflows/ci.yml`. Use a compliant branch name (see §3) before opening the PR.
 
 Use the PR template in `.github/`. Include:
 - What changed and why

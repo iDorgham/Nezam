@@ -232,6 +232,10 @@ All agents are lazy-loaded via `agent-lazy-load.mdc`. Only agents needed for the
 
 ## 11. Release Roadmap
 
+**Source:** [`release-roadmap.json`](./release-roadmap.json). **Regenerate:** `pnpm prd:roadmap`. CI verifies the table matches JSON (`pnpm prd:roadmap:check`).
+
+<!-- NEZAM_RELEASE_ROADMAP_TABLE_START -->
+
 | Milestone | Version | Scope |
 |---|---|---|
 | Workspace Kit baseline | `0.1.0` | Onboarding gates green, DESIGN.md + TEST_MATRIX.md |
@@ -240,6 +244,8 @@ All agents are lazy-loaded via `agent-lazy-load.mdc`. Only agents needed for the
 | Memory v2 | `0.4.0` | 4-layer memory operational, capture protocol enforced |
 | Swarm v1 | `0.5.0` | 100+ agents, lazy-load, eval framework live |
 | Template release | `1.0.0` | Fully forkable, documented, production-ready |
+
+<!-- NEZAM_RELEASE_ROADMAP_TABLE_END -->
 
 ---
 

@@ -1,0 +1,34 @@
+{
+  "milestones": [
+    {
+      "milestone": "Workspace Kit baseline",
+      "version": "0.1.0",
+      "scope": "Onboarding gates green, DESIGN.md + TEST_MATRIX.md"
+    },
+    {
+      "milestone": "Full SDD pipeline",
+      "version": "0.2.0",
+      "scope": "All phase plans populated, gate matrix active"
+    },
+    {
+      "milestone": "Multi-client parity",
+      "version": "0.3.0",
+      "scope": "All 8 AI clients synced, `ai:check` passes"
+    },
+    {
+      "milestone": "Memory v2",
+      "version": "0.4.0",
+      "scope": "4-layer memory operational, capture protocol enforced"
+    },
+    {
+      "milestone": "Swarm v1",
+      "version": "0.5.0",
+      "scope": "100+ agents, lazy-load, eval framework live"
+    },
+    {
+      "milestone": "Template release",
+      "version": "1.0.0",
+      "scope": "Fully forkable, documented, production-ready"
+    }
+  ]
+}

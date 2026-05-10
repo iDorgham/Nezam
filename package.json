@@ -1,6 +1,7 @@
 {
   "name": "nezam-workspace-kit",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
   "description": "NEZAM — /command do everything. Cursor orchestration kit with optional semantic-release for workflow_dispatch automation.",
   "scripts": {
     "ai:sync": "node scripts/sync-ai-folders.js --write",
@@ -11,6 +12,8 @@
     "check:specs": "bash scripts/check-spec-versions.sh",
     "check:all": "pnpm check:tokens && pnpm check:specs && pnpm ai:check",
     "check:onboarding": "bash scripts/checks/check-onboarding-readiness.sh",
+    "prd:roadmap": "node scripts/prd/render-release-roadmap.mjs --write",
+    "prd:roadmap:check": "node scripts/prd/render-release-roadmap.mjs --check",
     "design:apply": "bash scripts/design/copy-profile-to-design-md.sh",
     "changelog:draft": "node scripts/changelog/draft-from-tasks.js",
     "changelog:finalize": "node scripts/changelog/finalize-from-commit.js",

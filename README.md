@@ -395,7 +395,7 @@ NEZAM follows [Semantic Versioning](https://semver.org/) with [Conventional Comm
 
 Current: `v0.1.0` — Workspace Kit baseline
 
-Roadmap in [`docs/prd/PRD.md#release-roadmap`](docs/prd/PRD.md#11-release-roadmap).
+Roadmap: canonical [`docs/prd/release-roadmap.json`](docs/prd/release-roadmap.json) (edit milestones there, then `pnpm prd:roadmap` to refresh the table). Rendered in [`docs/prd/PRD.md#11-release-roadmap`](docs/prd/PRD.md#11-release-roadmap).
 
 ---
 

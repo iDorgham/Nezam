@@ -92,6 +92,8 @@ pnpm ai:check          # Verify AI client sync
 pnpm run check         # Run all workspace checks
 ```
 
+**PRD release roadmap (§11):** Milestones live in [`docs/prd/release-roadmap.json`](../prd/release-roadmap.json). After you change that JSON, run **`pnpm prd:roadmap`** so the markdown table in [`docs/prd/PRD.md`](../prd/PRD.md) stays in sync—otherwise CI **`readiness`** fails on **`pnpm prd:roadmap:check`**. You can run **`pnpm prd:roadmap:check`** locally before pushing.
+
 ### 7. Open a Pull Request
 
 CI **`policy-gate`** waits on **`branch-policy`**, **`conventional-commits`**, **`readiness`**, and other checks defined in `.github/workflows/ci.yml`. Use a compliant branch name (see §3) before opening the PR.
@@ -113,6 +115,8 @@ If **required status checks** on `main` list **`automation-smoke`** (or other `c
 1. **Prefer a PR into `main`** from a `feature/…` branch so PR-only jobs (**`branch-policy`**, **`conventional-commits`**, **`policy-gate`**) run and merge stays aligned with governance.
 2. If you want a **single** required name on PRs, require **`policy-gate`** only; you do not also need **`automation-smoke`** as a separate required check unless you want that badge explicitly.
 3. If **bypass** is allowed for emergencies, use it sparingly; afterward confirm the latest **`ci`** run on `main` in the Actions tab.
+
+For routine work, open a PR from a **`feature/…`** branch and merge after **`policy-gate`** (and the rest of **`ci`**) is green.
 
 ---
 

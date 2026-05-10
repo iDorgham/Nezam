@@ -1,5 +1,9 @@
 {
   "ci": {
+    "collect": {
+      "staticDistDir": "docs/lhci-stub",
+      "numberOfRuns": 1
+    },
     "assert": {
       "assertions": {
         "categories:performance": [

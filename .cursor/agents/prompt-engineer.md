@@ -18,6 +18,7 @@ Own the quality, structure, determinism, and evolution of all prompt files in `.
 - **Agent files** (`.cursor/agents/*.md`): role clarity, activation triggers, output contracts, escalation paths
 - **Command files** (`.cursor/commands/*.md`): command binding completeness, parameter definitions, guard conditions
 - **Skill files** (`.cursor/skills/*/SKILL.md`): skill scope, input/output contracts, dependency declarations
+- [.cursor/skills/backend/openrouter/SKILL.md](../skills/backend/openrouter/SKILL.md)
 
 ## Quality Standards
 

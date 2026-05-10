@@ -45,6 +45,7 @@ When conflicts appear, follow:
 - `help.md`
 - `plan.md`
 - `scan.md`
+- `settings.md`
 - `start.md`
 
 ## Synced agent index
@@ -179,6 +180,7 @@ When conflicts appear, follow:
 - `white-label-theming-specialist.md`
 
 ## Synced skill index
+- `archive`
 - `backend`
 - `content`
 - `design`
@@ -190,6 +192,7 @@ When conflicts appear, follow:
 - `system`
 
 ## Synced rule sources
+- `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`

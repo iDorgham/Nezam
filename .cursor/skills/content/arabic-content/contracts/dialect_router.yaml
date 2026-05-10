@@ -5,13 +5,13 @@ routes:
   - target_market: EG
     audience: consumer
     register: informal
-    dialect_module: dialect_modules/egyptian.md
-    notes: Load Egyptian pack for full Masri depth.
+    dialect_module: ../egyptian-arabic-content/egyptian_arabic_content_master.md
+    notes: Full Masri depth — sibling skill `@egyptian-arabic-content-master` (see `.cursor/skills/content/egyptian-arabic-content/SKILL.md`); local stub `dialect_modules/egyptian.md` removed.
 
   - target_market: EG
     audience: b2b
     register: mixed
-    dialect_module: dialect_modules/egyptian.md
+    dialect_module: ../egyptian-arabic-content/egyptian_arabic_content_master.md
 
   - target_market: GCC
     audience: consumer

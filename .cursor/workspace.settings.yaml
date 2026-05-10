@@ -1,0 +1,286 @@
+# NEZAM Workspace Settings
+# ─────────────────────────────────────────────────────────────────────────────
+# This file is the control plane for the entire workspace.
+# Edit via: /Settings <subcommand>  OR  edit YAML directly then run pnpm ai:sync
+# Schema reference: docs/workspace/context/CLI_TOOLS_CONTEXT.md
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  workspace_name: "NEZAM"
+  version: "1.0.0"
+  created: "2026-05-10"
+  last_modified: "2026-05-10"
+  owner: "yasser.dorgham@gmail.com"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# WORKSPACE SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+workspace:
+  language: "en"                         # primary language (en | ar | en+ar)
+  pipeline: "sdd-v2"                     # sdd-v2 | sdd-v3 (when upgraded)
+  product_type: null                     # website | webapp | saas | mobile (set after /PLAN idea)
+  sdd_phase: "onboarding"                # current pipeline phase
+  hardlock_mode: true                    # enforce gate prerequisites — never disable in production
+  recommendation_footer: true            # show next-action footer after every response
+  auto_sync: true                        # run pnpm ai:sync automatically after governed changes
+  drift_check_on_commit: true            # block commits when ai:check reports drift
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AI TOOLS CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+tools:
+  # ─── Primary Reasoning Tools ──────────────────────────────────────────
+  claude:
+    active: true
+    tier: primary-reasoning
+    preferred_model: sonnet               # haiku | sonnet | opus
+    use_prompt_caching: true
+    cache_candidates:
+      - "docs/workspace/context/CONTEXT.md"
+      - "docs/workspace/context/MEMORY.md"
+      - "docs/workspace/context/PHASE_HANDOFF.md"
+    task_policy: reasoning-and-spec-only  # never waste on mechanical tasks
+
+  cursor:
+    active: true
+    tier: primary-ide
+    tab_for_completions: true             # use Cursor Tab not Chat for simple completions
+    file_reference_discipline: true       # @filename always — never paste content
+    batch_edits: true                     # combine multi-file edits in one turn
+
+  antigravity:
+    active: false                         # set true when Antigravity subscription active
+    tier: primary-secondary
+    context_layer: 1                      # pass Layer 1 SDD docs only (not full agent files)
+    parallel_agents: true
+
+  # ─── Free Worker CLIs ─────────────────────────────────────────────────
+  gemini:
+    active: false                         # set true after: which gemini && gemini --version
+    tier: free-worker
+    quota:
+      daily_limit: 1500
+      used_today: 0
+      reset_at: "UTC 00:00"
+    best_for: [docs, summarize, readme, research, jsdoc]
+    activation_check: "which gemini && gemini --version"
+
+  qwen:
+    active: false                         # set true after: which qwen && qwen --version
+    tier: free-worker
+    quota:
+      daily_limit: null                   # rate-limited not quota-capped
+      rate_limit: "60 req/min"
+    best_for: [arabic, translation, multilingual, dialect]
+    activation_check: "which qwen && qwen --version"
+
+  kilocode:
+    active: false                         # set true after: which kilocode && kilocode --version
+    tier: free-worker
+    best_for: [scan, audit, grep, security-check, analyze]
+    activation_check: "which kilocode && kilocode --version"
+
+  opencode:
+    active: false                         # set true after: which opencode && opencode --version
+    tier: free-worker
+    best_for: [boilerplate, scaffold, lint, format, git, test-gen]
+    activation_check: "which opencode && opencode --version"
+
+  copilot:
+    active: false                         # set true when GitHub plan includes Copilot CLI
+    tier: free-worker
+    best_for: [test-gen, git, pr, shell]
+    activation_check: "which gh && gh copilot --version"
+
+  codex:
+    active: false                         # set true when OpenAI Codex CLI configured
+    tier: paid-worker
+    best_for: [code-gen, batch, fill-in]
+    invocation_prefix: "codex --context AGENTS.md"
+    activation_check: "which codex && codex --version"
+
+  # ─── Tool Policy ──────────────────────────────────────────────────────
+  routing:
+    # When true: planning agents auto-assign tools to tasks in MASTER_TASKS.md
+    auto_assign_tasks: true
+    # When true: subagent-controller checks assigned_tool before routing
+    enforce_routing: true
+    # Security-tagged tasks never fall through to free CLIs
+    security_tasks_claude_only: true
+    # Show routing decisions in agent output (useful during setup, noisy after)
+    verbose_routing: false
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PLAN SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+plan:
+  # Which planning phases to include (disable to skip phases)
+  phases:
+    seo: true
+    ia: true
+    content: true
+    design: true
+    architecture: true
+    scaffold: true
+    tasks: true
+    roadmap: true
+
+  # Brainstorm mode in /PLAN idea
+  brainstorm_mode: true                  # show improvement suggestions before PRD write
+
+  # Design system
+  design_brand: null                     # set after /PLAN design or design:apply
+  wireframe_mode: false                  # use /PLAN design wireframes for interactive selection
+
+  # Task generation behavior
+  task_tool_tagging: true               # tag each generated task with assigned_tool
+  task_granularity: "feature-slice"     # feature-slice | subtask | milestone
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PROJECT SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+project:
+  name: null                            # set after /PLAN idea
+  type: null                            # website | webapp | saas | mobile
+  language_support: ["en"]             # ["en"] | ["ar"] | ["en", "ar"]
+  rtl_support: false                    # enable for Arabic/RTL layouts
+
+  # Per-project tool policy override
+  # Options: default | strict | cost-optimized | arabic-heavy
+  tool_policy: default
+
+  # Project-specific tool policy definitions
+  policies:
+    strict:
+      description: "Claude/Cursor only — no free CLIs for any output (client-facing)"
+      allow_free_cli: false
+      require_claude_review: true
+    cost-optimized:
+      description: "Aggressive free CLI use — Claude for decisions only (internal tools)"
+      allow_free_cli: true
+      require_claude_review: false
+    arabic-heavy:
+      description: "Qwen primary for Arabic, Claude review gate required (Arabic content sites)"
+      allow_free_cli: true
+      qwen_primary: true
+      require_claude_review: true        # Claude reviews all Qwen Arabic output
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MEMORY SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+memory:
+  auto_capture: true                     # prompt to save decisions at session end
+  capture_triggers:
+    - phase_gate_crossed
+    - stack_decision_made
+    - design_locked
+    - architecture_decided
+  session_handoff: true                  # write PHASE_HANDOFF.md on session end
+  memory_files:
+    - "docs/workspace/context/MEMORY.md"
+    - "docs/workspace/context/PHASE_HANDOFF.md"
+    - "docs/workspace/context/CONTEXT.md"
+  compression:
+    enabled: true                        # compress old session context before new session
+    tool: "context-window-manager"       # skill to use for compression
+
+# ═══════════════════════════════════════════════════════════════════════════
+# GITHUB SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+github:
+  repo: null                            # set after /START repo (e.g. "org/repo")
+  default_branch: "main"
+  branch_strategy: "feature-branch"     # feature-branch | gitflow | trunk
+  pr_template: true                     # use .github/pull_request_template.md
+  auto_label_prs: true                  # label PRs by phase/swarm
+  require_reviews: 0                    # min reviews before merge (0 = off)
+  protected_branches: ["main", "staging"]
+  commit_hooks:
+    drift_check: true                   # block commit on ai:check failure
+    lint: true
+    type_check: true
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUTOMATION SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+automations:
+  # Pre-commit hooks
+  pre_commit:
+    ai_sync_check: true                 # run pnpm ai:check before commit
+    lint: true
+    type_check: true
+    test: false                         # enable when test suite exists
+
+  # CI/CD
+  ci:
+    provider: null                      # github-actions | vercel | none
+    auto_deploy_staging: false
+    auto_deploy_prod: false
+
+  # Scheduled tasks
+  scheduled:
+    tech_stack_review: "quarterly"      # remind to review developer-tech-stack-2026.md
+    memory_cleanup: "monthly"           # prompt to clean stale memory entries
+    token_audit_review: "weekly"        # review TOKEN_AUDIT.md for optimization opportunities
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MCP SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+mcp:
+  # MCP-first policy: prefer MCP over CLI/API when both available
+  prefer_mcp: true
+
+  # Active MCP servers (set active: true after configuring env vars)
+  servers:
+    supabase:
+      active: false
+      requires_env: [SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY]
+    github:
+      active: false
+      requires_env: [GITHUB_TOKEN]
+    stripe:
+      active: false
+      requires_env: [STRIPE_SECRET_KEY]
+    vercel:
+      active: false
+      requires_env: [VERCEL_TOKEN]
+    cloudflare:
+      active: false
+      requires_env: [CLOUDFLARE_API_TOKEN]
+    sentry:
+      active: false
+      requires_env: [SENTRY_AUTH_TOKEN]
+    neon:
+      active: false
+      requires_env: [NEON_API_KEY]
+    clerk:
+      active: false
+      requires_env: [CLERK_SECRET_KEY]
+
+# ═══════════════════════════════════════════════════════════════════════════
+# GUIDE SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════
+guide:
+  # Default output verbosity for /GUIDE status
+  verbosity: "normal"                   # minimal | normal | full
+  # Show pipeline bar in every /GUIDE response
+  pipeline_bar: true
+  # Show tool routing decisions in GUIDE output
+  show_tool_routing: false
+  # Language for /GUIDE output
+  output_language: "en"                 # en | ar | en+ar
+  # Jargon mode
+  plain_language_mode: false            # enable for /GUIDE explain mode
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ONBOARDING STATE
+# ═══════════════════════════════════════════════════════════════════════════
+onboarding:
+  complete: false
+  steps:
+    workspace_init: false               # /START repo + /START docs complete
+    tools_selected: false               # /Settings ai-tools setup complete
+    mcp_configured: false               # at least one MCP server active
+    github_connected: false             # github.repo set
+    first_plan_started: false           # /PLAN idea run at least once
+  skipped_steps: []                     # steps the user explicitly chose to skip

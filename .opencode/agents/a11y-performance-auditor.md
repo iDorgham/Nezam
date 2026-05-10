@@ -20,7 +20,6 @@ when: ["pre-/DEVELOP gate", "/SCAN a11y", "/SCAN perf", "motion audit", "release
 - Prioritized remediation plan aligned to `/FIX`.
 
 # @skill Dependencies
-- `@nezam-frontend-design-pro`
 - `@nezam-motion-3d-progressive`
 - `@nezam-component-library-api`
 - `@nezam-pro-design-tokens`

@@ -2,45 +2,52 @@
 
 ---
 name: token-budget-manager
-description: Keep prompts compact via context prioritization, reference-first reuse, and bounded output budgets.
-version: 1.0.0
-updated: 2026-05-08
+description: Minimize token spend across Claude, Cursor, Antigravity, and Codex through caching, compression, and routing.
+version: 2.0.0
+updated: 2026-05-10
 changelog: []
 ---
 
-# Token Budget Manager
+# Token Budget Manager v2
 
-Use when generating long prompts, assembling context packs, or preparing multi-skill execution chains.
+## Tool-Specific Strategies
 
-## Budget strategy
+### Claude (Anthropic API / Cowork)
+- Use prompt caching for: CLAUDE.md, MEMORY.md, CONTEXT.md, active SPEC.md (these are re-read every session)
+- Cache-eligible threshold: any file read >3 times per day
+- Max context trick: load file PATHS not file CONTENT for structural questions
+- Use haiku-tier for: simple confirmations, status checks, non-reasoning tasks
+- Use sonnet-tier for: reasoning, spec writing, architecture decisions
 
-1. Prioritize source-of-truth files over repeated narrative.
-2. Reference file paths instead of duplicating full content.
-3. Summarize old context before adding new context.
-4. Keep only decision-critical details in active prompt payload.
+### Cursor (IDE)
+- Pin most-referenced files: CONTEXT.md, MEMORY.md, active SPEC.md to @ references
+- Use .cursorrules for globally injected context (amortized across all completions)
+- Avoid pasting full file contents — use `@filename` references
+- Use Cursor Tab for mechanical completions, not chat (chat costs more per token)
+- Batch related edits into one chat turn instead of sequential back-and-forth
 
-## Budget tiers
+### Antigravity
+- Mirror from .cursor/ — never re-explain rules that exist in mirrored rules files
+- Use compact invocation prompts (the template format in each agent file)
+- Tier-2 fidelity: pass only Layer 1 context (SDD docs) not Layer 2 (agent files)
 
-- `tight`: shortest path to unblock next action
-- `normal`: includes key constraints + acceptance checks
-- `expanded`: deeper context for complex planning only
+### Codex CLI
+- Always prefix with AGENTS.md path: `codex --context AGENTS.md "task"`
+- Use for: git operations, file manipulation, test running — not reasoning tasks
+- Batch: combine multiple small tasks into one codex invocation
 
-## Output contract
+## Universal Rules
+- Reference > Repeat: never paste file content that exists at a known path
+- Summarize before extending: compress old context before adding new
+- Output budget: cap responses at 800 tokens unless explicitly expanded
+- Cache candidates: MEMORY.md, CONTEXT.md, active SPEC.md, DESIGN.md
 
-```yaml
-budget_tier: tight|normal|expanded
-kept_context:
-  - "path or item"
-trimmed_context:
-  - "path or item"
-cache_candidates:
-  - "summary artifact path"
-```
+## Budget Tiers (unchanged)
+- `tight`: shortest unblock path
+- `normal`: key constraints + acceptance checks
+- `expanded`: deep planning only
 
-## Core rules
-
-- Reference > repeat.
-- Trim stale context before trimming requirements.
-- Never trim hardlock constraints or acceptance criteria.
-- Use compact, deterministic phrasing for reusable prompts.
+## Token Audit Trail
+Log heavy sessions (>50k tokens) to: `docs/reports/perf/TOKEN_AUDIT.latest.md`
+Format: `[date] [tool] [task-slug] [approx-tokens] [could-be-delegated-to-cli: yes/no]`
 

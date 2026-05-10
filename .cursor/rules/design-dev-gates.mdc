@@ -21,7 +21,7 @@ Use these agents as reasoning charters:
 - `.cursor/agents/art-director-brand.md`
 - `.cursor/agents/design-systems-token-architect.md`
 - `.cursor/agents/motion-3d-choreographer.md`
-- `.cursor/agents/react-component-lead.md`
+- `.cursor/agents/frontend-framework-manager.md`
 - `.cursor/agents/a11y-performance-auditor.md`
 
 Use these skills as deterministic procedures:

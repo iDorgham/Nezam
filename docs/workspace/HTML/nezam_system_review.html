@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: transparent; color: var(--text-primary, #1a1a1a); font-size: 13px; }
+  
+  .tabs { display: flex; gap: 4px; padding: 12px 12px 0; flex-wrap: wrap; }
+  .tab { padding: 6px 14px; border-radius: 6px 6px 0 0; cursor: pointer; font-weight: 500; font-size: 12px; border: 1px solid transparent; border-bottom: none; transition: all 0.15s; background: var(--bg-secondary, #f0f0f0); color: var(--text-secondary, #666); }
+  .tab.active { background: var(--bg-primary, #fff); color: var(--accent, #6366f1); border-color: var(--border, #e0e0e0); }
+  
+  .panel { display: none; padding: 16px; border: 1px solid var(--border, #e0e0e0); border-radius: 0 8px 8px 8px; margin: 0 12px 12px; background: var(--bg-primary, #fff); max-height: 480px; overflow-y: auto; }
+  .panel.active { display: block; }
+  
+  h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary, #1a1a1a); letter-spacing: -0.2px; }
+  h4 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary, #888); margin: 14px 0 6px; }
+  
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  
+  .card { background: var(--bg-secondary, #f8f8f8); border-radius: 8px; padding: 12px; }
+  .card.green { border-left: 3px solid #22c55e; }
+  .card.red { border-left: 3px solid #ef4444; }
+  .card.amber { border-left: 3px solid #f59e0b; }
+  .card.blue { border-left: 3px solid #3b82f6; }
+  .card.purple { border-left: 3px solid #8b5cf6; }
+  
+  .card-title { font-weight: 600; font-size: 12px; margin-bottom: 6px; }
+  .item { display: flex; gap: 6px; margin: 4px 0; font-size: 12px; line-height: 1.4; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dot.green { background: #22c55e; }
+  .dot.red { background: #ef4444; }
+  .dot.amber { background: #f59e0b; }
+  
+  .badge { display: inline-block; padding: 2px 7px; border-radius: 99px; font-size: 10px; font-weight: 600; }
+  .badge.win { background: #dcfce7; color: #16a34a; }
+  .badge.loss { background: #fee2e2; color: #dc2626; }
+  .badge.neutral { background: #f3f4f6; color: #6b7280; }
+  
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  th { text-align: left; padding: 6px 8px; background: var(--bg-secondary, #f4f4f4); font-weight: 600; color: var(--text-secondary, #666); font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+  td { padding: 6px 8px; border-bottom: 1px solid var(--border, #eee); vertical-align: top; line-height: 1.4; }
+  tr:last-child td { border-bottom: none; }
+  
+  .tier { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 6px; margin: 4px 0; background: var(--bg-secondary, #f5f5f5); }
+  .tier-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary, #888); width: 60px; flex-shrink: 0; }
+  .tier-roles { font-size: 11px; color: var(--text-primary, #333); }
+  
+  .fix-item { padding: 8px 10px; border-radius: 6px; margin: 5px 0; background: var(--bg-secondary, #f5f5f5); border-left: 3px solid; }
+  .fix-item.critical { border-color: #ef4444; }
+  .fix-item.major { border-color: #f59e0b; }
+  .fix-item.enhance { border-color: #3b82f6; }
+  .fix-priority { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .fix-priority.critical { color: #ef4444; }
+  .fix-priority.major { color: #f59e0b; }
+  .fix-priority.enhance { color: #3b82f6; }
+
+  .score-bar { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+  .score-label { font-size: 11px; width: 140px; flex-shrink: 0; }
+  .bar-wrap { flex: 1; background: var(--bg-secondary, #f0f0f0); border-radius: 99px; height: 6px; }
+  .bar-fill { height: 6px; border-radius: 99px; }
+  .score-val { font-size: 11px; font-weight: 600; width: 30px; text-align: right; }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('architecture')">Architecture</div>
+  <div class="tab" onclick="show('pros-cons')">Pros & Cons</div>
+  <div class="tab" onclick="show('gaps')">Gaps & Fixes</div>
+  <div class="tab" onclick="show('compare')">vs Competitors</div>
+  <div class="tab" onclick="show('verdict')">Final Verdict</div>
+</div>
+
+<!-- ARCHITECTURE TAB -->
+<div id="architecture" class="panel active">
+  <h3>NEZAM System Architecture (Current State)</h3>
+  
+  <h4>Agent Hierarchy</h4>
+  <div class="tier"><div class="tier-label">Tier 0</div><div class="tier-roles">CPO (swarm-leader) · Deputy Orchestrator — Strategy, go/no-go, gate tracking</div></div>
+  <div class="tier"><div class="tier-label">Tier 1</div><div class="tier-roles">13 Swarm Managers — Domain ownership (Frontend, Backend, Security, Design, CMS, Analytics, QA, DevOps, Data, Mobile, Payments, Localization, Maintenance)</div></div>
+  <div class="tier"><div class="tier-label">Tier 2</div><div class="tier-roles">Team Managers — Subdomain planning, handoff quality, RACI ownership</div></div>
+  <div class="tier"><div class="tier-label">Tier 3</div><div class="tier-roles">100+ Specialists — Concrete implementation, analysis, code review, audit</div></div>
+  
+  <h4>SDD Pipeline (4 Product Types)</h4>
+  <div class="grid2">
+    <div class="card blue"><div class="card-title">Website / Marketing</div><div style="font-size:11px;">Content-first → SEO → IA → Content → Architecture → Design → Build</div></div>
+    <div class="card blue"><div class="card-title">Web Application</div><div style="font-size:11px;">Architecture-first → Data model → Auth → IA → Design → Content → Build</div></div>
+    <div class="card blue"><div class="card-title">SaaS Platform</div><div style="font-size:11px;">Architecture + Billing-first → Multi-tenancy → IA → Design → SEO → Build</div></div>
+    <div class="card blue"><div class="card-title">Mobile App</div><div style="font-size:11px;">Architecture + Offline-first → Navigation pattern → Design → Content → Build</div></div>
+  </div>
+  
+  <h4>Key Systems Implemented</h4>
+  <div class="grid3">
+    <div class="card green"><div class="card-title">Hardlock Gates</div><div style="font-size:11px;">7 design gates + phase prerequisites + per-product hardlock tables</div></div>
+    <div class="card green"><div class="card-title">CLI Orchestration</div><div style="font-size:11px;">Silent routing: Gemini/Qwen/Kilocode/OpenCode for mechanical tasks</div></div>
+    <div class="card green"><div class="card-title">Memory Layers</div><div style="font-size:11px;">4-tier: repo files → session → MEMORY.md → external companion</div></div>
+    <div class="card green"><div class="card-title">Token Economy</div><div style="font-size:11px;">MCP-first, file reference over paste, free CLI delegation</div></div>
+    <div class="card green"><div class="card-title">/GUIDE Command</div><div style="font-size:11px;">Pipeline navigator with status/next/phase/full/explain modes</div></div>
+    <div class="card green"><div class="card-title">/Settings Command</div><div style="font-size:11px;">Full control plane: AI tools, routing, quotas, GitHub, MCP, automations</div></div>
+  </div>
+</div>
+
+<!-- PROS & CONS TAB -->
+<div id="pros-cons" class="panel">
+  <h3>Honest Assessment — Strengths vs Weaknesses</h3>
+  <div class="grid2">
+    <div>
+      <h4>✅ Strengths</h4>
+      <div class="card green" style="margin-bottom:8px;">
+        <div class="card-title">Product-Type Intelligence</div>
+        <div class="item"><div class="dot green"></div>Auto-detects product type and runs the correct pipeline order — Website ≠ SaaS ≠ Mobile. Competitors treat all projects the same.</div>
+      </div>
+      <div class="card green" style="margin-bottom:8px;">
+        <div class="card-title">Hardlock System</div>
+        <div class="item"><div class="dot green"></div>Real enforcement, not suggestions. Can't enter BUILD without DESIGN.md. Can't enter DESIGN without IA. Prevents the #1 reason AI-assisted projects fail.</div>
+      </div>
+      <div class="card green" style="margin-bottom:8px;">
+        <div class="card-title">Design Gates (7 gates)</div>
+        <div class="item"><div class="dot green"></div>Token-first, fluid typography, motion budget, 3D fallback, component API, perf thresholds — all enforced before a single line of code.</div>
+      </div>
+      <div class="card green" style="margin-bottom:8px;">
+        <div class="card-title">Multi-Tool Orchestration</div>
+        <div class="item"><div class="dot green"></div>Gemini for docs, Qwen for Arabic, Kilocode for scans, OpenCode for boilerplate — silently, without user intervention. 60-80% token savings.</div>
+      </div>
+      <div class="card green" style="margin-bottom:8px;">
+        <div class="card-title">MENA / Arabic-First</div>
+        <div class="item"><div class="dot green"></div>RTL specialists, Khaleeji/Levantine/Masri/MSA dialect agents, Arabic SEO/AEO. No other method has this.</div>
+      </div>
+      <div class="card green">
+        <div class="card-title">Rollback Protocol</div>
+        <div class="item"><div class="dot green"></div>Partial rollback, full replan, and amendment paths are defined and documented. Most methods silently drift.</div>
+      </div>
+    </div>
+    <div>
+      <h4>❌ Weaknesses</h4>
+      <div class="card red" style="margin-bottom:8px;">
+        <div class="card-title">Context Window Pressure</div>
+        <div class="item"><div class="dot red"></div>100+ agents + rules always-apply = heavy token load at session start. The compression protocol exists but isn't automatic enough.</div>
+      </div>
+      <div class="card red" style="margin-bottom:8px;">
+        <div class="card-title">No Runtime Agent Bus</div>
+        <div class="item"><div class="dot red"></div>Agent communication is simulated through documents. There's no real inter-agent message passing — agents don't actually talk to each other in real-time.</div>
+      </div>
+      <div class="card red" style="margin-bottom:8px;">
+        <div class="card-title">Drift Between .cursor/ and Mirrors</div>
+        <div class="item"><div class="dot red"></div>Wave 2 wiring audit found .mdc rule files not fully updated to match command contracts. pnpm ai:sync exists but isn't enforced on every change.</div>
+      </div>
+      <div class="card red" style="margin-bottom:8px;">
+        <div class="card-title">Wireframe Layer is Thin</div>
+        <div class="item"><div class="dot red"></div>wireframe-to-spec-converter exists as a skill but isn't connected to a real wireframe tool (Figma/Excalidraw/Penpot MCP).</div>
+      </div>
+      <div class="card red" style="margin-bottom:8px;">
+        <div class="card-title">No Spec Versioning</div>
+        <div class="item"><div class="dot red"></div>SPEC.md files have amendment logs but no semantic version tracking per spec. Hard to track what version of a spec was built.</div>
+      </div>
+      <div class="card red">
+        <div class="card-title">PROGRESS_REPORT is a Template</div>
+        <div class="item"><div class="dot red"></div>Still showing placeholder content. Memory and progress tracking are architecturally sound but not populated for this project.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAPS & FIXES TAB -->
+<div id="gaps" class="panel">
+  <h3>What to Fix / Add — Prioritized</h3>
+  
+  <h4>🔴 Critical Fixes</h4>
+  <div class="fix-item critical">
+    <div class="fix-priority critical">Critical · Token Pressure</div>
+    <div>Implement lazy-load for agent context. Only load the agent file for the active swarm + phase. Store others as summaries in MEMORY.md. Currently all 100+ agents compete for context.</div>
+  </div>
+  <div class="fix-item critical">
+    <div class="fix-priority critical">Critical · Sync Drift</div>
+    <div>Wave 2 wiring is missing from .mdc rule files. Mirror workspace-orchestration.mdc and design-dev-gates.mdc to match command contracts. Add pre-commit hook that blocks if ai:check fails.</div>
+  </div>
+  <div class="fix-item critical">
+    <div class="fix-priority critical">Critical · Wireframe Gap</div>
+    <div>Connect wireframe-to-spec-converter to a real tool. Add Figma MCP or Excalidraw/Penpot integration. Right now wireframes live as text descriptions, not visual artifacts.</div>
+  </div>
+  
+  <h4>🟡 Major Enhancements</h4>
+  <div class="fix-item major">
+    <div class="fix-priority major">Major · Agent State Persistence</div>
+    <div>Add a lightweight agent state file (.cursor/state/agent-status.yaml) that tracks which agent is currently active, last output, and handoff status — so sessions can resume without re-briefing.</div>
+  </div>
+  <div class="fix-item major">
+    <div class="fix-priority major">Major · Spec Versioning</div>
+    <div>Add version header to every SPEC.md: spec_version, built_at, last_amended. Cross-reference with CHANGELOG.md entries. This makes spec drift traceable.</div>
+  </div>
+  <div class="fix-item major">
+    <div class="fix-priority major">Major · Silent Automation Triggers</div>
+    <div>pnpm ai:sync currently runs manually. Add a git post-commit hook that runs ai:check silently and flags drift without blocking. Add a nightly cron that runs /SCAN tech-stack and writes to docs/reports/.</div>
+  </div>
+  <div class="fix-item major">
+    <div class="fix-priority major">Major · /GUIDE for Claude/Cowork</div>
+    <div>/GUIDE is designed for Cursor. A Claude/Cowork-native version should use the artifact system to render a live pipeline bar as a persistent widget — not just text output.</div>
+  </div>
+  
+  <h4>🔵 Feature Additions</h4>
+  <div class="fix-item enhance">
+    <div class="fix-priority enhance">Add · Cost Dashboard</div>
+    <div>Real-time token budget tracker per session + per phase. Show running cost, which tool is being used, and flag when budget threshold is reached. Log to docs/reports/token-audit/.</div>
+  </div>
+  <div class="fix-item enhance">
+    <div class="fix-priority enhance">Add · Swarm Decision Log</div>
+    <div>SWARM_DECISION_RECORD.template.md exists but isn't being written to automatically. Every go/no-go decision should auto-append here — the architecture expects it but execution doesn't enforce it.</div>
+  </div>
+  <div class="fix-item enhance">
+    <div class="fix-priority enhance">Add · /EVAL Command</div>
+    <div>EVAL_FRAMEWORK.md exists in agents but there's no /EVAL command wired to the framework. Build /EVAL agent to score agent output quality, flag slop, and route re-work.</div>
+  </div>
+  <div class="fix-item enhance">
+    <div class="fix-priority enhance">Add · Client Mode</div>
+    <div>workspace-client-onboarding-gate.mdc exists. Build a full /CLIENT command that activates restricted mode: client can see deliverables, can't touch governance files.</div>
+  </div>
+</div>
+
+<!-- COMPARE TAB -->
+<div id="compare" class="panel">
+  <h3>NEZAM vs SpecKit vs Kiro vs BMAD</h3>
+  
+  <table>
+    <thead>
+      <tr><th>Feature</th><th>NEZAM</th><th>SpecKit</th><th>Kiro</th><th>BMAD</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Product-type detection</b><br><span style="color:#888;font-size:10px;">Different pipeline per type</span></td><td><span class="badge win">✓ 4 types</span></td><td><span class="badge loss">✗ generic</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge loss">✗ generic</span></td></tr>
+      <tr><td><b>Hardlock gates</b><br><span style="color:#888;font-size:10px;">Can't skip phases</span></td><td><span class="badge win">✓ enforced</span></td><td><span class="badge neutral">soft</span></td><td><span class="badge neutral">soft</span></td><td><span class="badge loss">✗ none</span></td></tr>
+      <tr><td><b>Design gates (7)</b><br><span style="color:#888;font-size:10px;">Token, motion, perf, a11y</span></td><td><span class="badge win">✓ 7 gates</span></td><td><span class="badge loss">✗</span></td><td><span class="badge loss">✗</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Multi-tool routing</b><br><span style="color:#888;font-size:10px;">Free CLIs for mechanical tasks</span></td><td><span class="badge win">✓ 9 tools</span></td><td><span class="badge loss">✗</span></td><td><span class="badge neutral">1-2 tools</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Agent hierarchy</b><br><span style="color:#888;font-size:10px;">Tiered, escalation paths</span></td><td><span class="badge win">✓ 4 tiers</span></td><td><span class="badge neutral">flat</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge neutral">2 tiers</span></td></tr>
+      <tr><td><b>Rollback protocol</b><br><span style="color:#888;font-size:10px;">Partial / full / amendment</span></td><td><span class="badge win">✓ 3 modes</span></td><td><span class="badge loss">✗</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>MENA / Arabic support</b><br><span style="color:#888;font-size:10px;">RTL, dialects, Arabic SEO</span></td><td><span class="badge win">✓ native</span></td><td><span class="badge loss">✗</span></td><td><span class="badge loss">✗</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Spec versioning</b><br><span style="color:#888;font-size:10px;">Traceable spec history</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge win">✓ strong</span></td><td><span class="badge win">✓ strong</span></td><td><span class="badge neutral">partial</span></td></tr>
+      <tr><td><b>IDE-native steering hooks</b><br><span style="color:#888;font-size:10px;">Kiro-style spec hooks</span></td><td><span class="badge neutral">commands only</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge win">✓ native</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Visual wireframe pipeline</b><br><span style="color:#888;font-size:10px;">Tool-connected wireframes</span></td><td><span class="badge neutral">text-only</span></td><td><span class="badge neutral">text-only</span></td><td><span class="badge win">✓ visual</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Token economy system</b><br><span style="color:#888;font-size:10px;">Budget-aware, cost tracking</span></td><td><span class="badge win">✓ rules + routing</span></td><td><span class="badge loss">✗</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Ethics / AI governance</b><br><span style="color:#888;font-size:10px;">Per-phase ethics gates</span></td><td><span class="badge win">✓ 6 phases</span></td><td><span class="badge loss">✗</span></td><td><span class="badge loss">✗</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Monorepo support</b><br><span style="color:#888;font-size:10px;">TurboRepo, shared packages</span></td><td><span class="badge win">✓ full</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge neutral">partial</span></td><td><span class="badge loss">✗</span></td></tr>
+      <tr><td><b>Onboarding UX</b><br><span style="color:#888;font-size:10px;">Setup wizard, /START flow</span></td><td><span class="badge win">✓ guided</span></td><td><span class="badge neutral">ok</span></td><td><span class="badge win">✓ strong</span></td><td><span class="badge loss">✗ manual</span></td></tr>
+    </tbody>
+  </table>
+  
+  <h4>Where Kiro/SpecKit Beat NEZAM</h4>
+  <div class="grid2">
+    <div class="card amber">
+      <div class="card-title">Kiro's Advantage</div>
+      <div class="item"><div class="dot amber"></div><b>Steering specs are file-native</b> — they hook into the IDE and auto-trigger on file changes, not just slash commands.</div>
+      <div class="item"><div class="dot amber"></div><b>Visual wireframe pipeline</b> — Kiro connects specs to real UI previews before code.</div>
+      <div class="item"><div class="dot amber"></div><b>Smaller, tighter context</b> — Kiro agents are scoped narrow; NEZAM's breadth creates pressure.</div>
+    </div>
+    <div class="card amber">
+      <div class="card-title">SpecKit's Advantage</div>
+      <div class="item"><div class="dot amber"></div><b>Spec versioning is first-class</b> — every spec has a version, changelog, and diff. NEZAM tracks amendments but not spec versions per se.</div>
+      <div class="item"><div class="dot amber"></div><b>Simpler agent model</b> — fewer agents = easier for solo founders to navigate and understand what's running.</div>
+      <div class="item"><div class="dot amber"></div><b>Spec → code traceability</b> — SpecKit can show which spec line generated which code line. NEZAM does this via SPEC.md but not automated.</div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT TAB -->
+<div id="verdict" class="panel">
+  <h3>Final Verdict — Where NEZAM Stands</h3>
+  
+  <h4>Capability Scores (vs field)</h4>
+  <div class="score-bar"><div class="score-label">Architecture rigor</div><div class="bar-wrap"><div class="bar-fill" style="width:95%;background:#22c55e;"></div></div><div class="score-val">95</div></div>
+  <div class="score-bar"><div class="score-label">Design governance</div><div class="bar-wrap"><div class="bar-fill" style="width:90%;background:#22c55e;"></div></div><div class="score-val">90</div></div>
+  <div class="score-bar"><div class="score-label">Agent hierarchy depth</div><div class="bar-wrap"><div class="bar-fill" style="width:92%;background:#22c55e;"></div></div><div class="score-val">92</div></div>
+  <div class="score-bar"><div class="score-label">Token / cost efficiency</div><div class="bar-wrap"><div class="bar-fill" style="width:78%;background:#f59e0b;"></div></div><div class="score-val">78</div></div>
+  <div class="score-bar"><div class="score-label">Real-time agent comms</div><div class="bar-wrap"><div class="bar-fill" style="width:35%;background:#ef4444;"></div></div><div class="score-val">35</div></div>
+  <div class="score-bar"><div class="score-label">Wireframe integration</div><div class="bar-wrap"><div class="bar-fill" style="width:30%;background:#ef4444;"></div></div><div class="score-val">30</div></div>
+  <div class="score-bar"><div class="score-label">Spec versioning</div><div class="bar-wrap"><div class="bar-fill" style="width:55%;background:#f59e0b;"></div></div><div class="score-val">55</div></div>
+  <div class="score-bar"><div class="score-label">MENA / Arabic native</div><div class="bar-wrap"><div class="bar-fill" style="width:98%;background:#22c55e;"></div></div><div class="score-val">98</div></div>
+  <div class="score-bar"><div class="score-label">Onboarding UX</div><div class="bar-wrap"><div class="bar-fill" style="width:82%;background:#22c55e;"></div></div><div class="score-val">82</div></div>
+  
+  <h4>The Real Differentiator</h4>
+  <div class="card purple">
+    <div class="card-title">NEZAM is the only method that thinks in product-type pipelines + enforces design before code + has an Arabic/MENA native layer.</div>
+    <div style="font-size:12px;margin-top:6px;line-height:1.5;">Kiro is faster to start but shallow. SpecKit is spec-precise but design-blind. BMAD is the best solo-agent method but has no governance. NEZAM is the only one that could actually ship a production SaaS in a MENA market without external consultants.</div>
+  </div>
+  
+  <h4>Top 3 Actions to Take Now</h4>
+  <div class="fix-item critical" style="margin:5px 0;">
+    <div class="fix-priority critical">1 · Merge Wave 2 wiring into .mdc rules</div>
+    <div>Complete the enforcement parity gap found in the skills-wave2 audit. Takes 30 minutes, eliminates the biggest governance drift risk.</div>
+  </div>
+  <div class="fix-item major" style="margin:5px 0;">
+    <div class="fix-priority major">2 · Add Figma/Excalidraw MCP to wireframe pipeline</div>
+    <div>This single gap makes NEZAM look thin vs Kiro. A connected wireframe tool would leapfrog Kiro's visual pipeline.</div>
+  </div>
+  <div class="fix-item enhance" style="margin:5px 0;">
+    <div class="fix-priority enhance">3 · Build /EVAL command from EVAL_FRAMEWORK.md</div>
+    <div>The framework exists but isn't activated. /EVAL would be a signature feature — no other method has automated agent output scoring.</div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

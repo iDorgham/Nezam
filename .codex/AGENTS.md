@@ -67,6 +67,7 @@ Do not proceed to development unless all exist:
 - `help.md`
 - `plan.md`
 - `scan.md`
+- `settings.md`
 - `start.md`
 
 ## Synced agent index
@@ -201,6 +202,7 @@ Do not proceed to development unless all exist:
 - `white-label-theming-specialist.md`
 
 ## Synced skill index
+- `archive`
 - `backend`
 - `content`
 - `design`
@@ -212,6 +214,7 @@ Do not proceed to development unless all exist:
 - `system`
 
 ## Synced rule sources
+- `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`

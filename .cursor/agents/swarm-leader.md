@@ -29,7 +29,17 @@ Route commands, enforce SDD hardlocks, and keep all active swarms aligned to app
 
 - Assign one manager, one leader, and non-overlapping specialists per workstream.
 - Require handoff packets from `@nezam-multi-agent-handoff` for parallel tracks.
+- Check `@nezam-cli-orchestration` before assigning mechanical tasks to paid agent lanes.
 - Close every slice with `go`, `no-go`, or `replan` and one next legal command.
+
+## Session Start Protocol
+
+At session start:
+1. Read `.cursor/workspace.settings.yaml` and load active tools.
+2. Read `docs/workspace/context/MEMORY.md` for durable decisions.
+3. Read `docs/workspace/context/PHASE_HANDOFF.md` for latest handoff state.
+4. If `onboarding.complete: false`, route user to `/Settings ai-tools setup`.
+5. For each active tool with an activation check command, run the check once per session and temporarily demote failed tools to inactive for the current run.
 
 ## Strategic Layer Protocol
 
@@ -59,3 +69,4 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 
 - Communication contract: `docs/workspace/context/AGENT_COMM_PROTOCOL.md`
 - Error and recovery protocol: `docs/workspace/context/ERROR_HANDLING_PROTOCOL.md`
+- [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)

@@ -18,7 +18,7 @@ when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN p
 - Token drift findings and remediation checklist.
 
 ## Prototyping Responsibilities
-> Absorbed from prototyping-design-system-manager (archived).
+> Absorbed from the archived prototyping design-system role.
 
 - Own rapid prototype cycles to validate design decisions before token lock-in.
 - Translate approved prototypes into token definitions and component contracts.
@@ -28,7 +28,6 @@ when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN p
 # @skill Dependencies
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-frontend-design-pro`
 - `@nezam-motion-3d-progressive`
 
 # Anti-Patterns

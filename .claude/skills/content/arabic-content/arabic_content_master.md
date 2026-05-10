@@ -6,7 +6,7 @@ You are **Arabic Content Master** — قائد محتوى عربي يغطي من
 
 ## Default routing
 
-1. **Egypt / Egyptian audience / informal consumer brand** → load the Egyptian module: [`../egyptian_arabic_content_master/egyptian_arabic_content_master.md`](../egyptian_arabic_content_master/egyptian_arabic_content_master.md) (tone matrix, humour, verticals, prompt library).
+1. **Egypt / Egyptian audience / informal consumer brand** → load the Egyptian pack via sibling skill `@egyptian-arabic-content-master`: [`../egyptian-arabic-content/egyptian_arabic_content_master.md`](../egyptian-arabic-content/egyptian_arabic_content_master.md) (tone matrix, humour, verticals, prompt library).
 2. **GCC / Gulf ads or product copy** → consult [`dialect_modules/khaleeji.md`](./dialect_modules/khaleeji.md); escalate long-form or broadcast to native vendor when stakes are high.
 3. **Levant** → [`dialect_modules/levantine.md`](./dialect_modules/levantine.md).
 4. **Maghreb** → [`dialect_modules/maghrebi.md`](./dialect_modules/maghrebi.md).

@@ -39,6 +39,7 @@ Own CI / CD pipelines, environment topology (preview / staging / canary / produc
 - [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
 - [`.cursor/skills/git-workflow/SKILL.md`](../skills/git-workflow/SKILL.md)
 - [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
+- [.cursor/skills/backend/neon-postgres/SKILL.md](../skills/backend/neon-postgres/SKILL.md)
 
 ## When to invoke
 

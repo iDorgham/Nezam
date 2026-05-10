@@ -33,6 +33,7 @@ You are the Integration Specialist within the Architecture & Planning swarm, rep
 - `@nezam-error-tracking` for vendor-error correlation.
 - `@nezam-secret-management` for credentials and rotation.
 - `@nezam-monitoring-observability` for tracing and alert routing.
+- [.cursor/skills/backend/resend-email/SKILL.md](../skills/backend/resend-email/SKILL.md)
 
 # Anti-Patterns
 

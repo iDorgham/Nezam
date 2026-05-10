@@ -2,11 +2,11 @@
 
 # Dialect modules registry
 
-Lightweight routing stubs for MENA Arabic. **Egyptian depth** lives in the sibling pack [`../egyptian_arabic_content_master/`](../egyptian_arabic_content_master) — do not duplicate personas here.
+Lightweight routing stubs for MENA Arabic. **Egyptian (Masri) depth** lives only in the sibling skill [`../egyptian-arabic-content/`](../egyptian-arabic-content) (`@egyptian-arabic-content-master`). The former `egyptian.md` stub was removed to avoid duplicating [`egyptian_arabic_content_master.md`](../egyptian-arabic-content/egyptian_arabic_content_master.md).
 
 | Module | File | When to load |
 |--------|------|--------------|
-| Egyptian (Masri) | [egyptian.md](./egyptian.md) | Egypt market, Egyptian consumer/B2B, default NEZAM Egyptian work |
+| Egyptian (Masri) | [`../egyptian-arabic-content/`](../egyptian-arabic-content) | Egypt market, Egyptian consumer/B2B, default NEZAM Egyptian work — use dedicated skill pack |
 | Khaleeji | [khaleeji.md](./khaleeji.md) | GCC: UAE, SA, KW, BH, QA, OM |
 | Levantine | [levantine.md](./levantine.md) | LB, SY, JO, PS |
 | Maghrebi | [maghrebi.md](./maghrebi.md) | MA, DZ, TN, etc. |

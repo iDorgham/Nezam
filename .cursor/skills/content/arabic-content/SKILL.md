@@ -17,15 +17,15 @@ changelog: []
   "protocols": [
     "Load main persona from arabic_content_master.md; default dialect ar-EG unless brief specifies another market",
     "Route dialect using contracts/dialect_router.yaml and dialect_modules/README.md",
-    "For Egyptian depth: load ../egyptian_arabic_content_master/egyptian_arabic_content_master.md and its tone_matrix, humour_guidelines, verticals",
+    "For Egyptian depth: activate @egyptian-arabic-content-master — load ../egyptian-arabic-content/egyptian_arabic_content_master.md and its tone_matrix, humour_guidelines, verticals",
     "For religious seasons and tone: shared/ramadan_religious_calendar.md",
     "For fonts, RTL, numerals, lang attributes: shared/arabic_typography_a11y.md",
     "For WhatsApp, IVR, push, CS replies: shared/channel_playbooks_extended.md",
     "Score Arabic-wide risks with evaluation/golden_pairs_arabic.jsonl; Masri rubric remains in Egyptian pack",
     "Legal/regulated claims: never invent terms; use Egyptian pack legal_and_contracts_guidance for Masri surfaces"
   ],
-  "pack_path": ".cursor/skills/arabic_content_master/",
-  "default_dialect_module": "dialect_modules/egyptian.md",
+  "pack_path": ".cursor/skills/content/arabic-content/",
+  "default_egyptian_pack": "../egyptian-arabic-content/SKILL.md",
   "timestamp": "2026-05-08T12:00:00+03:00"
 }
 ```

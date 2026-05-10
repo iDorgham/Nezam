@@ -1,0 +1,29 @@
+---
+name: spec-generator
+description: Generate complete SDD SPEC.md files for feature slices following the 10-field contract.
+version: 1.0.0
+updated: 2026-05-10
+changelog: []
+---
+# Spec Generator
+## Purpose
+Translate approved feature briefs into gate-ready SPEC.md files.
+## Required Fields (all 10 must be present)
+1. Feature slug
+2. Objective (one sentence, outcome-focused)
+3. Acceptance criteria (measurable, binary pass/fail)
+4. Data model changes
+5. API contract
+6. UI states (loading/empty/error/success/edge)
+7. Edge cases
+8. Write scope (exact file paths)
+9. Dependencies
+10. Agent assignment
+## Validation
+- All 10 fields present: PASS
+- Acceptance criteria are testable: PASS
+- Write scope matches swarm boundaries: PASS
+## Integration Hooks
+- spec-writer agent (primary)
+- PM-01 acceptance review (gate)
+- lead-solution-architect approval (gate)

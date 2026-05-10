@@ -66,3 +66,9 @@ So design selection and `pnpm run design:apply` work the same from any terminal;
 - Never hand-edit generated surfaces; drift will fail CI.
 - CI enforcement lives in `.github/workflows/ci.yml` job `ai-sync-drift`.
 - Generated scan/test/audit outputs must be stored under `docs/reports/<category>/`.
+
+## Settings Sync Note
+
+After any `/Settings` change, run `pnpm ai:sync` to propagate updated command/routing contracts
+across synced clients. Treat `.cursor/workspace.settings.yaml` as canonical source and avoid
+hand-editing mirrored client surfaces for settings behavior.

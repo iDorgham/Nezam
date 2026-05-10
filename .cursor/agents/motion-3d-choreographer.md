@@ -21,7 +21,6 @@ when: ["/PLAN design", "motion spec validation", "3d fallback review", "/SCAN pe
 - `@nezam-motion-3d-progressive`
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-frontend-design-pro`
 
 # Anti-Patterns
 - Layout-thrashing animation properties.

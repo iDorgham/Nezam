@@ -40,6 +40,7 @@ Own the test automation framework, CI integration, parallelization, and the visu
 - [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
 - [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
 - [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
+- [.cursor/skills/backend/background-jobs/SKILL.md](../skills/backend/background-jobs/SKILL.md)
 
 ## When to invoke
 

@@ -209,6 +209,9 @@ Curated catalog of common **BaaS**, **AI**, **auth**, **payments**, **media**, *
 - **Review cadence:** Revisit **CLI/MCP** columns quarterly—tooling hosts add MCP servers frequently.
 - **Verify before adopting:** Use official docs links above for security, compliance, and data residency.
 - **NEZAM MCP mirror policy:** This repository treats some tools as canonical in `.cursor/` (see workspace orchestration rules); when a vendor ships an official MCP, prefer pinning versions in your IDE configuration.
+- **NEZAM policy:** Architecture agents must consult this file before recommending services. Run `pnpm ai:sync` after updating this file.
+- **Review owner:** lead-solution-architect
+- **Review trigger:** quarterly OR when a new service is adopted in production
 
 ---
 

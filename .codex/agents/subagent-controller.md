@@ -23,8 +23,23 @@ Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager,
 - `validation_command`: command used to verify completion evidence.
 - `team_owner`: designated Swarm Manager + Team Manager for the task group.
 - `phase_context`: active `docs/workspace/plans/<phase>/<subphase>` scope and current swarm-workflow phase.
+- `tech_stack_constraints`: services that MUST come from `docs/reference/developer-tech-stack-2026.md` unless explicitly overridden by PRD.
 
 ## Routing Decision Criteria
+
+## Settings-Aware Pre-Routing Protocol
+Before routing any task to a swarm agent or CLI:
+1. Load tool state from `.cursor/workspace.settings.yaml` (`tools` object).
+2. Load routing matrix from `docs/workspace/context/CLI_TOOLS_CONTEXT.md`.
+3. Check task metadata:
+   - `assigned_tool` if task is pre-tagged.
+   - `security: true` forces primary reasoning lanes.
+   - `type` for routing-matrix match when no explicit assignment exists.
+4. Verify the selected tool is active in workspace settings.
+5. If inactive, apply fallback chain and choose the first active fallback.
+6. If no active fallback exists, mark task blocked with `reason: NO_ACTIVE_TOOL`.
+7. Log routing output when `tools.routing.verbose_routing: true`.
+
 - Choose single-agent execution when one specialist can complete the work in one scope.
 - Choose parallel swarm execution only when tasks are independent and write scopes do not overlap.
 - Split by swarm boundaries to minimize coordination overhead. The 13 swarms are:
@@ -160,7 +175,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 
 # @skill Dependencies
 - `@nezam-multi-agent-handoff`
-- `@nezam-frontend-design-pro`
+- `@nezam-cli-orchestration`
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
 - `@nezam-motion-3d-progressive`
@@ -169,6 +184,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](./README.md).
 - Canonical 6-phase workflow lifecycle: [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
 - Routing matrix and legacy aliases: [`ORCHESTRATION_ALIASES.md`](../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md).
+- [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)
 
 # Anti-Patterns
 - Starting cross-domain slices without reading **`PHASE_HANDOFF.md`**.

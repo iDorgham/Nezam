@@ -18,7 +18,6 @@ when: ["/PLAN design", "brand direction review", "component review", "pre-releas
 - Visual anti-drift checklist for handoff to implementation personas.
 
 # @skill Dependencies
-- `@nezam-frontend-design-pro`
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
 - `@nezam-motion-3d-progressive`

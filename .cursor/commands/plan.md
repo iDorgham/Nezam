@@ -219,3 +219,33 @@ User-controlled design selection. Runs `design-selector` skill.
 **Hard rule:** DESIGN.md generated this way cannot be manually overridden without re-running `/PLAN design wireframes`. Edit the choices, regenerate the doc.
 
 **Gate:** Both files must exist before `/PLAN scaffold` can run.
+
+---
+
+## /PLAN tasks — Settings-Aware Task Tool Tagging
+
+When generating `docs/workspace/plans/MASTER_TASKS.md`, apply routing metadata when
+`tools.routing.auto_assign_tasks: true` in `.cursor/workspace.settings.yaml`.
+
+### Task Tool Tagging
+
+Before writing tasks:
+1. Read `.cursor/workspace.settings.yaml` (`tools` activation state + routing toggles).
+2. Read `docs/workspace/context/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
+3. For each task, compute:
+   - `type`
+   - `assigned_tool` (primary route if active)
+   - `fallback_tool` (next active fallback from chain)
+   - `security` (`true` for security-sensitive scopes, which stay on primary reasoning lanes)
+4. If preferred tool is inactive, reassign to the first active fallback and log a reroute note.
+5. If no active fallback exists, set task to blocked with reason `NO_ACTIVE_TOOL`.
+
+### Task Re-routing on Tool Deactivation
+
+When `/Settings ai-tools off <tool>` is executed:
+1. Scan `MASTER_TASKS.md` for tasks with `assigned_tool: <tool>`.
+2. Re-route each to the first active fallback from `CLI_TOOLS_CONTEXT.md`.
+3. Preserve audit trace via `original_tool: <tool>` until reactivation.
+4. For `security: true` tasks, if no valid primary lane exists, mark blocked with
+   `SECURITY_TOOL_INACTIVE`.
+5. Output a rerouting summary by tool.

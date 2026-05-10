@@ -18,12 +18,13 @@ Own the end-to-end onboarding sequence for new clients or new projects entering 
 ## Onboarding Gate Sequence
 
 1. **Workspace check** — confirm `.cursor/` contracts are synced (`pnpm ai:check`)
-2. **PRD intake** — run `/CREATE prd` or verify existing PRD.md is non-template
-3. **PROJECT_PROMPT alignment** — confirm PRD and PROJECT_PROMPT share scope
-4. **Required artifacts bootstrap** — CHANGELOG.md, VERSIONING.md, folder structure
-5. **Product type detection** — auto-detect from PRD (website / webapp / saas / mobile)
-6. **Gate matrix generation** — produce initial GITHUB_GATE_MATRIX.json
-7. **Handoff to swarm-leader** — only after all 6 checks pass
+2. **Tool selection gate** — run `/Settings ai-tools setup`; require `onboarding.tools_selected: true`
+3. **PRD intake** — run `/CREATE prd` or verify existing PRD.md is non-template
+4. **PROJECT_PROMPT alignment** — confirm PRD and PROJECT_PROMPT share scope
+5. **Required artifacts bootstrap** — CHANGELOG.md, VERSIONING.md, folder structure
+6. **Product type detection** — auto-detect from PRD (website / webapp / saas / mobile)
+7. **Gate matrix generation** — produce initial GITHUB_GATE_MATRIX.json
+8. **Handoff to swarm-leader** — only after all checks pass
 
 ## Activation Triggers
 
@@ -32,6 +33,7 @@ when: ["/START all", "/START new", "new client onboarding", "new project intake"
 ## Output Contract
 
 - Onboarding checklist with pass/fail per gate (6 gates)
+- Onboarding checklist with pass/fail per gate (7 gates)
 - Bootstrap artifact list with file paths created
 - Product type detection result with confidence
 - Handoff packet to swarm-leader with project context summary
@@ -55,13 +57,13 @@ Onboarding Context:
 - Constraints: {constraints}
 
 Your task:
-1. Run all 6 onboarding gate checks in sequence.
+1. Run all onboarding gate checks in sequence (including tool selection).
 2. For each gate: report PASS / FAIL with specific evidence.
 3. For FAIL gates: provide exact fix instructions (command or file to create).
 4. When all gates pass: produce handoff packet for swarm-leader.
 
 Output:
-1. Gate checklist (6 rows, PASS/FAIL + evidence)
+1. Gate checklist (7 rows, PASS/FAIL + evidence)
 2. Bootstrap artifacts created (file paths)
 3. Product type: detected type + detection rationale
 4. Handoff packet or blocker report

@@ -33,6 +33,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `help.md`
 - `plan.md`
 - `scan.md`
+- `settings.md`
 - `start.md`
 
 ## Synced agent index
@@ -167,6 +168,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `white-label-theming-specialist.md`
 
 ## Synced skill index
+- `archive`
 - `backend`
 - `content`
 - `design`
@@ -178,6 +180,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `system`
 
 ## Synced rule sources
+- `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-dev-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`

@@ -34,3 +34,5 @@ Run in parallel with FE-01 when possible, but keep API docs and schema contracts
 
 - Communication contract: `docs/workspace/context/AGENT_COMM_PROTOCOL.md`
 - Error and recovery protocol: `docs/workspace/context/ERROR_HANDLING_PROTOCOL.md`
+- [.cursor/skills/backend/background-jobs/SKILL.md](../skills/backend/background-jobs/SKILL.md)
+- [.cursor/skills/backend/resend-email/SKILL.md](../skills/backend/resend-email/SKILL.md)

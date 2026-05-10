@@ -98,6 +98,72 @@ Formal mapping: `docs/workspace/context/MEMORY_ARCHITECTURE.md`. Role personas (
 
 Do not contradict committed specs without an explicit decision record note.
 
+### Memory Capture Protocol
+
+When assistants lock decisions in chat, persist them before finishing the reply (unless the user explicitly defers):
+
+| Trigger | Persist to |
+|---------|------------|
+| Stack choice | `docs/workspace/context/MEMORY.md` → **Active Stack Decisions** |
+| Architecture ADR summary | **Locked Architecture Decisions** |
+| Design lock (tokens/grid/motion) | **Locked Design Decisions** |
+| Tradeoff with expiry | **Accepted Tradeoffs** |
+| Tier-1 agent eval | **Agent Scorecards** |
+| Phase transition | `docs/workspace/context/PHASE_HANDOFF.md` |
+
+## Session Start Checklist
+
+At session open:
+1. Load `.cursor/workspace.settings.yaml` and read active tools.
+2. Run activation checks for tools marked active when checks are defined.
+3. Temporarily demote failing tools for the current session and warn.
+4. Check free-tier quota posture (gemini/qwen lanes) and apply fallback routing if exhausted.
+5. If onboarding is incomplete, route to `/Settings ai-tools setup`.
+
+## MCP Usage Policy
+
+- When a registered MCP server exists for a service (see `docs/workspace/context/MCP_REGISTRY.md`), use it.
+- MCP-first saves tokens: structured results < prose descriptions of API calls.
+- Never write raw HTTP fetch code for a service that has an MCP.
+- Exception: when MCP is unavailable in current tool context — fall back to CLI (see CLI orchestration rules).
+
+## Token Economy Rules
+- Load files by path reference (@filename) not content paste
+- Compress prior session context before starting new session (use @nezam-context-window-manager)
+- Use CLI delegation for mechanical tasks (see cli-orchestration.mdc)
+- Use Claude Haiku / GPT-3.5 tier for: status checks, confirmations, simple transforms
+- Use Claude Sonnet / GPT-4 tier for: reasoning, specs, architecture decisions
+- Batch related tasks: one multi-part prompt > three sequential single prompts
+- Never re-explain rules that are in .cursorrules or workspace-orchestration.mdc
+
+## Settings-Driven Routing
+
+Before any task assignment, agents MUST:
+1. Read `.cursor/workspace.settings.yaml` and check `tools.<name>.active` for each tool.
+2. Read `docs/workspace/context/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
+3. Route tasks only to tools marked active in settings.
+4. If the preferred tool is inactive, apply the deactivation chain from CLI tools context.
+5. Keep `security: true` tasks on primary reasoning lanes only (never free CLI lanes).
+6. Emit routing reason logs only when `tools.routing.verbose_routing: true`.
+
+Tool activation state in workspace settings is the source of truth; never assume availability.
+
+## Tool Deactivation Protocol
+
+When `/Settings ai-tools off <tool>` is used:
+1. Persist `tools.<tool>.active: false` in workspace settings.
+2. Re-route tasks in `docs/workspace/plans/MASTER_TASKS.md` using deactivation chains from
+   `docs/workspace/context/CLI_TOOLS_CONTEXT.md`.
+3. Keep an audit trail via `original_tool` where reassignment occurred.
+4. If no fallback exists, mark task blocked with `NO_ACTIVE_TOOL`.
+5. Keep `security: true` tasks on primary reasoning lanes only; otherwise block with
+   `SECURITY_TOOL_INACTIVE`.
+
+When `/Settings ai-tools on <tool>` is used:
+1. Run activation check before setting tool active.
+2. Restore tasks carrying `original_tool: <tool>` back to that tool.
+3. Clear `original_tool` after successful restoration.
+
 ## Cross-client governance precedence
 
 Treat non-Cursor tool surfaces as generated artifacts:

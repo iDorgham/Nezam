@@ -42,6 +42,8 @@ Swarm Manager for the Architecture & Planning swarm. Owns system shape, boundari
 - [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
 - [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
 - [`.cursor/skills/plan-full/SKILL.md`](../skills/plan-full/SKILL.md)
+- [`docs/workspace/context/MCP_REGISTRY.md`](../../docs/workspace/context/MCP_REGISTRY.md) for MCP-first service routing
+- Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — consult before recommending any third-party service
 
 ## When to invoke
 
@@ -49,6 +51,7 @@ Swarm Manager for the Architecture & Planning swarm. Owns system shape, boundari
 - Cross-cutting refactors; ambiguities across FE / BE / DB / Mobile.
 - Architecture Review Board cadence (weekly during active builds).
 - Any change touching system boundary, integration topology, or scalability target.
+- Before recommending any BaaS, auth, payment, or infrastructure service, verify it is in `docs/reference/developer-tech-stack-2026.md`. If a required service is not listed, flag it for addition.
 
 ## Command bindings (workspace)
 

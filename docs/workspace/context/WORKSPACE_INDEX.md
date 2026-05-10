@@ -30,6 +30,7 @@ Spec spine: **roadmap → phases → specs → docs** under `docs/core/required/
 | `[/FOUNDER](../../.cursor/commands/founder.md)` | Non-developer onboarding entrypoint (`idea`, `status`, `help`) that converts plain-language product ideas into ready project artifacts. |
 | `[/START](../../.cursor/commands/start.md)`     | Onboarding: repo, docs tree, PRD/prompt shortcuts, companion briefing, `**gates`**, optional `**all`**; after gates pass, directs users to Claude CLI/Code prompts then Cursor `**/PLAN**`. |
 | `[/CREATE](../../.cursor/commands/create.md)`   | Instantiate templates: PRD, project prompt, DESIGN, SDD, specs, agents, skills, constitution, **Claude handoffs** (`claude-cli-prompt`, `claude-code-handoff`, `claude-md`).                |
+| `[/Settings](../../.cursor/commands/settings.md)` | Workspace control plane for tools, routing, onboarding state, memory, MCP, and automation toggles. |
 | `[/PLAN](../../.cursor/commands/plan.md)`       | SDD + SEO → IA → content → design → versioning; `**all`** enforces dependency order; hard-blocked until onboarding files exist.                                                             |
 | `[/DEVELOP](../../.cursor/commands/develop.md)` | Implement against approved specs and the selected design profile; slices, features, tests.                                                                                                                           |
 | `[/SCAN](../../.cursor/commands/scan.md)`       | Audits (security, perf, a11y, content, SEO/AEO/GEO, etc.).                                                                                                                                  |
@@ -46,6 +47,8 @@ Aliases listed in `[README.md](../../README.md)` (`/st`, `/pl`, …).
 ## Cursor skills (`.cursor/skills/`)
 
 Long procedures invoked by commands or `@` references:
+
+- Current active skill inventory: **~84** `SKILL.md` files (excluding `archive/`).
 
 
 | Skill                                                                            | Purpose                                                                          |
@@ -163,6 +166,7 @@ Comprehensive `coi-*` suite covering planning, SEO/AEO/GEO, content, frontend, b
 | Rule                                                                   | Purpose                                                                            |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `[workspace-orchestration.mdc](../../.cursor/rules/workspace-orchestration.mdc) ` | Pipeline order, memory layers, Recommendation footer, companion briefing pointers. |
+| `[cli-orchestration.mdc](../../.cursor/rules/cli-orchestration.mdc)` | Routes mechanical tasks to free CLI lanes before paid reasoning lanes. |
 | `[design-dev-gates.mdc](../../.cursor/rules/design-dev-gates.mdc)`       | Hard pre-`/DEVELOP` design gates: tokens, fluid type, motion/3D, component API, perf+a11y budgets. |
 | `[sdd-design.mdc](../../.cursor/rules/sdd-design.mdc)`       | Supplemental docs/design sequencing gate for SEO/IA/design artifacts.                            |
 
@@ -310,6 +314,10 @@ Commands `[start.md](../../.cursor/commands/start.md)`, `[create.md](../../.curs
 - Process rules: `[instructions.md](instructions.md)`.
 - Theory: `[MEMORY_ARCHITECTURE.md](MEMORY_ARCHITECTURE.md)`.
 - Human durable bullets: `[MEMORY.md](MEMORY.md)` (when maintained).
+- MCP registry and service routing: `[MCP_REGISTRY.md](MCP_REGISTRY.md)`.
+- Tool routing and fallback policy: `[CLI_TOOLS_CONTEXT.md](CLI_TOOLS_CONTEXT.md)`.
+- Persistent tool activation state: [`.cursor/workspace.settings.yaml`](../../.cursor/workspace.settings.yaml).
+- Token audit log: `[docs/reports/perf/TOKEN_AUDIT.latest.md](../../reports/perf/TOKEN_AUDIT.latest.md)`.
 
 ---
 

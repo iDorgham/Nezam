@@ -2,6 +2,7 @@
 
 WORKFLOW ORDER (follow this sequence):
   1. /START all          → Set up workspace
+  1.5. /Settings ai-tools setup → Select active tool stack for routing
   2. /PLAN idea          → Describe your product (generates all planning docs)
   3. /PLAN seo           → Audience and keyword research
   4. /PLAN ia            → Pages and navigation structure
@@ -30,6 +31,7 @@ QUICK REFERENCE:
   /GIT     save|branch|push|tag|release|rollback|sync|log|report|hooks
   /DEPLOY  staging|prod|verify|rollback|monitor|rc|notes
   /CREATE  prd|prompt|spec|task|report|handoff|design|agent|skill|changelog
+  /Settings workspace|plan|project|ai-tools|memory|github|automations|mcp|guide|status|reset|export
   /GUIDE   status|next|phase|full|help
   /DAY     start|check|done|stuck|help
   /WHAT    <any term>

@@ -23,6 +23,7 @@ when: ["/PLAN data", "/DEVELOP data", "metric definition request", "dashboard bu
 - `@nezam-monitoring-observability`
 - `@nezam-content-modeling`
 - `@nezam-privacy-compliance`
+- [.cursor/skills/infrastructure/product-analytics/SKILL.md](../skills/infrastructure/product-analytics/SKILL.md)
 
 # Anti-Patterns
 - Two dashboards computing the "same" metric two different ways.

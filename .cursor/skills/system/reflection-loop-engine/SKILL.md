@@ -45,5 +45,5 @@ residual_risks:
 
 ## Dependencies
 
-- `context-compressor`
+- `context-window-manager` (includes Compression Mode — former `context-compressor`)
 

@@ -42,7 +42,7 @@ Swarm Manager for the UI/UX Design swarm. Own coherent product UX (information a
 - [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/brand-visual-direction/SKILL.md)
 - [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
 - [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
-- [`.cursor/skills/nezam-frontend-design-pro/SKILL.md`](../skills/nezam-frontend-design-pro/SKILL.md)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
 - Alignment with SEO-driven labels from `docs/core/required/seo/SEO_RESEARCH.md`.
 
 ## When to invoke

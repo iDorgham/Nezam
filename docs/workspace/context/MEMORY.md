@@ -1,41 +1,63 @@
-# Durable project memory (hand-written summary)
+# NEZAM — Durable Project Memory
 
-Maintain short, factual bullets the agent should reload when threads reset.
+> Source of truth for decisions that must survive session resets.  
+> Update after every phase gate, architecture decision, design lock, or stack selection.
 
-See also **[MEMORY_ARCHITECTURE.md](MEMORY_ARCHITECTURE.md)** for the four-layer model (session → project → team → org).
+## Layer Reference
 
-## Decisions
+- Full model: [`MEMORY_ARCHITECTURE.md`](./MEMORY_ARCHITECTURE.md)
+- Cross-agent boundary handoff: [`PHASE_HANDOFF.md`](./PHASE_HANDOFF.md)
 
-- _(None yet — append dated bullets as you lock decisions.)_
+## Active Stack Decisions
 
-## Accepted tradeoffs
+_(Append dated bullets when stack choices are locked.)_
 
-- _(Document intentional compromises here.)_
+- Format: `[YYYY-MM-DD] <decision> — rationale: <why> — owner: <agent>`
+- [2026-05-10] NEZAM workspace upgraded — skills consolidated, 10 new tech stack skills, MCP registry, CLI orchestration, memory layers v2, token optimization, agent/skill alignment complete — rationale: execute v2 governance and routing upgrade baseline — owner: PM-01
+- [2026-05-10] Phase 2 upgrades complete — settings-driven tool activation, `/Settings` command surface wiring, task routing fallback protocol, and end-to-end verification closed — rationale: finish PU-11..PU-15 routing system rollout — owner: PM-01
 
-## Naming glossary
+## Locked Architecture Decisions
 
-- `MT-ID`: master task identifier at portfolio/pipeline level (format: `MT-###`).
-- `PT-ID`: phase task identifier (format: `PT-<phase>-<subphase>-<sequence>` or gate variants).
-- `Phase Gate`: final readiness control before moving to the next phase.
+_(Append ADRs as one-liners; full ADRs live under [`docs/03_architecture/`](../03_architecture/) or documented architecture paths.)_
 
-## Release posture
+## Locked Design Decisions
 
-- _(Planned version trajectory when known.)_
+_(Typography scale, token names, breakpoints — anything agents must not override without an amendment trail.)_
+
+## Accepted Tradeoffs
+
+_(Intentional compromises and when to revisit.)_
+
+## Naming Glossary
+
+- **MT-ID**: master task identifier (format: `MT-###`)
+- **PT-ID**: phase task identifier (format: `PT-<phase>-<subphase>-<seq>`)
+- **Phase gate**: readiness control before a phase transition
+- **PU-ID**: pending upgrade checklist item (`PU-01` … in `PENDING_UPGRADE_TASKS.md`)
+
+## Release Posture
+
+_(SemVer trajectory, ship criteria, rollout notes when known.)_
+
+## Agent Scorecards (Tier-1 Eval)
+
+_(After Tier-1 agent work, append summaries per [.cursor/agents/EVAL_FRAMEWORK.md](../../.cursor/agents/EVAL_FRAMEWORK.md).)_
 
 ## Tooling
 
-- **Drift recovery:** after local edits to mirrored AI client folders outside `.cursor/`, run `pnpm ai:sync` then `pnpm ai:check` before commit.
-- **Agent eval scorecards:** append Tier‑1 evaluation blocks here per [.cursor/agents/EVAL_FRAMEWORK.md](../../../.cursor/agents/EVAL_FRAMEWORK.md).
+- **Drift recovery:** run `pnpm ai:sync`; verify with `pnpm ai:check` before relying on routed commands across clients.
+- **Agent evaluation:** [.cursor/agents/EVAL_FRAMEWORK.md](../../.cursor/agents/EVAL_FRAMEWORK.md) — tiered personas, confidence thresholds, remediation triggers.
 
-## Agent scorecards
+## External Companion Notes
 
-```text
-_(No Tier‑1 evaluations recorded yet.)_
-```
+_(Strategy summaries pasted from companion sessions.)_
 
-## External companion notes
+- [2026-05-10] Workspace v2 upgrade complete:
+  - Skills: merged 3, added 10, archived 3.
+  - Agents: added spec-writer, prompt-engineer, client-onboarding-agent; archived 10 legacy specialists.
+  - Systems: MCP registry, CLI orchestration, memory layers v2, token audit process.
+  - Tech stack references are now wired through primary agent and skill lanes.
 
-Link or paste synopsis of evolving strategy threads when relevant.
-- 2026-05-10T12:17:37Z — commit: chore(agents): consolidate hierarchy governance (files changed: 670)
-- 2026-05-10T12:17:38Z — commit: chore(agents): consolidate hierarchy governance (files changed: 670)
-- 2026-05-10T12:17:39Z — commit: chore(agents): consolidate hierarchy governance (files changed: 670)
+When using external chats (Grok/Qwen/Gemini/etc.), keep rolling progress suitable for uploads in [`docs/reports/progress/PROGRESS_REPORT.latest.md`](../../reports/progress/PROGRESS_REPORT.latest.md) and brief companions from [`CONTEXT.md`](./CONTEXT.md).
+
+- **Companion chat pattern:** Paste `CONTEXT.md` + `MEMORY.md` (this file) + `PRD.md` excerpts + current phase prompt for continuity.

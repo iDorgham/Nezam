@@ -22,7 +22,7 @@ Own ELT / ETL pipelines, change-data-capture, replica replication, and warehousi
 - Coordinate with `lead-analytics-architect.md` on consumer needs.
 
 ## Inherited Responsibilities
-> Absorbed from data-engineer (archived).
+> Absorbed from the archived data engineering role.
 
 - Source-system schema changes are contracts; breaking changes require versioning and a deprecation window.
 - Pipelines are idempotent, restartable, and observable end-to-end (lineage + freshness + volume).

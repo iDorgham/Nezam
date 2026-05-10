@@ -22,7 +22,7 @@ Own the frontend framework topology: React 19 + Next.js 15 (App Router) by defau
 - Coordinate API contract handoff with `api-logic-manager` (backend).
 
 ## Component Architecture Responsibilities
-> Absorbed from react-component-lead (archived).
+> Absorbed from the archived component-lead role.
 
 - Strongly typed props with exhaustive variant and state modeling.
 - Composition-first component APIs with semantic, accessible DOM output.
@@ -49,6 +49,7 @@ Own the frontend framework topology: React 19 + Next.js 15 (App Router) by defau
 - [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md)
 - [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
 - [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
+- [.cursor/skills/backend/vercel-ai-sdk/SKILL.md](../skills/backend/vercel-ai-sdk/SKILL.md)
 
 ## When to invoke
 

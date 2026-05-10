@@ -10,6 +10,19 @@ Four conceptual memory layers. Nothing here replaces git history; committed spec
 
 Practice: close meaningful sessions by updating durable docs and/or running `/SAVE log`.
 
+### Layer 0 — Capture Protocol
+
+When any of these events occur **in chat**, assistants should persist outcomes into documented layers before ending the reply (unless the user explicitly defers documentation):
+
+| Trigger | Persist to |
+| --- | --- |
+| Stack/library choice locked | [`MEMORY.md`](./MEMORY.md) → **Active Stack Decisions** |
+| Architecture pattern chosen | [`MEMORY.md`](./MEMORY.md) → **Locked Architecture Decisions** (and link full ADRs) |
+| Design token/grid/motion locked | [`MEMORY.md`](./MEMORY.md) → **Locked Design Decisions** |
+| Intentional compromise accepted | [`MEMORY.md`](./MEMORY.md) → **Accepted Tradeoffs** |
+| Agent evaluation completed | [`MEMORY.md`](./MEMORY.md) → **Agent Scorecards** |
+| Phase boundary crossed | [`PHASE_HANDOFF.md`](./PHASE_HANDOFF.md) |
+
 ## Layer 1 - Project SDD Truth
 
 | Path or Artifact | Role |
@@ -19,7 +32,8 @@ Practice: close meaningful sessions by updating durable docs and/or running `/SA
 | `.cursor/design/<brand>/design.md` | Active design profile used by `/DEVELOP` flows |
 | `docs/workspace/context/CONTEXT.md` | Current project context and active priorities |
 | `docs/workspace/context/WORKSPACE_INDEX.md` | Static workspace map and capability index |
-| `docs/workspace/context/MEMORY.md` | Durable project facts and recurring preferences |
+| `docs/workspace/context/MEMORY.md` | Durable project facts, decisions, scorecards |
+| `docs/workspace/context/PHASE_HANDOFF.md` | Cross-agent brief at phase boundaries |
 | `docs/reports/progress/PROGRESS_REPORT.latest.md` | External companion upload bundle |
 
 ## Layer 2 - Team Behavior Contracts

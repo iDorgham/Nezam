@@ -38,6 +38,7 @@ Own backend authentication, authorization, session / token boundary, RBAC / ABAC
 - [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
 - [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
 - [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
+- [.cursor/skills/backend/clerk-auth/SKILL.md](../skills/backend/clerk-auth/SKILL.md)
 
 ## When to invoke
 

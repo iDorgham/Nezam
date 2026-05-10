@@ -8,15 +8,42 @@ Integration Hooks, Anti-Patterns, External References.
 
 | Category | Description | Skills |
 |---|---|---|
-| system/ | Workspace orchestration, routing, memory, gating | ~17 |
+| system/ | Workspace orchestration, routing, memory, gating, CLI orchestration | ~17 |
 | research/ | SEO, AEO, IA, audience, competitive | ~7 |
-| design/ | Tokens, typography, UI, motion, components | ~13 |
+| design/ | Tokens, typography, UI, motion, components | ~14 |
 | content/ | Editorial, content modeling, Arabic content | ~4 |
 | frontend/ | React, Next.js, component implementation | ~1 |
-| backend/ | API, DB, auth, payments, CMS | ~9 |
-| infrastructure/ | DevOps, cloud, CDN, monitoring | ~8 |
+| backend/ | API, DB, auth, payments, CMS, Drizzle, Neon, Clerk, AI SDK, Resend, Typesense, OpenRouter, background jobs | ~18 |
+| infrastructure/ | DevOps, cloud, CDN, monitoring, product analytics, LLM observability | ~10 |
 | quality/ | Security, testing, performance, a11y | ~10 |
 | external/ | External AI, git, reporting | ~4 |
+
+**Totals:** ~84 active `SKILL.md` files under `.cursor/skills/` (excluding `archive/`). Run `find .cursor/skills -path '*/archive/*' -prune -o -name SKILL.md -print | wc -l` to verify.
+
+## Archive (reference only)
+
+Merged skills are preserved under `.cursor/skills/archive/` — do not activate as primary paths:
+
+| Archived path | Absorbed into |
+|---------------|----------------|
+| `archive/system/context-compressor/` | `system/context-window-manager/SKILL.md` → **Compression Mode** |
+| `archive/design/design-system-builder/` | `design/design-tokens/SKILL.md` → **System Build Mode** |
+| `archive/design/frontend-design-pro/` | `design/design-tokens/SKILL.md` → **Frontend Integration Mode** |
+
+## New in v2
+
+Tech-stack skills added during workspace v2 upgrade:
+
+- `backend/drizzle-orm/SKILL.md`
+- `backend/neon-postgres/SKILL.md`
+- `backend/background-jobs/SKILL.md`
+- `backend/vercel-ai-sdk/SKILL.md`
+- `backend/clerk-auth/SKILL.md`
+- `backend/resend-email/SKILL.md`
+- `backend/typesense-search/SKILL.md`
+- `backend/openrouter/SKILL.md`
+- `infrastructure/product-analytics/SKILL.md`
+- `infrastructure/llm-observability/SKILL.md`
 
 ## Naming Convention
 

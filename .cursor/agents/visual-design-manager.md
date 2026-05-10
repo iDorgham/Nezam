@@ -38,7 +38,7 @@ Own brand expression, visual language, layout systems, typography, color, and mo
 - [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/brand-visual-direction/SKILL.md)
 - [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
 - [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
-- [`.cursor/skills/nezam-frontend-design-pro/SKILL.md`](../skills/nezam-frontend-design-pro/SKILL.md)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
 
 ## When to invoke
 

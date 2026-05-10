@@ -14,3 +14,19 @@ Subcommands:
 
 Aliases: /CREATE feature → /CREATE spec | /CREATE doc → /CREATE prompt
 Recommendation footer: required
+
+---
+
+## /CREATE task — Tool Tagging Rules
+
+When creating a task entry in `docs/workspace/plans/MASTER_TASKS.md`, include routing fields:
+
+1. Determine task `type` (for example: `documentation`, `scan`, `boilerplate`, `architecture-decision`).
+2. Read active tool state from `.cursor/workspace.settings.yaml`.
+3. Read routing matrix from `docs/workspace/context/CLI_TOOLS_CONTEXT.md`.
+4. Assign:
+   - `assigned_tool` from the matching task-type lane.
+   - `fallback_tool` from deactivation chain.
+   - `security` flag (true for security-sensitive work).
+5. If assigned tool is inactive, auto-apply fallback and keep `original_tool`.
+6. If no fallback is active, write task as blocked with reason `NO_ACTIVE_TOOL`.

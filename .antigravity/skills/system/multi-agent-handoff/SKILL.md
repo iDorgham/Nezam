@@ -98,3 +98,10 @@ If trade-offs conflict, apply the order above and log the decision in the final 
 - `/SCAN` and `/FIX` loops before hardening closure.
 - CI checks for gate-state consistency.
 - `@ decision-journal` appends `plain_language_summary` outcomes into `docs/workspace/context/DECISIONS_PLAIN.md`.
+
+## CLI Delegation Protocol
+Before assigning a task to a Claude/Cursor agent, check the CLI Routing Matrix in `@nezam-cli-orchestration`.
+If the task type maps to a free CLI, delegate there first. Only escalate to Claude when:
+- Output requires validation against hardlock rules
+- Task involves reasoning, decisions, or spec writing
+- Security-sensitive code is involved

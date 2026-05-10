@@ -49,3 +49,8 @@ Domain specialists organized alphabetically. All use `<domain>-<role>.md` patter
 
 ## Adding a new agent
 Run: /CREATE agent
+
+## Totals snapshot
+
+- Active agents: ~98
+- Archived agents: 10

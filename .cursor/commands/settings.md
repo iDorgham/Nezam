@@ -1,0 +1,487 @@
+/Settings — Workspace control plane. Manage all configuration for NEZAM in one place.
+
+Settings are persisted to: `.cursor/workspace.settings.yaml`
+Tool context reference: `docs/workspace/context/CLI_TOOLS_CONTEXT.md`
+Run `pnpm ai:sync` after any settings change to propagate to all AI clients.
+
+Hard blocks: none — /Settings is always available
+Recommendation footer: required
+
+---
+
+## SUBCOMMAND REFERENCE
+
+```
+/Settings                          → Show current settings dashboard (all sections)
+/Settings workspace                → Workspace-level config (language, pipeline, hardlocks)
+/Settings plan                     → Planning behavior (phases, brainstorm, design mode)
+/Settings project                  → Project config (name, type, language, tool policy)
+/Settings ai-tools                 → AI tools activation, routing, quotas ← START HERE
+/Settings memory                   → Memory capture, session handoff, compression
+/Settings github                   → Repository, branching, hooks, CI/CD
+/Settings automations              → Pre-commit hooks, scheduled tasks, triggers
+/Settings mcp                      → MCP server activation and env var status
+/Settings guide                    → GUIDE verbosity, pipeline bar, output language
+/Settings status                   → Show all active/inactive settings as a dashboard
+/Settings reset <section>          → Reset a section to defaults
+/Settings export                   → Export current settings as YAML for backup
+```
+
+---
+
+## /Settings (no subcommand) — Full Dashboard
+
+Show the settings dashboard: all sections, current values, quick edit hints.
+
+Output format:
+```
+╔══════════════════════════════════════════════════════════════╗
+║  NEZAM Settings Dashboard                                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+  Workspace    language: en | pipeline: sdd-v2 | hardlocks: ON
+  AI Tools     claude: ✅ | cursor: ✅ | antigravity: ❌ | gemini: ❌ | qwen: ❌
+               kilocode: ❌ | opencode: ❌ | copilot: ❌ | codex: ❌
+  Routing      auto-assign: ON | enforce: ON | verbose: OFF
+  Memory       auto-capture: ON | session-handoff: ON
+  GitHub       repo: (not set) | branch: main | drift-check: ON
+  MCP          prefer-mcp: ON | active servers: 0/8
+  Guide        verbosity: normal | pipeline-bar: ON
+  Onboarding   ❌ NOT COMPLETE — run /Settings ai-tools to finish setup
+
+  Edit: /Settings <section>   Reset: /Settings reset <section>
+  Sync: pnpm ai:sync          Export: /Settings export
+```
+
+---
+
+## /Settings ai-tools — AI Tool Activation & Routing
+
+The most important settings section. Controls which tools are active and how tasks are routed.
+
+### /Settings ai-tools
+Show the tools dashboard:
+```
+╔══════════════════════════════════════════════════════════════╗
+║  AI Tools Configuration                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  PRIMARY TOOLS                                               ║
+║  ✅ claude      Reasoning, specs, security code              ║
+║  ✅ cursor      IDE editing, multi-file refactors            ║
+║  ❌ antigravity Parallel multi-agent runs (not installed)    ║
+╠══════════════════════════════════════════════════════════════╣
+║  FREE WORKER CLIs                                            ║
+║  ❌ gemini      Docs, summaries, research (1500/day quota)   ║
+║  ❌ qwen        Arabic/multilingual (rate-limited, free)     ║
+║  ❌ kilocode    Codebase scanning, audits (free)             ║
+║  ❌ opencode    Boilerplate, lint, git ops (free)            ║
+║  ❌ copilot     Test gen, git, PR descriptions (GitHub plan) ║
+║  ❌ codex       Code gen, batching (paid, low-cost)          ║
+╠══════════════════════════════════════════════════════════════╣
+║  Routing: AUTO | Security-only-Claude: ON | Verbose: OFF    ║
+╠══════════════════════════════════════════════════════════════╣
+║  Commands:                                                   ║
+║  /Settings ai-tools setup      → guided setup wizard        ║
+║  /Settings ai-tools on <tool>  → activate a tool            ║
+║  /Settings ai-tools off <tool> → deactivate a tool          ║
+║  /Settings ai-tools quota      → show quota usage           ║
+║  /Settings ai-tools routing    → configure routing policy   ║
+║  /Settings ai-tools test       → verify all active tools    ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+### /Settings ai-tools setup — Guided Setup Wizard
+
+Run this during onboarding. Walks through each tool with explanation.
+
+```
+Let's set up your AI tools. I'll explain what each one does and you tell me
+which ones you have access to.
+
+These take 2 minutes and save significant time and money on every build.
+
+── PRIMARY TOOLS ─────────────────────────────────────────────────────────
+
+1. Claude (Anthropic)
+   Role: Architecture decisions, specs, security code — the reasoning engine.
+   Cost: Subscription or pay-per-token.
+   → Do you use Claude? (You're talking to me, so: YES — already active)
+
+2. Cursor IDE
+   Role: In-editor file creation and multi-file refactors with full codebase awareness.
+   Cost: Subscription.
+   → Are you running this in Cursor? [YES / NO]
+
+3. Antigravity
+   Role: Parallel multi-agent runs — handles overnight builds and unattended swarm work.
+   Cost: Separate subscription.
+   → Do you have Antigravity? [YES / NO / WHAT IS IT]
+
+── FREE WORKER CLIs ──────────────────────────────────────────────────────
+   These run silently in the background for mechanical tasks, saving ~60-80% of tokens.
+
+4. Gemini CLI (Google — FREE)
+   Role: Large codebase summaries, documentation, research. 2M token context window.
+   Free: 1,500 requests/day. No cost.
+   Setup: gem install gemini-cli  (or brew install gemini-cli)
+   → Do you have it installed? [YES / NO / INSTALL IT NOW]
+
+5. Qwen CLI (Alibaba — FREE)
+   Role: Arabic translation first drafts. Best multilingual free CLI available.
+   Free: Rate-limited, no daily cap.
+   → Do you need Arabic language support? [YES / NO]
+   → Do you have Qwen CLI installed? [YES / NO / SKIP]
+
+6. Kilocode CLI (FREE)
+   Role: Fast codebase scanning — security audits, pattern checks, grep across 500+ files.
+   Free: Open source.
+   Setup: npm install -g kilocode
+   → Do you have it installed? [YES / NO / INSTALL IT NOW]
+
+7. OpenCode CLI (FREE)
+   Role: Boilerplate generation, scaffold files, lint fixes, git operations.
+   Free: Open source, routes to your configured providers.
+   Setup: npm install -g opencode
+   → Do you have it installed? [YES / NO / INSTALL IT NOW]
+
+8. GitHub Copilot CLI (FREE with GitHub plan)
+   Role: Test generation, git command suggestions, PR descriptions.
+   Free: Included with GitHub Pro/Team/Enterprise.
+   Setup: gh extension install github/gh-copilot
+   → Is it available in your GitHub plan? [YES / NO / CHECK]
+
+9. Codex CLI (OpenAI — low-cost)
+   Role: Code generation batches, fills gaps when free CLIs aren't sufficient.
+   Cost: OpenAI API tokens (cheap for code tasks).
+   → Do you have OpenAI API access? [YES / NO]
+
+─────────────────────────────────────────────────────────────────────────
+
+After you answer, I'll:
+1. Activate confirmed tools in workspace.settings.yaml
+2. Run activation checks for each CLI (which <tool> && <tool> --version)
+3. Show you the routing matrix with YOUR active tools highlighted
+4. Mark onboarding.tools_selected: true
+5. Suggest which tasks will now run silently on free CLIs
+
+Type your answers above (e.g. "cursor yes, gemini yes, kilocode installing, rest no")
+or just tell me which ones you have.
+```
+
+### /Settings ai-tools on <tool>
+Activate a single tool. Steps:
+1. Run activation check command from CLI_TOOLS_CONTEXT.md
+2. If check passes → set `tools.<tool>.active: true` in workspace.settings.yaml
+3. Show which tasks will now route to this tool
+4. Run `pnpm ai:sync`
+
+Reactivation restore:
+1. Scan `docs/workspace/plans/MASTER_TASKS.md` for `original_tool: <tool>`.
+2. Restore those tasks to `assigned_tool: <tool>`.
+3. Preserve `fallback_tool`, then clear `original_tool` after restore.
+4. Report restored task count and remaining blocked tasks.
+
+Output:
+```
+✅ gemini activated
+   Activation check: gemini 1.5.3 ✓
+   Tasks now routing to Gemini: docs, summarize, readme, jsdoc, research
+   Quota: 1500/day reset at UTC 00:00
+   Saved to workspace.settings.yaml
+```
+
+### /Settings ai-tools off <tool>
+Deactivate a tool. Steps:
+1. Set `tools.<tool>.active: false` in workspace.settings.yaml
+2. Find all tasks in MASTER_TASKS.md with `assigned_tool: <tool>`
+3. Re-assign them to first available fallback from deactivation chain
+4. Show what was re-routed
+5. Run `pnpm ai:sync`
+
+Safety rules:
+- `security: true` tasks never reroute to free CLI lanes.
+- If no valid fallback exists, mark task `status: blocked` with `reason: SECURITY_TOOL_INACTIVE` or `NO_ACTIVE_TOOL`.
+
+Output:
+```
+❌ gemini deactivated
+   Fallback chain: gemini → qwen → opencode
+   Tasks re-routed: 14 tasks moved to qwen (active), 3 tasks moved to opencode
+   Warning: 2 tasks had no available fallback → flagged ⚠️ NO TOOL AVAILABLE
+   Run /Settings ai-tools on qwen to resolve the remaining 2 tasks.
+   Saved to workspace.settings.yaml
+```
+
+### /Settings ai-tools quota
+Show daily quota usage for all active free-tier tools:
+```
+Quota Usage (resets UTC 00:00)
+
+  gemini    [████░░░░░░░░░░░░░░░░]  312/1500  (21% used)
+  qwen      [rate-limited]          42 req last hour / 60 max
+  kilocode  [unlimited]
+  opencode  [unlimited]
+  copilot   [plan-included]
+
+Last audit: docs/reports/token-audit/TOKEN_AUDIT.md
+```
+
+### /Settings ai-tools routing
+Configure the routing policy:
+```
+Routing Configuration
+
+  auto_assign_tasks:   [ON]   — planning agents tag tasks with assigned_tool
+  enforce_routing:     [ON]   — subagent-controller enforces tool assignments
+  security_claude_only:[ON]   — auth/payments/encryption never route to free CLIs
+  verbose_routing:     [OFF]  — show routing decisions in agent output
+
+  Project policy: default
+  Change policy: /Settings project tool-policy <strict|cost-optimized|arabic-heavy|default>
+
+  View full routing matrix: docs/workspace/context/CLI_TOOLS_CONTEXT.md
+```
+
+### /Settings ai-tools test
+Run activation checks for all active tools and report status:
+```bash
+# Runs internally:
+which gemini && gemini --version
+which qwen && qwen --version
+which kilocode && kilocode --version
+which opencode && opencode --version
+which gh && gh copilot --version
+which codex && codex --version
+```
+Output pass/fail for each, with fix commands for failures.
+
+### /Settings ai-tools register <tool-name>
+Add a new tool to the registry (for tools not in the default list).
+Prompts for: tier, cost, best_for tags, activation_check, fallback chain.
+
+---
+
+## /Settings workspace
+```
+/Settings workspace language <en|ar|en+ar>    → Set primary workspace language
+/Settings workspace pipeline <sdd-v2|sdd-v3>  → Set SDD pipeline version
+/Settings workspace hardlocks <on|off>         → Toggle gate enforcement (never off in prod)
+/Settings workspace recommendation-footer <on|off> → Toggle next-action footer
+/Settings workspace auto-sync <on|off>         → Toggle automatic pnpm ai:sync
+```
+
+---
+
+## /Settings plan
+```
+/Settings plan phases                          → Show/toggle which planning phases are active
+/Settings plan phases off <phase>              → Skip a phase (e.g. seo, roadmap)
+/Settings plan phases on <phase>               → Re-enable a phase
+/Settings plan brainstorm <on|off>             → Toggle brainstorm mode in /PLAN idea
+/Settings plan design-brand <brand-name>       → Set active design brand profile
+/Settings plan wireframe-mode <on|off>         → Use /PLAN design wireframes by default
+/Settings plan task-tagging <on|off>           → Tag tasks with assigned_tool in MASTER_TASKS.md
+/Settings plan task-granularity <level>        → feature-slice | subtask | milestone
+```
+
+---
+
+## /Settings project
+```
+/Settings project name <name>                  → Set project name
+/Settings project type <type>                  → website | webapp | saas | mobile
+/Settings project language-support <langs>     → e.g. "en ar" for bilingual
+/Settings project rtl <on|off>                 → Enable RTL layout support (Arabic)
+/Settings project tool-policy <policy>         → default | strict | cost-optimized | arabic-heavy
+```
+
+Tool policy details:
+- `strict` — Claude/Cursor only. For client-facing projects requiring highest quality.
+- `cost-optimized` — Free CLIs for everything except decisions. Best for internal tools.
+- `arabic-heavy` — Qwen primary + Claude review gate. For Arabic-language products.
+- `default` — Routes per CLI_TOOLS_CONTEXT.md matrix. Balanced quality/cost.
+
+---
+
+## /Settings memory
+```
+/Settings memory auto-capture <on|off>         → Prompt to save decisions at session end
+/Settings memory session-handoff <on|off>      → Write PHASE_HANDOFF.md on session end
+/Settings memory compression <on|off>          → Compress old context before new session
+/Settings memory capture-triggers              → Show/edit what triggers memory capture
+/Settings memory clear-session                 → Clear Layer 0 session memory only
+/Settings memory view                          → Open MEMORY.md summary
+```
+
+---
+
+## /Settings github
+```
+/Settings github repo <org/repo>              → Set repository
+/Settings github branch <branch-name>         → Set default branch
+/Settings github strategy <strategy>          → feature-branch | gitflow | trunk
+/Settings github hooks                        → Show/configure pre-commit hooks
+/Settings github hooks drift-check <on|off>   → Block commits on ai:check failure
+/Settings github protected-branches           → Show/edit protected branch list
+/Settings github pr-template <on|off>         → Use PR template
+/Settings github auto-label <on|off>          → Auto-label PRs by phase/swarm
+```
+
+---
+
+## /Settings automations
+```
+/Settings automations                          → Show all automation status
+/Settings automations pre-commit              → Configure pre-commit hooks
+/Settings automations pre-commit lint <on|off>
+/Settings automations pre-commit typecheck <on|off>
+/Settings automations pre-commit test <on|off>
+/Settings automations ci                      → Configure CI/CD provider
+/Settings automations ci provider <github-actions|vercel|none>
+/Settings automations ci staging <on|off>     → Auto-deploy to staging
+/Settings automations ci prod <on|off>        → Auto-deploy to production
+/Settings automations scheduled               → Show scheduled task config
+/Settings automations scheduled tech-stack-review <frequency>
+/Settings automations scheduled token-audit <frequency>
+```
+
+---
+
+## /Settings mcp
+```
+/Settings mcp                                  → MCP server status dashboard
+/Settings mcp on <service>                     → Activate an MCP server
+/Settings mcp off <service>                    → Deactivate an MCP server
+/Settings mcp check <service>                  → Verify env vars are set for a service
+/Settings mcp prefer-mcp <on|off>              → Enforce MCP-first policy
+/Settings mcp list                             → List all available MCP servers
+```
+
+MCP dashboard format:
+```
+MCP Server Status
+
+  Service       Status   Env Vars         Agent Owner
+  ─────────────────────────────────────────────────────
+  supabase      ❌ OFF   ⚠️ missing       lead-database-architect
+  github        ❌ OFF   ⚠️ missing       gitops-engineer
+  stripe        ❌ OFF   ⚠️ missing       payments-lead
+  vercel        ❌ OFF   ⚠️ missing       lead-devops-performance
+  cloudflare    ❌ OFF   ⚠️ missing       lead-devops-performance
+  sentry        ❌ OFF   ⚠️ missing       observability-specialist
+  neon          ❌ OFF   ⚠️ missing       lead-database-architect
+  clerk         ❌ OFF   ⚠️ missing       auth-security-manager
+
+  MCP-first policy: ON
+  Configure env vars → then run /Settings mcp on <service>
+  Full registry: docs/workspace/context/MCP_REGISTRY.md
+```
+
+---
+
+## /Settings guide
+```
+/Settings guide verbosity <minimal|normal|full>  → Set /GUIDE output detail level
+/Settings guide pipeline-bar <on|off>            → Show pipeline progress bar
+/Settings guide show-routing <on|off>            → Show tool routing in output
+/Settings guide language <en|ar>                 → Set GUIDE output language
+/Settings guide plain-language <on|off>          → Enable /GUIDE explain mode by default
+```
+
+---
+
+## /Settings status
+Full read-only snapshot of all settings. Good for debugging unexpected behavior.
+
+Output: YAML dump of `workspace.settings.yaml` with human-readable annotations.
+
+---
+
+## /Settings reset <section>
+Reset any section to defaults. Asks for confirmation before resetting.
+
+```
+/Settings reset workspace   → Reset workspace config to defaults
+/Settings reset ai-tools    → Deactivate all tools except claude + cursor
+/Settings reset plan        → Reset all planning settings to defaults
+/Settings reset github      → Clear github config
+/Settings reset mcp         → Deactivate all MCP servers
+/Settings reset all         → ⚠️  FULL RESET — prompts "Type RESET to confirm"
+```
+
+---
+
+## /Settings export
+Export current workspace.settings.yaml to a dated backup file.
+Creates: `docs/workspace/context/settings-backup-YYYY-MM-DD.yaml`
+Useful before major upgrades or team onboarding.
+
+---
+
+## Integration: Onboarding Flow
+
+During `/START all`, the settings wizard is automatically triggered at step 2:
+
+```
+/START all sequence:
+  Step 1: /START repo       → git setup
+  Step 2: /Settings ai-tools setup  ← TOOL SELECTION HERE
+  Step 3: /START docs       → folder structure
+  Step 4: /START gates      → prerequisite check
+  Step 5: /START design     → design profile selection
+  Step 6: /START companion  → briefing for external tools
+```
+
+After `/Settings ai-tools setup` completes:
+- `onboarding.tools_selected: true` written to workspace.settings.yaml
+- CLI routing matrix activates with user's specific tool stack
+- All subsequent planning agents read active tools from settings
+- Task generation in `/PLAN tasks` auto-tags each task with `assigned_tool`
+
+---
+
+## How SDD Planning Agents Use Settings
+
+When `/PLAN tasks` generates `MASTER_TASKS.md`, each task is tagged:
+
+```yaml
+# Example task from MASTER_TASKS.md with tool routing
+- id: MT-042
+  title: "Generate JSDoc for all API route handlers"
+  type: documentation
+  assigned_tool: gemini        # ← auto-assigned from routing matrix
+  fallback_tool: opencode      # ← from deactivation chain
+  security: false
+  swarm: backend
+  agent: backend-lead
+  phase: 5-build
+
+- id: MT-043
+  title: "Design auth flow architecture"
+  type: architecture-decision
+  assigned_tool: claude        # ← security-adjacent, always Claude
+  fallback_tool: null          # ← no fallback for arch decisions
+  security: true
+  swarm: security
+  agent: auth-security-manager
+  phase: 5-build
+```
+
+When a tool becomes inactive (`/Settings ai-tools off <tool>`):
+1. All tasks with `assigned_tool: <tool>` in MASTER_TASKS.md get re-tagged
+2. Re-routing uses the deactivation chain from CLI_TOOLS_CONTEXT.md
+3. Tasks with `security: true` never re-route to free CLIs — they block instead
+4. Summary of re-routing shown to user
+
+---
+
+## Recommendation Footer
+(always show after /Settings commands)
+
+After any settings change, show:
+```
+⚙️  Settings saved → workspace.settings.yaml
+→ Run `pnpm ai:sync` to propagate to all AI clients
+→ /Settings status to review all settings
+→ /GUIDE status to see how changes affect your pipeline
+```

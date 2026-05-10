@@ -29,6 +29,8 @@ You are the Observability Specialist within the Performance & DevOps swarm, repo
 - `@nezam-monitoring-observability` for tracing and alert routing.
 - `@nezam-error-tracking` for crash / error pipelines.
 - `@nezam-secret-management` for telemetry credentials.
+- `docs/workspace/context/MCP_REGISTRY.md` for MCP-first observability service calls.
+- [.cursor/skills/infrastructure/llm-observability/SKILL.md](../skills/infrastructure/llm-observability/SKILL.md)
 
 # Anti-Patterns
 

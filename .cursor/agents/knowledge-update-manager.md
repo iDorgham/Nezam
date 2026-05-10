@@ -13,7 +13,7 @@ subagents: kb-articles, runbooks, post-mortems
 Own the knowledge base, runbooks, and post-mortem index for the live product. Ensure shared knowledge stays current as the system changes; coordinate with `agent-docs-hygiene.md` on doc rot and handle cross-swarm propagation.
 
 ## Cross-Swarm Sync Responsibilities
-> Absorbed from knowledge-sharing-agent (archived).
+> Absorbed from the archived knowledge-sharing role.
 
 - Sync `docs/workspace/context/MEMORY.md` and phase logs after substantive decisions.
 - Broadcast new ADRs and architecture decisions to affected swarms.

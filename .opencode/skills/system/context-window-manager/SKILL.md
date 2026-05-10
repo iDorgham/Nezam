@@ -51,3 +51,46 @@ deferred:
 
 - `token-budget-manager`
 
+## Compression Mode
+
+> Merged from archived `context-compressor`: compress completed work into durable summaries without losing decisions.
+
+Use on phase boundaries, handoffs, and before long or repeated workflows.
+
+### Purpose
+
+Convert verbose session state into compact, reusable artifacts without losing key decisions.
+
+### Compression template
+
+Capture:
+
+1. Goal and scope completed.
+2. Decisions made and rationale.
+3. Files or artifacts changed.
+4. Validation evidence.
+5. Remaining risks and next legal command.
+
+### Output contract
+
+```yaml
+summary_scope: "phase or feature"
+decisions:
+  - decision: "what"
+    why: "rationale"
+evidence:
+  - "test/check/report reference"
+next_step: "single next action"
+```
+
+### Compression rules
+
+- Preserve decisions; prune narration.
+- Keep unresolved blockers explicit.
+- Write summaries in actionable language.
+- Prefer appending to `docs/reports/**` progress paths over ad-hoc notes.
+
+### Dependencies
+
+- Reporting paths under `docs/reports/**`
+

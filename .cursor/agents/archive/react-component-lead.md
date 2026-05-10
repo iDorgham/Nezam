@@ -20,7 +20,7 @@ when: ["/PLAN design", "/DEVELOP", "component review", "variant API review", "/S
 # @skill Dependencies
 - `@nezam-component-library-api`
 - `@nezam-pro-design-tokens`
-- `@nezam-frontend-design-pro`
+- `@nezam-pro-design-tokens` (Frontend Integration Mode; archived `frontend-design-pro`)
 - `@nezam-motion-3d-progressive`
 
 # Anti-Patterns

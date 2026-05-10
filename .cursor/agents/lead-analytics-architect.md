@@ -40,6 +40,7 @@ Swarm Manager for the Analytics & Dashboard swarm. Own the end-to-end analytics 
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md) for pipeline SLOs and alerting.
 - [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md) for PII handling and retention.
 - [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/nezam-prisma-orm/SKILL.md) for product DB contracts feeding pipelines.
+- [.cursor/skills/infrastructure/product-analytics/SKILL.md](../skills/infrastructure/product-analytics/SKILL.md)
 
 ## When to invoke
 

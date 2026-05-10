@@ -40,6 +40,7 @@ Own search engines (Elasticsearch / OpenSearch / Meilisearch), vector stores (pg
 - [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
 - [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
 - [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md)
+- [.cursor/skills/backend/typesense-search/SKILL.md](../skills/backend/typesense-search/SKILL.md)
 
 ## When to invoke
 

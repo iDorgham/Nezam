@@ -7,3 +7,5 @@
 | nezam-prisma-orm | 1.0.0 | 2026-05-08 | No | Added version metadata (Prisma 6 aligned) |
 | nezam-vercel-deploy | 1.0.0 | 2026-05-08 | No | Added version metadata |
 | nezam-pro-design-tokens | 1.0.0 | 2026-05-08 | No | Added version metadata |
+| token-budget-manager | 2.0.0 | 2026-05-10 | No | Added token economy strategy and CLI offload guidance |
+| cli-orchestration | 1.0.0 | 2026-05-10 | No | Added free-CLI routing matrix and delegation protocol |

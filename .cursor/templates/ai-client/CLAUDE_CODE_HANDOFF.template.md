@@ -10,7 +10,7 @@
 
 ## Paste the mission below into Claude Code
 
-Use the **same mission block** as in **`docs/core/required/CLAUDE_CLI_PLAN.md`**: read **Before you write anything new**, then execute **Mission** (strict planning order) and **Completion**.
+Use the **same mission block** as in **`docs/specs/CLAUDE_CLI_PLAN.md`**: read **Before you write anything new**, then execute **Mission** (strict planning order) and **Completion**.
 
 If that file is missing in your clone, regenerate it with **`/CREATE claude-cli-prompt`** in Cursor.
 

@@ -3,6 +3,10 @@ role: Lead UI/UX Designer (Swarm Manager - UI/UX Design)
 code-name: lead-uiux-designer
 legacy-code-names: designer
 subagents: ux-research-strategy-manager, visual-design-manager, design-systems-token-architect
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Lead UI/UX Designer (lead-uiux-designer)
@@ -41,7 +45,7 @@ Swarm Manager for the UI/UX Design swarm. Own coherent product UX (information a
 - [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
 - [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
 - [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
-- Alignment with SEO-driven labels from `docs/core/required/seo/SEO_RESEARCH.md`.
+- Alignment with SEO-driven labels from `docs/specs/seo/SEO_RESEARCH.md`.
 
 ## When to invoke
 

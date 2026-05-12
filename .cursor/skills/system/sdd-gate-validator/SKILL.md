@@ -56,7 +56,7 @@ All must be true:
   - `ia: true` → `docs/plans/02-ia/IA_CONTENT.md` exists
   - `content: true` → `docs/plans/03-content/CONTENT_MAP.md` exists
   - `arch: true` → `docs/plans/04-arch/ARCHITECTURE.md` exists
-  - `design_wireframes: true` → (`docs/plans/04-design/DESIGN_CHOICES.yaml` **or** `docs/plans/04-design/DESIGN_CHOICES.md`) **and** `docs/plans/04-design/WIREFRAMES.md` exist
+  - `design_wireframes: true` → (`docs/plans/04-design/DESIGN_CHOICES.yaml` **or** `docs/plans/04-design/DESIGN_CHOICES.md`) **and** `docs/plans/design/WIREFRAMES.md` exist
   - `scaffold: true` → `docs/plans/scaffold/PROJECT_SCAFFOLD.md` + `scripts/scaffold.sh` exist
 
 ### Gate N → N+1: Development Phase Transitions

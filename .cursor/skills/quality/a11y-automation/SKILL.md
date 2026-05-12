@@ -37,7 +37,7 @@ Automate accessibility verification across CI, local dev, and pre-release so WCA
 
 # Output Format
 
-- `docs/core/required/sdd/A11Y_AUTOMATION.md` (test matrix, tools, thresholds).
+- `docs/specs/A11Y_AUTOMATION.md` (test matrix, tools, thresholds).
 - `jest-axe` setup snippet.
 - `@axe-core/playwright` config snippet.
 - Manual SR + keyboard test scripts.

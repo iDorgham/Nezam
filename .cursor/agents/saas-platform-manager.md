@@ -4,6 +4,10 @@ code-name: saas-platform-manager
 swarm: cms-saas
 reports-to: lead-cms-saas-architect
 subagents: multi-tenancy, feature-flags, plan-entitlements
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # SaaS Platform Manager (saas-platform-manager)

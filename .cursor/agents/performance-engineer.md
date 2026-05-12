@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Performance Engineer
 
 Consolidated agent combining runtime performance engineering and load/resilience testing ownership.

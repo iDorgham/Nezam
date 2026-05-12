@@ -7,15 +7,15 @@ This repository follows workspace orchestration: Specification-Driven Developmen
 - `docs/workspace/context/CONTEXT.md`
 - `docs/workspace/context/CONTEXT.md`
 - `docs/workspace/context/CONTEXT.md`
-- `docs/core/required/prd/PRD.md`
-- `docs/core/required/PROJECT_PROMPT.md`
+- `docs/specs/prd/PRD.md`
+- `docs/prd/PROJECT_PROMPT.md`
 
 ## Planning behavior
 
 When asked to **plan** the project (initial or major replan):
 
-1. Follow the mission and ordering in `docs/core/required/CLAUDE_CLI_PLAN.md` (SEO -> IA -> content -> design -> versioning -> roadmap/specs).
-2. Prefer editing markdown under `docs/core/required/sdd/` and `docs/core/required/features/` over jumping to production UI code until `docs/DESIGN.md` exists for user-facing work.
+1. Follow the mission and ordering in `docs/specs/CLAUDE_CLI_PLAN.md` (SEO -> IA -> content -> design -> versioning -> roadmap/specs).
+2. Prefer editing markdown under `docs/specs/` and `docs/specs/features/` over jumping to production UI code until `docs/DESIGN.md` exists for user-facing work.
 3. Do not override committed specs silently — use Decision Log sections when changing course.
 
 ## Cursor parity

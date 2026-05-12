@@ -4,6 +4,10 @@ code-name: arabic-content-master
 swarm: localization
 reports-to: localization-lead
 subagents: masri-content-specialist, khaleeji-specialist, levantine-specialist, maghrebi-specialist, msa-formal-specialist, arabic-seo-aeo-specialist
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Arabic Content Master Lead (arabic-content-master)

@@ -3,6 +3,10 @@ role: Maghrebi Arabic Specialist (stub)
 code-name: maghrebi-specialist
 swarm: localization
 reports-to: arabic-content-master
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Maghrebi Specialist (maghrebi-specialist)

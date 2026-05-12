@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Data Visualization
 
 Consolidated agent combining management and implementation responsibilities for chart strategy, standards, accessibility, and execution.

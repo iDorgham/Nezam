@@ -1,0 +1,77 @@
+---
+name: wireframe-pipeline
+description: Unified engine for wireframe generation, Figma/Excalidraw ingestion, and deterministic spec conversion.
+version: 3.0.0
+updated: 2026-05-12
+changelog:
+  - 3.0.0: Initial merge of wireframe-catalog and wireframe-to-spec-converter.
+---
+
+# Wireframe Pipeline Skill
+
+Unified design-to-spec engine. Handles high-fidelity ASCII generation and multi-source ingestion (Figma/Excalidraw) to produce implementation-ready contracts.
+
+## Phase 1: Ingestion & Analysis
+
+Identify the source of truth for the UI design.
+
+### Mode A: Figma MCP (Primary)
+- Use Figma MCP to read frame data.
+- Extract: names, components, layout constraints, auto-layout rules.
+- Map to NEZAM vocabulary in `DESIGN.md`.
+
+### Mode B: Excalidraw/Penpot JSON
+- Parse element IDs, labels, groupings, and spatial arrangement.
+- Infer layout intent and generate structure.
+
+### Mode C: Text Interview (Fallback)
+- Conduct structured interview to define layout goals and component placement.
+- Flag output as `source: text-interview`.
+
+## Phase 2: High-Fidelity Generation
+
+Generate precise ASCII wireframes that serve as spatial specifications.
+
+### Quality Standard
+1. **Grid structure**: column count, named zones.
+2. **Component slots**: named with variant.
+3. **Content hierarchy**: H1/H2/H3/body/caption zones.
+4. **All interaction states**: default, hover, focus, active, loading, empty, error.
+5. **Spacing annotations**: named tokens (xs/sm/md/lg/xl).
+6. **Responsive pair**: desktop (1440px) + mobile (390px).
+7. **Accessibility map**: tab order, landmarks, ARIA roles.
+
+### Output Structure
+Use the high-fidelity ASCII frame format (boxed with Screen ID, Route, Type, and User context) followed by Desktop and Mobile views.
+
+## Phase 3: Deterministic Spec Conversion
+
+Transform wireframes into explicit component contracts.
+
+### Output Artifacts
+1. `docs/plans/design/WIREFRAMES.md`: Full wireframes and specs.
+2. `docs/plans/design/DESIGN_CHOICES.yaml`: Locked selection data.
+3. `docs/plans/design/COMPONENT_INVENTORY.md`: Every component, variant, and state.
+4. Updated root `DESIGN.md`: Full token contract.
+
+### Component Spec Format (YAML)
+```yaml
+screen_id: "[id]"
+layout_intent: "[purpose]"
+components:
+  - name: "[Name]"
+    variants: ["default", "variant"]
+    states: ["default", "loading", "error", "empty"]
+    props_contract: ["prop1", "prop2"]
+responsive_rules: ["rules"]
+interaction_notes: ["notes"]
+accessibility_notes: ["notes"]
+direction_notes: ["rtl/ltr handling"]
+```
+
+## Element Sequence
+Present elements sequentially (Nav → Hero → Features → etc.). User selects variants at each step before the next element is generated.
+
+## Trigger
+- Invoked during `/PLAN design` or whenever wireframe/spec generation is required.
+- Standalone activation via `wireframe-pipeline`.

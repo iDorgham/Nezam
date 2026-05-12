@@ -4,6 +4,10 @@ code-name: knowledge-update-manager
 swarm: maintenance-support
 reports-to: lead-maintenance-agent
 subagents: kb-articles, runbooks, post-mortems
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Knowledge Update Manager (knowledge-update-manager)

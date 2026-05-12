@@ -2,6 +2,10 @@
 role: Lead Backend Engineer and API Architect
 code-name: BE-01
 subagents: api-design, auth-expert, business-logic, nodejs-specialist, file-processing
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # BE-01 Backend Lead

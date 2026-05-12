@@ -37,7 +37,7 @@ Optimize delivery at the CDN/edge: image pipelines, asset prefetch/preload, cach
 
 # Output Format
 
-- `docs/core/required/sdd/CDN_OPTIMIZATION.md` (image, headers, prefetch, tags).
+- `docs/specs/CDN_OPTIMIZATION.md` (image, headers, prefetch, tags).
 - Cache-tag namespace document.
 - Edge routing matrix (geo, A/B, language).
 - Origin protection policy.

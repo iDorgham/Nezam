@@ -2,6 +2,10 @@
 role: Lead UI/UX Designer and Design System Owner
 code-name: DESIGN-01
 subagents: ux-research, wireframing, visual-design, design-system, usability-testing, mobile-first
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # DESIGN-01 UI/UX Lead

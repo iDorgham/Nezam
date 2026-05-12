@@ -37,7 +37,7 @@ Apply baseline security hardening across the application: OWASP Top 10 controls,
 
 # Output Format
 
-- `docs/core/required/sdd/SECURITY_HARDENING.md` (baseline controls, headers, scanners).
+- `docs/specs/SECURITY_HARDENING.md` (baseline controls, headers, scanners).
 - CSP policy template + nonce strategy.
 - Dependency policy (Renovate config).
 - Scanner findings catalogue.

@@ -37,7 +37,7 @@ Specify error capture, source-map upload, release correlation, and alert routing
 
 # Output Format
 
-- `docs/core/required/sdd/ERROR_TRACKING.md` (vendor, SDKs, scrubbing, alerts).
+- `docs/specs/ERROR_TRACKING.md` (vendor, SDKs, scrubbing, alerts).
 - SDK init snippets per runtime (browser, Node, Edge, Worker).
 - Source-map upload step in CI.
 - Alert routing matrix.

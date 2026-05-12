@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Android Engineer
 
 Consolidated Android leadership and specialist execution for Kotlin/Compose delivery, quality gates, and release readiness.

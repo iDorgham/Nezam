@@ -32,5 +32,5 @@ Paste best prompt here
 - `docs/workspace/context/CONTEXT.md`
 - `docs/workspace/context/CONTEXT.md`
 - `docs/DESIGN.md`
-- `docs/core/required/sdd/SEO_RESEARCH.md`
-- `docs/core/required/features/.../SPEC.md`
+- `docs/specs/SEO_RESEARCH.md`
+- `docs/specs/features/.../SPEC.md`

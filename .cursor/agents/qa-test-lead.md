@@ -2,6 +2,10 @@
 role: QA Test Lead
 code-name: qa-test-lead
 subagents: unit-coverage, e2e-regression, visual-baseline
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # QA Test Lead (qa-test-lead)

@@ -4,6 +4,10 @@ code-name: conflict-resolution-agent
 tier: cross-swarm
 reports-to: deputy-orchestrator
 subagents: scope-arbitration, ownership-arbitration, dependency-arbitration
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Conflict Resolution Agent (conflict-resolution-agent)

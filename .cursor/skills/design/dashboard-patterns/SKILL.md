@@ -12,7 +12,7 @@ Specify dashboard surfaces — KPI cards, filterable tables, charts, panels — 
 
 # Inputs
 
-- Domain entities + KPIs from `docs/core/required/prd/PRD.md`.
+- Domain entities + KPIs from `docs/specs/prd/PRD.md`.
 - Component library contract from `@.cursor/skills/nezam-component-library-api/SKILL.md`.
 - Token + grid systems from `@.cursor/skills/nezam-pro-design-tokens/SKILL.md` and `@.cursor/skills/token-grid-typography/SKILL.md`.
 - Data API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
@@ -37,7 +37,7 @@ Specify dashboard surfaces — KPI cards, filterable tables, charts, panels — 
 
 # Output Format
 
-- `docs/core/required/sdd/DASHBOARD_PATTERNS.md` (archetypes, panels, table contracts, filters).
+- `docs/specs/DASHBOARD_PATTERNS.md` (archetypes, panels, table contracts, filters).
 - Column definition schema (markdown).
 - Saved-view + URL-state spec.
 - Chart palette + color-blind audit.

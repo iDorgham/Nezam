@@ -4,6 +4,10 @@ code-name: database-design-manager
 swarm: data-database
 reports-to: lead-database-architect
 subagents: schema, indexing, migration-safety
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Database Design Manager (database-design-manager)

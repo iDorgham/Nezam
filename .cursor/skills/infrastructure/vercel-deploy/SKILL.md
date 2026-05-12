@@ -46,7 +46,7 @@ Specify Vercel deployment topology: project linking, env vars, build config, run
 # Output Format
 
 - `vercel.json` (routes, headers, functions config).
-- Env-var manifest (`docs/core/required/sdd/ENV_VARS.md`).
+- Env-var manifest (`docs/specs/ENV_VARS.md`).
 - Deployment runbook (deploy, rollback, env rotation).
 - Function topology table (route → runtime → region).
 

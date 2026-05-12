@@ -13,7 +13,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 # Inputs
 
 - Roadmap and phase gates from `@.cursor/skills/nezam-strategic-planning/SKILL.md` and `@.cursor/skills/nezam-phase-gating-roadmap/SKILL.md`.
-- `docs/core/required/features/` SPEC.md drafts.
+- `docs/specs/features/` SPEC.md drafts.
 - `docs/DESIGN.md` component inventory and example pages.
 - Capacity matrix and skill availability.
 
@@ -37,7 +37,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 # Output Format
 
 - `docs/workspace/plans/<phase>/<slice>/TASKS.md` per slice.
-- Feature spec stub `docs/core/required/features/<id>/SPEC.md` referencing tasks.
+- Feature spec stub `docs/specs/features/<id>/SPEC.md` referencing tasks.
 - Dependency DAG (markdown table or mermaid).
 - Risk-tagged task list.
 

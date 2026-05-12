@@ -20,7 +20,7 @@ Specify the Prisma 6 schema, migration policy, seeding strategy, and client usag
 
 # Inputs
 
-- Domain model + entity inventory from `docs/core/required/sdd/` and `@.cursor/skills/nezam-content-modeling/SKILL.md`.
+- Domain model + entity inventory from `docs/specs/` and `@.cursor/skills/nezam-content-modeling/SKILL.md`.
 - API contract from `@.cursor/skills/nezam-api-design/SKILL.md`.
 - Performance constraints from `@.cursor/skills/nezam-database-optimization/SKILL.md`.
 - Hosting target (Postgres, MySQL, SQLite, MongoDB) and Prisma 6 capabilities.

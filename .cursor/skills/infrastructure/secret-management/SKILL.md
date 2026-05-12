@@ -37,7 +37,7 @@ Specify how secrets are stored, injected, rotated, and accessed across environme
 
 # Output Format
 
-- `docs/core/required/sdd/SECRET_MANAGEMENT.md` (stores, categories, owners, rotation).
+- `docs/specs/SECRET_MANAGEMENT.md` (stores, categories, owners, rotation).
 - `.env.example` template.
 - IAM/role policy stubs for OIDC federation.
 - Rotation runbook + access-review checklist.

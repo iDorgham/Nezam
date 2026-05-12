@@ -19,8 +19,8 @@ Non-negotiable default phase order:
 
 Sub-phases are intentionally flexible and should be derived from:
 
-- `docs/core/required/PROJECT_PROMPT.md`
-- `docs/core/required/prd/PRD.md`
+- `docs/prd/PROJECT_PROMPT.md`
+- `docs/specs/prd/PRD.md`
 - active planning constraints and risk profile
 
 ## Mandatory Prompt Artifacts Per Sub-Phase

@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Mobile Cross-Platform
 
 Consolidated cross-platform mobile specialist and management guidance for RN/Expo/bridge/OTA operations.

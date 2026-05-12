@@ -4,6 +4,10 @@ code-name: lead-ai-ethics-officer
 tier: 1
 reports-to: cpo
 subagents: [inline — see Specialist Lenses section]
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Lead AI Ethics Officer

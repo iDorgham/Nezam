@@ -2,6 +2,10 @@
 role: Lead CMS & SaaS Architect (Swarm Manager - CMS & SaaS)
 code-name: lead-cms-saas-architect
 subagents: cms-manager, saas-platform-manager, content-workflow-manager
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Lead CMS & SaaS Architect (lead-cms-saas-architect)

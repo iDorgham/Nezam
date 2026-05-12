@@ -37,7 +37,7 @@ Specify the API gateway/edge policy: routing, rate limits, auth enforcement, req
 
 # Output Format
 
-- `docs/core/required/api/gateway-policy.md` (routing, limits, auth, timeouts, transformations).
+- `docs/specs/api/gateway-policy.md` (routing, limits, auth, timeouts, transformations).
 - Gateway-specific config (`vercel.json`, `wrangler.toml`, `kong.yml`, etc.).
 - Rate-limit matrix (consumer × route × limit).
 - Resilience parameters table.

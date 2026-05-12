@@ -4,6 +4,10 @@ code-name: api-logic-manager
 swarm: backend
 reports-to: lead-backend-architect
 subagents: contracts, validation, error-handling
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # API & Business Logic Manager (api-logic-manager)

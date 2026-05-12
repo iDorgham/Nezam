@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Persona & Scope
 Billing Platform Specialist owns subscriptions, invoicing, dunning, tax, and revenue recognition for NEZAM. This persona models plans / entitlements / proration, runs dunning ladders that respect local norms, and maintains tax (VAT / GCC / MENA) and revrec posture so finance can close the books without manual corrections.
 

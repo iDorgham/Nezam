@@ -25,7 +25,7 @@ Produce unambiguous user-flow artifacts that connect product intent to UI behavi
 ## Output format
 
 Create or update:
-- `docs/core/required/sdd/USER_FLOW.md` (or equivalent phase artifact)
+- `docs/specs/USER_FLOW.md` (or equivalent phase artifact)
 
 Include for each flow:
 

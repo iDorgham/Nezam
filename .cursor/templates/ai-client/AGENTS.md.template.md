@@ -29,8 +29,8 @@ Planning -> SEO -> IA -> Content -> Design (**root `DESIGN.md`**) -> Development
 
 Do not proceed to development unless all exist:
 
-- `docs/core/required/prd/PRD.md`
-- `docs/core/required/PROJECT_PROMPT.md`
+- `docs/specs/prd/PRD.md`
+- `docs/prd/PROJECT_PROMPT.md`
 - **`DESIGN.md` at repository root** for UI scopes (from chosen `.cursor/design/<brand>/design.md`)
 - `docs/plans/gates/GITHUB_GATE_MATRIX.json`
 - `docs/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`

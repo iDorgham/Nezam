@@ -63,7 +63,7 @@ plain_language_summary:
 7. Publish final orchestrator summary with next legal command.
 
 ## Phase Acceptance Mapping
-- Planning/content/design phases: verify artifact completeness under `docs/workspace/plans/**` and `docs/core/required/**`.
+- Planning/content/design phases: verify artifact completeness under `docs/workspace/plans/**` and `docs/specs/**`.
 - Development phases: verify implementation + test evidence with non-overlapping ownership.
 - Hardening phases: verify scan findings, security posture, and performance checks before go/no-go.
 

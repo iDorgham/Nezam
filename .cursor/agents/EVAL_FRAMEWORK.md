@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Agent evaluation framework (NEZAM)
 
 Lightweight quality floor for **implicit prompts** in `.cursor/agents/*.md`. Not a replacement for human review on high-risk changes.

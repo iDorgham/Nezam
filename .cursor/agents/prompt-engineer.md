@@ -5,6 +5,10 @@ tier: 2
 swarm: architecture-planning
 reports-to: lead-solution-architect
 subagents: agent-quality-reviewer, command-auditor, skill-optimizer
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Prompt Engineer (prompt-engineer)

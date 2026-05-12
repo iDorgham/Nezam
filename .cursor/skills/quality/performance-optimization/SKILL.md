@@ -37,7 +37,7 @@ Set, measure, and protect Core Web Vitals (LCP, INP, CLS) with code-splitting, b
 
 # Output Format
 
-- `docs/core/required/sdd/PERF_BUDGET.md` (route × metric × threshold).
+- `docs/specs/PERF_BUDGET.md` (route × metric × threshold).
 - `lighthouserc.json` config.
 - Bundle-budget config (Next.js, Webpack, or framework-equivalent).
 - Lazy-load + preload checklist.

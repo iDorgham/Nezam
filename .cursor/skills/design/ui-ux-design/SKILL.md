@@ -12,10 +12,10 @@ Translate user intent into deterministic flows, interaction states, and copy tha
 
 # Inputs
 
-- Personas + jobs-to-be-done from `docs/core/required/prd/PRD.md`.
+- Personas + jobs-to-be-done from `docs/specs/prd/PRD.md`.
 - IA + URL hierarchy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - `docs/DESIGN.md` example pages and interaction states.
-- Brand voice from `docs/core/required/PROJECT_PROMPT.md`.
+- Brand voice from `docs/prd/PROJECT_PROMPT.md`.
 
 # Step-by-Step Workflow
 
@@ -37,7 +37,7 @@ Translate user intent into deterministic flows, interaction states, and copy tha
 
 # Output Format
 
-- `docs/core/required/sdd/UX_FLOWS.md` (flow diagrams, states, copy, a11y mapping).
+- `docs/specs/UX_FLOWS.md` (flow diagrams, states, copy, a11y mapping).
 - Microcopy library (markdown table).
 - Cognitive walkthrough notes.
 - WCAG 2.2 AA mapping matrix per flow.

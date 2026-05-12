@@ -1,3 +1,7 @@
+> [!CAUTION]
+> **DEPRECATED**: This skill has been merged into `wireframe-pipeline`.
+> Please use `skills/design/wireframe-pipeline/SKILL.md` instead.
+
 ---
 name: wireframe-catalog
 description: Generate precise high-fidelity ASCII wireframes as implementation contracts during /PLAN design wireframes.

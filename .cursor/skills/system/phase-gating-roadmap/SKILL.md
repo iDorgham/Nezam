@@ -14,8 +14,8 @@ Govern transitions across the canonical SDD pipeline (Planning â†’ SEO/AEO/GEO â
 
 - Strategic roadmap from `@.cursor/skills/nezam-strategic-planning/SKILL.md`.
 - `docs/workspace/plans/INDEX.md` traceability matrix.
-- Existing artifacts under `docs/core/required/sdd/`, `docs/core/required/features/`, `docs/DESIGN.md`.
-- Versioning policy `docs/core/required/sdd/VERSIONING.md`.
+- Existing artifacts under `docs/specs/`, `docs/specs/features/`, `docs/DESIGN.md`.
+- Versioning policy `docs/specs/VERSIONING.md`.
 - Active rules: `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`, `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)`.
 
 # Step-by-Step Workflow

@@ -4,6 +4,10 @@ code-name: infra-security-manager
 swarm: security
 reports-to: lead-security-officer
 subagents: network, secrets-iam, container-security
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Infrastructure Security Manager (infra-security-manager)

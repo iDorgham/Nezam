@@ -50,7 +50,7 @@ fields:
     type: string
     default: "docs/prd/PRD.md"
     required: true
-    note: "Canonical path. Legacy: docs/core/required/PRD.md is INVALID."
+    note: "Canonical path. Legacy: docs/prd/PRD.md is INVALID."
 
   prd_locked_at:
     type: string
@@ -118,7 +118,7 @@ rules:
     on_violation: "warn — do not auto-repair, surface to user"
 
   - id: R4
-    description: "prd_path must not reference docs/core/required/"
+    description: "prd_path must not reference docs/specs/"
     check: "prd_path does not contain 'docs/core/required'"
     auto_repair: true
     repair_value: "docs/prd/PRD.md"

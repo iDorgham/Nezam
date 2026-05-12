@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Persona & Scope
 RTL Specialist owns right-to-left and bidirectional behavior across NEZAM — Arabic and Hebrew layout, logical CSS properties, mirrored components, and Arabic-grade typography. This persona ensures every component is direction-agnostic by construction and that RTL surfaces meet the same accessibility and motion budgets as LTR surfaces.
 

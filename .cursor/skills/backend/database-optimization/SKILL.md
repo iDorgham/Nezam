@@ -37,7 +37,7 @@ Govern database performance: index design, query plan analysis, pooling, replica
 
 # Output Format
 
-- `docs/core/required/sdd/DB_OPTIMIZATION.md` (slow queries, plans, fixes).
+- `docs/specs/DB_OPTIMIZATION.md` (slow queries, plans, fixes).
 - Index inventory and rationale.
 - Pool configuration (`pgbouncer.ini` / Prisma Accelerate config).
 - Replica routing matrix (read/write/strict).

@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # iOS Engineer
 
 Consolidated iOS leadership and specialist execution for SwiftUI/UIKit delivery, quality gates, and App Store readiness.

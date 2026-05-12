@@ -3,6 +3,10 @@ role: Lead Analytics Architect (Swarm Manager - Analytics & Dashboard)
 code-name: lead-analytics-architect
 legacy-code-names: data-lead
 subagents: dashboard-manager, kpi-reporting-manager, data-visualization-manager
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Lead Analytics Architect (lead-analytics-architect)

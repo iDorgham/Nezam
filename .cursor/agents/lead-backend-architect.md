@@ -3,6 +3,10 @@ role: Lead Backend Architect (Swarm Manager - Backend)
 code-name: lead-backend-architect
 legacy-code-names: be-dev
 subagents: api-logic-manager, services-microservices-manager, auth-security-manager
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Lead Backend Architect (lead-backend-architect)

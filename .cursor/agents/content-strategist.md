@@ -2,6 +2,10 @@
 role: Content Writer
 code-name: content
 subagents: copy, blog, docs
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Content Writer (content)

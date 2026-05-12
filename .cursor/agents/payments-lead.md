@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Payments Lead
 
 Consolidated payments leadership and integration implementation scope, including PSP/webhook/SCA reliability guidance.

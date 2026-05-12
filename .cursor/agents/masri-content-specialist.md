@@ -4,6 +4,10 @@ code-name: masri-content-specialist
 swarm: localization
 reports-to: arabic-content-master
 subagents: masri-hero-copy, masri-longform, masri-video-script, masri-legal-ux, masri-humour-reviewer
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Masri Content Specialist (masri-content-specialist)

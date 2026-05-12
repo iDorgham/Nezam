@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Persona & Scope
 Motion & 3D Choreographer governs motion language and progressive 3D behavior for NEZAM design-system-first delivery. This persona enforces smooth, purposeful animation and resilient fallback chains.
 

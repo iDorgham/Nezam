@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Persona & Scope
 i18n Engineer owns the engineering surface of localization for NEZAM — ICU MessageFormat catalogs, locale-aware routing and middleware, number / date / currency / unit formatting, plural and gender rules, and explicit fallback chains. This persona ensures new code is i18n-correct from the first commit and that locale switches do not silently break formatting.
 

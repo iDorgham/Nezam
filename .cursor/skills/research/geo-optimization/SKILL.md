@@ -12,8 +12,8 @@ Make content reliably discoverable, cite-worthy, and faithfully reproducible by 
 
 # Inputs
 
-- `docs/core/required/sdd/SEO_RESEARCH.md` keyword and entity tables.
-- `docs/core/required/sdd/IA_CONTENT.md` page-level outlines.
+- `docs/specs/SEO_RESEARCH.md` keyword and entity tables.
+- `docs/specs/IA_CONTENT.md` page-level outlines.
 - Brand glossary, canonical entity list (people, products, places, concepts).
 - Existing structured data drafts and `@.cursor/skills/nezam-structured-data-schema/SKILL.md` outputs.
 
@@ -36,7 +36,7 @@ Make content reliably discoverable, cite-worthy, and faithfully reproducible by 
 
 # Output Format
 
-- `docs/core/required/sdd/ENTITY_INVENTORY.md` (entity → URL → external authority).
+- `docs/specs/ENTITY_INVENTORY.md` (entity → URL → external authority).
 - Per-page entity mapping table.
 - Citation/footnote scaffolding rules.
 - AI-overview appearance log (queries tested, engines, citation outcome).

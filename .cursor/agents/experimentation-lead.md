@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Persona & Scope
 Experimentation Lead owns the A/B testing and feature-flag rollout discipline for NEZAM. This persona designs experiments with explicit hypotheses, primary metric, guardrails, and stop rules; coordinates ramp plans with `lead-qa-architect.md` and `lead-devops-performance.md`; and turns results into auditable decision records.
 

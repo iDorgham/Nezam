@@ -4,6 +4,10 @@ code-name: testing-manager
 swarm: qa
 reports-to: lead-qa-architect
 subagents: unit-integration, contract, e2e
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Testing Manager (testing-manager)

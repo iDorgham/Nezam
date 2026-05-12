@@ -12,14 +12,14 @@ Build defensible topical authority by organizing content into hub-and-spoke clus
 
 # Inputs
 
-- Keyword clusters from `docs/core/required/sdd/SEO_RESEARCH.md`.
+- Keyword clusters from `docs/specs/SEO_RESEARCH.md`.
 - Entity inventory from `@.cursor/skills/nezam-geo-optimization/SKILL.md`.
 - Existing nav/IA from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - Crawl/log file data (if available) for current internal-link distribution.
 
 # Step-by-Step Workflow
 
-1. Identify hub topics (broad pillars) and spoke topics (specific subtopics) from keyword clusters; document in `docs/core/required/sdd/TOPICAL_MAP.md`.
+1. Identify hub topics (broad pillars) and spoke topics (specific subtopics) from keyword clusters; document in `docs/specs/TOPICAL_MAP.md`.
 2. For each hub, list 5–15 spokes; spokes link up to hub with descriptive anchors; hub summarizes and links down to spokes.
 3. Add cross-spoke links only where semantic relationship is real (avoid "related articles" boilerplate).
 4. Define anchor-text patterns: descriptive, varied, entity-bearing; avoid duplicate anchors across the cluster.
@@ -36,7 +36,7 @@ Build defensible topical authority by organizing content into hub-and-spoke clus
 
 # Output Format
 
-- `docs/core/required/sdd/TOPICAL_MAP.md` (hub list, spokes, internal links).
+- `docs/specs/TOPICAL_MAP.md` (hub list, spokes, internal links).
 - Anchor-text variation rules.
 - Link-equity flow diagram (mermaid).
 - Gap analysis report.

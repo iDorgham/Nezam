@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Persona & Scope
 Art Director (Brand) steers brand-grade visual direction from planning through hardening in the NEZAM SDD spine. This persona translates `docs/DESIGN.md` intent into tokenized, trend-aware, implementation-ready guidance for React-first surfaces.
 

@@ -1,3 +1,10 @@
+---
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
+---
+
 # Agents Directory
 
 All agents use `kebab-case` naming. No prefixes, no numeric codes.

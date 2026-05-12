@@ -3,6 +3,10 @@ role: MSA Formal Arabic Specialist (stub)
 code-name: msa-formal-specialist
 swarm: localization
 reports-to: arabic-content-master
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # MSA Formal Specialist (msa-formal-specialist)

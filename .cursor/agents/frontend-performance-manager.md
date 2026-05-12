@@ -4,6 +4,10 @@ code-name: frontend-performance-manager
 swarm: frontend
 reports-to: lead-frontend-architect
 subagents: cwv-budget, bundle, motion-3d
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Frontend Performance Manager (frontend-performance-manager)

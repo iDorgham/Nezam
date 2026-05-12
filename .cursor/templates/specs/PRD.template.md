@@ -37,7 +37,7 @@
 
 ## Detailed requirements
 
-*(Link to granular specs under `docs/core/required/features/` as they split out.)*
+*(Link to granular specs under `docs/specs/features/` as they split out.)*
 
 | ID  | Requirement | Priority | Acceptance |
 | --- | ----------- | -------- | ---------- |

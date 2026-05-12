@@ -13,7 +13,7 @@ Define and enforce a deterministic token, typography, and layout grid foundation
 # Inputs
 
 - `docs/DESIGN.md` typography, spacing, and layout sections.
-- `docs/core/required/sdd/SEO_RESEARCH.md` and IA constraints when available.
+- `docs/specs/SEO_RESEARCH.md` and IA constraints when available.
 - Brand direction notes and editorial style intent.
 - Existing token drafts or legacy style variables.
 - Page templates + component inventories from `@.cursor/skills/nezam-component-library-api/SKILL.md`.
@@ -46,7 +46,7 @@ Define and enforce a deterministic token, typography, and layout grid foundation
 - `tokens/semantic.json` (usage semantics).
 - `css/tokens.css` (`:root` + theme scopes).
 - `css/grid.css` (macro + container rules).
-- `docs/core/required/sdd/TYPOGRAPHY_GRID_MATRIX.md` (reference table).
+- `docs/specs/TYPOGRAPHY_GRID_MATRIX.md` (reference table).
 
 # Integration Hooks
 

@@ -41,7 +41,7 @@ Specialist execution lanes:
 Before execution:
 
 1. Resolve command route with `slash-command-router`.
-2. Enforce hardlocks with `sdd-hardlock-manager`.
+2. Enforce hardlocks with `gate-orchestrator`.
 3. Use context controls (`context-window-manager`, `token-budget-manager`) for large multi-domain requests.
 4. Require explicit `ownerTeam`, `requiredSkills`, and `appliedRules` metadata in swarm artifacts.
 

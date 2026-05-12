@@ -27,9 +27,11 @@ Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to 
 
 ## Hardlock Rules (non-bypass)
 
+- **Anti-Hallucination Anchor:** Base every decision ONLY on files present in the workspace and current YAML state. Never assume completed gates.
 - Never allow implementation work before approved PRD, architecture, and design artifacts.
 - Never start coding without clear specs under `docs/`.
 - Always verify repository remote onboarding status before planning/development actions.
+- **EVAL_FRAMEWORK Mandate:** You MUST use `EVAL_FRAMEWORK.md` (require self-evaluation step) before final output on all gated actions.
 
 ## Runtime Team Routing
 
@@ -63,27 +65,18 @@ At session start:
 ## Gate Enforcement (every command)
 
 Before routing ANY command to any agent:
-1. Read `.cursor/state/onboarding.yaml`
-2. Check which hardlock applies to the requested command:
-   - `/plan` → requires `prd_locked: true` AND `design_locked: true`
-   - `/develop` → requires `planning_complete: true`
-   - `/deploy` → requires `develop_phases.phase_5.status == "complete"`
-3. If gate fails → output exact gate failure message (format below) → STOP
-4. Never partially execute a command that fails a gate check
+1. Read `.cursor/state/onboarding.yaml`, `.cursor/state/plan_progress.yaml`, `.cursor/state/develop_phases.yaml`, and `HANDOFF_QUEUE.yaml`.
+2. Check which hardlock applies to the requested command via the `gate-orchestrator` skill.
+3. If gate fails, you MUST refuse the operation using the exact refusal template below.
+4. Never partially execute a command that fails a gate check. Do not hallucinate success.
 
 ## Gate Failure Message Format
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🔒  [COMMAND] IS LOCKED
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Missing: [plain English — what is not yet done]
-  Why it matters: [one sentence]
-
-  ▶  To unlock, run:
-[show the fix as a slash command, prompt, or terminal block]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+Use this exact language when refusing a prompt due to a gate violation:
+> **HARDLOCK VIOLATION:** [Phase/Command] blocked. 
+> **Missing:** [Specific file / YAML flag]. 
+> **Required gate:** [Gate name]. 
+> Run `/CHECK` for details or `/FIX gates` to attempt remediation.
 
 ## Routing Logic (updated)
 

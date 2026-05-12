@@ -25,7 +25,7 @@ LEGACY (do not enforce):
 - docs/prd/PRD.md  →  now: docs/prd/PRD.md
 - docs/prd/PROJECT_PROMPT.md  →  now: docs/prd/PROJECT_PROMPT.md (optional)
 - docs/nezam/VERSIONING.md  →  now: docs/nezam/VERSIONING.md
-All gate logic is enforced via .cursor/state/*.yaml files + sdd-gate-validator skill.
+All gate logic is enforced via .cursor/state/*.yaml files + gate-orchestrator skill.
 -->
 
 ## SDD hardlock prerequisites (updated — reads state files)
@@ -44,7 +44,7 @@ If either is false → block `/plan` → redirect to `/start` with specific reas
 Read `.cursor/state/plan_progress.yaml`:
 
 1. `planning_complete: true` — all 6 planning phases done
-2. All artifact files exist at their expected paths (validate via `sdd-gate-validator` skill)
+2. All artifact files exist at their expected paths (validate via `gate-orchestrator` skill)
 3. `PROJECT_SCAFFOLD.md` confirmed and `scripts/scaffold.sh` run
 
 If any are false → block `/develop` → show plan progress status → tell user which phase to complete.

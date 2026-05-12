@@ -11,10 +11,15 @@ This changelog follows a **hybrid workflow**:
 
 ### Added
 
+- `/nezam certify` command to link `EVAL_FRAMEWORK.md` results to `AGENT_REGISTRY.yaml` for certified status tracking.
+- `analytics-observability` skill for telemetry and real-time gate violation logging.
+- Mandatory refusal protocols and anti-hallucination anchors added to `AGENT.template.md`.
 - PRD §11 release roadmap: canonical `docs/prd/release-roadmap.json` with `pnpm prd:roadmap` / `prd:roadmap:check` and CI drift check.
 
 ### Changed
 
+- Merged Gate Validator and Hardlock Manager into a unified `gate-orchestrator` skill.
+- Updated `workspace-orchestration.mdc`, `check.md`, `plan.md`, `swarm-leader.md`, and `deputy-swarm-leader.md` for gate orchestration.
 - Root `DESIGN.md` applied from `minimal` design profile for design-gate Gate 7.
 
 ### Fixed

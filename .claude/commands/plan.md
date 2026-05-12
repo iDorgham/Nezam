@@ -37,14 +37,15 @@ Hard block:
 
 If any check fails:
   → Read .cursor/state/onboarding.yaml to detect which step missing
-  → Tell user exactly which step is missing and how to fix it
+  → Tell user exactly which step is missing using the gate-orchestrator skill.
   → Do NOT run any /plan subcommand
   → Redirect to /start
 
 Example gate failure message:
-  ❌ /plan is locked.
-     PRD is complete but DESIGN.md is missing.
-     → Run /start and choose a design profile to unlock /plan.
+> **HARDLOCK VIOLATION:** /plan blocked. 
+> **Missing:** DESIGN.md at repo root. 
+> **Required gate:** Gate 0 (Onboarding → Planning). 
+> Run `/CHECK` for details or `/FIX gates` to attempt remediation.
 
 Recommendation footer: required
 

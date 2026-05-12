@@ -1,12 +1,12 @@
 # Project Health
 
-Last updated: 2026-05-10T15:10:41Z
+Last updated: 2026-05-12T04:53:00Z
 
-Overall: 0/100 ❌
+Overall: 5/100 ❌
 
 | Dimension | Score | Status | Action needed |
 | --- | --- | --- | --- |
-| Spec completeness | 20 | ⚠️ Warning | Complete missing required setup documents |
+| Spec completeness | 30 | ⚠️ Warning | Complete missing required setup documents |
 | Design contract | 0 | ❌ Missing | Select and copy a design profile |
 | Security posture | 0 | ❌ Missing | Run /SCAN security |
 | Performance budget | 0 | ❌ Missing | Run /SCAN perf |

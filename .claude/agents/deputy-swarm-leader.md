@@ -20,6 +20,8 @@ Run the day-to-day operating rhythm of the 13-swarm system on behalf of the CPO.
 
 ## Team Leader Scope
 
+- **Anti-Hallucination Anchor:** Base every decision ONLY on files present in the workspace and current YAML state. Never assume completed gates.
+- **EVAL_FRAMEWORK Mandate:** You MUST use `EVAL_FRAMEWORK.md` (require self-evaluation step) before final output on all gated actions.
 - Coordinate daily syncs across all 13 Swarm Managers.
 - Operate the Cross-Swarm Handoff loop and the Architecture Review Board cadence per [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
 - Arbitrate write-scope conflicts between swarms before they reach the CPO.

@@ -36,6 +36,7 @@ Recommendation footer: required
 /nezam paths set <key> <value> → Change a path (e.g. /nezam paths set project.prd src/PRD.md)
 /nezam sync                    → Run pnpm ai:sync + pnpm ai:check, show result
 /nezam check                   → Validate workspace integrity (drift, skill frontmatter, SDD swarm)
+/nezam certify                 → Link EVAL_FRAMEWORK.md results to AGENT_REGISTRY.yaml to track certified status
 /nezam upgrade                 → Instructions for pulling a newer NEZAM workspace version
 /nezam customize               → Interactive wizard: pick what to adjust
 ```
@@ -306,6 +307,27 @@ bash scripts/checks/docs-layout-policy.sh # docs folder layout
 ```
 
 Output: per-check ✅/❌ with fix commands on failure.
+
+---
+
+## /nezam certify
+
+Track certified status of agents by checking `EVAL_FRAMEWORK.md` results and applying them to `.cursor/state/AGENT_REGISTRY.yaml`.
+
+```bash
+# Check all agents
+pnpm ai:certify
+
+# Or specifically check one agent
+pnpm ai:certify --agent <agent-name>
+```
+
+1. Parse `docs/evals/results/EVAL_RESULTS.md` or the relevant evaluation artifact defined in `EVAL_FRAMEWORK.md`
+2. Update `.cursor/state/AGENT_REGISTRY.yaml` for each agent:
+   - If score >= 40, set `certified: true`, `status: certified`, and `badge: "✅"`
+   - If score < 40, maintain `certified: false` and note `certification_blockers`
+3. Output the certification status changes to the user
+4. Remind the user to run `pnpm ai:sync` if the registry changes
 
 ---
 

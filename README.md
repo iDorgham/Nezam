@@ -43,7 +43,7 @@
 
 <br/>
 
-[**Documentation Hub**](docs/README.md) · [**PRD**](docs/prd/PRD.md) · [**Wiki**](docs/wiki/Home.md) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md)
+[**Documentation Hub**](docs/README.md) · [**PRD**](docs/prd/PRD.md) · [**Wiki**](https://github.com/iDorgham/Nezam/wiki) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md)
 
 </div>
 

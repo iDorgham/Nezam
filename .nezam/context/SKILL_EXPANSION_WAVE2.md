@@ -2,7 +2,7 @@
 
 > **Generated:** 2026-05-12  
 > **Based on:** Full enumeration of `.nezam/workspace/RF/skills/` (793 directories)  
-> **Excludes:** 24 items already in Wave 1 (`docs/workspace/context/ANTIGRAVITY_SKILL_IMPL.md`)  
+> **Excludes:** 24 items already in Wave 1 (`.nezam/workspace/context/ANTIGRAVITY_SKILL_IMPL.md`)  
 > **Excludes:** Skills already covered by existing NEZAM library  
 
 ---

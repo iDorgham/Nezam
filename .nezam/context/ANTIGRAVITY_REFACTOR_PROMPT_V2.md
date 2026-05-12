@@ -27,7 +27,7 @@ Execute A → B → C → D. Do not skip ahead.
 ## GROUP A — CRITICAL BLOCKERS
 ## ═══════════════════════════════════════
 
-### A1 — [CREATE] `docs/workspace/context/PHASE_HANDOFF.md`
+### A1 — [CREATE] `.nezam/workspace/context/PHASE_HANDOFF.md`
 
 Create this file exactly. It is referenced by `subagent-controller.md`, `deputy-swarm-leader.md`, and `sdd-pipeline-v2.mdc` in every MODE B/C handoff. Its absence causes all cross-domain work to fail silently.
 
@@ -90,9 +90,9 @@ Create this file exactly. It is referenced by `subagent-controller.md`, `deputy-
 
 ---
 
-### A2 — [CREATE] `docs/workspace/context/governance/SWARM_WORKFLOW.md`
+### A2 — [CREATE] `.nezam/workspace/context/governance/SWARM_WORKFLOW.md`
 
-Create the directory `docs/workspace/context/governance/` if it does not exist. Create the file:
+Create the directory `.nezam/workspace/context/governance/` if it does not exist. Create the file:
 
 ```markdown
 # NEZAM Swarm Workflow — 6-Phase Lifecycle
@@ -197,7 +197,7 @@ Ethics sign-off must appear in `PHASE_HANDOFF.md` and `MEMORY.md` before phase g
 
 ---
 
-### A3 — [CREATE] `docs/workspace/context/MEMORY.md`
+### A3 — [CREATE] `.nezam/workspace/context/MEMORY.md`
 
 ```markdown
 # NEZAM Workspace Memory
@@ -307,7 +307,7 @@ Impact if no decision: [what stalls]
 ```
 
 CPO returns one of: `GO` / `NO-GO` / `SCOPE-CHANGE` / `DEFER`.
-Decision logged to `docs/workspace/context/MEMORY.md` under Key Decisions.
+Decision logged to `.nezam/workspace/context/MEMORY.md` under Key Decisions.
 
 ## Delegation Back to PM-01
 
@@ -766,7 +766,7 @@ sdd_phase: "Planning"
 
 Every feature slice MUST have a SPEC.md before build begins. Required 10 fields:
 
-1. **Feature slug** — matches directory name under `docs/workspace/plans/0N-build/`
+1. **Feature slug** — matches directory name under `.nezam/workspace/plans/0N-build/`
 2. **Objective** — one sentence, outcome-focused
 3. **Acceptance criteria** — measurable, binary pass/fail, testable
 4. **Data model changes** — new tables, fields, schema diffs (or "none")
@@ -1017,9 +1017,9 @@ jobs:
 
 ### C2 — [CREATE] EVAL Baseline Scorecards
 
-The EVAL framework has never been run. Create the first baseline scorecards in `docs/workspace/context/MEMORY.md` under `## Agent Scorecards`. These are honest baseline assessments — not achievements, just starting points.
+The EVAL framework has never been run. Create the first baseline scorecards in `.nezam/workspace/context/MEMORY.md` under `## Agent Scorecards`. These are honest baseline assessments — not achievements, just starting points.
 
-Append to `docs/workspace/context/MEMORY.md`:
+Append to `.nezam/workspace/context/MEMORY.md`:
 
 ```
 ## Agent Scorecards
@@ -2042,9 +2042,9 @@ pnpm check:all               # full suite: tokens + specs + agent-bus + registry
 ```
 
 Verify:
-- [ ] `docs/workspace/context/PHASE_HANDOFF.md` exists
-- [ ] `docs/workspace/context/governance/SWARM_WORKFLOW.md` exists
-- [ ] `docs/workspace/context/MEMORY.md` exists with baseline scorecards
+- [ ] `.nezam/workspace/context/PHASE_HANDOFF.md` exists
+- [ ] `.nezam/workspace/context/governance/SWARM_WORKFLOW.md` exists
+- [ ] `.nezam/workspace/context/MEMORY.md` exists with baseline scorecards
 - [ ] `.cursor/agents/cpo.md` exists
 - [ ] `.cursor/skills/quality/security-hardening/SKILL.md` exists (ID: `nezam-security-hardening`)
 - [ ] `pnpm skills:registry` reports 0 unresolved refs
@@ -2060,7 +2060,7 @@ Verify:
 - [ ] `.cursor/agents/analytics-visualization-engineer.md` exists
 - [ ] `swarm-8.agents` in AGENT_REGISTRY.yaml lists all 5 agents
 - [ ] `.github/workflows/nezam-ci.yml` exists
-- [ ] `docs/workspace/context/MEMORY.md` has `## Agent Scorecards` section with 3 baseline entries
+- [ ] `.nezam/workspace/context/MEMORY.md` has `## Agent Scorecards` section with 3 baseline entries
 - [ ] Legacy hardlock section removed from `workspace-orchestration.mdc`
 - [ ] `.nezam/workspace/RF/skills/` moved to `.nezam/workspace/archive/RF-2026-05-12/`
 - [ ] `wordpress` skill moved from `frontend/` to `external/`

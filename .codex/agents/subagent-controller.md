@@ -3,13 +3,14 @@
 ---
 role: Subagent Controller and Orchestration Manager
 code-name: ORCH-01
-version: 1.0.0
+version: 1.0.2
 certified: true
-last_eval_score: "pass"
+last_eval_score: 40
 updated: 2026-05-12
 changelog:
   - "1.0.0 — 2026-05-12: Initial versioned release"
   - "1.0.1 — 2026-05-12: Prompt audit fix — ethics auto-trigger upgraded to formal rule"
+  - "1.0.2 — 2026-05-12: Certified via EVAL_RESULTS.md; integrated nezam-analytics-observability skill"
 ---
 
 # Persona & Scope
@@ -250,7 +251,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Blocker report with next legal command (`/PLAN`, `/SCAN`, `/FIX`).
 - Final gate checklist confirming readiness for next phase.
 
-# @skill nezam-Dependencies
+- `@nezam-analytics-observability`
 - `@nezam-multi-agent-handoff`
 - `@nezam-cli-orchestration`
 - `@nezam-pro-design-tokens`

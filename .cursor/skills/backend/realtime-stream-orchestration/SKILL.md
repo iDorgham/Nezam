@@ -1,0 +1,41 @@
+---
+name: realtime-stream-orchestration
+description: Protocols and logic for managing live data streams for dashboards.
+---
+
+# Real-Time Stream Orchestration
+
+## Purpose
+Manages the reliable delivery of live events from the backend to the dashboard UI, handling scale, reconnection, and UI state syncing.
+
+## Inputs
+- Event stream sources (Kafka, Postgres Listen/Notify, Webhooks).
+- Latency and throughput requirements.
+
+## Step-by-Step Workflow
+1. Set up a WebSocket or SSE server for event broadcasting.
+2. Implement client-side connection management (Auto-reconnect, Heartbeat).
+3. Design a message protocol (JSON) for different event types.
+4. Implement throttling and buffering on the client to prevent UI locking during event bursts.
+
+## Examples
+```typescript
+// WebSocket Stream Handler
+socket.on('metric_update', (data) => {
+  if (shouldUpdateUI(data)) {
+    updateDashboardState(data);
+  }
+});
+```
+
+## Validation & Metrics
+- Latency: E2E event propagation < 200ms.
+- Efficiency: Buffering should reduce UI re-renders by > 50% during bursts.
+
+## Output Format
+- Stream Server Implementation
+- Client-side Stream SDK
+
+## Integration Hooks
+- `/DEVELOP` for live monitoring features.
+- Infrastructure scaling policies.

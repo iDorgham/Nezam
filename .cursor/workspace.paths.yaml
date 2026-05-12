@@ -1,0 +1,5 @@
+workspace:
+  templates_root: ".nezam/templates"
+  memory_root: ".nezam/memory"
+  project_docs: "docs/"
+  state_root: ".cursor/state/"

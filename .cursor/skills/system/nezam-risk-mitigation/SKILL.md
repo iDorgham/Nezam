@@ -15,14 +15,14 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 - Architectural decisions in `docs/specs/`.
 - `docs/DESIGN.md` motion/3D/perf-sensitive surfaces.
 - Security baseline from `@.cursor/skills/nezam-security-hardening/SKILL.md`.
-- Past incident notes under `docs/workspace/context/`.
+- Past incident notes under `.nezam/workspace/context/`.
 
 # Step-by-Step Workflow
 
 1. Maintain `docs/specs/RISK_REGISTER.md` with columns: id, area, severity, likelihood, impact, owner, mitigation, fallback.
 2. For high-risk tasks, perform FMEA: failure mode → effect → cause → detection → severity × likelihood × detectability score.
 3. Define fallback plan per high-risk surface (e.g., 3D fallback chain, feature flag, circuit breaker, cached response).
-4. Link mitigation tasks back to `docs/workspace/plans/<phase>/<slice>/TASKS.md` so they cannot be skipped.
+4. Link mitigation tasks back to `.nezam/workspace/plans/<phase>/<slice>/TASKS.md` so they cannot be skipped.
 5. Add observability hooks (alerts, error budgets) routed to `@.cursor/skills/nezam-monitoring-observability/SKILL.md`.
 6. Schedule debt-paydown windows per phase; cap accepted debt at agreed threshold.
 7. Re-score risks at every phase gate; raise blocker if score regresses.

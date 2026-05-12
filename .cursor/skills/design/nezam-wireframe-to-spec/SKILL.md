@@ -22,7 +22,7 @@ Transform wireframes or textual page drafts into explicit component contracts de
 
 Create or update:
 - `docs/plans/04-design/WIREFRAMES.md`
-- `docs/workspace/templates/ui-ux/COMPONENT_BLUEPRINT.md` (for reusable API patterns)
+- `.nezam/workspace/templates/ui-ux/COMPONENT_BLUEPRINT.md` (for reusable API patterns)
 
 For each screen/section include:
 

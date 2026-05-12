@@ -18,7 +18,7 @@ The Observability Skill is used to track, log, and analyze SDD phase gate transi
 1. **Gate Event Logging:** Intercept and record whenever a phase gate is unlocked or successfully passed.
 2. **Violation Tracking:** Record every instance of a `HARDLOCK VIOLATION` refusal, including the blocked command, the requested target, and the missing artifact.
 3. **Telemetry Dashboards:** Provide summaries of swarm efficiency, blocker frequency, and pipeline velocity.
-4. **Integration:** Update `docs/evals/results/OBSERVABILITY_LOG.md` (or similar log) in real-time.
+4. **Integration:** Update `.nezam/evals/results/OBSERVABILITY_LOG.md` (or similar log) in real-time.
 
 ## Usage Protocol
 When invoked by an agent (e.g. `lead-analytics-architect` or `devops-manager`), this skill should be used to:

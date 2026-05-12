@@ -13,7 +13,7 @@
 **Brutally honest status:**
 
 - **Strengths:** Clear pipeline story (planning → design → develop → ship), explicit hardlocks in rules, rich agent/skill library, CI hooks for sync and design gates, path indirection via `docs/gates/workspace.paths.yaml`.
-- **Weaknesses:** Orchestration is **documentation-driven**, not a running scheduler—compliance depends on the model following markdown. Several **cross-links point at paths that are not present** in this tree (example: `subagent-controller.md` links to `.nezam/memory/governance/SWARM_WORKFLOW.md`, which is missing). Legacy path strings (`docs/core/required/...`, `.nezam/memory/...`) still appear in some agents/rules while **canonical project memory has moved under `.nezam/workspace/`** for the workspace kit. **State files default to “unlocked / false”** until `/start` and `/plan` flows populate them—automation does not enforce gates without an LLM actually reading them.
+- **Weaknesses:** Orchestration is **documentation-driven**, not a running scheduler—compliance depends on the model following markdown. Several **cross-links point at paths that are not present** in this tree (example: `subagent-controller.md` links to `.nezam/memory/governance/SWARM_WORKFLOW.md`, which is missing). Legacy path strings (`docs/prd/...`, `.nezam/memory/...`) still appear in some agents/rules while **canonical project memory has moved under `.nezam/workspace/`** for the workspace kit. **State files default to “unlocked / false”** until `/start` and `/plan` flows populate them—automation does not enforce gates without an LLM actually reading them.
 
 ---
 
@@ -388,7 +388,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | content | content-modeling | Design content types, field schemas, reusable blocks, and preview/revision workflows for headless CMSes. |
 | content | editorial-workflows | Draft → review → publish pipelines, role permissions, and version control for content operations. |
 | content | egyptian-arabic-content | Masri content pack (JSON contract): tone matrix, humour gates, legal-adjacent UX guardrails, rubrics; references sibling paths under `arabic-content` and legacy pack paths—verify paths exist before relying on them. |
-| design | brand-visual-direction | Translate brand strategy into visual direction; still cites legacy `docs/core/required/prd/PRD.md` in Inputs—update to `docs/prd/PRD.md` when editing. |
+| design | brand-visual-direction | Translate brand strategy into visual direction; still cites legacy `docs/prd/prd/PRD.md` in Inputs—update to `docs/prd/PRD.md` when editing. |
 | design | component-library-api | Design typed, variant-driven React component APIs with Storybook, forwardRef, tree-shaking, and a11y defaults. |
 | design | css-architecture | Runtime-safe, token-driven CSS layering for React (frontmatter name: `css-architecture-runtime`). |
 | design | dashboard-patterns | Dense data layouts, filtering/sorting UX, KPI cards, responsive tables, and admin panel composition. |
@@ -701,7 +701,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 3. **When debugging “gates wrong”**, read the three YAML state files and compare to `sdd-gate-validator/SKILL.md`.
 4. **Prefer `@` path references** over pasting large bodies.
 5. **When improving prompts**, keep a single source under `.cursor/commands` and sync—never duplicate manually across mirrors.
-6. **For honesty**, search for `docs/workspace` and `docs/memory` references and fix in batches.
+6. **For honesty**, search for `.nezam/workspace` and `docs/memory` references and fix in batches.
 
 ---
 

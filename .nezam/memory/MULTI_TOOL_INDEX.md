@@ -77,4 +77,4 @@ hand-editing mirrored client surfaces for settings behavior.
 
 - **Procedure:** [`.cursor/skills/system/spec-writing/SKILL.md`](../../../.cursor/skills/system/spec-writing/SKILL.md)
 - **Output tree:** `docs/specs/<type>/<slug>.md` (see [`docs/specs/README.md`](../../specs/README.md))
-- **Design template:** [`docs/templates/research-design/DESIGN.template.md`](../../templates/research-design/DESIGN.template.md)
+- **Design template:** [`.nezam/templates/research-design/DESIGN.template.md`](../../templates/research-design/DESIGN.template.md)

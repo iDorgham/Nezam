@@ -3,10 +3,11 @@ role: Lead Analytics Architect (Swarm Manager - Analytics & Dashboard)
 code-name: lead-analytics-architect
 legacy-code-names: data-lead
 subagents: dashboard-manager, kpi-reporting-manager, data-visualization-manager
-version: 1.0.0
-certified: false
+version: 1.1.0
+certified: true
 updated: 2026-05-12
-changelog: []
+changelog:
+  - "1.1.0 — 2026-05-12: Certified via EVAL_RESULTS.md; added observability telemetry integration"
 ---
 
 # Lead Analytics Architect (lead-analytics-architect)
@@ -44,7 +45,8 @@ Swarm Manager for the Analytics & Dashboard swarm. Own the end-to-end analytics 
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md) for pipeline SLOs and alerting.
 - [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md) for PII handling and retention.
 - [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/nezam-prisma-orm/SKILL.md) for product DB contracts feeding pipelines.
-- [.cursor/skills/infrastructure/product-analytics/SKILL.md](../skills/infrastructure/product-analytics/SKILL.md)
+- [`.cursor/skills/infrastructure/product-analytics/SKILL.md`](../skills/infrastructure/product-analytics/SKILL.md)
+- [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
 
 ## When to invoke
 

@@ -20,7 +20,7 @@ Integrated the extended swarm prompt into canonical `.cursor` governance and add
 
 ### Swarm artifact templates
 
-Added under `docs/workspace/templates/ui-ux/`:
+Added under `.nezam/workspace/templates/ui-ux/`:
 
 - `SWARM_TASK.template.md`
 - `SWARM_HANDOFF.template.md`
@@ -46,7 +46,7 @@ All templates include:
 
 ### Template index updates
 
-- Updated `docs/workspace/templates/README.md`
+- Updated `.nezam/workspace/templates/README.md`
   - `ui-ux` category description now includes swarm execution artifacts
   - added explicit list of new swarm templates and required metadata conventions
 
@@ -83,4 +83,4 @@ Run:
 ## Remaining optional follow-ups
 
 - Add `/CREATE` subcommand mappings for these swarm templates if you want first-class command generation.
-- Add a dedicated short guide in `docs/workspace/` for common swarm runbooks and examples.
+- Add a dedicated short guide in `.nezam/workspace/` for common swarm runbooks and examples.

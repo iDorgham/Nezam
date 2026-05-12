@@ -1,0 +1,11 @@
+{
+  "phase": "00-define",
+  "subphase": "03-roadmap",
+  "task": "Define Visual Builder delivery roadmap",
+  "status": "completed",
+  "owner": "Dorgham",
+  "gates": [
+    "ROADMAP_LOCKED",
+    "MILESTONES_COMMITTED"
+  ]
+}

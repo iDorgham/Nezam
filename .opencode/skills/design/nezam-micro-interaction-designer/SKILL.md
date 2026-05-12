@@ -37,8 +37,8 @@ Define a production-safe motion spec that improves perceived quality without har
 
 Write motion contracts into template/governance artifacts:
 
-- `docs/workspace/templates/ui-ux/LAYOUT_RTL_MOTION.md`
-- `docs/workspace/templates/ui-ux/UI_FOUNDATION.md`
+- `.nezam/workspace/templates/ui-ux/LAYOUT_RTL_MOTION.md`
+- `.nezam/workspace/templates/ui-ux/UI_FOUNDATION.md`
 
 Use a table or YAML entries like:
 

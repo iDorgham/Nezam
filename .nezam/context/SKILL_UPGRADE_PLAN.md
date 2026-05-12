@@ -782,7 +782,7 @@ After all 24 changes are made:
 
 2. **Sync check:** Run `pnpm ai:sync` — all skills must be mirrored to `.opencode/skills/` and `.claude/skills/`.
 
-3. **Cross-reference check:** Every new skill must be registered in the relevant domain's skill index (e.g., `backend/` skills indexed in `docs/workspace/context/`).
+3. **Cross-reference check:** Every new skill must be registered in the relevant domain's skill index (e.g., `backend/` skills indexed in `.nezam/workspace/context/`).
 
 4. **Gate compliance:** All skills touching design must pass the 5 design-dev gates in `.cursor/rules/design-dev-gates.mdc`.
 

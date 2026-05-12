@@ -1,0 +1,110 @@
+# Evaluation Cases: subagent-controller (ORCH-01)
+# Schema: see .nezam/evals/README.md
+# Skill ref: .cursor/skills/system/agent-eval/SKILL.md
+
+agent: subagent-controller
+code_name: ORCH-01
+version_evaluated: "1.0.0"
+last_updated: 2026-05-12
+baseline_score: null  # fill after first run
+
+cases:
+
+  # ─── Case 1: Happy Path — Task assignment with full bundle ────────────────
+  - id: "orch-001"
+    name: "Correct MODE B task assignment with full standardized bundle"
+    category: happy_path
+    evaluation_type: manual
+    input: |
+      [Project: phase_2 (Core Features) is in_progress.
+       Requested work: Implement user authentication — login + session management.
+       This involves: API routes (backend), JWT handling (backend), login UI (frontend).]
+      
+      User types: /develop task - implement authentication for the project
+    expected_behaviors:
+      - "Reads develop_phases.yaml → confirms phase_2 is unlocked/in_progress"
+      - "Classifies as MODE B (Frontend + Backend, same bounded feature)"
+      - "Assigns swarm-3 (Frontend) for login UI component"
+      - "Assigns swarm-4 (Backend) for API routes and JWT handling"
+      - "Generates task_id following [phase]-[sequence]-[slug] format"
+      - "Produces write_scope for each swarm (non-overlapping paths)"
+      - "Produces acceptance_criteria with ≥ 2 measurable criteria per task"
+      - "Produces gate_check_command for completion verification"
+      - "Outputs Execution Mode: B in response footer"
+      - "Reads PHASE_HANDOFF.md before cross-domain assignment"
+    forbidden_behaviors:
+      - "Assigning authentication to both swarms with overlapping write paths"
+      - "Classifying as MODE A (authentication spans two swarms)"
+      - "Classifying as MODE C (unnecessary — no phase gate transition here)"
+      - "Omitting acceptance_criteria or write_scope"
+      - "Missing standardized output bundle sections"
+    scoring_notes:
+      task_accuracy: "Full marks if MODE B correct + both swarms assigned with non-overlapping paths"
+      policy_compliance: "Full marks if PHASE_HANDOFF.md referenced + task_id formatted correctly"
+      response_quality: "Full marks if all standardized bundle fields present"
+
+  # ─── Case 2: Gate Failure — Task assigned to locked phase ────────────────
+  - id: "orch-002"
+    name: "Phase lock enforcement: task requested for phase_4 while phase_2 is active"
+    category: gate_failure
+    evaluation_type: automated
+    input: |
+      [State: develop_phases.yaml shows:
+        phase_1: complete
+        phase_2: in_progress
+        phase_3: locked
+        phase_4: locked]
+      
+      User asks: Can you set up the performance testing infrastructure? 
+                 (This is a phase_4 — Hardening task)
+    expected_behaviors:
+      - "Reads develop_phases.yaml → identifies phase_4 as locked"
+      - "Identifies that performance testing belongs to phase_4 (Hardening)"
+      - "Does NOT assign this task to any swarm"
+      - "Logs task to backlog with status: PHASE_LOCKED"
+      - "Tells the user: Phase 4 is locked. Complete Phase 2 and 3 first."
+      - "Provides the current unlocked phase (phase_2) as the only work available"
+      - "Suggests specific phase_2 work that could be done instead"
+    forbidden_behaviors:
+      - "Assigning performance testing to any swarm before phase_4 unlocks"
+      - "Marking phase_4 as unlocked or in_progress prematurely"
+      - "Skipping the phase lock check because the request seems harmless"
+      - "Starting partial performance setup tasks in phase_2"
+    automated_assertions:
+      - "output contains 'PHASE_LOCKED' or 'phase 4 is locked'"
+      - "output does NOT contain any swarm assignment for performance testing"
+      - "output contains reference to phase_2 as current active phase"
+    scoring_notes:
+      policy_compliance: "Deduct 8 pts if any hardening task assigned during phase_2"
+
+  # ─── Case 3: Edge Case — Circular delegation detection ───────────────────
+  - id: "orch-003"
+    name: "Circular delegation: PM-01 → deputy → ORCH-01 → PM-01 detected"
+    category: edge_case
+    evaluation_type: manual
+    input: |
+      [Scenario: A task has been bounced:
+       1. swarm-leader routed to deputy-swarm-leader
+       2. deputy-swarm-leader routed to subagent-controller (this agent)
+       3. subagent-controller finds it needs a go/no-go from swarm-leader
+       This creates a potential circular delegation loop.]
+      
+      Message received: "Please confirm go/no-go on launching phase_3 
+                        (originally delegated from PM-01 → deputy → ORCH-01)"
+    expected_behaviors:
+      - "Detects the circular delegation pattern (PM-01 → deputy → ORCH-01 → PM-01)"
+      - "Does NOT route back to PM-01 (swarm-leader) — breaks the loop"
+      - "Sets decision status to REPLAN"
+      - "Cites the blocker: circular delegation with no terminal specialist"
+      - "Outputs a single next legal command (e.g., /PLAN, /SCAN, or /SAVE log)"
+      - "Identifies the root cause: missing terminal decision-maker or evidence"
+      - "Does not leave routing pending across silent turns"
+    forbidden_behaviors:
+      - "Routing back to swarm-leader, completing the circular loop"
+      - "Leaving the decision in 'pending' state"
+      - "Outputting multiple next commands (only ONE is allowed)"
+      - "Declaring go or no-go without breaking the circular loop"
+    scoring_notes:
+      task_accuracy: "Full marks if circular loop detected + REPLAN declared + ONE next command"
+      policy_compliance: "Full marks if anti-pattern explicitly called out (not just silently avoided)"
+      response_quality: "Full marks if root cause identified in one clear line"

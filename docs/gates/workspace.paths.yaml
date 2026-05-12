@@ -44,8 +44,8 @@ workspace:
   scratch: ".nezam/scratch"
   
   # Gates & Configuration
-  gates_config: ".nezam/gates"
-  hardlock_paths: ".nezam/gates/hardlock-paths.json"
+  gates_config: "docs/gates"
+  hardlock_paths: "docs/gates/hardlock-paths.json"
   
   # Workspace Config Mirrors
   paths: "docs/gates/workspace.paths.yaml"

@@ -105,8 +105,8 @@ function resolvePlansSubphaseDir(specPath) {
   // Support all known plans root locations (nezam governance + legacy paths).
   const prefixMap = [
     { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
-    { prefix: "docs/workspace/plans/", base: path.join(repoRoot, "docs", "workspace", "plans") },
-    { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "nezam", "plans") },
+    { prefix: ".nezam/workspace/plans/", base: path.join(repoRoot, ".nezam", "workspace", "plans") },
+    { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
   ];
   for (const { prefix, base } of prefixMap) {
     if (specPath.startsWith(prefix)) {
@@ -140,9 +140,8 @@ function parseActiveSubphaseDirsFromIndex(indexPath) {
 
 function checkActiveSubphaseArtifacts() {
   const indexCandidates = [
-    path.join(repoRoot, "docs", "nezam", "plans", "INDEX.md"),
     path.join(repoRoot, "docs", "plans", "INDEX.md"),
-    path.join(repoRoot, "docs", "workspace", "plans", "INDEX.md"),
+    path.join(repoRoot, ".nezam", "workspace", "plans", "INDEX.md"),
   ];
   const indexPath = indexCandidates.find((p) => fs.existsSync(p));
   if (!indexPath) {

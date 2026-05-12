@@ -187,7 +187,7 @@ Subcommands:
   /GIT release      → Full release flow: tag → CHANGELOG update → release notes → push
   /GIT rollback     → Revert last deployment or commit with safe rollback plan
   /GIT sync         → Sync generated AI client surfaces (runs pnpm ai:sync + pnpm ai:check)
-  /GIT log          → Save progress log entry to docs/workspace/context/MEMORY.md
+  /GIT log          → Save progress log entry to .nezam/workspace/context/MEMORY.md
   /GIT report       → Generate progress report → docs/reports/progress/PROGRESS_REPORT.latest.md
   /GIT hooks        → Install git hooks for auto-context updates
 
@@ -238,7 +238,7 @@ Replace content with:
 Subcommands:
   /CREATE prd           → Guided PRD creation with 7-question interview
   /CREATE prompt        → Scaffold PROJECT_PROMPT.md aligned to PRD
-  /CREATE spec          → Create a feature spec under docs/core/required/features/<slug>/
+  /CREATE spec          → Create a feature spec under docs/prd/features/<slug>/
   /CREATE task          → Add a task to MASTER_TASKS.md with ID, owner, phase, metric
   /CREATE report        → Initialize a fresh progress report shell
   /CREATE handoff       → Generate AI handoff packet for external AI companion
@@ -314,10 +314,10 @@ Rename planning phases to match this flow. Improve all template files. Create mi
 
 ### NEW DOCS FOLDER STRUCTURE
 
-Rename and restructure `docs/workspace/plans/` to:
+Rename and restructure `.nezam/workspace/plans/` to:
 
 ```
-docs/workspace/plans/
+.nezam/workspace/plans/
   00-define/              # PRD, PROJECT_PROMPT, scope
     01-product/           # PRD.md, PROJECT_PROMPT.md, SCOPE.md
     02-architecture/      # ARCHITECTURE.md, tech stack decisions
@@ -359,21 +359,21 @@ docs/workspace/plans/
 ```
 
 **Migration instructions:**
-- Move `docs/workspace/plans/01-content/01-research/` → `docs/workspace/plans/01-research/01-seo/`
-- Move `docs/workspace/plans/01-content/02-strategy/` → `docs/workspace/plans/03-content/01-strategy/`
-- Move `docs/workspace/plans/01-content/03-create/` → `docs/workspace/plans/03-content/02-copy/`
-- Move `docs/workspace/plans/01-content/04-compliance/` → `docs/workspace/plans/03-content/04-compliance/`
-- Move `docs/workspace/plans/02-design/*` → `docs/workspace/plans/02-design/*` (keep, just add 05-motion)
-- Move `docs/workspace/plans/03-build/*` → `docs/workspace/plans/04-build/*`
-- Move `docs/workspace/plans/04-harden/*` → `docs/workspace/plans/05-harden/*`
-- Move `docs/workspace/plans/05-ship/*` → `docs/workspace/plans/06-ship/*`
-- Create new `docs/workspace/plans/00-define/` with placeholder TASKS.md
+- Move `.nezam/workspace/plans/01-content/01-research/` → `.nezam/workspace/plans/01-research/01-seo/`
+- Move `.nezam/workspace/plans/01-content/02-strategy/` → `.nezam/workspace/plans/03-content/01-strategy/`
+- Move `.nezam/workspace/plans/01-content/03-create/` → `.nezam/workspace/plans/03-content/02-copy/`
+- Move `.nezam/workspace/plans/01-content/04-compliance/` → `.nezam/workspace/plans/03-content/04-compliance/`
+- Move `.nezam/workspace/plans/02-design/*` → `.nezam/workspace/plans/02-design/*` (keep, just add 05-motion)
+- Move `.nezam/workspace/plans/03-build/*` → `.nezam/workspace/plans/04-build/*`
+- Move `.nezam/workspace/plans/04-harden/*` → `.nezam/workspace/plans/05-harden/*`
+- Move `.nezam/workspace/plans/05-ship/*` → `.nezam/workspace/plans/06-ship/*`
+- Create new `.nezam/workspace/plans/00-define/` with placeholder TASKS.md
 
 ---
 
 ### IMPROVED TEMPLATES
 
-**Update `docs/workspace/templates/sdd/PRD_TEMPLATE.md`** — ensure it contains:
+**Update `.nezam/workspace/templates/sdd/PRD_TEMPLATE.md`** — ensure it contains:
 
 ```markdown
 # Product Requirements Document
@@ -416,7 +416,7 @@ docs/workspace/plans/
 [Rough phases and target dates]
 ```
 
-**Create `docs/workspace/templates/sdd/FEATURE_SPEC_TEMPLATE.md`**:
+**Create `.nezam/workspace/templates/sdd/FEATURE_SPEC_TEMPLATE.md`**:
 
 ```markdown
 # Feature Spec: [Feature Name]
@@ -464,7 +464,7 @@ docs/workspace/plans/
 [WCAG criteria that apply to this feature]
 ```
 
-**Create `docs/workspace/templates/sdd/DESIGN_SPRINT_TEMPLATE.md`**:
+**Create `.nezam/workspace/templates/sdd/DESIGN_SPRINT_TEMPLATE.md`**:
 
 ```markdown
 # Design Sprint: [Phase Name]
@@ -495,7 +495,7 @@ docs/workspace/plans/
 
 ---
 
-### UPDATE `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
+### UPDATE `.nezam/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
 
 Ensure the JSON reflects the new 7-phase structure (00-define through 06-ship) with updated phase names and gate IDs. Update all phase references from old numbering to new numbering.
 
@@ -511,7 +511,7 @@ Replace the basic MASTER_TASKS.md table with a comprehensive task management sys
 
 ---
 
-### Rewrite `docs/workspace/plans/MASTER_TASKS.md`
+### Rewrite `.nezam/workspace/plans/MASTER_TASKS.md`
 
 ```markdown
 # Master Tasks — NEZAM Project
@@ -952,7 +952,7 @@ Format: `<category>/<descriptive-name>/SKILL.md`
 ## Adding a new skill
 
 Run: /CREATE skill
-Or copy from docs/workspace/templates/skill-template/ and fill in SKILL.md.
+Or copy from .nezam/workspace/templates/skill-template/ and fill in SKILL.md.
 ```
 
 ---
@@ -1244,13 +1244,13 @@ Render the 7-segment macro pipeline bar using these UPDATED segment names:
   Define · Research · Design · Content · Build · Harden · Ship
 
 Segment = filled (█) when:
-  Define    → docs/workspace/plans/00-define/ has PRD + PROJECT_PROMPT + ARCHITECTURE
-  Research  → docs/workspace/plans/01-research/ has SEO_RESEARCH.md
-  Design    → docs/workspace/plans/02-design/ gate passed + DESIGN.md exists
-  Content   → docs/workspace/plans/03-content/ has CONTENT_MAP.md + IA_CONTENT.md
-  Build     → docs/workspace/plans/04-build/ has at least one completed feature
-  Harden    → docs/workspace/plans/05-harden/ all 4 audits complete
-  Ship      → docs/workspace/plans/06-ship/ production deployed
+  Define    → .nezam/workspace/plans/00-define/ has PRD + PROJECT_PROMPT + ARCHITECTURE
+  Research  → .nezam/workspace/plans/01-research/ has SEO_RESEARCH.md
+  Design    → .nezam/workspace/plans/02-design/ gate passed + DESIGN.md exists
+  Content   → .nezam/workspace/plans/03-content/ has CONTENT_MAP.md + IA_CONTENT.md
+  Build     → .nezam/workspace/plans/04-build/ has at least one completed feature
+  Harden    → .nezam/workspace/plans/05-harden/ all 4 audits complete
+  Ship      → .nezam/workspace/plans/06-ship/ production deployed
 
 Example output:
   Pipeline  [████░░░░░░░░░░░░░░░░]  2/7  Define ✓ · Research ✓ · Design ○ · Content ○ · Build ○ · Harden ○ · Ship ○
@@ -1356,7 +1356,7 @@ After completing all 8 tracks, verify:
 
 - [ ] All 9 commands exist in `.cursor/commands/` with new subcommand structure
 - [ ] `save.md` and `sync.md` deleted — behaviors absorbed into `git.md`
-- [ ] `docs/workspace/plans/` restructured to 00–06 phases
+- [ ] `.nezam/workspace/plans/` restructured to 00–06 phases
 - [ ] `MASTER_TASKS.md` rewritten with 7-phase task table
 - [ ] Duplicate skills (`component-library-api`, `motion-3d-progressive`) deleted
 - [ ] All `coi-*` skill folders renamed and moved into category subfolders

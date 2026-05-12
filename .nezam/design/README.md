@@ -12,7 +12,7 @@
 - **Script:** `pnpm run design:apply -- <brand>`  
   (runs `scripts/design/copy-profile-to-design-md.sh`).
 
-**After copying:** note the active brand in `docs/workspace/context/CONTEXT.md` (working notes) if helpful for handoffs; do not treat catalog files under `.nezam/design/` as the live contract—treat root `DESIGN.md` as canonical once selected.
+**After copying:** note the active brand in `.nezam/workspace/context/CONTEXT.md` (working notes) if helpful for handoffs; do not treat catalog files under `.nezam/design/` as the live contract—treat root `DESIGN.md` as canonical once selected.
 
 ---
 

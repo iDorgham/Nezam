@@ -176,7 +176,7 @@ docs/
 | PRD | `docs/prd/PRD.md` |
 | Memory / decisions | `.nezam/memory/` |
 | Phase plans | `docs/plans/` |
-| Templates | `docs/templates/` |
+| Templates | `.nezam/templates/` |
 | Wiki source | `docs/wiki/` |
 | Design profiles | `.nezam/design/<brand>/design.md` |
 | Active design contract | `DESIGN.md` (repo root) |

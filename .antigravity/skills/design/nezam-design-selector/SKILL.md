@@ -16,7 +16,7 @@ The user controls their design. This skill orchestrates the full selection seque
 1. Detect product type from PRD.md
 2. Present the correct wireframe element sequence for that type
 3. User picks one option per element
-4. Choices saved to `docs/workspace/plans/04-design/DESIGN_CHOICES.md`
+4. Choices saved to `.nezam/workspace/plans/04-design/DESIGN_CHOICES.md`
 5. User confirms → DESIGN.md generated from choices
 
 This skill calls `wireframe-catalog` for the actual wireframe ASCII art per element.
@@ -368,7 +368,7 @@ Type CHANGE [element] to revise one (e.g. CHANGE header).
 ---
 ## Step 4 — Write DESIGN_CHOICES.md
 
-On YES, write to `docs/workspace/plans/04-design/DESIGN_CHOICES.md`:
+On YES, write to `.nezam/workspace/plans/04-design/DESIGN_CHOICES.md`:
 
 ```yaml
 # DESIGN_CHOICES.md
@@ -451,7 +451,7 @@ choices:
 ---
 ## Step 5 — Generate DESIGN.md
 
-After writing DESIGN_CHOICES.md, generate `docs/workspace/plans/04-design/DESIGN.md` with:
+After writing DESIGN_CHOICES.md, generate `.nezam/workspace/plans/04-design/DESIGN.md` with:
 
 ```markdown
 # DESIGN.md — [Product Name]
@@ -540,8 +540,8 @@ Phase 3 — Supporting
 
 | File | When |
 |---|---|
-| `docs/workspace/plans/04-design/DESIGN_CHOICES.md` | After YES confirmation |
-| `docs/workspace/plans/04-design/DESIGN.md` | After DESIGN_CHOICES.md is written |
+| `.nezam/workspace/plans/04-design/DESIGN_CHOICES.md` | After YES confirmation |
+| `.nezam/workspace/plans/04-design/DESIGN.md` | After DESIGN_CHOICES.md is written |
 
 Both files must exist before `/PLAN scaffold` can run.
 

@@ -12,7 +12,7 @@ Govern transitions across the canonical SDD pipeline (Planning â†’ SEO/AEO/GEO â
 # Inputs
 
 - Strategic roadmap from `@.cursor/skills/nezam-strategic-planning/SKILL.md`.
-- `docs/workspace/plans/INDEX.md` traceability matrix.
+- `.nezam/workspace/plans/INDEX.md` traceability matrix.
 - Existing artifacts under `docs/specs/`, `docs/specs/features/`, `docs/DESIGN.md`.
 - Versioning policy `docs/specs/VERSIONING.md`.
 - Active rules: `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`, `[.cursor/rules/design-dev-gates.mdc](.cursor/rules/design-dev-gates.mdc)`.
@@ -25,7 +25,7 @@ Govern transitions across the canonical SDD pipeline (Planning â†’ SEO/AEO/GEO â
 4. Run gate evidence collection: lint, type-check, perf budget, axe-core, contrast, schema validation.
 5. Decide go/no-go per phase; emit explicit blocker list when no-go.
 6. Tag versioning trigger when phase closes (semver bump, conventional commit prefix, changelog section).
-7. Update `docs/workspace/plans/INDEX.md` with phase status; surface next legal `/COMMAND`.
+7. Update `.nezam/workspace/plans/INDEX.md` with phase status; surface next legal `/COMMAND`.
 
 # Validation & Metrics
 
@@ -39,7 +39,7 @@ Govern transitions across the canonical SDD pipeline (Planning â†’ SEO/AEO/GEO â
 
 - Phase gate report: phase name, required artifacts, evidence links, status, blockers.
 - Versioning intent statement (semver bump rationale).
-- `docs/workspace/plans/INDEX.md` status update (markdown table).
+- `.nezam/workspace/plans/INDEX.md` status update (markdown table).
 - Conventional-commit prefix recommendation per phase boundary.
 
 # Integration Hooks

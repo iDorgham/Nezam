@@ -34,7 +34,7 @@ Each `docs/plans/<phase>/<sub-phase>/` directory must include:
 
 ## Gate Manifest Source of Truth
 
-Use `.nezam/gates/GITHUB_GATE_MATRIX.json` as the canonical gate contract for:
+Use `docs/gates/GITHUB_GATE_MATRIX.json` as the canonical gate contract for:
 
 - start/end gate checks
 - pre-merge and post-merge responsibilities

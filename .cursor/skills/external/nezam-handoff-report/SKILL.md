@@ -2,7 +2,7 @@
 name: "nezam-handoff-report"
 description: Structured handoff report generator — session state capture, decision log, next-action brief, and context package for human-to-human or agent-to-agent transitions.
 paths:
-  - "docs/workspace/context/**"
+  - ".nezam/workspace/context/**"
   - "docs/reports/progress/**"
   - ".cursor/state/**"
 version: 1.0.0

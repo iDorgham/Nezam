@@ -54,7 +54,7 @@ semantic:   --color-brand-primary: var(--color-blue-500)
 component:  --button-bg-default: var(--color-brand-primary)
 ```
 
-See `docs/templates/ui-ux/TOKEN_NAMING.md` for the full convention.
+See `.nezam/templates/ui-ux/TOKEN_NAMING.md` for the full convention.
 
 ## Dark Mode
 
@@ -65,11 +65,11 @@ Every token must have a dark mode equivalent. The design contract enforces:
 
 ## RTL Support
 
-All layout tokens and components must support RTL (right-to-left) rendering for Arabic content. See `docs/templates/ui-ux/LAYOUT_RTL_MOTION.md`.
+All layout tokens and components must support RTL (right-to-left) rendering for Arabic content. See `.nezam/templates/ui-ux/LAYOUT_RTL_MOTION.md`.
 
 ## Component Blueprint Format
 
-New components follow the blueprint template at `docs/templates/ui-ux/COMPONENT_BLUEPRINT.md`:
+New components follow the blueprint template at `.nezam/templates/ui-ux/COMPONENT_BLUEPRINT.md`:
 
 ```markdown
 ## Component: [Name]

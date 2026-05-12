@@ -9,12 +9,12 @@ changelog: []
 Automate testing setup and verification for consistent quality gates across `/DEVELOP` -> `/SCAN tests` -> `/FIX tests` -> `/SAVE`.
 
 # Inputs
-- `docs/workspace/plans/INDEX.md` and relevant `docs/workspace/plans/*/TASKS.md` entries.
+- `.nezam/workspace/plans/INDEX.md` and relevant `.nezam/workspace/plans/*/TASKS.md` entries.
 - Existing test config files (`package.json`, Jest/Vitest/Playwright configs, if present).
 - Source tree and CI workflow files under `.github/workflows/`.
 
 # Step-by-Step Workflow
-1. Read `docs/workspace/plans/INDEX.md` to identify the active phase and required test scope.
+1. Read `.nezam/workspace/plans/INDEX.md` to identify the active phase and required test scope.
 2. Inventory current test tooling by checking existing config files and scripts in `package.json`.
 3. If missing, scaffold baseline test configuration:
    - Unit/integration runner config (Jest or Vitest).

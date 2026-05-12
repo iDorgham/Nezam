@@ -6,20 +6,20 @@ updated: 2026-05-08
 changelog: []
 ---
 # Purpose
-Keep `docs/workspace/context/`, `WORKSPACE_INDEX.md`, and `docs/workspace/plans/` artifacts synchronized so project memory and navigation remain current across SDD phases.
+Keep `.nezam/workspace/context/`, `WORKSPACE_INDEX.md`, and `.nezam/workspace/plans/` artifacts synchronized so project memory and navigation remain current across SDD phases.
 
 # Inputs
 - Changed file list from current branch.
-- `docs/workspace/context/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
-- Plan artifacts (`docs/workspace/plans/INDEX.md`, phase `TASKS.md` files).
+- `.nezam/workspace/context/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
+- Plan artifacts (`.nezam/workspace/plans/INDEX.md`, phase `TASKS.md` files).
 - Maintenance script: `scripts/context/update-context-docs.py`.
 
 # Step-by-Step Workflow
 1. Identify docs-impacting changes (new commands, skills, agents, workflows, scripts, structural moves).
-2. Update `docs/workspace/context/WORKSPACE_INDEX.md` tables and references for added/removed capabilities.
-3. Refresh `docs/workspace/context/CONTEXT.md` and `docs/workspace/context/MEMORY_ARCHITECTURE.md` summaries for current scope and state.
-4. Log durable decisions and milestones in `docs/workspace/context/MEMORY.md`.
-5. Sync active execution metadata in `docs/workspace/plans/INDEX.md` and related phase task boards.
+2. Update `.nezam/workspace/context/WORKSPACE_INDEX.md` tables and references for added/removed capabilities.
+3. Refresh `.nezam/workspace/context/CONTEXT.md` and `.nezam/workspace/context/MEMORY_ARCHITECTURE.md` summaries for current scope and state.
+4. Log durable decisions and milestones in `.nezam/workspace/context/MEMORY.md`.
+5. Sync active execution metadata in `.nezam/workspace/plans/INDEX.md` and related phase task boards.
 6. Run context maintenance script if available:
    - `python scripts/context/update-context-docs.py`
 7. Run `/SCAN docs` to detect stale links, missing references, or outdated sections.
@@ -33,7 +33,7 @@ Keep `docs/workspace/context/`, `WORKSPACE_INDEX.md`, and `docs/workspace/plans/
 - Memory update completeness (major decisions logged).
 
 # Output Format
-- Updated `docs/workspace/context/*` files and `docs/workspace/plans/INDEX.md` changes.
+- Updated `.nezam/workspace/context/*` files and `.nezam/workspace/plans/INDEX.md` changes.
 - Doc sync report: changed files, reason, verification results.
 - Outstanding documentation debt list with owner.
 

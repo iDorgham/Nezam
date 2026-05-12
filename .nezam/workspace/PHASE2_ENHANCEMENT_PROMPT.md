@@ -592,7 +592,7 @@ Present elements ONE AT A TIME. User picks variant before next element appears.
 
 1. `docs/plans/04-design/DESIGN_CHOICES.yaml` — locked YAML of every selection
 2. Updated root `DESIGN.md` — full token contract + component specs
-3. `docs/core/required/sdd/WIREFRAMES.md` — all screens with full wireframes
+3. `docs/prd/sdd/WIREFRAMES.md` — all screens with full wireframes
 4. `docs/plans/04-design/COMPONENT_INVENTORY.md` — every component, variant, state
 ```
 
@@ -628,7 +628,7 @@ All must be true:
   - `ia: true` → `docs/plans/02-ia/IA_CONTENT.md` exists
   - `content: true` → `docs/plans/03-content/CONTENT_MAP.md` exists
   - `arch: true` → `docs/plans/04-arch/ARCHITECTURE.md` exists
-  - `design_wireframes: true` → `docs/plans/04-design/DESIGN_CHOICES.yaml` + `docs/core/required/sdd/WIREFRAMES.md` exist
+  - `design_wireframes: true` → `docs/plans/04-design/DESIGN_CHOICES.yaml` + `docs/prd/sdd/WIREFRAMES.md` exist
   - `scaffold: true` → `docs/plans/scaffold/PROJECT_SCAFFOLD.md` + `scripts/scaffold.sh` exist
 
 ### Gate N → N+1: Development Phase Transitions

@@ -131,4 +131,4 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `ci`
 
 Add a new `.md` file to `.cursor/commands/`. Then run `pnpm ai:sync` to distribute to all clients.
 
-Template in `docs/templates/ai-client/CLAUDE.md.template.md`.
+Template in `.nezam/templates/ai-client/CLAUDE.md.template.md`.

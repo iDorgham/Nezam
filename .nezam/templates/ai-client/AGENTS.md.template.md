@@ -29,10 +29,10 @@ Planning -> SEO -> IA -> Content -> Design (**root `DESIGN.md`**) -> Development
 
 Do not proceed to development unless all exist:
 
-- `docs/specs/prd/PRD.md`
-- `docs/prd/PROJECT_PROMPT.md`
+- `docs/prd/PRD.md`
+- `docs/start/PROJECT_PROMPT.md`
 - **`DESIGN.md` at repository root** for UI scopes (from chosen `.nezam/design/<brand>/design.md`)
-- `.nezam/gates/GITHUB_GATE_MATRIX.json`
+- `docs/gates/GITHUB_GATE_MATRIX.json`
 - `docs/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
 
 ## Learned User Preferences
@@ -42,11 +42,11 @@ Do not proceed to development unless all exist:
 - For high-impact AI releases, default mandatory approvers to CTO or engineering head, legal or compliance, responsible AI or ethics lead, and security or privacy lead unless the user supplies a different sign-off map.
 - When changing agents, commands, rules, or skills, edit `.cursor/` as canonical and run `pnpm ai:sync`; avoid hand-editing generated mirrors for those assets.
 - When expanding swarm-style orchestration in this repo, align leadership with PM-01, ARCH-01, DESIGN-01, FE-01, and BE-01 as the primary authorities over specialist agents.
-- Add or revise learned memory only in `docs/templates/ai-client/AGENTS.md.template.md`, then run `pnpm ai:sync` so root `AGENTS.md` and `.codex/AGENTS.md` regenerate correctly.
-- **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `docs/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
+- Add or revise learned memory only in `.nezam/templates/ai-client/AGENTS.md.template.md`, then run `pnpm ai:sync` so root `AGENTS.md` and `.codex/AGENTS.md` regenerate correctly.
+- **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `.nezam/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
 - For NEZAM README work, keep README body copy in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections (for example Mermaid) rather than Arabic wording inside README narrative text.
 - Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
-- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `docs/templates/ai-client/` and `.nezam/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
+- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `.nezam/templates/ai-client/` and `.nezam/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
 
 ## Learned Workspace Facts
 

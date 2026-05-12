@@ -125,4 +125,4 @@ pnpm run check:tokens              # Verify tokens
 
 ### Onboarding check fails
 
-Check which file is missing and create it using the relevant template in `docs/templates/`.
+Check which file is missing and create it using the relevant template in `.nezam/templates/`.

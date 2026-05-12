@@ -26,7 +26,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 4. Build dependency DAG; flag cycles and cross-phase dependencies as blockers.
 5. Attach acceptance criteria per task: file paths, inputs, expected outputs, verification command.
 6. Tag risk per task (low/medium/high) and route high-risk to `@.cursor/skills/nezam-risk-mitigation/SKILL.md`.
-7. Persist breakdown to `docs/workspace/plans/<phase>/<feature>/TASKS.md`; update `docs/workspace/plans/MASTER_TASKS.md` rollup.
+7. Persist breakdown to `.nezam/workspace/plans/<phase>/<feature>/TASKS.md`; update `.nezam/workspace/plans/MASTER_TASKS.md` rollup.
 
 # Validation & Metrics
 
@@ -37,7 +37,7 @@ Translate phased roadmap items into shippable slices: epic → feature → task,
 
 # Output Format
 
-- `docs/workspace/plans/<phase>/<slice>/TASKS.md` per slice.
+- `.nezam/workspace/plans/<phase>/<slice>/TASKS.md` per slice.
 - Feature spec stub `docs/specs/features/<id>/SPEC.md` referencing tasks.
 - Dependency DAG (markdown table or mermaid).
 - Risk-tagged task list.

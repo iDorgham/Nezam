@@ -675,7 +675,7 @@ wireframe_selections:
 - Dark mode token overrides
 - Each screen mapped to its wireframe selection
 
-**3. `docs/core/required/sdd/WIREFRAMES.md`** — complete wireframe doc:
+**3. `docs/prd/sdd/WIREFRAMES.md`** — complete wireframe doc:
 - All screens with full ASCII wireframes as shown above
 - Every screen_id mapped to its page from IA_CONTENT.md
 - States documented (default, hover, loading, empty, error)

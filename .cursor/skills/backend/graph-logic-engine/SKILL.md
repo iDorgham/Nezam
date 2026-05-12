@@ -1,0 +1,43 @@
+---
+name: graph-logic-engine
+description: Manages graph theory implementations, node connectivity validation, and execution flow logic.
+---
+
+# Graph Logic Engine
+
+## Purpose
+Enforces rigorous graph integrity, cycle detection, and data-flow validation for node-based logic systems.
+
+## Inputs
+- Node schema definitions (`node-registry.json`).
+- Connection rules and data-type mapping.
+- `docs/specs/graph-logic.md`.
+
+## Step-by-Step Workflow
+1. **Node Registration:** Validate node definitions against the master schema.
+2. **Connection Validation:** Verify port compatibility and data-type matching during connection.
+3. **Cycle Detection:** Run Tarjan's or DFS algorithms to ensure the graph is a DAG (if required).
+4. **Execution Mapping:** Generate an execution sequence based on topological sorting.
+5. **Serialization:** Export the graph to a standardized JSON-Graph format.
+
+## Examples
+```json
+{
+  "nodes": [{ "id": "1", "type": "input", "data": { "value": 10 } }],
+  "edges": [{ "source": "1", "target": "2", "sourceHandle": "out", "targetHandle": "in" }]
+}
+```
+
+## Validation & Metrics
+- Integrity: 0 invalid connections allowed.
+- Speed: Validation of 1000 nodes < 50ms.
+- Reliability: 100% round-trip parity (Serialize -> Deserialize).
+
+## Output Format
+- `graph-validator.ts`
+- `node-connection-matrix.json`
+- `execution-flow.md`
+
+## Integration Hooks
+- `/DEVELOP` for workflow/logic features.
+- `node-logic-specialist` persona activation.

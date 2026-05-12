@@ -2,7 +2,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # This file is the control plane for the entire workspace.
 # Edit via: /Settings <subcommand>  OR  edit YAML directly then run pnpm ai:sync
-# Schema reference: docs/workspace/context/CLI_TOOLS_CONTEXT.md
+# Schema reference: .nezam/workspace/context/CLI_TOOLS_CONTEXT.md
 # ─────────────────────────────────────────────────────────────────────────────
 
 meta:
@@ -36,9 +36,9 @@ tools:
     preferred_model: sonnet               # haiku | sonnet | opus
     use_prompt_caching: true
     cache_candidates:
-      - "docs/workspace/context/CONTEXT.md"
-      - "docs/workspace/context/MEMORY.md"
-      - "docs/workspace/context/PHASE_HANDOFF.md"
+      - ".nezam/workspace/context/CONTEXT.md"
+      - ".nezam/workspace/context/MEMORY.md"
+      - ".nezam/workspace/context/PHASE_HANDOFF.md"
     task_policy: reasoning-and-spec-only  # never waste on mechanical tasks
 
   cursor:
@@ -177,9 +177,9 @@ memory:
     - architecture_decided
   session_handoff: true                  # write PHASE_HANDOFF.md on session end
   memory_files:
-    - "docs/workspace/context/MEMORY.md"
-    - "docs/workspace/context/PHASE_HANDOFF.md"
-    - "docs/workspace/context/CONTEXT.md"
+    - ".nezam/workspace/context/MEMORY.md"
+    - ".nezam/workspace/context/PHASE_HANDOFF.md"
+    - ".nezam/workspace/context/CONTEXT.md"
   compression:
     enabled: true                        # compress old session context before new session
     tool: "context-window-manager"       # skill to use for compression

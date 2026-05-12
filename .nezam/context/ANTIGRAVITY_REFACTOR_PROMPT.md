@@ -508,7 +508,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
    If PM-01 cannot resolve within 1 additional session:
    - Escalate to CPO layer with `EXEC_ESCALATION` flag
-   - Log escalation in `docs/workspace/context/MEMORY.md` with timestamp
+   - Log escalation in `.nezam/workspace/context/MEMORY.md` with timestamp
    ```
 
 2. Edit `.cursor/agents/deputy-swarm-leader.md` — add a **Stall Detection** section that monitors for replan status across sessions.

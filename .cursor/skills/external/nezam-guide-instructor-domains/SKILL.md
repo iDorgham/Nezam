@@ -2,12 +2,12 @@
 name: "nezam-guide-instructor-domains"
 description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:
-  - "docs/workspace/context/CONTEXT.md"
-  - "docs/workspace/context/CONTEXT.md"
+  - ".nezam/workspace/context/CONTEXT.md"
+  - ".nezam/workspace/context/CONTEXT.md"
   - ".cursor/rules/"
   - ".cursor/skills/"
   - ".nezam/design/"
-  - "docs/workspace/plans/"
+  - ".nezam/workspace/plans/"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
@@ -21,17 +21,17 @@ Adapted from [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/ski
 | Domain | NEZAM anchors |
 | ------ | ------------- |
 | Security / secrets | [`.github/workflows/`](../../../.github/workflows/), [`nezam-security-hardening`](../nezam-security-hardening/SKILL.md), [`nezam-secret-management`](../nezam-secret-management/SKILL.md) |
-| Planning / SDD | [`docs/workspace/plans/`](../../../docs/workspace/plans/), [`docs/specs/prd/PRD.md`](../../../docs/specs/prd/PRD.md), [`plan-full`](../plan-full/SKILL.md) |
+| Planning / SDD | [`.nezam/workspace/plans/`](../../../.nezam/workspace/plans/), [`docs/specs/prd/PRD.md`](../../../docs/specs/prd/PRD.md), [`plan-full`](../plan-full/SKILL.md) |
 | Design / tokens | [`docs/DESIGN.md`](../../../DESIGN.md), [`.nezam/design/<brand>/`](../../design/), [`design-md`](../design-md/SKILL.md), [`nezam-pro-design-tokens`](../nezam-pro-design-tokens/SKILL.md) |
 | SEO / IA / content | [`seo-ia-content`](../seo-ia-content/SKILL.md), `docs/specs/SEO_RESEARCH.md` (when present) |
 | GitHub / CI | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`git-workflow`](../git-workflow/SKILL.md), [`nezam-github-actions-ci`](../nezam-github-actions-ci/SKILL.md) |
 | Deploy | [`nezam-vercel-deploy`](../nezam-vercel-deploy/SKILL.md), [`nezam-devops-pipeline`](../nezam-devops-pipeline/SKILL.md) |
-| Agents / skills | [`.cursor/agents/README.md`](../../agents/README.md), [`docs/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md) |
+| Agents / skills | [`.cursor/agents/README.md`](../../agents/README.md), [`.nezam/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../../.nezam/workspace/context/governance/ORCHESTRATION_ALIASES.md) |
 
 ## Anti-patterns
 
 - Pointing at `factory/`, `.ai/docs/plan/`, or Antigravity-only paths unless this repo adds them.
-- Storing durable teaching state only in chat — persist in `docs/workspace/context/MEMORY.md` or specs when decisions stick.
+- Storing durable teaching state only in chat — persist in `.nezam/workspace/context/MEMORY.md` or specs when decisions stick.
 
 ## Reference provenance
 

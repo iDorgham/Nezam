@@ -347,7 +347,7 @@ NEZAM includes dedicated Arabic and MENA-region support:
 | Memory | [`docs/memory/`](docs/memory/) | All durable memory files |
 | Plans | [`docs/plans/`](docs/plans/) | Phase execution plans |
 | Architecture | [`docs/architecture/`](docs/architecture/) | ADRs + diagrams |
-| Templates | [`docs/templates/`](docs/templates/) | Reusable doc templates |
+| Templates | [`.nezam/templates/`](.nezam/templates/) | Reusable doc templates |
 | Reports | [`docs/reports/`](docs/reports/) | CI-generated reports |
 
 ---
@@ -381,7 +381,7 @@ Check which file is missing. Required files:
 - `docs/plans/INDEX.md`
 - `.cursor/agents/swarm-leader.md`
 
-Create missing files using templates in `docs/templates/`.
+Create missing files using templates in `.nezam/templates/`.
 </details>
 
 <details>

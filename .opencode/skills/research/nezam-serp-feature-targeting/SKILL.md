@@ -30,7 +30,7 @@ Engineer pages to win specific SERP features (featured snippet, People Also Ask,
 3. Verify HTML semantics: `<h2>` for question, `<ol>`/`<ul>` for steps, `<table>` for comparison.
 4. Pair with structured data and on-page entity reinforcement.
 5. Track ranking and feature occupancy weekly; iterate copy if the feature shifts owners.
-6. Document feature wins/losses in `docs/workspace/context/`.
+6. Document feature wins/losses in `.nezam/workspace/context/`.
 
 # Validation & Metrics
 

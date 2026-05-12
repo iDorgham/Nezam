@@ -1,6 +1,6 @@
 ---
 name: nezam-decision-journal
-description: Write plain-language decision entries to docs/workspace/context/DECISIONS_PLAIN.md for founder-readable audit trails.
+description: Write plain-language decision entries to .nezam/workspace/context/DECISIONS_PLAIN.md for founder-readable audit trails.
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
@@ -21,7 +21,7 @@ Maintain a non-technical decision journal so founders can understand what was de
    - security approach decision
    - significant scope change
 2. Normalize each decision into plain language.
-3. Append an entry to `docs/workspace/context/DECISIONS_PLAIN.md` in this structure:
+3. Append an entry to `.nezam/workspace/context/DECISIONS_PLAIN.md` in this structure:
    - title with date
    - what was decided
    - why
@@ -64,7 +64,7 @@ Use this markdown template:
 - Do not overwrite historical entries unless fixing factual errors.
 
 # External Reference
-- `docs/workspace/context/DECISIONS_PLAIN.md`
+- `.nezam/workspace/context/DECISIONS_PLAIN.md`
 - `.cursor/skills/nezam-multi-agent-handoff/SKILL.md`
 - `.cursor/commands/save.md`
 - `.cursor/commands/guide.md`

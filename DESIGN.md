@@ -68,4 +68,13 @@ Stripped-back design emphasizing whitespace, clean typography, and restrained co
 - Do not introduce off-palette colors when an existing token can solve the problem.
 - Do not flatten hierarchy by using the same type size/weight for all text.
 - Do not add decorative effects that reduce readability or accessibility.
-- Do not mix unrelated visual metaphors in the same interface.
+## 10. Platform Extensions (Visual Builder)
+
+Specialized tokens for canvas-based interfaces.
+
+- **Canvas-BG:** `#F4F4F1` (Surface) | **Grid-Dot:** `#D1D1CB`
+- **Node-Base:** `#FFFFFF` | **Node-Border:** `#0C0C09` (Primary) | **Radius:** `4px`
+- **Port-Color:** `#0C0C09` | **Highlight:** `#312C85` (Secondary)
+- **Edge-Stroke:** `#0C0C09` (2px) | **Edge-Active:** `#312C85` (3px)
+- **Z-Index Map:** Canvas (0) < Edges (10) < Nodes (20) < UI (100) < Overlay (1000)
+

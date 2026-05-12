@@ -37,14 +37,14 @@ If branch is not pushed, planning and development should remain blocked.
 
 Create and complete:
 
-- `docs/core/required/PRD.md`
-- `docs/core/required/PROJECT_PROMPT.md`
+- `docs/prd/PRD.md`
+- `docs/prd/PROJECT_PROMPT.md`
 
 Important:
 
 - PRD must be real content (not template/placeholder text)
 - PRD and prompt must describe the same product scope and intent
-- Preferred intake flow is file-first: add `docs/core/required/PRD.md` directly.
+- Preferred intake flow is file-first: add `docs/prd/PRD.md` directly.
 - Optional helper flow: run `/CREATE prd` if you want guided brainstorming and PRD drafting support.
 
 Tip: write clearly in simple language and focus on user outcomes.
@@ -53,7 +53,7 @@ Tip: write clearly in simple language and focus on user outcomes.
 
 Required file:
 
-- `.nezam/gates/GITHUB_GATE_MATRIX.json`
+- `docs/gates/GITHUB_GATE_MATRIX.json`
 
 ## Step 4 — Check onboarding readiness
 
@@ -84,7 +84,7 @@ Before `/DEVELOP`:
 
 - Architecture doc exists:
   - `docs/03_architecture/ARCHITECTURE.md` (preferred), or
-  - `docs/core/required/architecture/ARCHITECTURE.md` (legacy)
+  - `docs/prd/architecture/ARCHITECTURE.md` (legacy)
 - Design doc exists:
   - `DESIGN.md` (preferred), or
   - `docs/DESIGN.md` (legacy)

@@ -64,7 +64,7 @@ plain_language_summary:
 7. Publish final orchestrator summary with next legal command.
 
 ## Phase Acceptance Mapping
-- Planning/content/design phases: verify artifact completeness under `docs/workspace/plans/**` and `docs/specs/**`.
+- Planning/content/design phases: verify artifact completeness under `.nezam/workspace/plans/**` and `docs/specs/**`.
 - Development phases: verify implementation + test evidence with non-overlapping ownership.
 - Hardening phases: verify scan findings, security posture, and performance checks before go/no-go.
 
@@ -96,7 +96,7 @@ If trade-offs conflict, apply the order above and log the decision in the final 
 - `/PLAN all` for staged orchestration.
 - `/SCAN` and `/FIX` loops before hardening closure.
 - CI checks for gate-state consistency.
-- `@ decision-journal` appends `plain_language_summary` outcomes into `docs/workspace/context/DECISIONS_PLAIN.md`.
+- `@ decision-journal` appends `plain_language_summary` outcomes into `.nezam/workspace/context/DECISIONS_PLAIN.md`.
 
 ## CLI Delegation Protocol
 Before assigning a task to a Claude/Cursor agent, check the CLI Routing Matrix in `@nezam-cli-orchestration`.

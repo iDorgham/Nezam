@@ -263,7 +263,7 @@ Workspace Paths — docs/gates/workspace.paths.yaml
   WORKSPACE INTERNALS (advanced)
   nezam_root       .nezam/workspace/
   templates_root   .nezam/templates/
-  hardlock_paths   .nezam/gates/hardlock-paths.json
+  hardlock_paths   docs/gates/hardlock-paths.json
 
   Change: /nezam paths set <key> <value>
   Example: /nezam paths set project.prd src/product/PRD.md
@@ -275,7 +275,7 @@ Workspace Paths — docs/gates/workspace.paths.yaml
 2. Set the given key to the given value (dot-notation: `project.prd`, `project.plans_root`)
 3. Validate: the new path must be a plausible file/folder path (no absolute paths outside repo)
 4. Write back
-5. If the key is `project.prd` → also update `.nezam/gates/hardlock-paths.json intake.prd`
+5. If the key is `project.prd` → also update `docs/gates/hardlock-paths.json intake.prd`
 6. Confirm and remind: "Run `pnpm ai:sync` to propagate."
 
 ---
@@ -320,7 +320,7 @@ pnpm ai:certify
 pnpm ai:certify --agent <agent-name>
 ```
 
-1. Parse `docs/evals/results/EVAL_RESULTS.md` or the relevant evaluation artifact defined in `EVAL_FRAMEWORK.md`
+1. Parse `.nezam/evals/results/EVAL_RESULTS.md` or the relevant evaluation artifact defined in `EVAL_FRAMEWORK.md`
 2. Update `.cursor/state/AGENT_REGISTRY.yaml` for each agent:
    - If score >= 40, set `certified: true`, `status: certified`, and `badge: "✅"`
    - If score < 40, maintain `certified: false` and note `certification_blockers`

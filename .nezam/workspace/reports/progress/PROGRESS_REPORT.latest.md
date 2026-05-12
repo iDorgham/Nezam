@@ -49,5 +49,5 @@ Current pass: hardening session — closing 9 identified weaknesses.
 
 - `.cursor/state/agent-status.yaml`
 - `.cursor/state/agent-bus.yaml`
-- `docs/workspace/decisions/SWARM_DECISION_LOG.md`
+- `.nezam/workspace/decisions/SWARM_DECISION_LOG.md`
 - `.cursor/commands/check.md`

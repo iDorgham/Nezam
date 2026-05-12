@@ -21,7 +21,7 @@ You are the Risk Assessment Specialist within the Architecture & Planning swarm,
 
 # Activation Triggers
 
-- Phase 1 / Phase 2 of [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
+- Phase 1 / Phase 2 of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - New architecture decision or major dependency change.
 - Pre-deploy risk review (Phase 5).
 - Post-incident review requesting structural change.

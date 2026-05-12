@@ -111,4 +111,4 @@ Workspace Governance (L3)
 | `.nezam/memory/SKILL_CHANGELOG.md` | `.nezam/memory/SKILL_CHANGELOG.md` |
 | `docs/prd/PRD.md` | `docs/prd/PRD.md` |
 | `docs/plans/` | `docs/plans/` |
-| `docs/workspace/templates/` | `.nezam/templates/` |
+| `.nezam/workspace/templates/` | `.nezam/templates/` |

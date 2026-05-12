@@ -34,7 +34,7 @@ expanding multi-tool support, and adding flexible development method overlays.
 ### The Problem
 
 `workspace-orchestration.mdc` contains a legacy section that references the old path
-`docs/core/required/PRD.md`. All new commands and state files use `docs/prd/PRD.md`.
+`docs/prd/PRD.md`. All new commands and state files use `docs/prd/PRD.md`.
 This conflict causes gate failures that no command can resolve.
 
 ### 1A. Fix workspace-orchestration.mdc
@@ -50,19 +50,19 @@ Replace with this corrected version:
 > **Note:** This section is preserved for reference only.
 > Active hardlock enforcement reads `.cursor/state/onboarding.yaml` (see SDD hardlock section below).
 > The canonical PRD path is `docs/prd/PRD.md` (configurable via `docs/gates/workspace.paths.yaml`).
-> Do NOT use `docs/core/required/PRD.md` — that path no longer exists.
+> Do NOT use `docs/prd/PRD.md` — that path no longer exists.
 ```
 
-Then find every other occurrence of `docs/core/required/PRD.md` in the file.
+Then find every other occurrence of `docs/prd/PRD.md` in the file.
 Replace each with `docs/prd/PRD.md`.
 
-Also find `docs/core/required/PROJECT_PROMPT.md` and replace with:
+Also find `docs/prd/PROJECT_PROMPT.md` and replace with:
 `docs/prd/PROJECT_PROMPT.md` (note: this file is optional, not hardlocked).
 
 Also find `docs/core/VERSIONING.md` and replace with:
 `.nezam/workspace/VERSIONING.md` (governance file, not user project file).
 
-Also find `docs/core/required/sdd/WIREFRAMES.md` (appears in sdd-gate-validator skill).
+Also find `docs/prd/sdd/WIREFRAMES.md` (appears in sdd-gate-validator skill).
 Replace with `docs/plans/design/WIREFRAMES.md`.
 
 ### 1B. Fix sdd-gate-validator SKILL.md
@@ -72,7 +72,7 @@ Replace with `docs/plans/design/WIREFRAMES.md`.
 Find Gate 1 → 2 artifact paths. Replace:
 
 ```
-  - `design_wireframes: true` → (`docs/plans/04-design/DESIGN_CHOICES.yaml` **or** `docs/plans/04-design/DESIGN_CHOICES.md`) **and** `docs/core/required/sdd/WIREFRAMES.md` exist
+  - `design_wireframes: true` → (`docs/plans/04-design/DESIGN_CHOICES.yaml` **or** `docs/plans/04-design/DESIGN_CHOICES.md`) **and** `docs/prd/sdd/WIREFRAMES.md` exist
 ```
 
 With:
@@ -87,7 +87,7 @@ With:
 
 Find:
 ```
-- Required planning and design artifacts in `docs/core/required/` and root docs.
+- Required planning and design artifacts in `docs/prd/` and root docs.
 ```
 
 Replace with:
@@ -257,8 +257,8 @@ See `.nezam/workspace/CHANGELOG.md`.
 ## [3.0.0] — 2026-05-12
 
 ### Breaking Changes
-- PRD path changed from `docs/core/required/PRD.md` to `docs/prd/PRD.md`
-- WIREFRAMES path changed from `docs/core/required/sdd/WIREFRAMES.md` to `docs/plans/design/WIREFRAMES.md`
+- PRD path changed from `docs/prd/PRD.md` to `docs/prd/PRD.md`
+- WIREFRAMES path changed from `docs/prd/sdd/WIREFRAMES.md` to `docs/plans/design/WIREFRAMES.md`
 - `/founder` command removed — functionality absorbed by `/start`
 
 ### Added
@@ -1247,7 +1247,7 @@ After all 21 steps, verify these scenarios work correctly:
 
 **PRD path fix:**
 - [ ] `/check gates` with no PRD shows: "Missing: docs/prd/PRD.md" (not docs/core/required)
-- [ ] `workspace-orchestration.mdc` contains zero references to `docs/core/required/PRD.md` outside the preserved legacy note comment
+- [ ] `workspace-orchestration.mdc` contains zero references to `docs/prd/PRD.md` outside the preserved legacy note comment
 - [ ] sdd-gate-validator Gate 1 lists `docs/plans/design/WIREFRAMES.md` (not docs/core/required)
 
 **Versioning:**

@@ -9,9 +9,9 @@ certification_program:
   version: "1.0.0"
   established: 2026-05-12
   eval_skill: .cursor/skills/system/agent-eval/SKILL.md
-  eval_cases_dir: docs/evals/cases/
-  results_log: docs/evals/results/EVAL_RESULTS.md
-  cert_log: docs/evals/certification/CERT_LOG.md
+  eval_cases_dir: .nezam/evals/cases/
+  results_log: .nezam/evals/results/EVAL_RESULTS.md
+  cert_log: .nezam/evals/certification/CERT_LOG.md
   levels:
     uncertified: { score_range: "0–34", badge: "❌" }
     provisional: { score_range: "35–39", badge: "⚠️", review_cycle: "90d" }
@@ -24,39 +24,32 @@ registry:
     - name: swarm-leader
       tier: 2
       swarm: cpo
-      version: "1.0.0"
+      version: "1.0.2"
       summary: Chief orchestration and go/no-go authority.
       certification:
-        status: provisional
-        badge: "⚠️"
-        certified: false
-        last_eval_date: null
-        last_eval_score: null
-        eval_cases_path: docs/evals/cases/swarm-leader.eval.yaml
-        certification_blockers:
-          - "First eval run not yet completed — baseline_score is null"
-          - "Ethics Auto-Trigger Rule added 2026-05-12 — requires eval re-run to confirm score"
-        next_review: "2026-08-12"
+        status: certified
+        badge: "✅"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 42
+        eval_cases_path: .nezam/evals/cases/swarm-leader.eval.yaml
+        next_review: "2026-11-12"
     - name: deputy-swarm-leader
       tier: 2
       swarm: coordination
-      version: "1.0.0"
+      version: "1.0.2"
       summary: Cross-swarm coordination and handoff governance.
       managed_artifacts:
         - HANDOFF_QUEUE.yaml
         - PHASE_HANDOFF.md
       certification:
-        status: provisional
-        badge: "⚠️"
-        certified: false
-        last_eval_date: null
-        last_eval_score: null
-        eval_cases_path: docs/evals/cases/deputy-swarm-leader.eval.yaml
-        certification_blockers:
-          - "First eval run not yet completed — baseline_score is null"
-          - "Legacy skill aliases fixed 2026-05-12 — requires eval re-run to confirm no regression"
-          - "Standard Response Footer newly required — compliance not yet verified in eval"
-        next_review: "2026-08-12"
+        status: certified
+        badge: "✅"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 41
+        eval_cases_path: .nezam/evals/cases/deputy-swarm-leader.eval.yaml
+        next_review: "2026-11-12"
   swarm_map:
     swarm-1:
       name: Architecture
@@ -69,7 +62,7 @@ registry:
       agents: [lead-frontend-architect, frontend-lead]
     swarm-4:
       name: Backend
-      agents: [lead-backend-architect, api-logic-manager]
+      agents: [lead-backend-architect]
     swarm-5:
       name: Data-DB
       agents: [lead-database-architect, database-design-manager]
@@ -78,25 +71,46 @@ registry:
       agents: [lead-mobile-architect, mobile-cross-platform]
     swarm-7:
       name: CMS-SaaS
-      agents: [lead-cms-saas-architect, saas-platform-manager]
+      agents: [lead-cms-saas-architect, saas-platform-manager, saas-tenancy-architect, saas-billing-architect, saas-feature-flags-specialist, saas-onboarding-specialist, saas-compliance-manager, cms-headless-architect, cms-content-modeling-specialist, cms-workflow-manager, cms-localization-architect, cms-seo-metadata-specialist, cms-manager, headless-cms-specialist, multi-tenancy-architect]
     swarm-8:
       name: Analytics
-      agents: [lead-analytics-architect, analytics-engineer, analytics-ui-ux-specialist, analytics-charts-architect, dashboard-analytics-manager, live-analytics-engineer, advanced-analytics-architect]
+      agents: [lead-analytics-architect, analytics-engineer, analytics-ui-ux-specialist, analytics-charts-architect, dashboard-analytics-manager, live-analytics-engineer, advanced-analytics-architect, time-series-specialist]
     swarm-9:
       name: Security
-      agents: [lead-security-officer, app-security-manager]
+      agents: [lead-security-officer, app-security-manager, compliance-manager, encryption-privacy-specialist, infra-security-manager, security-auditor, threat-modeling-specialist]
     swarm-10:
       name: DevOps
-      agents: [lead-devops-performance, devops-manager]
+      agents: [lead-devops-performance, devops-manager, ci-automation, cost-optimization-analyst, docker-k8s-specialist, gitops-engineer, infrastructure-manager, observability-specialist, performance-engineer, sre-incident-specialist]
     swarm-11:
       name: QA
-      agents: [lead-qa-architect, testing-manager]
+      agents: [lead-qa-architect, testing-manager, a11y-performance-auditor, automation-manager, code-review-specialist, qa-test-lead]
     swarm-12:
       name: Maintenance
-      agents: [lead-maintenance-agent, tech-debt-manager]
+      agents: [lead-maintenance-agent, tech-debt-manager, bug-triage-manager, dependency-update-specialist, knowledge-update-manager, refactoring-specialist]
     swarm-13:
       name: Ethics
       agents: [lead-ai-ethics-officer]
+    swarm-14:
+      name: Task-Management
+      agents: [lead-task-management-architect, task-workflow-architect, task-state-manager, task-resource-allocator, task-collaboration-specialist, task-automation-specialist]
+    swarm-15:
+      name: CRM
+      agents: [lead-crm-platform-architect, crm-lead-architect, crm-pipeline-manager, crm-contact-intelligence, crm-interaction-specialist, crm-integration-architect]
+    swarm-16:
+      name: Dashboard-UI
+      agents: [analytics-data-orchestrator, analytics-chart-designer, analytics-ui-ux-architect, analytics-real-time-manager, analytics-report-automation-agent]
+    swarm-17:
+      name: Visual-Builder
+      agents: [lead-visual-builder-architect, visual-canvas-architect, node-logic-specialist, visual-interaction-designer, visual-state-engine, visual-asset-manager]
+    swarm-18:
+      name: Modern-Frontend
+      agents: [lead-modern-frontend-architect, nextjs-app-architect, vite-build-specialist, react-server-components-expert, frontend-rendering-strategist]
+    swarm-19:
+      name: Styling-Theming
+      agents: [lead-styling-theming-architect, design-token-orchestrator, rtl-layout-specialist, animation-motion-specialist, white-label-theming-specialist]
+    swarm-20:
+      name: Data-Platform
+      agents: [lead-data-platform-architect, neon-database-architect, data-partitioning-expert, api-logic-manager, auth-security-manager]
   agents_catalog:
     - name: EVAL_FRAMEWORK
       tier: 2
@@ -121,7 +135,7 @@ registry:
       summary: Android app implementation and platform-specific fixes.
     - name: api-logic-manager
       tier: 3
-      swarm: backend
+      swarm: swarm-20
       summary: API contract and business logic governance.
       backing_skill: nezam-api-contract
     - name: app-security-manager
@@ -143,7 +157,7 @@ registry:
       summary: Visual language and brand consistency owner.
     - name: auth-security-manager
       tier: 3
-      swarm: security
+      swarm: swarm-20
       summary: Authentication and authorization risk controls.
     - name: automation-manager
       tier: 3
@@ -343,7 +357,16 @@ registry:
     - name: lead-analytics-architect
       tier: 2
       swarm: analytics
+      version: "1.1.0"
       summary: Analytics architecture authority.
+      certification:
+        status: elite
+        badge: "🏆"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 45
+        eval_cases_path: .nezam/evals/cases/lead-analytics-architect.eval.yaml
+        next_review: "2027-05-12"
     - name: lead-backend-architect
       tier: 2
       swarm: backend
@@ -547,32 +570,28 @@ registry:
     - name: subagent-controller
       tier: 3
       swarm: governance
+      version: "1.0.2"
       summary: Subagent routing, lifecycle, and orchestration.
       certification:
-        status: provisional
-        badge: "⚠️"
-        certified: false
-        last_eval_date: null
-        last_eval_score: null
-        eval_cases_path: docs/evals/cases/subagent-controller.eval.yaml
-        certification_blockers:
-          - "First eval run not yet completed — baseline_score is null"
-          - "Ethics Auto-Trigger Rule upgraded 2026-05-12 — requires eval re-run"
-        next_review: "2026-08-12"
+        status: certified
+        badge: "✅"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 40
+        eval_cases_path: .nezam/evals/cases/subagent-controller.eval.yaml
+        next_review: "2026-11-12"
     - name: swarm-leader
       tier: 2
       swarm: cpo
+      version: "1.0.2"
       summary: Primary orchestration authority for workflow gating.
       certification:
-        status: provisional
-        badge: "⚠️"
-        certified: false
-        last_eval_date: null
-        last_eval_score: null
-        eval_cases_path: docs/evals/cases/swarm-leader.eval.yaml
-        certification_blockers:
-          - "First eval run not yet completed — baseline_score is null"
-          - "Ethics Auto-Trigger Rule added 2026-05-12 — requires eval re-run"
+        status: certified
+        badge: "✅"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 42
+        eval_cases_path: .nezam/evals/cases/swarm-leader.eval.yaml
     - name: tech-debt-manager
       tier: 3
       swarm: maintenance
@@ -619,9 +638,8 @@ registry:
       swarm: design
       summary: Visual quality standards and execution consistency.
     - name: white-label-theming-specialist
-      status: archived
       tier: 4
-      swarm: design
+      swarm: swarm-19
       summary: Multi-theme and white-label design implementation.
     - name: analytics-ui-ux-specialist
       tier: 4
@@ -643,3 +661,210 @@ registry:
       tier: 2
       swarm: analytics
       summary: Lead architect for complex analytical modeling, behavioral analysis, and predictive insights.
+    - name: lead-task-management-architect
+      tier: 2
+      swarm: swarm-14
+      version: "1.1.0"
+      summary: Strategic authority for task management and project workflow orchestration.
+      certification:
+        status: elite
+        badge: "🏆"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 48
+        eval_cases_path: .nezam/evals/cases/lead-task-management-architect.eval.yaml
+        next_review: "2027-05-12"
+    - name: task-workflow-architect
+      tier: 4
+      swarm: swarm-14
+      summary: Specialist in designing complex task lifecycles and status transitions.
+    - name: task-state-manager
+      tier: 4
+      swarm: swarm-14
+      summary: Handles atomic transitions and data integrity for task records.
+    - name: task-resource-allocator
+      tier: 4
+      swarm: swarm-14
+      summary: Manages task assignment based on capacity and skill sets.
+    - name: task-collaboration-specialist
+      tier: 4
+      swarm: swarm-14
+      summary: Orchestrates real-time comments, mentions, and shared task contexts.
+    - name: task-automation-specialist
+      tier: 4
+      swarm: swarm-14
+      summary: Designs automated triggers and background jobs for task workflows.
+    - name: lead-crm-platform-architect
+      tier: 2
+      swarm: swarm-15
+      version: "1.1.0"
+      summary: Strategic authority for CRM domain, customer data, and sales pipelines.
+      certification:
+        status: elite
+        badge: "🏆"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 46
+        eval_cases_path: .nezam/evals/cases/lead-crm-platform-architect.eval.yaml
+        next_review: "2027-05-12"
+    - name: crm-lead-architect
+      tier: 4
+      swarm: swarm-15
+      summary: Specialist in lead lifecycles, scoring models, and conversion funnels.
+    - name: crm-pipeline-manager
+      tier: 4
+      swarm: swarm-15
+      summary: Manages sales pipelines, deal stages, and opportunity tracking.
+    - name: crm-contact-intelligence
+      tier: 4
+      swarm: swarm-15
+      summary: Specialist in contact profile enrichment and relationship mapping.
+    - name: crm-interaction-specialist
+      tier: 4
+      swarm: swarm-15
+      summary: Manages omnichannel interaction logging and orchestration.
+    - name: crm-integration-architect
+      tier: 4
+      swarm: swarm-15
+      summary: Designs sync logic between CRM and external enterprise systems.
+    - name: analytics-data-orchestrator
+      tier: 4
+      swarm: swarm-16
+      summary: Pre-aggregates and caches data for high-performance dashboards.
+    - name: analytics-chart-designer
+      tier: 4
+      swarm: swarm-16
+      summary: Implements complex visualizations using modern charting libraries.
+    - name: analytics-ui-ux-architect
+      tier: 4
+      swarm: swarm-16
+      version: "1.1.0"
+      summary: Designs dashboard layouts and interaction patterns for data clarity.
+      certification:
+        status: elite
+        badge: "🏆"
+        certified: true
+        last_eval_date: "2026-05-12"
+        last_eval_score: 47
+        eval_cases_path: .nezam/evals/cases/analytics-ui-ux-architect.eval.yaml
+        next_review: "2027-05-12"
+    - name: analytics-real-time-manager
+      tier: 4
+      swarm: swarm-16
+      summary: Governs live data streams and real-time dashboard rendering.
+    - name: analytics-report-automation-agent
+      tier: 4
+      swarm: swarm-16
+      summary: Specialist in automated generation and distribution of analytical reports.
+    - name: saas-tenancy-architect
+      tier: 4
+      swarm: swarm-7
+      summary: Multi-tenant isolation and data partitioning specialist.
+    - name: saas-billing-architect
+      tier: 4
+      swarm: swarm-7
+      summary: Subscription, metering, and billing orchestration specialist.
+    - name: saas-feature-flags-specialist
+      tier: 4
+      swarm: swarm-7
+      summary: Feature gating and progressive rollout specialist.
+    - name: saas-onboarding-specialist
+      tier: 4
+      swarm: swarm-7
+      summary: Tenant provisioning and automated onboarding specialist.
+    - name: saas-compliance-manager
+      tier: 4
+      swarm: swarm-7
+      summary: SaaS-specific compliance and regulatory oversight manager.
+    - name: cms-headless-architect
+      tier: 4
+      swarm: swarm-7
+      summary: Headless API design and content delivery architect.
+    - name: cms-content-modeling-specialist
+      tier: 4
+      swarm: swarm-7
+      summary: Schema design and structured content modeling specialist.
+    - name: cms-workflow-manager
+      tier: 4
+      swarm: swarm-7
+      summary: Editorial workflow and content lifecycle governance manager.
+    - name: cms-localization-architect
+      tier: 4
+      swarm: swarm-7
+      summary: Global content routing and multi-locale architecture architect.
+    - name: cms-seo-metadata-specialist
+      tier: 4
+      swarm: swarm-7
+      summary: SEO structure and metadata automated tagging specialist.
+    - name: animation-motion-specialist
+      tier: 4
+      swarm: swarm-19
+      summary: Motion systems and progressive 3D choreography.
+    - name: data-partitioning-expert
+      tier: 4
+      swarm: swarm-20
+      summary: Specialist in data isolation and scaling strategies.
+    - name: design-token-orchestrator
+      tier: 3
+      swarm: swarm-19
+      summary: Orchestrates design tokens across platform themes.
+    - name: frontend-rendering-strategist
+      tier: 4
+      swarm: swarm-18
+      summary: Specialist in hydration, streaming, and caching strategies.
+    - name: lead-data-platform-architect
+      tier: 2
+      swarm: swarm-20
+      summary: Strategic authority for data platforms and persistence.
+    - name: lead-modern-frontend-architect
+      tier: 2
+      swarm: swarm-18
+      summary: Strategic authority for modern frontend architecture.
+    - name: lead-styling-theming-architect
+      tier: 2
+      swarm: swarm-19
+      summary: Strategic authority for styling systems and themes.
+    - name: lead-visual-builder-architect
+      tier: 2
+      swarm: swarm-17
+      summary: Strategic authority for visual builder and canvas systems.
+    - name: neon-database-architect
+      tier: 3
+      swarm: swarm-20
+      summary: Neon-specific database architecture and optimization.
+    - name: nextjs-app-architect
+      tier: 3
+      swarm: swarm-18
+      summary: Next.js App Router and RSC architecture specialist.
+    - name: node-logic-specialist
+      tier: 4
+      swarm: swarm-17
+      summary: Specialist in graph-based node logic and validation.
+    - name: react-server-components-expert
+      tier: 4
+      swarm: swarm-18
+      summary: Specialist in RSC patterns and server-side logic.
+    - name: rtl-layout-specialist
+      tier: 4
+      swarm: swarm-19
+      summary: Specialist in complex RTL layouts and bidirectional UI.
+    - name: visual-asset-manager
+      tier: 4
+      swarm: swarm-17
+      summary: Manages assets and media within the visual canvas.
+    - name: visual-canvas-architect
+      tier: 3
+      swarm: swarm-17
+      summary: Architect for infinite canvas and viewport logic.
+    - name: visual-interaction-designer
+      tier: 4
+      swarm: swarm-17
+      summary: Designer for advanced canvas-based interactions.
+    - name: visual-state-engine
+      tier: 4
+      swarm: swarm-17
+      summary: Governs state synchronization for visual builders.
+    - name: vite-build-specialist
+      tier: 4
+      swarm: swarm-18
+      summary: Specialist in Vite build pipelines and optimization.

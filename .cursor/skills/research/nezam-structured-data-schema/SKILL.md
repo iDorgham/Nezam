@@ -24,7 +24,7 @@ Specify and validate JSON-LD structured data so pages qualify for rich results, 
 4. Cross-link entities via `sameAs` (Wikipedia, Wikidata, social handles) and `mainEntityOfPage`.
 5. Validate with Schema Markup Validator and Rich Results Test before merge.
 6. Inject JSON-LD via SSR (avoid client-only rendering); set `Cache-Control` to honor edge.
-7. Track rich-result eligibility and impression deltas in Search Console; log in `docs/workspace/context/`.
+7. Track rich-result eligibility and impression deltas in Search Console; log in `.nezam/workspace/context/`.
 
 # Validation & Metrics
 

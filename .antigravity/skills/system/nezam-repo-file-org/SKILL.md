@@ -13,7 +13,7 @@ Maintain a clean, navigable repository structure while preventing broken imports
 # Inputs
 - Current source tree and module boundaries.
 - Existing architecture docs and workspace conventions.
-- Active feature/spec scope from `docs/workspace/plans/INDEX.md`.
+- Active feature/spec scope from `.nezam/workspace/plans/INDEX.md`.
 
 # Step-by-Step Workflow
 1. Define the target structure before moving files (domain folders, docs, tooling boundaries).
@@ -24,7 +24,7 @@ Maintain a clean, navigable repository structure while preventing broken imports
    - Lint
    - Type-check/build
    - Focused tests for impacted modules
-6. Update related docs and references (`docs/workspace/context/*`, plan files, index files) when structure changes.
+6. Update related docs and references (`.nezam/workspace/context/*`, plan files, index files) when structure changes.
 7. Run `/SCAN docs` and `/SCAN code` to detect stale references and broken module boundaries.
 8. Use `/FIX` to remediate any path, import, or documentation regressions.
 9. Persist final structure updates using `/SAVE log`.
@@ -49,7 +49,7 @@ Maintain a clean, navigable repository structure while preventing broken imports
 # Anti-Patterns
 - Bulk moves with deferred import repair.
 - Directory reshuffles without architecture rationale.
-- Leaving stale links in `docs/workspace/context` or plan artifacts.
+- Leaving stale links in `.nezam/workspace/context` or plan artifacts.
 - Mixing structural refactors with unrelated functional changes.
 
 # External Reference

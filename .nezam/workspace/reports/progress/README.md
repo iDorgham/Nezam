@@ -6,4 +6,4 @@
 
 **Naming:** Rolling latest: `PROGRESS_REPORT.latest.md`. Point-in-time: `PROGRESS_REPORT-<YYYYMMDD>.md`.
 
-**Do not** store durable project memory only here — sync decisions into `docs/workspace/context/MEMORY.md` when they stick.
+**Do not** store durable project memory only here — sync decisions into `.nezam/workspace/context/MEMORY.md` when they stick.

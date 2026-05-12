@@ -1,0 +1,16 @@
+name: SDD Gate Enforcement
+on:
+  pull_request:
+    paths: ['docs/plans/**', '.cursor/state/**']
+jobs:
+  gate-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          if [ ! -f .cursor/state/plan_progress.yaml ]; then
+            echo "❌ plan_progress.yaml missing"
+            exit 1
+          fi
+          node scripts/check-sdd-swarm-integrity.js
+          echo "✅ SDD gates validated"

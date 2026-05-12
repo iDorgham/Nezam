@@ -125,4 +125,4 @@ SDK install matches the locked-in stack at that moment. Required output:
   `auth0-migration`, `express-oauth2-jwt-bearer`, `auth0-swift`, `auth0-android`.
 - Workspace rules: `.cursor/rules/workspace-orchestration.mdc`,
   `.cursor/rules/design-dev-gates.mdc`.
-- Plans: `docs/workspace/plans/04-build/04-integrations/TASKS.md`.
+- Plans: `.nezam/workspace/plans/04-build/04-integrations/TASKS.md`.

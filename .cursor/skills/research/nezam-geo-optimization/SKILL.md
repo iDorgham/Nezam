@@ -24,7 +24,7 @@ Make content reliably discoverable, cite-worthy, and faithfully reproducible by 
 4. Increase topical depth: cover sub-questions LLMs are likely to retrieve (definitions, comparisons, criteria, exceptions, FAQs).
 5. Reinforce factual claims with on-page citations and `<cite>` or footnote-style references LLMs can extract.
 6. Emit JSON-LD `@id` URIs that match canonical URLs; align with `nezam-structured-data-schema`.
-7. Validate against AI overviews tooling and capture appearance evidence in `docs/workspace/context/`.
+7. Validate against AI overviews tooling and capture appearance evidence in `.nezam/workspace/context/`.
 
 # Validation & Metrics
 

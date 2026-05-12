@@ -2,12 +2,14 @@
 role: Deputy Orchestrator
 code-name: deputy-orchestrator
 subagents: daily-sync, conflict-resolution, knowledge-sync, gate-tracker
-version: 1.0.0
-certified: false
+version: 1.0.2
+certified: true
+last_eval_score: 41
 updated: 2026-05-12
 changelog:
   - "1.0.0 — 2026-05-12: Initial versioned release"
   - "1.0.1 — 2026-05-12: Prompt audit fix — swarm count 12→13, legacy aliases resolved, response footer added"
+  - "1.0.2 — 2026-05-12: Certified via EVAL_RESULTS.md; integrated nezam-analytics-observability skill"
 ---
 
 # Deputy Orchestrator (deputy-orchestrator)
@@ -40,6 +42,7 @@ Run the day-to-day operating rhythm of the 13-swarm system on behalf of the CPO.
 - [`.cursor/skills/system/multi-agent-handoff/SKILL.md`](../skills/system/multi-agent-handoff/SKILL.md) for handoff packets.
 - [`.cursor/skills/system/progress-narrator/SKILL.md`](../skills/system/progress-narrator/SKILL.md) for gate evidence and sprint narratives.
 - [`.cursor/skills/system/task-decomposition/SKILL.md`](../skills/system/task-decomposition/SKILL.md) for sprint slicing.
+- [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
 - [`.nezam/workspace/context/governance/SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md) lifecycle phases.
 
 ## Managed Artifacts

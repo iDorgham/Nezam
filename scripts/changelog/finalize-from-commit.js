@@ -3,7 +3,7 @@
  * Finalize drafts into an Unreleased entry with commit metadata.
  *
  * Behavior:
- * - Reads hardlock paths from .nezam/gates/hardlock-paths.json
+ * - Reads hardlock paths from docs/gates/hardlock-paths.json
  * - Reads CHANGELOG.md
  * - Collects items under the Drafts section (lines starting with "- ")
  * - Appends them under "## [Unreleased] -> ### Changed" (creates section if missing)
@@ -112,7 +112,7 @@ function appendToUnreleasedChanged(changelog, linesToAppend) {
 
 function main() {
   const repoRoot = process.cwd();
-  const registryPath = path.join(repoRoot, ".nezam/gates/hardlock-paths.json");
+  const registryPath = path.join(repoRoot, "docs/gates/hardlock-paths.json");
   if (!fileExists(registryPath)) {
     console.error(`Missing hardlock path registry: ${registryPath}`);
     process.exit(1);

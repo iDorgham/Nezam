@@ -12,7 +12,7 @@ Generated/evolved primarily via `/PLAN sdd`.
 - `IA_CONTENT.md`
 - `VERSIONING.md`
 - `docs/DESIGN.md` (repo root when present, generated from design template)
-- `docs/workspace/plans/04-harden/perf.md` populated with release budgets and stop conditions
+- `.nezam/workspace/plans/04-harden/perf.md` populated with release budgets and stop conditions
 - Architecture/data docs as complexity demands
 
 ## Stage exit checklist
@@ -24,4 +24,4 @@ Generated/evolved primarily via `/PLAN sdd`.
 | Content | Page/section copy map and metadata stubs | Content map aligns with IA |
 | Design | `docs/DESIGN.md` with token/type/motion/3D/component contracts | Design-dev gates satisfied |
 | Development | Feature specs + implementation slices | No gate violations in rules |
-| Hardening | Perf/a11y evidence in `docs/workspace/plans/04-harden/perf.md` | LCP/CLS/INP and WCAG targets pass |
+| Hardening | Perf/a11y evidence in `.nezam/workspace/plans/04-harden/perf.md` | LCP/CLS/INP and WCAG targets pass |

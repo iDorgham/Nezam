@@ -16,10 +16,10 @@
 
 | ID | Blocker | Unblocks when |
 | -- | ------- | ------------- |
-| B1 | No `docs/core/required/features/<id>/SPEC.md` files yet — only [`docs/core/required/features/README.md`](docs/core/required/features/README.md) | First feature epic scoped + SPEC written |
+| B1 | No `docs/prd/features/<id>/SPEC.md` files yet — only [`docs/prd/features/README.md`](docs/prd/features/README.md) | First feature epic scoped + SPEC written |
 | B2 | No application package at repo root (`package.json` is toolkit-only) — no runnable UI/E2E target | App/framework chosen under `apps/` or root scope expanded |
-| B3 | [`docs/core/required/sdd/SEO_RESEARCH.md`](docs/core/required/sdd/SEO_RESEARCH.md) missing | `/CREATE seo` or authored research doc |
-| B4 | [`docs/core/required/sdd/ROADMAP.md`](docs/core/required/sdd/ROADMAP.md) missing | Roadmap slice authored under SDD |
+| B3 | [`docs/prd/sdd/SEO_RESEARCH.md`](docs/prd/sdd/SEO_RESEARCH.md) missing | `/CREATE seo` or authored research doc |
+| B4 | [`docs/prd/sdd/ROADMAP.md`](docs/prd/sdd/ROADMAP.md) missing | Roadmap slice authored under SDD |
 
 ---
 
@@ -29,9 +29,9 @@ Each row lists the ten required fields as numbered bullets.
 
 ### TM-ONB-001 — PRD + prompt onboarding
 
-1. **Source:** [`docs/core/required/PRD.md`](docs/core/required/PRD.md) requirement R1; [`scripts/checks/check-onboarding-readiness.sh`](scripts/checks/check-onboarding-readiness.sh).
+1. **Source:** [`docs/prd/PRD.md`](docs/prd/PRD.md) requirement R1; [`scripts/checks/check-onboarding-readiness.sh`](scripts/checks/check-onboarding-readiness.sh).
 2. **Test type:** Integration (shell / CI).
-3. **Acceptance:** Script exits 0 when PRD and `docs/core/required/PROJECT_PROMPT.md` exist.
+3. **Acceptance:** Script exits 0 when PRD and `docs/prd/PROJECT_PROMPT.md` exist.
 4. **Mocking:** None; filesystem-only.
 5. **SEO:** N/A (infra check).
 6. **A11y:** N/A.
@@ -81,7 +81,7 @@ Each row lists the ten required fields as numbered bullets.
 
 ### TM-PRD-002 — Plan + SDD discovery (PRD R2)
 
-1. **Source:** [`docs/core/required/prd/PRD.md`](docs/core/required/prd/PRD.md) R2.
+1. **Source:** [`docs/prd/prd/PRD.md`](docs/prd/prd/PRD.md) R2.
 2. **Test type:** Manual audit.
 3. **Acceptance:** `docs/plans/INDEX.md` lists MT/PT rows with gate IDs; phase TASKS files exist under `docs/plans/*/TASKS.md`.
 4. **Mocking:** None.

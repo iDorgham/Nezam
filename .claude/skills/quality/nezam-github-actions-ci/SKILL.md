@@ -12,7 +12,7 @@ Create and maintain production-grade GitHub Actions workflows aligned with NEZAM
 
 # Inputs
 - Existing `.github/workflows/*.yml` files.
-- Branching/release policy docs (`docs/workspace/plans/tag-version-plan.md`, `docs/workspace/plans/commit-conventions.md`).
+- Branching/release policy docs (`.nezam/workspace/plans/tag-version-plan.md`, `.nezam/workspace/plans/commit-conventions.md`).
 - Required quality commands (lint, tests, type-check, security scans).
 
 # Step-by-Step Workflow

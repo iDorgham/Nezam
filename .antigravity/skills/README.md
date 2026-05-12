@@ -47,4 +47,4 @@ Format: `<category>/<descriptive-name>/SKILL.md`
 ## Adding a new skill
 
 Run: /CREATE skill
-Or copy from `docs/templates/` skill templates and fill in `SKILL.md`.
+Or copy from `.nezam/templates/` skill templates and fill in `SKILL.md`.

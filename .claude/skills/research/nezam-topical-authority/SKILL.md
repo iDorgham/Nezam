@@ -26,7 +26,7 @@ Build defensible topical authority by organizing content into hub-and-spoke clus
 4. Define anchor-text patterns: descriptive, varied, entity-bearing; avoid duplicate anchors across the cluster.
 5. Compute link-equity flow: ensure each spoke is reachable in ≤ 2 clicks from the homepage.
 6. Set up periodic content gap analysis: missing spokes, orphaned pages, decaying spokes.
-7. Validate via crawl tools and log file checks; document outcomes in `docs/workspace/context/`.
+7. Validate via crawl tools and log file checks; document outcomes in `.nezam/workspace/context/`.
 
 # Validation & Metrics
 

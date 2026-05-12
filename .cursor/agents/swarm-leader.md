@@ -3,7 +3,8 @@ role: Swarm Leader and Project Manager
 code-name: PM-01
 subagents: orchestrator, hardlock-enforcer, memory-operator
 version: 1.0.0
-certified: false
+certified: true
+last_eval_score: "pass"
 updated: 2026-05-12
 changelog:
   - "1.0.0 — 2026-05-12: Initial versioned release"
@@ -143,7 +144,7 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 
 ## Protocol References
 
-- Communication contract: `docs/workspace/context/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `docs/workspace/context/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md`
 - Orchestration controller: [.cursor/agents/subagent-controller.md](subagent-controller.md)
 - [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)

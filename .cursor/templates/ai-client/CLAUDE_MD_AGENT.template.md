@@ -4,9 +4,7 @@ This repository follows workspace orchestration: Specification-Driven Developmen
 
 ## Read first
 
-- `docs/workspace/context/CONTEXT.md`
-- `docs/workspace/context/CONTEXT.md`
-- `docs/workspace/context/CONTEXT.md`
+- `docs/nezam/memory/CONTEXT.md`
 - `docs/specs/prd/PRD.md`
 - `docs/prd/PROJECT_PROMPT.md`
 

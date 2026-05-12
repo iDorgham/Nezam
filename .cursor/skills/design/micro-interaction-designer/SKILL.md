@@ -1,5 +1,5 @@
 ---
-name: micro-interaction-designer
+name: "nezam-micro-interaction-designer"
 description: Define professional motion and micro-interactions with performance and accessibility constraints.
 version: 1.0.0
 updated: 2026-05-08

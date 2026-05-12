@@ -1,5 +1,5 @@
 ---
-name: css-architecture-runtime
+name: "nezam-css-architecture-runtime"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

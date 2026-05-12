@@ -36,5 +36,5 @@ Frontend implementation cannot proceed until design outputs are complete and app
 
 ## Protocol References
 
-- Communication contract: `docs/workspace/context/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `docs/workspace/context/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md`

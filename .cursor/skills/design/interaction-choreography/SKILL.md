@@ -1,5 +1,5 @@
 ---
-name: interaction-choreography
+name: "nezam-interaction-choreography"
 description: "Defines motion, transitions, and micro-interactions with structured 2-variation discipline, token enforcement, and branch vs replace mode decision logic."
 version: 2.0.0
 updated: 2026-05-12

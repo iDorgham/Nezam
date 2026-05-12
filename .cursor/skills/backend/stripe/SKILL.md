@@ -1,6 +1,6 @@
 ---
 skill_id: "backend/stripe"
-name: "stripe"
+name: "nezam-stripe"
 description: "Implements Stripe payment processing, Checkout, subscriptions, Connect, and secure webhooks."
 version: 1.0.0
 updated: 2026-05-12

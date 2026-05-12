@@ -1,5 +1,5 @@
 ---
-name: guide-instructor-domains
+name: "nezam-guide-instructor-domains"
 description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:
   - "docs/workspace/context/CONTEXT.md"

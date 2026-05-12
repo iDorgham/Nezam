@@ -1,6 +1,6 @@
 ---
 skill_id: "backend/neon-advanced"
-name: "neon-advanced"
+name: "nezam-neon-advanced"
 description: "Advanced Neon Postgres patterns: database branching, serverless pooling, egress optimization, and ephemeral environments."
 version: 1.0.0
 updated: 2026-05-12

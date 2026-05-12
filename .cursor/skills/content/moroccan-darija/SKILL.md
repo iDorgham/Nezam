@@ -1,5 +1,5 @@
 ---
-name: moroccan-darija
+name: "nezam-moroccan-darija"
 version: 1.0.0
 updated: 2026-05-12
 changelog:

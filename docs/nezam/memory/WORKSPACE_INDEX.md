@@ -53,21 +53,21 @@ Long procedures invoked by commands or `@` references:
 
 | Skill                                                                            | Purpose                                                                          |
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `[plan-full](../../.cursor/skills/plan-full/SKILL.md)`                   | Full SDD spine: roadmap, phases, architecture, data model, feature spec folders. |
-| `[design-md](../../.cursor/skills/design-md/SKILL.md)`                   | Design-profile prototyping discipline and handoff contracts.                                              |
-| `[seo-ia-content](../../.cursor/skills/seo-ia-content/SKILL.md)`         | SEO → IA → content sequencing.                                                   |
-| `[git-workflow](../../.cursor/skills/git-workflow/SKILL.md)`             | Branching, conventional commits, tags/releases.                                  |
-| `[external-ai-report](../../.cursor/skills/external-ai-report/SKILL.md)` | Progress reports for browser companions.                                         |
-| `[nezam-testing-automation](../../.cursor/skills/nezam-testing-automation/SKILL.md)` | Deterministic unit/E2E/visual test setup and `/SCAN tests` integration.          |
-| `[nezam-scan-fix-loop](../../.cursor/skills/nezam-scan-fix-loop/SKILL.md)` | Structured `/SCAN` → `/FIX` remediation loop with `docs/plans/INDEX.md` tracking.      |
-| `[nezam-github-actions-ci](../../.cursor/skills/nezam-github-actions-ci/SKILL.md)` | GitHub Actions CI/CD hardening, checks, artifacts, release gates.                |
-| `[nezam-gh-security-compliance](../../.cursor/skills/nezam-gh-security-compliance/SKILL.md)` | Security compliance workflow for Dependabot, CodeQL, and secret scanning.         |
-| `[nezam-repo-file-org](../../.cursor/skills/nezam-repo-file-org/SKILL.md)` | Repository organization workflow with safe file moves and import updates.         |
-| `[nezam-docs-context-sync](../../.cursor/skills/nezam-docs-context-sync/SKILL.md)` | Context/index/plan synchronization workflow for doc lifecycle integrity.          |
-| `[nezam-founder-onboarding](../../.cursor/skills/nezam-founder-onboarding/SKILL.md)` | Founder interview to artifact generation and plain-language setup guidance. |
-| `[nezam-health-score](../../.cursor/skills/nezam-health-score/SKILL.md)` | Generates root `HEALTH.md` 0–100 score across specs, design, security, perf, tests, and content. |
-| `[nezam-skill-composer](../../.cursor/skills/nezam-skill-composer/SKILL.md)` | Auto-resolves natural-language tasks to an ordered skill stack with MENA-aware routing. |
-| `[nezam-decision-journal](../../.cursor/skills/nezam-decision-journal/SKILL.md)` | Writes founder-readable decisions to `DECISIONS_PLAIN.md`. |
+| `[plan-full](../../.cursor/skills/external/plan-full/SKILL.md)`                   | Full SDD spine: roadmap, phases, architecture, data model, feature spec folders. |
+| `[design-md](../../.cursor/skills/design/design-md/SKILL.md)`                   | Design-profile prototyping discipline and handoff contracts.                                              |
+| `[seo-ia-content](../../.cursor/skills/research/seo-ia-content/SKILL.md)`         | SEO → IA → content sequencing.                                                   |
+| `[git-workflow](../../.cursor/skills/external/git-workflow/SKILL.md)`             | Branching, conventional commits, tags/releases.                                  |
+| `[external-ai-report](../../.cursor/skills/external/external-ai-report/SKILL.md)` | Progress reports for browser companions.                                         |
+| `[nezam-testing-automation](../../.cursor/skills/quality/testing-automation/SKILL.md)` | Deterministic unit/E2E/visual test setup and `/SCAN tests` integration.          |
+| `[nezam-scan-fix-loop](../../.cursor/skills/quality/scan-fix-loop/SKILL.md)` | Structured `/SCAN` → `/FIX` remediation loop with `docs/plans/INDEX.md` tracking.      |
+| `[nezam-github-actions-ci](../../.cursor/skills/quality/github-actions-ci/SKILL.md)` | GitHub Actions CI/CD hardening, checks, artifacts, release gates.                |
+| `[nezam-gh-security-compliance](../../.cursor/skills/quality/gh-security-compliance/SKILL.md)` | Security compliance workflow for Dependabot, CodeQL, and secret scanning.         |
+| `[nezam-repo-file-org](../../.cursor/skills/system/repo-file-org/SKILL.md)` | Repository organization workflow with safe file moves and import updates.         |
+| `[nezam-docs-context-sync](../../.cursor/skills/system/docs-context-sync/SKILL.md)` | Context/index/plan synchronization workflow for doc lifecycle integrity.          |
+| `[nezam-founder-onboarding](../../.cursor/skills/system/founder-onboarding/SKILL.md)` | Founder interview to artifact generation and plain-language setup guidance. |
+| `[nezam-health-score](../../.cursor/skills/system/health-score/SKILL.md)` | Generates root `HEALTH.md` 0–100 score across specs, design, security, perf, tests, and content. |
+| `[nezam-skill-composer](../../.cursor/skills/system/skill-composer/SKILL.md)` | Auto-resolves natural-language tasks to an ordered skill stack with MENA-aware routing. |
+| `[nezam-decision-journal](../../.cursor/skills/system/decision-journal/SKILL.md)` | Writes founder-readable decisions to `DECISIONS_PLAIN.md`. |
 
 
 Referenced heavily by `**/PLAN sdd`** / `**/PLAN all`**: `**plan-full**`. Add more skills under `.cursor/skills/**/SKILL.md` over time; this table lists the kit defaults.
@@ -80,83 +80,83 @@ Comprehensive `coi-*` suite covering planning, SEO/AEO/GEO, content, frontend, b
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-strategic-planning](../../.cursor/skills/nezam-strategic-planning/SKILL.md)` | Roadmap alignment, milestone gating, scope control, resource mapping. |
-| `[nezam-phase-gating-roadmap](../../.cursor/skills/nezam-phase-gating-roadmap/SKILL.md)` | SDD phase transitions, hard-block criteria, versioning triggers. |
-| `[nezam-task-decomposition](../../.cursor/skills/nezam-task-decomposition/SKILL.md)` | Epic → feature → task breakdown, dependency mapping, slice sizing. |
-| `[nezam-risk-mitigation](../../.cursor/skills/nezam-risk-mitigation/SKILL.md)` | Tech-debt tracking, FMEA, fallback planning, observability hooks. |
+| `[nezam-strategic-planning](../../.cursor/skills/system/strategic-planning/SKILL.md)` | Roadmap alignment, milestone gating, scope control, resource mapping. |
+| `[nezam-phase-gating-roadmap](../../.cursor/skills/system/phase-gating-roadmap/SKILL.md)` | SDD phase transitions, hard-block criteria, versioning triggers. |
+| `[nezam-task-decomposition](../../.cursor/skills/system/task-decomposition/SKILL.md)` | Epic → feature → task breakdown, dependency mapping, slice sizing. |
+| `[nezam-risk-mitigation](../../.cursor/skills/system/risk-mitigation/SKILL.md)` | Tech-debt tracking, FMEA, fallback planning, observability hooks. |
 
 #### SEO, GEO & AEO
 
 | Skill | Purpose |
 | --- | --- |
-| `[seo-ia-content](../../.cursor/skills/seo-ia-content/SKILL.md)` | SEO fundamentals + IA + content sequencing (canonical, sitemap, robots, titles/metas). |
-| `[nezam-geo-optimization](../../.cursor/skills/nezam-geo-optimization/SKILL.md)` | Generative Engine Optimization — entity mapping, AI-citation readiness. |
-| `[nezam-aeo-answer-engines](../../.cursor/skills/nezam-aeo-answer-engines/SKILL.md)` | Answer Engine Optimization — concise Q&A, voice/assistant formatting. |
-| `[nezam-structured-data-schema](../../.cursor/skills/nezam-structured-data-schema/SKILL.md)` | JSON-LD, schema.org validation, rich-snippet targeting. |
-| `[nezam-topical-authority](../../.cursor/skills/nezam-topical-authority/SKILL.md)` | Hub-and-spoke clusters, semantic linking, click depth. |
-| `[nezam-serp-feature-targeting](../../.cursor/skills/nezam-serp-feature-targeting/SKILL.md)` | Featured snippets, PAA, local pack, image/video carousels. |
+| `[seo-ia-content](../../.cursor/skills/research/seo-ia-content/SKILL.md)` | SEO fundamentals + IA + content sequencing (canonical, sitemap, robots, titles/metas). |
+| `[nezam-geo-optimization](../../.cursor/skills/research/geo-optimization/SKILL.md)` | Generative Engine Optimization — entity mapping, AI-citation readiness. |
+| `[nezam-aeo-answer-engines](../../.cursor/skills/research/aeo-answer-engines/SKILL.md)` | Answer Engine Optimization — concise Q&A, voice/assistant formatting. |
+| `[nezam-structured-data-schema](../../.cursor/skills/research/structured-data-schema/SKILL.md)` | JSON-LD, schema.org validation, rich-snippet targeting. |
+| `[nezam-topical-authority](../../.cursor/skills/research/topical-authority/SKILL.md)` | Hub-and-spoke clusters, semantic linking, click depth. |
+| `[nezam-serp-feature-targeting](../../.cursor/skills/research/serp-feature-targeting/SKILL.md)` | Featured snippets, PAA, local pack, image/video carousels. |
 
 #### Content & information architecture
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-ia-taxonomy](../../.cursor/skills/nezam-ia-taxonomy/SKILL.md)` | Navigation, URL hierarchy, breadcrumbs, taxonomy. |
-| `[nezam-content-modeling](../../.cursor/skills/nezam-content-modeling/SKILL.md)` | Content types, fields, blocks, preview/revision. |
-| `[nezam-editorial-workflows](../../.cursor/skills/nezam-editorial-workflows/SKILL.md)` | Draft → review → publish, role permissions, audit trail. |
-| `[nezam-cms-integration](../../.cursor/skills/nezam-cms-integration/SKILL.md)` | Headless CMS APIs, webhooks, ISR/preview, fallback rendering. |
+| `[nezam-ia-taxonomy](../../.cursor/skills/research/ia-taxonomy/SKILL.md)` | Navigation, URL hierarchy, breadcrumbs, taxonomy. |
+| `[nezam-content-modeling](../../.cursor/skills/content/content-modeling/SKILL.md)` | Content types, fields, blocks, preview/revision. |
+| `[nezam-editorial-workflows](../../.cursor/skills/content/editorial-workflows/SKILL.md)` | Draft → review → publish, role permissions, audit trail. |
+| `[nezam-cms-integration](../../.cursor/skills/backend/cms-integration/SKILL.md)` | Headless CMS APIs, webhooks, ISR/preview, fallback rendering. |
 
 #### Frontend, UI/UX & design systems
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-react-architecture](../../.cursor/skills/nezam-react-architecture/SKILL.md)` | React 19 / Next.js 15 — RSC split, Server Actions, state strategy. |
-| `[nezam-component-library-api](../../.cursor/skills/nezam-component-library-api/SKILL.md)` | Typed, variant-driven React components with Storybook + a11y. |
-| `[nezam-ui-ux-design](../../.cursor/skills/nezam-ui-ux-design/SKILL.md)` | User flows, interaction states, microcopy, WCAG 2.2 AA mapping. |
-| `[nezam-dashboard-patterns](../../.cursor/skills/nezam-dashboard-patterns/SKILL.md)` | Dense data layouts, filtering/sorting UX, KPI cards, responsive tables. |
+| `[nezam-react-architecture](../../.cursor/skills/frontend/react-architecture/SKILL.md)` | React 19 / Next.js 15 — RSC split, Server Actions, state strategy. |
+| `[nezam-component-library-api](../../.cursor/skills/design/component-library-api/SKILL.md)` | Typed, variant-driven React components with Storybook + a11y. |
+| `[nezam-ui-ux-design](../../.cursor/skills/design/ui-ux-design/SKILL.md)` | User flows, interaction states, microcopy, WCAG 2.2 AA mapping. |
+| `[nezam-dashboard-patterns](../../.cursor/skills/design/dashboard-patterns/SKILL.md)` | Dense data layouts, filtering/sorting UX, KPI cards, responsive tables. |
 | `[nezam-pro-design-tokens](../../.cursor/skills/nezam-pro-design-tokens/SKILL.md)` | W3C tokens, theme switching, fluid typography (design-system core). |
-| `[token-grid-typography](../../.cursor/skills/token-grid-typography/SKILL.md)` | CSS Grid/Flex, container queries, `clamp()`, breakpoint matrix. |
+| `[token-grid-typography](../../.cursor/skills/design/token-grid-typography/SKILL.md)` | CSS Grid/Flex, container queries, `clamp()`, breakpoint matrix. |
 | `[nezam-motion-3d-progressive](../../.cursor/skills/nezam-motion-3d-progressive/SKILL.md)` | Framer Motion / GSAP, GPU compositing, `prefers-reduced-motion`, R3F fallbacks. |
-| `[nezam-a11y-automation](../../.cursor/skills/nezam-a11y-automation/SKILL.md)` | axe-core, keyboard-nav, screen-reader audits, contrast checks. |
+| `[nezam-a11y-automation](../../.cursor/skills/quality/a11y-automation/SKILL.md)` | axe-core, keyboard-nav, screen-reader audits, contrast checks. |
 
 #### Backend, data & APIs
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-api-design](../../.cursor/skills/nezam-api-design/SKILL.md)` | OpenAPI 3.1, REST/GraphQL, versioning, idempotency, RFC 9457. |
-| `[nezam-api-gateway](../../.cursor/skills/nezam-api-gateway/SKILL.md)` | Rate limits, auth middleware, transformation, resilience controls. |
-| `[nezam-supabase-architect](../../.cursor/skills/nezam-supabase-architect/SKILL.md)` | Postgres RLS, Auth, Realtime, Edge Functions, schema management. |
-| `[nezam-prisma-orm](../../.cursor/skills/nezam-prisma-orm/SKILL.md)` | Prisma 6 schema, migrations, type-safe client, seeding. |
-| `[nezam-database-optimization](../../.cursor/skills/nezam-database-optimization/SKILL.md)` | Indexes, query planning, connection pooling, replicas. |
-| `[nezam-cache-strategies](../../.cursor/skills/nezam-cache-strategies/SKILL.md)` | HTTP, Redis, edge cache, tag-based invalidation. |
+| `[nezam-api-design](../../.cursor/skills/backend/api-design/SKILL.md)` | OpenAPI 3.1, REST/GraphQL, versioning, idempotency, RFC 9457. |
+| `[nezam-api-gateway](../../.cursor/skills/backend/api-gateway/SKILL.md)` | Rate limits, auth middleware, transformation, resilience controls. |
+| `[nezam-supabase-architect](../../.cursor/skills/backend/supabase-architect/SKILL.md)` | Postgres RLS, Auth, Realtime, Edge Functions, schema management. |
+| `[nezam-prisma-orm](../../.cursor/skills/backend/prisma-orm/SKILL.md)` | Prisma 6 schema, migrations, type-safe client, seeding. |
+| `[nezam-database-optimization](../../.cursor/skills/backend/database-optimization/SKILL.md)` | Indexes, query planning, connection pooling, replicas. |
+| `[nezam-cache-strategies](../../.cursor/skills/backend/cache-strategies/SKILL.md)` | HTTP, Redis, edge cache, tag-based invalidation. |
 
 #### Cloud, DevOps & infrastructure
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-vercel-deploy](../../.cursor/skills/nezam-vercel-deploy/SKILL.md)` | Vercel CLI, vercel.json, Edge Config, ISR/SSR, deployment hooks. |
-| `[nezam-aws-infra](../../.cursor/skills/nezam-aws-infra/SKILL.md)` | AWS CDK v2, IAM least-privilege, S3/CloudFront, Secrets Manager. |
-| `[nezam-cloudflare-edge](../../.cursor/skills/nezam-cloudflare-edge/SKILL.md)` | Workers, KV/D1/R2, Pages, cache rules, geographic routing. |
-| `[nezam-devops-pipeline](../../.cursor/skills/nezam-devops-pipeline/SKILL.md)` | CI/CD pipelines, env promotion, artifact versioning, rollback. |
-| `[git-workflow](../../.cursor/skills/git-workflow/SKILL.md)` | Branching, conventional commits, PR checks, branch protection, Dependabot. |
-| `[nezam-cdn-optimization](../../.cursor/skills/nezam-cdn-optimization/SKILL.md)` | Image optimization, prefetch/preload, cache tags, edge routing. |
+| `[nezam-vercel-deploy](../../.cursor/skills/infrastructure/vercel-deploy/SKILL.md)` | Vercel CLI, vercel.json, Edge Config, ISR/SSR, deployment hooks. |
+| `[nezam-aws-infra](../../.cursor/skills/infrastructure/aws-infra/SKILL.md)` | AWS CDK v2, IAM least-privilege, S3/CloudFront, Secrets Manager. |
+| `[nezam-cloudflare-edge](../../.cursor/skills/infrastructure/cloudflare-edge/SKILL.md)` | Workers, KV/D1/R2, Pages, cache rules, geographic routing. |
+| `[nezam-devops-pipeline](../../.cursor/skills/infrastructure/devops-pipeline/SKILL.md)` | CI/CD pipelines, env promotion, artifact versioning, rollback. |
+| `[git-workflow](../../.cursor/skills/external/git-workflow/SKILL.md)` | Branching, conventional commits, PR checks, branch protection, Dependabot. |
+| `[nezam-cdn-optimization](../../.cursor/skills/infrastructure/cdn-optimization/SKILL.md)` | Image optimization, prefetch/preload, cache tags, edge routing. |
 
 #### Security, auth & compliance
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-auth-workflows](../../.cursor/skills/nezam-auth-workflows/SKILL.md)` | OAuth 2.1 / OIDC, JWT vs session, MFA, RBAC, token rotation. |
-| `[nezam-security-hardening](../../.cursor/skills/nezam-security-hardening/SKILL.md)` | OWASP Top 10, CSP, dependency scanning, SAST/DAST. |
-| `[nezam-secret-management](../../.cursor/skills/nezam-secret-management/SKILL.md)` | Vault / AWS SM / Vercel / Doppler, OIDC federation, rotation. |
-| `[nezam-privacy-compliance](../../.cursor/skills/nezam-privacy-compliance/SKILL.md)` | GDPR / CCPA, consent gating, audit logging, right-to-delete. |
+| `[nezam-auth-workflows](../../.cursor/skills/backend/auth-workflows/SKILL.md)` | OAuth 2.1 / OIDC, JWT vs session, MFA, RBAC, token rotation. |
+| `[nezam-security-hardening](../../.cursor/skills/quality/security-hardening/SKILL.md)` | OWASP Top 10, CSP, dependency scanning, SAST/DAST. |
+| `[nezam-secret-management](../../.cursor/skills/infrastructure/secret-management/SKILL.md)` | Vault / AWS SM / Vercel / Doppler, OIDC federation, rotation. |
+| `[nezam-privacy-compliance](../../.cursor/skills/quality/privacy-compliance/SKILL.md)` | GDPR / CCPA, consent gating, audit logging, right-to-delete. |
 
 #### Testing, quality & observability
 
 | Skill | Purpose |
 | --- | --- |
-| `[nezam-testing-strategy](../../.cursor/skills/nezam-testing-strategy/SKILL.md)` | Unit / integration / E2E / visual regression with Playwright + Vitest. |
-| `[nezam-performance-optimization](../../.cursor/skills/nezam-performance-optimization/SKILL.md)` | Core Web Vitals budgets, code splitting, bundle analysis, lazy loading. |
-| `[nezam-monitoring-observability](../../.cursor/skills/nezam-monitoring-observability/SKILL.md)` | OpenTelemetry, structured logging, distributed tracing, alerting. |
-| `[nezam-error-tracking](../../.cursor/skills/nezam-error-tracking/SKILL.md)` | Sentry / Logtail, source maps, release correlation, alert routing. |
+| `[nezam-testing-strategy](../../.cursor/skills/quality/testing-strategy/SKILL.md)` | Unit / integration / E2E / visual regression with Playwright + Vitest. |
+| `[nezam-performance-optimization](../../.cursor/skills/quality/performance-optimization/SKILL.md)` | Core Web Vitals budgets, code splitting, bundle analysis, lazy loading. |
+| `[nezam-monitoring-observability](../../.cursor/skills/infrastructure/monitoring-observability/SKILL.md)` | OpenTelemetry, structured logging, distributed tracing, alerting. |
+| `[nezam-error-tracking](../../.cursor/skills/infrastructure/error-tracking/SKILL.md)` | Sentry / Logtail, source maps, release correlation, alert routing. |
 
 ---
 

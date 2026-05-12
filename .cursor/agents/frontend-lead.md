@@ -34,5 +34,5 @@ Coordinate API contracts with BE-01 early and keep frontend assumptions synchron
 
 ## Protocol References
 
-- Communication contract: `docs/workspace/context/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `docs/workspace/context/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md`

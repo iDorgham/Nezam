@@ -1,5 +1,5 @@
 ---
-name: design-selector
+name: "nezam-design-selector"
 description: Orchestrates the full design selection flow. Detects product type, presents wireframe options sequentially using the wireframe-catalog, saves choices to DESIGN_CHOICES.md, then generates DESIGN.md from confirmed selections.
 version: 1.0.0
 updated: 2026-05-10

@@ -30,15 +30,15 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | Path | Role |
 |---|---|
 | `docs/prd/PRD.md` | Product Requirements Document |
-| `docs/plans/**` | Phase and task execution state |
+| `docs/nezam/plans/**` | Phase and task execution state |
 | `docs/specs/**` | Feature specs and SDD artifacts |
 | `.cursor/design/<brand>/design.md` | Active design profile |
-| `docs/memory/CONTEXT.md` | Current project context and active priorities |
-| `docs/memory/WORKSPACE_INDEX.md` | Static workspace map and capability index |
-| `docs/memory/MEMORY.md` | Durable project facts, decisions, scorecards |
-| `docs/memory/PHASE_HANDOFF.md` | Cross-agent brief at phase boundaries |
-| `docs/memory/DECISIONS.md` | Plain-language decision log |
-| `docs/reports/progress/PROGRESS_REPORT.latest.md` | Progress snapshot |
+| `docs/nezam/memory/CONTEXT.md` | Current project context and active priorities |
+| `docs/nezam/memory/WORKSPACE_INDEX.md` | Static workspace map and capability index |
+| `docs/nezam/memory/MEMORY.md` | Durable project facts, decisions, scorecards |
+| `docs/nezam/memory/PHASE_HANDOFF.md` | Cross-agent brief at phase boundaries |
+| `docs/nezam/memory/DECISIONS.md` | Plain-language decision log |
+| `docs/nezam/reports/progress/PROGRESS_REPORT.latest.md` | Progress snapshot |
 
 ---
 
@@ -49,10 +49,10 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | `.cursor/agents/**` | Team and persona charters, routing lenses |
 | `.cursor/skills/**/SKILL.md` | Deterministic workflows and procedure contracts |
 | `.cursor/rules/*.mdc` | Guardrails, hardlocks, and precedence policy |
-| `docs/memory/AGENT_COMM_PROTOCOL.md` | Inter-agent communication standards |
-| `docs/memory/ORCHESTRATION_ALIASES.md` | Command and alias routing governance |
-| `docs/memory/ERROR_HANDLING_PROTOCOL.md` | Error classification and response |
-| `docs/templates/**` | Reusable scaffolds for generated artifacts |
+| `docs/nezam/memory/AGENT_COMM_PROTOCOL.md` | Inter-agent communication standards |
+| `docs/nezam/memory/ORCHESTRATION_ALIASES.md` | Command and alias routing governance |
+| `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md` | Error classification and response |
+| `.cursor/templates/**` | Reusable scaffolds for generated artifacts |
 
 ---
 
@@ -64,10 +64,10 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | `AGENTS.md` | Codex/AGENTS workspace contract |
 | `GEMINI.md` | Gemini workspace contract |
 | `QWEN.md` | Qwen workspace contract |
-| `docs/core/VERSIONING.md` | Versioning, tag, and release policy |
-| `docs/memory/MCP_REGISTRY.md` | MCP tool registry |
-| `docs/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
-| `docs/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
+| `docs/nezam/core/VERSIONING.md` | Versioning, tag, and release policy |
+| `docs/nezam/memory/MCP_REGISTRY.md` | MCP tool registry |
+| `docs/nezam/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
+| `docs/nezam/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
 | `.claude/**`, `.gemini/**`, `.opencode/**`, `.codex/**` | Generated client mirrors synced from `.cursor/` |
 
 ---
@@ -79,8 +79,8 @@ Session Runtime (L0)
       │ captured via capture protocol
       ▼
 Project SDD Truth (L1)  ←── git committed, source of truth
-  docs/memory/MEMORY.md
-  docs/plans/
+  docs/nezam/memory/MEMORY.md
+  docs/nezam/plans/
   docs/prd/PRD.md
       │ governs behavior via
       ▼
@@ -101,14 +101,14 @@ Workspace Governance (L3)
 
 | Old Path | New Path |
 |---|---|
-| `docs/memory/MEMORY.md` | `docs/memory/MEMORY.md` |
-| `docs/memory/CONTEXT.md` | `docs/memory/CONTEXT.md` |
-| `docs/memory/PHASE_HANDOFF.md` | `docs/memory/PHASE_HANDOFF.md` |
-| `docs/memory/WORKSPACE_INDEX.md` | `docs/memory/WORKSPACE_INDEX.md` |
-| `docs/memory/DECISIONS_PLAIN.md` | `docs/memory/DECISIONS.md` |
-| `docs/memory/MULTI_TOOL_INDEX.md` | `docs/memory/MULTI_TOOL_INDEX.md` |
-| `docs/memory/MCP_REGISTRY.md` | `docs/memory/MCP_REGISTRY.md` |
-| `docs/memory/SKILL_CHANGELOG.md` | `docs/memory/SKILL_CHANGELOG.md` |
+| `docs/memory/MEMORY.md` | `docs/nezam/memory/MEMORY.md` |
+| `docs/memory/CONTEXT.md` | `docs/nezam/memory/CONTEXT.md` |
+| `docs/memory/PHASE_HANDOFF.md` | `docs/nezam/memory/PHASE_HANDOFF.md` |
+| `docs/memory/WORKSPACE_INDEX.md` | `docs/nezam/memory/WORKSPACE_INDEX.md` |
+| `docs/memory/DECISIONS_PLAIN.md` | `docs/nezam/memory/DECISIONS.md` |
+| `docs/memory/MULTI_TOOL_INDEX.md` | `docs/nezam/memory/MULTI_TOOL_INDEX.md` |
+| `docs/memory/MCP_REGISTRY.md` | `docs/nezam/memory/MCP_REGISTRY.md` |
+| `docs/memory/SKILL_CHANGELOG.md` | `docs/nezam/memory/SKILL_CHANGELOG.md` |
 | `docs/prd/PRD.md` | `docs/prd/PRD.md` |
-| `docs/plans/` | `docs/plans/` |
-| `docs/workspace/templates/` | `docs/templates/` |
+| `docs/plans/` | `docs/nezam/plans/` |
+| `docs/workspace/templates/` | `.cursor/templates/` |

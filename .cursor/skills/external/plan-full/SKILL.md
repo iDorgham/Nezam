@@ -1,5 +1,5 @@
 ---
-name: plan-full
+name: "nezam-plan-full"
 description: Full SDD planning spine — roadmap, phases, specs, docs scaffolding with acceptance criteria matrices.
 version: 1.0.0
 updated: 2026-05-08

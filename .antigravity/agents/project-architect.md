@@ -37,5 +37,5 @@ Do not permit implementation to begin without approved architecture artifacts an
 
 ## Protocol References
 
-- Communication contract: `docs/workspace/context/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `docs/workspace/context/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md`

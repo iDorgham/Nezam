@@ -12,7 +12,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 
 - **Catalog:** `.cursor/design/<brand>/design.md` — **contract:** repository root **`DESIGN.md`**
 - **Shell:** `pnpm run design:apply -- <brand>`
-- **Cross-client sync:** [`docs/workspace/context/MULTI_TOOL_INDEX.md`](docs/workspace/context/MULTI_TOOL_INDEX.md) — after `.cursor/` edits run `pnpm ai:sync` then `pnpm ai:check`
+- **Cross-client sync:** [`docs/nezam/memory/MULTI_TOOL_INDEX.md`](docs/nezam/memory/MULTI_TOOL_INDEX.md) — after `.cursor/` edits run `pnpm ai:sync` then `pnpm ai:check`
 
 ## Workflow guardrails
 

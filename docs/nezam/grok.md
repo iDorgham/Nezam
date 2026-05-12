@@ -13,7 +13,7 @@
 **Brutally honest status:**
 
 - **Strengths:** Clear pipeline story (planning → design → develop → ship), explicit hardlocks in rules, rich agent/skill library, CI hooks for sync and design gates, path indirection via `.cursor/workspace.paths.yaml`.
-- **Weaknesses:** Orchestration is **documentation-driven**, not a running scheduler—compliance depends on the model following markdown. Several **cross-links point at paths that are not present** in this tree (example: `subagent-controller.md` links to `docs/workspace/context/governance/SWARM_WORKFLOW.md`, which is missing). Legacy path strings (`docs/core/required/...`, `docs/memory/...`) still appear in some agents/rules while **canonical project memory has moved under `docs/nezam/`** for the workspace kit. **State files default to “unlocked / false”** until `/start` and `/plan` flows populate them—automation does not enforce gates without an LLM actually reading them.
+- **Weaknesses:** Orchestration is **documentation-driven**, not a running scheduler—compliance depends on the model following markdown. Several **cross-links point at paths that are not present** in this tree (example: `subagent-controller.md` links to `docs/nezam/memory/governance/SWARM_WORKFLOW.md`, which is missing). Legacy path strings (`docs/core/required/...`, `docs/nezam/memory/...`) still appear in some agents/rules while **canonical project memory has moved under `docs/nezam/`** for the workspace kit. **State files default to “unlocked / false”** until `/start` and `/plan` flows populate them—automation does not enforce gates without an LLM actually reading them.
 
 ---
 
@@ -443,7 +443,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | system | build-modes | Development method overlays for NEZAM. Modifies phase execution and gate thresholds without changing the SDD pipeline structure. |
 | system | cli-orchestration | Route tasks to the cheapest available CLI tool. Save Claude/Cursor tokens for reasoning tasks. |
 | system | context-window-manager | Build the minimal high-signal working context for each command/session. |
-| system | decision-journal | Write plain-language decision entries to `docs/workspace/context/DECISIONS_PLAIN.md` for founder-readable audit trails. |
+| system | decision-journal | Write plain-language decision entries to `docs/nezam/memory/DECISIONS_PLAIN.md` for founder-readable audit trails. |
 | system | docs-context-sync | Deterministic documentation lifecycle workflow for syncing context docs, workspace index, and plan artifacts after repository changes. |
 | system | founder-onboarding | Convert a plain-language founder idea into complete gate-ready project artifacts without requiring technical ceremony. |
 | system | health-score | Generate and refresh root HEALTH.md with a plain-language 0-100 project health score across six dimensions. |
@@ -612,7 +612,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 ### Known path inconsistencies (memory)
 
-- Root `AGENTS.md` / rules still mention `docs/memory/...` in places while `docs/nezam/README.md` lists `docs/nezam/memory/...`. Treat **`docs/nezam/README.md` as the workspace-kit index** and verify the path exists before citing in prompts.
+- Root `AGENTS.md` / rules still mention `docs/nezam/memory/...` in places while `docs/nezam/README.md` lists `docs/nezam/memory/...`. Treat **`docs/nezam/README.md` as the workspace-kit index** and verify the path exists before citing in prompts.
 
 ---
 
@@ -671,7 +671,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 | Priority | Item |
 |----------|------|
-| P0 | Fix broken internal links (`SWARM_WORKFLOW.md`, `docs/workspace/context/...`) or add stub pages that redirect to `docs/nezam/wiki/`. |
+| P0 | Fix broken internal links (`SWARM_WORKFLOW.md`, `docs/nezam/memory/...`) or add stub pages that redirect to `docs/nezam/wiki/`. |
 | P0 | Normalize memory paths in `AGENTS.md` template + rules to `docs/nezam/memory/`. |
 | P1 | Add lightweight **validator script** that greps agents/commands for `](../*.md)` targets and fails CI if missing. |
 | P1 | Clarify **swarm-3** naming (`frontend-lead` vs `frontend-framework-manager`) vs `agent-lazy-load.mdc` table (drift). |

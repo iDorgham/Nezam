@@ -1,6 +1,6 @@
 ---
 skill_id: "frontend/shadcn-ui"
-name: "shadcn-ui"
+name: "nezam-shadcn-ui"
 description: "Correct shadcn/ui installation, token mapping, component extension, and RTL support patterns for the NEZAM stack (Next.js + Tailwind + NEZAM design tokens)."
 version: 1.0.0
 updated: 2026-05-12

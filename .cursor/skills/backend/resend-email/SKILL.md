@@ -1,5 +1,5 @@
 ---
-name: resend-email
+name: "nezam-resend-email"
 description: Transactional email delivery patterns using Resend with reliability safeguards.
 version: 1.1.0
 updated: 2026-05-12

@@ -1,5 +1,5 @@
 ---
-name: token-grid-typography
+name: "nezam-token-grid-typography"
 description: Token + grid systems — CSS Grid/Flex, container queries, clamp() typography, breakpoint matrices.
 version: 1.0.0
 updated: 2026-05-08

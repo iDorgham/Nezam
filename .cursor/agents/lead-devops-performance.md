@@ -49,7 +49,7 @@ Swarm Manager for the Performance & DevOps swarm. Own CI / CD pipelines, infrast
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
 - [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
 - [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
-- [`docs/workspace/context/MCP_REGISTRY.md`](../../docs/workspace/context/MCP_REGISTRY.md) for MCP-backed infra and observability integrations
+- [`docs/nezam/memory/MCP_REGISTRY.md`](../../docs/nezam/memory/MCP_REGISTRY.md) for MCP-backed infra and observability integrations
 
 ## When to invoke
 

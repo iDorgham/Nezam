@@ -232,7 +232,7 @@ When assistants lock decisions in chat, persist them before finishing the reply 
 | Tier-1 agent eval | **Agent Scorecards** |
 | Phase transition | `docs/nezam/memory/PHASE_HANDOFF.md` |
 | Session end | Write to `.cursor/state/agent-status.yaml`: last agent, last output, pending handoff, one-sentence resume prompt |
-| Go/no-go decision | Append to `docs/workspace/decisions/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
+| Go/no-go decision | Append to `docs/nezam/memory/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
 
 ## Session Start Checklist
 
@@ -245,7 +245,7 @@ At session open:
 6. Read `.cursor/state/agent-status.yaml` — if `pending_handoff.status: pending`, deliver the handoff before any new work begins.
 7. If `active_spec` is set, confirm with user: "Last session left off at [spec]. Resume? Y/N"
 8. Print `session_resume_prompt` from `agent-status.yaml` as the first message.
-9. Check `docs/workspace/decisions/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
+9. Check `docs/nezam/memory/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
 
 ## MCP Usage Policy
 

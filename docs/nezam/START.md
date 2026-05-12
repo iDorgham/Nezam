@@ -53,7 +53,7 @@ Tip: write clearly in simple language and focus on user outcomes.
 
 Required file:
 
-- `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json`
+- `docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json`
 
 ## Step 4 — Check onboarding readiness
 

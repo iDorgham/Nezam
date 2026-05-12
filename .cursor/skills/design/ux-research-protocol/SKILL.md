@@ -1,5 +1,5 @@
 ---
-name: ux-research-protocol
+name: "nezam-ux-research-protocol"
 description: Standardized framework for user research, persona creation, and empathy mapping within the SDD pipeline.
 version: 1.0.0
 updated: 2026-05-12

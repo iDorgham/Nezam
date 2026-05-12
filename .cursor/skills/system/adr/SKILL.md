@@ -1,6 +1,6 @@
 ---
 skill_id: "system/adr"
-name: "adr"
+name: "nezam-adr"
 description: "Creates Architecture Decision Records as executable specs for coding agents — not just documentation. Triggered whenever a technology choice, architectural pattern, or infrastructure decision is introduced."
 version: 1.0.0
 updated: 2026-05-12

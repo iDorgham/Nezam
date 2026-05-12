@@ -91,6 +91,6 @@ Before adoption in a project:
 
 ## 8) Implementation Mapping (Starter)
 
-- Token values starter: `docs/workspace/templates/ui-ux/tokens.css`
-- Component API starter: `docs/workspace/templates/ui-ux/COMPONENT_BLUEPRINT.md`
-- Validation checklist starter: `docs/workspace/templates/ui-ux/VALIDATION_CHECKLIST.md`
+- Token values starter: `.cursor/templates/ui-ux/tokens.css`
+- Component API starter: `.cursor/templates/ui-ux/COMPONENT_BLUEPRINT.md`
+- Validation checklist starter: `.cursor/templates/ui-ux/VALIDATION_CHECKLIST.md`

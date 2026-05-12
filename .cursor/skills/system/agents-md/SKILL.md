@@ -1,6 +1,6 @@
 ---
 skill_id: "system/agents-md"
-name: "agents-md"
+name: "nezam-agents-md"
 description: "Governs the creation, maintenance, and quality of NEZAM agent definitions in .cursor/agents/. Ensures every agent has a trigger contract, I/O contract, handoff target, and eval framework."
 version: 1.0.0
 updated: 2026-05-12

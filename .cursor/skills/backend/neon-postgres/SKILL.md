@@ -1,5 +1,5 @@
 ---
-name: neon-postgres
+name: "nezam-neon-postgres"
 description: Serverless Postgres operations with branching and preview-safe workflows.
 version: 1.0.0
 updated: 2026-05-10

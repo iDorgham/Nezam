@@ -29,8 +29,8 @@ Paste best prompt here
 
 ## Files companion should read next
 
-- `docs/workspace/context/CONTEXT.md`
-- `docs/workspace/context/CONTEXT.md`
+- `docs/nezam/memory/CONTEXT.md`
+- `docs/nezam/memory/CONTEXT.md`
 - `docs/DESIGN.md`
 - `docs/specs/SEO_RESEARCH.md`
 - `docs/specs/features/.../SPEC.md`

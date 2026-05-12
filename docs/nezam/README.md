@@ -174,7 +174,7 @@ docs/
 | What | Canonical Location |
 |---|---|
 | PRD | `docs/prd/PRD.md` |
-| Memory / decisions | `docs/memory/` |
+| Memory / decisions | `docs/nezam/memory/` |
 | Phase plans | `docs/plans/` |
 | Templates | `docs/templates/` |
 | Wiki source | `docs/wiki/` |
@@ -183,4 +183,4 @@ docs/
 | Agents | `.cursor/agents/` (synced to all clients) |
 | Rules | `.cursor/rules/` |
 
-> **Rule:** When in doubt, check `docs/memory/WORKSPACE_INDEX.md` for the capability map, and `docs/memory/MEMORY.md` for the latest decisions.
+> **Rule:** When in doubt, check `docs/nezam/memory/WORKSPACE_INDEX.md` for the capability map, and `docs/nezam/memory/MEMORY.md` for the latest decisions.

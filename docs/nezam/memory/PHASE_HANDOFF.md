@@ -5,6 +5,42 @@
 **Rules:** Update this file at **every phase gate transition** (or when materially changing locked decisions).  
 **Controller rule:** No cross-domain agent work may start without reading this file — see `.cursor/agents/subagent-controller.md`.
 
+## When used
+- At every SDD phase boundary transition.
+- Before starting any MODE B/C work.
+- When materially changing locked decisions that affect multiple domains.
+
+## Inputs
+- Phase deliverables (e.g., SEO research, IA map, Design specs).
+- Open questions resolved from the previous phase.
+- Updated constraints or business rules.
+
+## Outputs
+- Locked context packet for the next phase.
+- Updated JSON context for machine consumption.
+- Sign-offs from domain leads.
+
+## Roles/Owners
+- **PM-01 (or Deputy):** Coordinates the handoff and ensures all sign-offs are collected.
+- **Domain Leads:** Responsible for providing inputs and verifying outputs for their domain.
+
+## Handoff checklist
+- [ ] All inputs for the current phase are verified and locked.
+- [ ] The machine-readable JSON is updated with the latest decisions.
+- [ ] Open questions blocking the next phase are resolved or assigned.
+- [ ] All required sign-offs are collected in the sign-off table.
+- [ ] The next phase owner has acknowledged the handoff.
+
+## Example
+```json
+{
+  "active_keywords": ["fleet management", "gps tracking"],
+  "locked_urls": [{"slug": "/tracking", "intent": "product-demo"}],
+  "open_questions": ["FE-01: confirm map library by Friday"]
+}
+```
+
+
 ---
 
 ## Packet metadata

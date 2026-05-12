@@ -1,6 +1,6 @@
 ---
 skill_id: "frontend/wordpress"
-name: "wordpress"
+name: "nezam-wordpress"
 description: "Headless WordPress integration — WordPress as CMS, Next.js as frontend. WPGraphQL for content, ISR for performance, preview mode for drafts."
 version: 1.0.0
 updated: 2026-05-12

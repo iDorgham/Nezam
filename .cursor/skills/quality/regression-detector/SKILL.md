@@ -1,5 +1,5 @@
 ---
-name: regression-detector
+name: "nezam-regression-detector"
 description: Detect likely regressions from change impact and define focused verification paths.
 version: 1.0.0
 updated: 2026-05-08

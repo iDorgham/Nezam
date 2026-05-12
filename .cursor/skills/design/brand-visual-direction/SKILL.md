@@ -1,5 +1,5 @@
 ---
-name: brand-visual-direction
+name: "nezam-brand-visual-direction"
 version: 1.1.0
 updated: 2026-05-12
 changelog:

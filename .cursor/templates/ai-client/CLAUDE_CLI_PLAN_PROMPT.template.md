@@ -10,9 +10,7 @@ Read end-to-end:
 
 1. `docs/specs/prd/PRD.md`
 2. `docs/prd/PROJECT_PROMPT.md`
-3. `docs/workspace/context/CONTEXT.md`
-4. `docs/workspace/context/CONTEXT.md`
-5. `docs/workspace/context/CONTEXT.md`
+3. `docs/nezam/memory/CONTEXT.md`
 
 Do **not** contradict committed specs without adding a dated **Decision Log** note in the relevant SDD or feature spec.
 

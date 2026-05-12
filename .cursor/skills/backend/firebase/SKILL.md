@@ -1,6 +1,6 @@
 ---
 skill_id: "backend/firebase"
-name: "firebase"
+name: "nezam-firebase"
 description: "Firebase integration for NEZAM projects — Firestore data modeling, real-time listeners, offline persistence, Auth integration, and the Firebase vs Supabase decision matrix."
 version: 1.0.0
 updated: 2026-05-12

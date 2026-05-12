@@ -178,7 +178,7 @@ Activate a single tool. Steps:
 4. Run `pnpm ai:sync`
 
 Reactivation restore:
-1. Scan `docs/plans/MASTER_TASKS.md` for `original_tool: <tool>`.
+1. Scan `docs/nezam/plans/MASTER_TASKS.md` for `original_tool: <tool>`.
 2. Restore those tasks to `assigned_tool: <tool>`.
 3. Preserve `fallback_tool`, then clear `original_tool` after restore.
 4. Report restored task count and remaining blocked tasks.

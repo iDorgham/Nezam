@@ -1,5 +1,5 @@
 ---
-name: cli-orchestration
+name: "nezam-cli-orchestration"
 description: Route tasks to the cheapest available CLI tool. Save Claude/Cursor tokens for reasoning tasks.
 version: 1.0.0
 updated: 2026-05-10

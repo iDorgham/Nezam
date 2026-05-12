@@ -3,8 +3,9 @@
 ## Path resolution
 
 Before performing any file operation, read `.cursor/workspace.paths.yaml` and resolve:
+
 - `prd` → default `docs/prd/PRD.md`
-- `plans_root` → default `docs/plans`
+- `plans_root` → default `docs/nezam/plans`
 - `reports_root` → default `docs/reports`
 
 If the file is missing or a key is absent, fall back to the default values above.
@@ -16,6 +17,7 @@ use these resolved paths. Users can relocate any of them with `/nezam paths set`
 When a user runs `/start` (with or without a subcommand), Claude scaffolds the project folder structure under `docs/` and guides the user through creating their PRD. The workspace governance files live in `docs/nezam/` and must not be touched.
 
 **Pre-flight check:**
+
 1. Read `HANDOFF_QUEUE.yaml` at workspace root.
    - If `active_session.session_id` is populated AND any queue item has status `pending` or `in_progress`, resume from that context immediately. Do not accept new work until the queue item is resolved or explicitly deferred.
    - If queue is empty or all items are `complete`, proceed normally.
@@ -25,7 +27,7 @@ When a user runs `/start` (with or without a subcommand), Claude scaffolds the p
 ## Subcommands
 
   /START             → Interactive: ask the user for their project idea, then scaffold docs/ and create a draft PRD
-  /START docs        → Scaffold docs/prd/, docs/plans/, docs/reports/ if they don't exist, show status
+  /START docs        → Scaffold docs/prd/, docs/nezam/plans/, docs/reports/ if they don't exist, show status
   /START prd         → Open docs/prd/PRD.md in guided mode — ask user questions and fill it in together
   /START gates       → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
   /START repo        → Link or initialize the git repository
@@ -44,12 +46,14 @@ Aliases: /START check → /START gates
 When the user runs `/start` with no subcommand, execute the full onboarding flow below.
 
 ---
+
 ### Step 1: Scaffold docs/ structure first (silent)
 
 Create these paths if they don't already exist:
+
 ```
 docs/prd/PRD.md              ← from .cursor/templates/sdd/PRD_TEMPLATE.md
-docs/plans/.gitkeep
+docs/nezam/plans/.gitkeep
 docs/reports/progress/.gitkeep
 docs/reports/tests/.gitkeep
 docs/reports/audits/.gitkeep
@@ -62,10 +66,13 @@ docs/reports/lighthouse/.gitkeep
 No user interaction during this step.
 
 ---
+
 ### Step 1.5: Initialize State Files (Bootstrap)
 
 Ensure the `.cursor/state/` directory exists and populate the following files with sensible defaults if they are missing:
+
 - `.cursor/state/onboarding.yaml`:
+
   ```yaml
   user_mode: "solo"
   tone: "friendly"
@@ -73,7 +80,9 @@ Ensure the `.cursor/state/` directory exists and populate the following files wi
   prd_locked: false
   design_locked: false
   ```
+
 - `.cursor/state/plan_progress.yaml`:
+
   ```yaml
   planning_complete: false
   seo: false
@@ -83,7 +92,9 @@ Ensure the `.cursor/state/` directory exists and populate the following files wi
   design_wireframes: false
   scaffold: false
   ```
+
 - `.cursor/state/develop_phases.yaml`:
+
   ```yaml
   phase_1:
     status: "locked"
@@ -101,7 +112,9 @@ Ensure the `.cursor/state/` directory exists and populate the following files wi
     status: "locked"
     testing_passed: false
   ```
+
 - `.cursor/state/agent-status.yaml`:
+
   ```yaml
   pending_handoff:
     status: "none"
@@ -109,6 +122,7 @@ Ensure the `.cursor/state/` directory exists and populate the following files wi
   ```
 
 ---
+
 ### Step 2: User mode (Solo or Team)
 
 Immediately after Step 1, before the PRD menu, show this exact prompt:
@@ -140,6 +154,7 @@ After the user types **S** or **T**, update `.cursor/state/onboarding.yaml`:
 All subsequent responses in the onboarding session adapt to `tone` (friendly vs structured).
 
 ---
+
 ### Step 2.3: Target Market Selection
 
 Immediately after Step 2, show this prompt:
@@ -153,13 +168,16 @@ Type yes or no:
 ```
 
 If yes:
+
 - Set `onboarding.yaml:target_market` = "mena"
 - Announce: "Arabic SEO hardlock is ACTIVE. `arabic-seo-aeo-specialist` required in RESEARCH phase."
 
 If no:
+
 - Set `onboarding.yaml:target_market` = "global"
 
 ---
+
 ### Step 2.5: Build Method Selection
 
 Immediately after Step 2.3, before the PRD menu, show this menu.
@@ -202,6 +220,7 @@ After the user selects, update `.cursor/state/onboarding.yaml`:
 Confirm: "✅ Build mode set to [name]. [One sentence: what it changes about how you'll work.]"
 
 ---
+
 ### Step 3: PRD Creation — Present user with 4 choices
 
 Show this exact menu:
@@ -236,6 +255,7 @@ Type 1, 2, 3, or 4:
 ```
 
 ---
+
 #### Mode 1 — Describe your idea
 
 - User types free text
@@ -247,11 +267,13 @@ Type 1, 2, 3, or 4:
 - Asks: "Looks good? Type YES to lock or tell me what to change."
 
 ---
+
 #### Mode 2 — Interview mode
 
 - Ask ONE question at a time. Wait for the answer before asking the next.
 
 Phase 1 — Core (3 questions):
+
 1. "What are you building? Describe it like explaining to a smart friend."
 2. "Who uses it? Be specific — job title, situation, pain they have right now."
 3. "What does it do that nothing else does well today?"
@@ -294,6 +316,7 @@ Include any in your PRD? (YES for all / pick numbers / NO)
 After response → write PRD → save → show PRD lock ceremony.
 
 ---
+
 #### Mode 3 — Paste / upload your existing PRD
 
 - User pastes or uploads their document
@@ -306,6 +329,7 @@ After response → write PRD → save → show PRD lock ceremony.
 - Shows PRD summary card → lock ceremony
 
 ---
+
 #### Mode 4 — Add PRD directly (No AI editing)
 
 - Tell user: "Drop your PRD.md into `docs/prd/` then type READY."
@@ -315,6 +339,7 @@ After response → write PRD → save → show PRD lock ceremony.
 - Accept as-is → skip to Step 3 (Design selection)
 
 ---
+
 ### PRD Lock Ceremony (all modes)
 
 After PRD is accepted/locked, show:
@@ -333,6 +358,7 @@ Risks noted:  [count]
 ```
 
 Write to `.cursor/state/onboarding.yaml`:
+
 ```yaml
 prd_locked: true
 prd_path: "docs/prd/PRD.md"
@@ -342,6 +368,7 @@ planning_complete: false
 ```
 
 ---
+
 ### Step 4: Design Selection — Two Paths
 
 After PRD is locked, immediately present:
@@ -366,10 +393,12 @@ Type A or B:
 ```
 
 ---
+
 #### Path A — Pick a design profile
 
 - Read all folder names from `.cursor/design/` (excluding README.md and catalog.json)
 - Group them into visual categories:
+
   ```
   Minimal & Clean:     minimal, clean, simple, sleek, refined, mono
   Premium & Luxury:    luxury, premium, ferrari, bmw, bmw-m, bugatti, tesla
@@ -382,15 +411,18 @@ Type A or B:
   Design Systems:      material, ant, figma, apple, airbnb
   Glassmorphism/Neo:   glassmorphism, neumorphism, neobrutalism, brutalism, claymorphism
   ```
+
 - Show the grouped list and ask user to type the profile name
 - Read `.cursor/design/[chosen]/design.md`
 - Copy to root `DESIGN.md`
 - Confirm: "✅ Design profile `[name]` applied → DESIGN.md created"
 
 ---
+
 #### Path B — Describe your design vision
 
 Ask these 5 questions ONE AT A TIME:
+
 1. "Describe the vibe in 3 words (e.g. 'clean, powerful, trustworthy')"
 2. "Any products or websites whose design you admire? (name them)"
 3. "Primary colors you have in mind? Or should I pick based on your brand?"
@@ -398,6 +430,7 @@ Ask these 5 questions ONE AT A TIME:
 5. "Any design elements you definitely DON'T want? (e.g. 'no dark backgrounds', 'no animations')"
 
 After answers → generate a complete `DESIGN.md` at the repo root covering:
+
 - Color system (primary, secondary, accent, semantic, neutral scale)
 - Typography scale (display, heading, body, code, caption — with fluid clamp values)
 - Spacing system (4px base grid, named steps: xs/sm/md/lg/xl/2xl)
@@ -410,6 +443,7 @@ After answers → generate a complete `DESIGN.md` at the repo root covering:
 Confirm: "✅ Custom DESIGN.md created based on your vision"
 
 ---
+
 ### Design Lock Ceremony
 
 After `DESIGN.md` is created:
@@ -427,6 +461,7 @@ Mode:       [light / dark / both]
 ```
 
 Update `.cursor/state/onboarding.yaml`:
+
 ```yaml
 design_locked: true
 design_profile: "[name or custom]"
@@ -434,6 +469,7 @@ design_locked_at: "[timestamp]"
 ```
 
 ---
+
 ### Step 5: Final Gate Check + Unlock /plan
 
 After PRD and DESIGN are both locked, show:
@@ -445,7 +481,7 @@ After PRD and DESIGN are both locked, show:
 
 ✅  docs/prd/PRD.md     → Locked
 ✅  DESIGN.md           → Locked
-✅  docs/plans/         → Ready
+✅  docs/nezam/plans/         → Ready
 ✅  docs/reports/       → Ready (7 categories)
 🔓  /plan               → UNLOCKED — ready to use
 
@@ -463,6 +499,7 @@ Next step: Run /plan to generate your execution roadmap
 Guide the user through filling in `docs/prd/PRD.md` interactively:
 
 Ask these questions one at a time (don't dump all at once):
+
 1. What is the product name?
 2. What problem does it solve in one sentence?
 3. Who is the primary user and what's their job-to-be-done?
@@ -498,9 +535,10 @@ docs/
 Do NOT touch or modify anything inside `docs/nezam/` — that is the workspace governance layer.
 
 Show status after:
+
 ```
 ✅ docs/prd/PRD.md exists
-✅ docs/plans/ exists (empty — /plan will scaffold phases)
+✅ docs/nezam/plans/ exists (empty — /plan will scaffold phases)
 ✅ docs/reports/ exists with 7 category folders
 ```
 
@@ -530,11 +568,12 @@ If plans gate fails: prompt user to run `/plan` after PRD is ready
 ```
 docs/nezam/   ← NEZAM workspace governance (DO NOT MODIFY during /start)
 docs/prd/     ← User's project PRD (default; relocatable via /nezam paths)
-docs/plans/   ← User's project plans (default; relocatable via /nezam paths)
+docs/nezam/plans/   ← User's project plans (default; relocatable via /nezam paths)
 docs/reports/ ← User's project reports (default; relocatable via /nezam paths)
 ```
 
 The `/start` command only creates and modifies files in:
+
 - `{prd_path}` and its parent folder
 - `{plans_root}/`
 - `{reports_root}/` and its category sub-folders
@@ -548,6 +587,7 @@ To modify workspace agents, rules, or templates: use `/nezam`.
 ## Multi-tool sync note
 
 After any governance change, non-Cursor clients should verify:
+
 - Compare `.cursor/rules/workspace-orchestration.mdc` against mirror in your tool's root
 - If drift: emit `⚠️ Sync drift detected — run pnpm ai:sync before proceeding.`
 
@@ -561,9 +601,10 @@ Recommendation footer: required
 ## Session Closure
 
 [LAST STEP] Write session closure entry to `HANDOFF_QUEUE.yaml` under `session_history`:
-  - session_id: generate a short slug (date + topic)
-  - summary: 2-3 sentence description of what was accomplished
-  - phases_advanced: list any SDD phases that moved forward
-  - agents_invoked: list all agents called during the session
-  - artifacts_created: list all files created or materially modified
-  - ended_at: ISO timestamp
+
+- session_id: generate a short slug (date + topic)
+- summary: 2-3 sentence description of what was accomplished
+- phases_advanced: list any SDD phases that moved forward
+- agents_invoked: list all agents called during the session
+- artifacts_created: list all files created or materially modified
+- ended_at: ISO timestamp

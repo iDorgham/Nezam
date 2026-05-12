@@ -23,11 +23,11 @@ When conflicts appear, follow:
 - **This repo’s design contract:** repository root **`DESIGN.md`** (preferred SDD path). Optional legacy mirror: `docs/DESIGN.md`.
 - **Apply profile → contract (any terminal):** `pnpm run design:apply -- <brand>` (example: `pnpm run design:apply -- minimal`)
 - **Cursor slash command equivalent:** `/START design` (see `.cursor/commands/start.md`).
-- **Other tools:** mirrored commands/rules/agents/skills and drift checks are described in [`docs/workspace/context/MULTI_TOOL_INDEX.md`](docs/workspace/context/MULTI_TOOL_INDEX.md). After editing `.cursor/`, run `pnpm ai:sync` then `pnpm ai:check`.
+- **Other tools:** mirrored commands/rules/agents/skills and drift checks are described in [`docs/nezam/memory/MULTI_TOOL_INDEX.md`](docs/nezam/memory/MULTI_TOOL_INDEX.md). After editing `.cursor/`, run `pnpm ai:sync` then `pnpm ai:check`.
 
 ## Required behavior
 
 - Keep SDD order: Planning -> SEO -> IA -> Content -> Design -> Development -> Release.
 - Enforce hardlock prerequisites before implementation.
 - Preserve recommendation footer behavior for Cursor-compatible flows.
-- Prefer deterministic docs updates in `docs/workspace/context/` after substantive changes.
+- Prefer deterministic docs updates in `docs/nezam/memory/` after substantive changes.

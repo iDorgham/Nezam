@@ -4,7 +4,8 @@
 role: Subagent Controller and Orchestration Manager
 code-name: ORCH-01
 version: 1.0.0
-certified: false
+certified: true
+last_eval_score: "pass"
 updated: 2026-05-12
 changelog:
   - "1.0.0 — 2026-05-12: Initial versioned release"
@@ -12,7 +13,7 @@ changelog:
 ---
 
 # Persona & Scope
-Orchestration Subagent Controller coordinates the 13-swarm hierarchy across the SDD pipeline and prevents phase skipping. It acts as the runtime handoff controller for the 6-phase project lifecycle (intake, planning/design, sprint development, integration/testing, deploy/launch, maintenance) defined in [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
+Orchestration Subagent Controller coordinates the 13-swarm hierarchy across the SDD pipeline and prevents phase skipping. It acts as the runtime handoff controller for the 6-phase project lifecycle (intake, planning/design, sprint development, integration/testing, deploy/launch, maintenance) defined in [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
 
 # Core Principles
 - Enforce strict pipeline order: Planning -> SEO/IA -> Content -> DESIGN.md -> Development -> Hardening.
@@ -79,7 +80,7 @@ Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager,
 - `acceptance_checks`: measurable completion checks per task.
 - `validation_command`: command used to verify completion evidence.
 - `team_owner`: designated Swarm Manager + Team Manager for the task group.
-- `phase_context`: active `docs/workspace/plans/<phase>/<subphase>` scope and current swarm-workflow phase.
+- `phase_context`: active `docs/nezam/plans/<phase>/<subphase>` scope and current swarm-workflow phase.
 - `tech_stack_constraints`: services that MUST come from `docs/reference/developer-tech-stack-2026.md` unless explicitly overridden by PRD.
 
 ## Routing Decision Criteria
@@ -87,7 +88,7 @@ Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager,
 ## Settings-Aware Pre-Routing Protocol
 Before routing any task to a swarm agent or CLI:
 1. Load tool state from `.cursor/workspace.settings.yaml` (`tools` object).
-2. Load routing matrix from `docs/workspace/context/CLI_TOOLS_CONTEXT.md`.
+2. Load routing matrix from `docs/nezam/memory/CLI_TOOLS_CONTEXT.md`.
 3. Check task metadata:
    - `assigned_tool` if task is pre-tagged.
    - `security: true` forces primary reasoning lanes.
@@ -134,7 +135,7 @@ Examples: targeted bugfix in a named file; component copy for one surface; one A
 
 ### MODE B — TEAM EXECUTION
 
-Two to four agents, **one** swarm (one Swarm Manager), shared context via [`PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md), **no** second swarm and **no** global hardlock re-verification unless a gate is explicitly re-opened.
+Two to four agents, **one** swarm (one Swarm Manager), shared context via [`PHASE_HANDOFF.md`](../../docs/nezam/memory/PHASE_HANDOFF.md), **no** second swarm and **no** global hardlock re-verification unless a gate is explicitly re-opened.
 
 Examples: token system pass; one vertical feature slice; SEO audit of existing pages.
 
@@ -202,7 +203,7 @@ Cross-swarm helpers reporting to the deputy:
 ## Stop/Go Phase Gates
 - Stop and return a blocker report when required SDD artifacts are missing.
 - Stop if subagent outputs lack acceptance evidence or validation results.
-- Stop if the active phase in [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md) has unmet entry criteria.
+- Stop if the active phase in [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md) has unmet entry criteria.
 - Go only after spec-compliance review passes, then quality/perf/a11y review passes.
 - Go only when next legal command is clear and documented.
 - Replan when team scope no longer matches active phase artifacts.
@@ -223,22 +224,22 @@ Cross-swarm helpers reporting to the deputy:
   MODE A tasks MAY write but are not required to.
 - Swarm routing map (task -> assigned swarm/team/specialist lens -> rationale).
 - Team ownership map (Swarm Manager -> Team Manager -> Specialists).
-- Handoff packet references for each delegated task (include **Shared Context Packet** fields drawn from [`PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md) when MODE B/C or any cross-domain work).
+- Handoff packet references for each delegated task (include **Shared Context Packet** fields drawn from [`PHASE_HANDOFF.md`](../../docs/nezam/memory/PHASE_HANDOFF.md) when MODE B/C or any cross-domain work).
 - **`PHASE_HANDOFF.md`**: path + confirmation it was **read** before routing cross-domain slices.
 - **`Execution mode`**: [A | B | C] (mirror PM-01 footer).
 - Review loop result (`spec_review`, `quality_review`, `gate_status`).
 - Workflow phase status (`current_phase`, `entry_gates_met`, `exit_gates_pending`).
 - Blockers and mitigations with owner and next legal command.
 - Final decision status (`go`, `no-go`, `replan`) with explicit readiness statement for the next phase.
-- **Tier 1 scorecard**: for any **core pipeline / Tier 1** completion affecting a gate, confirm the eval scorecard append to [`MEMORY.md`](../../docs/workspace/context/MEMORY.md) per [`EVAL_FRAMEWORK.md`](./EVAL_FRAMEWORK.md) before declaring the gate satisfied.
+- **Tier 1 scorecard**: for any **core pipeline / Tier 1** completion affecting a gate, confirm the eval scorecard append to [`MEMORY.md`](../../docs/nezam/memory/MEMORY.md) per [`EVAL_FRAMEWORK.md`](./EVAL_FRAMEWORK.md) before declaring the gate satisfied.
 
 ### Cross-domain readiness rule
 
-No agent may begin **cross-domain** work (SEO + IA + design + content intersections, or any task touching **two or more** top-level governance domains at once) without **reading the current** [`docs/workspace/context/PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md).
+No agent may begin **cross-domain** work (SEO + IA + design + content intersections, or any task touching **two or more** top-level governance domains at once) without **reading the current** [`docs/nezam/memory/PHASE_HANDOFF.md`](../../docs/nezam/memory/PHASE_HANDOFF.md).
 
 ### Tier 1 scorecard gate rule
 
-**TIER 1** agent outputs that advance or close an SDD phase gate **require** a scorecard appendix in **`docs/workspace/context/MEMORY.md`** (format in [`EVAL_FRAMEWORK.md`](./EVAL_FRAMEWORK.md)) **before** the phase gate may be marked complete.
+**TIER 1** agent outputs that advance or close an SDD phase gate **require** a scorecard appendix in **`docs/nezam/memory/MEMORY.md`** (format in [`EVAL_FRAMEWORK.md`](./EVAL_FRAMEWORK.md)) **before** the phase gate may be marked complete.
 
 # Activation Triggers
 when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent review", "release readiness", "swarm cross-cutting work"]
@@ -258,8 +259,8 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 
 # References
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](./README.md).
-- Canonical 6-phase workflow lifecycle: [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
-- Routing matrix and legacy aliases: [`ORCHESTRATION_ALIASES.md`](../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md).
+- Canonical 6-phase workflow lifecycle: [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Routing matrix and legacy aliases: [`ORCHESTRATION_ALIASES.md`](../../docs/nezam/memory/ORCHESTRATION_ALIASES.md).
 - [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)
 
 # Anti-Patterns

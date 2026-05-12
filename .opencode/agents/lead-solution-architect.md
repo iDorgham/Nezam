@@ -46,7 +46,7 @@ Swarm Manager for the Architecture & Planning swarm. Owns system shape, boundari
 - [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
 - [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
 - [`.cursor/skills/plan-full/SKILL.md`](../skills/plan-full/SKILL.md)
-- [`docs/workspace/context/MCP_REGISTRY.md`](../../docs/workspace/context/MCP_REGISTRY.md) for MCP-first service routing
+- [`docs/nezam/memory/MCP_REGISTRY.md`](../../docs/nezam/memory/MCP_REGISTRY.md) for MCP-first service routing
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — consult before recommending any third-party service
 
 ## When to invoke
@@ -64,7 +64,7 @@ Swarm Manager for the Architecture & Planning swarm. Owns system shape, boundari
 ## Output contract
 
 - Options with tradeoffs + recommended path + follow-up tasks.
-- ADR file under `docs/workspace/context/decisions/` with date and status.
+- ADR file under `docs/nezam/memory/` with date and status.
 - Specialist assignment map and review checklist for execution.
 - Architecture diagram (Mermaid acceptable) and integration map.
 

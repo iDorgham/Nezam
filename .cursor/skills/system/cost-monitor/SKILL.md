@@ -1,5 +1,5 @@
 ---
-name: cost-monitor
+name: "nezam-cost-monitor"
 description: LLM and AI infrastructure cost tracking — per-task spend, budget alerts, model optimization recommendations, and monthly cost reports.
 paths:
   - "docs/reports/ai/**"

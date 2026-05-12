@@ -23,7 +23,7 @@ Swarm Manager for the Security swarm. Own threat modeling, secure defaults, depe
 - Approve threat models for new public surfaces and architecture changes.
 - Coordinate with `auth-security-manager` on auth boundary.
 - Coordinate with `lead-devops-performance.md` on infra hardening.
-- Run mandatory `/SCAN security` gates per phase in [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
+- Run mandatory `/SCAN security` gates per phase in [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
 
 ## Subagents (mental model)
 

@@ -1,5 +1,5 @@
 ---
-name: register-detection
+name: "nezam-register-detection"
 version: 1.0.0
 updated: 2026-05-12
 changelog:

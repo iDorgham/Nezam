@@ -1,6 +1,6 @@
 # Project constitution — {{PROJECT_NAME}}
 
-Non-negotiable principles for architecture, quality, and security. Amend via dated decision in `docs/workspace/context/MEMORY.md` and linked spec appendix.
+Non-negotiable principles for architecture, quality, and security. Amend via dated decision in `docs/nezam/memory/MEMORY.md` and linked spec appendix.
 
 ## Architecture principles
 
@@ -26,7 +26,7 @@ Rules that must not be violated without explicit stakeholder approval:
 
 ## Change procedure
 
-1. Propose change in a spec or `docs/workspace/context/MEMORY.md` with date and rationale.
+1. Propose change in a spec or `docs/nezam/memory/MEMORY.md` with date and rationale.
 2. Update affected acceptance criteria and `VERSIONING.md` if release-impacting.
 3. Run `/PLAN` or `/SCAN` as appropriate before merge.
 

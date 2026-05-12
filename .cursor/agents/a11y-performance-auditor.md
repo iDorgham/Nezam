@@ -40,7 +40,7 @@ A11y & Performance Auditor is the final gatekeeper for interaction quality, rend
 
 # Core Principles
 - Performance and accessibility constraints are design constraints.
-- Audit early at docs/workspace/plans/spec time, then enforce continuously.
+- Audit early at docs/nezam/plans/spec time, then enforce continuously.
 - Prefer measurable gates over subjective approval.
 - WCAG 2.2 AA compliance and reduced-motion support are required.
 - Core Web Vitals and responsiveness must satisfy explicit thresholds.

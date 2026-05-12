@@ -42,7 +42,7 @@ Each row lists the ten required fields as numbered bullets.
 
 ### TM-ONB-002 — Context artifact presence
 
-1. **Source:** [`docs/workspace/context/CONTEXT.md`](docs/workspace/context/CONTEXT.md), [`docs/workspace/context/CONTEXT.md`](docs/workspace/context/CONTEXT.md), [`docs/workspace/context/CONTEXT.md`](docs/workspace/context/CONTEXT.md).
+1. **Source:** [`docs/nezam/memory/CONTEXT.md`](docs/nezam/memory/CONTEXT.md).
 2. **Test type:** Manual / doc audit (future: markdown link checker in CI).
 3. **Acceptance:** Companion upload paths (`docs/DESIGN.md`, progress report) referenced and files exist where marked present.
 4. **Mocking:** None.
@@ -55,7 +55,7 @@ Each row lists the ten required fields as numbered bullets.
 
 ### TM-PLAN-001 — Plan traceability index
 
-1. **Source:** [`docs/workspace/plans/INDEX.md`](docs/workspace/plans/INDEX.md); [`docs/workspace/plans/MASTER_TASKS.md`](docs/workspace/plans/MASTER_TASKS.md).
+1. **Source:** [`docs/nezam/plans/INDEX.md`](docs/nezam/plans/INDEX.md); [`docs/nezam/plans/MASTER_TASKS.md`](docs/nezam/plans/MASTER_TASKS.md).
 2. **Test type:** Manual / static integrity (future: unit test parsing MT/PT tables).
 3. **Acceptance:** Every PT-ID in INDEX maps to a SPEC path or plan markdown that exists on disk.
 4. **Mocking:** None.
@@ -83,7 +83,7 @@ Each row lists the ten required fields as numbered bullets.
 
 1. **Source:** [`docs/core/required/prd/PRD.md`](docs/core/required/prd/PRD.md) R2.
 2. **Test type:** Manual audit.
-3. **Acceptance:** `docs/workspace/plans/INDEX.md` lists MT/PT rows with gate IDs; phase TASKS files exist under `docs/workspace/plans/*/TASKS.md`.
+3. **Acceptance:** `docs/nezam/plans/INDEX.md` lists MT/PT rows with gate IDs; phase TASKS files exist under `docs/nezam/plans/*/TASKS.md`.
 4. **Mocking:** None.
 5. **SEO:** Deferred until `SEO_RESEARCH.md` exists (**BLOCKER B3**).
 6. **A11y:** N/A.

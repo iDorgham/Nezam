@@ -1,5 +1,5 @@
 ---
-name: agent-eval
+name: "nezam-agent-eval"
 description: Evaluation framework for AI agent output quality — rubrics, scoring, automated tests, and regression detection for NEZAM swarm agents.
 paths:
   - "docs/reports/ai/**"

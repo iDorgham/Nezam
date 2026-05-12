@@ -1,6 +1,6 @@
 ---
 skill_id: "backend/vector-db-qdrant"
-name: "vector-db-qdrant"
+name: "nezam-vector-db-qdrant"
 description: "Architects Qdrant vector database implementations: collection design, HNSW tuning, and payload filtering."
 version: 1.0.0
 updated: 2026-05-12

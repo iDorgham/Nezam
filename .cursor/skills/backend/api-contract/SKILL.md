@@ -1,6 +1,6 @@
 ---
 skill_id: backend/api-contract
-name: api-contract
+name: "nezam-api-contract"
 description: OpenAPI 3.1, contract-first vs code-first, versioning, Zod→OpenAPI, error envelopes, pagination, rate limits, Arabic/i18n errors.
 version: 1.0.0
 updated: 2026-05-12

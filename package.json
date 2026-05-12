@@ -14,6 +14,7 @@
     "check:onboarding": "bash scripts/checks/check-onboarding-readiness.sh",
     "check:agent-bus": "node scripts/check-agent-bus.js",
     "skills:registry": "node scripts/generate-skills-registry.js",
+    "skills:normalize": "node scripts/normalize-skill-ids.js",
     "report:swarm-cost": "node scripts/swarm-cost-report.js",
     "prd:roadmap": "node scripts/prd/render-release-roadmap.mjs --write",
     "prd:roadmap:check": "node scripts/prd/render-release-roadmap.mjs --check",

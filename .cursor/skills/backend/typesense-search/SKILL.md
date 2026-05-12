@@ -1,5 +1,5 @@
 ---
-name: typesense-search
+name: "nezam-typesense-search"
 description: Typo-tolerant and vector-aware search implementation using Typesense.
 version: 1.0.0
 updated: 2026-05-10

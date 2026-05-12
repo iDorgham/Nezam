@@ -1,5 +1,5 @@
 ---
-name: background-jobs
+name: "nezam-background-jobs"
 description: Durable async job orchestration with Trigger.dev and Inngest patterns.
 version: 1.0.0
 updated: 2026-05-10

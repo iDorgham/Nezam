@@ -23,7 +23,7 @@ function main() {
   const repoRoot = process.cwd();
   const registryPath = path.join(repoRoot, "docs/nezam/hardlock-paths.json");
   const templateCandidates = [
-    path.join(repoRoot, "docs/workspace/templates/specs/CHANGELOG.template.md"),
+    path.join(repoRoot, ".cursor/templates/specs/CHANGELOG.template.md"),
     path.join(repoRoot, "docs/templates/specs/CHANGELOG.template.md"),
   ];
 

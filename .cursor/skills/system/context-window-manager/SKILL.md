@@ -1,5 +1,5 @@
 ---
-name: context-window-manager
+name: "nezam-context-window-manager"
 description: Build the minimal high-signal working context for each command/session.
 version: 1.0.0
 updated: 2026-05-08

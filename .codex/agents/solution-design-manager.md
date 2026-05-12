@@ -21,7 +21,7 @@ Translate approved requirements into concrete system design: component boundarie
 ## Team Leader Scope
 
 - Drive C4-level designs (context -> container -> component) for every active workstream.
-- Maintain `docs/workspace/context/decisions/` ADR set with status, date, owner.
+- Maintain `docs/nezam/memory/` ADR set with status, date, owner.
 - Run trade-off reviews (cost / speed / risk / maintainability) before locking decisions.
 - Coordinate with `integration-architecture-manager` on external boundaries.
 
@@ -47,7 +47,7 @@ Translate approved requirements into concrete system design: component boundarie
 
 ## When to invoke
 
-- Phase 2 (Planning & Design) of [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
+- Phase 2 (Planning & Design) of [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
 - Cross-cutting refactors and technology pivots.
 - New ADRs required by build decisions.
 

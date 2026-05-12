@@ -46,8 +46,8 @@ Sub-phase count and naming may change per project.
 
 When drafting a new plan, create or update:
 
-- `docs/workspace/plans/MASTER_TASKS.md`
-- `docs/workspace/plans/INDEX.md`
+- `docs/nezam/plans/MASTER_TASKS.md`
+- `docs/nezam/plans/INDEX.md`
 - one `TASKS.md` per phase and sub-phase folder
 
 Each task should include:
@@ -61,7 +61,7 @@ Each task should include:
 ## Recommended Directory Shape
 
 ```text
-docs/workspace/plans/
+docs/nezam/plans/
   01-seo-menus-content/
     01-research/
     02-ia-menus/
@@ -85,4 +85,4 @@ You may rename sub-phase folders, but keep the three top-level phases in sequenc
 - Menu/IA decisions exist before UI implementation.
 - Design outputs exist before development implementation.
 - Development tasks include test and verification criteria.
-- `docs/workspace/plans/INDEX.md` maps all active tasks and gate progression.
+- `docs/nezam/plans/INDEX.md` maps all active tasks and gate progression.

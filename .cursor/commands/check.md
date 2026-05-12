@@ -10,7 +10,7 @@ owner: PM-01
 
 Read `.cursor/workspace.paths.yaml` before any gate path check:
 - `project.prd` → default `docs/prd/PRD.md`
-- `project.plans_root` → default `docs/plans`
+- `project.plans_root` → default `docs/nezam/plans`
 - `project.reports_root` → default `docs/reports`
 
 Subcommands:

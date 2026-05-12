@@ -1,5 +1,5 @@
 ---
-name: wireframe-to-spec-converter
+name: "nezam-wireframe-to-spec-converter"
 description: Convert low-fidelity wireframes into implementation-ready component specifications.
 version: 1.0.0
 updated: 2026-05-08

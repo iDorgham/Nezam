@@ -1,5 +1,5 @@
 ---
-name: prompt-audit
+name: "nezam-prompt-audit"
 description: Systematic audit of LLM prompts — quality scoring, drift detection, jailbreak pattern review, and improvement recommendations for all NEZAM agent instructions and product prompts.
 paths:
   - ".cursor/agents/**"

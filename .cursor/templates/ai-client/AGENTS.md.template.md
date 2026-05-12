@@ -32,8 +32,8 @@ Do not proceed to development unless all exist:
 - `docs/specs/prd/PRD.md`
 - `docs/prd/PROJECT_PROMPT.md`
 - **`DESIGN.md` at repository root** for UI scopes (from chosen `.cursor/design/<brand>/design.md`)
-- `docs/plans/gates/GITHUB_GATE_MATRIX.json`
-- `docs/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
+- `docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json`
+- `docs/nezam/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
 
 ## Learned User Preferences
 
@@ -50,6 +50,6 @@ Do not proceed to development unless all exist:
 
 ## Learned Workspace Facts
 
-- Execution plans and SDD tasks live under `docs/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
+- Execution plans and SDD tasks live under `docs/nezam/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
 - AI ethics audit outputs and companion operational templates belong under `docs/reports/audits/` per the docs reports placement policy.
-- Optional swarm- and skills-oriented Mermaid sources live under `docs/workspace/mermaids/` when that layout is maintained.
+- Optional swarm- and skills-oriented Mermaid sources live under `docs/nezam/architecture/mermaids/` when that layout is maintained.

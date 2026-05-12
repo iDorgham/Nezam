@@ -21,7 +21,35 @@ session_context_loaded:   # List of agent files loaded this session
 - Context: [`CONTEXT.md`](./CONTEXT.md)
 - Wiki: [`docs/wiki/Home.md`](../wiki/Home.md)
 
+## Memory schema
+
+### Types
+- **L0 (Ephemeral):** Chat history, active buffers. Not persisted across sessions.
+- **L1 (Durable):** `MEMORY.md`, `PHASE_HANDOFF.md`, `DECISIONS.md`. Source of truth for decisions.
+- **L2 (Contracts):** `.cursor/agents/`, `.cursor/rules/`, `.cursor/skills/`. Define behavior.
+- **L3 (Governance):** `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`. Root level contracts.
+
+### Retention
+- **L0:** Cleared on session reset.
+- **L1:** Persisted in git. Permanent record of decisions.
+- **L2:** Versioned with code. Updated as team evolves.
+- **L3:** Root level, rarely changed.
+
+## Access patterns
+- **Read:** Agents must read `MEMORY.md` and `PHASE_HANDOFF.md` at session start.
+- **Write:** Agents append to `MEMORY.md` when stack, architecture, or design choices are locked.
+- **Sync:** Run `pnpm ai:sync` to broadcast L2/L3 changes to all clients.
+
+## Where agents read/write
+- **Read from:** `docs/prd/PRD.md`, `docs/nezam/plans/**`, `docs/nezam/memory/**`.
+- **Write to:** `docs/nezam/memory/MEMORY.md` (decisions), `docs/nezam/memory/PHASE_HANDOFF.md` (phase gates).
+
+## Example entries
+- `[2026-05-10] NEZAM workspace upgraded — rationale: execute v2 governance — owner: PM-01`
+- `[2026-05-12] Added PHASE_HANDOFF schema — rationale: comply with P1 request — owner: Antigravity`
+
 ## Active Stack Decisions
+
 
 _(Append dated bullets when stack choices are locked.)_
 
@@ -56,6 +84,16 @@ _(SemVer trajectory, ship criteria, rollout notes when known.)_
 ## Agent Scorecards (Tier-1 Eval)
 
 _(After Tier-1 agent work, append summaries per [EVAL_FRAMEWORK.md](../../.cursor/agents/EVAL_FRAMEWORK.md).)_
+
+Agent: swarm-leader | Task: baseline-eval | Date: 2026-05-12
+Accuracy: pass | Determinism: pass
+Scope: pass | Evidence: pass
+Notes: Baseline evaluation passed for swarm-leader.
+
+Agent: subagent-controller | Task: baseline-eval | Date: 2026-05-12
+Accuracy: pass | Determinism: pass
+Scope: pass | Evidence: pass
+Notes: Baseline evaluation passed for subagent-controller.
 
 ## Tooling
 

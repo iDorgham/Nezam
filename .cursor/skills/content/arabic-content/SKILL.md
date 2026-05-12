@@ -1,5 +1,5 @@
 ---
-name: arabic-content-master
+name: "nezam-arabic-content-master"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

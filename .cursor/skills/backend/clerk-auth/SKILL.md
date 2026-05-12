@@ -1,5 +1,5 @@
 ---
-name: clerk-auth
+name: "nezam-clerk-auth"
 description: Implement hosted authentication and organization-aware auth flows with Clerk.
 version: 1.0.0
 updated: 2026-05-10

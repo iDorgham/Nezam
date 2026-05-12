@@ -18,7 +18,7 @@ while IFS= read -r spec; do
     echo "❌ Missing status: $spec"
     FAIL=1
   fi
-done < <(rg --files "docs/workspace/plans" -g "SPEC.md")
+done < <(rg --files "docs/nezam/plans" -g "SPEC.md")
 if [ $FAIL -eq 0 ]; then
   echo "✅ All specs have version fields."
 fi

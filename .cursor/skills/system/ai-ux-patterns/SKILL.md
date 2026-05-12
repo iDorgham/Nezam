@@ -1,5 +1,5 @@
 ---
-name: ai-ux-patterns
+name: "nezam-ai-ux-patterns"
 description: UI/UX design patterns for AI-powered product features — loading states, confidence indicators, streaming, error recovery, and MENA-specific AI UX.
 paths:
   - "docs/plans/04-design/**"

@@ -5,13 +5,13 @@ status: active
 
 # Plan Templates
 
-This directory contains plan-scoped templates used by the `docs/workspace/plans/` workflow.
+This directory contains plan-scoped templates used by the `docs/nezam/plans/` workflow.
 
 ## Policy
 
 - Keep templates out of repository root.
-- Use `docs/workspace/templates/` for global templates ([categories](../../templates/README.md): `specs/`, `research-design/`, `ai-client/`, `sdd/`, plus `plan/`).
-- Use `docs/workspace/plans/templates/` for phase and task execution templates.
+- Use `.cursor/templates/` for global templates ([categories](../../templates/README.md): `specs/`, `research-design/`, `ai-client/`, `sdd/`, plus `plan/`).
+- Use `docs/nezam/plans/templates/` for phase and task execution templates.
 
 ## Swarm Runtime Templates
 

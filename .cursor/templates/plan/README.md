@@ -25,7 +25,7 @@ Sub-phases are intentionally flexible and should be derived from:
 
 ## Mandatory Prompt Artifacts Per Sub-Phase
 
-Each `docs/workspace/plans/<phase>/<sub-phase>/` directory must include:
+Each `docs/nezam/plans/<phase>/<sub-phase>/` directory must include:
 
 1. `prompt.json` (structured artifact using `PROMPT_SCHEMA.template.json`)
 2. `PROMPT.md` (copy-ready prompt using `SUBPHASE_PROMPT.template.md`)
@@ -34,7 +34,7 @@ Each `docs/workspace/plans/<phase>/<sub-phase>/` directory must include:
 
 ## Gate Manifest Source of Truth
 
-Use `docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json` as the canonical gate contract for:
+Use `docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json` as the canonical gate contract for:
 
 - start/end gate checks
 - pre-merge and post-merge responsibilities

@@ -1,6 +1,6 @@
 ---
 skill_id: "backend/apify-scraper"
-name: "apify-scraper"
+name: "nezam-apify-scraper"
 description: "Managed scraping infrastructure via Apify Actors — 55+ pre-built scrapers for social media, maps, reviews, e-commerce. Used for competitive intelligence and data pipeline tasks."
 version: 1.0.0
 updated: 2026-05-12

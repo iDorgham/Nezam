@@ -24,7 +24,7 @@ Final authority across the 12-swarm system. Owns project scoping, timeline, budg
 
 - Own cross-swarm arbitration across the 12 fixed swarms.
 - Assign a Swarm Manager and Team Manager for every active workstream.
-- Enforce SDD hardlocks from `docs/specs/**` and `docs/workspace/plans/**`.
+- Enforce SDD hardlocks from `docs/specs/**` and `docs/nezam/plans/**`.
 - Approve the Project Charter and Architecture Decision Record at intake.
 - Approve Go-Live before deployment and approve sprint priorities.
 - Final escalation tier: Specialist -> Team Manager -> Swarm Manager -> Deputy Orchestrator -> CPO.
@@ -59,8 +59,8 @@ The CPO directs 12 Swarm Managers via the Deputy Orchestrator:
 
 - Dependency chain from `docs/specs/**`.
 - Gates: `/START gates`, `/PLAN` preflight, `/DEPLOY` go/no-go.
-- Lifecycle workflow: [`docs/workspace/context/governance/SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
-- Routing matrix: [`docs/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md).
+- Lifecycle workflow: [`docs/nezam/context/governance/SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Routing matrix: [`docs/nezam/memory/ORCHESTRATION_ALIASES.md`](../../docs/nezam/memory/ORCHESTRATION_ALIASES.md).
 
 ## When to invoke
 
@@ -75,7 +75,7 @@ The CPO directs 12 Swarm Managers via the Deputy Orchestrator:
 - Active swarm map with assigned Swarm Manager, Team Manager, and specialists.
 - Ordered next 3 actions + single **Recommendation** block.
 - Decision status: `go`, `no-go`, or `replan` with next legal command.
-- For phase-gate transitions: explicit reference to the matching phase in [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
+- For phase-gate transitions: explicit reference to the matching phase in [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
 
 ## Escalation
 

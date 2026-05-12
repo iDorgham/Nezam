@@ -1,5 +1,5 @@
 ---
-name: git-workflow
+name: "nezam-git-workflow"
 description: Git workflow + GitHub workflows — branching, conventional commits, annotated tags, PR checks, branch protection, Dependabot.
 paths:
   - ".github/**"

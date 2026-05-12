@@ -1,5 +1,5 @@
 ---
-name: api-testing
+name: "nezam-api-testing"
 description: External API testing skill — contract testing, integration test scaffolding, Postman/Bruno collections, mock server setup, and API health checks for third-party and internal APIs.
 paths:
   - "docs/specs/api/**"

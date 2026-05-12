@@ -115,7 +115,7 @@ function main() {
 
   if (!fileExists(changelogPath)) {
     console.error(`Missing CHANGELOG.md at configured path: ${changelogPath}`);
-    console.error(`Create it from docs/workspace/templates/specs/CHANGELOG.template.md`);
+    console.error(`Create it from .cursor/templates/specs/CHANGELOG.template.md`);
     process.exit(1);
   }
 

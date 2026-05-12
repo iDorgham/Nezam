@@ -1,5 +1,5 @@
 ---
-name: wireframe-pipeline
+name: "nezam-wireframe-pipeline"
 description: "Unified wireframe generation and spec engine with mandatory pixel-perfect reproduction gate, design-system fidelity enforcement, and 2-variation discipline."
 version: 4.0.0
 updated: 2026-05-12

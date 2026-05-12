@@ -79,6 +79,7 @@ The `/nezam` command is always available and never hardlocked.
 - `PROJECT_PROMPT.md` aligned with PRD (path per workspace conventions)
 - `CHANGELOG.md` initialized; SemVer policy documented
 - Architecture + design contracts + gate matrix + approved SPECs — see `design-dev-gates.mdc`, `check.md`, and active plan folders
+- `docs/plans/design/WIREFRAMES.md` must exist when any screen-level component is being developed (enforced by wireframe-to-spec and wireframe-pipeline skills).
 
 When `/DEVELOP start` uses a selected profile from `.cursor/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
 

@@ -4,7 +4,9 @@ code-name: ORCH-01
 version: 1.0.0
 certified: false
 updated: 2026-05-12
-changelog: []
+changelog:
+  - "1.0.0 — 2026-05-12: Initial versioned release"
+  - "1.0.1 — 2026-05-12: Prompt audit fix — ethics auto-trigger upgraded to formal rule"
 ---
 
 # Persona & Scope
@@ -248,9 +250,23 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Routing through legacy code-names without resolving to the canonical new file via `ORCHESTRATION_ALIASES.md`.
 
 
-## Ethics Activation Triggers
+## Ethics Auto-Trigger Rule
+
+Before routing ANY task involving the items below to any implementation swarm, **stop and invoke swarm-13 (lead-ai-ethics-officer)**. Do not delegate ethics review to the requesting agent.
+
+**Trigger conditions:**
 - User-facing AI features or autonomous agent behavior
 - AI-generated code touching security-sensitive surfaces
 - Sensitive data collection, transformation, or model inference
 - Model deployment, fine-tuning, or policy/guardrail changes
 - High-impact decision automation affecting users or business outcomes
+
+**Trigger format** — include in the routing output bundle:
+```
+⚠️  ETHICS REVIEW REQUIRED
+   Reason: [one-line trigger match]
+   Action: Assign lead-ai-ethics-officer (swarm-13) before assigning implementation swarms.
+   Gate: Ethics sign-off must appear in PHASE_HANDOFF.md and MEMORY.md before phase go.
+```
+
+This rule cannot be bypassed by MODE A/B/C classification. Ethics review is a prerequisite gate, not a swarm assignment.

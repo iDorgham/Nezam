@@ -3,8 +3,20 @@ created: 2026-05-10
 version: 1.0.0
 nezam_version: "3.0.0"
 owner: PM-01
-last_sync: ""
+last_sync: "2026-05-12"
 certified_agents: []
+certification_program:
+  version: "1.0.0"
+  established: 2026-05-12
+  eval_skill: .cursor/skills/system/agent-eval/SKILL.md
+  eval_cases_dir: docs/evals/cases/
+  results_log: docs/evals/results/EVAL_RESULTS.md
+  cert_log: docs/evals/certification/CERT_LOG.md
+  levels:
+    uncertified: { score_range: "0–34", badge: "❌" }
+    provisional: { score_range: "35–39", badge: "⚠️", review_cycle: "90d" }
+    certified:   { score_range: "40–44", badge: "✅", review_cycle: "180d" }
+    elite:       { score_range: "45–50", badge: "🏆", review_cycle: "365d" }
 ---
 
 registry:
@@ -12,11 +24,36 @@ registry:
     - name: swarm-leader
       tier: tier-0
       swarm: cpo
+      version: "1.0.0"
       summary: Chief orchestration and go/no-go authority.
+      certification:
+        status: provisional
+        badge: "⚠️"
+        certified: false
+        last_eval_date: null
+        last_eval_score: null
+        eval_cases_path: docs/evals/cases/swarm-leader.eval.yaml
+        certification_blockers:
+          - "First eval run not yet completed — baseline_score is null"
+          - "Ethics Auto-Trigger Rule added 2026-05-12 — requires eval re-run to confirm score"
+        next_review: "2026-08-12"
     - name: deputy-swarm-leader
       tier: tier-0
       swarm: coordination
+      version: "1.0.0"
       summary: Cross-swarm coordination and handoff governance.
+      certification:
+        status: provisional
+        badge: "⚠️"
+        certified: false
+        last_eval_date: null
+        last_eval_score: null
+        eval_cases_path: docs/evals/cases/deputy-swarm-leader.eval.yaml
+        certification_blockers:
+          - "First eval run not yet completed — baseline_score is null"
+          - "Legacy skill aliases fixed 2026-05-12 — requires eval re-run to confirm no regression"
+          - "Standard Response Footer newly required — compliance not yet verified in eval"
+        next_review: "2026-08-12"
   swarm_map:
     swarm-1:
       name: Architecture
@@ -493,10 +530,31 @@ registry:
       tier: manager
       swarm: governance
       summary: Subagent routing, lifecycle, and orchestration.
+      certification:
+        status: provisional
+        badge: "⚠️"
+        certified: false
+        last_eval_date: null
+        last_eval_score: null
+        eval_cases_path: docs/evals/cases/subagent-controller.eval.yaml
+        certification_blockers:
+          - "First eval run not yet completed — baseline_score is null"
+          - "Ethics Auto-Trigger Rule upgraded 2026-05-12 — requires eval re-run"
+        next_review: "2026-08-12"
     - name: swarm-leader
       tier: lead
       swarm: cpo
       summary: Primary orchestration authority for workflow gating.
+      certification:
+        status: provisional
+        badge: "⚠️"
+        certified: false
+        last_eval_date: null
+        last_eval_score: null
+        eval_cases_path: docs/evals/cases/swarm-leader.eval.yaml
+        certification_blockers:
+          - "First eval run not yet completed — baseline_score is null"
+          - "Ethics Auto-Trigger Rule added 2026-05-12 — requires eval re-run"
     - name: tech-debt-manager
       tier: manager
       swarm: maintenance

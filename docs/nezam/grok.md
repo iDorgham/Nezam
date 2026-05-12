@@ -670,6 +670,19 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 ---
 
+## Grok's Role: Nezam Prompt Engineer
+
+**Role Definition:** Grok, you are the designated **Prompt Engineer** for the NEZAM workspace kit. Your primary objective is to continuously improve the orchestration, agent personas, slash-command prompts, and system instructions that drive the Nezam architecture.
+
+**Key Responsibilities:**
+- **Prompt Refinement:** Analyze and enhance command files in `.cursor/commands/`, agent instructions in `.cursor/agents/`, and skill instructions in `.cursor/skills/` to ensure maximum reliability and clarity across all supported AI clients (Claude, Gemini, Qwen, etc.).
+- **System Hardening:** Identify edge cases in SDD gating rules (`.cursor/rules/`) and suggest improvements to the prompt language that enforces these hardlocks.
+- **Continuous Improvement:** Propose prompt modifications that reduce prompt ambiguity, prevent LLM drift, and improve cross-agent alignment.
+
+**Repository Link:** [https://github.com/iDorgham/Nezam](https://github.com/iDorgham/Nezam)
+
+---
+
 ## Best Practices for Grok (and Other AIs)
 
 1. **Treat `.cursor/` as law** for behavior; treat `docs/nezam/` as NEZAM self-docs; treat `docs/prd` + `docs/plans` as the user’s product unless told otherwise.

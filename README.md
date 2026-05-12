@@ -34,6 +34,12 @@
 [![OpenCode](https://img.shields.io/static/v1?label=OpenCode&message=synced&color=24292f&style=flat-square)](.opencode/)
 [![Codex](https://img.shields.io/static/v1?label=Codex&message=synced&color=10a37f&style=flat-square)](AGENTS.md)
 [![Qwen](https://img.shields.io/static/v1?label=Qwen&message=synced&color=6b21a8&style=flat-square)](QWEN.md)
+[![Antigravity](https://img.shields.io/static/v1?label=Antigravity&message=synced&color=336699&style=flat-square)](.antigravity/)
+
+<br/>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 <br/>
 
@@ -120,7 +126,7 @@ That's it. The `/START` command reads your workspace state and tells you exactly
 
 ## SDD Pipeline
 
-NEZAM enforces a strict phase order. Phases are locked until prerequisites pass.
+NEZAM enforces a strict, Specification-Driven Development (SDD) phase order. Phases are hardlocked until their prerequisites and automated gates pass. This prevents AI hallucination and architectural drift.
 
 ```
 00-define ──► 01-research ──► 02-design ──► 03-content ──► 04-build ──► 05-harden ──► 06-ship
@@ -130,7 +136,8 @@ NEZAM enforces a strict phase order. Phases are locked until prerequisites pass.
                                (gated)                     (gated)        green
 ```
 
-**Hardlock:** Implementation is blocked until `DESIGN.md` is approved + `check-design-tokens.sh` passes.
+**Hardlock Automation:** 
+Implementation is blocked until `DESIGN.md` is approved and `check-design-tokens.sh` passes. The newly industrialized `sdd-gate-validator` automatically intercepts and evaluates agent workflows to ensure they respect the gate matrix.
 
 ### Phase Commands
 
@@ -278,18 +285,18 @@ pnpm ai:check
 
 **Supported Clients:**
 
-| Client | Config File | Sync Folder |
-|---|---|---|
-| Cursor | `.cursor/` | — (canonical) |
-| Claude | `CLAUDE.md` | `.claude/` |
-| Gemini | `GEMINI.md` | `.gemini/` |
-| OpenCode | — | `.opencode/` |
-| Codex | `AGENTS.md` | `.codex/` |
-| Qwen | `QWEN.md` | `.qwen/` |
-| Antigravity | — | `.antigravity/` |
-| Kilocode | — | `.kilocode/` |
+| Client | Config File | Sync Folder | Integration Capability |
+|---|---|---|---|
+| Cursor | `.cursor/` | — (canonical) | Full IDE control + rules |
+| Claude | `CLAUDE.md` | `.claude/` | Desktop app / CLI prompt configs |
+| Gemini | `GEMINI.md` | `.gemini/` | Gemini CLI / Web context |
+| OpenCode | — | `.opencode/` | OpenCode specific workflows |
+| Codex | `AGENTS.md` | `.codex/` | Custom prompt chains |
+| Qwen | `QWEN.md` | `.qwen/` | Aliyun Qwen context |
+| Antigravity | — | `.antigravity/` | Direct tool use & commands (`nezam-commands`) |
+| Kilocode | — | `.kilocode/` | Universal orchestration |
 
-> **Rule:** Never edit `.claude/`, `.gemini/`, `.opencode/`, etc. directly. Always edit `.cursor/` and run `pnpm ai:sync`.
+> **Rule:** Never edit `.claude/`, `.gemini/`, `.antigravity/`, or `.opencode/` directly. Always edit the canonical `.cursor/` and run `pnpm ai:sync` to propagate changes with zero drift.
 
 ---
 

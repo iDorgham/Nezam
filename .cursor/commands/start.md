@@ -15,6 +15,11 @@ use these resolved paths. Users can relocate any of them with `/nezam paths set`
 
 When a user runs `/start` (with or without a subcommand), Claude scaffolds the project folder structure under `docs/` and guides the user through creating their PRD. The workspace governance files live in `docs/nezam/` and must not be touched.
 
+**Pre-flight check:**
+1. Read `HANDOFF_QUEUE.yaml` at workspace root.
+   - If `active_session.session_id` is populated AND any queue item has status `pending` or `in_progress`, resume from that context immediately. Do not accept new work until the queue item is resolved or explicitly deferred.
+   - If queue is empty or all items are `complete`, proceed normally.
+
 ---
 
 ## Subcommands
@@ -55,6 +60,53 @@ docs/reports/lighthouse/.gitkeep
 ```
 
 No user interaction during this step.
+
+---
+### Step 1.5: Initialize State Files (Bootstrap)
+
+Ensure the `.cursor/state/` directory exists and populate the following files with sensible defaults if they are missing:
+- `.cursor/state/onboarding.yaml`:
+  ```yaml
+  user_mode: "solo"
+  tone: "friendly"
+  build_mode: "sdd"
+  prd_locked: false
+  design_locked: false
+  ```
+- `.cursor/state/plan_progress.yaml`:
+  ```yaml
+  planning_complete: false
+  seo: false
+  ia: false
+  content: false
+  arch: false
+  design_wireframes: false
+  scaffold: false
+  ```
+- `.cursor/state/develop_phases.yaml`:
+  ```yaml
+  phase_1:
+    status: "locked"
+    testing_passed: false
+  phase_2:
+    status: "locked"
+    testing_passed: false
+  phase_3:
+    status: "locked"
+    testing_passed: false
+  phase_4:
+    status: "locked"
+    testing_passed: false
+  phase_5:
+    status: "locked"
+    testing_passed: false
+  ```
+- `.cursor/state/agent-status.yaml`:
+  ```yaml
+  pending_handoff:
+    status: "none"
+  active_spec: ""
+  ```
 
 ---
 ### Step 2: User mode (Solo or Team)
@@ -483,3 +535,15 @@ After any governance change, non-Cursor clients should verify:
 
 Hard blocks: none (START is always available)
 Recommendation footer: required
+
+---
+
+## Session Closure
+
+[LAST STEP] Write session closure entry to `HANDOFF_QUEUE.yaml` under `session_history`:
+  - session_id: generate a short slug (date + topic)
+  - summary: 2-3 sentence description of what was accomplished
+  - phases_advanced: list any SDD phases that moved forward
+  - agents_invoked: list all agents called during the session
+  - artifacts_created: list all files created or materially modified
+  - ended_at: ISO timestamp

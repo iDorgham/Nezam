@@ -1,0 +1,35 @@
+# HANDOFF_QUEUE.yaml
+# Managed by: deputy-swarm-leader
+# Purpose: Persistent cross-session context continuity for NEZAM workspace
+# Updated: 2026-05-12T06:03:00Z
+
+schema_version: "1.0"
+
+active_session:
+  session_id: ""
+  started_at: ""
+  swarm_leader_context: ""
+  current_sdd_phase: ""
+  active_agent: ""
+  blocking_prerequisite: ""
+
+queue:
+  - handoff_id: ""
+    from_agent: ""
+    to_agent: ""
+    priority: ""        # P0 | P1 | P2
+    sdd_phase: ""
+    context_summary: ""
+    artifacts_produced: []
+    artifacts_required: []
+    status: ""          # pending | in_progress | blocked | complete
+    created_at: ""
+    resolved_at: ""
+
+session_history:
+  - session_id: ""
+    summary: ""
+    phases_advanced: []
+    agents_invoked: []
+    artifacts_created: []
+    ended_at: ""

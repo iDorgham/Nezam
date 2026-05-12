@@ -23,6 +23,7 @@ Required state files:
   - .cursor/state/onboarding.yaml     (required for gates 0→1 and up)
   - .cursor/state/plan_progress.yaml  (required for gate 1→2)
   - .cursor/state/develop_phases.yaml (required for gates N→N+1 and 5→6)
+  - HANDOFF_QUEUE.yaml                (required to verify session integrity)
 
 On STATE_ERROR:
   ❌ State file missing or corrupt: [filename]
@@ -36,6 +37,11 @@ Schema defaults live in `.cursor/state/schemas/`. If a YAML file fails to parse:
 3. Warn the user that progress state was reset and they should verify before proceeding
 
 ## Gate Definitions
+
+### Gate Pre-Check: Handoff Queue
+
+All must be true before evaluating any phase gate:
+- [ ] `HANDOFF_QUEUE.yaml` does not contain any items with `status: pending` or `status: in_progress`. (If items exist, they must be resolved or deferred before crossing a gate).
 
 ### Gate 0 → 1: Onboarding → Planning
 

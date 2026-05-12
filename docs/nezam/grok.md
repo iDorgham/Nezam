@@ -25,7 +25,7 @@
 | **Agents** | Markdown personas: charter, responsibilities, escalation, sometimes YAML frontmatter | `.cursor/agents/` |
 | **Skills** | Executable checklists / workflows invoked by name | `.cursor/skills/<domain>/<skill-id>/SKILL.md` |
 | **Rules** | Cursor rules (always-applied or agent-requestable) encoding gates and style | `.cursor/rules/*.mdc` |
-| **State** | Machine-readable flags for onboarding, plan phases, develop phases, registry | `.cursor/state/` |
+| **State** | Machine-readable flags for onboarding, plan phases, develop phases, registry, and the persistent `HANDOFF_QUEUE.yaml` | `.cursor/state/` and root `HANDOFF_QUEUE.yaml` |
 | **Templates** | Scaffolding for plans, specs, SDD, swarm handoffs, AI client root files | `.cursor/templates/` |
 | **Scripts** | Sync, drift checks, hooks, design profile copy, continual learning, audits | `scripts/` |
 | **Workspace docs** | NEZAM’s own wiki, memory, PRD for the kit | `docs/nezam/` (see `docs/nezam/README.md`) |
@@ -161,7 +161,7 @@ Do **not** conflate Cursor’s built-in subagent types with files in `.cursor/ag
 | Name | File | Summary |
 |------|------|---------|
 | swarm-leader | `.cursor/agents/swarm-leader.md` | PM-01: routing, hardlocks, tone from state |
-| deputy-swarm-leader | `.cursor/agents/deputy-swarm-leader.md` | Cross-swarm coordination |
+| deputy-swarm-leader | `.cursor/agents/deputy-swarm-leader.md` | Cross-swarm coordination, manages `HANDOFF_QUEUE.yaml` & `PHASE_HANDOFF.md` |
 
 ### Swarm → default agents (from registry)
 
@@ -351,6 +351,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 - **Cursor:** User or orchestrator `@`-mentions a skill path, or rules/agents tell the model to read a skill.
 - **Synced tools:** `pnpm ai:sync` copies skills into `.claude/skills`, `.opencode/skills`, etc., per `scripts/tools.config.json`.
 - **Gemini / Qwen:** Receive command mirrors as TOML (`.gemini/commands`, `.qwen/commands`)—skills are **not** always file-mirrored for those tiers; root `GEMINI.md` / `QWEN.md` still index skill categories.
+- **Antigravity:** Global skills (like `nezam-commands`) act as dispatchers for workspace-local commands until native discovery is supported.
 
 ### Skill development standards
 
@@ -479,6 +480,10 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 
 Commands are **Markdown instructions**, not compiled code. Cursor binds them to slash UI; execution is **an LLM interpreting** the file. There is no guarantee the model loads every linked rule unless the session configuration applies rules globally or the prompt chain references them.
 
+### Antigravity Interop (Interim)
+
+Antigravity currently does **not** natively discover workspace-local `.antigravity/commands/*.md` files in its `/` slash command palette. To bridge this gap, a global dispatcher skill (`~/.gemini/antigravity/skills/nezam-commands/SKILL.md`) is used. When a user types a command like `/plan`, this global skill activates and dynamically loads the workspace-local `.antigravity/commands/plan.md` file at runtime. A formal feature request (`docs/reports/audits/antigravity-workspace-commands-feature-request.md`) has been filed to bring native workspace-scoped command discovery to Antigravity.
+
 ### Command vs Skill vs Agent
 
 | Use | When |
@@ -555,8 +560,8 @@ Root: `.cursor/templates/` (also referenced as `workspace.templates_root` in `.c
 └── workspace.paths.yaml
 
 docs/
-├── nezam/            # NEZAM kit documentation + wiki source + memory
-├── prd/              # User PRD (default)
+├── nezam/            # NEZAM kit documentation + memory + internal PRD/plans/reports/tools
+├── prd/              # User PRD (default for the product, not NEZAM)
 ├── plans/            # User plans (default)
 └── reports/          # Generated reports by category
 
@@ -570,14 +575,25 @@ AGENTS.md CLAUDE.md GEMINI.md QWEN.md   # Generated root contracts
 
 ---
 
+## Antigravity Global Skills (Interim)
+Since Antigravity does not natively discover workspace-scoped `.antigravity/commands` or skills, the following global skills are typically installed in `~/.gemini/antigravity/skills/` to provide NEZAM parity:
+- **`nezam-commands`**: Dispatcher skill that proxies slash commands to workspace-local `.antigravity/commands/`.
+- **`superdesign`**: Specialized frontend UI/UX design agent (also mirrored to workspace when applicable).
+- **`find-skills`**: Meta-skill to discover and install new agent skills.
+
+---
+
 ## Context, Memory & State Management
 
 ### Flow
 
-1. **Session start:** Rules may require reading `.cursor/state/onboarding.yaml`, `AGENT_REGISTRY.yaml`, `swarm-leader.md`.
+### Flow
+
+1. **Session start:** Rules may require reading `.cursor/state/onboarding.yaml`, `AGENT_REGISTRY.yaml`, `swarm-leader.md`. The `/start` command initiates a **Pre-flight check** by reading `HANDOFF_QUEUE.yaml` to resume any `pending` or `in_progress` contexts immediately.
 2. **Commands** point to PRD, plans, `DESIGN.md`, reports.
-3. **Durable memory (kit):** `docs/nezam/memory/*.md` per `docs/nezam/README.md`.
-4. **User ephemeral:** chat transcript; should be summarized into memory via `/SAVE log` patterns in rules.
+3. **Queue Promotion & Closure:** `deputy-swarm-leader` manages `HANDOFF_QUEUE.yaml` and `PHASE_HANDOFF.md` to promote tasks at the start of a session, enforce priorities, and record `session_history` closures at the end.
+4. **Durable memory (kit):** `docs/nezam/memory/*.md` per `docs/nezam/README.md`.
+5. **User ephemeral:** chat transcript; summarized into memory via `/SAVE log` patterns in rules or formally recorded in the `HANDOFF_QUEUE.yaml` session closure.
 
 ### Token management
 
@@ -613,13 +629,16 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 - **Sync pipeline** (`sync-ai-folders.js` + `tools.config.json`) is explicit and testable.
 - **CI workflows** exist for general CI, design gates, NEZAM PR gates, nightly, semantic release (`/.github/workflows/`).
-- **Rich catalogs** of agents and skills suitable for large-org roleplay.
+- **Rich catalogs** of agents and skills suitable for large-org roleplay, now expanded to a standardized **13 swarm unit architecture**.
 - **State schemas** co-located with YAML in `.cursor/state/schemas/`.
+- **Governance & Evaluation**: Formal evaluation protocols via `EVAL_FRAMEWORK.md`.
+- **Design Workflows**: Integration of `superdesign` workflows and UI UI/UX templates.
+- **Workspace Memory**: `HANDOFF_QUEUE.yaml` persistent tracking and session continuity protocol integrated via `deputy-swarm-leader`.
+- **Foundational Governance**: Git branch protection initialized, initial SDD framework documentation (PRD and DESIGN.md) established, and `.cursor/` AI rules engine scaffolded.
 
 ### Incomplete / fragile
 
 - **Broken or missing cross-links** inside agents (e.g. `SWARM_WORKFLOW.md` target missing in this repo snapshot).
-- **`docs/workspace/`** is nearly empty here while many flows reference `docs/workspace/context/...` paths.
 - **Gate enforcement** requires disciplined LLM behavior; no daemon verifies `/develop` prerequisites before file writes.
 - **`certified_agents: []`** — no formal certification pipeline wired.
 

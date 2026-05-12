@@ -16,3 +16,5 @@ jobs:
       - run: pnpm run check:tokens
       - run: pnpm ai:check
       - run: bash scripts/check-spec-versions.sh
+      - run: bash scripts/checks/check-sdd-integrity.sh
+      - run: bash scripts/checks/sdd-gate-validator.sh

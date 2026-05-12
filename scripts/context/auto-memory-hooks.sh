@@ -5,8 +5,8 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 mode="${1:-}"
 
 health_file="$repo_root/HEALTH.md"
-memory_file="$repo_root/docs/memory/MEMORY.md"
-context_file="$repo_root/docs/memory/CONTEXT.md"
+memory_file="$repo_root/docs/nezam/memory/MEMORY.md"
+context_file="$repo_root/docs/nezam/memory/CONTEXT.md"
 bundle_file="$repo_root/docs/reports/progress/COMPANION_BUNDLE.md"
 post_commit_hook="$repo_root/.githooks/post-commit"
 
@@ -14,10 +14,10 @@ now_utc="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 score_spec_completeness() {
   local files=(
-    "$repo_root/docs/core/required/prd/PRD.md"
-    "$repo_root/docs/core/required/PROJECT_PROMPT.md"
+    "$repo_root/docs/prd/PRD.md"
+    "$repo_root/docs/prd/PROJECT_PROMPT.md"
     "$repo_root/docs/03_architecture/ARCHITECTURE.md"
-    "$repo_root/docs/core/VERSIONING.md"
+    "$repo_root/docs/nezam/VERSIONING.md"
     "$repo_root/CHANGELOG.md"
   )
   local present=0
@@ -125,7 +125,7 @@ install_hook_call() {
 }
 
 build_companion_bundle() {
-  local context_path="$repo_root/docs/memory/CONTEXT.md"
+  local context_path="$repo_root/docs/nezam/memory/CONTEXT.md"
   local progress_path="$repo_root/docs/reports/progress/PROGRESS_REPORT.latest.md"
   local health_path="$repo_root/HEALTH.md"
 

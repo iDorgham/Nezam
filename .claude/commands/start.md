@@ -17,6 +17,11 @@ use these resolved paths. Users can relocate any of them with `/nezam paths set`
 
 When a user runs `/start` (with or without a subcommand), Claude scaffolds the project folder structure under `docs/` and guides the user through creating their PRD. The workspace governance files live in `docs/nezam/` and must not be touched.
 
+**Pre-flight check:**
+1. Read `HANDOFF_QUEUE.yaml` at workspace root.
+   - If `active_session.session_id` is populated AND any queue item has status `pending` or `in_progress`, resume from that context immediately. Do not accept new work until the queue item is resolved or explicitly deferred.
+   - If queue is empty or all items are `complete`, proceed normally.
+
 ---
 
 ## Subcommands
@@ -485,3 +490,15 @@ After any governance change, non-Cursor clients should verify:
 
 Hard blocks: none (START is always available)
 Recommendation footer: required
+
+---
+
+## Session Closure
+
+[LAST STEP] Write session closure entry to `HANDOFF_QUEUE.yaml` under `session_history`:
+  - session_id: generate a short slug (date + topic)
+  - summary: 2-3 sentence description of what was accomplished
+  - phases_advanced: list any SDD phases that moved forward
+  - agents_invoked: list all agents called during the session
+  - artifacts_created: list all files created or materially modified
+  - ended_at: ISO timestamp

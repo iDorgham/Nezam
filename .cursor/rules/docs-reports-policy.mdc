@@ -15,6 +15,6 @@ Do **not** write generated reports to:
 
 - repository root
 - `docs/` (except `docs/reports/**` and this policy)
-- `docs/core/**` (canonical specs, plans, templates, context memory)
+- `docs/nezam/**` (canonical specs, plans, templates, context memory)
 
 Use timestamped filenames or `*.latest.md` only where a rolling file is intentional (see each category `README.md`).

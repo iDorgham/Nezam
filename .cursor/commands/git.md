@@ -8,7 +8,7 @@ Subcommands:
   /GIT release      → Full release flow: tag → CHANGELOG update → release notes → push
   /GIT rollback     → Revert last deployment or commit with safe rollback plan
   /GIT sync         → Sync generated AI client surfaces (runs pnpm ai:sync + pnpm ai:check)
-  /GIT log          → Save progress log entry to docs/memory/MEMORY.md
+  /GIT log          → Save progress log entry to docs/nezam/memory/MEMORY.md
   /GIT report       → Generate progress report → docs/reports/progress/PROGRESS_REPORT.latest.md
   /GIT hooks        → Install git hooks for auto-context updates
 

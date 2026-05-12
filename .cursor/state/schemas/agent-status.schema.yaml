@@ -1,0 +1,82 @@
+# NEZAM State Schema — agent-status.yaml
+# schema_version: 1.0.0
+# Used by: sdd-gate-validator, /check repair
+
+schema_version: "1.0.0"
+
+defaults:
+  created: ""
+  version: "1.0.0"
+  owner: "PM-01"
+  last_updated: ""
+  active_swarm: ""
+  active_agent: ""
+  active_phase: ""
+  active_feature_slice: ""
+  active_spec: ""
+  last_output:
+    type: ""
+    artifact_path: ""
+    status: ""
+    summary: ""
+  pending_handoff:
+    from_agent: ""
+    to_agent: ""
+    handoff_packet_path: ""
+    status: "none"
+  open_blockers: []
+  session_resume_prompt: ""
+
+fields:
+  last_updated:
+    type: string
+  active_swarm:
+    type: string
+  active_agent:
+    type: string
+  active_phase:
+    type: string
+  active_feature_slice:
+    type: string
+  active_spec:
+    type: string
+
+  last_output:
+    type: object
+    fields:
+      type:
+        type: string
+      artifact_path:
+        type: string
+      status:
+        type: string
+      summary:
+        type: string
+
+  pending_handoff:
+    type: object
+    fields:
+      from_agent:
+        type: string
+      to_agent:
+        type: string
+      handoff_packet_path:
+        type: string
+      status:
+        type: string
+        allowed: ["pending", "delivered", "none"]
+
+  open_blockers:
+    type: array
+    items:
+      type: string
+
+  session_resume_prompt:
+    type: string
+
+rules:
+  - id: R1
+    description: "pending_handoff status must be valid"
+    check: "pending_handoff.status in [pending, delivered, none]"
+    auto_repair: true
+    repair_logic: "Set to none"

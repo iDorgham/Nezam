@@ -212,10 +212,10 @@ Hardlocks block **starting** dependent forward work until prerequisites are sati
 
 1. **Source of truth**: repository files (`docs/prd/PRD.md`, `docs/plans/**`, `docs/reports/**`, `docs/nezam/**`, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
-3. **Durable project memory**: `docs/memory/MEMORY.md` plus phase logs under `docs/memory/` (maintain via `/SAVE log`).
-4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/memory/CONTEXT.md`.
+3. **Durable project memory**: `docs/nezam/memory/MEMORY.md` plus phase logs under `docs/nezam/memory/` (maintain via `/SAVE log`).
+4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/nezam/memory/CONTEXT.md`.
 
-Formal mapping: `docs/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
+Formal mapping: `docs/nezam/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
 
 Do not contradict committed specs without an explicit decision record note.
 
@@ -225,12 +225,12 @@ When assistants lock decisions in chat, persist them before finishing the reply 
 
 | Trigger | Persist to |
 |---------|------------|
-| Stack choice | `docs/memory/MEMORY.md` → **Active Stack Decisions** |
+| Stack choice | `docs/nezam/memory/MEMORY.md` → **Active Stack Decisions** |
 | Architecture ADR summary | **Locked Architecture Decisions** |
 | Design lock (tokens/grid/motion) | **Locked Design Decisions** |
 | Tradeoff with expiry | **Accepted Tradeoffs** |
 | Tier-1 agent eval | **Agent Scorecards** |
-| Phase transition | `docs/memory/PHASE_HANDOFF.md` |
+| Phase transition | `docs/nezam/memory/PHASE_HANDOFF.md` |
 | Session end | Write to `.cursor/state/agent-status.yaml`: last agent, last output, pending handoff, one-sentence resume prompt |
 | Go/no-go decision | Append to `docs/workspace/decisions/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
 
@@ -249,14 +249,14 @@ At session open:
 
 ## MCP Usage Policy
 
-- When a registered MCP server exists for a service (see `docs/memory/MCP_REGISTRY.md`), use it.
+- When a registered MCP server exists for a service (see `docs/nezam/memory/MCP_REGISTRY.md`), use it.
 - MCP-first saves tokens: structured results < prose descriptions of API calls.
 - Never write raw HTTP fetch code for a service that has an MCP.
 - Exception: when MCP is unavailable in current tool context — fall back to CLI (see CLI orchestration rules).
 
 ### Wireframe MCP Policy
 When `/PLAN design wireframes` is invoked:
-1. Check `docs/memory/MCP_REGISTRY.md` for active Figma MCP.
+1. Check `docs/nezam/memory/MCP_REGISTRY.md` for active Figma MCP.
 2. If active, use Mode A (Figma MCP) automatically.
 3. If inactive, check for uploaded Excalidraw/Penpot file and use Mode B.
 4. If neither is available, use Mode C (text interview fallback).
@@ -297,7 +297,7 @@ Decision requests:
 
 Before any task assignment, agents MUST:
 1. Read `.cursor/workspace.settings.yaml` and check `tools.<name>.active` for each tool.
-2. Read `docs/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
+2. Read `docs/nezam/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
 3. Route tasks only to tools marked active in settings.
 4. If the preferred tool is inactive, apply the deactivation chain from CLI tools context.
 5. Keep `security: true` tasks on primary reasoning lanes only (never free CLI lanes).
@@ -310,7 +310,7 @@ Tool activation state in workspace settings is the source of truth; never assume
 When `/Settings ai-tools off <tool>` is used:
 1. Persist `tools.<tool>.active: false` in workspace settings.
 2. Re-route tasks in `docs/plans/MASTER_TASKS.md` using deactivation chains from
-   `docs/memory/CLI_TOOLS_CONTEXT.md`.
+   `docs/nezam/memory/CLI_TOOLS_CONTEXT.md`.
 3. Keep an audit trail via `original_tool` where reassignment occurred.
 4. If no fallback exists, mark task blocked with `NO_ACTIVE_TOOL`.
 5. Keep `security: true` tasks on primary reasoning lanes only; otherwise block with

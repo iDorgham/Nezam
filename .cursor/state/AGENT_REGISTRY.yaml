@@ -42,6 +42,9 @@ registry:
       swarm: coordination
       version: "1.0.0"
       summary: Cross-swarm coordination and handoff governance.
+      managed_artifacts:
+        - HANDOFF_QUEUE.yaml
+        - PHASE_HANDOFF.md
       certification:
         status: provisional
         badge: "⚠️"

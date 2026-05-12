@@ -1,0 +1,46 @@
+# NEZAM State Schema — HANDOFF_QUEUE.yaml
+# schema_version: 1.0.0
+# Used by: sdd-gate-validator, /check repair
+
+schema_version: "1.0.0"
+
+defaults:
+  created: ""
+  version: "1.0.0"
+  owner: "PM-01"
+  queue: []
+
+fields:
+  created:
+    type: string
+  version:
+    type: string
+  owner:
+    type: string
+  queue:
+    type: array
+    items:
+      type: object
+      fields:
+        id:
+          type: string
+          required: true
+        task_id:
+          type: string
+          required: true
+        assigned_to:
+          type: string
+          required: true
+        status:
+          type: string
+          allowed: ["pending", "in_progress", "complete", "deferred", "blocked"]
+          required: true
+        notes:
+          type: string
+
+rules:
+  - id: R1
+    description: "Items in queue must have valid statuses"
+    check: "status in [pending, in_progress, complete, deferred, blocked]"
+    auto_repair: true
+    repair_logic: "Set to pending"

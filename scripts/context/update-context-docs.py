@@ -66,9 +66,9 @@ def main() -> int:
         print("docs/workspace/context/CONTEXT.md is missing. Skipping update.", file=sys.stderr)
         return 0
 
-    has_prd = file_exists(repo, "docs/core/required/prd/PRD.md")
-    has_prompt = file_exists(repo, "docs/core/required/PROJECT_PROMPT.md")
-    has_seo = file_exists(repo, "docs/core/required/sdd/SEO_RESEARCH.md")
+    has_prd = file_exists(repo, "docs/prd/PRD.md")
+    has_prompt = file_exists(repo, "docs/prd/PROJECT_PROMPT.md")
+    has_seo = file_exists(repo, "docs/plans/04-design/SEO_RESEARCH.md")
     has_design = file_exists(repo, "docs/DESIGN.md")
     has_report = file_exists(repo, "docs/reports/progress/PROGRESS_REPORT.latest.md")
     phase = compute_phase(has_prd, has_prompt, has_seo, has_design)

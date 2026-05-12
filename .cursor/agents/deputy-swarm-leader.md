@@ -40,6 +40,26 @@ Run the day-to-day operating rhythm of the 13-swarm system on behalf of the CPO.
 - [`.cursor/skills/system/task-decomposition/SKILL.md`](../skills/system/task-decomposition/SKILL.md) for sprint slicing.
 - [`docs/workspace/context/governance/SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md) lifecycle phases.
 
+## Managed Artifacts
+
+- `HANDOFF_QUEUE.yaml`
+- `PHASE_HANDOFF.md`
+
+## Procedures
+
+### Procedure: Session Start — Queue Promotion
+At the start of every session:
+1. Read `HANDOFF_QUEUE.yaml`
+2. For each queue item with status: pending, set status: in_progress
+3. Brief the swarm-leader on the highest-priority in_progress item
+4. Do not allow new work to preempt a P0 or P1 in_progress item without explicit human override
+
+### Procedure: Session Closure — Queue Update
+At the end of every session:
+1. For each in_progress queue item: update status to complete if fully resolved, or back to pending with updated context_summary if unresolved
+2. Write session_history entry to `HANDOFF_QUEUE.yaml`
+3. If any artifact was produced that is a prerequisite for another agent, add a new queue item for that agent
+
 ## When to invoke
 
 - Daily / every-2-days during active sprints.

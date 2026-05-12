@@ -23,7 +23,7 @@ Planning -> SEO -> IA -> Content -> Design (**root `DESIGN.md`**) -> Development
 
 - **Catalog:** `.cursor/design/<brand>/design.md`
 - **Contract:** repository root **`DESIGN.md`** — create with `pnpm run design:apply -- <brand>` or follow mirrored `start` / `START` command text from `.cursor/commands/start.md` in your client’s synced commands folder.
-- **Cross-client map:** [`docs/memory/MULTI_TOOL_INDEX.md`](docs/memory/MULTI_TOOL_INDEX.md)
+- **Cross-client map:** [`docs/nezam/memory/MULTI_TOOL_INDEX.md`](docs/nezam/memory/MULTI_TOOL_INDEX.md)
 
 ## SDD hardlock
 
@@ -46,7 +46,7 @@ Do not proceed to development unless all exist:
 - **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `docs/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
 - For NEZAM README work, keep README body copy in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections (for example Mermaid) rather than Arabic wording inside README narrative text.
 - Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
-- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `docs/templates/ai-client/` and `docs/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
+- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `docs/templates/ai-client/` and `docs/nezam/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
 
 ## Learned Workspace Facts
 

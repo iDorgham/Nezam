@@ -111,7 +111,7 @@ For cases tagged `evaluation_type: automated`:
 # Check gate validator detects missing PRD
 # Check swarm-leader reads onboarding.yaml before acting
 # Check response style matches workspace-orchestration.mdc contract
-# Check no docs/core/required path references in output
+# Check no docs/""core/required path references in output
 ```
 
 ### 4. Regression Detection

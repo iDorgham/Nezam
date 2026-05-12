@@ -1,0 +1,69 @@
+# NEZAM State Schema — agent-bus.yaml
+# schema_version: 1.0.0
+# Used by: sdd-gate-validator, /check repair
+
+schema_version: "1.0.0"
+
+defaults:
+  created: ""
+  version: "1.0.0"
+  owner: "PM-01"
+  messages: []
+
+fields:
+  created:
+    type: string
+    required: true
+
+  version:
+    type: string
+    required: true
+
+  owner:
+    type: string
+    required: true
+
+  messages:
+    type: array
+    items:
+      type: object
+      fields:
+        id:
+          type: string
+          required: true
+        from:
+          type: string
+          required: true
+        to:
+          type: string
+          required: true
+        type:
+          type: string
+          allowed: ["handoff", "escalation", "blocker", "decision-request"]
+          required: true
+        timestamp:
+          type: string
+          required: true
+        payload:
+          type: object
+          required: true
+          fields:
+            subject:
+              type: string
+            artifact_path:
+              type: string
+            summary:
+              type: string
+            action_required:
+              type: string
+        status:
+          type: string
+          allowed: ["pending", "read", "actioned"]
+          required: true
+
+rules:
+  - id: R1
+    description: "Each message must have a valid status"
+    check: "status in [pending, read, actioned]"
+    auto_repair: true
+    repair_logic: "Set invalid status to pending"

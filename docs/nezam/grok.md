@@ -359,7 +359,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 - **Body sections:** Follow `.cursor/templates/ai-client/SKILL.template.md` (Purpose, Inputs, Step-by-Step Workflow, Examples, Validation & Metrics, Output Format).
 - **Version discipline:** Prefer bumping `updated` and `changelog` when behavior changes.
 
-### Complete skills catalog (88 files)
+### Complete skills catalog
 
 | Category | Skill ID | One-line `description` (from frontmatter) |
 |----------|----------|-------------------------------------------|
@@ -373,12 +373,16 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | backend | database-optimization | Index strategies, query planning, connection pooling, and read-replica routing for predictable database performance. |
 | backend | drizzle-orm | SQL-first ORM workflows for TypeScript apps with migration discipline. |
 | backend | mena-payment-routing | JSON metadata pack for MENA payment routing; body is minimal—pair with `mena-payments-specialist` agent and live compliance sources. |
+| backend | neon-advanced | Advanced Neon Postgres patterns: database branching, serverless pooling, egress optimization, and ephemeral environments. |
 | backend | neon-postgres | Serverless Postgres operations with branching and preview-safe workflows. |
 | backend | openrouter | Multi-model routing and fallback orchestration using OpenRouter. |
 | backend | prisma-orm | Prisma 6 schema, migrations, type-safe client, seeding, and relations for typed database access. |
 | backend | resend-email | Transactional email delivery patterns using Resend with reliability safeguards. |
+| backend | stripe | Implements Stripe payment processing, Checkout, subscriptions, Connect, and secure webhooks. |
 | backend | supabase-architect | Postgres RLS, Auth flows, Realtime, Edge Functions, and schema management for Supabase-backed apps. |
+| backend | trigger-dev | Architects and implements Trigger.dev for background jobs, AI agent coordination, and cron tasks. |
 | backend | typesense-search | Typo-tolerant and vector-aware search implementation using Typesense. |
+| backend | vector-db-qdrant | Architects Qdrant vector database implementations: collection design, HNSW tuning, and payload filtering. |
 | backend | vercel-ai-sdk | Build streaming, tool-calling AI features with provider-agnostic SDK patterns. |
 | content | arabic-content | Parent Arabic content skill (JSON contract): dialect routing, Ramadan/religious calendar, typography/a11y, channel playbooks; delegates Egyptian depth to `egyptian-arabic-content`. |
 | content | content-modeling | Design content types, field schemas, reusable blocks, and preview/revision workflows for headless CMSes. |
@@ -402,13 +406,18 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | external | git-workflow | Git workflow + GitHub workflows — branching, conventional commits, annotated tags, PR checks, branch protection, Dependabot. |
 | external | guide-instructor-domains | Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows. |
 | external | plan-full | Full SDD planning spine — roadmap, phases, specs, docs scaffolding with acceptance criteria matrices. |
+| frontend | gsap-animations | Implements high-performance, scroll-triggered animations and timeline composition using GSAP and Framer Motion. |
+| frontend | i18n-next-intl | Implements locale routing, translations, middleware, and RTL config using next-intl. |
+| frontend | nextjs-patterns | App Router composition, View Transitions API, partial prerendering, streaming, parallel/intercepting routes, and runtime constraints. |
 | frontend | react-architecture | React 19 / Next.js 15 patterns — Server Components, Suspense, Server Actions, state strategy, and rendering modes. |
+| frontend | react18-patterns | Implements React 18+ concurrent features, automatic batching, and modern rendering patterns. |
 | infrastructure | aws-infra | AWS CDK v2, IAM least-privilege, S3/CloudFront, and Secrets Manager patterns for production AWS deployments. |
 | infrastructure | cdn-optimization | Image optimization, prefetch/preload, cache tags, and edge routing for fast global delivery. |
 | infrastructure | cloudflare-edge | Cloudflare Workers, KV/D1/R2, Pages, cache rules, and geographic routing patterns at the edge. |
 | infrastructure | devops-pipeline | GitHub Actions / GitLab CI pipelines with environment promotion, artifact versioning, and rollback. |
 | infrastructure | error-tracking | Sentry/Logtail integration with source maps, release correlation, and structured alert routing. |
 | infrastructure | llm-observability | LLM tracing, cost visibility, and evaluation workflows with Helicone and Langfuse. |
+| infrastructure | llm-tracing | Implements Langfuse for AI observability: traces, spans, scores, datasets, evals, and cost tracking. |
 | infrastructure | monitoring-observability | OpenTelemetry, structured logging, distributed tracing, and alerting strategy for production observability. |
 | infrastructure | product-analytics | Product analytics instrumentation and governance using PostHog patterns. |
 | infrastructure | secret-management | Secret stores (Vault / AWS SM / Vercel / Doppler), env injection, rotation policies, and least-privilege access. |
@@ -419,6 +428,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | quality | performance-optimization | Core Web Vitals budgeting, code splitting, bundle analysis, and lazy-loading strategy for sustained perf. |
 | quality | privacy-compliance | GDPR / CCPA patterns — consent gating, audit logging, right-to-delete, and data residency. |
 | quality | regression-detector | Detect likely regressions from change impact and define focused verification paths. |
+| quality | sast-security | Implements SAST tooling and proactive scanning workflows using Semgrep for code and LLM security. |
 | quality | scan-fix-loop | Deterministic scan-to-fix orchestration that triages `/SCAN` output, applies targeted patches, verifies results, and updates planning artifacts. |
 | quality | security-hardening | OWASP Top 10 controls, CSP/security headers, dependency scanning, and SAST/DAST in CI. |
 | quality | testing-automation | Deterministic testing automation workflow for unit, E2E, and visual coverage with `/SCAN tests` integration. |
@@ -450,6 +460,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | system | spec-generator | Generate complete SDD SPEC.md files for feature slices following the 10-field contract. |
 | system | strategic-planning | Anchor product roadmap, milestone gating, scope control, and resource mapping before any SDD phase begins. |
 | system | task-decomposition | Decompose epics into right-sized features and tasks with explicit dependencies, slice sizing, and acceptance hooks. |
+| system | tavily-research | Implements agentic search, extraction, and RAG optimization using Tavily. |
 | system | token-budget-manager | Minimize token spend across Claude, Cursor, Antigravity, and Codex through caching, compression, and routing. |
 
 > **Note:** Some skills use JSON embedded in Markdown instead of a YAML `description:` line; treat the file body as authoritative. A few skills still reference **legacy PRD paths**—normalize to `.cursor/workspace.paths.yaml` → `project.prd` when improving docs.

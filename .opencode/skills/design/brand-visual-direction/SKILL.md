@@ -2,9 +2,10 @@
 
 ---
 name: brand-visual-direction
-version: 1.0.0
-updated: 2026-05-08
-changelog: []
+version: 1.1.0
+updated: 2026-05-12
+changelog:
+  - 1.1.0: Added UI/UX Swarm integration details.
 ---
 
 # Purpose
@@ -53,3 +54,7 @@ Translate brand strategy into concrete visual direction rules that remain consis
 - `/SCAN a11y|code`: include contrast and consistency checks.
 - CI/manual review: apply alignment checklist before release.
 - `/SAVE report`: include brand drift and remediation notes.
+
+## UI/UX Swarm Integration
+- Collaborate closely with the UI/UX Swarm Lead (`lead-uiux-designer`) to ensure brand guidelines are correctly interpreted.
+- Validate component designs through the UI/UX Swarm approval process.

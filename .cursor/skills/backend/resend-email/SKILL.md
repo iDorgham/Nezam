@@ -1,9 +1,10 @@
 ---
 name: resend-email
 description: Transactional email delivery patterns using Resend with reliability safeguards.
-version: 1.0.0
-updated: 2026-05-10
-changelog: []
+version: 1.1.0
+updated: 2026-05-12
+changelog:
+  - 1.1.0: Added React Email integration patterns.
 ---
 
 # Resend Email
@@ -46,3 +47,8 @@ Define reliable transactional email workflows with Resend for auth, notification
 
 ## External References (official docs URL from tech stack)
 - https://resend.com/docs
+
+## React Email Integration
+- Construct email templates using `@react-email/components`.
+- Structure emails similarly to regular Next.js pages for easy debugging and rendering.
+- Verify that templates render correctly across various email clients using tools like Resend's preview.

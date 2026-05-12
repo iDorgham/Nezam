@@ -1,66 +1,68 @@
 ---
-name: nezam-security-hardening
-description: OWASP Top 10 controls, CSP/security headers, dependency scanning, and SAST/DAST in CI.
-version: 1.0.0
-updated: 2026-05-08
-changelog: []
+skill_id: "quality/security-hardening"
+name: "security-hardening"
+description: "OWASP Top 10 controls, CSP/security headers, dependency scanning, SAST/DAST, and LLM security in CI."
+version: 1.1.0
+updated: 2026-05-12
+changelog:
+  - version: 1.1.0
+    date: 2026-05-12
+    notes: "Wave 2 Upgrade: Added LLM threat patterns (prompt injection, data poisoning, output handling)."
+  - version: 1.0.0
+    date: 2026-05-08
+    notes: "Initial version metadata added."
+owner: "lead-security-officer"
+tier: 1
+sdd_phase: "Quality"
+rtl_aware: false
+certified: true
+dependencies: ["backend/auth-workflows", "system/secret-management"]
 ---
 
-# Purpose
+# Security Hardening
 
-Apply baseline security hardening across the application: OWASP Top 10 controls, security headers, dependency hygiene, and pipeline scanning. Single-responsibility: security baseline + automated checks.
+## Purpose
 
-# Inputs
+Apply baseline security hardening across the application: OWASP Top 10 controls, security headers, dependency hygiene, LLM threat mitigations, and automated pipeline scanning.
 
-- Auth contract from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
-- Gateway policy from `@.cursor/skills/nezam-api-gateway/SKILL.md`.
-- DevOps pipeline from `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
-- Compliance regime from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
+## Trigger Conditions
 
-# Step-by-Step Workflow
+- CI/CD pipeline execution.
+- Security audits or penetration test planning.
+- Implementation of AI features.
 
-1. Map OWASP Top 10 (current) to controls: input validation (Zod), output encoding, authn/z (see auth skill), SSRF guards, deserialization safety, logging, supply chain.
-2. Set security headers: `Content-Security-Policy` (nonce-based), `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-*`.
-3. CSRF: same-site cookies + double-submit token for state-changing forms; SameSite=Strict where session-locked.
-4. Input validation: Zod schemas at API boundary; reject unknown fields; enforce length/range/regex.
-5. Dependency hygiene: Renovate/Dependabot, weekly; pin majors; verify provenance (npm provenance, Sigstore where possible).
-6. SAST: CodeQL on every PR; secret scanning (gitleaks); SBOM generation (Syft) + vuln scan (Grype/Trivy).
-7. DAST: weekly ZAP/Burp scan against staging; document findings; route to `nezam-risk-mitigation`.
+## Prerequisites
 
-# Validation & Metrics
+- Auth contract from `backend/auth-workflows`.
+- API gateway policy.
 
-- CSP enforced (no `unsafe-inline` outside nonce); reports collected.
-- All security headers present on every response.
-- Dependency audit: zero high-severity unaddressed > 7 days.
-- SAST findings triaged within 1 week; high-severity blocks merge.
-- DAST scan log shows trend toward zero findings.
+## Procedure
 
-# Output Format
+1. **OWASP Top 10:** Map OWASP Top 10 to controls: input validation (Zod), output encoding, authn/z, SSRF guards, deserialization safety, logging.
+2. **Security Headers:** Set `Content-Security-Policy` (nonce-based), `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, etc.
+3. **CSRF & Input:** Same-site cookies + double-submit token for state-changing forms. Zod schemas at API boundary.
+4. **Dependency Hygiene:** Renovate/Dependabot, weekly; pin majors; verify provenance.
+5. **LLM Security (Addendum):** Mitigate LLM threat patterns:
+   - **Prompt Injection:** Implement system prompt boundaries and input sanitization.
+   - **Training Data Poisoning:** Restrict sources of truth for RAG/context.
+   - **Insecure Output Handling:** Validate LLM outputs rigidly against Zod schemas before rendering or execution.
+6. **SAST & DAST:** Run CodeQL/Semgrep on every PR. Secret scanning (gitleaks). SBOM generation. Weekly DAST scans.
 
-- `docs/specs/SECURITY_HARDENING.md` (baseline controls, headers, scanners).
+## Output Artifacts
+
 - CSP policy template + nonce strategy.
 - Dependency policy (Renovate config).
 - Scanner findings catalogue.
+- LLM input/output validation schemas.
 
-# Integration Hooks
+## Validation Checklist
 
-- `/SCAN security` runs scanners.
-- `/FIX` consumes findings.
-- Pairs with `@.cursor/skills/nezam-auth-workflows/SKILL.md`, `@.cursor/skills/nezam-secret-management/SKILL.md`, `@.cursor/skills/nezam-privacy-compliance/SKILL.md`, `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
-- Honors `[.cursor/rules/workspace-orchestration.mdc](.cursor/rules/workspace-orchestration.mdc)`.
+- [ ] CSP enforced without `unsafe-inline`.
+- [ ] All security headers present.
+- [ ] High-severity dependency issues resolved within 7 days.
+- [ ] LLM inputs are sanitized and outputs are validated.
+- [ ] SAST findings triaged within 1 week.
 
-# Anti-Patterns
+## Handoff Target
 
-- `script-src 'unsafe-inline' 'unsafe-eval'` in production.
-- Skipping CSP because "it breaks third-party widgets".
-- Manually maintaining a vuln list outside the scanner.
-- SBOM generated but never scanned.
-- Treating SAST findings as advisory ("we'll fix later").
-
-# External Reference
-
-- OWASP Top 10 (current edition; https://owasp.org/Top10/) — current.
-- OWASP ASVS v4 (https://owasp.org/www-project-application-security-verification-standard/).
-- MDN HTTP Security Headers (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
-- Sigstore + npm provenance (https://docs.npmjs.com/generating-provenance-statements).
-- Closest skills.sh/official analog: security-hardening / owasp-top10.
+`/SCAN security` for execution, or `/FIX` for remediating findings.

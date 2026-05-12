@@ -2,45 +2,99 @@
 
 ---
 name: interaction-choreography
-description: Orchestrating motion, transitions, and micro-interactions to create a cohesive and premium user experience.
-version: 1.0.0
+description: "Defines motion, transitions, and micro-interactions with structured 2-variation discipline, token enforcement, and branch vs replace mode decision logic."
+version: 2.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release as part of the Design Skill Gap Fill.
+  - 2.0.0: Major upgrade — added structured variation count (2), branch/replace decision logic, motion token enforcement, context file requirements.
+  - 1.0.0: Initial release.
 ---
 
-# Interaction Choreography Skill
+# Interaction Choreography
 
 ## Purpose
 
-Define how elements move and interact over time. This skill focuses on the "feeling" of the interface, ensuring transitions are purposeful, performant, and delightful without being distracting.
+Define how elements move and interact over time. Ensures transitions are purposeful, performant, and token-compliant. Every interaction pattern ships as a comparative pair — never a single "the animation."
+
+## Trigger Conditions
+
+- Designing motion for a new component or screen.
+- Reviewing or updating the `MOTION_CONTRACT.md`.
+- `design/wireframe-pipeline` has produced a finalized spec with interaction notes.
+
+## Prerequisites
+
+- `.cursor/context/design-init/theme.md` is current (contains existing motion variables).
+- `.cursor/context/design-init/components.md` is current (contains components' current transition state).
+- `DESIGN.md` motion section is accessible.
 
 ## Procedure
 
-### 1. Motion Principles
-- Define the "Brand Physics" (e.g., snappy/energetic vs smooth/liquid).
-- Establish duration tokens (fast: 150ms, medium: 300ms, slow: 500ms).
-- Standardize easing curves (standard, decelerate, accelerate).
+### 1. Context Read (always first)
 
-### 2. Micro-interactions
-- Define state transitions for buttons (hover, active, loading).
-- Orchestrate list entry/exit animations.
-- Define feedback loops (success checkmarks, error shakes).
+Before defining any motion:
+1. Read `.cursor/context/design-init/theme.md` — extract all existing motion tokens (duration-*, easing-*, animation-*).
+2. Read the target component's current transition state from `.cursor/context/design-init/components.md`.
+3. Document what motion, if any, the component currently has. This is the baseline.
 
-### 3. Page Transitions
-- Define how routes change (fade, slide, shared element transition).
-- Ensure loading states (shimmer/skeleton) are part of the motion sequence.
-- Respect `prefers-reduced-motion` settings.
+### 2. Motion Principles
+
+- Define the "Brand Physics" (e.g., snappy/energetic vs smooth/liquid) — must align with `DESIGN.md` brand section.
+- Establish duration tokens: reference existing `theme.md` tokens first. Only propose new tokens if the needed duration does not exist.
+- Standardize easing curves: reference existing `theme.md` easing tokens first.
+
+**Token enforcement rule:** Motion values must reference tokens in `DESIGN.md` and `theme.md`. If a needed motion value has no token, propose the token via `design/design-token-architecture` first — do not hardcode millisecond or cubic-bezier values inline.
+
+### 3. Micro-interactions (with 2-variation discipline)
+
+For every interaction pattern, produce exactly **2 variations**:
+
+- **Variation A:** Conservative — uses existing duration and easing tokens unchanged. Changes only which tokens are applied (e.g., fast vs base duration).
+- **Variation B:** Progressive — adjusts one motion dimension (e.g., adds spring physics, changes easing curve, adds delay sequence).
+
+**Iteration mode:**
+- **Branch mode (default):** Both variations extend from the current transition baseline.
+- **Replace mode:** A fundamentally different interaction pattern. Requires UX research justification. Documented in the motion spec header.
+
+Define for all standard interactions:
+- State transitions: buttons (hover, active, loading), inputs (focus, error).
+- List animations: entry/exit.
+- Feedback: success, error, warning states.
+
+### 4. Page Transitions (with 2-variation discipline)
+
+Same 2-variation rule applies to page-level transitions:
+- Variation A: simple (fade only, or slide only).
+- Variation B: enriched (shared element transition, staggered entry).
+
+Always:
+- Define loading states (shimmer/skeleton) as part of the motion sequence.
+- Implement `prefers-reduced-motion` fallback for every motion definition. Reduced-motion fallback = instant (no transition) or opacity-only.
+
+### 5. RTL Motion Considerations
+
+For directional motion (slides, reveals, drawer open/close):
+- Define LTR and RTL variants explicitly.
+- Directional tokens: use `start`/`end` logical properties, not `left`/`right`.
 
 ## Output Artifacts
 
-1. `docs/plans/design/MOTION_CONTRACT.md`: Duration, easing, and transition rules.
-2. `docs/plans/design/INTERACTION_STATES.md`: Visual and motion specs for all interactive components.
-3. Updated root `DESIGN.md`: Motion primitives section.
+1. `docs/plans/design/MOTION_CONTRACT.md` — duration, easing, token map, 2-variation pairs.
+2. `docs/plans/design/INTERACTION_STATES.md` — visual and motion specs for all interactive components.
+3. Updated root `DESIGN.md` — motion primitives section (if new tokens proposed).
+4. `.cursor/context/design-init/variation-motion-<component>-A.md` and `-B.md`.
 
 ## Validation Checklist
 
-- [ ] All animations use hardware-accelerated properties (`transform`, `opacity`).
-- [ ] No layout shifts (CLS) caused by animations.
-- [ ] Reduced-motion fallback is implemented for all critical motion.
-- [ ] Motion durations align with the defined tokens.
+- [ ] All motion values reference tokens from `theme.md` — zero hardcoded ms or cubic-bezier values inline
+- [ ] Every interaction pattern has exactly 2 variations (not 1, not 3+)
+- [ ] Iteration mode (branch/replace) is documented for each pattern
+- [ ] `prefers-reduced-motion` fallback defined for every motion
+- [ ] All animations use hardware-accelerated properties (`transform`, `opacity`) — no layout-triggering props
+- [ ] No layout shifts (CLS) caused by animations
+- [ ] RTL directional motion uses logical properties
+- [ ] Token gaps flagged and escalated to `design/design-token-architecture`
+
+## Handoff Target
+
+`design/design-to-code-handoff` → development implementation of motion spec.

@@ -3,9 +3,10 @@
 ---
 name: nezam-component-library-api
 description: Design typed, variant-driven React component APIs with Storybook, forwardRef, tree-shaking, and a11y defaults.
-version: 1.0.0
-updated: 2026-05-08
-changelog: []
+version: 1.1.0
+updated: 2026-05-12
+changelog:
+  - 1.1.0: Added React Email component guidelines.
 ---
 
 # Purpose
@@ -70,3 +71,10 @@ Define reusable React component APIs that are typed, variant-driven, accessible,
 - class-variance-authority (https://cva.style/) — current.
 - Radix Primitives / Headless UI (current) for a11y reference.
 - Closest skills.sh/official analog: component-library / design-system-components.
+
+## React Email Components
+
+When building React Email templates:
+- Use `shadcn-ui` design tokens for styling consistency.
+- Ensure all emails are responsive and tested on mobile devices.
+- Follow `backend/resend-email` guidelines for transactional email structure.

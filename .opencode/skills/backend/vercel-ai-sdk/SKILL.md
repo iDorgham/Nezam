@@ -3,12 +3,15 @@
 ---
 name: vercel-ai-sdk
 description: Build streaming, tool-calling AI features with provider-agnostic SDK patterns.
-version: 1.0.0
-updated: 2026-05-10
-changelog: []
+version: 1.1.0
+updated: 2026-05-12
+changelog:
+  - 1.1.0: Added LangChain vs Vercel AI SDK guidance and Gemini warning.
 ---
 
 # Vercel AI SDK
+
+> **WARNING:** Ensure you check for the `@google/genai` usage vs the deprecated `@google/generative-ai` library if using Gemini.
 ## Purpose
 Standardize AI feature implementation with Vercel AI SDK for streaming UX, tool calling, and multi-provider model integration.
 
@@ -48,3 +51,8 @@ Standardize AI feature implementation with Vercel AI SDK for streaming UX, tool 
 
 ## External References (official docs URL from tech stack)
 - https://sdk.vercel.ai/docs
+
+## LangChain Context
+- Only use LangChain for highly complex, multi-agent orchestration tasks.
+- For standard streaming, RAG, and function-calling, stick to `ai-sdk` (Vercel AI SDK).
+- Do not mix the two paradigms within a single feature.

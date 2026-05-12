@@ -65,8 +65,8 @@ jobs:
             echo "Version must match MAJOR.MINOR.PATCH (for example: 1.2.3)"
             exit 1
           fi
-          if [[ ! -f "docs/nezam/VERSIONING.md" ]]; then
-            echo "Missing versioning policy: docs/nezam/VERSIONING.md"
+          if [[ ! -f ".nezam/workspace/VERSIONING.md" ]]; then
+            echo "Missing versioning policy: .nezam/workspace/VERSIONING.md"
             exit 1
           fi
       - name: Create tag and GitHub release

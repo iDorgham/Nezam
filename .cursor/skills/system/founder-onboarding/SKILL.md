@@ -12,7 +12,7 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
 # Inputs
 - Seven interview answers gathered by `/start` onboarding (interview path) or `/plan idea`.
 - Existing workspace context and active repository state.
-- Available design profiles under `.cursor/design/*/design.md`.
+- Available design profiles under `.nezam/design/*/design.md`.
 
 # Step-by-Step Workflow
 1. Parse the seven answers and extract:
@@ -51,12 +51,12 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - Risk Register (3–5 items)
    - Timeline Estimate
 5. Generate aligned `docs/prd/PROJECT_PROMPT.md` with no conflicting scope framing.
-6. Generate `docs/nezam/VERSIONING.md` (if it doesn't already exist) with:
+6. Generate `.nezam/workspace/VERSIONING.md` (if it doesn't already exist) with:
    - release numbering rules
    - commit message policy
    - changelog policy
 7. Initialize root `CHANGELOG.md` with `## [Unreleased]`.
-8. Score all `.cursor/design/*/design.md` profiles against product type, geography, revenue model, and audience characteristics; return top 3 with plain-language rationale.
+8. Score all `.nezam/design/*/design.md` profiles against product type, geography, revenue model, and audience characteristics; return top 3 with plain-language rationale.
 9. After the user chooses a profile, copy the selected design file to root `DESIGN.md`.
 10. Generate companion-ready `docs/workspace/context/CONTEXT.md`.
 11. Generate initial memory summary in `docs/workspace/context/MEMORY.md`.
@@ -71,7 +71,7 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
   - context doc
   - memory doc
 - PRD and project prompt are aligned in scope and intent.
-- Root `DESIGN.md` is copied from a valid `.cursor/design/*/design.md` source after explicit user selection.
+- Root `DESIGN.md` is copied from a valid `.nezam/design/*/design.md` source after explicit user selection.
 - Gate readiness checks pass or include clear plain-language remediation.
 
 # Output Format
@@ -103,4 +103,4 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
 # External Reference
 - Internal command contract: `.cursor/commands/start.md` and `.cursor/commands/plan.md`.
 - Workspace gating contract: `.cursor/commands/start.md` (`gates`).
-- Design profile source: `.cursor/design/*/design.md`.
+- Design profile source: `.nezam/design/*/design.md`.

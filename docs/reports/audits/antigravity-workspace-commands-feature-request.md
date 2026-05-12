@@ -105,4 +105,4 @@ A global skill `~/.gemini/antigravity/skills/nezam-commands/SKILL.md` has been i
 - Sync tooling: `pnpm ai:sync` → `scripts/sync-ai-folders.js`
 - Cursor commands: `.cursor/commands/`
 - Generated mirror: `.antigravity/commands/`
-- Multi-tool index: `docs/nezam/memory/MULTI_TOOL_INDEX.md`
+- Multi-tool index: `.nezam/memory/MULTI_TOOL_INDEX.md`

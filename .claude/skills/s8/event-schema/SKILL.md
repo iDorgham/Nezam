@@ -6,6 +6,9 @@ name: "nezam-S8 Event Schema"
 tier: 3
 summary: Event schema definitions for S8 analytics, ensuring consistent tracking across the application.
 owner: unassigned
+version: 1.0.0
+updated: 2026-05-12
+changelog: "Initial skill creation for NEZAM hardening Phase 3."
 usage: |
   Use this skill to define and validate event schemas for tracking.
 tests: |

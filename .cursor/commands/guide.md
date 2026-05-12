@@ -39,7 +39,7 @@ Before responding, read these files in order when they exist:
 2. `.cursor/state/plan_progress.yaml` — which plan phases are done
 3. `.cursor/state/develop_phases.yaml` — which dev phases are done or locked
 4. `.cursor/state/agent-status.yaml` — last active agent and output (if exists)
-5. `docs/prd/PRD.md` — product name and type (resolve path via `.cursor/workspace.paths.yaml` `project.prd` if relocated)
+5. `docs/prd/PRD.md` — product name and type (resolve path via `docs/gates/workspace.paths.yaml` `project.prd` if relocated)
 6. `DESIGN.md` (repo root) — design profile / contract cues
 
 ---
@@ -175,7 +175,7 @@ Everything from `/GUIDE status` **plus** a full phases table:
 └──────────────┴──────────┴──────────────┴───────────────────────┘
 ```
 
-If `docs/nezam/plans/MASTER_TASKS.md` exists, also show open task counts by phase and any blocked tasks with reason.
+If `docs/plans/MASTER_TASKS.md` exists, also show open task counts by phase and any blocked tasks with reason.
 
 ---
 

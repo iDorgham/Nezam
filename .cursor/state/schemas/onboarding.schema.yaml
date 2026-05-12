@@ -64,7 +64,7 @@ fields:
   design_profile:
     type: string
     required: false
-    note: "Matches a key from .cursor/design/<profile>/design.md"
+    note: "Matches a key from .nezam/design/<profile>/design.md"
 
   design_locked_at:
     type: string

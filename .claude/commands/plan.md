@@ -4,9 +4,9 @@
 
 ## Path resolution
 
-Before any file operation, read `.cursor/workspace.paths.yaml`:
+Before any file operation, read `docs/gates/workspace.paths.yaml`:
 - `project.prd` → default `docs/prd/PRD.md`
-- `project.plans_root` → default `docs/nezam/plans`
+- `project.plans_root` → default `.nezam/workspace/plans`
 
 All PRD and plans path references below use these resolved values.
 To change paths: `/nezam paths set project.prd <path>`.
@@ -170,7 +170,7 @@ Runs AFTER arch, design, and IA are complete. Hard-blocked until all three exist
 **Behavior:**
 1. Reads: PRD.md + ARCHITECTURE.md + DESIGN.md + IA_CONTENT.md
 2. Detects product type (SaaS, website, mobile, API)
-3. Produces `docs/nezam/plans/scaffold/PROJECT_SCAFFOLD.md` with:
+3. Produces `docs/plans/scaffold/PROJECT_SCAFFOLD.md` with:
    - Complete directory tree (every folder and file, including empty stubs)
    - Each file annotated: purpose / owner agent / SDD phase when created
    - Config file inventory (env, tsconfig, CI configs, package.json, etc.)
@@ -333,7 +333,7 @@ For Webapp/SaaS also add:
 
 Generate:
 
-**1. `docs/nezam/plans/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
+**1. `docs/plans/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
 ```yaml
 wireframe_selections:
   navigation:
@@ -355,7 +355,7 @@ wireframe_selections:
 - Dark mode token overrides
 - Each screen mapped to its wireframe selection
 
-**3. `docs/nezam/plans/04-design/WIREFRAMES.md`** — complete wireframe doc:
+**3. `docs/plans/04-design/WIREFRAMES.md`** — complete wireframe doc:
 - All screens with full ASCII wireframes as shown above
 - Every screen_id mapped to its page from IA_CONTENT.md
 - States documented (default, hover, loading, empty, error)
@@ -402,12 +402,12 @@ When planning_complete becomes true, show:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  PLANNING COMPLETE
 
-✅  SEO Research      → docs/nezam/plans/01-research/SEO_RESEARCH.md
-✅  Info Architecture → docs/nezam/plans/02-ia/IA_CONTENT.md
-✅  Content Map       → docs/nezam/plans/03-content/CONTENT_MAP.md
-✅  Architecture      → docs/nezam/plans/04-arch/ARCHITECTURE.md
-✅  Design Wireframes → docs/nezam/plans/04-design/DESIGN_CHOICES.md
-✅  Project Scaffold  → docs/nezam/plans/scaffold/PROJECT_SCAFFOLD.md
+✅  SEO Research      → docs/plans/01-research/SEO_RESEARCH.md
+✅  Info Architecture → docs/plans/02-ia/IA_CONTENT.md
+✅  Content Map       → docs/plans/03-content/CONTENT_MAP.md
+✅  Architecture      → docs/plans/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → docs/plans/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → docs/plans/scaffold/PROJECT_SCAFFOLD.md
 
 🔓  /develop  → UNLOCKED — ready to use
 
@@ -433,14 +433,14 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 
 ## /PLAN tasks — Settings-Aware Task Tool Tagging
 
-When generating `docs/nezam/plans/MASTER_TASKS.md`, apply routing metadata when
+When generating `docs/plans/MASTER_TASKS.md`, apply routing metadata when
 `tools.routing.auto_assign_tasks: true` in `.cursor/workspace.settings.yaml`.
 
 ### Task Tool Tagging
 
 Before writing tasks:
 1. Read `.cursor/workspace.settings.yaml` (`tools` activation state + routing toggles).
-2. Read `docs/nezam/memory/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
+2. Read `.nezam/memory/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
 3. For each task, compute:
    - `type`
    - `assigned_tool` (primary route if active)
@@ -494,12 +494,12 @@ When planning_complete becomes true, show:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  PLANNING COMPLETE
 
-✅  SEO Research      → docs/nezam/plans/01-research/SEO_RESEARCH.md
-✅  Info Architecture → docs/nezam/plans/02-ia/IA_CONTENT.md
-✅  Content Map       → docs/nezam/plans/03-content/CONTENT_MAP.md
-✅  Architecture      → docs/nezam/plans/04-arch/ARCHITECTURE.md
-✅  Design Wireframes → docs/nezam/plans/04-design/DESIGN_CHOICES.md
-✅  Project Scaffold  → docs/nezam/plans/scaffold/PROJECT_SCAFFOLD.md
+✅  SEO Research      → docs/plans/01-research/SEO_RESEARCH.md
+✅  Info Architecture → docs/plans/02-ia/IA_CONTENT.md
+✅  Content Map       → docs/plans/03-content/CONTENT_MAP.md
+✅  Architecture      → docs/plans/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → docs/plans/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → docs/plans/scaffold/PROJECT_SCAFFOLD.md
 
 🔓  /develop  → UNLOCKED — ready to use
 

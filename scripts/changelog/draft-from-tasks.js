@@ -2,7 +2,7 @@
 /**
  * Draft changelog entries from completed plan tasks.
  *
- * - Reads hardlock paths from docs/nezam/hardlock-paths.json
+ * - Reads hardlock paths from .nezam/gates/hardlock-paths.json
  * - Scans .cursor/plans/*.plan.md for `todos:` blocks
  * - Collects tasks with `status: completed`
  * - Writes/refreshes a Drafts section in CHANGELOG.md
@@ -104,7 +104,7 @@ function upsertDraftsSection(changelog, draftLines) {
 
 function main() {
   const repoRoot = process.cwd();
-  const registryPath = path.join(repoRoot, "docs/nezam/hardlock-paths.json");
+  const registryPath = path.join(repoRoot, ".nezam/gates/hardlock-paths.json");
   if (!fileExists(registryPath)) {
     console.error(`Missing hardlock path registry: ${registryPath}`);
     process.exit(1);
@@ -115,7 +115,7 @@ function main() {
 
   if (!fileExists(changelogPath)) {
     console.error(`Missing CHANGELOG.md at configured path: ${changelogPath}`);
-    console.error(`Create it from .cursor/templates/specs/CHANGELOG.template.md`);
+    console.error(`Create it from .nezam/templates/specs/CHANGELOG.template.md`);
     process.exit(1);
   }
 

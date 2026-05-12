@@ -23,9 +23,9 @@ Planning -> SEO -> IA -> Content -> Design (**root `DESIGN.md`**) -> Development
 
 ## Design system (`DESIGN.md`) — parity with Cursor
 
-- **Catalog:** `.cursor/design/<brand>/design.md`
+- **Catalog:** `.nezam/design/<brand>/design.md`
 - **Contract:** repository root **`DESIGN.md`** — create with `pnpm run design:apply -- <brand>` or follow mirrored `start` / `START` command text from `.cursor/commands/start.md` in your client’s synced commands folder.
-- **Cross-client map:** [`docs/nezam/memory/MULTI_TOOL_INDEX.md`](docs/nezam/memory/MULTI_TOOL_INDEX.md)
+- **Cross-client map:** [`.nezam/memory/MULTI_TOOL_INDEX.md`](.nezam/memory/MULTI_TOOL_INDEX.md)
 
 ## SDD hardlock
 
@@ -33,9 +33,9 @@ Do not proceed to development unless all exist:
 
 - `docs/specs/prd/PRD.md`
 - `docs/prd/PROJECT_PROMPT.md`
-- **`DESIGN.md` at repository root** for UI scopes (from chosen `.cursor/design/<brand>/design.md`)
-- `docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json`
-- `docs/nezam/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
+- **`DESIGN.md` at repository root** for UI scopes (from chosen `.nezam/design/<brand>/design.md`)
+- `.nezam/gates/GITHUB_GATE_MATRIX.json`
+- `docs/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
 
 ## Learned User Preferences
 
@@ -48,13 +48,13 @@ Do not proceed to development unless all exist:
 - **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `docs/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
 - For NEZAM README work, keep README body copy in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections (for example Mermaid) rather than Arabic wording inside README narrative text.
 - Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
-- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `docs/templates/ai-client/` and `docs/nezam/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
+- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `docs/templates/ai-client/` and `.nezam/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
 
 ## Learned Workspace Facts
 
-- Execution plans and SDD tasks live under `docs/nezam/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
+- Execution plans and SDD tasks live under `docs/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
 - AI ethics audit outputs and companion operational templates belong under `docs/reports/audits/` per the docs reports placement policy.
-- Optional swarm- and skills-oriented Mermaid sources live under `docs/nezam/architecture/mermaids/` when that layout is maintained.
+- Optional swarm- and skills-oriented Mermaid sources live under `.nezam/workspace/architecture/mermaids/` when that layout is maintained.
 
 ## Synced command index
 - `check.md`

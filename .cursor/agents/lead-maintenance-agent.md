@@ -17,7 +17,7 @@ Swarm Manager for the Maintenance & Support swarm. Own bug triage, tech-debt spr
 ## Team Leader Scope
 
 - Lead three Team Managers: `bug-triage-manager`, `tech-debt-manager`, `knowledge-update-manager`.
-- Run the maintenance loop in Phase 6 of [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Run the maintenance loop in Phase 6 of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - Coordinate with all swarm managers for fix routing and ownership.
 - Maintain runbooks, on-call rotation, and incident-response playbooks.
 
@@ -45,7 +45,7 @@ Swarm Manager for the Maintenance & Support swarm. Own bug triage, tech-debt spr
 
 ## When to invoke
 
-- Phase 6 (Maintenance & Iteration) of [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Phase 6 (Maintenance & Iteration) of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - Inbound bug, regression, or production incident.
 - Periodic tech-debt sprint or dependency-update wave.
 - KB / runbook / post-mortem update.

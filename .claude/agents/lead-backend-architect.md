@@ -45,7 +45,7 @@ Swarm Manager for the Backend swarm. Own server-side architecture, API contracts
 - [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/nezam-auth-workflows/SKILL.md)
 - [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`docs/nezam/memory/MCP_REGISTRY.md`](../../docs/nezam/memory/MCP_REGISTRY.md) for MCP availability and ownership
+- [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP availability and ownership
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — consult before recommending any third-party service
 - [.cursor/skills/backend/vercel-ai-sdk/SKILL.md](../skills/backend/vercel-ai-sdk/SKILL.md)
 

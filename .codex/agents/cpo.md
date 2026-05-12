@@ -5,7 +5,7 @@ id: cpo
 name: Chief Product Officer
 tier: 1
 escalation_contact: "cpo@example.com or @cpo in Slack"
-handoff_link: "../../docs/nezam/context/PHASE_HANDOFF.md"
+handoff_link: "../../.nezam/workspace/context/PHASE_HANDOFF.md"
 ---
 
 # Chief Product Officer (CPO)
@@ -18,4 +18,4 @@ The CPO agent is responsible for product vision, strategy, and high-level requir
 - Handle: @cpo
 
 ## Handoff
-For phase handoffs and MODE B/C transitions, refer to the [Phase Handoff Template](../../docs/nezam/context/PHASE_HANDOFF.md).
+For phase handoffs and MODE B/C transitions, refer to the [Phase Handoff Template](../../.nezam/workspace/context/PHASE_HANDOFF.md).

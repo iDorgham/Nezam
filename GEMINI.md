@@ -12,9 +12,9 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 
 ## Design system (`DESIGN.md`) — parity with Cursor
 
-- **Catalog:** `.cursor/design/<brand>/design.md` — **contract:** repository root **`DESIGN.md`**
+- **Catalog:** `.nezam/design/<brand>/design.md` — **contract:** repository root **`DESIGN.md`**
 - **Shell:** `pnpm run design:apply -- <brand>`
-- **Cross-client sync:** [`docs/nezam/memory/MULTI_TOOL_INDEX.md`](docs/nezam/memory/MULTI_TOOL_INDEX.md) — after `.cursor/` edits run `pnpm ai:sync` then `pnpm ai:check`
+- **Cross-client sync:** [`.nezam/memory/MULTI_TOOL_INDEX.md`](.nezam/memory/MULTI_TOOL_INDEX.md) — after `.cursor/` edits run `pnpm ai:sync` then `pnpm ai:check`
 
 ## Workflow guardrails
 

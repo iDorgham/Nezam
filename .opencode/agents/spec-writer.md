@@ -22,7 +22,7 @@ Translate approved feature briefs, user stories, or task descriptions into compl
 ## Spec Format Contract
 
 Every output SPEC.md must contain:
-1. **Feature slug** — matches directory name under `docs/nezam/plans/0N-build/`
+1. **Feature slug** — matches directory name under `docs/plans/0N-build/`
 2. **Objective** — one sentence, outcome-focused
 3. **Acceptance criteria** — measurable, testable, binary pass/fail
 4. **Data model changes** — new tables, fields, or schema diffs (or "none")

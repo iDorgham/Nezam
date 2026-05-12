@@ -21,7 +21,7 @@ You are the Business Analyst specialist within the Architecture & Planning swarm
 
 # Activation Triggers
 
-- Phase 1 (Intake) of [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Phase 1 (Intake) of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - New feature with unclear scope or vague success criteria.
 - Conflict between stakeholders requiring an analysis pass.
 - PRD gaps surfaced by `pm.md` or `lead-solution-architect.md`.

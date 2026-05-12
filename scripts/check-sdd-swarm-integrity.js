@@ -96,7 +96,7 @@ function checkHandoffPacketFields() {
 function resolvePlansSubphaseDir(specPath) {
   // Support all known plans root locations (nezam governance + legacy paths).
   const prefixMap = [
-    { prefix: "docs/nezam/plans/",     base: path.join(repoRoot, "docs", "nezam", "plans") },
+    { prefix: "docs/plans/",     base: path.join(repoRoot, "docs", "nezam", "plans") },
     { prefix: "docs/workspace/plans/", base: path.join(repoRoot, "docs", "workspace", "plans") },
     { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
   ];
@@ -139,7 +139,7 @@ function checkActiveSubphaseArtifacts() {
   const indexPath = indexCandidates.find((p) => fs.existsSync(p));
   if (!indexPath) {
     failures.push(
-      "Missing plan index (expected docs/nezam/plans/INDEX.md)"
+      "Missing plan index (expected docs/plans/INDEX.md)"
     );
     return;
   }

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copy a design catalog profile into the repo-root DESIGN.md (SDD contract file).
-# Source: .cursor/design/<brand>/design.md  →  Destination: <repo-root>/DESIGN.md
+# Source: .nezam/design/<brand>/design.md  →  Destination: <repo-root>/DESIGN.md
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -17,8 +17,8 @@ done
 usage() {
   echo "Usage: $(basename "$0") <brand>"
   echo ""
-  echo "  <brand> is a folder name under .cursor/design/ (each folder contains design.md)."
-  echo "  Copies:  .cursor/design/<brand>/design.md  →  DESIGN.md (repository root)"
+  echo "  <brand> is a folder name under .nezam/design/ (each folder contains design.md)."
+  echo "  Copies:  .nezam/design/<brand>/design.md  →  DESIGN.md (repository root)"
   echo ""
   echo "Examples:"
   echo "  $(basename "$0") shadcn"
@@ -26,7 +26,7 @@ usage() {
   echo ""
   echo "pnpm:  pnpm run design:apply -- <brand>"
   echo ""
-  echo "First folders under .cursor/design/:"
+  echo "First folders under .nezam/design/:"
   ls "$ROOT/.cursor/design" 2>/dev/null | head -30 || true
 }
 
@@ -35,7 +35,7 @@ if [[ -z "${BRAND:-}" ]]; then
   exit 1
 fi
 
-SRC="$ROOT/.cursor/design/$BRAND/design.md"
+SRC="$ROOT/.nezam/design/$BRAND/design.md"
 if [[ ! -f "$SRC" ]]; then
   echo "Error: profile not found: $SRC" >&2
   usage

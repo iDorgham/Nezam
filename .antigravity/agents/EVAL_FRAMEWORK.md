@@ -32,7 +32,7 @@ Any agent completing a **TIER 1** (core pipeline) task — SDD phase lead work, 
 
 **Overall gate status:** `open` if any dimension is `fail`; `at_risk` if any `warn` and no `fail`; `closed` if all `pass`.
 
-## Agent scorecard (append to `docs/nezam/memory/MEMORY.md`)
+## Agent scorecard (append to `.nezam/memory/MEMORY.md`)
 
 After each evaluated Tier 1 run, append this **10-line block** under a `## Agent scorecards` heading (create heading once):
 
@@ -60,9 +60,9 @@ Every **90 calendar days**, **PM-01** (`swarm-leader`):
 2. Flags any agent with **>50%** `warn` or `fail` across runs (minimum 3 evaluated runs).
 3. **Demote** habitual underperformers from Tier 1 routing to Tier 2 (on-demand) or **retire** the agent file (prefer a git-tracked rename/remove in a dedicated PR) pending human review — **no silent deletion**.
 
-Document the outcome in `docs/nezam/memory/AGENT_AUDIT.md` (next revision).
+Document the outcome in `.nezam/memory/AGENT_AUDIT.md` (next revision).
 
 ## References
 
 - Output bundle expectations: `.cursor/agents/subagent-controller.md`
-- Communication footer: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Communication footer: `.nezam/memory/AGENT_COMM_PROTOCOL.md`

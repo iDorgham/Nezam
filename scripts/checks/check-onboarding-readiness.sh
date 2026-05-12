@@ -5,7 +5,7 @@
 # Portable: uses only grep/find/python3 (no ripgrep) so ubuntu-latest runners pass without extra packages.
 set -euo pipefail
 
-hardlock_paths_file="docs/nezam/core/hardlock-paths.json"
+hardlock_paths_file=".nezam/gates/hardlock-paths.json"
 
 read_json_string() {
   local file="$1"

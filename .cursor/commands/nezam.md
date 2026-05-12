@@ -4,8 +4,8 @@
 > All other commands (`/start`, `/plan`, `/develop`, `/check`, `/scan`, `/guide`,
 > `/git`, `/deploy`, `/settings`) operate on **your project only**.
 
-Never edit `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, `.cursor/templates/`,
-`docs/nezam/`, or `scripts/` outside of this command. Changes made directly won't get
+Never edit `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, `.nezam/templates/`,
+`.nezam/workspace/`, or `scripts/` outside of this command. Changes made directly won't get
 proper validation or sync.
 
 Hard blocks: none — /nezam is always available
@@ -17,7 +17,7 @@ Recommendation footer: required
 
 ```
 /nezam                         → Status dashboard: version, sync state, active paths
-/nezam templates               → Browse all templates in .cursor/templates/
+/nezam templates               → Browse all templates in .nezam/templates/
 /nezam templates <category>    → List templates in a category
 /nezam templates edit <name>   → Edit a specific template with guided prompts
 /nezam templates reset <name>  → Restore template to NEZAM default
@@ -30,7 +30,7 @@ Recommendation footer: required
 /nezam rules                   → List all rules in .cursor/rules/
 /nezam rules edit <name>       → Edit a .mdc rule file
 /nezam scripts                 → List scripts/ with purpose descriptions
-/nezam paths                   → Show current .cursor/workspace.paths.yaml
+/nezam paths                   → Show current docs/gates/workspace.paths.yaml
 /nezam paths set <key> <value> → Change a path (e.g. /nezam paths set project.prd src/PRD.md)
 /nezam sync                    → Run pnpm ai:sync + pnpm ai:check, show result
 /nezam check                   → Validate workspace integrity (drift, skill frontmatter, SDD swarm)
@@ -49,15 +49,15 @@ Display a snapshot of the workspace state:
 ╔══════════════════════════════════════════════════════════════╗
 ║  NEZAM Workspace Status                                      ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Version        1.0.0 (docs/nezam/core/VERSIONING.md)       ║
+║  Version        1.0.0 (.nezam/workspace/VERSIONING.md)       ║
 ║  Sync           ✅ in sync (last: pnpm ai:sync)              ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Project Paths  (from .cursor/workspace.paths.yaml)         ║
+║  Project Paths  (from docs/gates/workspace.paths.yaml)         ║
 ║  PRD            docs/prd/PRD.md                             ║
-║  Plans root     docs/nezam/plans/                           ║
+║  Plans root     docs/plans/                           ║
 ║  Reports root   docs/reports/                               ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Templates      .cursor/templates/   (56 files, 8 categories)║
+║  Templates      .nezam/templates/   (56 files, 8 categories)║
 ║  Agents         .cursor/agents/      (100+ agents)           ║
 ║  Skills         .cursor/skills/      (9 categories)          ║
 ║  Rules          .cursor/rules/       (12 rules)              ║
@@ -75,7 +75,7 @@ Display a snapshot of the workspace state:
 List all template categories:
 
 ```
-Templates — .cursor/templates/
+Templates — .nezam/templates/
 
   ai-client/       10 files   AI tool config (CLAUDE.md, AGENTS.md, SKILL.md…)
   plan/            14 files   Phase planning (gates, prompts, specs, tasks)
@@ -87,14 +87,14 @@ Templates — .cursor/templates/
 
   Edit: /nezam templates edit <name>
   Reset: /nezam templates reset <name>
-  Docs: .cursor/templates/README.md
+  Docs: .nezam/templates/README.md
 ```
 
 ### /nezam templates edit \<name\>
 
 Guide the user through editing a template:
 
-1. Find the template file under `.cursor/templates/` (search by filename, partial match OK)
+1. Find the template file under `.nezam/templates/` (search by filename, partial match OK)
 2. Show current content with line numbers
 3. Ask: "What would you like to change? Describe the modification or paste new content."
 4. Apply the edit to the file
@@ -105,7 +105,7 @@ Guide the user through editing a template:
 
 Restore a template to its NEZAM default.
 
-1. Check if a reference copy exists in `docs/nezam/` (for future upgrade path)
+1. Check if a reference copy exists in `.nezam/workspace/` (for future upgrade path)
 2. If yes → restore from reference
 3. If no → warn: "No reference backup found for <name>. You can restore manually from the NEZAM repo."
 4. Show what was restored
@@ -147,7 +147,7 @@ Agents — .cursor/agents/  (100+ agents across 8 swarm tiers)
 
 ### /nezam agents add \<name\>
 
-1. Load `.cursor/templates/ai-client/AGENT.template.md`
+1. Load `.nezam/templates/ai-client/AGENT.template.md`
 2. Ask the user to fill in: role, primary task, skills it uses, hard rules
 3. Write to `.cursor/agents/<name>.md`
 4. Auto-run `pnpm ai:sync`
@@ -253,17 +253,17 @@ Scripts — scripts/
 Show the current path configuration:
 
 ```
-Workspace Paths — .cursor/workspace.paths.yaml
+Workspace Paths — docs/gates/workspace.paths.yaml
 
   PROJECT PATHS (user-configurable)
   prd          docs/prd/PRD.md
-  plans_root   docs/nezam/plans/
+  plans_root   docs/plans/
   reports_root docs/reports/
 
   WORKSPACE INTERNALS (advanced)
-  nezam_root       docs/nezam/
-  templates_root   .cursor/templates/
-  hardlock_paths   docs/nezam/core/hardlock-paths.json
+  nezam_root       .nezam/workspace/
+  templates_root   .nezam/templates/
+  hardlock_paths   .nezam/gates/hardlock-paths.json
 
   Change: /nezam paths set <key> <value>
   Example: /nezam paths set project.prd src/product/PRD.md
@@ -271,11 +271,11 @@ Workspace Paths — .cursor/workspace.paths.yaml
 
 ### /nezam paths set \<key\> \<value\>
 
-1. Parse `.cursor/workspace.paths.yaml`
+1. Parse `docs/gates/workspace.paths.yaml`
 2. Set the given key to the given value (dot-notation: `project.prd`, `project.plans_root`)
 3. Validate: the new path must be a plausible file/folder path (no absolute paths outside repo)
 4. Write back
-5. If the key is `project.prd` → also update `docs/nezam/core/hardlock-paths.json intake.prd`
+5. If the key is `project.prd` → also update `.nezam/gates/hardlock-paths.json intake.prd`
 6. Confirm and remind: "Run `pnpm ai:sync` to propagate."
 
 ---
@@ -336,7 +336,7 @@ Display instructions for updating NEZAM to a newer version:
 ```
 NEZAM Workspace Upgrade
 
-  Current version: 1.0.0 (docs/nezam/core/VERSIONING.md)
+  Current version: 1.0.0 (.nezam/workspace/VERSIONING.md)
 
   To upgrade:
   1. Review the NEZAM changelog for breaking changes

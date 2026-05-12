@@ -88,7 +88,7 @@ jobs:
           from pathlib import Path
 
           candidates = [
-              Path("docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json"),
+              Path(".nezam/gates/GITHUB_GATE_MATRIX.json"),
           ]
           path = next((p for p in candidates if p.exists()), None)
           if path is None:
@@ -160,7 +160,7 @@ jobs:
           # Hardening performance contract must be populated (non-empty).
           perf_populated=0
           for candidate in \
-            "docs/nezam/plans/05-harden/02-performance/perf.md"; do
+            "docs/plans/05-harden/02-performance/perf.md"; do
             if [[ -s "$candidate" ]]; then
               perf_populated=1
               break
@@ -205,7 +205,7 @@ jobs:
       - name: Automation smoke (baseline wiring)
         run: |
           set -euo pipefail
-          test -f docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f .nezam/gates/GITHUB_GATE_MATRIX.json
           test -f scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Automation smoke passed."
@@ -228,7 +228,7 @@ jobs:
       - name: Nightly automation baseline self-test
         run: |
           set -euo pipefail
-          test -f docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f .nezam/gates/GITHUB_GATE_MATRIX.json
           test -f scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Nightly automation self-test baseline passed."

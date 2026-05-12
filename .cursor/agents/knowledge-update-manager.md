@@ -19,7 +19,7 @@ Own the knowledge base, runbooks, and post-mortem index for the live product. En
 ## Cross-Swarm Sync Responsibilities
 > Absorbed from the archived knowledge-sharing role.
 
-- Sync `docs/nezam/memory/MEMORY.md` and phase logs after substantive decisions.
+- Sync `.nezam/memory/MEMORY.md` and phase logs after substantive decisions.
 - Broadcast new ADRs and architecture decisions to affected swarms.
 - Watch for documentation rot; route stale docs to `docs-hygiene.md`.
 - Coordinate with `deputy-swarm-leader.md` on high-signal decision propagation.

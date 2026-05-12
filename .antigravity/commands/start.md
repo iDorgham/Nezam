@@ -4,10 +4,10 @@
 
 ## Path resolution
 
-Before performing any file operation, read `.cursor/workspace.paths.yaml` and resolve:
+Before performing any file operation, read `docs/gates/workspace.paths.yaml` and resolve:
 
 - `prd` → default `docs/prd/PRD.md`
-- `plans_root` → default `docs/nezam/plans`
+- `plans_root` → default `.nezam/workspace/plans`
 - `reports_root` → default `docs/reports`
 
 If the file is missing or a key is absent, fall back to the default values above.
@@ -16,7 +16,7 @@ use these resolved paths. Users can relocate any of them with `/nezam paths set`
 
 ## What /START does
 
-When a user runs `/start` (with or without a subcommand), Claude scaffolds the project folder structure under `docs/` and guides the user through creating their PRD. The workspace governance files live in `docs/nezam/` and must not be touched.
+When a user runs `/start` (with or without a subcommand), Claude scaffolds the project folder structure under `docs/` and guides the user through creating their PRD. The workspace governance files live in `.nezam/workspace/` and must not be touched.
 
 **Pre-flight check:**
 
@@ -29,12 +29,12 @@ When a user runs `/start` (with or without a subcommand), Claude scaffolds the p
 ## Subcommands
 
   /START             → Interactive: ask the user for their project idea, then scaffold docs/ and create a draft PRD
-  /START docs        → Scaffold docs/prd/, docs/nezam/plans/, docs/reports/ if they don't exist, show status
+  /START docs        → Scaffold docs/prd/, docs/plans/, docs/reports/ if they don't exist, show status
   /START prd         → Open docs/prd/PRD.md in guided mode — ask user questions and fill it in together
   /START gates       → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
   /START repo        → Link or initialize the git repository
   /START settings    → Jump to AI tools setup (onboarding shortcut)
-  /START design      → Browse `.cursor/design/<brand>/`, pick one, copy to root DESIGN.md
+  /START design      → Browse `.nezam/design/<brand>/`, pick one, copy to root DESIGN.md
   /START companion   → Generate a briefing you can paste into any external AI (Claude.ai, Gemini, ChatGPT)
   /START continual-learning → Opt-in: enable transcript mining (`pnpm continual-learning:on`)
   /START all         → Run repo → settings → docs → prd → gates → design → companion in sequence
@@ -54,8 +54,8 @@ When the user runs `/start` with no subcommand, execute the full onboarding flow
 Create these paths if they don't already exist:
 
 ```
-docs/prd/PRD.md              ← from .cursor/templates/sdd/PRD_TEMPLATE.md
-docs/nezam/plans/.gitkeep
+docs/prd/PRD.md              ← from .nezam/templates/sdd/PRD_TEMPLATE.md
+docs/plans/.gitkeep
 docs/reports/progress/.gitkeep
 docs/reports/tests/.gitkeep
 docs/reports/audits/.gitkeep
@@ -398,7 +398,7 @@ Type A or B:
 
 #### Path A — Pick a design profile
 
-- Read all folder names from `.cursor/design/` (excluding README.md and catalog.json)
+- Read all folder names from `.nezam/design/` (excluding README.md and catalog.json)
 - Group them into visual categories:
 
   ```
@@ -415,7 +415,7 @@ Type A or B:
   ```
 
 - Show the grouped list and ask user to type the profile name
-- Read `.cursor/design/[chosen]/design.md`
+- Read `.nezam/design/[chosen]/design.md`
 - Copy to root `DESIGN.md`
 - Confirm: "✅ Design profile `[name]` applied → DESIGN.md created"
 
@@ -483,7 +483,7 @@ After PRD and DESIGN are both locked, show:
 
 ✅  docs/prd/PRD.md     → Locked
 ✅  DESIGN.md           → Locked
-✅  docs/nezam/plans/         → Ready
+✅  docs/plans/         → Ready
 ✅  docs/reports/       → Ready (7 categories)
 🔓  /plan               → UNLOCKED — ready to use
 
@@ -516,12 +516,12 @@ After answers, write a complete PRD.md to `docs/prd/PRD.md` and confirm:
 
 ## Behavior: /START docs
 
-Check and scaffold the project folder structure (paths from `.cursor/workspace.paths.yaml`):
+Check and scaffold the project folder structure (paths from `docs/gates/workspace.paths.yaml`):
 
 ```
 docs/
 ├── prd/
-│   └── PRD.md           ← create if missing (from .cursor/templates/sdd/PRD_TEMPLATE.md)
+│   └── PRD.md           ← create if missing (from .nezam/templates/sdd/PRD_TEMPLATE.md)
 ├── plans/
 │   └── .gitkeep         ← empty folder, no README
 └── reports/
@@ -534,13 +534,13 @@ docs/
     └── lighthouse/.gitkeep
 ```
 
-Do NOT touch or modify anything inside `docs/nezam/` — that is the workspace governance layer.
+Do NOT touch or modify anything inside `.nezam/workspace/` — that is the workspace governance layer.
 
 Show status after:
 
 ```
 ✅ docs/prd/PRD.md exists
-✅ docs/nezam/plans/ exists (empty — /plan will scaffold phases)
+✅ docs/plans/ exists (empty — /plan will scaffold phases)
 ✅ docs/reports/ exists with 7 category folders
 ```
 
@@ -557,8 +557,8 @@ Run these checks and report ✅ / ❌:
 | Reports scaffold | `{reports_root}/` exists with category sub-folders |
 | DESIGN.md | Root `DESIGN.md` exists |
 | Git initialized | `.git/` exists |
-| Workspace governance | `docs/nezam/` exists (NEZAM files intact) |
-| Path config | `.cursor/workspace.paths.yaml` exists |
+| Workspace governance | `.nezam/workspace/` exists (NEZAM files intact) |
+| Path config | `docs/gates/workspace.paths.yaml` exists |
 
 If PRD gate fails: prompt user to run `/start prd`
 If plans gate fails: prompt user to run `/plan` after PRD is ready
@@ -568,9 +568,9 @@ If plans gate fails: prompt user to run `/plan` after PRD is ready
 ## Folder Separation Rule
 
 ```
-docs/nezam/   ← NEZAM workspace governance (DO NOT MODIFY during /start)
+.nezam/workspace/   ← NEZAM workspace governance (DO NOT MODIFY during /start)
 docs/prd/     ← User's project PRD (default; relocatable via /nezam paths)
-docs/nezam/plans/   ← User's project plans (default; relocatable via /nezam paths)
+docs/plans/   ← User's project plans (default; relocatable via /nezam paths)
 docs/reports/ ← User's project reports (default; relocatable via /nezam paths)
 ```
 

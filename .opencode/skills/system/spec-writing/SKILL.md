@@ -31,13 +31,13 @@ Produce canonical, SDD-compliant specification documents (PRD, IA spec, content 
 
 - `PLANNING_BRIEF.md` or equivalent discovery output exists (ticket, decision log, workshop notes, or voice transcript summary).
 - Active SDD phase is **Planning** or **IA** (or an amendment explicitly re-opens those phases per workspace rollback rules).
-- Templates exist under `.cursor/templates/` for the target document class; if missing, create the template first, then instantiate.
+- Templates exist under `.nezam/templates/` for the target document class; if missing, create the template first, then instantiate.
 
 ## Procedure
 
 1. Read the incoming requirement source (brief, ticket, voice note transcript, or raw spec draft) and capture open questions separately from locked decisions.
 2. Identify document type: **PRD** | **IA Spec** | **Content Spec** | **Design Spec** | **API Contract** | **Agent Spec**.
-3. Load the corresponding template from `.cursor/templates/` (examples: `docs/workspace/templates/**`, `.cursor/templates/plan/**`, `.cursor/templates/specs/**`, `.cursor/templates/ai-client/**` — pick the closest match; extend templates rather than inventing ad-hoc sections).
+3. Load the corresponding template from `.nezam/templates/` (examples: `docs/workspace/templates/**`, `.nezam/templates/plan/**`, `.nezam/templates/specs/**`, `.nezam/templates/ai-client/**` — pick the closest match; extend templates rather than inventing ad-hoc sections).
 4. Extract and normalize: **Problem Statement**, **Target Users**, **Success Metrics**, **Scope (in/out)**, **Constraints**, **Dependencies**, **Acceptance Criteria**.
 5. For **API Contracts**: define request/response schema, error codes, rate limits, auth model, pagination, and idempotency expectations.
 6. For **Agent Specs**: define role, tier, `reports_to`, `invoked_by`, `certified` intent, input/output contract, escalation path, and optional `backing_skill` / `rtl_aware` metadata.

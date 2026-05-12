@@ -7,7 +7,7 @@
 | Owner | Dorgham (Founder) |
 | Last Updated | 2026-05-10 |
 | Repository | [iDorgham/Nezam](https://github.com/iDorgham/Nezam) |
-| Companion Docs | `docs/nezam/memory/CONTEXT.md` · `docs/specs/` · `docs/plans/` |
+| Companion Docs | `.nezam/memory/CONTEXT.md` · `docs/specs/` · `docs/plans/` |
 
 ---
 
@@ -106,7 +106,7 @@ AI coding assistants (Cursor, Claude, Gemini, Codex, OpenCode) are powerful but 
 | R-01 | PRD + project context exist and pass CI onboarding check | `scripts/checks/check-onboarding-readiness.sh` exits 0 |
 | R-02 | All AI clients read from the same canonical agent/rule/command source | `.cursor/` is canonical; synced clients pass `pnpm ai:check` |
 | R-03 | SDD pipeline enforces phase order — no skipping | Hardlock system blocks execution if prerequisites unmet |
-| R-04 | Memory system persists decisions across session resets | `docs/nezam/memory/MEMORY.md` updated at each phase gate |
+| R-04 | Memory system persists decisions across session resets | `.nezam/memory/MEMORY.md` updated at each phase gate |
 | R-05 | Swarm leader + subagent controller route tasks deterministically | All invocations route through `swarm-leader.md` or `subagent-controller.md` |
 
 ### P1 — Important
@@ -179,9 +179,9 @@ NEZAM uses a 4-layer memory architecture to ensure decisions survive session res
 | Layer | What | Where |
 |---|---|---|
 | Layer 0 | Session runtime (ephemeral) | Cursor chat, open buffers |
-| Layer 1 | Project SDD truth (durable) | `docs/nezam/memory/MEMORY.md`, `docs/plans/`, specs |
+| Layer 1 | Project SDD truth (durable) | `.nezam/memory/MEMORY.md`, `docs/plans/`, specs |
 | Layer 2 | Team behavior contracts | `.cursor/agents/`, `.cursor/rules/` |
-| Layer 3 | Workspace-level governance | `CLAUDE.md`, `AGENTS.md`, `docs/nezam/memory/MEMORY_ARCHITECTURE.md` |
+| Layer 3 | Workspace-level governance | `CLAUDE.md`, `AGENTS.md`, `.nezam/memory/MEMORY_ARCHITECTURE.md` |
 
 **Capture protocol:** Agents must persist to Layer 1+ before ending any phase gate reply.
 
@@ -211,7 +211,7 @@ All agents are lazy-loaded via `agent-lazy-load.mdc`. Only agents needed for the
 |---|---|---|
 | Onboarding CI pass rate | 100% | `check-onboarding-readiness.sh` on main branch |
 | Phase gate compliance | 0 skipped gates | GitHub gate matrix JSON audit |
-| Memory retention across resets | 100% of P0 decisions | Manual audit of `docs/nezam/memory/MEMORY.md` |
+| Memory retention across resets | 100% of P0 decisions | Manual audit of `.nezam/memory/MEMORY.md` |
 | Multi-client sync drift | 0 diffs | `pnpm ai:check` output |
 | Test coverage (when app added) | ≥ 80% critical paths | TEST_MATRIX.md coverage vs. code |
 | Lighthouse score (when app added) | ≥ 90 all categories | `.lighthouserc.json` CI run |

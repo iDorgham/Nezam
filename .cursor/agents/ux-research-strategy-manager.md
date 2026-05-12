@@ -44,7 +44,7 @@ Lead user research, journey mapping, and information architecture strategy. Conv
 
 ## When to invoke
 
-- Phase 1 (Intake) / Phase 2 (Planning & Design) of [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Phase 1 (Intake) / Phase 2 (Planning & Design) of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - New product area, user segment, or major flow change.
 - Usability regression surfaced by analytics or QA.
 

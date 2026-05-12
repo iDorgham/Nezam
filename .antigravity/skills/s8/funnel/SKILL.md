@@ -6,6 +6,9 @@ name: "nezam-S8 Funnel"
 tier: 3
 summary: Funnel analysis for S8 analytics, tracking user progression through key flows.
 owner: unassigned
+version: 1.0.0
+updated: 2026-05-12
+changelog: "Initial skill creation for NEZAM hardening Phase 3."
 usage: |
   Use this skill to build and analyze funnels for conversion tracking.
 tests: |

@@ -74,10 +74,10 @@ The hook:
 | Tool              | Tier | Root file read      | Start command          | Plan command        | Guide command       | Getting Started |
 |-------------------|------|---------------------|------------------------|---------------------|---------------------|-----------------|
 | Cursor IDE        | 1    | `.cursor/` native   | `/start all`           | `/plan all`         | `/guide status`     | (native)        |
-| Claude Code CLI   | 1    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | [→ CLAUDE_CODE.md](../../docs/nezam/tools/CLAUDE_CODE.md) |
-| Antigravity IDE   | 1    | `.antigravity/`     | `/start all`           | `/plan all`         | `/guide status`     | [→ ANTIGRAVITY.md](../../docs/nezam/tools/ANTIGRAVITY.md) |
-| Codex CLI         | 1    | `AGENTS.md`         | `codex "/start all"`   | `codex "/plan all"` | `codex "/guide"`    | [→ CODEX.md](../../docs/nezam/tools/CODEX.md) |
-| Codex App         | 1    | `.codex/`           | `/start all`           | `/plan all`         | `/guide status`     | [→ CODEX.md](../../docs/nezam/tools/CODEX.md) |
+| Claude Code CLI   | 1    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | [→ CLAUDE_CODE.md](../../.nezam/workspace/tools/CLAUDE_CODE.md) |
+| Antigravity IDE   | 1    | `.antigravity/`     | `/start all`           | `/plan all`         | `/guide status`     | [→ ANTIGRAVITY.md](../../.nezam/workspace/tools/ANTIGRAVITY.md) |
+| Codex CLI         | 1    | `AGENTS.md`         | `codex "/start all"`   | `codex "/plan all"` | `codex "/guide"`    | [→ CODEX.md](../../.nezam/workspace/tools/CODEX.md) |
+| Codex App         | 1    | `.codex/`           | `/start all`           | `/plan all`         | `/guide status`     | [→ CODEX.md](../../.nezam/workspace/tools/CODEX.md) |
 | Windsurf IDE      | 2    | `WINDSURF.md`       | `/start all`           | `/plan all`         | `/guide status`     | (read WINDSURF.md) |
 | Kilo IDE          | 2    | `.kilocode/`        | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
 | OpenCode          | 2    | `.opencode/`        | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
@@ -90,7 +90,7 @@ The hook:
 
 When switching tools mid-session:
 1. Run `/SAVE log` in the current tool to persist session state.
-2. The next tool reads `docs/nezam/memory/MEMORY.md` on boot.
+2. The next tool reads `.nezam/memory/MEMORY.md` on boot.
 3. Run `/GUIDE status` in the new tool to confirm sync before continuing.
 
 ## Mirror Sync Content Policy

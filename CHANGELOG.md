@@ -1,3 +1,4 @@
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -35,4 +36,3 @@ This changelog follows a **hybrid workflow**:
 This section is managed by automation.
 If you need to correct a draft, update the source task or plan metadata instead.
 -->
-

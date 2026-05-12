@@ -6,6 +6,9 @@ name: "nezam-Security Hardening"
 tier: 2
 summary: Skills for hardening application security, including CSP, headers, and dependency auditing.
 owner: unassigned
+version: 1.0.0
+updated: 2026-05-12
+changelog: "Initial skill creation for NEZAM hardening Phase 3."
 usage: |
   Use this skill to review and apply security hardening measures to the project.
 tests: |

@@ -46,7 +46,7 @@ Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to 
 ## Session Start Protocol
 
 At session start:
-1. Read `.cursor/workspace.paths.yaml` → resolve all paths
+1. Read `docs/gates/workspace.paths.yaml` → resolve all paths
 2. Read `.cursor/state/onboarding.yaml`:
    - If `prd_locked: false` → route user to `/start` immediately
    - If `design_locked: false` → route user to `/start` (design step)
@@ -146,7 +146,7 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 
 ## Protocol References
 
-- Communication contract: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `.nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `.nezam/memory/ERROR_HANDLING_PROTOCOL.md`
 - Orchestration controller: [.cursor/agents/subagent-controller.md](./subagent-controller.md)
 - [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)

@@ -23,7 +23,7 @@ Run the day-to-day operating rhythm of the 13-swarm system on behalf of the CPO.
 - **Anti-Hallucination Anchor:** Base every decision ONLY on files present in the workspace and current YAML state. Never assume completed gates.
 - **EVAL_FRAMEWORK Mandate:** You MUST use `EVAL_FRAMEWORK.md` (require self-evaluation step) before final output on all gated actions.
 - Coordinate daily syncs across all 13 Swarm Managers.
-- Operate the Cross-Swarm Handoff loop and the Architecture Review Board cadence per [`SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md).
+- Operate the Cross-Swarm Handoff loop and the Architecture Review Board cadence per [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - Arbitrate write-scope conflicts between swarms before they reach the CPO.
 - Track sprint progress, gate evidence, and blocker aging.
 - Hand off go/no-go recommendations (with evidence) to `cpo.md`.
@@ -42,7 +42,7 @@ Run the day-to-day operating rhythm of the 13-swarm system on behalf of the CPO.
 - [`.cursor/skills/system/multi-agent-handoff/SKILL.md`](../skills/system/multi-agent-handoff/SKILL.md) for handoff packets.
 - [`.cursor/skills/system/progress-narrator/SKILL.md`](../skills/system/progress-narrator/SKILL.md) for gate evidence and sprint narratives.
 - [`.cursor/skills/system/task-decomposition/SKILL.md`](../skills/system/task-decomposition/SKILL.md) for sprint slicing.
-- [`docs/nezam/context/governance/SWARM_WORKFLOW.md`](../../docs/nezam/context/governance/SWARM_WORKFLOW.md) lifecycle phases.
+- [`.nezam/workspace/context/governance/SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md) lifecycle phases.
 
 ## Managed Artifacts
 

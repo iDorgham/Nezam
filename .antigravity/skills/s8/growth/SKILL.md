@@ -6,6 +6,9 @@ name: "nezam-S8 Growth"
 tier: 3
 summary: Growth metrics and analysis for S8 analytics, tracking acquisition and viral loops.
 owner: unassigned
+version: 1.0.0
+updated: 2026-05-12
+changelog: "Initial skill creation for NEZAM hardening Phase 3."
 usage: |
   Use this skill to track and optimize growth loops and acquisition channels.
 tests: |

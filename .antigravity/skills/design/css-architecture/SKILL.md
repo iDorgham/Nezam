@@ -50,7 +50,7 @@ Enforce runtime-safe CSS architecture that keeps layout stable, token-driven, an
 - `css/layers.css`
 - `css/utilities.css`
 - `css/components/*.css`
-- `docs/core/required/sdd/CSS_ARCHITECTURE.md`
+- `docs/specs/CSS_ARCHITECTURE.md`
 - `docs/workspace/context/audit/css-runtime-audit.md`
 
 # Integration Hooks

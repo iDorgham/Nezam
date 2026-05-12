@@ -14,7 +14,7 @@ Author API contracts that are typed, versioned, idempotent, and consumer-friendl
 
 # Inputs
 
-- Domain entities + use cases from `docs/core/required/prd/PRD.md` and `docs/core/required/features/`.
+- Domain entities + use cases from `docs/specs/prd/PRD.md` and `docs/specs/features/`.
 - Data model from `@.cursor/skills/nezam-prisma-orm/SKILL.md` or `@.cursor/skills/nezam-supabase-architect/SKILL.md`.
 - Auth model from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
 - Performance & cache constraints from `@.cursor/skills/nezam-cache-strategies/SKILL.md`.
@@ -22,7 +22,7 @@ Author API contracts that are typed, versioned, idempotent, and consumer-friendl
 # Step-by-Step Workflow
 
 1. Choose API style per use case: REST (resource-oriented, broad reach), GraphQL (complex aggregation, typed clients), gRPC (internal high-throughput).
-2. Author OpenAPI 3.1 spec (`docs/core/required/api/openapi.yaml`) or GraphQL SDL (`schema.graphql`); include components, parameters, responses, security schemes.
+2. Author OpenAPI 3.1 spec (`docs/specs/api/openapi.yaml`) or GraphQL SDL (`schema.graphql`); include components, parameters, responses, security schemes.
 3. Define versioning: URI (`/v1/`) or media-type; document deprecation policy + sunset headers.
 4. Standardize error schema: RFC 9457 `application/problem+json` (`type`, `title`, `status`, `detail`, `instance`, extensions).
 5. Specify idempotency: `Idempotency-Key` header for POST mutations; document storage and TTL.
@@ -39,7 +39,7 @@ Author API contracts that are typed, versioned, idempotent, and consumer-friendl
 
 # Output Format
 
-- `docs/core/required/api/openapi.yaml` (OpenAPI 3.1) and/or `schema.graphql`.
+- `docs/specs/api/openapi.yaml` (OpenAPI 3.1) and/or `schema.graphql`.
 - Generated client/types under `packages/api/`.
 - API style guide + error catalogue.
 - Versioning + deprecation policy.

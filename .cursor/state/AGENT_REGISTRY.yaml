@@ -94,7 +94,8 @@ registry:
     - name: arabic-seo-aeo-specialist
       tier: specialist
       swarm: research
-      summary: Arabic SEO and AEO strategy specialist.
+      summary: Arabic SEO/AEO authority; optimizes for traditional search, AI answer engines, and dialect-driven voice search.
+      backing_skill: content/register-detection
     - name: art-director-brand
       tier: manager
       swarm: design
@@ -279,7 +280,8 @@ registry:
     - name: khaleeji-specialist
       tier: specialist
       swarm: content
-      summary: Gulf Arabic localization specialist.
+      summary: Gulf Arabic authority; manages GCC cultural nuances, dry humor, Arabizi, and taboo "red lines."
+      backing_skill: content/register-detection
     - name: knowledge-update-manager
       tier: manager
       swarm: maintenance
@@ -344,7 +346,8 @@ registry:
     - name: levantine-specialist
       tier: specialist
       swarm: content
-      summary: Levantine Arabic language specialist.
+      summary: Levantine Arabic authority; manages sub-regional routing (LB/SY/JO/PS) and global diaspora protocol.
+      backing_skill: content/register-detection
     - name: localization-lead
       tier: manager
       swarm: content
@@ -352,7 +355,8 @@ registry:
     - name: maghrebi-specialist
       tier: specialist
       swarm: content
-      summary: Maghrebi Arabic language specialist.
+      summary: Maghrebi Arabic authority; handles Darija registers, French code-switching, and Moroccan/Algerian/Tunisian nuances.
+      backing_skill: content/moroccan-darija
     - name: masri-content-specialist
       tier: specialist
       swarm: content
@@ -380,7 +384,8 @@ registry:
     - name: msa-formal-specialist
       tier: specialist
       swarm: content
-      summary: Modern Standard Arabic content specialist.
+      summary: Modern Standard Arabic authority; enforces pan-Arab neutrality and reduces dialect bleed in formal/marketing contexts.
+      backing_skill: content/register-detection
     - name: multi-tenancy-architect
       tier: specialist
       swarm: cms-saas

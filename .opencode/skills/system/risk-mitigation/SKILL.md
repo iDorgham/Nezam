@@ -15,14 +15,14 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 # Inputs
 
 - Risk-tagged tasks from `@.cursor/skills/nezam-task-decomposition/SKILL.md`.
-- Architectural decisions in `docs/core/required/sdd/`.
+- Architectural decisions in `docs/specs/`.
 - `docs/DESIGN.md` motion/3D/perf-sensitive surfaces.
 - Security baseline from `@.cursor/skills/nezam-security-hardening/SKILL.md`.
 - Past incident notes under `docs/workspace/context/`.
 
 # Step-by-Step Workflow
 
-1. Maintain `docs/core/required/sdd/RISK_REGISTER.md` with columns: id, area, severity, likelihood, impact, owner, mitigation, fallback.
+1. Maintain `docs/specs/RISK_REGISTER.md` with columns: id, area, severity, likelihood, impact, owner, mitigation, fallback.
 2. For high-risk tasks, perform FMEA: failure mode → effect → cause → detection → severity × likelihood × detectability score.
 3. Define fallback plan per high-risk surface (e.g., 3D fallback chain, feature flag, circuit breaker, cached response).
 4. Link mitigation tasks back to `docs/workspace/plans/<phase>/<slice>/TASKS.md` so they cannot be skipped.
@@ -39,7 +39,7 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 
 # Output Format
 
-- `docs/core/required/sdd/RISK_REGISTER.md` (markdown table).
+- `docs/specs/RISK_REGISTER.md` (markdown table).
 - FMEA worksheet per high-risk surface.
 - Fallback plan stubs (feature flags, retry/backoff, circuit breakers).
 - Phase-gate risk-review summary.

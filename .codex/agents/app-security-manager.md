@@ -6,6 +6,10 @@ code-name: app-security-manager
 swarm: security
 reports-to: lead-security-officer
 subagents: owasp, input-validation, sast-dast
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Application Security Manager (app-security-manager)

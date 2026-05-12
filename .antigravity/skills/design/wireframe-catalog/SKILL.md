@@ -8,6 +8,11 @@ updated: 2026-05-11
 changelog: []
 ---
 
+> [!CAUTION]
+> **DEPRECATED**: This skill has been merged into `wireframe-pipeline`.
+> Please use `skills/design/wireframe-pipeline/SKILL.md` instead.
+
+
 # Wireframe Catalog Skill
 
 ## Purpose

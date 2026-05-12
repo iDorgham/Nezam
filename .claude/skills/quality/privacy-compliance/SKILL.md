@@ -14,14 +14,14 @@ Specify privacy controls so the application meets GDPR, CCPA/CPRA, and similar r
 
 # Inputs
 
-- Data inventory + flow map from `docs/core/required/sdd/`.
+- Data inventory + flow map from `docs/specs/`.
 - Auth + access controls from `@.cursor/skills/nezam-auth-workflows/SKILL.md`.
 - Editorial workflows for privacy-sensitive content from `@.cursor/skills/nezam-editorial-workflows/SKILL.md`.
 - Hosting/regions from cloud skills.
 
 # Step-by-Step Workflow
 
-1. Build data inventory: data class (PII, PHI, sensitive), source, processor, retention, region; document in `docs/core/required/sdd/DATA_INVENTORY.md`.
+1. Build data inventory: data class (PII, PHI, sensitive), source, processor, retention, region; document in `docs/specs/DATA_INVENTORY.md`.
 2. Determine lawful basis per data class (consent, contract, legitimate interest); record DPIA where required.
 3. Implement consent management: granular categories (necessary, analytics, marketing), pre-load gating, no dark patterns, easy withdrawal.
 4. Provide Data Subject Request (DSR) flows: access, rectify, delete, port; document SLA (≤ 30 days for GDPR).
@@ -39,8 +39,8 @@ Specify privacy controls so the application meets GDPR, CCPA/CPRA, and similar r
 
 # Output Format
 
-- `docs/core/required/sdd/DATA_INVENTORY.md`.
-- `docs/core/required/sdd/PRIVACY_POLICY_INPUTS.md` (legal-ready draft).
+- `docs/specs/DATA_INVENTORY.md`.
+- `docs/specs/PRIVACY_POLICY_INPUTS.md` (legal-ready draft).
 - DPIA worksheet (when required).
 - DSR runbook.
 - Sub-processor register.

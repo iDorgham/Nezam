@@ -6,6 +6,11 @@ code-name: arabic-content-master
 swarm: localization
 reports-to: localization-lead
 subagents: masri-content-specialist, khaleeji-specialist, levantine-specialist, maghrebi-specialist, msa-formal-specialist, arabic-seo-aeo-specialist
+version: 1.1.0
+certified: true
+updated: 2026-05-12
+changelog:
+  - "v1.1.0: Hardened with sub-regional routing, AEO/Voice search strategies, and new Arabic skills index."
 ---
 
 # Arabic Content Master Lead (arabic-content-master)
@@ -26,17 +31,18 @@ Own Arabic-language content strategy and execution across MENA with **Egyptian A
 | Subagent | Responsibility |
 | -------- | -------------- |
 | masri-content-specialist | Egyptian Masri voice, vertical depth, humour gates, Masri rubric |
-| khaleeji-specialist | GCC dialect routing stub — escalation to native/vendor |
-| levantine-specialist | Levant routing stub — escalation to native/vendor |
-| maghrebi-specialist | Maghreb routing stub — escalation to native/vendor |
-| msa-formal-specialist | Pan-Arab formal / legal-adjacent summaries — not counsel |
-| arabic-seo-aeo-specialist | Arabic keywords, AEO, SERP features, `lang`, schema coordination |
+| khaleeji-specialist | GCC authority — Humor, Arabizi, Taboo management |
+| levantine-specialist | Levant authority — Sub-regional routing, Diaspora protocol |
+| maghrebi-specialist | Maghreb authority — Darija registers, French code-switching |
+| msa-formal-specialist | Pan-Arab Neutrality — Marketing/Formal register control |
+| arabic-seo-aeo-specialist | Arabic AEO/SEO — Answer engines, Voice search, Locale mapping |
 
 ## Primary skills / lenses
 
-- `.cursor/skills/arabic_content_master/skill.md`
-- `.cursor/skills/arabic_content_master/arabic_content_master.md`
-- `.cursor/skills/egyptian_arabic_content_master/skill.md`
+- `.cursor/skills/content/arabic-content/SKILL.md`
+- `.cursor/skills/content/arabic-typography/SKILL.md`
+- `.cursor/skills/content/moroccan-darija/SKILL.md`
+- `.cursor/skills/content/register-detection/SKILL.md`
 - `.cursor/skills/nezam-aeo-answer-engines/SKILL.md`
 - `.cursor/skills/nezam-geo-optimization/SKILL.md`
 - `.cursor/skills/nezam-topical-authority/SKILL.md`

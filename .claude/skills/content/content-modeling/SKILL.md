@@ -38,7 +38,7 @@ Define a portable, validated content model — types, fields, references, blocks
 
 # Output Format
 
-- `docs/core/required/sdd/CONTENT_MODEL.md` (types, fields, references, blocks).
+- `docs/specs/CONTENT_MODEL.md` (types, fields, references, blocks).
 - Portable schema export (`schema/content-model.json`).
 - CMS migration stubs (per chosen vendor).
 - Localization strategy memo.

@@ -4,8 +4,8 @@
 name: seo-ia-content
 description: SEO fundamentals + keyword research → information architecture & menu labels → on-page content shells (AEO/GEO aware).
 paths:
-  - "docs/core/required/sdd/SEO_RESEARCH.md"
-  - "docs/core/required/sdd/IA_CONTENT.md"
+  - "docs/specs/SEO_RESEARCH.md"
+  - "docs/specs/IA_CONTENT.md"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
@@ -17,16 +17,16 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 # Inputs
 
-- Audience + product intent from `docs/core/required/prd/PRD.md`.
+- Audience + product intent from `docs/specs/prd/PRD.md`.
 - Competitor / reference set (non-plagiarism stance).
-- Brand voice + glossary from `docs/core/required/PROJECT_PROMPT.md`.
+- Brand voice + glossary from `docs/prd/PROJECT_PROMPT.md`.
 - Optional log file / Search Console data for crawl analysis.
 
 # Step-by-Step Workflow
 
 1. Build keyword clusters table: `term | intent | funnel stage | priority | suggested slug | notes`; classify intent (informational, navigational, transactional, commercial-investigation).
-2. Author `docs/core/required/sdd/SEO_RESEARCH.md`: business + audience summary, competitor matrix, clusters, snippet/FAQ opportunities, GEO/AEO cues, localized entities.
-3. Translate clusters into IA in `docs/core/required/sdd/IA_CONTENT.md`: nav map, route hierarchy, accessible long-form labels, internal-link plan.
+2. Author `docs/specs/SEO_RESEARCH.md`: business + audience summary, competitor matrix, clusters, snippet/FAQ opportunities, GEO/AEO cues, localized entities.
+3. Translate clusters into IA in `docs/specs/IA_CONTENT.md`: nav map, route hierarchy, accessible long-form labels, internal-link plan.
 4. Per route define: title-tag pattern (≤ 60 chars), meta-description skeleton (140–160 chars), H1/H2 scaffolding aligned to intent, internal links, canonical URL.
 5. Set canonical + crawl controls: rel-canonical per page, `robots.txt`, `sitemap.xml`, hreflang for locales; control crawl budget on faceted/paginated surfaces.
 6. CTA + microcopy per route consistent with voice guidelines; maintain a glossary for product-specific terminology.
@@ -42,8 +42,8 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 # Output Format
 
-- `docs/core/required/sdd/SEO_RESEARCH.md` (clusters, opportunities, GEO/AEO cues).
-- `docs/core/required/sdd/IA_CONTENT.md` (nav, routes, headings, links).
+- `docs/specs/SEO_RESEARCH.md` (clusters, opportunities, GEO/AEO cues).
+- `docs/specs/IA_CONTENT.md` (nav, routes, headings, links).
 - Title/meta library (markdown table per route).
 - `robots.txt` + `sitemap.xml` policy memo.
 - Canonical + hreflang strategy.
@@ -73,4 +73,4 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 ## Reference library provenance
 
-- Instructor-oriented domain routing (teaching, not execution): [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/skills/guide_instructor_domains/skill.md). Use for pedagogy patterns only; **this** skill owns NEZAM SEO/IA artifact paths (`docs/core/required/sdd/`, PRD).
+- Instructor-oriented domain routing (teaching, not execution): [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/skills/guide_instructor_domains/skill.md). Use for pedagogy patterns only; **this** skill owns NEZAM SEO/IA artifact paths (`docs/specs/`, PRD).

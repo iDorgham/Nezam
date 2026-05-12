@@ -4,6 +4,10 @@
 role: SEO Specialist
 code-name: seo
 subagents: keyword, analytics, performance-seo
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # SEO Specialist (seo)
@@ -21,7 +25,7 @@ Keyword clusters, intents, slugs, metadata, internal linking—before menus and 
 
 ## Primary skills / lenses
 
-- `docs/core/required/sdd/SEO_RESEARCH.md`, `/PLAN seo`, `/SCAN seo`
+- `docs/specs/SEO_RESEARCH.md`, `/PLAN seo`, `/SCAN seo`
 
 ## When to invoke
 

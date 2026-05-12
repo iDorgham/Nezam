@@ -42,7 +42,7 @@ Engineer pages to win specific SERP features (featured snippet, People Also Ask,
 
 # Output Format
 
-- `docs/core/required/sdd/SERP_TARGETS.md` (query, feature, eligibility steps, status).
+- `docs/specs/SERP_TARGETS.md` (query, feature, eligibility steps, status).
 - Per-page feature checklist.
 - Weekly occupancy report.
 - Schema cross-link to `@.cursor/skills/nezam-structured-data-schema/SKILL.md` outputs.

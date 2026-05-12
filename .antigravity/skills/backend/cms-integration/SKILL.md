@@ -38,7 +38,7 @@ Specify how a headless CMS connects to the application: API client, webhooks, ca
 
 # Output Format
 
-- `docs/core/required/sdd/CMS_INTEGRATION.md` (vendor, client, webhooks, preview, fallback).
+- `docs/specs/CMS_INTEGRATION.md` (vendor, client, webhooks, preview, fallback).
 - Environment variable manifest (`CMS_PROJECT_ID`, `CMS_TOKEN`, `CMS_PREVIEW_TOKEN`, `CMS_WEBHOOK_SECRET`).
 - Webhook payload schema and verification rules.
 - Image pipeline configuration.

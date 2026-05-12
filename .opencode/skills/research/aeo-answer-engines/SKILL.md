@@ -14,10 +14,10 @@ Format content so answer engines (Google PAA, voice assistants, chat search) can
 
 # Inputs
 
-- Keyword clusters and intent tags from `docs/core/required/sdd/SEO_RESEARCH.md`.
+- Keyword clusters and intent tags from `docs/specs/SEO_RESEARCH.md`.
 - "People Also Ask" / Reddit / community FAQ harvest.
-- Page-level outlines in `docs/core/required/sdd/IA_CONTENT.md`.
-- Voice/chat persona guidance from `docs/core/required/PROJECT_PROMPT.md`.
+- Page-level outlines in `docs/specs/IA_CONTENT.md`.
+- Voice/chat persona guidance from `docs/prd/PROJECT_PROMPT.md`.
 
 # Step-by-Step Workflow
 
@@ -38,7 +38,7 @@ Format content so answer engines (Google PAA, voice assistants, chat search) can
 
 # Output Format
 
-- `docs/core/required/sdd/AEO_QA_MAP.md` (question, answer, intent, page slug, schema type).
+- `docs/specs/AEO_QA_MAP.md` (question, answer, intent, page slug, schema type).
 - FAQ JSON-LD stubs per page.
 - Voice readability checklist.
 - Snippet appearance log.

@@ -4,6 +4,10 @@
 role: Deputy Orchestrator
 code-name: deputy-orchestrator
 subagents: daily-sync, conflict-resolution, knowledge-sync, gate-tracker
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Deputy Orchestrator (deputy-orchestrator)

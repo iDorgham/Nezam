@@ -12,7 +12,7 @@ Translate brand strategy into concrete visual direction rules that remain consis
 
 # Inputs
 - `docs/DESIGN.md` brand narrative and visual references.
-- `docs/core/required/prd/PRD.md` audience/problem framing.
+- `docs/specs/prd/PRD.md` audience/problem framing.
 - SEO/IA/content documents for tone and editorial hierarchy.
 - Token proposals and component inventories.
 - Existing brand artifacts (logo, color intent, image style, voice notes).
@@ -41,10 +41,10 @@ Translate brand strategy into concrete visual direction rules that remain consis
 - Performance alignment: visual decisions do not violate loading budgets.
 
 # Output Format
-- `docs/core/required/sdd/BRAND_VISUAL_RULES.md`
-- `docs/core/required/sdd/BRAND_ALIGNMENT_CHECKLIST.md`
-- `docs/core/required/sdd/EDITORIAL_LAYOUT_GUIDE.md`
-- `docs/core/required/sdd/COLOR_CONTRAST_MATRIX.md`
+- `docs/specs/BRAND_VISUAL_RULES.md`
+- `docs/specs/BRAND_ALIGNMENT_CHECKLIST.md`
+- `docs/specs/EDITORIAL_LAYOUT_GUIDE.md`
+- `docs/specs/COLOR_CONTRAST_MATRIX.md`
 - `docs/DESIGN.md` updates with approved visual contracts
 
 # Integration Hooks

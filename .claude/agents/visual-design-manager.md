@@ -6,6 +6,10 @@ code-name: visual-design-manager
 swarm: ui-ux-design
 reports-to: lead-uiux-designer
 subagents: brand, layout-typography, color-motion
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Visual Design Manager (visual-design-manager)

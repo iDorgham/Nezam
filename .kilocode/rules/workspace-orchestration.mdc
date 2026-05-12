@@ -16,15 +16,15 @@ Use **Specification-Driven Development (SDD)**: roadmap → phases → specs →
 ## Planning hardlock prerequisite (legacy — superseded)
 
 > **Note:** This section is preserved for historical reference only. It referenced the old path
-> `docs/core/required/PRD.md`. All hardlock logic has moved to the section below
+> `docs/prd/PRD.md`. All hardlock logic has moved to the section below
 > ("SDD hardlock prerequisites — reads state files") which uses the canonical path
 > `docs/prd/PRD.md`. Do not act on the conditions described here.
 
 <!--
 LEGACY (do not enforce):
-- docs/core/required/PRD.md  →  now: docs/prd/PRD.md
-- docs/core/required/PROJECT_PROMPT.md  →  now: docs/prd/PROJECT_PROMPT.md (optional)
-- docs/core/VERSIONING.md  →  now: docs/nezam/VERSIONING.md
+- docs/prd/PRD.md  →  now: docs/prd/PRD.md
+- docs/prd/PROJECT_PROMPT.md  →  now: docs/prd/PROJECT_PROMPT.md (optional)
+- docs/nezam/VERSIONING.md  →  now: docs/nezam/VERSIONING.md
 All gate logic is enforced via .cursor/state/*.yaml files + sdd-gate-validator skill.
 -->
 

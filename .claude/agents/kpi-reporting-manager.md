@@ -6,6 +6,10 @@ code-name: kpi-reporting-manager
 swarm: analytics-dashboard
 reports-to: lead-analytics-architect
 subagents: kpi-definitions, exec-reports, okr-tracking
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # KPI & Reporting Manager (kpi-reporting-manager)

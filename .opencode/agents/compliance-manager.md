@@ -6,6 +6,10 @@ code-name: compliance-manager
 swarm: security
 reports-to: lead-security-officer
 subagents: gdpr-ccpa, soc2, hipaa-pci
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Compliance Manager (compliance-manager)

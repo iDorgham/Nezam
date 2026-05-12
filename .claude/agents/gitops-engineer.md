@@ -4,6 +4,10 @@
 role: Git Operations
 code-name: gitops
 subagents: version, branch, release
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Git Operations (gitops)

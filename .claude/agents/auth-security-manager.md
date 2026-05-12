@@ -6,6 +6,10 @@ code-name: auth-security-manager
 swarm: backend
 reports-to: lead-backend-architect
 subagents: authn, authz, session-tokens
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Auth & Security Manager (auth-security-manager)

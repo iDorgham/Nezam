@@ -4,6 +4,10 @@
 role: Project Manager
 code-name: pm
 subagents: task-tracker, timeline
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Project Manager (pm)
@@ -21,7 +25,7 @@ Turn specs into phased milestones, acceptance criteria, and exit checks. Surface
 
 ## Primary skills / lenses
 
-- `docs/core/required/sdd/PHASES.md`, feature specs under `docs/core/required/features/`
+- `docs/specs/PHASES.md`, feature specs under `docs/specs/features/`
 - Definition of done per slice
 
 ## When to invoke

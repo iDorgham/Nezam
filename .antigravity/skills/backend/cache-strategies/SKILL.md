@@ -39,7 +39,7 @@ Specify caching layers and invalidation contracts: HTTP, runtime cache (Redis/Ve
 
 # Output Format
 
-- `docs/core/required/sdd/CACHE_STRATEGY.md` (per-route TTLs, tags, invalidation).
+- `docs/specs/CACHE_STRATEGY.md` (per-route TTLs, tags, invalidation).
 - HTTP header presets per route.
 - Redis key schema + lock pattern.
 - Invalidation flow diagrams (mermaid).

@@ -38,7 +38,7 @@ Produce and maintain a living `HEALTH.md` at the repository root that summarizes
 - `DESIGN.md` exists at repo root: +30 pts
 - `design_locked: true` in onboarding.yaml: +30 pts
 - `docs/plans/04-design/DESIGN_CHOICES.yaml` or `.md` exists: +20 pts
-- `docs/plans/04-design/WIREFRAMES.md` exists: +20 pts
+- `docs/plans/design/WIREFRAMES.md` exists: +20 pts
 
 ### 3. Security Posture (max 100 pts)
 - `docs/reports/security/SECURITY_AUDIT.md` exists: +40 pts

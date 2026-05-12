@@ -6,6 +6,10 @@ code-name: ceo
 subagents: strategist, prioritizer
 activation: founder-lens-only
 when: ["strategic pivot decision", "product positioning review", "vision and risk appetite executive decision"]
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # CEO (ceo)
@@ -26,7 +30,7 @@ Clarify vision, differentiation, and risk appetite. Prefer outcomes over output 
 ## Primary skills / lenses
 
 - JTBD, moat, opportunity cost
-- Alignment with `docs/core/required/prd/PRD.md`
+- Alignment with `docs/specs/prd/PRD.md`
 
 ## When to invoke
 

@@ -17,7 +17,7 @@ Specify and validate JSON-LD structured data so pages qualify for rich results, 
 - Entity inventory from `@.cursor/skills/nezam-geo-optimization/SKILL.md`.
 - Q&A map from `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`.
 - Page taxonomy and URL hierarchy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
-- Brand identity (logo URL, sameAs links) from `docs/core/required/sdd/`.
+- Brand identity (logo URL, sameAs links) from `docs/specs/`.
 
 # Step-by-Step Workflow
 

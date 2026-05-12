@@ -6,6 +6,10 @@ code-name: infrastructure-manager
 swarm: performance-devops
 reports-to: lead-devops-performance
 subagents: iac, cloud-platforms, networking-edge
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Infrastructure Manager (infrastructure-manager)

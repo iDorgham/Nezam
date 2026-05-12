@@ -8,6 +8,11 @@ updated: 2026-05-08
 changelog: []
 ---
 
+> [!CAUTION]
+> **DEPRECATED**: This skill has been merged into `wireframe-pipeline`.
+> Please use `skills/design/wireframe-pipeline/SKILL.md` instead.
+
+
 # Wireframe to Spec Converter
 
 Use during `/PLAN design` when layouts must be translated into deterministic build specs.

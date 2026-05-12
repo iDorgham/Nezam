@@ -11,7 +11,7 @@ Integration Hooks, Anti-Patterns, External References.
 | system/ | Workspace orchestration, routing, memory, gating, CLI orchestration | ~17 |
 | research/ | SEO, AEO, IA, audience, competitive | ~7 |
 | design/ | Tokens, typography, UI, motion, components | ~14 |
-| content/ | Editorial, content modeling, Arabic content | ~4 |
+| content/ | Editorial, content modeling, Arabic/Dialect specialization | ~7 |
 | frontend/ | React, Next.js, component implementation | ~1 |
 | backend/ | API, DB, auth, payments, CMS, Drizzle, Neon, Clerk, AI SDK, Resend, Typesense, OpenRouter, background jobs | ~18 |
 | infrastructure/ | DevOps, cloud, CDN, monitoring, product analytics, LLM observability | ~10 |

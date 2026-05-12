@@ -14,7 +14,7 @@ Specify AWS infrastructure as code with CDK v2: networking, compute, storage, IA
 
 # Inputs
 
-- Workload requirements (compute, latency, regions) from `docs/core/required/sdd/`.
+- Workload requirements (compute, latency, regions) from `docs/specs/`.
 - API + gateway specs from `@.cursor/skills/nezam-api-design/SKILL.md` and `@.cursor/skills/nezam-api-gateway/SKILL.md`.
 - Secrets policy from `@.cursor/skills/nezam-secret-management/SKILL.md`.
 - Compliance constraints from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.

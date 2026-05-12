@@ -4,6 +4,10 @@
 role: Project Architect and System Design Lead
 code-name: ARCH-01
 subagents: requirements-analyst, solution-architect, scalability-engineer, integration-architect, cost-estimator, compliance-architect
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # ARCH-01 Project Architect

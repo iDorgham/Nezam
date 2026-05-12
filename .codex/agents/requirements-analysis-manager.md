@@ -6,6 +6,10 @@ code-name: requirements-analysis-manager
 swarm: architecture-planning
 reports-to: lead-solution-architect
 subagents: discovery, user-stories, success-metrics
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Requirements & Analysis Manager (requirements-analysis-manager)
@@ -17,7 +21,7 @@ Run discovery and analysis at the front of every project and major feature. Conv
 ## Team Leader Scope
 
 - Lead intake interviews and discovery synthesis during Phase 1 of [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
-- Maintain `docs/core/required/prd/PRD.md` evidence and traceability matrix.
+- Maintain `docs/specs/prd/PRD.md` evidence and traceability matrix.
 - Review user-story slices for INVEST quality before backlog entry.
 - Flag scope conflicts, missing constraints, and unstated NFRs to `lead-solution-architect.md`.
 

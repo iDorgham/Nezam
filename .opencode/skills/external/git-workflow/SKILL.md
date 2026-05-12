@@ -6,7 +6,7 @@ description: Git workflow + GitHub workflows — branching, conventional commits
 paths:
   - ".github/**"
   - "scripts/**"
-  - "docs/core/required/sdd/VERSIONING.md"
+  - "docs/specs/VERSIONING.md"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
@@ -18,7 +18,7 @@ Govern repository hygiene end-to-end: branching model, conventional commits, ann
 
 # Inputs
 
-- `docs/core/required/sdd/VERSIONING.md` for semver policy.
+- `docs/specs/VERSIONING.md` for semver policy.
 - DevOps pipeline from `@.cursor/skills/nezam-devops-pipeline/SKILL.md`.
 - Team conventions and repo defaults.
 - Compliance regime affecting retention and audit.

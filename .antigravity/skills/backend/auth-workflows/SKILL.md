@@ -39,7 +39,7 @@ Specify authentication and authorization: identity provider, session strategy, t
 
 # Output Format
 
-- `docs/core/required/sdd/AUTH_WORKFLOWS.md` (protocol, sessions, tokens, MFA, RBAC).
+- `docs/specs/AUTH_WORKFLOWS.md` (protocol, sessions, tokens, MFA, RBAC).
 - Permission catalogue (role × resource × action).
 - Token lifecycle diagram (mermaid).
 - IdP configuration checklist.

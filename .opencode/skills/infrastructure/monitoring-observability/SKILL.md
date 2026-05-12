@@ -14,7 +14,7 @@ Specify the observability stack: structured logs, metrics, distributed traces (O
 
 # Inputs
 
-- Service inventory + SLOs from `docs/core/required/sdd/`.
+- Service inventory + SLOs from `docs/specs/`.
 - API + gateway specs.
 - Risk register from `@.cursor/skills/nezam-risk-mitigation/SKILL.md`.
 - DevOps pipeline + cloud target.
@@ -39,7 +39,7 @@ Specify the observability stack: structured logs, metrics, distributed traces (O
 
 # Output Format
 
-- `docs/core/required/sdd/OBSERVABILITY.md` (signals, SDKs, SLOs, alerts).
+- `docs/specs/OBSERVABILITY.md` (signals, SDKs, SLOs, alerts).
 - OTel collector config.
 - Dashboard JSON (vendor-specific).
 - Alert routing matrix (severity × channel × team).

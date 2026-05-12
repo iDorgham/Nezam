@@ -5,6 +5,10 @@ role: Lead Database Architect (Swarm Manager - Data & Database)
 code-name: lead-database-architect
 legacy-code-names: dba
 subagents: database-design-manager, data-pipeline-manager, search-cache-manager
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Lead Database Architect (lead-database-architect)

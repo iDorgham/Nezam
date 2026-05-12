@@ -14,15 +14,15 @@ Lock site information architecture before content or visuals: navigation labels,
 
 # Inputs
 
-- Keyword and intent map from `docs/core/required/sdd/SEO_RESEARCH.md`.
+- Keyword and intent map from `docs/specs/SEO_RESEARCH.md`.
 - Topical clusters from `@.cursor/skills/nezam-topical-authority/SKILL.md`.
-- Audience personas and primary tasks from `docs/core/required/prd/PRD.md`.
+- Audience personas and primary tasks from `docs/specs/prd/PRD.md`.
 - Existing nav (if redesign) and analytics drop-off data.
 
 # Step-by-Step Workflow
 
 1. Run a tree test or card sort with target users (or proxy) before locking labels.
-2. Author `docs/core/required/sdd/IA_CONTENT.md`: top-level nav, secondary nav, footer, utility nav.
+2. Author `docs/specs/IA_CONTENT.md`: top-level nav, secondary nav, footer, utility nav.
 3. Define URL hierarchy rules: lowercase, hyphenated, ≤ 3 segments, stable, lowercase locale prefix.
 4. Specify breadcrumb logic and `BreadcrumbList` schema alignment.
 5. Build a controlled taxonomy: category (1:1), tags (n:m), facets; document allowed values.
@@ -38,7 +38,7 @@ Lock site information architecture before content or visuals: navigation labels,
 
 # Output Format
 
-- `docs/core/required/sdd/IA_CONTENT.md` (nav map, URL hierarchy, breadcrumb spec).
+- `docs/specs/IA_CONTENT.md` (nav map, URL hierarchy, breadcrumb spec).
 - Taxonomy schema (categories, tags, facets, allowed values).
 - Redirect map (`from → to`, status, reason).
 - Card-sort/tree-test report.

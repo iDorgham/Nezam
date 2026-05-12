@@ -15,7 +15,7 @@ Govern how content moves from draft through review to publish, with explicit rol
 # Inputs
 
 - Content model from `@.cursor/skills/nezam-content-modeling/SKILL.md`.
-- Brand voice + editorial guidelines from `docs/core/required/PROJECT_PROMPT.md`.
+- Brand voice + editorial guidelines from `docs/prd/PROJECT_PROMPT.md`.
 - CMS capabilities from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
 - Compliance requirements from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 
@@ -38,7 +38,7 @@ Govern how content moves from draft through review to publish, with explicit rol
 
 # Output Format
 
-- `docs/core/required/sdd/EDITORIAL_WORKFLOW.md` (states, roles, transitions, SLAs).
+- `docs/specs/EDITORIAL_WORKFLOW.md` (states, roles, transitions, SLAs).
 - Permission matrix (role × type × action).
 - CMS workflow configuration (vendor-specific export).
 - Audit-trail field spec.

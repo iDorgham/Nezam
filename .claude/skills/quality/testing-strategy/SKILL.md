@@ -39,7 +39,7 @@ Define the testing pyramid: unit (Vitest/Jest), integration (API/component), E2E
 
 # Output Format
 
-- `docs/core/required/sdd/TESTING_STRATEGY.md` (pyramid, tools, thresholds).
+- `docs/specs/TESTING_STRATEGY.md` (pyramid, tools, thresholds).
 - Test data factory catalogue.
 - Playwright config + project matrix.
 - Contract test catalogue.

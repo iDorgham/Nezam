@@ -1,7 +1,3 @@
-> [!CAUTION]
-> **DEPRECATED**: This skill has been merged into `wireframe-pipeline`.
-> Please use `skills/design/wireframe-pipeline/SKILL.md` instead.
-
 ---
 name: wireframe-to-spec-converter
 description: Convert low-fidelity wireframes into implementation-ready component specifications.
@@ -9,6 +5,11 @@ version: 1.0.0
 updated: 2026-05-08
 changelog: []
 ---
+
+> [!CAUTION]
+> **DEPRECATED**: This skill has been merged into `wireframe-pipeline`.
+> Please use `skills/design/wireframe-pipeline/SKILL.md` instead.
+
 
 # Wireframe to Spec Converter
 

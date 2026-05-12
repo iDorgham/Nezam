@@ -6,6 +6,10 @@ code-name: cpo
 legacy-code-names: manager
 subagents: deputy-orchestrator, governance, escalation, scheduler
 activation: gate-escalation-only
+version: 1.0.0
+certified: false
+updated: 2026-05-12
+changelog: []
 ---
 
 # Chief Project Orchestrator (cpo)
@@ -20,7 +24,7 @@ Final authority across the 12-swarm system. Owns project scoping, timeline, budg
 
 - Own cross-swarm arbitration across the 12 fixed swarms.
 - Assign a Swarm Manager and Team Manager for every active workstream.
-- Enforce SDD hardlocks from `docs/core/required/**` and `docs/workspace/plans/**`.
+- Enforce SDD hardlocks from `docs/specs/**` and `docs/workspace/plans/**`.
 - Approve the Project Charter and Architecture Decision Record at intake.
 - Approve Go-Live before deployment and approve sprint priorities.
 - Final escalation tier: Specialist -> Team Manager -> Swarm Manager -> Deputy Orchestrator -> CPO.
@@ -53,7 +57,7 @@ The CPO directs 12 Swarm Managers via the Deputy Orchestrator:
 
 ## Primary skills / lenses
 
-- Dependency chain from `docs/core/required/**`.
+- Dependency chain from `docs/specs/**`.
 - Gates: `/START gates`, `/PLAN` preflight, `/DEPLOY` go/no-go.
 - Lifecycle workflow: [`docs/workspace/context/governance/SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
 - Routing matrix: [`docs/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../docs/workspace/context/governance/ORCHESTRATION_ALIASES.md).

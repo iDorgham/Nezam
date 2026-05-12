@@ -47,7 +47,7 @@ Specify the React/Next.js architecture choices that govern the application: serv
 
 # Output Format
 
-- `docs/core/required/sdd/REACT_ARCHITECTURE.md` (RSC/CC split, data fetching, state, routing).
+- `docs/specs/REACT_ARCHITECTURE.md` (RSC/CC split, data fetching, state, routing).
 - Per-route rendering-mode table.
 - Suspense boundary map.
 - Server Action contract list.

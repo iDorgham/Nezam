@@ -2,7 +2,7 @@
 
 ---
 skill_id: "frontend/gsap-animations"
-name: "gsap-animations"
+name: "nezam-gsap-animations"
 description: "Implements high-performance, scroll-triggered animations and timeline composition using GSAP and Framer Motion."
 version: 1.0.0
 updated: 2026-05-12

@@ -2,7 +2,7 @@
 
 ---
 skill_id: "infrastructure/browserbase"
-name: "browserbase"
+name: "nezam-browserbase"
 description: "Cloud browser automation for adversarial UI testing, scraping requiring auth sessions, and regression testing. Uses 3-round adversarial testing protocol."
 version: 1.0.0
 updated: 2026-05-12

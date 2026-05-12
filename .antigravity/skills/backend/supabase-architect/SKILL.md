@@ -2,7 +2,7 @@
 
 ---
 skill_id: "backend/supabase-architect"
-name: "supabase-architect"
+name: "nezam-supabase-architect"
 description: "Postgres RLS, Auth flows, Realtime, Edge Functions, and schema management for Supabase-backed apps."
 version: 1.1.0
 updated: 2026-05-12

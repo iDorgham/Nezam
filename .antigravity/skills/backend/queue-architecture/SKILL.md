@@ -2,7 +2,7 @@
 
 ---
 skill_id: backend/queue-architecture
-name: queue-architecture
+name: "nezam-queue-architecture"
 description: BullMQ vs SQS vs RabbitMQ; priorities; DLQ; idempotency; at-least-once; worker scaling; CRON governance; visibility timeouts.
 version: 1.0.0
 updated: 2026-05-12

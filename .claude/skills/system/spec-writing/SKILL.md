@@ -2,7 +2,7 @@
 
 ---
 skill_id: system/spec-writing
-name: spec-writing
+name: "nezam-spec-writing"
 description: Produce canonical SDD-compliant specs (PRD, IA, content, design, API, agent) from discovery inputs and register cross-references.
 version: 1.0.0
 updated: 2026-05-12

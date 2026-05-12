@@ -2,7 +2,7 @@
 
 ---
 skill_id: "quality/sast-security"
-name: "sast-security"
+name: "nezam-sast-security"
 description: "Implements SAST tooling and proactive scanning workflows using Semgrep for code and LLM security."
 version: 1.0.0
 updated: 2026-05-12

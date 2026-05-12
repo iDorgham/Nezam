@@ -2,7 +2,7 @@
 
 ---
 skill_id: "design/design-iteration-protocol"
-name: "design-iteration-protocol"
+name: "nezam-design-iteration-protocol"
 description: "Enforces the two-step design discipline: Step A pixel-perfect ground-truth reproduction → Step B exactly 2 branch variations. Applies to all design work in NEZAM."
 version: 1.0.0
 updated: 2026-05-12

@@ -2,7 +2,7 @@
 
 ---
 skill_id: "backend/gemini-integration"
-name: "gemini-integration"
+name: "nezam-gemini-integration"
 description: "Google Gemini API integration using the correct google-genai SDK. Covers multimodal input, streaming, function calling, search grounding, and file API for large documents."
 version: 1.0.0
 updated: 2026-05-12

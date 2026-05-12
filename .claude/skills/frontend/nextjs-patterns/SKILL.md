@@ -2,7 +2,7 @@
 
 ---
 skill_id: "frontend/nextjs-patterns"
-name: "nextjs-patterns"
+name: "nezam-nextjs-patterns"
 description: "App Router composition, View Transitions API, partial prerendering, streaming, parallel/intercepting routes, and runtime constraints."
 version: 1.1.0
 updated: 2026-05-12

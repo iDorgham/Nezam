@@ -2,7 +2,7 @@
 
 ---
 id: nezam-security-hardening
-name: Security Hardening
+name: "nezam-Security Hardening"
 tier: 2
 summary: Skills for hardening application security, including CSP, headers, and dependency auditing.
 owner: unassigned

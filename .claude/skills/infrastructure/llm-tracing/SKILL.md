@@ -2,7 +2,7 @@
 
 ---
 skill_id: "infrastructure/llm-tracing"
-name: "llm-tracing"
+name: "nezam-llm-tracing"
 description: "Implements Langfuse for AI observability: traces, spans, scores, datasets, evals, and cost tracking."
 version: 1.0.0
 updated: 2026-05-12

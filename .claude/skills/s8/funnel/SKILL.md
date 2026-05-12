@@ -2,7 +2,7 @@
 
 ---
 id: nezam-s8-funnel
-name: S8 Funnel
+name: "nezam-S8 Funnel"
 tier: 3
 summary: Funnel analysis for S8 analytics, tracking user progression through key flows.
 owner: unassigned

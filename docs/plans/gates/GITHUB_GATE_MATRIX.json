@@ -1,0 +1,400 @@
+{
+  "manifestVersion": "1.0.0",
+  "generatedAt": "2026-05-06T00:00:00Z",
+  "phaseModel": [
+    {
+      "phaseId": "00-define",
+      "name": "Define",
+      "order": 0
+    },
+    {
+      "phaseId": "01-research",
+      "name": "Research",
+      "order": 1
+    },
+    {
+      "phaseId": "02-design",
+      "name": "Design",
+      "order": 2
+    },
+    {
+      "phaseId": "03-content",
+      "name": "Content",
+      "order": 3
+    },
+    {
+      "phaseId": "04-build",
+      "name": "Build",
+      "order": 4
+    },
+    {
+      "phaseId": "05-harden",
+      "name": "Harden",
+      "order": 5
+    },
+    {
+      "phaseId": "06-ship",
+      "name": "Ship",
+      "order": 6
+    }
+  ],
+  "phaseGateMap": {
+    "00-define": [
+      "start-branch-readiness"
+    ],
+    "01-research": [
+      "end-automation-health"
+    ],
+    "02-design": [
+      "pre-merge-design-token-first-css",
+      "pre-merge-design-performance-accessibility",
+      "pre-merge-design-profile-alignment"
+    ],
+    "03-content": [
+      "end-automation-health"
+    ],
+    "04-build": [
+      "pre-merge-required"
+    ],
+    "05-harden": [
+      "nightly-self-test"
+    ],
+    "06-ship": [
+      "post-merge-required"
+    ]
+  },
+  "owners": [
+    {
+      "ownerId": "workflow-owner",
+      "primary": "engineering",
+      "backup": "devops",
+      "escalationPath": "engineering-manager"
+    }
+  ],
+  "gateProfiles": [
+    "spec_only",
+    "subphase",
+    "phase",
+    "release_affecting"
+  ],
+  "taxonomy": [
+    {
+      "categoryId": "triggerMissing",
+      "defaultSeverity": "sev2",
+      "diagnoseChecklistRef": "docs/workspace/templates/plan/SILENT_AUTOMATION_FAILURE_TAXONOMY.template.md",
+      "fixChecklistRef": "docs/workspace/templates/plan/SILENT_AUTOMATION_FIX_MAPPING.template.md"
+    },
+    {
+      "categoryId": "permissionDenied",
+      "defaultSeverity": "sev1",
+      "diagnoseChecklistRef": "docs/workspace/templates/plan/SILENT_AUTOMATION_FAILURE_TAXONOMY.template.md",
+      "fixChecklistRef": "docs/workspace/templates/plan/SILENT_AUTOMATION_FIX_MAPPING.template.md"
+    },
+    {
+      "categoryId": "secretOrEnvMissing",
+      "defaultSeverity": "sev2",
+      "diagnoseChecklistRef": "docs/workspace/templates/plan/SILENT_AUTOMATION_FAILURE_TAXONOMY.template.md",
+      "fixChecklistRef": "docs/workspace/templates/plan/SILENT_AUTOMATION_FIX_MAPPING.template.md"
+    }
+  ],
+  "severityModel": [
+    {
+      "severity": "sev1",
+      "triageSlaMinutes": 5,
+      "remediationStartSlaMinutes": 15,
+      "resolveOrEscalateSlaMinutes": 60
+    },
+    {
+      "severity": "sev2",
+      "triageSlaMinutes": 60,
+      "remediationStartSlaMinutes": 120,
+      "resolveOrEscalateSlaMinutes": 480
+    },
+    {
+      "severity": "sev3",
+      "triageSlaMinutes": 480,
+      "remediationStartSlaMinutes": 1440,
+      "resolveOrEscalateSlaMinutes": 2880
+    }
+  ],
+  "bypassBanRules": [
+    "no_gate_close_without_evidence",
+    "no_skip_pre_merge_required_checks",
+    "no_unapproved_failure_suppression",
+    "no_resolve_without_recheck_evidence"
+  ],
+  "gates": [
+    {
+      "gateId": "start-branch-readiness",
+      "stage": "start",
+      "scope": "spec",
+      "profile": "spec_only",
+      "requiredChecks": [
+        {
+          "checkId": "branch-valid",
+          "description": "Branch naming policy passes and HEAD is not detached",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/GITHUB_AUTOMATION_CHECKLIST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/ci.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "end-automation-health",
+      "stage": "end",
+      "scope": "phase",
+      "profile": "phase",
+      "requiredChecks": [
+        {
+          "checkId": "actions-green",
+          "description": "Required workflows completed successfully",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        },
+        {
+          "checkId": "prompt-artifacts-complete",
+          "description": "Every sub-phase contains prompt.json and PROMPT.md",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/GITHUB_END_GATE.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/release.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "pre-merge-required",
+      "stage": "pre_merge",
+      "scope": "release",
+      "profile": "release_affecting",
+      "requiredChecks": [
+        {
+          "checkId": "conventional-commits",
+          "description": "Conventional commit policy passes",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/PRE_MERGE_GATE_CHECKLIST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/ci.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "post-merge-required",
+      "stage": "post_merge",
+      "scope": "release",
+      "profile": "release_affecting",
+      "requiredChecks": [
+        {
+          "checkId": "release-workflow-green",
+          "description": "Release workflow and tag integrity checks pass",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/POST_MERGE_GATE_CHECKLIST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/release.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "nightly-self-test",
+      "stage": "nightly_self_test",
+      "scope": "phase",
+      "profile": "phase",
+      "requiredChecks": [
+        {
+          "checkId": "workflow-trigger-health",
+          "description": "Nightly check confirms workflow trigger path is healthy",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/NIGHTLY_AUTOMATION_SELF_TEST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/ci.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "pre-merge-design-token-first-css",
+      "stage": "pre_merge",
+      "scope": "release",
+      "profile": "release_affecting",
+      "requiredChecks": [
+        {
+          "checkId": "token-first-css-ci",
+          "description": "Pull request blocks hardcoded design primitives outside token sources",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/PRE_MERGE_GATE_CHECKLIST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/design-gates.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "pre-merge-design-performance-accessibility",
+      "stage": "pre_merge",
+      "scope": "release",
+      "profile": "release_affecting",
+      "requiredChecks": [
+        {
+          "checkId": "lighthouse-budget-ci",
+          "description": "Pull request enforces performance and accessibility budgets",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/PRE_MERGE_GATE_CHECKLIST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/design-gates.yml"
+        ],
+        "blocking": true
+      }
+    },
+    {
+      "gateId": "pre-merge-design-profile-alignment",
+      "stage": "pre_merge",
+      "scope": "release",
+      "profile": "release_affecting",
+      "requiredChecks": [
+        {
+          "checkId": "design-md-non-template-ci",
+          "description": "Pull request verifies DESIGN.md exists and contains non-template content",
+          "required": true,
+          "evidenceRequired": true,
+          "autoFailOnMissingEvidence": true
+        }
+      ],
+      "passPolicy": {
+        "allChecksMustPass": true,
+        "singleFailBlocksGate": true,
+        "missingEvidenceAutoFail": true
+      },
+      "failPolicy": {
+        "runDiagnoseFix": true,
+        "requireRecheckEvidence": true
+      },
+      "evidenceSchemaRef": "docs/workspace/templates/plan/PRE_MERGE_GATE_CHECKLIST.template.md",
+      "ownerRef": "workflow-owner",
+      "automation": {
+        "enabled": true,
+        "workflowRefs": [
+          ".github/workflows/design-gates.yml"
+        ],
+        "blocking": true
+      }
+    }
+  ]
+}

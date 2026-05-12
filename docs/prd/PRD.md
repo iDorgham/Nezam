@@ -1,4 +1,4 @@
-# Product Requirements Document
+# NEZAM — Product Requirements Document
 
 > **Status:** Draft — run `/start prd` for guided creation, or fill in the sections below.
 

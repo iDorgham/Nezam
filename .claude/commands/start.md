@@ -142,9 +142,29 @@ After the user types **S** or **T**, update `.cursor/state/onboarding.yaml`:
 All subsequent responses in the onboarding session adapt to `tone` (friendly vs structured).
 
 ---
+### Step 2.3: Target Market Selection
+
+Immediately after Step 2, show this prompt:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Is this project targeting MENA/Arabic-speaking users?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Type yes or no:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+If yes:
+- Set `onboarding.yaml:target_market` = "mena"
+- Announce: "Arabic SEO hardlock is ACTIVE. `arabic-seo-aeo-specialist` required in RESEARCH phase."
+
+If no:
+- Set `onboarding.yaml:target_market` = "global"
+
+---
 ### Step 2.5: Build Method Selection
 
-Immediately after Step 2 (S/T selection), before the PRD menu, show this menu.
+Immediately after Step 2.3, before the PRD menu, show this menu.
 Load `.cursor/skills/system/build-modes/SKILL.md` for full mode definitions.
 
 ```

@@ -64,6 +64,11 @@ At session start:
    - `"structured"` → governance-aware, show agent assignments and gate IDs
 6. Announce session context in a brief card (2–4 lines max)
 
+On /start command completion:
+- Run: pnpm state:set --file .cursor/state/onboarding.yaml --key build_mode --value <chosen_mode>
+- Run: pnpm state:set --file .cursor/state/onboarding.yaml --key tone --value <chosen_tone>
+- Run: pnpm state:set --file .cursor/state/onboarding.yaml --key user_mode --value <chosen_mode>
+
 ## Gate Enforcement (every command)
 
 Before routing ANY command to any agent:

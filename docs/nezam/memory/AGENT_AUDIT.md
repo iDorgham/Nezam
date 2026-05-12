@@ -14,7 +14,7 @@
 | **TIER 2 — Specialist** | **All other** tracked agent files (default on-demand via PM-01 / handoff / vertical slice). |
 | **TIER 3 — Dormant** | No occurrence of the agent slug in `.cursor/commands/`, `.cursor/rules/`, **or** SDD routing table / plan scaffold examples — **and** not in README core row. These are **archive candidates** until an activation trigger is added. |
 
-**Counts (including new `EVAL_FRAMEWORK.md` doc):** Tier 1 **31** · Tier 2 **75** · Tier 3 **19** · **Total 125** agent markdown files (excluding `README.md`).
+**Counts (including new `EVAL_FRAMEWORK.md` doc):** Tier 1 **31** · Tier 2 **76** · Tier 3 **18** · **Total 125** agent markdown files (excluding `README.md`).
 
 ---
 
@@ -68,7 +68,6 @@ Single-line rationales — **promote** by adding explicit trigger text to `.curs
 | `dependency-update-specialist.md` | **ARCHIVE** — dormant; **PROMOTE** under `/FIX` or `/SCAN deps` docs. |
 | `executive-director.md` | **ARCHIVE** — narrative-only role unused in SDD tooling; optional exec briefings later. |
 | `feature-flags-specialist.md` | **ARCHIVE**; **PROMOTE** with `/DEPLOY rc` preflight checklist. |
-| `ios-engineer.md` | **ARCHIVE**; **PROMOTE** paired with SwiftUI or iOS scaffold command. |
 | `mena-payments-specialist.md` | **ARCHIVE** duplicate of narrower `payments-lead`; fold or PROMOTE via regional ADR checklist. |
 | `mobile-offline-sync-specialist.md` | **ARCHIVE**; **PROMOTE** when mobile/offline HARDLOCK fires in active plan. |
 | `mobile-push-notifications-specialist.md` | **ARCHIVE**; **PROMOTE** with push HARDEN slice template. |

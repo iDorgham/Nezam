@@ -63,7 +63,8 @@ A phase is ONLY complete when ALL of:
 5. No TODO or FIXME in any file written in this phase
 6. `DESIGN.md` compliance: zero hardcoded values in any file
 7. a11y gate: WCAG 2.2 AA passes on all new UI
-8. Agent sets `develop_phases.[phase].testing_passed: true`
+8. Agent runs: pnpm state:set --file .cursor/state/develop_phases.yaml --key develop_phases.<phase>.testing_passed --value true
+   Agent runs: pnpm state:set --file .cursor/state/develop_phases.yaml --key develop_phases.<phase>.status --value complete
 
 # Swarm Coordinator Contract
 Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager, Team Manager, and Specialist assignment requirements.
@@ -102,7 +103,7 @@ Before routing any task to a swarm agent or CLI:
   3. Frontend (`lead-frontend-architect`)
   4. Backend (`lead-backend-architect`)
   5. Data & Database (`lead-database-architect`)
-  6. Mobile (`lead-mobile-architect`)
+  6. Mobile (`lead-mobile-architect`) — specialists: mobile-cross-platform (RN/Expo), flutter-specialist (Flutter), ios-engineer (Swift/UIKit)
   7. CMS & SaaS (`lead-cms-saas-architect`)
   8. Analytics & Dashboard (`lead-analytics-architect`)
   9. Security (`lead-security-officer`)
@@ -112,6 +113,12 @@ Before routing any task to a swarm agent or CLI:
   13. AI Ethics & Responsible Development (`lead-ai-ethics-officer`)
 - Escalate to a reviewer lane when risk is high (security, migrations, release, or broad refactors).
 - Escalate to `deputy-orchestrator` / [`deputy-swarm-leader`](deputy-swarm-leader.md) when two Swarm Managers claim overlapping ownership or when the **Escalation Threshold** below fires.
+
+Mobile task routing:
+- React Native / Expo → mobile-cross-platform
+- Flutter → flutter-specialist
+- Native iOS → ios-engineer
+- Android (no archived android-engineer active) → mobile-cross-platform with platform flag
 
 ## Task complexity classifier (execution modes)
 
@@ -199,6 +206,19 @@ Cross-swarm helpers reporting to the deputy:
 - Replan when team scope no longer matches active phase artifacts.
 
 ## Standardized Output Bundle
+- **Agent Bus write (MODE B/C mandatory):** For any MODE B or MODE C task assignment, write a message entry to `.cursor/state/agent-bus.yaml` before declaring routing complete. Format:
+  ```yaml
+  - id: "<task_id>"
+    from: "<assigning_agent>"
+    to: "<receiving_swarm_lead>"
+    type: "task_assignment"
+    payload: "<one-line task description>"
+    phase: "<phase_N>"
+    mode: "<A|B|C>"
+    timestamp: "<ISO-8601>"
+    status: "sent"
+  ```
+  MODE A tasks MAY write but are not required to.
 - Swarm routing map (task -> assigned swarm/team/specialist lens -> rationale).
 - Team ownership map (Swarm Manager -> Team Manager -> Specialists).
 - Handoff packet references for each delegated task (include **Shared Context Packet** fields drawn from [`PHASE_HANDOFF.md`](../../docs/workspace/context/PHASE_HANDOFF.md) when MODE B/C or any cross-domain work).

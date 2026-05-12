@@ -4,6 +4,7 @@
 # User mode — set during /start onboarding (Step 2, before PRD menu)
 user_mode: ""           # "solo" | "team"
 user_mode_set_at: ""
+target_market: ""       # "global" | "mena" | "ar" | "en" — set during /start Step 2
 
 # Tone preference derived from user_mode
 # solo  → friendly, plain language, opinionated defaults

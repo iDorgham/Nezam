@@ -50,6 +50,7 @@ When conflicts appear, follow:
 - `start.md`
 
 ## Synced agent index
+- `ARCHIVE_INDEX.md`
 - `EVAL_FRAMEWORK.md`
 - `README.md`
 - `a11y-performance-auditor.md`
@@ -184,12 +185,10 @@ When conflicts appear, follow:
 ## Synced rule sources
 - `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
-- `.cursor/rules/design-dev-gates.mdc`
+- `.cursor/rules/design-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`
-- `.cursor/rules/nezam-design-gates-pro.mdc`
 - `.cursor/rules/plan-phase-scaffold.mdc`
-- `.cursor/rules/sdd-design.mdc`
 - `.cursor/rules/sdd-pipeline-v2.mdc`
 - `.cursor/rules/ui-ux-swarm-library-ds-content.mdc`
 - `.cursor/rules/workspace-client-onboarding-gate.mdc`

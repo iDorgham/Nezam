@@ -115,6 +115,7 @@ registry:
       swarm: analytics
       summary: Product analytics implementation and instrumentation.
     - name: android-engineer
+      status: archived
       tier: specialist
       swarm: mobile
       summary: Android app implementation and platform-specific fixes.
@@ -226,6 +227,7 @@ registry:
       swarm: data-db
       summary: Data model conventions and migration safety.
     - name: dependency-update-specialist
+      status: archived
       tier: specialist
       swarm: maintenance
       summary: Dependency upgrades and compatibility checks.
@@ -255,6 +257,7 @@ registry:
       swarm: security
       summary: Encryption controls and privacy safeguards.
     - name: executive-director
+      status: archived
       tier: executive
       swarm: governance
       summary: Strategic escalation and high-level program direction.
@@ -263,11 +266,13 @@ registry:
       swarm: analytics
       summary: Experiment design and evaluation governance.
     - name: feature-flags-specialist
+      status: archived
       tier: specialist
       swarm: backend
       summary: Feature gating and progressive rollout patterns.
     - name: flutter-specialist
-      tier: specialist
+      status: active
+      tier: 2
       swarm: mobile
       summary: Flutter app development and optimization.
     - name: frontend-framework-manager
@@ -314,7 +319,8 @@ registry:
       swarm: architecture
       summary: Third-party service integration implementation.
     - name: ios-engineer
-      tier: specialist
+      status: active
+      tier: 2
       swarm: mobile
       summary: iOS app implementation and platform tuning.
     - name: khaleeji-specialist
@@ -402,6 +408,7 @@ registry:
       swarm: content
       summary: Egyptian Arabic content specialist.
     - name: mena-payments-specialist
+      status: archived
       tier: specialist
       swarm: payments
       summary: MENA payment routing and compliance specialist.
@@ -410,10 +417,12 @@ registry:
       swarm: mobile
       summary: Shared cross-platform mobile implementation.
     - name: mobile-offline-sync-specialist
+      status: archived
       tier: specialist
       swarm: mobile
       summary: Offline-first sync architecture specialist.
     - name: mobile-push-notifications-specialist
+      status: archived
       tier: specialist
       swarm: mobile
       summary: Notification delivery and platform policy specialist.
@@ -435,6 +444,7 @@ registry:
       swarm: data-db
       summary: NoSQL design and query optimization specialist.
     - name: observability-specialist
+      status: archived
       tier: specialist
       swarm: devops
       summary: Monitoring, tracing, and alerting specialist.
@@ -443,10 +453,12 @@ registry:
       swarm: payments
       summary: Payment system implementation and quality owner.
     - name: performance-engineer
+      status: archived
       tier: specialist
       swarm: devops
       summary: Performance diagnostics and optimization specialist.
     - name: product-manager
+      status: archived
       tier: manager
       swarm: governance
       summary: Product scope, backlog, and milestone owner.
@@ -467,11 +479,13 @@ registry:
       swarm: qa
       summary: Test strategy execution and coverage direction.
     - name: real-time-streaming-specialist
+      status: archived
       tier: specialist
       swarm: backend
       summary: Realtime and streaming architecture specialist.
       backing_skill: backend/realtime-streaming
     - name: refactoring-specialist
+      status: archived
       tier: specialist
       swarm: maintenance
       summary: Structural refactor planning and implementation.
@@ -480,6 +494,7 @@ registry:
       swarm: architecture
       summary: Requirements decomposition and acceptance mapping.
     - name: risk-assessment-specialist
+      status: archived
       tier: specialist
       swarm: governance
       summary: Risk identification, severity, and mitigation mapping.
@@ -567,6 +582,7 @@ registry:
       swarm: architecture
       summary: Feasibility checks and implementation-risk analysis.
     - name: technology-evaluator
+      status: archived
       tier: specialist
       swarm: architecture
       summary: Technology option assessment and recommendation.
@@ -575,10 +591,12 @@ registry:
       swarm: qa
       summary: Testing operations and coverage management.
     - name: threat-modeling-specialist
+      status: archived
       tier: specialist
       swarm: security
       summary: Threat model creation and mitigation mapping.
     - name: time-series-specialist
+      status: archived
       tier: specialist
       swarm: analytics
       summary: Time-series modeling and metrics analysis specialist.
@@ -591,6 +609,7 @@ registry:
       swarm: design
       summary: User-research strategy and insight synthesis.
     - name: vector-store-specialist
+      status: archived
       tier: specialist
       swarm: data-db
       summary: Vector indexing and retrieval specialist.
@@ -600,6 +619,7 @@ registry:
       swarm: design
       summary: Visual quality standards and execution consistency.
     - name: white-label-theming-specialist
+      status: archived
       tier: specialist
       swarm: design
       summary: Multi-theme and white-label design implementation.

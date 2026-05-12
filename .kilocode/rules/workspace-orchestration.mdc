@@ -286,6 +286,10 @@ Decision requests:
 - Use `type: decision-request` with `to: cpo`.
 - CPO must action or decline before further work in that scope proceeds.
 
+For MODE B or MODE C task assignments, agents MUST write a message to `agent-bus.yaml`.
+
+Violation: If a MODE B or MODE C handoff has no agent-bus.yaml entry, it is treated as an incomplete handoff. The receiving agent must reject the assignment and return: "Missing agent-bus entry for task <task_id>. Routing agent must log before re-sending."
+
 ## Token Economy Rules
 - Load files by path reference (@filename) not content paste
 - Compress prior session context before starting new session (use @nezam-context-window-manager)

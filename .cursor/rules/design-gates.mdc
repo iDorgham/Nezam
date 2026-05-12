@@ -1,10 +1,10 @@
 ---
-description: Design-system, motion, and component gates before development.
-globs: ["**/*"]
+description: "NEZAM Unified Design Gates — Token-First, Typography, Grid, Animation, 3D, Component Architecture, Perf/a11y"
+globs: ["**/*.css","**/*.scss","**/*.tsx","**/*.ts","**/*.md","**/DESIGN.md","**/design.md"]
 alwaysApply: true
 ---
 
-# Design Dev Gates
+# NEZAM Unified Design Gates
 
 This rule enforces design-system-first execution across SDD pipeline stages:
 Planning -> SEO/IA -> Content -> `DESIGN.md` -> Development -> Hardening.
@@ -24,20 +24,12 @@ Use these agents as reasoning charters:
 - `.cursor/agents/frontend-framework-manager.md`
 - `.cursor/agents/a11y-performance-auditor.md`
 
-Use these skills as deterministic procedures:
-- `.cursor/skills/brand-visual-direction/SKILL.md`
-- `.cursor/skills/token-grid-typography/SKILL.md`
-- `.cursor/skills/motion-3d-progressive/SKILL.md`
-- `.cursor/skills/component-library-api/SKILL.md`
-- `.cursor/skills/css-architecture-runtime/SKILL.md`
-
-No circular control flow: agent charters define intent/review lens; skills define executable procedures; this rule defines hard gates.
-
 ## Gate 1: Token-First CSS (Hard Block)
 
 - Zero hardcoded design primitives (`px`, `rem`, hex color literals, ad-hoc z-index/radius/spacing) outside governed token sources.
 - Approved sources: token files, generated token CSS variables, and documented values in `DESIGN.md` (or `docs/DESIGN.md` for legacy compatibility).
 - All spacing, color, radius, elevation, z-index, and typography must map to CSS variables or W3C-style token references.
+- Token output must support semantic aliases and CSS variable export.
 - Any hardcoded primitive in component/application styles fails the gate.
 - CI enforcement: `.github/workflows/design-gates.yml` runs `scripts/checks/check-design-tokens.sh` on pull requests. Local baseline command: `pnpm run check:tokens`.
 
@@ -87,13 +79,16 @@ All must pass before `/DEVELOP` proceeds on production-facing work:
 Failing any threshold triggers `/SCAN a11y perf` followed by `/FIX` before resuming.
 - CI enforcement: `.github/workflows/design-gates.yml` runs Lighthouse assertions from `.lighthouserc.json`.
 
-## Gate 7: Design Alignment and Editorial Discipline
+## Gate 7: Alignment, Readiness and Process Hardlocks
 
-- All implemented UI must trace to current `DESIGN.md`.
-- Visual deviations require explicit spec/design update before implementation.
-- Enforce editorial hierarchy, whitespace discipline, and readable rhythm.
-- Token or brand drift without documentation fails the gate.
-- CI enforcement: `.github/workflows/design-gates.yml` verifies `DESIGN.md` exists and is non-template.
+Block `/DEVELOP` until:
+1. **Planning & Research:** Planning, SEO/IA (including SEO/AEO/GEO research artifacts driving wording), and content outlines are complete.
+2. **Design Contract:** `DESIGN.md` is approved capturing layout paradigm, palettes, typography, motion rules, component inventory, and textual example screens.
+3. **Handoff & Governance:** Handoff evidence from `nezam-multi-agent-handoff` is present for multi-agent flows.
+4. **Artifacts:** `docs/plans/<phase>/<subphase>/prompt.json` and `PROMPT.md` exist.
+5. **Gate Policy:** `docs/plans/gates/GITHUB_GATE_MATRIX.json` exists for gate policy source-of-truth.
+6. All implemented UI traces to current `DESIGN.md`. Visual deviations require explicit spec/design update.
+7. Versioning hooks (semver strategy, changelog, conventional commits) are documented in specs before automation.
 
 ## RTL and Arabic Readiness (MENA)
 
@@ -113,9 +108,3 @@ Before `/DEVELOP`:
    - `docs/plans/design/WIREFRAMES.md` exists and is non-template.
    - Each screen has a `screen_id`, `components`, `states`, and `accessibility_notes`.
    - Run: `grep -c "screen_id" docs/plans/design/WIREFRAMES.md` to verify count > 0.
-
-If any checklist item fails, halt and route back to `/PLAN design` or `/FIX` as appropriate.
-
-## Compatibility Note
-
-If workspace orchestration rules already exist (for example legacy `nezam-orchestration` variants), append this rule as a focused design/dev gate layer instead of replacing orchestration governance.

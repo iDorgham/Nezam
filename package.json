@@ -10,8 +10,11 @@
     "ai:check:sdd": "node scripts/check-sdd-swarm-integrity.js",
     "check:tokens": "bash scripts/checks/check-design-tokens.sh",
     "check:specs": "bash scripts/check-spec-versions.sh",
-    "check:all": "pnpm check:tokens && pnpm check:specs && pnpm ai:check",
+    "check:all": "pnpm check:tokens && pnpm check:specs && pnpm ai:check && pnpm check:agent-bus && pnpm skills:registry",
     "check:onboarding": "bash scripts/checks/check-onboarding-readiness.sh",
+    "check:agent-bus": "node scripts/check-agent-bus.js",
+    "skills:registry": "node scripts/generate-skills-registry.js",
+    "report:swarm-cost": "node scripts/swarm-cost-report.js",
     "prd:roadmap": "node scripts/prd/render-release-roadmap.mjs --write",
     "prd:roadmap:check": "node scripts/prd/render-release-roadmap.mjs --check",
     "design:apply": "bash scripts/design/copy-profile-to-design-md.sh",
@@ -24,7 +27,8 @@
     "continual-learning:off": "node scripts/continual-learning/disable.js",
     "continual-learning:reset-memory": "node scripts/continual-learning/reset-memory.js",
     "hooks:install": "bash scripts/context/install-context-hooks.sh && bash scripts/context/auto-memory-hooks.sh --install",
-    "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open"
+    "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open",
+    "state:set": "node scripts/write-state.js"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.0",

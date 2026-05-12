@@ -66,6 +66,53 @@ docs/reports/lighthouse/.gitkeep
 No user interaction during this step.
 
 ---
+### Step 1.5: Initialize State Files (Bootstrap)
+
+Ensure the `.cursor/state/` directory exists and populate the following files with sensible defaults if they are missing:
+- `.cursor/state/onboarding.yaml`:
+  ```yaml
+  user_mode: "solo"
+  tone: "friendly"
+  build_mode: "sdd"
+  prd_locked: false
+  design_locked: false
+  ```
+- `.cursor/state/plan_progress.yaml`:
+  ```yaml
+  planning_complete: false
+  seo: false
+  ia: false
+  content: false
+  arch: false
+  design_wireframes: false
+  scaffold: false
+  ```
+- `.cursor/state/develop_phases.yaml`:
+  ```yaml
+  phase_1:
+    status: "locked"
+    testing_passed: false
+  phase_2:
+    status: "locked"
+    testing_passed: false
+  phase_3:
+    status: "locked"
+    testing_passed: false
+  phase_4:
+    status: "locked"
+    testing_passed: false
+  phase_5:
+    status: "locked"
+    testing_passed: false
+  ```
+- `.cursor/state/agent-status.yaml`:
+  ```yaml
+  pending_handoff:
+    status: "none"
+  active_spec: ""
+  ```
+
+---
 ### Step 2: User mode (Solo or Team)
 
 Immediately after Step 1, before the PRD menu, show this exact prompt:

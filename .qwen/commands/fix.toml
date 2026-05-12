@@ -14,6 +14,7 @@ Subcommands:
   /FIX test         → Fix failing unit/integration/e2e tests
   /FIX content      → Fix copy errors, broken links, SEO issues flagged by /SCAN content
   /FIX design       → Remove hardcoded design primitives, enforce token compliance
+  /FIX gates        → Restore missing state files from schemas and repair corrupt state
   /FIX triage       → List all known issues prioritized by severity — no fixes applied yet
   /FIX verify       → After a fix, re-run relevant scans to confirm resolution
 

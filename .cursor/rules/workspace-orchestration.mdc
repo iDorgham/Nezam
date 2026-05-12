@@ -46,6 +46,7 @@ Read `.cursor/state/plan_progress.yaml`:
 3. `PROJECT_SCAFFOLD.md` confirmed and `scripts/scaffold.sh` run
 
 If any are false → block `/develop` → show plan progress status → tell user which phase to complete.
+If state files are missing or corrupt → run `/FIX gates`.
 
 ### Hardlock: phase N+1 requires phase N complete
 
@@ -242,10 +243,11 @@ At session open:
 3. Temporarily demote failing tools for the current session and warn.
 4. Check free-tier quota posture (gemini/qwen lanes) and apply fallback routing if exhausted.
 5. If onboarding is incomplete, route to `/Settings ai-tools setup`.
-6. Read `.cursor/state/agent-status.yaml` — if `pending_handoff.status: pending`, deliver the handoff before any new work begins.
-7. If `active_spec` is set, confirm with user: "Last session left off at [spec]. Resume? Y/N"
-8. Print `session_resume_prompt` from `agent-status.yaml` as the first message.
-9. Check `docs/workspace/decisions/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
+6. Run integrity check using `scripts/checks/check-sdd-integrity.sh` or ask the user if they'd like to run it. If state issues are detected, suggest `/FIX gates`.
+7. Read `.cursor/state/agent-status.yaml` — if `pending_handoff.status: pending`, deliver the handoff before any new work begins.
+8. If `active_spec` is set, confirm with user: "Last session left off at [spec]. Resume? Y/N"
+9. Print `session_resume_prompt` from `agent-status.yaml` as the first message.
+10. Check `docs/workspace/decisions/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
 
 ## MCP Usage Policy
 
@@ -262,16 +264,17 @@ When `/PLAN design wireframes` is invoked:
 4. If neither is available, use Mode C (text interview fallback).
 5. Always write source mode to `WIREFRAMES.md` front-matter: `wireframe_source: figma|excalidraw|text`.
 
-## Agent Bus Protocol
+## Agent Bus Protocol (Compatible with Antigravity)
 
-When one agent completes a task and must hand off to another:
+When one agent completes a task and must hand off to another (or to Antigravity's multi-agent orchestrator):
 1. Write a message to `.cursor/state/agent-bus.yaml` with `type: handoff`.
-2. Set `to:` to the receiving agent's file name.
+2. Set `to:` to the receiving agent's file name or the orchestration lane (e.g., `antigravity-swarm`).
 3. Fill `payload.summary` and `payload.action_required`.
 4. Set `status: pending`.
+5. Trigger the handoff by explicitly asking the user or using the relevant MCP tool/skill (e.g., `reply_to_mobile` if on mobile).
 
 When an agent starts work:
-1. Check `.cursor/state/agent-bus.yaml` for messages addressed to it (`to: <agent-name>`).
+1. Check `.cursor/state/agent-bus.yaml` for messages addressed to it (`to: <agent-name>` or generic `antigravity-swarm`).
 2. If any `status: pending` messages exist, read them before starting new work.
 3. Mark message `status: read` after reading.
 4. Mark `status: actioned` after completing the requested action.

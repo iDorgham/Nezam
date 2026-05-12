@@ -1,9 +1,10 @@
 ---
 name: sdd-gate-validator
-description: Validate NEZAM hardlock prerequisites before phase transitions using onboarding, plan progress, and develop phase state.
-version: 1.0.0
-updated: 2026-05-11
-changelog: []
+description: Validate NEZAM hardlock prerequisites before phase transitions. Supports YAML schema validation, legacy path detection, state repair recommendations, and auditable soft-gate overrides.
+version: 1.1.0
+updated: 2026-05-12
+changelog:
+  - 1.1.0: Added schema validation, legacy path detection, /FIX gates integration, and soft-gate override audit trail.
 ---
 
 # SDD Gate Validator Skill
@@ -11,30 +12,45 @@ changelog: []
 ## Purpose
 
 Validate that all hardlock prerequisites are met before a phase transition.
-Called by swarm-leader and subagent-controller before every gate crossing.
+Called by swarm-leader and subagent-controller before every gate crossing to ensure workspace integrity and proper phase sequencing.
 
-## Pre-Gate: State File Validation
+## Pre-Gate: State File Validation & Integrity
 
-Before running any gate check, validate that the required state files exist and are parseable.
-If any file is missing or unparseable, output a STATE_ERROR and halt — do not run gate checks.
+Before running any gate check, validate that all required state files exist, are parseable, and conform to their schemas.
+If any file is missing, unparseable, or invalid, output a STATE_ERROR and halt — do not run gate checks.
 
-```
+```text
 Required state files:
   - .cursor/state/onboarding.yaml     (required for gates 0→1 and up)
   - .cursor/state/plan_progress.yaml  (required for gate 1→2)
   - .cursor/state/develop_phases.yaml (required for gates N→N+1 and 5→6)
-  - HANDOFF_QUEUE.yaml                (required to verify session integrity)
+  - .cursor/state/HANDOFF_QUEUE.yaml  (required to verify session integrity)
+  - .cursor/state/agent-bus.yaml      (required for inter-agent communication)
+  - .cursor/state/agent-status.yaml   (required for tracking session state)
 
 On STATE_ERROR:
   ❌ State file missing or corrupt: [filename]
-  → Run: /check repair
-  → Or restore from: .cursor/state/schemas/[filename without .yaml].schema.yaml defaults
+  → Run: /FIX gates to automatically repair the state tree from schemas.
 ```
 
-Schema defaults live in `.cursor/state/schemas/`. If a YAML file fails to parse:
-1. Back up the corrupt file as `<filename>.bak`
-2. Restore from schema defaults (all flags: false, all strings: "")
-3. Warn the user that progress state was reset and they should verify before proceeding
+### YAML Schema Validation
+All state files MUST be validated against their corresponding schemas in `.cursor/state/schemas/` (e.g., `HANDOFF_QUEUE.schema.yaml`).
+1. If a file fails schema validation, back it up as `<filename>.bak`.
+2. Output a clear error message explaining which schema constraint failed.
+3. Recommend running `/FIX gates` to restore the file from its schema default.
+
+### Legacy Path Detection
+The validator must scan for legacy paths during execution:
+- Legacy: `docs/core/required/` → Canonical: `docs/nezam/`
+- Legacy: `docs/memory/` → Canonical: `docs/nezam/memory/`
+
+If legacy paths are detected in state files or referenced artifacts:
+```text
+⚠️ LEGACY PATH DETECTED
+  Path: [legacy path]
+  → Action: Please update to use the canonical path [canonical path].
+  → Auto-normalization: Run `scripts/checks/check-sdd-integrity.sh` to identify and fix all legacy paths.
+```
 
 ## Gate Definitions
 
@@ -86,6 +102,23 @@ All must be true:
 - [ ] `docs/reports/a11y/A11Y_AUDIT.md` passes WCAG 2.2 AA
 - [ ] `docs/reports/tests/COVERAGE_REPORT.md` shows ≥80% on critical paths
 
+## Soft-Gate Override
+
+In exceptional circumstances, a gate can be bypassed using a soft-gate override.
+To override a gate, the command must be run with `--force` or `OVERRIDE_GATE=true`.
+
+**Mandatory Audit Trail:**
+When a soft-gate override is executed, the validator MUST append a record to `docs/workspace/decisions/SWARM_DECISION_LOG.md`.
+
+Format:
+```markdown
+### Gate Override: [Gate Name]
+- **Date**: YYYY-MM-DD HH:MM:SS
+- **Agent/User**: [Executor]
+- **Failed Checks**: [List of checks that were bypassed]
+- **Reason**: [Required justification provided by executor]
+```
+
 ## Validator Output Format
 
 ```
@@ -95,9 +128,9 @@ All must be true:
   ✅ [requirement met]
   ✅ [requirement met]
   ❌ [requirement not met] → [exact fix command]
-  ⚠️  [partial] → [what's missing]
+  ⚠️  [partial or legacy path] → [what's missing or how to normalize]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Result: PASS / FAIL
-  [If FAIL]: Cannot proceed. Fix the ❌ items above.
+  Result: PASS / FAIL / OVERRIDDEN
+  [If FAIL]: Cannot proceed. Fix the ❌ items above or run `/FIX gates`.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

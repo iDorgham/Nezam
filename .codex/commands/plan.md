@@ -439,7 +439,7 @@ When generating `docs/plans/MASTER_TASKS.md`, apply routing metadata when
 
 Before writing tasks:
 1. Read `.cursor/workspace.settings.yaml` (`tools` activation state + routing toggles).
-2. Read `docs/memory/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
+2. Read `docs/nezam/memory/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
 3. For each task, compute:
    - `type`
    - `assigned_tool` (primary route if active)

@@ -61,7 +61,7 @@ when: ["/PLAN content", "/PLAN seo", "/PLAN content masri", "/SCAN seo masri", "
 - **Video:** Scene beats + supers length limits per `channel_formats.md`.
 - **Legal UX:** Plain-language summary + mandatory pointer to approved Arabic legal text.
 
-## @skill Dependencies
+## @skill nezam-Dependencies
 
 - `@egyptian_arabic_content_master`
 - `@arabic_content_master`

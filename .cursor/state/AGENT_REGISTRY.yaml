@@ -22,7 +22,7 @@ certification_program:
 registry:
   always_load:
     - name: swarm-leader
-      tier: tier-0
+      tier: 2
       swarm: cpo
       version: "1.0.0"
       summary: Chief orchestration and go/no-go authority.
@@ -38,7 +38,7 @@ registry:
           - "Ethics Auto-Trigger Rule added 2026-05-12 — requires eval re-run to confirm score"
         next_review: "2026-08-12"
     - name: deputy-swarm-leader
-      tier: tier-0
+      tier: 2
       swarm: coordination
       version: "1.0.0"
       summary: Cross-swarm coordination and handoff governance.
@@ -81,7 +81,7 @@ registry:
       agents: [lead-cms-saas-architect, saas-platform-manager]
     swarm-8:
       name: Analytics
-      agents: [lead-analytics-architect, analytics-engineer]
+      agents: [lead-analytics-architect, analytics-engineer, analytics-ui-ux-specialist, analytics-charts-architect, dashboard-analytics-manager, live-analytics-engineer, advanced-analytics-architect]
     swarm-9:
       name: Security
       agents: [lead-security-officer, app-security-manager]
@@ -99,175 +99,175 @@ registry:
       agents: [lead-ai-ethics-officer]
   agents_catalog:
     - name: EVAL_FRAMEWORK
-      tier: framework
+      tier: 2
       swarm: governance
       summary: Tiered evaluation protocol for agent outputs.
     - name: a11y-performance-auditor
-      tier: specialist
+      tier: 4
       swarm: qa
       summary: Accessibility and performance validation specialist.
     - name: aeo-specialist
-      tier: specialist
+      tier: 4
       swarm: research
       summary: Answer engine optimization and retrieval intent tuning.
     - name: analytics-engineer
-      tier: manager
+      tier: 3
       swarm: analytics
       summary: Product analytics implementation and instrumentation.
     - name: android-engineer
       status: archived
-      tier: specialist
+      tier: 4
       swarm: mobile
       summary: Android app implementation and platform-specific fixes.
     - name: api-logic-manager
-      tier: manager
+      tier: 3
       swarm: backend
       summary: API contract and business logic governance.
-      backing_skill: backend/api-contract
+      backing_skill: nezam-api-contract
     - name: app-security-manager
-      tier: manager
+      tier: 3
       swarm: security
       summary: Security-by-default implementation coordinator.
     - name: arabic-content-master
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Arabic-first content quality and localization tuning.
     - name: arabic-seo-aeo-specialist
-      tier: specialist
+      tier: 4
       swarm: research
       summary: Arabic SEO/AEO authority; optimizes for traditional search, AI answer engines, and dialect-driven voice search.
-      backing_skill: content/register-detection
+      backing_skill: nezam-register-detection
     - name: art-director-brand
-      tier: manager
+      tier: 3
       swarm: design
       summary: Visual language and brand consistency owner.
     - name: auth-security-manager
-      tier: manager
+      tier: 3
       swarm: security
       summary: Authentication and authorization risk controls.
     - name: automation-manager
-      tier: manager
+      tier: 3
       swarm: qa
       summary: Test and workflow automation ownership.
     - name: backend-lead
-      tier: manager
+      tier: 3
       swarm: backend
       summary: Backend architecture and execution lead.
-      backing_skill: backend/queue-architecture
+      backing_skill: nezam-queue-architecture
     - name: billing-platform
-      tier: specialist
+      tier: 4
       swarm: saas
       summary: Billing architecture and lifecycle operations.
     - name: bug-triage-manager
-      tier: manager
+      tier: 3
       swarm: maintenance
       summary: Bug classification, priority, and owner routing.
     - name: business-analyst
-      tier: specialist
+      tier: 4
       swarm: architecture
       summary: Requirements, constraints, and business impact analysis.
     - name: ci-automation
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: CI pipeline setup and failure loop hardening.
     - name: client-onboarding-agent
-      tier: specialist
+      tier: 4
       swarm: operations
       summary: User onboarding flow and setup readiness support.
     - name: cms-manager
-      tier: manager
+      tier: 3
       swarm: cms-saas
       summary: Content platform architecture and governance.
     - name: code-generation-supervisor
-      tier: manager
+      tier: 3
       swarm: governance
       summary: AI-generated code quality and slop checks.
     - name: code-review-specialist
-      tier: specialist
+      tier: 4
       swarm: qa
       summary: Diff quality review against requirements.
     - name: compliance-manager
-      tier: manager
+      tier: 3
       swarm: security
       summary: Compliance controls and regulatory alignment.
     - name: conflict-resolution-agent
-      tier: specialist
+      tier: 4
       swarm: governance
       summary: Cross-swarm conflict arbitration and resolution.
     - name: content-strategist
-      tier: manager
+      tier: 3
       swarm: content
       summary: Content hierarchy and narrative strategy.
     - name: content-workflow-manager
-      tier: manager
+      tier: 3
       swarm: content
       summary: Editorial workflow and lifecycle coordination.
     - name: cost-optimization-analyst
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: Cost visibility and optimization recommendations.
     - name: daily-sync-agent
-      tier: specialist
+      tier: 4
       swarm: governance
       summary: Daily status synthesis and blocker rollups.
     - name: dashboard-manager
-      tier: manager
+      tier: 3
       swarm: analytics
       summary: Dashboard information architecture and KPIs.
     - name: data-pipeline-manager
-      tier: manager
+      tier: 3
       swarm: data-db
       summary: Data ingestion and pipeline reliability owner.
     - name: data-visualization
-      tier: specialist
+      tier: 4
       swarm: analytics
       summary: Data storytelling and visualization design.
     - name: database-design-manager
-      tier: manager
+      tier: 3
       swarm: data-db
       summary: Data model conventions and migration safety.
     - name: dependency-update-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: maintenance
       summary: Dependency upgrades and compatibility checks.
     - name: design-lead
-      tier: manager
+      tier: 3
       swarm: design
       summary: End-to-end design strategy and quality control.
     - name: design-systems-token-architect
-      tier: manager
+      tier: 3
       swarm: design
       summary: Token architecture and design-system contracts.
     - name: devops-manager
-      tier: manager
+      tier: 3
       swarm: devops
       summary: Deployment reliability and infrastructure workflows.
     - name: docker-k8s-specialist
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: Container and orchestration platform specialist.
-      backing_skill: backend/container-orchestration
+      backing_skill: nezam-container-orchestration
     - name: docs-hygiene
-      tier: specialist
+      tier: 4
       swarm: governance
       summary: Documentation consistency and governance checks.
     - name: encryption-privacy-specialist
-      tier: specialist
+      tier: 4
       swarm: security
       summary: Encryption controls and privacy safeguards.
     - name: executive-director
       status: archived
-      tier: executive
+      tier: 1
       swarm: governance
       summary: Strategic escalation and high-level program direction.
     - name: experimentation-lead
-      tier: manager
+      tier: 3
       swarm: analytics
       summary: Experiment design and evaluation governance.
     - name: feature-flags-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: backend
       summary: Feature gating and progressive rollout patterns.
     - name: flutter-specialist
@@ -276,46 +276,46 @@ registry:
       swarm: mobile
       summary: Flutter app development and optimization.
     - name: frontend-framework-manager
-      tier: manager
+      tier: 3
       swarm: frontend
       summary: Frontend framework standards and architecture.
-      backing_skill: frontend/nextjs-patterns
+      backing_skill: nezam-nextjs-patterns
     - name: frontend-lead
-      tier: manager
+      tier: 3
       swarm: frontend
       summary: Frontend implementation quality and slicing.
-      backing_skill: frontend/state-management
+      backing_skill: nezam-state-management
     - name: frontend-performance-manager
-      tier: manager
+      tier: 3
       swarm: frontend
       summary: Core Web Vitals and runtime performance owner.
-      backing_skill: frontend/performance-budget
+      backing_skill: nezam-performance-budget
     - name: gitops-engineer
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: GitOps and deployment workflow automation.
     - name: headless-cms-specialist
-      tier: specialist
+      tier: 4
       swarm: cms-saas
       summary: Headless CMS implementation specialist.
     - name: i18n-engineer
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Internationalization and locale behavior specialist.
     - name: infra-security-manager
-      tier: manager
+      tier: 3
       swarm: security
       summary: Infrastructure threat controls and hardening.
     - name: infrastructure-manager
-      tier: manager
+      tier: 3
       swarm: devops
       summary: Platform reliability and environment ownership.
     - name: integration-architecture-manager
-      tier: manager
+      tier: 3
       swarm: architecture
       summary: External integration design and contract safety.
     - name: integration-specialist
-      tier: specialist
+      tier: 4
       swarm: architecture
       summary: Third-party service integration implementation.
     - name: ios-engineer
@@ -324,228 +324,228 @@ registry:
       swarm: mobile
       summary: iOS app implementation and platform tuning.
     - name: khaleeji-specialist
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Gulf Arabic authority; manages GCC cultural nuances, dry humor, Arabizi, and taboo "red lines."
-      backing_skill: content/register-detection
+      backing_skill: nezam-register-detection
     - name: knowledge-update-manager
-      tier: manager
+      tier: 3
       swarm: maintenance
       summary: Durable memory and documentation updates.
     - name: kpi-reporting-manager
-      tier: manager
+      tier: 3
       swarm: analytics
       summary: KPI definitions and reporting alignment.
     - name: lead-ai-ethics-officer
-      tier: lead
+      tier: 2
       swarm: ethics
       summary: Ethical-risk review and veto authority.
     - name: lead-analytics-architect
-      tier: lead
+      tier: 2
       swarm: analytics
       summary: Analytics architecture authority.
     - name: lead-backend-architect
-      tier: lead
+      tier: 2
       swarm: backend
       summary: Backend architecture authority.
     - name: lead-cms-saas-architect
-      tier: lead
+      tier: 2
       swarm: cms-saas
       summary: SaaS and CMS platform architecture authority.
     - name: lead-database-architect
-      tier: lead
+      tier: 2
       swarm: data-db
       summary: Data architecture and persistence authority.
     - name: lead-devops-performance
-      tier: lead
+      tier: 2
       swarm: devops
       summary: DevOps performance and release authority.
     - name: lead-frontend-architect
-      tier: lead
+      tier: 2
       swarm: frontend
       summary: Frontend architecture and component contracts authority.
     - name: lead-maintenance-agent
-      tier: lead
+      tier: 2
       swarm: maintenance
       summary: Live product maintenance and reliability authority.
     - name: lead-mobile-architect
-      tier: lead
+      tier: 2
       swarm: mobile
       summary: Mobile architecture authority.
     - name: lead-qa-architect
-      tier: lead
+      tier: 2
       swarm: qa
       summary: QA strategy and release-readiness authority.
-      backing_skill: frontend/component-testing
+      backing_skill: nezam-component-testing
     - name: lead-security-officer
-      tier: lead
+      tier: 2
       swarm: security
       summary: Security architecture authority.
     - name: lead-solution-architect
-      tier: lead
+      tier: 2
       swarm: architecture
       summary: Cross-domain solution architecture authority.
     - name: lead-uiux-designer
-      tier: lead
+      tier: 2
       swarm: design
       summary: UX architecture and interaction authority.
     - name: levantine-specialist
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Levantine Arabic authority; manages sub-regional routing (LB/SY/JO/PS) and global diaspora protocol.
-      backing_skill: content/register-detection
+      backing_skill: nezam-register-detection
     - name: localization-lead
-      tier: manager
+      tier: 3
       swarm: content
       summary: Localization strategy and quality gate owner.
     - name: maghrebi-specialist
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Maghrebi Arabic authority; handles Darija registers, French code-switching, and Moroccan/Algerian/Tunisian nuances.
-      backing_skill: content/moroccan-darija
+      backing_skill: nezam-moroccan-darija
     - name: masri-content-specialist
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Egyptian Arabic content specialist.
     - name: mena-payments-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: payments
       summary: MENA payment routing and compliance specialist.
     - name: mobile-cross-platform
-      tier: specialist
+      tier: 4
       swarm: mobile
       summary: Shared cross-platform mobile implementation.
     - name: mobile-offline-sync-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: mobile
       summary: Offline-first sync architecture specialist.
     - name: mobile-push-notifications-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: mobile
       summary: Notification delivery and platform policy specialist.
     - name: motion-3d-choreographer
-      tier: specialist
+      tier: 4
       swarm: design
       summary: Motion systems and progressive 3D choreography.
     - name: msa-formal-specialist
-      tier: specialist
+      tier: 4
       swarm: content
       summary: Modern Standard Arabic authority; enforces pan-Arab neutrality and reduces dialect bleed in formal/marketing contexts.
-      backing_skill: content/register-detection
+      backing_skill: nezam-register-detection
     - name: multi-tenancy-architect
-      tier: specialist
+      tier: 4
       swarm: cms-saas
       summary: Tenant isolation and SaaS tenancy architecture.
     - name: nosql-expert
-      tier: specialist
+      tier: 4
       swarm: data-db
       summary: NoSQL design and query optimization specialist.
     - name: observability-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: Monitoring, tracing, and alerting specialist.
     - name: payments-lead
-      tier: manager
+      tier: 3
       swarm: payments
       summary: Payment system implementation and quality owner.
     - name: performance-engineer
       status: archived
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: Performance diagnostics and optimization specialist.
     - name: product-manager
       status: archived
-      tier: manager
+      tier: 3
       swarm: governance
       summary: Product scope, backlog, and milestone owner.
     - name: product-officer
-      tier: lead
+      tier: 2
       swarm: governance
       summary: Product direction and goal alignment authority.
     - name: project-architect
-      tier: manager
+      tier: 3
       swarm: architecture
       summary: Project structure and system contract governance.
     - name: prompt-engineer
-      tier: specialist
+      tier: 4
       swarm: governance
       summary: Prompt contract authoring and quality tuning.
     - name: qa-test-lead
-      tier: manager
+      tier: 3
       swarm: qa
       summary: Test strategy execution and coverage direction.
     - name: real-time-streaming-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: backend
       summary: Realtime and streaming architecture specialist.
-      backing_skill: backend/realtime-streaming
+      backing_skill: nezam-realtime-streaming
     - name: refactoring-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: maintenance
       summary: Structural refactor planning and implementation.
     - name: requirements-analysis-manager
-      tier: manager
+      tier: 3
       swarm: architecture
       summary: Requirements decomposition and acceptance mapping.
     - name: risk-assessment-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: governance
       summary: Risk identification, severity, and mitigation mapping.
     - name: rtl-specialist
-      tier: specialist
+      tier: 4
       swarm: design
       summary: RTL parity and bidirectional interaction specialist.
-      backing_skill: frontend/rtl-layout
+      backing_skill: nezam-rtl-layout
     - name: saas-platform-manager
-      tier: manager
+      tier: 3
       swarm: cms-saas
       summary: SaaS platform workflows and lifecycle governance.
     - name: scalability-resilience-architect
-      tier: specialist
+      tier: 4
       swarm: backend
       summary: Scalability and resilience architecture specialist.
     - name: search-cache-manager
-      tier: manager
+      tier: 3
       swarm: backend
       summary: Search indexing and caching strategy owner.
     - name: security-auditor
-      tier: specialist
+      tier: 4
       swarm: security
       summary: Vulnerability audit and remediation guidance.
     - name: seo-specialist
-      tier: specialist
+      tier: 4
       swarm: research
       summary: SEO strategy, IA mapping, and metadata readiness.
     - name: services-microservices-manager
-      tier: manager
+      tier: 3
       swarm: backend
       summary: Service decomposition and microservice boundaries.
     - name: solution-design-manager
-      tier: manager
+      tier: 3
       swarm: architecture
       summary: Solution-option evaluation and design contracts.
     - name: spec-writer
-      tier: specialist
+      tier: 4
       swarm: architecture
       summary: Structured specification authoring and updates.
-      backing_skill: system/spec-writing
+      backing_skill: nezam-spec-generator
     - name: sql-expert
-      tier: specialist
+      tier: 4
       swarm: data-db
       summary: SQL modeling and query optimization specialist.
     - name: sre-incident-specialist
-      tier: specialist
+      tier: 4
       swarm: devops
       summary: Incident response and postmortem specialist.
     - name: subagent-controller
-      tier: manager
+      tier: 3
       swarm: governance
       summary: Subagent routing, lifecycle, and orchestration.
       certification:
@@ -560,7 +560,7 @@ registry:
           - "Ethics Auto-Trigger Rule upgraded 2026-05-12 — requires eval re-run"
         next_review: "2026-08-12"
     - name: swarm-leader
-      tier: lead
+      tier: 2
       swarm: cpo
       summary: Primary orchestration authority for workflow gating.
       certification:
@@ -574,52 +574,72 @@ registry:
           - "First eval run not yet completed — baseline_score is null"
           - "Ethics Auto-Trigger Rule added 2026-05-12 — requires eval re-run"
     - name: tech-debt-manager
-      tier: manager
+      tier: 3
       swarm: maintenance
       summary: Technical debt triage and remediation planning.
     - name: technical-feasibility-analyst
-      tier: specialist
+      tier: 4
       swarm: architecture
       summary: Feasibility checks and implementation-risk analysis.
     - name: technology-evaluator
       status: archived
-      tier: specialist
+      tier: 4
       swarm: architecture
       summary: Technology option assessment and recommendation.
     - name: testing-manager
-      tier: manager
+      tier: 3
       swarm: qa
       summary: Testing operations and coverage management.
     - name: threat-modeling-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: security
       summary: Threat model creation and mitigation mapping.
     - name: time-series-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: analytics
       summary: Time-series modeling and metrics analysis specialist.
     - name: ui-component-manager
-      tier: manager
+      tier: 3
       swarm: frontend
       summary: Component implementation quality and reuse governance.
     - name: ux-research-strategy-manager
-      tier: manager
+      tier: 3
       swarm: design
       summary: User-research strategy and insight synthesis.
     - name: vector-store-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: data-db
       summary: Vector indexing and retrieval specialist.
-      backing_skill: backend/vector-search
+      backing_skill: nezam-vector-search
     - name: visual-design-manager
-      tier: manager
+      tier: 3
       swarm: design
       summary: Visual quality standards and execution consistency.
     - name: white-label-theming-specialist
       status: archived
-      tier: specialist
+      tier: 4
       swarm: design
       summary: Multi-theme and white-label design implementation.
+    - name: analytics-ui-ux-specialist
+      tier: 4
+      swarm: analytics
+      summary: Specialist in designing intuitive and accessible analytics interfaces and charting components.
+    - name: analytics-charts-architect
+      tier: 3
+      swarm: analytics
+      summary: Architect responsible for selecting and configuring charting libraries and reusable visualization components.
+    - name: dashboard-analytics-manager
+      tier: 3
+      swarm: analytics
+      summary: Manager responsible for dashboard information architecture and KPI alignment.
+    - name: live-analytics-engineer
+      tier: 4
+      swarm: analytics
+      summary: Specialist in implementing real-time data streaming and live visualization updates.
+    - name: advanced-analytics-architect
+      tier: 2
+      swarm: analytics
+      summary: Lead architect for complex analytical modeling, behavioral analysis, and predictive insights.

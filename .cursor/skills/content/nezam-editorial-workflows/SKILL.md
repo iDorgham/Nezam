@@ -1,0 +1,63 @@
+---
+name: nezam-editorial-workflows
+description: Draft → review → publish pipelines, role permissions, and version control for content operations.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+# Purpose
+
+Govern how content moves from draft through review to publish, with explicit roles, audit trail, and versioning. Single-responsibility: editorial state machine.
+
+# Inputs
+
+- Content model from `@.cursor/skills/nezam-content-modeling/SKILL.md`.
+- Brand voice + editorial guidelines from `docs/prd/PROJECT_PROMPT.md`.
+- CMS capabilities from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
+- Compliance requirements from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
+
+# Step-by-Step Workflow
+
+1. Define editorial roles: Author, Editor, SEO Reviewer, Legal Reviewer, Publisher; map to CMS permissions.
+2. Define content states: `draft → in-review → seo-review → legal-review (conditional) → approved → scheduled → published → archived`.
+3. Specify required reviewers per content type (e.g., legal review for compliance pages).
+4. Add audit trail: every transition records actor, timestamp, comment.
+5. Configure scheduling and embargo support.
+6. Define rollback path: revert to previous version with one-click + audit entry.
+7. Document SLA per state (e.g., review within 2 business days).
+
+# Validation & Metrics
+
+- 100% of state transitions logged with actor + timestamp.
+- No content publishes without required reviewer sign-off.
+- Median time-in-state tracked per state; alert when SLA breached.
+- Rollbacks complete in ≤ 1 minute and preserve audit chain.
+
+# Output Format
+
+- `docs/specs/EDITORIAL_WORKFLOW.md` (states, roles, transitions, SLAs).
+- Permission matrix (role × type × action).
+- CMS workflow configuration (vendor-specific export).
+- Audit-trail field spec.
+
+# Integration Hooks
+
+- `/PLAN content` produces workflow spec.
+- `/SAVE log` records workflow changes.
+- Pairs with `@.cursor/skills/nezam-content-modeling/SKILL.md`, `@.cursor/skills/nezam-cms-integration/SKILL.md`, `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
+- Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
+
+# Anti-Patterns
+
+- "One person can publish anything" without review gates.
+- Audit trail stored only in chat or email.
+- Embargoed content visible via direct URL pre-publish.
+- No archival path (deletion = forever loss).
+- Role privileges granted ad hoc without permission matrix update.
+
+# External Reference
+
+- ISO 27001 Annex A controls for change management (current).
+- Sanity Studio workflows / Contentful Roles & Permissions (current).
+- WordPress Editorial Calendar / Drupal Workflow modules (current).
+- Closest skills.sh/official analog: editorial-workflow / content-ops.

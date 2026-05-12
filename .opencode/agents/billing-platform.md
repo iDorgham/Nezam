@@ -27,7 +27,7 @@ when: ["/PLAN payments", "/DEVELOP payments", "plan / pricing change", "invoicin
 - Reconciliation report (PSP settlement ↔ ledger ↔ accounting) and current parity status.
 - Revrec policy note tied to the change (recognition trigger, deferral schedule).
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-prisma-orm`
 - `@nezam-database-optimization`
 - `@nezam-privacy-compliance`

@@ -33,7 +33,7 @@ You are the SRE & Incident Response Specialist within the Performance & DevOps s
 - Post-mortem with timeline, root cause, action items, owners.
 - On-call rotation + escalation matrix.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-monitoring-observability` for incident detection and signals.
 - `@nezam-error-tracking` for error correlation.

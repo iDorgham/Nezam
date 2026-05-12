@@ -1,0 +1,37 @@
+---
+id: nezam-security-hardening
+name: Security Hardening
+description: Hardens the codebase against security vulnerabilities, misconfigurations, and drift.
+tier: 3
+swarm: Swarm 9 (Security)
+version: 1.0.0
+created: 2026-05-12
+updated: 2026-05-12
+owner: PM-01
+changelog:
+  - 1.0.0: Initial release
+---
+# Skill: Security Hardening
+
+## Purpose
+Enforce security best practices, perform SAST/DAST checks, and harden system configurations.
+
+## Inputs
+- Codebase paths for scanning.
+- Security policies and compliance requirements.
+- Threat models.
+
+## Step Workflow
+1. **Identify Assets:** List critical components and entry points.
+2. **Scan & Audit:** Run security tools and manual code reviews.
+3. **Remediate:** Apply fixes for identified vulnerabilities.
+4. **Verify:** Confirm fixes with follow-up scans.
+
+## Validation
+- No critical or high vulnerabilities in the target scope.
+- Compliance checks pass for the relevant standards.
+
+## Output Format
+- `SECURITY_AUDIT.md` report.
+- Hardened configuration files.
+- Refactored secure code.

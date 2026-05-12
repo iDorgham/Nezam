@@ -1,0 +1,67 @@
+---
+name: nezam-serp-feature-targeting
+description: Target featured snippets, PAA, local pack, and image/video carousels through deliberate content shaping.
+version: 1.0.0
+updated: 2026-05-08
+changelog: []
+---
+# Purpose
+
+Engineer pages to win specific SERP features (featured snippet, People Also Ask, knowledge panel, local pack, image/video carousel, sitelinks). Single-responsibility: SERP-feature eligibility and targeting.
+
+# Inputs
+
+- Q&A map from `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`.
+- Topical map and anchor strategy from `@.cursor/skills/nezam-topical-authority/SKILL.md`.
+- Schema templates from `@.cursor/skills/nezam-structured-data-schema/SKILL.md`.
+- SERP audit (manual or via Semrush/Ahrefs/SERanking) listing currently-occupied features per query.
+
+# Step-by-Step Workflow
+
+1. For each priority query, identify which SERP features currently appear; tag the eligibility target (snippet, PAA, video, image, local).
+2. Shape content for the chosen feature:
+   - Snippet: 40–60 word direct answer + 8-row HTML table or numbered list.
+   - PAA: explicit Q-as-H2 with ≤ 60-word A.
+   - Local: NAP + `LocalBusiness` schema + Google Business Profile alignment.
+   - Image: original, named, alt-text + `ImageObject` schema.
+   - Video: hosted with `VideoObject` schema, transcript, key moments.
+3. Verify HTML semantics: `<h2>` for question, `<ol>`/`<ul>` for steps, `<table>` for comparison.
+4. Pair with structured data and on-page entity reinforcement.
+5. Track ranking and feature occupancy weekly; iterate copy if the feature shifts owners.
+6. Document feature wins/losses in `docs/workspace/context/`.
+
+# Validation & Metrics
+
+- Eligibility checks pass for chosen feature (length, format, schema).
+- Local pack candidates have NAP consistency across 5+ citation sources.
+- Video pages include transcript and chapter markup.
+- Feature occupancy tracked weekly with screenshot evidence.
+
+# Output Format
+
+- `docs/specs/SERP_TARGETS.md` (query, feature, eligibility steps, status).
+- Per-page feature checklist.
+- Weekly occupancy report.
+- Schema cross-link to `@.cursor/skills/nezam-structured-data-schema/SKILL.md` outputs.
+
+# Integration Hooks
+
+- `/PLAN seo` and `/PLAN content` consume SERP targets.
+- `/SCAN seo` validates eligibility checks.
+- Pairs with `@.cursor/skills/nezam-aeo-answer-engines/SKILL.md`, `@.cursor/skills/nezam-structured-data-schema/SKILL.md`, `@.cursor/skills/nezam-topical-authority/SKILL.md`.
+- Honors `[.cursor/rules/sdd-design.mdc](.cursor/rules/sdd-design.mdc)`.
+
+# Anti-Patterns
+
+- Targeting a feature that does not appear for the query.
+- Stuffing tables/lists for snippets without semantic value.
+- Local pack pages without verified Google Business Profile.
+- Video markup without an accessible transcript.
+- Copying snippet copy from a competitor (Google penalizes near-duplicates).
+
+# External Reference
+
+- Google Search Central: featured snippet & rich result eligibility (current).
+- Schema.org `LocalBusiness`, `VideoObject`, `ImageObject` (https://schema.org/).
+- Google Business Profile help (current).
+- Closest skills.sh/official analog: serp-feature-targeting / featured-snippets.

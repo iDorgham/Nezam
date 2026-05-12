@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: '0 2 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   branch-policy:
     if: github.event_name == 'pull_request'

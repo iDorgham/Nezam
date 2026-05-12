@@ -31,7 +31,7 @@ You are the Flutter Specialist within the Mobile swarm, reporting to `cross-plat
 - Performance evidence: frame timeline, memory, build counts.
 - Test plan: widget tests + golden tests where applicable.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-react-architecture` for adjacent JS-side patterns when relevant.
 - `@nezam-performance-optimization` for budget setting and profiling.

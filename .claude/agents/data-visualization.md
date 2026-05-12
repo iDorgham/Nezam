@@ -118,7 +118,7 @@ You are the Data Visualization Specialist within the Analytics & Dashboard swarm
 - A11y posture: palette, alt text, SR description, keyboard.
 - Performance budget per chart (data size, render budget).
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-dashboard-patterns` for layout and density patterns.
 - `@nezam-performance-optimization` for chart render budgets.

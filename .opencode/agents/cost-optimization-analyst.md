@@ -33,7 +33,7 @@ You are the Cost Optimization Analyst within the Architecture & Planning swarm, 
 - Top-3 cost levers ranked by ROI and effort.
 - Watchlist of services likely to drift.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-aws-infra` for cloud cost levers (S3 classes, reserved, savings plans).
 - `@nezam-cdn-optimization` for egress and cache-hit cost wins.

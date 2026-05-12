@@ -3,6 +3,9 @@ name: Design Gates
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   token-gate:
     name: Gate 1 - Token-First CSS

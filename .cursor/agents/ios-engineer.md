@@ -112,7 +112,7 @@ when: ["/PLAN mobile", "/DEVELOP mobile", "iOS native module work", "App Store s
 - Performance evidence (cold-start ms, scroll FPS, memory peak) per device class.
 - App Store review notes and privacy nutrition label updates.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-react-architecture` (when bridging to React Native screens)
 - `@nezam-performance-optimization`
 - `@nezam-error-tracking`

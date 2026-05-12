@@ -34,7 +34,7 @@ You are the Scalability & Resilience Architect within the Architecture & Plannin
 - Resilience pattern map (where retries, circuit breakers, DLQs apply).
 - Capacity-plan ADR with re-validation cadence.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-risk-mitigation` for failure-mode analysis and fallback planning.
 - `@nezam-performance-optimization` for budget setting on user-facing tiers.

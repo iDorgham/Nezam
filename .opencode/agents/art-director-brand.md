@@ -26,7 +26,7 @@ when: ["/PLAN design", "brand direction review", "component review", "pre-releas
 - Color role guidance (`bg`, `fg`, `accent`, `danger`, `surface-*`) with contrast notes.
 - Visual anti-drift checklist for handoff to implementation personas.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
 - `@nezam-motion-3d-progressive`
@@ -63,7 +63,7 @@ Art Director (Brand) steers visual language across the product so every screen r
 - Color usage map tied to token semantics (not raw values).
 - Deviation log requiring explicit spec updates before adoption.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@brand-visual-direction`
 - `@token-grid-typography`
 - `@css-architecture-runtime`

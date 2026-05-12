@@ -14,7 +14,6 @@ tests: |
 example: |
   Configure Appium for end-to-end mobile testing.
 ---
-
 # Mobile Testing
 
 ## Summary

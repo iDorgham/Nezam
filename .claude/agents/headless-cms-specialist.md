@@ -33,7 +33,7 @@ You are the Headless CMS Specialist within the CMS & SaaS swarm, reporting to `c
 - Preview / publish flow diagram.
 - Webhook handler with dedupe and signature verification.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-cms-integration` for vendor patterns and ISR strategies.
 - `@nezam-content-modeling` for type design and reusable blocks.

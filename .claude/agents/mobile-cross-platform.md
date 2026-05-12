@@ -33,7 +33,7 @@ when: ["/PLAN mobile", "/DEVELOP mobile", "RN/Expo feature work", "OTA update re
 - Test evidence on both iOS and Android per device tier.
 - Bundle-size / startup delta vs prior release.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-react-architecture`
 - `@nezam-performance-optimization`
 - `@nezam-error-tracking`

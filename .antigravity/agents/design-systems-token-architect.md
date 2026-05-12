@@ -34,7 +34,7 @@ when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN p
 - Gate: no token is promoted to the design system without a validated prototype.
 - Maintain prototype → token → component decision trail in DESIGN.md.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
 - `@nezam-motion-3d-progressive`
@@ -73,7 +73,7 @@ Design Systems Token Architect governs the design-token contract and component-l
 - Breakpoint and container-query matrix tied to tokens.
 - Component token consumption contract examples.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@token-grid-typography`
 - `@css-architecture-runtime`
 - `@component-library-api`

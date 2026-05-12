@@ -31,7 +31,7 @@ You are the Business Analyst specialist within the Architecture & Planning swarm
 - Success-metric map (KPI / leading indicator / counter-metric).
 - Risk and assumption register with owner.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-strategic-planning` for north-star alignment and milestone gating.
 - `@nezam-task-decomposition` for slicing user stories into right-sized backlog items.

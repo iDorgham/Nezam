@@ -65,6 +65,14 @@ function checkHandoffPacketFields() {
       "nezam-multi-agent-handoff",
       "SKILL.md"
     ),
+    path.join(
+      repoRoot,
+      ".cursor",
+      "skills",
+      "system",
+      "nezam-multi-agent-handoff",
+      "SKILL.md"
+    ),
   ];
   const skillPath = candidatePaths.find((p) => fs.existsSync(p));
   if (!skillPath) {
@@ -96,9 +104,9 @@ function checkHandoffPacketFields() {
 function resolvePlansSubphaseDir(specPath) {
   // Support all known plans root locations (nezam governance + legacy paths).
   const prefixMap = [
-    { prefix: "docs/plans/",     base: path.join(repoRoot, "docs", "nezam", "plans") },
-    { prefix: "docs/workspace/plans/", base: path.join(repoRoot, "docs", "workspace", "plans") },
     { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
+    { prefix: "docs/workspace/plans/", base: path.join(repoRoot, "docs", "workspace", "plans") },
+    { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "nezam", "plans") },
   ];
   for (const { prefix, base } of prefixMap) {
     if (specPath.startsWith(prefix)) {

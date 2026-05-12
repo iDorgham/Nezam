@@ -54,8 +54,11 @@ When conflicts appear, follow:
 - `EVAL_FRAMEWORK.md`
 - `README.md`
 - `a11y-performance-auditor.md`
+- `advanced-analytics-architect.md`
 - `aeo-specialist.md`
+- `analytics-charts-architect.md`
 - `analytics-engineer.md`
+- `analytics-ui-ux-specialist.md`
 - `android-engineer.md`
 - `api-logic-manager.md`
 - `app-security-manager.md`
@@ -80,6 +83,7 @@ When conflicts appear, follow:
 - `cost-optimization-analyst.md`
 - `cpo.md`
 - `daily-sync-agent.md`
+- `dashboard-analytics-manager.md`
 - `dashboard-manager.md`
 - `data-pipeline-manager.md`
 - `data-visualization.md`
@@ -124,6 +128,7 @@ When conflicts appear, follow:
 - `lead-solution-architect.md`
 - `lead-uiux-designer.md`
 - `levantine-specialist.md`
+- `live-analytics-engineer.md`
 - `localization-lead.md`
 - `maghrebi-specialist.md`
 - `masri-content-specialist.md`
@@ -173,7 +178,9 @@ When conflicts appear, follow:
 - `white-label-theming-specialist.md`
 
 ## Synced skill index
+- `analytics`
 - `backend`
+- `cms-saas`
 - `content`
 - `design`
 - `external`

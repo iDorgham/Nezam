@@ -42,8 +42,11 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `EVAL_FRAMEWORK.md`
 - `README.md`
 - `a11y-performance-auditor.md`
+- `advanced-analytics-architect.md`
 - `aeo-specialist.md`
+- `analytics-charts-architect.md`
 - `analytics-engineer.md`
+- `analytics-ui-ux-specialist.md`
 - `android-engineer.md`
 - `api-logic-manager.md`
 - `app-security-manager.md`
@@ -68,6 +71,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `cost-optimization-analyst.md`
 - `cpo.md`
 - `daily-sync-agent.md`
+- `dashboard-analytics-manager.md`
 - `dashboard-manager.md`
 - `data-pipeline-manager.md`
 - `data-visualization.md`
@@ -112,6 +116,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `lead-solution-architect.md`
 - `lead-uiux-designer.md`
 - `levantine-specialist.md`
+- `live-analytics-engineer.md`
 - `localization-lead.md`
 - `maghrebi-specialist.md`
 - `masri-content-specialist.md`
@@ -161,7 +166,9 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `white-label-theming-specialist.md`
 
 ## Synced skill index
+- `analytics`
 - `backend`
+- `cms-saas`
 - `content`
 - `design`
 - `external`

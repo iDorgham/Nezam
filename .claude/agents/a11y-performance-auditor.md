@@ -26,7 +26,7 @@ when: ["pre-/DEVELOP gate", "/SCAN a11y", "/SCAN perf", "motion audit", "release
 - A11y findings (contrast, landmarks, keyboard, focus).
 - Prioritized remediation plan aligned to `/FIX`.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-motion-3d-progressive`
 - `@nezam-component-library-api`
 - `@nezam-pro-design-tokens`
@@ -63,7 +63,7 @@ A11y & Performance Auditor is the final gatekeeper for interaction quality, rend
 - Token and layout consistency drift report.
 - Remediation priority list with smallest-safe-fix guidance.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@css-architecture-runtime`
 - `@motion-3d-progressive`
 - `@component-library-api`

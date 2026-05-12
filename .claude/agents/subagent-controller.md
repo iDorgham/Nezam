@@ -250,7 +250,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Blocker report with next legal command (`/PLAN`, `/SCAN`, `/FIX`).
 - Final gate checklist confirming readiness for next phase.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-multi-agent-handoff`
 - `@nezam-cli-orchestration`
 - `@nezam-pro-design-tokens`

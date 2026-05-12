@@ -12,7 +12,7 @@ changelog: []
 Convert a plain-language product idea into a complete, gate-passing artifact set without requiring the user to understand internal development frameworks, document templates, or naming conventions.
 
 # Inputs
-- Seven founder interview answers gathered by `/FOUNDER idea`.
+- Seven interview answers gathered by `/start` onboarding (interview path) or `/plan idea`.
 - Existing workspace context and active repository state.
 - Available design profiles under `.cursor/design/*/design.md`.
 
@@ -39,7 +39,7 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - recommend `arabic_content_master`
    - surface `mena_payment_routing`
    - prioritize design profiles with RTL suitability
-4. Generate `docs/core/required/PRD.md` with sections:
+4. Generate `docs/prd/PRD.md` with sections:
    - Executive Summary
    - Problem Statement
    - Target Users
@@ -52,8 +52,8 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - Market Context
    - Risk Register (3–5 items)
    - Timeline Estimate
-5. Generate aligned `docs/core/required/PROJECT_PROMPT.md` with no conflicting scope framing.
-6. Generate `docs/core/VERSIONING.md` with:
+5. Generate aligned `docs/prd/PROJECT_PROMPT.md` with no conflicting scope framing.
+6. Generate `docs/nezam/VERSIONING.md` (if it doesn't already exist) with:
    - release numbering rules
    - commit message policy
    - changelog policy
@@ -85,9 +85,9 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
   - `Technical detail (for developers)` collapsible blocks only
 
 # Integration Hooks
-- Primary invoker: `/FOUNDER idea`.
+- Primary invoker: `/start` (onboarding) or `/plan idea`.
 - Gate validation path: `/START gates`.
-- Status surfacing: `/FOUNDER status` and `/GUIDE status`.
+- Status surfacing: `/start gates`, `/guide status`, and `/GUIDE status`.
 - MENA handoff: `/START mena` when regional/Arabic signals are present.
 
 # Anti-Patterns
@@ -103,6 +103,6 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
 - Do not overwrite `DESIGN.md` until the user confirms profile choice.
 
 # External Reference
-- Internal command contract: `.cursor/commands/founder.md`.
+- Internal command contract: `.cursor/commands/start.md` and `.cursor/commands/plan.md`.
 - Workspace gating contract: `.cursor/commands/start.md` (`gates`).
 - Design profile source: `.cursor/design/*/design.md`.

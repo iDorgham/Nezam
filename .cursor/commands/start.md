@@ -1,18 +1,485 @@
-/START — Initialize workspace and check readiness
+/START — Initialize a new project in this workspace
 
-Subcommands:
-  /START repo       → Link or initialize your git repository
-  /START docs       → Create required folder structure and context files
-  /START gates      → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
-  /START settings   → Jump directly to /Settings ai-tools setup (onboarding shortcut).
-  /START design     → Browse `.cursor/design/<brand>/`, pick one, copy to root DESIGN.md (parity: `pnpm run design:apply -- <brand>` in any CLI)
-  /START companion  → Generate a briefing you can paste into any external AI (Claude.ai, Gemini, ChatGPT)
-  /START continual-learning → **Opt-in:** enable transcript mining / incremental prepare (`pnpm continual-learning:on`). Continual learning stays **off** by default until you run this (or the pnpm script). To clear transcript index state only: `pnpm continual-learning:reset-memory`.
-  /START all        → Run repo → settings → docs → gates → design → companion in sequence (recommended for new projects). **Does not** enable continual-learning; use `/START continual-learning` separately when you want transcript mining.
-    - **Multi-tool sync sanity (non-Cursor clients)**: After syncing governance, compare the **content** of canonical `.cursor/rules/workspace-orchestration.mdc` against the rules copy in your tool’s mirror root (for example `.claude/rules/workspace-orchestration.mdc`). If they differ, emit: `⚠️ Sync drift detected — run pnpm ai:sync before proceeding.` Optionally run `pnpm ai:status` for a one-line per-tool report.
-    - Cursor users: `pnpm ai:status` should show all mirrors `✓ in sync` before high-stakes `/PLAN` or `/DEVELOP` turns.
+## Path resolution
+
+Before performing any file operation, read `.cursor/workspace.paths.yaml` and resolve:
+- `prd` → default `docs/prd/PRD.md`
+- `plans_root` → default `docs/plans`
+- `reports_root` → default `docs/reports`
+
+If the file is missing or a key is absent, fall back to the default values above.
+All references to `docs/prd/PRD.md`, `docs/plans/`, and `docs/reports/` in this command
+use these resolved paths. Users can relocate any of them with `/nezam paths set`.
+
+## What /START does
+
+When a user runs `/start` (with or without a subcommand), Claude scaffolds the project folder structure under `docs/` and guides the user through creating their PRD. The workspace governance files live in `docs/nezam/` and must not be touched.
+
+---
+
+## Subcommands
+
+  /START             → Interactive: ask the user for their project idea, then scaffold docs/ and create a draft PRD
+  /START docs        → Scaffold docs/prd/, docs/plans/, docs/reports/ if they don't exist, show status
+  /START prd         → Open docs/prd/PRD.md in guided mode — ask user questions and fill it in together
+  /START gates       → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
+  /START repo        → Link or initialize the git repository
+  /START settings    → Jump to AI tools setup (onboarding shortcut)
+  /START design      → Browse `.cursor/design/<brand>/`, pick one, copy to root DESIGN.md
+  /START companion   → Generate a briefing you can paste into any external AI (Claude.ai, Gemini, ChatGPT)
+  /START continual-learning → Opt-in: enable transcript mining (`pnpm continual-learning:on`)
+  /START all         → Run repo → settings → docs → prd → gates → design → companion in sequence
 
 Aliases: /START check → /START gates
+
+---
+
+## Behavior: /START (no subcommand)
+
+When the user runs `/start` with no subcommand, execute the full onboarding flow below.
+
+---
+### Step 1: Scaffold docs/ structure first (silent)
+
+Create these paths if they don't already exist:
+```
+docs/prd/PRD.md              ← from .cursor/templates/sdd/PRD_TEMPLATE.md
+docs/plans/.gitkeep
+docs/reports/progress/.gitkeep
+docs/reports/tests/.gitkeep
+docs/reports/audits/.gitkeep
+docs/reports/a11y/.gitkeep
+docs/reports/security/.gitkeep
+docs/reports/perf/.gitkeep
+docs/reports/lighthouse/.gitkeep
+```
+
+No user interaction during this step.
+
+---
+### Step 2: User mode (Solo or Team)
+
+Immediately after Step 1, before the PRD menu, show this exact prompt:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NEZAM — Welcome. Let's set you up.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Are you building this solo or with a team?
+
+  [S] Solo / Indie builder
+      Just you (or you + AI). Plain language,
+      fast setup, opinionated defaults.
+
+  [T] Team / Professional
+      Structured governance, full agent assignment,
+      formal documentation, parallel work streams.
+
+Type S or T:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+After the user types **S** or **T**, update `.cursor/state/onboarding.yaml`:
+
+- **S** → `user_mode: "solo"`, `tone: "friendly"`, `user_mode_set_at: "[timestamp]"`
+- **T** → `user_mode: "team"`, `tone: "structured"`, `user_mode_set_at: "[timestamp]"`
+
+All subsequent responses in the onboarding session adapt to `tone` (friendly vs structured).
+
+---
+### Step 2.5: Build Method Selection
+
+Immediately after Step 2 (S/T selection), before the PRD menu, show this menu.
+Load `.cursor/skills/system/build-modes/SKILL.md` for full mode definitions.
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NEZAM — How do you want to build?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  A) SDD — Full Specification-Driven Development
+     Best for: production apps, client work, teams
+     6 phases · strict gates · full audit trail
+
+  B) Lean MVP — Rapid prototyping mode
+     Best for: MVPs, hackathons, early validation
+     4 phases · relaxed gates · ship faster
+
+  C) TDD — Test-Driven Development overlay
+     Best for: payment flows, APIs, high-reliability
+     SDD pipeline + test-first gates · 90% coverage
+
+  D) API-First — API contract before everything else
+     Best for: backend services, headless, B2B APIs
+     API spec → IA → Design → PRD (reversed order)
+
+  Not sure? Type A — you can change this with /fix later.
+
+  Type A / B / C / D:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+After the user selects, update `.cursor/state/onboarding.yaml`:
+
+- **A** → `build_mode: "sdd"`, `build_mode_set_at: "[timestamp]"`
+- **B** → `build_mode: "lean"`, `build_mode_set_at: "[timestamp]"`
+- **C** → `build_mode: "tdd"`, `build_mode_set_at: "[timestamp]"`
+- **D** → `build_mode: "api-first"`, `build_mode_set_at: "[timestamp]"`
+
+Confirm: "✅ Build mode set to [name]. [One sentence: what it changes about how you'll work.]"
+
+---
+### Step 3: PRD Creation — Present user with 4 choices
+
+Show this exact menu:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NEZAM — Let's build your product
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+How do you want to start?
+
+  [1] Describe your idea → I'll create the PRD
+      Quick start. Tell me what you're building in
+      plain language and I'll structure it into a PRD.
+
+  [2] Interview mode → Guided conversation + brainstorm
+      I'll ask you 7 focused questions, suggest
+      improvements, and write the PRD together.
+      Best for new or unvalidated ideas.
+
+  [3] Paste / upload your PRD → I'll review and improve it
+      Have a brief, doc, or notes already? I'll
+      parse it, flag gaps, suggest improvements,
+      and rewrite it in standard NEZAM format.
+
+  [4] Add my PRD directly → No AI editing
+      Drop PRD.md into docs/prd/ and I'll accept
+      it as-is and move to the next step.
+
+Type 1, 2, 3, or 4:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+#### Mode 1 — Describe your idea
+
+- User types free text
+- Agent echoes back in 2 sentences to confirm understanding
+- Agent presents exactly 3 targeted improvement suggestions (not generic)
+- User can say YES to incorporate, NO to skip, or pick specific ones
+- Agent writes complete PRD → saves to `docs/prd/PRD.md`
+- Shows PRD summary card (product name, type, users, core problem, revenue model)
+- Asks: "Looks good? Type YES to lock or tell me what to change."
+
+---
+#### Mode 2 — Interview mode
+
+- Ask ONE question at a time. Wait for the answer before asking the next.
+
+Phase 1 — Core (3 questions):
+1. "What are you building? Describe it like explaining to a smart friend."
+2. "Who uses it? Be specific — job title, situation, pain they have right now."
+3. "What does it do that nothing else does well today?"
+
+Phase 2 — Business (3 questions, adapted based on Phase 1 answers):
+4. "How does money flow? (subscription / one-time / marketplace / ads / services)"
+5. "Who are the main competitors, and why would someone choose you over them?"
+6. "What country/region are your users in? (affects language, payments, legal)"
+
+Phase 3 — Scale (1 question):
+7. "What's your timeline and team size?"
+
+After all 7 answers, enter Brainstorm Mode — show this block:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  💡 Brainstorm — Ways to make this stronger
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔵  DEPTH IMPROVEMENT
+    [specific feature that increases engagement/retention]
+    Why: [one sentence specific to their product]
+
+🟢  GROWTH MECHANIC
+    [viral, referral, or network effect that fits]
+    Why: [one sentence]
+
+🟡  MONETIZATION UPGRADE
+    [higher-leverage pricing model based on their answers]
+    Why: [one sentence]
+
+🔴  RISK FLAG
+    [the #1 thing that kills products like this]
+    How to avoid: [one sentence]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Include any in your PRD? (YES for all / pick numbers / NO)
+```
+
+After response → write PRD → save → show PRD lock ceremony.
+
+---
+#### Mode 3 — Paste / upload your existing PRD
+
+- User pastes or uploads their document
+- Agent extracts: product name, target users, core problem, revenue model, tech hints
+- Flags missing sections with:
+  `⚠️ Missing: [section] — needed because [reason]`
+- Presents 3–5 specific improvement suggestions (not generic)
+- User picks which suggestions to incorporate
+- Agent rewrites the PRD in standard NEZAM format → saves it
+- Shows PRD summary card → lock ceremony
+
+---
+#### Mode 4 — Add PRD directly (No AI editing)
+
+- Tell user: "Drop your PRD.md into `docs/prd/` then type READY."
+- When they type READY:
+  - read the file
+  - validate it has content (not just template)
+- Accept as-is → skip to Step 3 (Design selection)
+
+---
+### PRD Lock Ceremony (all modes)
+
+After PRD is accepted/locked, show:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  PRD LOCKED: docs/prd/PRD.md
+
+Product:      [name]
+Type:         [Web App / SaaS / Mobile / Website / API]
+Users:        [one-line persona]
+Core Problem: [one sentence]
+Revenue:      [model]
+Risks noted:  [count]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+Write to `.cursor/state/onboarding.yaml`:
+```yaml
+prd_locked: true
+prd_path: "docs/prd/PRD.md"
+prd_locked_at: "[timestamp]"
+design_locked: false
+planning_complete: false
+```
+
+---
+### Step 4: Design Selection — Two Paths
+
+After PRD is locked, immediately present:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  STEP 4 — Choose your design direction
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  [A] Pick a design profile
+      Browse 100+ curated profiles (minimal, stripe,
+      linear, notion, shadcn, glassmorphism, etc.)
+      I'll copy it to DESIGN.md and configure it
+      for your product type.
+
+  [B] Describe your design vision
+      Tell me your desired look, feel, and references.
+      I'll interview you and create a custom DESIGN.md.
+
+Type A or B:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+#### Path A — Pick a design profile
+
+- Read all folder names from `.cursor/design/` (excluding README.md and catalog.json)
+- Group them into visual categories:
+  ```
+  Minimal & Clean:     minimal, clean, simple, sleek, refined, mono
+  Premium & Luxury:    luxury, premium, ferrari, bmw, bmw-m, bugatti, tesla
+  SaaS & Product:      linear-app, notion, vercel, stripe, supabase, shadcn, posthog
+  Bold & Expressive:   bold, dramatic, vibrant, expressive, colorful, gradient
+  Editorial:           editorial, publication, wired, warm-editorial, storytelling
+  Futuristic & Sci-fi: futuristic, cosmic, neon, spacex, nvidia
+  Playful:             friendly, doodle, duolingo, pacman, tetris
+  Corporate:           corporate, enterprise, ibm, professional
+  Design Systems:      material, ant, figma, apple, airbnb
+  Glassmorphism/Neo:   glassmorphism, neumorphism, neobrutalism, brutalism, claymorphism
+  ```
+- Show the grouped list and ask user to type the profile name
+- Read `.cursor/design/[chosen]/design.md`
+- Copy to root `DESIGN.md`
+- Confirm: "✅ Design profile `[name]` applied → DESIGN.md created"
+
+---
+#### Path B — Describe your design vision
+
+Ask these 5 questions ONE AT A TIME:
+1. "Describe the vibe in 3 words (e.g. 'clean, powerful, trustworthy')"
+2. "Any products or websites whose design you admire? (name them)"
+3. "Primary colors you have in mind? Or should I pick based on your brand?"
+4. "Who are your users — consumers or professionals? (affects density and complexity)"
+5. "Any design elements you definitely DON'T want? (e.g. 'no dark backgrounds', 'no animations')"
+
+After answers → generate a complete `DESIGN.md` at the repo root covering:
+- Color system (primary, secondary, accent, semantic, neutral scale)
+- Typography scale (display, heading, body, code, caption — with fluid clamp values)
+- Spacing system (4px base grid, named steps: xs/sm/md/lg/xl/2xl)
+- Border radius and elevation tokens
+- Motion/animation guidelines (duration, easing, reduced-motion rules)
+- Component list derived from PRD (what UI pieces this product needs)
+- Dark/light mode parity requirements
+- RTL requirements if MENA detected in PRD
+
+Confirm: "✅ Custom DESIGN.md created based on your vision"
+
+---
+### Design Lock Ceremony
+
+After `DESIGN.md` is created:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  DESIGN LOCKED: DESIGN.md
+
+Profile:    [chosen profile name OR "Custom"]
+Style:      [detected style summary]
+Colors:     [primary / secondary / accent]
+Typography: [detected font family or style]
+Mode:       [light / dark / both]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+Update `.cursor/state/onboarding.yaml`:
+```yaml
+design_locked: true
+design_profile: "[name or custom]"
+design_locked_at: "[timestamp]"
+```
+
+---
+### Step 5: Final Gate Check + Unlock /plan
+
+After PRD and DESIGN are both locked, show:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ONBOARDING COMPLETE — Gates Status
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅  docs/prd/PRD.md     → Locked
+✅  DESIGN.md           → Locked
+✅  docs/plans/         → Ready
+✅  docs/reports/       → Ready (7 categories)
+🔓  /plan               → UNLOCKED — ready to use
+
+🔒  /develop            → Locked until /plan is complete
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Next step: Run /plan to generate your execution roadmap
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## Behavior: /START prd
+
+Guide the user through filling in `docs/prd/PRD.md` interactively:
+
+Ask these questions one at a time (don't dump all at once):
+1. What is the product name?
+2. What problem does it solve in one sentence?
+3. Who is the primary user and what's their job-to-be-done?
+4. What are the 3 most critical requirements (P0)?
+5. What is explicitly out of scope?
+6. How will you know this is successful? (key metric)
+
+After answers, write a complete PRD.md to `docs/prd/PRD.md` and confirm:
+> "PRD saved. Run `/plan` to generate your execution roadmap."
+
+---
+
+## Behavior: /START docs
+
+Check and scaffold the project folder structure (paths from `.cursor/workspace.paths.yaml`):
+
+```
+docs/
+├── prd/
+│   └── PRD.md           ← create if missing (from .cursor/templates/sdd/PRD_TEMPLATE.md)
+├── plans/
+│   └── .gitkeep         ← empty folder, no README
+└── reports/
+    ├── progress/.gitkeep
+    ├── tests/.gitkeep
+    ├── audits/.gitkeep
+    ├── a11y/.gitkeep
+    ├── security/.gitkeep
+    ├── perf/.gitkeep
+    └── lighthouse/.gitkeep
+```
+
+Do NOT touch or modify anything inside `docs/nezam/` — that is the workspace governance layer.
+
+Show status after:
+```
+✅ docs/prd/PRD.md exists
+✅ docs/plans/ exists (empty — /plan will scaffold phases)
+✅ docs/reports/ exists with 7 category folders
+```
+
+---
+
+## Behavior: /START gates
+
+Run these checks and report ✅ / ❌:
+
+| Gate | Check |
+|------|-------|
+| PRD exists | `{prd_path}` is filled in (not a blank template) |
+| Plans scaffold | `{plans_root}/` exists |
+| Reports scaffold | `{reports_root}/` exists with category sub-folders |
+| DESIGN.md | Root `DESIGN.md` exists |
+| Git initialized | `.git/` exists |
+| Workspace governance | `docs/nezam/` exists (NEZAM files intact) |
+| Path config | `.cursor/workspace.paths.yaml` exists |
+
+If PRD gate fails: prompt user to run `/start prd`
+If plans gate fails: prompt user to run `/plan` after PRD is ready
+
+---
+
+## Folder Separation Rule
+
+```
+docs/nezam/   ← NEZAM workspace governance (DO NOT MODIFY during /start)
+docs/prd/     ← User's project PRD (default; relocatable via /nezam paths)
+docs/plans/   ← User's project plans (default; relocatable via /nezam paths)
+docs/reports/ ← User's project reports (default; relocatable via /nezam paths)
+```
+
+The `/start` command only creates and modifies files in:
+- `{prd_path}` and its parent folder
+- `{plans_root}/`
+- `{reports_root}/` and its category sub-folders
+- Root `DESIGN.md` (design subcommand only)
+
+To change any of these paths: use `/nezam paths set <key> <value>`.
+To modify workspace agents, rules, or templates: use `/nezam`.
+
+---
+
+## Multi-tool sync note
+
+After any governance change, non-Cursor clients should verify:
+- Compare `.cursor/rules/workspace-orchestration.mdc` against mirror in your tool's root
+- If drift: emit `⚠️ Sync drift detected — run pnpm ai:sync before proceeding.`
+
+---
 
 Hard blocks: none (START is always available)
 Recommendation footer: required

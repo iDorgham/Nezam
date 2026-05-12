@@ -1,0 +1,11 @@
+# /plan phase completion state — managed by /plan command
+# Set by agent after each phase completes.
+
+seo: false
+ia: false
+content: false
+arch: false
+design_wireframes: false
+scaffold: false
+planning_complete: false
+

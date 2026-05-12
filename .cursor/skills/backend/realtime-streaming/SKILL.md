@@ -1,0 +1,72 @@
+---
+skill_id: backend/realtime-streaming
+name: realtime-streaming
+description: WebSocket vs SSE vs long-poll; Socket.io vs native WS; Redis Pub/Sub; Supabase Realtime; presence; lifecycle; backoff; MENA latency.
+version: 1.0.0
+updated: 2026-05-12
+changelog: []
+owner: real-time-streaming-specialist
+tier: 3
+sdd_phase: Development
+rtl_aware: false
+certified: false
+dependencies: []
+---
+
+# Realtime streaming (backend/realtime-streaming)
+
+## Purpose
+
+Design **live data paths**: **WebSocket** vs **SSE** vs **long-polling**, **Socket.io** vs **native WebSocket**, **Redis Pub/Sub** for horizontal scale, **Supabase Realtime** integration, **presence** channels, **connection lifecycle**, **reconnection backoff**, and **MENA latency** (region placement, RTT, mobile network churn).
+
+## Trigger Conditions
+
+- Notifications, dashboards, collaborative editing, or live metrics are required.
+- Horizontal scaling implies shared connection state or broadcast fan-out.
+- Product uses Supabase or self-hosted Postgres realtime channels.
+
+## Prerequisites
+
+- Auth model for socket handshake (token propagation, refresh, revocation).
+- Data ownership and RLS / server-side authorization rules if DB-backed realtime.
+- SLO for delivery latency and acceptable message loss (at-most-once vs at-least-once).
+
+## Procedure
+
+1. **Transport matrix**
+   - **SSE**: server → client only, HTTP-friendly, good for log streams and one-way tickers; limited browser connection caps per origin.
+   - **WebSocket**: full duplex, lowest overhead for bidirectional high-frequency; needs sticky sessions or shared pub/sub for multi-node.
+   - **Long-poll**: fallback only; document sunset when WS/SSE available.
+2. **Socket.io vs native WS**
+   - **Native**: minimal deps, use when rooms/ack namespaces are simple and you own reconnection.
+   - **Socket.io**: fallbacks, rooms, acknowledgements; weigh bundle and protocol overhead.
+3. **Redis Pub/Sub**
+   - Use for cross-instance broadcast; define channel naming, payload size limits, and serialization version.
+   - Do not use Redis as durable event log unless Streams / consumer groups are explicitly designed.
+4. **Supabase Realtime**
+   - Map Postgres changes to channels; validate RLS on subscribed rows; avoid leaking filters.
+5. **Presence**
+   - Heartbeat TTL, join/leave ordering, and “stale presence” sweep; GDPR implications for online status.
+6. **Lifecycle**
+   - Graceful shutdown: drain connections, stop accepting new, propagate disconnect reason.
+   - Idle timeouts and ping/pong intervals per client class (mobile vs desktop).
+7. **Reconnection backoff**
+   - Exponential backoff with jitter; cap max delay; reset on successful subscribe.
+8. **MENA latency**
+   - Deploy brokers/workers close to users (e.g., EU-Middle East edges); measure RTT; batch small updates to reduce radio wakeups on mobile.
+
+## Output Artifacts
+
+- Connection sequence diagram, channel catalog, and auth flow in `docs/specs/api/` or plan-scoped `SPEC.md`.
+- Load test notes under `docs/reports/perf/` when policy requires.
+
+## Validation Checklist
+
+- [ ] Unauthorized clients cannot subscribe to privileged channels
+- [ ] Reconnect storms do not overwhelm auth or DB (rate limits tested)
+- [ ] Memory bounded under sustained connections (per-connection caps documented)
+
+## Handoff Target
+
+- `lead-backend-architect` for cross-service contracts.
+- `app-security-manager` when auth or abuse scenarios need review.

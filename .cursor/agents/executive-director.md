@@ -3,7 +3,7 @@ role: CEO
 code-name: ceo
 subagents: strategist, prioritizer
 activation: founder-lens-only
-when: ["/FOUNDER vision", "/FOUNDER risk", "strategic pivot decision", "product positioning review"]
+when: ["strategic pivot decision", "product positioning review", "vision and risk appetite executive decision"]
 ---
 
 # CEO (ceo)

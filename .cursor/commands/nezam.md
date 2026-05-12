@@ -1,0 +1,363 @@
+/nezam — NEZAM Workspace Management
+
+> **This is the only command for modifying NEZAM workspace internals.**
+> All other commands (`/start`, `/plan`, `/develop`, `/check`, `/scan`, `/guide`,
+> `/git`, `/deploy`, `/settings`) operate on **your project only**.
+
+Never edit `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, `.cursor/templates/`,
+`docs/nezam/`, or `scripts/` outside of this command. Changes made directly won't get
+proper validation or sync.
+
+Hard blocks: none — /nezam is always available
+Recommendation footer: required
+
+---
+
+## Subcommands
+
+```
+/nezam                         → Status dashboard: version, sync state, active paths
+/nezam templates               → Browse all templates in .cursor/templates/
+/nezam templates <category>    → List templates in a category
+/nezam templates edit <name>   → Edit a specific template with guided prompts
+/nezam templates reset <name>  → Restore template to NEZAM default
+/nezam agents                  → List all agents in .cursor/agents/ with descriptions
+/nezam agents edit <name>      → Edit an agent's role and system prompt
+/nezam agents add <name>       → Create a new custom agent from template
+/nezam agents remove <name>    → Remove a custom agent (with confirmation)
+/nezam skills                  → List all skills by category
+/nezam skills edit <name>      → Edit a skill's SKILL.md
+/nezam rules                   → List all rules in .cursor/rules/
+/nezam rules edit <name>       → Edit a .mdc rule file
+/nezam scripts                 → List scripts/ with purpose descriptions
+/nezam paths                   → Show current .cursor/workspace.paths.yaml
+/nezam paths set <key> <value> → Change a path (e.g. /nezam paths set project.prd src/PRD.md)
+/nezam sync                    → Run pnpm ai:sync + pnpm ai:check, show result
+/nezam check                   → Validate workspace integrity (drift, skill frontmatter, SDD swarm)
+/nezam upgrade                 → Instructions for pulling a newer NEZAM workspace version
+/nezam customize               → Interactive wizard: pick what to adjust
+```
+
+---
+
+## /nezam (no subcommand) — Status Dashboard
+
+Display a snapshot of the workspace state:
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║  NEZAM Workspace Status                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  Version        1.0.0 (docs/nezam/core/VERSIONING.md)       ║
+║  Sync           ✅ in sync (last: pnpm ai:sync)              ║
+╠══════════════════════════════════════════════════════════════╣
+║  Project Paths  (from .cursor/workspace.paths.yaml)         ║
+║  PRD            docs/prd/PRD.md                             ║
+║  Plans root     docs/plans/                                 ║
+║  Reports root   docs/reports/                               ║
+╠══════════════════════════════════════════════════════════════╣
+║  Templates      .cursor/templates/   (56 files, 8 categories)║
+║  Agents         .cursor/agents/      (100+ agents)           ║
+║  Skills         .cursor/skills/      (9 categories)          ║
+║  Rules          .cursor/rules/       (12 rules)              ║
+╠══════════════════════════════════════════════════════════════╣
+║  Commands:                                                   ║
+║  /nezam templates  /nezam agents  /nezam rules               ║
+║  /nezam paths      /nezam sync    /nezam check               ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## /nezam templates
+
+List all template categories:
+
+```
+Templates — .cursor/templates/
+
+  ai-client/       10 files   AI tool config (CLAUDE.md, AGENTS.md, SKILL.md…)
+  plan/            14 files   Phase planning (gates, prompts, specs, tasks)
+  sdd/              4 files   SDD pipeline (PRD, feature spec, design sprint)
+  specs/            6 files   Specs (changelog, constitution, progress report)
+  ui-ux/           11 files   UI/UX (tokens, components, swarm handoffs)
+  swarm/            6 files   Swarm coordination (decisions, handoff packets)
+  research-design/  1 file    Research & design documents
+
+  Edit: /nezam templates edit <name>
+  Reset: /nezam templates reset <name>
+  Docs: .cursor/templates/README.md
+```
+
+### /nezam templates edit \<name\>
+
+Guide the user through editing a template:
+
+1. Find the template file under `.cursor/templates/` (search by filename, partial match OK)
+2. Show current content with line numbers
+3. Ask: "What would you like to change? Describe the modification or paste new content."
+4. Apply the edit to the file
+5. Show a diff of what changed
+6. Confirm: "Template updated. Run `pnpm ai:sync` to propagate changes."
+
+### /nezam templates reset \<name\>
+
+Restore a template to its NEZAM default.
+
+1. Check if a reference copy exists in `docs/nezam/` (for future upgrade path)
+2. If yes → restore from reference
+3. If no → warn: "No reference backup found for <name>. You can restore manually from the NEZAM repo."
+4. Show what was restored
+
+### /nezam templates \<category\>
+
+List files in a specific template category with one-line descriptions.
+
+---
+
+## /nezam agents
+
+List all agents with their role summaries:
+
+```
+Agents — .cursor/agents/  (100+ agents across 8 swarm tiers)
+
+  Lead Architects     lead-frontend-architect, lead-backend-architect, lead-database-architect …
+  Frontend            frontend-lead, frontend-framework-manager, ui-component-manager …
+  Backend             backend-lead, api-logic-manager, database-design-manager …
+  Content             arabic-content-master, content-strategist, localization-lead …
+  QA / Harden         qa-test-lead, security-auditor, a11y-performance-auditor …
+  DevOps              devops-manager, gitops-engineer, observability-specialist …
+  Product             product-manager, product-officer, business-analyst …
+  Orchestration       swarm-leader, deputy-swarm-leader, subagent-controller …
+
+  Edit: /nezam agents edit <agent-name>
+  Add:  /nezam agents add <name>
+```
+
+### /nezam agents edit \<name\>
+
+1. Load `.cursor/agents/<name>.md`
+2. Show the agent's role, capabilities, and hard rules
+3. Ask: "What do you want to change? (role, capabilities, tone, hard rules, scope)"
+4. Apply the change
+5. Auto-run `pnpm ai:sync` to sync to `.antigravity/agents/` and other mirrors
+6. Show confirmation
+
+### /nezam agents add \<name\>
+
+1. Load `.cursor/templates/ai-client/AGENT.template.md`
+2. Ask the user to fill in: role, primary task, skills it uses, hard rules
+3. Write to `.cursor/agents/<name>.md`
+4. Auto-run `pnpm ai:sync`
+
+### /nezam agents remove \<name\>
+
+1. Show the agent file content
+2. Confirm: "Are you sure you want to remove <name>? Type YES to confirm."
+3. Delete `.cursor/agents/<name>.md`
+4. Auto-run `pnpm ai:sync`
+
+---
+
+## /nezam skills
+
+List skills organized by category:
+
+```
+Skills — .cursor/skills/
+
+  backend/         api-design, api-gateway, auth-workflows, cache-strategies …
+  content/         arabic-content, content-modeling, editorial-workflows …
+  design/          (design skills)
+  frontend/        (frontend skills)
+  infrastructure/  (infra skills)
+  quality/         (QA skills)
+  research/        (research skills)
+  system/          (system skills)
+  external/        (external integration skills)
+
+  Edit: /nezam skills edit <category/skill-name>
+```
+
+### /nezam skills edit \<name\>
+
+1. Load `.cursor/skills/<category>/<name>/SKILL.md`
+2. Show current skill definition
+3. Accept modifications
+4. Write back and run `pnpm ai:sync`
+
+---
+
+## /nezam rules
+
+List all rules and their trigger conditions:
+
+```
+Rules — .cursor/rules/
+
+  agent-lazy-load.mdc              Agent loading behaviour
+  cli-orchestration.mdc            CLI tool routing rules
+  design-dev-gates.mdc             Design-to-dev gate enforcement
+  docs-reports-policy.mdc          Docs and reports folder policy
+  multi-tool-sync.mdc              Multi-tool sync discipline
+  nezam-design-gates-pro.mdc       Pro design gate checks
+  plan-phase-scaffold.mdc          Phase scaffolding rules
+  sdd-design.mdc                   SDD design phase rules
+  sdd-pipeline-v2.mdc              Core SDD pipeline rules
+  ui-ux-swarm-library-ds-content.mdc  UI/UX swarm rules
+  workspace-client-onboarding-gate.mdc  Client onboarding gate
+  workspace-orchestration.mdc      Workspace orchestration rules
+
+  Edit: /nezam rules edit <rule-name>
+```
+
+### /nezam rules edit \<name\>
+
+1. Load `.cursor/rules/<name>.mdc`
+2. Show frontmatter (trigger conditions) and body
+3. Accept modifications
+4. Write back
+5. Remind: rules apply immediately — no sync needed, but `pnpm ai:sync` propagates to Kilo and Antigravity mirrors
+
+---
+
+## /nezam scripts
+
+List all scripts with descriptions:
+
+```
+Scripts — scripts/
+
+  sync-ai-folders.js          Sync .cursor/ to all AI client mirrors
+  check-ai-drift.js           Detect drift between .cursor/ and mirrors
+  check-sdd-swarm-integrity.js  Validate SDD swarm file structure
+  check-skill-frontmatter.js  Validate skill SKILL.md frontmatter
+  checks/check-onboarding-readiness.sh  CI gate for PRD + project prompt
+  checks/docs-layout-policy.sh          CI gate for docs folder structure
+  checks/check-design-tokens.sh         CI gate for token-first CSS
+  design/copy-profile-to-design-md.sh   Apply a design profile → DESIGN.md
+  continual-learning/                   Continual learning subsystem
+  changelog/                            Changelog management scripts
+  prd/render-release-roadmap.mjs        Render release roadmap from JSON
+
+  To run a script: /nezam scripts run <name>
+  To view a script: /nezam scripts view <name>
+```
+
+---
+
+## /nezam paths
+
+Show the current path configuration:
+
+```
+Workspace Paths — .cursor/workspace.paths.yaml
+
+  PROJECT PATHS (user-configurable)
+  prd          docs/prd/PRD.md
+  plans_root   docs/plans/
+  reports_root docs/reports/
+
+  WORKSPACE INTERNALS (advanced)
+  nezam_root       docs/nezam/
+  templates_root   .cursor/templates/
+  hardlock_paths   docs/nezam/core/hardlock-paths.json
+
+  Change: /nezam paths set <key> <value>
+  Example: /nezam paths set project.prd src/product/PRD.md
+```
+
+### /nezam paths set \<key\> \<value\>
+
+1. Parse `.cursor/workspace.paths.yaml`
+2. Set the given key to the given value (dot-notation: `project.prd`, `project.plans_root`)
+3. Validate: the new path must be a plausible file/folder path (no absolute paths outside repo)
+4. Write back
+5. If the key is `project.prd` → also update `docs/nezam/core/hardlock-paths.json intake.prd`
+6. Confirm and remind: "Run `pnpm ai:sync` to propagate."
+
+---
+
+## /nezam sync
+
+Run the full sync + validate cycle:
+
+```bash
+pnpm ai:sync    # copy .cursor/ → all AI client mirrors
+pnpm ai:check  # validate drift is zero
+```
+
+Show pass/fail for each tool target. On drift: list drifted files and instruct next step.
+
+---
+
+## /nezam check
+
+Run full workspace integrity checks:
+
+```bash
+pnpm ai:check                              # drift check
+node scripts/check-skill-frontmatter.js   # skill frontmatter
+node scripts/check-sdd-swarm-integrity.js # SDD swarm
+bash scripts/checks/docs-layout-policy.sh # docs folder layout
+```
+
+Output: per-check ✅/❌ with fix commands on failure.
+
+---
+
+## /nezam upgrade
+
+Display instructions for updating NEZAM to a newer version:
+
+```
+NEZAM Workspace Upgrade
+
+  Current version: 1.0.0 (docs/nezam/core/VERSIONING.md)
+
+  To upgrade:
+  1. Review the NEZAM changelog for breaking changes
+  2. Back up your customisations:
+       /nezam templates    → note any templates you have edited
+       /nezam agents       → note any agents you have added/edited
+       /nezam rules        → note any rules you have customised
+  3. Pull the new workspace files into .cursor/ (per upgrade guide)
+  4. Re-apply your customisations
+  5. Run /nezam sync to propagate
+  6. Run /nezam check to validate
+```
+
+---
+
+## /nezam customize — Interactive Wizard
+
+Guided entry point for all customisations:
+
+```
+What do you want to customise in NEZAM?
+
+  1. Templates  — change what /plan, /start, and agents produce
+  2. Agents     — add, edit, or remove AI agents
+  3. Skills     — edit a skill behaviour
+  4. Rules      — adjust a governance rule
+  5. Scripts    — view or modify workspace scripts
+  6. Paths      — change where your PRD or plans folder lives
+
+Type a number or describe what you want to change.
+```
+
+After selection, route to the appropriate subcommand flow above.
+
+---
+
+## Recommendation Footer
+
+(always show after /nezam commands)
+
+```
+🔧  Change applied → .cursor/<path>
+→ Run pnpm ai:sync to propagate to all AI clients (/nezam sync)
+→ Run /nezam check to validate workspace integrity
+→ /nezam status to review all settings
+```

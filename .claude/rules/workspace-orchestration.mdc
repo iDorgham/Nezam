@@ -13,42 +13,162 @@ Planning → SEO research & keywords → Information architecture/menus → Cont
 
 Use **Specification-Driven Development (SDD)**: roadmap → phases → specs → docs. Prefer Plan Mode before large edits.
 
-## Planning hardlock prerequisite
+## Planning hardlock prerequisite (legacy — superseded)
 
-Treat planning as hardlocked unless `docs/core/required/PRD.md` exists and is fully prepared (not a template or placeholder draft).
+> **Note:** This section is preserved for historical reference only. It referenced the old path
+> `docs/core/required/PRD.md`. All hardlock logic has moved to the section below
+> ("SDD hardlock prerequisites — reads state files") which uses the canonical path
+> `docs/prd/PRD.md`. Do not act on the conditions described here.
 
-If PRD is missing or still template-like, halt planning and route the user to `/CREATE prd`, then require completion of real PRD content before planning-phase execution.
-Planning is also hardlocked unless `docs/core/required/PROJECT_PROMPT.md` is aligned with PRD scope (same product/scope intent, no conflicting objective framing).
+<!--
+LEGACY (do not enforce):
+- docs/core/required/PRD.md  →  now: docs/prd/PRD.md
+- docs/core/required/PROJECT_PROMPT.md  →  now: docs/prd/PROJECT_PROMPT.md (optional)
+- docs/core/VERSIONING.md  →  now: docs/nezam/VERSIONING.md
+All gate logic is enforced via .cursor/state/*.yaml files + sdd-gate-validator skill.
+-->
 
-Planning is also hardlocked unless:
+## SDD hardlock prerequisites (updated — reads state files)
 
-- `CHANGELOG.md` exists at workspace root (initialized).
-- `docs/core/VERSIONING.md` exists and defines SemVer rules + initial version number.
+### Hardlock: /plan requires
 
-## SDD hardlock prerequisites for development
+Read `.cursor/state/onboarding.yaml` before any `/plan` subcommand:
 
-Treat development as hardlocked unless all are true:
+1. `prd_locked: true` — project PRD path (see `.cursor/workspace.paths.yaml` `project.prd`, default `docs/prd/PRD.md`) is filled in (not template)
+2. `design_locked: true` — `DESIGN.md` exists and is not blank template
 
-1. `docs/core/required/PRD.md` exists.
-2. `docs/core/required/PROJECT_PROMPT.md` exists.
-3. `docs/core/required/PRD.md` is fully prepared (non-template; no placeholder-only content).
-4. PRD and PROJECT_PROMPT are aligned in scope (no title/domain mismatch).
-5. `CHANGELOG.md` exists and is initialized.
-6. `docs/core/VERSIONING.md` exists and locks SemVer rules + initial version.
-7. Architecture artifact exists at one of:
-   - `docs/03_architecture/ARCHITECTURE.md` (preferred), or
-   - `docs/core/required/architecture/ARCHITECTURE.md` (legacy-compatible).
-8. Design artifact exists at one of:
-   - `DESIGN.md` (preferred), or
-   - `docs/DESIGN.md` (legacy-compatible).
-9. `docs/plans/gates/GITHUB_GATE_MATRIX.json` exists and is current.
-10. Every active `docs/plans/<phase>/<subphase>/` includes both `prompt.json` and `PROMPT.md`.
-11. `docs/core/required/sdd/WIREFRAMES.md` must exist when any screen-level component is being developed (enforced by wireframe-to-spec skill).
-12. Every `SPEC.md` under `docs/plans/<phase>/<feature>/` must use the SPEC template format with `spec_version`, `status`, and `spec_id` fields present. Specs with `status: draft` may NOT have BUILD work begun; specs require `status: approved` before implementation.
+If either is false → block `/plan` → redirect to `/start` with specific reason.
 
-No implementation-oriented command may bypass this hardlock set.
+### Hardlock: /develop requires
+
+Read `.cursor/state/plan_progress.yaml`:
+
+1. `planning_complete: true` — all 6 planning phases done
+2. All artifact files exist at their expected paths (validate via `sdd-gate-validator` skill)
+3. `PROJECT_SCAFFOLD.md` confirmed and `scripts/scaffold.sh` run
+
+If any are false → block `/develop` → show plan progress status → tell user which phase to complete.
+
+### Hardlock: phase N+1 requires phase N complete
+
+Read `.cursor/state/develop_phases.yaml`:
+
+1. Phase N must have `status: "complete"` AND `testing_passed: true`
+2. Phase N+1 must have `status: "unlocked"` (not `locked`)
+
+If phase N is not complete → block work on phase N+1 → tell user to finish phase N.
+
+### Hardlock: /deploy requires
+
+1. `develop_phases.phase_5.status == "complete"` (Hardening phase done)
+2. `develop_phases.phase_5.testing_passed: true`
+3. Security audit exists: `docs/reports/security/SECURITY_AUDIT.md`
+4. Lighthouse report passes all thresholds
+
+### Non-bypass rule (unchanged)
+
+Hardlocks block starting dependent forward work.
+They do NOT block backward amendments (use decision amendment protocol).
+The `/fix` command is always available and never hardlocked.
+The `/guide` command is always available and never hardlocked.
+The `/check` command is always available and never hardlocked.
+The `/nezam` command is always available and never hardlocked.
+
+### Additional SDD artifacts (still required for quality; validate in /check and specs)
+
+- `PROJECT_PROMPT.md` aligned with PRD (path per workspace conventions)
+- `CHANGELOG.md` initialized; SemVer policy documented
+- Architecture + design contracts + gate matrix + approved SPECs — see `design-dev-gates.mdc`, `check.md`, and active plan folders
 
 When `/DEVELOP start` uses a selected profile from `.cursor/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
+
+## Response Style System
+
+All agent and command responses must follow this style contract.
+Read `tone` from `.cursor/state/onboarding.yaml` at session start (set during `/start`: `friendly` for solo, `structured` for team).
+
+### Visual Structure
+
+Use `━` borders for section dividers (not `---` or `===`).
+Use `┌┐└┘│` box characters for cards and status panels.
+Use emoji sparingly: ✅ ❌ ⚠️ 🔒 ⚡ ▶ only — no decorative emoji.
+
+### The Three Action Block Types
+
+Every response that suggests an action MUST use one of these three fenced blocks.
+
+**Block Type 1: PROMPT** — next step is paste into an AI tool.
+
+**PROMPT** — [one sentence: what this prompt does]
+
+```prompt
+[Complete, self-contained prompt. No placeholders. All context filled in.
+Include: what the AI should do, what files to read/write, what a good
+output looks like, and acceptance criteria. Ready to paste immediately.]
+```
+
+**Block Type 2: TERMINAL** — next step is a shell command.
+
+**TERMINAL** — [one sentence: what this command does]
+
+```bash
+[exact command — no placeholders]
+```
+
+**Block Type 3: SLASH COMMAND** — next step is a NEZAM slash command.
+
+**COMMAND** — [one sentence: what this does]
+
+```
+/plan arch
+```
+
+### When to Use Each Block Type
+
+| Situation | Block Type |
+|-----------|------------|
+| Next step is AI generation work | PROMPT |
+| Next step is running a script | TERMINAL |
+| Next step is a NEZAM command | SLASH COMMAND |
+| Next step involves multiple tools | Show primary block + note secondary |
+
+### Tone by User Mode
+
+**Solo / Friendly mode (`tone: friendly`):**
+
+- Short sentences. No jargon.
+- Explain what a step does before showing the command.
+- No file paths in main body — use natural language references.
+- "Your PRD" not `docs/prd/PRD.md`
+- "Pick your design" not "copy DESIGN profile"
+
+**Team / Structured mode (`tone: structured`):**
+
+- Precise terminology is fine.
+- Show file paths, gate IDs, agent assignments.
+- Swarm footer on every substantive reply.
+- Governance-style — structured, audit-ready.
+
+### Response Length
+
+- `/guide next` → max 8 lines + one action block
+- `/guide status` → max 40 lines total
+- `/check output` → max 20 lines
+- Phase unlock ceremonies → max 12 lines
+- Gate failure messages → max 10 lines
+- Never pad with filler. Every line earns its place.
+
+### Recommendation Footer
+
+Required on all substantive replies from any command. Format:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  💡 /guide next — see your next step
+  📋 /guide status — full project overview
+  🔍 /check output — score last output
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
 
 ## Rollback and amendment protocol (iteration)
 
@@ -91,7 +211,7 @@ Hardlocks block **starting** dependent forward work until prerequisites are sati
 
 ## Memory layers (conceptual)
 
-1. **Source of truth**: repository files (`docs/core/required/**`, templates, tracked decisions).
+1. **Source of truth**: repository files (`docs/prd/PRD.md`, `docs/plans/**`, `docs/reports/**`, `docs/nezam/**`, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
 3. **Durable project memory**: `docs/memory/MEMORY.md` plus phase logs under `docs/memory/` (maintain via `/SAVE log`).
 4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/memory/CONTEXT.md`.

@@ -1,0 +1,31 @@
+{
+  "$schemaVersion": "1.0.0",
+  "notes": [
+    "Single source of truth for hardlock-critical file locations.",
+    "Edit paths here when you intentionally move/rename required artifacts.",
+    "For user-adjustable project paths (PRD, plans, reports) see .cursor/workspace.paths.yaml"
+  ],
+  "intake": {
+    "prd": "docs/prd/PRD.md",
+    "projectPrompt": "docs/nezam/core/required/PROJECT_PROMPT.md"
+  },
+  "planning": {
+    "changelog": "CHANGELOG.md",
+    "versioning": "docs/nezam/core/VERSIONING.md",
+    "gateManifest": "docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json"
+  },
+  "design": {
+    "designSpec": "DESIGN.md"
+  },
+  "architecture": {
+    "allowed": [
+      "docs/03_architecture/ARCHITECTURE.md",
+      "docs/nezam/core/required/architecture/ARCHITECTURE.md"
+    ]
+  },
+  "subphasePrompts": {
+    "plansRoot": "docs/nezam/plans",
+    "taskFileGlob": "**/*/*/TASKS.md",
+    "requiredFiles": ["prompt.json", "PROMPT.md"]
+  }
+}

@@ -1,210 +1,243 @@
-/GUIDE — Intelligent project navigator. Always available. SDD-first.
+/GUIDE — Intelligent project navigator. Always available. Never hardlocked.
 
 Subcommands:
-  /GUIDE status     → Full pipeline status: what's done, what's next, what's blocked
-  /GUIDE next       → Single recommended next action — command, prompt, or terminal
-  /GUIDE phase      → Deep dive on the current active phase
-  /GUIDE full       → Complete project health: all phases, all gates, all open items
-  /GUIDE explain    → Plain English — no jargon, no file paths, no internal terms
-  /GUIDE help       → Usage reference
+  /GUIDE                → defaults to /GUIDE status
+  /GUIDE status         → full pipeline status: done / active / blocked / next
+  /GUIDE next           → single recommended next action only
+  /GUIDE phase          → deep dive on the current active phase
+  /GUIDE full           → complete project health across all phases
+  /GUIDE explain        → zero-jargon plain English summary
+  /GUIDE help           → usage reference
+  /GUIDE prompt         → generate a ready-to-use prompt for the next step
+  /GUIDE terminal       → generate the next terminal command to run
 
-Aliases: /GUIDE → defaults to /GUIDE status
+Aliases: `/GUIDE` → `/GUIDE status`
 
----
-
-## GUIDE PRIME DIRECTIVE
-
-/GUIDE's job is ONE thing: **help the user get their idea done**.
-
-It does this by always knowing where the user is in the SDD pipeline
-and giving them the right next action — whether that's a slash command,
-a ready-to-paste prompt, or a terminal command to run.
-
-GUIDE never gives vague suggestions.
-Every response ends with something the user can act on in under 30 seconds.
+Hard blocks: none — `/GUIDE` is always available  
+Recommendation footer: required (workspace-orchestration)
 
 ---
 
-## SDD Pipeline Reference (GUIDE always follows this order)
+## Philosophy
 
-```
-Phase 0: Define     → PRD.md + PROJECT_PROMPT.md + ARCHITECTURE.md
-Phase 1: Research   → SEO_RESEARCH.md
-Phase 2: Design     → DESIGN.md (tokens, components, motion rules)
-Phase 3: Content    → CONTENT_MAP.md + IA_CONTENT.md
-Phase 4: Scaffold   → PROJECT_SCAFFOLD.md + scripts/scaffold.sh confirmed
-Phase 5: Build      → Feature slices (each specced before built)
-Phase 6: Harden     → a11y + perf + security + SEO audits pass
-Phase 7: Ship       → CI/CD + production deploy + monitoring live
-```
+`/GUIDE` is the user's co-pilot throughout the entire project lifecycle.
+It always knows where the user is, what they should do next, and why.
+It never gives vague suggestions. Every response ends with something
+the user can act on in under 30 seconds — a slash command, a ready-to-paste
+prompt, or a terminal command.
 
-GUIDE detects current phase by checking which artifacts exist.
-GUIDE never suggests skipping a phase.
-If a gate is missing, GUIDE explains WHY it matters in one plain sentence.
+For beginners (`tone: friendly` in `.cursor/state/onboarding.yaml`), `/GUIDE` explains concepts without jargon.
+For teams (`tone: structured`), it shows governance detail and agent assignments.
 
 ---
 
-## Response Structure for /GUIDE status
+## Read order (all `/GUIDE` subcommands that need state)
 
-Output exactly in this order.
+Before responding, read these files in order when they exist:
 
-### 0. Session Resume Card (shown FIRST if agent-status.yaml has content)
+1. `.cursor/state/onboarding.yaml` — `prd_locked`, `design_locked`, `planning_complete`, `user_mode`, `tone`
+2. `.cursor/state/plan_progress.yaml` — which plan phases are done
+3. `.cursor/state/develop_phases.yaml` — which dev phases are done or locked
+4. `.cursor/state/agent-status.yaml` — last active agent and output (if exists)
+5. `docs/prd/PRD.md` — product name and type (resolve path via `.cursor/workspace.paths.yaml` `project.prd` if relocated)
+6. `DESIGN.md` (repo root) — design profile / contract cues
 
-  📍 Last session: [active_agent] working on [active_spec]
-  📦 Last output: [last_output.summary] → [status]
-  🔄 Pending handoff: [from_agent] → [to_agent] ([status])
-  ❌ Open blockers: [list]
+---
 
-  → Resume: [session_resume_prompt]
+## /GUIDE status — Full Pipeline Status
 
-### 1. Pipeline Bar
+Output sections in this exact order:
 
-8-segment bar — Define · Research · Design · Content · Scaffold · Build · Harden · Ship
-Segment filled (█) when phase artifacts are confirmed present and non-template.
+### Section 0 — Session Resume Card (only if `agent-status.yaml` has active handoff or resume content)
 
-  Pipeline  [████████░░░░░░░░░░░░░░░░░░░░░░░░]  3/8
-  Define ✓ · Research ✓ · Design ✓ · Content ○ · Scaffold ○ · Build ○ · Harden ○ · Ship ○
-
-### 2. Current Stage (2 sentences max)
-
-- Sentence 1: Where you are (plain English, technical reference in parens if needed)
-- Sentence 2: What you need to do to advance
-
-### 3. Active Phase Progress
-
-  Phase: [name]  [████████░░░░]  4/8 steps done
-
-### 4. Blockers (only if any exist)
-
-  ❌ [plain description of what's missing]
-  → Fix with:
-  ```bash
-  [terminal command if applicable]
-  ```
-  or → `/COMMAND sub` if a slash command fixes it
-
-  If no blockers: ✅ No blockers — ready to proceed.
-
-### 5. Next Action (bold, decisive, copy-ready)
-
-**→ [Exact command] — [one sentence what it does]**
-
-If the next action is a prompt to paste into an AI tool:
-```prompt
-[full ready-to-paste prompt — complete, no placeholders, immediately usable]
+```
+┌─────────────────────────────────────────────────┐
+│  📍 Resuming: [agent] on [active task]          │
+│  📦 Last output: [summary] — [status]           │
+│  🔄 Handoff pending: [from] → [to]              │
+│  ❌ Blockers: [list or "none"]                  │
+└─────────────────────────────────────────────────┘
 ```
 
-If the next action is a terminal command:
-```bash
-[exact command]
+If no active session → skip this section entirely.
+
+### Section 1 — Pipeline Progress Bar
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project: [product name from PRD]
+  Mode: [Solo / Team from user_mode]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Pipeline  ████████░░░░░░░░░░░░░░░░  3/8 phases
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✅ 1 · Onboarding    ✅ 2 · Planning    ⚡ 3 · Build
+  🔒 4 · Polish        🔒 5 · Harden      🔒 6 · Ship
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-If the next action is a slash command: write it exactly as typed, nothing else.
+Legend: ✅ complete · ⚡ active · 🔒 locked · ○ not started  
+Derive segment states from onboarding + plan_progress + develop_phases (map planning to “Planning”, scaffold+plan flags to phases as appropriate).
 
-### 6. Quick Health Snapshot (3 lines max)
+### Section 2 — Where You Are (2 sentences max)
 
-  ✅ [what's solid]
-  ⚠️ [what needs attention]
-  ❌ [what's blocking, if any]
+- Sentence 1: plain English — what stage you're in  
+- Sentence 2: what you need to do to advance  
 
-### Agent Bus Status
-- Pending messages: [count from agent-bus.yaml where status=pending]
-- Unread escalations: [count where type=escalation and status=pending]
-→ /CHECK swarm to view all
+**Friendly tone:** short, no internal jargon.  
+**Structured tone:** may name phases, artifacts, and gates.
 
-### 7. Recommendation footer (required, always last)
+### Section 3 — Active Phase Detail
+
+```
+┌─────────────────────────────────────────────────┐
+│  Phase: [name]                                  │
+│  Progress: ████████░░░░  4 of 6 steps done      │
+│                                                 │
+│  ✅ Step 1: [done]                              │
+│  ✅ Step 2: [done]                              │
+│  ✅ Step 3: [done]                              │
+│  ✅ Step 4: [done]                              │
+│  ⏳ Step 5: [in progress or pending]           │
+│  🔒 Step 6: [locked until step 5 done]          │
+└─────────────────────────────────────────────────┘
+```
+
+### Section 4 — Blockers (only if any exist)
+
+```
+❌ [plain English description of what's missing]
+   Why it matters: [one sentence]
+   Fix:
+```
+
+Then show the fix using the correct action block type from **Response Style System** (workspace-orchestration): PROMPT, TERMINAL, or SLASH COMMAND.  
+If no blockers → `✅ No blockers — ready to proceed.`
+
+### Section 5 — Next Action (always last, always actionable)
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ▶  YOUR NEXT STEP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [What this does in one plain sentence]
+```
+
+Then one fenced action block (PROMPT / TERMINAL / COMMAND) per workspace rules.
 
 ---
 
 ## /GUIDE next — Single Action Mode
 
-Output ONLY these fields — nothing else:
+Read state files → determine the single best next action → output **ONLY**:
 
-**Current phase:** [phase name]
-**Progress:** [X/8 phases done]
-**Your next action:**
-
-[Pick the most appropriate format:]
-
-Slash command:
-  `/PLAN scaffold` — generates the complete project file tree before development begins
-
-Paste prompt:
-```prompt
-[complete, copy-ready prompt — no placeholders, immediately usable in Cursor/Claude/Codex]
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase [X/8] · [Phase Name]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [One plain sentence — what this action does and why now]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-Terminal command:
-```bash
-pnpm run design:apply -- minimal
-```
-
-**Why this step:** [one sentence — why now, why this, why it matters]
+Then show the action in the correct fenced block.  
+**Nothing else.** No extra headers, no explanation, no duplicate sections.
 
 ---
 
 ## /GUIDE phase — Active Phase Deep Dive
 
 Show:
-1. Phase name and goal (one sentence)
-2. Required artifacts (what must exist when this phase is done)
-3. Current artifact status: ✅ exists / ⚠️ partial / ❌ missing
-4. Steps to complete this phase (numbered, each with exact command)
-5. What unlocks after this phase (one sentence)
-6. Next action (same format as /GUIDE next)
+
+1. Phase name and goal (one sentence)  
+2. Required artifacts — what must exist when this phase is done  
+3. Each artifact status: ✅ complete · ⚠️ incomplete · ❌ missing  
+4. Steps to complete this phase (numbered; each step shows exact command)  
+5. What unlocks when this phase completes  
+6. Next action block (same format as `/GUIDE next`)
 
 ---
 
 ## /GUIDE full — Complete Project Health
 
-Everything from /GUIDE status PLUS:
+Everything from `/GUIDE status` **plus** a full phases table:
 
-### All Phases Status Table
+```
+┌──────────────┬──────────┬──────────────┬───────────────────────┐
+│ Phase        │ Status   │ Artifacts    │ Next Action           │
+├──────────────┼──────────┼──────────────┼───────────────────────┤
+│ 1 Onboarding │ ✅ Done  │ PRD + DESIGN │ —                     │
+│ 2 Planning   │ ⚡ Active│ 3/6 done     │ /plan arch            │
+│ 3 Build P1   │ 🔒 Locked│ 0/4 done     │ Complete planning     │
+│ 4 Build P2   │ 🔒 Locked│ —            │ Complete Phase 1      │
+│ 5 Build P3   │ 🔒 Locked│ —            │ Complete Phase 2      │
+│ 6 Polish     │ 🔒 Locked│ —            │ Complete Phase 3      │
+│ 7 Harden     │ 🔒 Locked│ —            │ Complete Polish       │
+│ 8 Ship       │ 🔒 Locked│ —            │ Complete Hardening    │
+└──────────────┴──────────┴──────────────┴───────────────────────┘
+```
 
-| Phase      | Status | Artifacts | Next Action      |
-|------------|--------|-----------|------------------|
-| 0 — Define | [emoji]| [count]   | [command]        |
-| 1 — Research| [emoji]| [count]  | [command]        |
-| 2 — Design | [emoji]| [count]   | [command]        |
-| 3 — Content| [emoji]| [count]   | [command]        |
-| 4 — Scaffold| [emoji]| [count]  | [command]        |
-| 5 — Build  | [emoji]| [count]   | [command]        |
-| 6 — Harden | [emoji]| [count]   | [command]        |
-| 7 — Ship   | [emoji]| [count]   | [command]        |
-
-### Open Tasks (from MASTER_TASKS.md if it exists)
-
-  🔄 [Task ID] [name] — Owner: [agent]
-  ❌ [Task ID] [name] — Blocked by: [blocker]
-
-### Full Plan Progress
-
-  Full plan [████████░░░░░░░░░░░░] R/S subphases with prompt artifacts
+If `docs/plans/MASTER_TASKS.md` exists, also show open task counts by phase and any blocked tasks with reason.
 
 ---
 
 ## /GUIDE explain — Zero Jargon Mode
 
-Translate everything to plain English:
-- No file paths
-- No gate names
-- No "hardlock", "SDD", "artifact", "subphase", "prompt artifact"
-- No internal tool references
+Rules:
+
+- No file paths (say “your requirements doc” not `docs/prd/PRD.md`)  
+- No gate names, hardlock, SDD, artifact, subphase, prompt artifact  
+- No agent names or internal routing  
+- No version numbers  
 
 Format:
-  Where you are:    [plain sentence — what stage of building you're in]
-  What's finished:  [bullet list, plain English, what has been decided/created]
-  What's next:      [plain sentence + exact command]
-  What's blocking:  [plain English description + exact fix command]
+
+```
+  Where you are:   [plain sentence]
+  What's done:     [bullet list]
+  What's next:     [one sentence + action]
+  What's blocking: [plain sentence + fix]
+```
 
 ---
 
-## Tone and Format Rules (all /GUIDE subcommands)
+## /GUIDE prompt — Generate Next Step Prompt
 
-- Decisive — never leave the user not knowing what to type next
-- When suggesting a prompt → write the FULL prompt, copy-ready, no placeholders
-- When suggesting a terminal command → write the FULL command in a fenced block
-- When suggesting a slash command → write it exactly as typed
-- Never show raw file paths in the main body (use collapsibles if detail needed)
-- Maximum 2 seconds to understand the most important thing on the page
-- Always end with Recommendation footer
+Read state → determine next step → emit a **self-contained** prompt the user can paste into any AI tool.
+
+The prompt must:
+
+- Have no placeholders — fill from state + PRD  
+- Include exact paths the AI should read/write  
+- State what good output looks like  
+- End with acceptance criteria  
+
+Use a **PROMPT** fenced block per workspace Response Style System.
+
+---
+
+## /GUIDE terminal — Generate Next Terminal Command
+
+Read state → output the exact next shell command in a **TERMINAL** fenced block per workspace Response Style System.  
+One sentence above the block explaining what it does.
+
+---
+
+## /GUIDE help
+
+```
+Usage: /GUIDE <subcommand>
+
+Subcommands:
+  status    → full pipeline status (default)
+  next      → one next action only
+  phase     → deep dive on active phase
+  full      → full health + phases table
+  explain   → plain English, no jargon
+  help      → this message
+  prompt    → paste-ready prompt for next step
+  terminal  → next shell command to run
+
+Examples:
+  /GUIDE
+  /GUIDE status
+  /GUIDE next
+```

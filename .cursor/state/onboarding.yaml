@@ -1,0 +1,28 @@
+# NEZAM Project State — managed by /start and gate checks
+# Do not edit manually. Use /start, /plan, /develop commands.
+
+# User mode — set during /start onboarding (Step 2, before PRD menu)
+user_mode: ""           # "solo" | "team"
+user_mode_set_at: ""
+
+# Tone preference derived from user_mode
+# solo  → friendly, plain language, opinionated defaults
+# team  → structured, governance-aware, full agent assignment
+tone: ""                # "friendly" | "structured"
+
+prd_locked: false
+prd_path: "docs/prd/PRD.md"
+prd_locked_at: ""
+
+design_locked: false
+design_profile: ""
+design_locked_at: ""
+
+planning_complete: false
+planning_completed_at: ""
+
+current_phase: 0
+
+build_mode: ""          # "sdd" | "lean" | "tdd" | "api-first" — set during /start Step 2.5
+build_mode_set_at: ""
+

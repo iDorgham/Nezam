@@ -30,11 +30,9 @@ function checkLegacyPathRefs() {
     path.join(repoRoot, ".cursor", "rules"),
   ];
   // No /g flag — global RegExp.test mutates lastIndex and can miss matches across files.
-  const badPatterns = [
-    /docs\/specs\//,
-    /docs\/prompts\//,
-    /docs\/context\//,
-  ];
+  // Block deprecated doc roots inside canonical `.cursor/` prose only.
+  // Note: `docs/specs/` is allowed — canonical SDD specs per `system/spec-writing` skill.
+  const badPatterns = [/docs\/prompts\//, /docs\/context\//];
 
   for (const root of canonicalRoots) {
     for (const file of walkFiles(root).filter((f) => /\.(md|mdc)$/.test(f))) {
@@ -96,20 +94,19 @@ function checkHandoffPacketFields() {
 }
 
 function resolvePlansSubphaseDir(specPath) {
-  const workspacePrefix = "docs/workspace/plans/";
-  const plansPrefix = "docs/plans/";
-  if (specPath.startsWith(workspacePrefix)) {
-    const rest = specPath.slice(workspacePrefix.length);
-    const parts = rest.split("/").filter(Boolean);
-    if (parts.length >= 2) {
-      return path.join(repoRoot, "docs", "workspace", "plans", parts[0], parts[1]);
-    }
-  }
-  if (specPath.startsWith(plansPrefix)) {
-    const rest = specPath.slice(plansPrefix.length);
-    const parts = rest.split("/").filter(Boolean);
-    if (parts.length >= 2) {
-      return path.join(repoRoot, "docs", "plans", parts[0], parts[1]);
+  // Support all known plans root locations (nezam governance + legacy paths).
+  const prefixMap = [
+    { prefix: "docs/nezam/plans/",     base: path.join(repoRoot, "docs", "nezam", "plans") },
+    { prefix: "docs/workspace/plans/", base: path.join(repoRoot, "docs", "workspace", "plans") },
+    { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
+  ];
+  for (const { prefix, base } of prefixMap) {
+    if (specPath.startsWith(prefix)) {
+      const rest = specPath.slice(prefix.length);
+      const parts = rest.split("/").filter(Boolean);
+      if (parts.length >= 2) {
+        return path.join(base, parts[0], parts[1]);
+      }
     }
   }
   return null;
@@ -135,13 +132,14 @@ function parseActiveSubphaseDirsFromIndex(indexPath) {
 
 function checkActiveSubphaseArtifacts() {
   const indexCandidates = [
+    path.join(repoRoot, "docs", "nezam", "plans", "INDEX.md"),
     path.join(repoRoot, "docs", "plans", "INDEX.md"),
     path.join(repoRoot, "docs", "workspace", "plans", "INDEX.md"),
   ];
   const indexPath = indexCandidates.find((p) => fs.existsSync(p));
   if (!indexPath) {
     failures.push(
-      "Missing plan index (expected docs/plans/INDEX.md or docs/workspace/plans/INDEX.md)"
+      "Missing plan index (expected docs/nezam/plans/INDEX.md)"
     );
     return;
   }

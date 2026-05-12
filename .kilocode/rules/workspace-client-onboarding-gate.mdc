@@ -6,6 +6,24 @@ globs: workspaces/clients/**/*
 alwaysApply: false
 ---
 
+## Global Hardlock Gate (reads .cursor/state/onboarding.yaml)
+
+Before any /plan subcommand:
+  1. Read .cursor/state/onboarding.yaml
+  2. If prd_locked is false → block /plan → redirect to /start
+  3. If design_locked is false → block /plan → redirect to /start, tell user to pick design profile
+
+Before any /develop subcommand:
+  1. Read .cursor/state/onboarding.yaml
+  2. If planning_complete is false → block /develop → read plan_progress.yaml → show which plan phases are incomplete
+  3. Read .cursor/state/develop_phases.yaml
+  4. Identify the current active phase (status: unlocked)
+  5. If user is attempting work in a phase that is locked → show lock message → stop
+
+Before /deploy:
+  1. develop_phases.phase_5.status must be "complete"
+  2. If not → block → redirect to complete Phase 5 (Hardening)
+
 # Client workspace onboarding gate
 
 When any open or referenced file path is under **`workspaces/clients/`**:

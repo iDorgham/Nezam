@@ -1,0 +1,57 @@
+# /develop phase state — managed by /develop command
+# Phases unlock sequentially. Do not manually edit.
+
+phases:
+  phase_1:
+    name: "Foundation"
+    description: "Core architecture, auth, database schema, base UI"
+    status: "unlocked"          # unlocked | in_progress | testing | complete | locked
+    testing_passed: false
+    unlocked_at: ""
+    completed_at: ""
+
+  phase_2:
+    name: "Core Features"
+    description: "Primary user-facing features from MASTER_TASKS.md"
+    status: "locked"
+    testing_passed: false
+    depends_on: "phase_1"
+    unlocked_at: ""
+    completed_at: ""
+
+  phase_3:
+    name: "Secondary Features"
+    description: "Supporting features, integrations, admin"
+    status: "locked"
+    testing_passed: false
+    depends_on: "phase_2"
+    unlocked_at: ""
+    completed_at: ""
+
+  phase_4:
+    name: "Polish & Optimization"
+    description: "Performance, a11y, SEO, UX refinement"
+    status: "locked"
+    testing_passed: false
+    depends_on: "phase_3"
+    unlocked_at: ""
+    completed_at: ""
+
+  phase_5:
+    name: "Hardening"
+    description: "Security audit, load testing, monitoring, edge cases"
+    status: "locked"
+    testing_passed: false
+    depends_on: "phase_4"
+    unlocked_at: ""
+    completed_at: ""
+
+  phase_6:
+    name: "Ship"
+    description: "Staging deploy, QA sign-off, production release"
+    status: "locked"
+    testing_passed: false
+    depends_on: "phase_5"
+    unlocked_at: ""
+    completed_at: ""
+

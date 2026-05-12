@@ -1,0 +1,80 @@
+# NEZAM State Schema — plan_progress.yaml
+# schema_version: 1.0.0
+# Used by: sdd-gate-validator (Pre-Gate validation), /check repair
+
+schema_version: "1.0.0"
+
+# Default values (used by /check repair when state is corrupt or missing)
+defaults:
+  seo: false
+  ia: false
+  content: false
+  arch: false
+  design_wireframes: false
+  scaffold: false
+  planning_complete: false
+
+# Field definitions
+fields:
+  seo:
+    type: boolean
+    required: true
+    artifact: "docs/plans/01-research/SEO_RESEARCH.md"
+    description: "SEO research phase complete"
+
+  ia:
+    type: boolean
+    required: true
+    artifact: "docs/plans/02-ia/IA_CONTENT.md"
+    description: "Information architecture phase complete"
+
+  content:
+    type: boolean
+    required: true
+    artifact: "docs/plans/03-content/CONTENT_MAP.md"
+    description: "Content mapping phase complete"
+
+  arch:
+    type: boolean
+    required: true
+    artifact: "docs/plans/04-arch/ARCHITECTURE.md"
+    description: "Architecture phase complete"
+
+  design_wireframes:
+    type: boolean
+    required: true
+    artifacts:
+      - "docs/plans/04-design/DESIGN_CHOICES.yaml OR docs/plans/04-design/DESIGN_CHOICES.md"
+      - "docs/plans/04-design/WIREFRAMES.md"
+    description: "Design choices and wireframes complete"
+
+  scaffold:
+    type: boolean
+    required: true
+    artifacts:
+      - "docs/plans/scaffold/PROJECT_SCAFFOLD.md"
+      - "scripts/scaffold.sh"
+    description: "Project scaffold plan and script complete"
+
+  planning_complete:
+    type: boolean
+    required: true
+    description: "Master flag — true only when all 6 phase flags above are true"
+
+# Validation rules
+rules:
+  - id: R1
+    description: "planning_complete must match all 6 phase flags"
+    check: "planning_complete == (seo AND ia AND content AND arch AND design_wireframes AND scaffold)"
+    auto_repair: true
+    repair_logic: "Set planning_complete to the logical AND of all 6 flags"
+
+  - id: R2
+    description: "No flag can be true if a required prerequisite flag is false"
+    check: |
+      content requires seo == true;
+      arch requires ia == true;
+      design_wireframes requires arch == true;
+      scaffold requires design_wireframes == true
+    auto_repair: false
+    on_violation: "warn — out-of-order completion detected; surface to user"

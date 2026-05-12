@@ -17,7 +17,7 @@ Transform wireframes or textual page drafts into explicit component contracts de
 ## Output artifacts
 
 Create or update:
-- `docs/core/required/sdd/WIREFRAMES.md`
+- `docs/plans/04-design/WIREFRAMES.md`
 - `docs/workspace/templates/ui-ux/COMPONENT_BLUEPRINT.md` (for reusable API patterns)
 
 For each screen/section include:

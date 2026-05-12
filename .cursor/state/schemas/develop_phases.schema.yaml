@@ -1,0 +1,87 @@
+# NEZAM State Schema — develop_phases.yaml
+# schema_version: 1.0.0
+# Used by: sdd-gate-validator (Pre-Gate validation), /check repair
+
+schema_version: "1.0.0"
+
+# Phase names (for reference)
+phase_names:
+  phase_1: "Foundation"
+  phase_2: "Core Features"
+  phase_3: "Integration"
+  phase_4: "Content & Localization"
+  phase_5: "Hardening"
+  phase_6: "Ship"
+
+# Default values for a single phase (applied to all phases on repair)
+phase_defaults:
+  status: "locked"
+  testing_passed: false
+  depends_on: null
+  unlocked_at: ""
+  completed_at: ""
+
+# Phase 1 default (always starts unlocked if planning_complete == true)
+phase_1_default:
+  status: "unlocked"
+  testing_passed: false
+  depends_on: null
+  unlocked_at: ""
+  completed_at: ""
+
+# Field definitions per phase
+phase_fields:
+  status:
+    type: string
+    allowed: ["locked", "unlocked", "in_progress", "complete"]
+    required: true
+
+  testing_passed:
+    type: boolean
+    required: true
+
+  depends_on:
+    type: string_or_null
+    allowed: [null, "phase_1", "phase_2", "phase_3", "phase_4", "phase_5"]
+    required: false
+
+  unlocked_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+  completed_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+# Validation rules
+rules:
+  - id: R1
+    description: "phase N+1 cannot be unlocked or in_progress if phase N is not complete"
+    check: |
+      phase_2.status in [unlocked, in_progress, complete] requires phase_1.status == complete;
+      phase_3.status in [unlocked, in_progress, complete] requires phase_2.status == complete;
+      phase_4.status in [unlocked, in_progress, complete] requires phase_3.status == complete;
+      phase_5.status in [unlocked, in_progress, complete] requires phase_4.status == complete;
+      phase_6.status in [unlocked, in_progress, complete] requires phase_5.status == complete
+    auto_repair: false
+    on_violation: "ERROR — phase sequence violation; surface to user and block gate crossing"
+
+  - id: R2
+    description: "status cannot be complete if testing_passed is false"
+    check: "for each phase: status == complete requires testing_passed == true"
+    auto_repair: false
+    on_violation: "warn — phase marked complete without testing_passed; surface to user"
+
+  - id: R3
+    description: "completed_at must be set when status transitions to complete"
+    check: "status == complete requires completed_at != ''"
+    auto_repair: true
+    repair_logic: "Set completed_at to current timestamp"
+
+  - id: R4
+    description: "unlocked_at must be set when status is unlocked, in_progress, or complete"
+    check: "status in [unlocked, in_progress, complete] requires unlocked_at != ''"
+    auto_repair: true
+    repair_logic: "Set unlocked_at to current timestamp"

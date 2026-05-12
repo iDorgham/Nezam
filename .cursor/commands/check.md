@@ -6,6 +6,13 @@ owner: PM-01
 
 /CHECK — Agent output quality scorer and drift detector
 
+## Path resolution
+
+Read `.cursor/workspace.paths.yaml` before any gate path check:
+- `project.prd` → default `docs/prd/PRD.md`
+- `project.plans_root` → default `docs/plans`
+- `project.reports_root` → default `docs/reports`
+
 Subcommands:
   /CHECK output      → Score the last agent output: correctness, scope, quality, slop
   /CHECK spec <slug> → Verify a SPEC.md is complete, versioned, and approved
@@ -14,6 +21,8 @@ Subcommands:
   /CHECK drift       → Detect drift between .cursor canonical and generated mirrors
   /CHECK swarm       → Show current swarm health: active agents, pending handoffs, blockers
   /CHECK all         → Run complete quality check: output + spec + gates + drift + swarm
+  /CHECK score       → Show point-breakdown health score across 6 dimensions (reads state files + reports)
+  /CHECK repair      → Validate state files against schemas; restore defaults for corrupt/missing files
 
 Aliases: /CHECK → defaults to /CHECK output | /CHECK q → /CHECK output
 
@@ -66,7 +75,7 @@ On fail: route to `/FIX` automatically with the specific issue list.
 Check a SPEC.md for completeness and version compliance.
 
 Steps:
-1. Load `docs/plans/<active-phase>/<feature-slug>/SPEC.md`.
+1. Load `{plans_root}/<active-phase>/<feature-slug>/SPEC.md`.
 2. Verify presence of: `spec_id`, `spec_version`, `status`, `owner_agent`, `built_at_version` (if status: built).
 3. Verify acceptance criteria are non-empty and specific (not "it should work").
 4. Verify all states are defined: loading, empty, error, success.
@@ -102,10 +111,51 @@ Order:
 3. `pnpm ai:check` — Sync drift check
 4. Check `DESIGN.md` non-template
 5. Check `GITHUB_GATE_MATRIX.json` exists
-6. Check `PRD.md` non-template
+6. Check `{prd_path}` non-template
 7. Check active subphase has `prompt.json` + `PROMPT.md`
 
 Output: gate-by-gate ✅/❌ plus overall pass/fail.
+
+---
+
+## /CHECK gates — Updated Gate Check Order
+
+Before running gate checks, read:
+
+1. `.cursor/state/onboarding.yaml`
+2. `.cursor/state/plan_progress.yaml`
+3. `.cursor/state/develop_phases.yaml`
+
+Run checks in this order using the `sdd-gate-validator` skill:
+
+**Gate 0 (Onboarding → Planning):**
+
+- PRD exists and non-template
+- `DESIGN.md` exists and non-template
+- `onboarding.yaml`: `prd_locked: true` AND `design_locked: true`
+
+**Gate 1 (Planning → Development):**
+
+- All `plan_progress` flags are true
+- All 6 planning artifacts exist at expected paths
+
+**Gate N (Phase N → Phase N+1):**
+
+- All `MASTER_TASKS.md` tasks for phase N are done
+- `/check output` passes (≥70%)
+- Test report exists for phase N
+- No TODOs in phase N files
+- No hardcoded design values
+- WCAG 2.2 AA passes
+
+**Gate 5 (Hardening → Ship):**
+
+- Security audit passes
+- Lighthouse: LCP <2.5s, CLS <0.1, INP <200ms
+- A11y audit passes WCAG 2.2 AA
+- Test coverage ≥80% on critical paths
+
+Show results using validator output format from `sdd-gate-validator` skill.
 
 ---
 
@@ -146,4 +196,70 @@ Open blockers:   [list or "none"]
 → /CHECK output to score last output
 → /CHECK spec [slug] to verify active spec
 → /GUIDE next for recommended next action
+```
+
+---
+
+## /CHECK score
+
+Run the full project health score using the `health-score` SKILL.md point-breakdown system.
+Reads all state files and report files. Writes/updates `HEALTH.md` at repo root.
+
+Dimensions scored (0–100 each):
+1. Spec Completeness — PRD, plan flags, build_mode
+2. Design Contract — DESIGN.md, design_locked, DESIGN_CHOICES, WIREFRAMES
+3. Security Posture — SECURITY_AUDIT.md presence and pass status
+4. Performance Budget — LIGHTHOUSE_REPORT.md, LCP/CLS/INP values
+5. Test Coverage — coverage reports, testing_passed flags per phase
+6. Content Quality — SEO/IA/Content artifacts, A11Y audit
+
+Output format:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project Health Score — [timestamp]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Overall: 72/100 ⚠️
+
+  Spec Completeness   85/100  Good        ✅
+  Design Contract     90/100  Good        ✅
+  Security Posture    40/100  Missing     ❌  → Run security audit
+  Performance Budget  70/100  Warning     ⚠️  → Add Lighthouse report
+  Test Coverage       65/100  Warning     ⚠️  → Reach 80% coverage
+  Content Quality     80/100  Good        ✅
+
+  To improve: Run security audit → docs/reports/security/SECURITY_AUDIT.md
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  📄 Full report written to: HEALTH.md
+```
+
+---
+
+## /CHECK repair
+
+Validate all state files against their schemas. Restore corrupt or missing files to schema defaults.
+Uses schemas from `.cursor/state/schemas/`.
+
+Repair procedure:
+1. Try to parse each state file (onboarding.yaml, plan_progress.yaml, develop_phases.yaml)
+2. For each file:
+   - If parseable: validate against schema (types, allowed values, rules)
+   - If auto-repairable violation: fix in-place and log the change
+   - If non-auto-repairable: surface to user with exact field and issue
+3. If unparseable (corrupt YAML):
+   - Back up as `<filename>.bak`
+   - Restore from schema defaults (all flags false, all strings "")
+   - Warn: "State file was reset. Your progress indicators were lost. Verify before proceeding."
+
+Output:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  /CHECK repair — State File Validation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  onboarding.yaml       ✅ Valid
+  plan_progress.yaml    ⚠️  planning_complete mismatch → auto-repaired
+  develop_phases.yaml   ✅ Valid
+
+  1 issue auto-repaired. 0 issues require manual fix.
+  → Run /CHECK gates to verify gate status after repair.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

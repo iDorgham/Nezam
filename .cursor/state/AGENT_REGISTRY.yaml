@@ -1,7 +1,10 @@
 ---
 created: 2026-05-10
 version: 1.0.0
+nezam_version: "3.0.0"
 owner: PM-01
+last_sync: ""
+certified_agents: []
 ---
 
 registry:
@@ -79,6 +82,7 @@ registry:
       tier: manager
       swarm: backend
       summary: API contract and business logic governance.
+      backing_skill: backend/api-contract
     - name: app-security-manager
       tier: manager
       swarm: security
@@ -107,6 +111,7 @@ registry:
       tier: manager
       swarm: backend
       summary: Backend architecture and execution lead.
+      backing_skill: backend/queue-architecture
     - name: billing-platform
       tier: specialist
       swarm: saas
@@ -199,6 +204,7 @@ registry:
       tier: specialist
       swarm: devops
       summary: Container and orchestration platform specialist.
+      backing_skill: backend/container-orchestration
     - name: docs-hygiene
       tier: specialist
       swarm: governance
@@ -227,14 +233,17 @@ registry:
       tier: manager
       swarm: frontend
       summary: Frontend framework standards and architecture.
+      backing_skill: frontend/nextjs-patterns
     - name: frontend-lead
       tier: manager
       swarm: frontend
       summary: Frontend implementation quality and slicing.
+      backing_skill: frontend/state-management
     - name: frontend-performance-manager
       tier: manager
       swarm: frontend
       summary: Core Web Vitals and runtime performance owner.
+      backing_skill: frontend/performance-budget
     - name: gitops-engineer
       tier: specialist
       swarm: devops
@@ -319,6 +328,7 @@ registry:
       tier: lead
       swarm: qa
       summary: QA strategy and release-readiness authority.
+      backing_skill: frontend/component-testing
     - name: lead-security-officer
       tier: lead
       swarm: security
@@ -415,6 +425,7 @@ registry:
       tier: specialist
       swarm: backend
       summary: Realtime and streaming architecture specialist.
+      backing_skill: backend/realtime-streaming
     - name: refactoring-specialist
       tier: specialist
       swarm: maintenance
@@ -431,6 +442,7 @@ registry:
       tier: specialist
       swarm: design
       summary: RTL parity and bidirectional interaction specialist.
+      backing_skill: frontend/rtl-layout
     - name: saas-platform-manager
       tier: manager
       swarm: cms-saas
@@ -463,6 +475,7 @@ registry:
       tier: specialist
       swarm: architecture
       summary: Structured specification authoring and updates.
+      backing_skill: system/spec-writing
     - name: sql-expert
       tier: specialist
       swarm: data-db
@@ -515,6 +528,7 @@ registry:
       tier: specialist
       swarm: data-db
       summary: Vector indexing and retrieval specialist.
+      backing_skill: backend/vector-search
     - name: visual-design-manager
       tier: manager
       swarm: design

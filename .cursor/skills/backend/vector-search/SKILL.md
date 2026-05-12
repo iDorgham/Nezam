@@ -1,0 +1,66 @@
+---
+skill_id: backend/vector-search
+name: vector-search
+description: Embeddings, pgvector vs Pinecone vs Weaviate, chunking, hybrid BM25+vector, rerank, Arabic embeddings and tokenization.
+version: 1.0.0
+updated: 2026-05-12
+changelog: []
+owner: vector-store-specialist
+tier: 3
+sdd_phase: Development
+rtl_aware: true
+certified: false
+dependencies: []
+---
+
+# Vector search (backend/vector-search)
+
+## Purpose
+
+Implement **semantic retrieval**: **embedding model** selection (OpenAI, Cohere, local), **pgvector** vs **Pinecone** vs **Weaviate** trade-offs, **chunking**, **metadata filtering**, **hybrid search** (BM25 + vector), **re-ranking**, and **Arabic** text embedding challenges (dialect, morphology, **RTL tokenization**).
+
+## Trigger Conditions
+
+- RAG, support deflection, catalog search, or duplicate detection requires semantic similarity.
+- Keyword-only search misses paraphrases or multilingual queries.
+
+## Prerequisites
+
+- Document corpus characteristics (language mix, PII, update frequency).
+- Latency and cost envelope (queries per second, index size).
+- Privacy: data residency and whether embeddings may leave VPC.
+
+## Procedure
+
+1. **Embedding model**
+   - Match model to languages in corpus; for **MSA + dialect Arabic**, prefer multilingual or Arabic-tuned models; benchmark nDCG@k on a labeled set.
+   - Document dimensions, max tokens, and batching for ingest pipelines.
+2. **Store selection**
+   - **pgvector**: tight Postgres coupling, transactional consistency, simpler ops for small/medium indexes.
+   - **Pinecone / Weaviate**: managed scale, hybrid filters, multi-region; weigh cost and egress.
+3. **Chunking**
+   - Chunk by semantic boundaries (headings, slides) not arbitrary character cuts; overlap strategy for continuity.
+4. **Metadata filtering**
+   - Pre-filter on tenant, locale, `rtl` content flag, doc ACL before vector scoring.
+5. **Hybrid search**
+   - Combine BM25 (or tsvector) with vector score; calibrate weights per collection; log failed queries for tuning.
+6. **Re-ranking**
+   - Cross-encoder or lightweight reranker on top-k; cap latency budget.
+7. **Arabic / RTL**
+   - Normalize Unicode; consider **dediacritization** for matching vs preserving tashkeel for Quranic/edu content per product policy.
+   - Tokenization: verify tokenizer behavior on Arabic; avoid splitting ligatures incorrectly in chunk boundaries.
+
+## Output Artifacts
+
+- Index schema, embedding pipeline diagram, and evaluation table in `docs/specs/` or data architecture appendix.
+
+## Validation Checklist
+
+- [ ] Retrieval quality measured on Arabic + Latin queries if product is bilingual
+- [ ] Access control enforced on every query path (no IDOR via vector IDs)
+- [ ] Reindex and rollback strategy documented
+
+## Handoff Target
+
+- `lead-database-architect` for pgvector capacity and backup.
+- `search-cache-manager` when hybrid search spans cache + vector tiers.

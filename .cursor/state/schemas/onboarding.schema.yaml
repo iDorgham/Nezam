@@ -1,0 +1,124 @@
+# NEZAM State Schema — onboarding.yaml
+# schema_version: 1.0.0
+# Used by: sdd-gate-validator (Pre-Gate validation), /check repair
+
+schema_version: "1.0.0"
+
+# Default values (used by /check repair when state is corrupt or missing)
+defaults:
+  user_mode: ""
+  user_mode_set_at: ""
+  tone: ""
+  prd_locked: false
+  prd_path: "docs/prd/PRD.md"
+  prd_locked_at: ""
+  design_locked: false
+  design_profile: ""
+  design_locked_at: ""
+  planning_complete: false
+  planning_completed_at: ""
+  current_phase: 0
+  build_mode: ""
+  build_mode_set_at: ""
+
+# Field definitions with allowed values and types
+fields:
+  user_mode:
+    type: string
+    allowed: ["", "solo", "team"]
+    required: false
+
+  user_mode_set_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+  tone:
+    type: string
+    allowed: ["", "friendly", "structured"]
+    required: false
+    derived_from: user_mode
+    derivation:
+      solo: friendly
+      team: structured
+
+  prd_locked:
+    type: boolean
+    required: true
+
+  prd_path:
+    type: string
+    default: "docs/prd/PRD.md"
+    required: true
+    note: "Canonical path. Legacy: docs/core/required/PRD.md is INVALID."
+
+  prd_locked_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+  design_locked:
+    type: boolean
+    required: true
+
+  design_profile:
+    type: string
+    required: false
+    note: "Matches a key from .cursor/design/<profile>/design.md"
+
+  design_locked_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+  planning_complete:
+    type: boolean
+    required: true
+
+  planning_completed_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+  current_phase:
+    type: integer
+    min: 0
+    max: 6
+    required: true
+
+  build_mode:
+    type: string
+    allowed: ["", "sdd", "lean", "tdd", "api-first"]
+    default: ""
+    required: false
+    note: "sdd = default full pipeline; lean = phases 1+2 merged; tdd = test-first gates; api-first = reversed pipeline"
+
+  build_mode_set_at:
+    type: string
+    format: "YYYY-MM-DDTHH:MM:SS"
+    required: false
+
+# Validation rules
+rules:
+  - id: R1
+    description: "tone must be consistent with user_mode"
+    check: "if user_mode == 'solo' then tone must be 'friendly'; if user_mode == 'team' then tone must be 'structured'"
+    auto_repair: true
+
+  - id: R2
+    description: "design_locked cannot be true if prd_locked is false"
+    check: "design_locked == true requires prd_locked == true"
+    auto_repair: false
+    on_violation: "warn — do not auto-repair, surface to user"
+
+  - id: R3
+    description: "planning_complete cannot be true if design_locked is false"
+    check: "planning_complete == true requires design_locked == true"
+    auto_repair: false
+    on_violation: "warn — do not auto-repair, surface to user"
+
+  - id: R4
+    description: "prd_path must not reference docs/core/required/"
+    check: "prd_path does not contain 'docs/core/required'"
+    auto_repair: true
+    repair_value: "docs/prd/PRD.md"

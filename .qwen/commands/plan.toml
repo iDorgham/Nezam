@@ -4,6 +4,15 @@ description = "plan"
 prompt = """
 /PLAN — Specification-driven planning across all product dimensions
 
+## Path resolution
+
+Before any file operation, read `.cursor/workspace.paths.yaml`:
+- `project.prd` → default `docs/prd/PRD.md`
+- `project.plans_root` → default `docs/plans`
+
+All PRD and plans path references below use these resolved values.
+To change paths: `/nezam paths set project.prd <path>`.
+
 Subcommands (in recommended execution order):
   /PLAN idea        → Idea Workshop: 3-mode entry — describe / upload PRD / live interview + brainstorm
   /PLAN seo         → Keyword research, search intent mapping, slug rules → SEO_RESEARCH.md
@@ -21,8 +30,24 @@ Subcommands (in recommended execution order):
 
 Aliases: /PLAN menus → /PLAN ia | /PLAN copy → /PLAN content | /PLAN spec → /PLAN arch
 
-Hard block: PRD.md must exist and be non-template before any subcommand EXCEPT /PLAN idea runs.
-PRD missing → redirect to /PLAN idea
+Hard block:
+  /plan (any subcommand) requires ALL of:
+  1. docs/prd/PRD.md exists and is not a blank template
+     (check: file has >10 non-comment lines)
+  2. DESIGN.md exists at repo root and is not a blank template
+  3. .cursor/state/onboarding.yaml has prd_locked: true AND design_locked: true
+
+If any check fails:
+  → Read .cursor/state/onboarding.yaml to detect which step missing
+  → Tell user exactly which step is missing and how to fix it
+  → Do NOT run any /plan subcommand
+  → Redirect to /start
+
+Example gate failure message:
+  ❌ /plan is locked.
+     PRD is complete but DESIGN.md is missing.
+     → Run /start and choose a design profile to unlock /plan.
+
 Recommendation footer: required
 
 ---
@@ -55,7 +80,7 @@ User types a description. Agent responds with:
    - Technical shortcut that reduces build time significantly
    - Viral or growth mechanic
 3. **3 Clarifying Questions** (exactly 3, targeted, not generic)
-4. After answers → generate PRD → save to `docs/core/required/PRD.md`
+4. After answers → generate PRD → save to `{prd_path}`
 5. Show PRD summary card → ask: "Does this match your vision? Type YES to lock or tell me what to change."
 
 ---
@@ -68,7 +93,7 @@ User pastes existing PRD, brief, or notes. Agent:
 2. Identifies GAPS — flags missing sections:
    `⚠️ Missing: [section] — needed for [reason]`
 3. Asks user to fill gaps OR offers to auto-fill based on context clues
-4. Merges into standard PRD format → saves to `docs/core/required/PRD.md`
+4. Merges into standard PRD format → saves to `{prd_path}`
 5. Shows summary card → confirms lock
 
 ---
@@ -124,7 +149,7 @@ After user responds → PRD generated → saved → lock ceremony shown.
 ### PRD Lock Ceremony (all modes)
 
 ```
-✅ PRD locked: docs/core/required/PRD.md
+✅ PRD locked: {prd_path}
 
 Product:      [name]
 Type:         [Web App / SaaS / Mobile App / Website / API]
@@ -194,35 +219,216 @@ Runs after IA is complete. Generates DESIGN.md covering:
 - Component inventory (derived from IA page list)
 - Brand direction (minimal / editorial / bold / technical)
 
-### /PLAN design wireframes (interactive)
-User-controlled design selection. Runs `design-selector` skill.
+### /PLAN design wireframes — High-Fidelity ASCII Wireframe System
 
-**Behavior:**
-1. Reads PRD.md to detect product type (website / webapp / saas / mobile)
-2. Presents wireframe options ONE ELEMENT AT A TIME — never all at once
-3. Each element shows ASCII wireframe previews with labels and best-for notes
-4. User picks a number → choice recorded → next element shown
-5. After all elements: confirmation summary shown
-6. Type YES → writes `DESIGN_CHOICES.md` → generates `DESIGN.md` from choices
-7. Type `CHANGE [element]` → revise that element only
+Activated by: `/plan design wireframes`
+Hard block: IA_CONTENT.md must exist (has list of pages/screens)
 
-**Element sequence by product type:**
+**Philosophy:**
+Every wireframe must be a precise spatial contract — not a sketch. 
+It defines layout, hierarchy, spacing rhythm, component slots, 
+interaction states, and content areas. It is the bridge between 
+IA and implementation. Developers should be able to implement from 
+wireframes alone without guessing anything.
 
-| Website | Webapp / SaaS | Mobile |
-|---|---|---|
-| 1. Header / Nav | 1. App Navigation | 1. Navigation Pattern |
-| 2. Portfolio Grid | 2. Dashboard Layout | 2. Home Screen |
-| 3. Project Page | 3. Data Table/List | 3. Detail Screen |
-| 4. Footer | 4. Empty State | 4. Onboarding Flow |
-| 5. Contact Page | | |
+#### Wireframe Quality Standards
 
-**Output files:**
-- `docs/plans/04-design/DESIGN_CHOICES.md` — locked YAML of all selections
-- `docs/plans/04-design/DESIGN.md` — full design contract generated from choices
+Each wireframe MUST include:
+1. **Exact grid structure** — column count, sidebar widths, content zones
+2. **Component slots** — every UI component labeled with its name and variant
+3. **Content hierarchy** — H1/H2/body/caption zones clearly marked
+4. **Interactive states** — default, hover, active, empty, loading, error
+5. **Spacing annotations** — gap sizes labeled (sm/md/lg using token names)
+6. **Navigation context** — where this screen sits in the user journey
+7. **Responsive breakpoints** — show mobile and desktop versions
+8. **Accessibility notes** — tab order, focus zones, landmark roles
 
-**Hard rule:** DESIGN.md generated this way cannot be manually overridden without re-running `/PLAN design wireframes`. Edit the choices, regenerate the doc.
+#### Wireframe Format (use this exact structure)
 
-**Gate:** Both files must exist before `/PLAN scaffold` can run.
+```
+┌─────────────────────────────────────────────────────────────┐
+│  SCREEN: [Screen Name]     ID: [screen_id]                  │
+│  Journey: [where in user flow]    Type: [page type]         │
+│  Breakpoint: [Desktop 1440px / Mobile 390px]                │
+└─────────────────────────────────────────────────────────────┘
+
+DESKTOP LAYOUT — 12-column grid, 1440px
+┌──────────────────────────────────────────────────────────────┐
+│ [NAV] ← Logo [3col]  Navigation [6col]   CTA + Avatar [3col] │
+│  gap: lg between nav items                                    │
+└──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                    [HERO SECTION]                             │
+│  ┌─────────────────────────┐  ┌────────────────────────┐    │
+│  │  Heading H1             │  │  [Image / Illustration] │    │
+│  │  Subheading / tagline   │  │   ratio: 16:9           │    │
+│  │  ──────────────────     │  │                        │    │
+│  │  [Primary CTA Button]   │  │                        │    │
+│  │  [Secondary Link]       │  │   State: default        │    │
+│  └─────────────────────────┘  └────────────────────────┘    │
+│  Content zone: 7col           Image zone: 5col               │
+│  padding: xl top/bottom, container max-width: 1280px         │
+└──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                [FEATURES GRID]                                │
+│  Title H2 — centered, max-width 600px                        │
+│  Subtitle — centered, color: muted                           │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐                   │
+│  │ [Icon]   │  │ [Icon]   │  │ [Icon]   │                   │
+│  │ Title    │  │ Title    │  │ Title    │                   │
+│  │ Body text│  │ Body text│  │ Body text│                   │
+│  └──────────┘  └──────────┘  └──────────┘                   │
+│  3-col grid, gap: lg, card padding: md                       │
+│  States: hover → card elevation-2, border-color: primary     │
+└──────────────────────────────────────────────────────────────┘
+
+MOBILE LAYOUT — 4-column grid, 390px
+[Show mobile stack — components in single column, nav → hamburger]
+
+STATES TO SHOW:
+  Default:  [as above]
+  Loading:  [skeleton placeholders in same layout]
+  Empty:    [empty state component + prompt]
+  Error:    [error banner + retry action]
+
+COMPONENT INVENTORY:
+  • NavBar (variant: transparent-on-scroll)
+  • HeroSection (variant: split-image)
+  • FeatureCard (variant: icon-top, hover: elevated)
+  • CTAButton (variant: primary, size: lg)
+  • CTAButton (variant: ghost, size: lg)
+
+ACCESSIBILITY:
+  Tab order:   Logo → Nav items → CTA → Hero CTA → Feature cards
+  Landmarks:   <header>, <main>, <section aria-label="Features">
+  Focus rings: visible, 2px offset, color: primary-500
+  Screen reader: hero image has descriptive alt text
+```
+
+#### Element Selection Flow
+
+Present wireframes ONE ELEMENT AT A TIME. For each:
+1. Show the wireframe preview above
+2. Show 3 variant options labeled A/B/C
+3. Wait for user to pick
+4. Confirm pick → show next element
+
+**Element sequence (adapt by product type):**
+
+| # | Website | Webapp/SaaS | Mobile |
+|---|---------|-------------|--------|
+| 1 | Navigation / Header | App Shell + Navigation | Bottom Nav / Tab Bar |
+| 2 | Hero / Above-fold | Dashboard Layout | Home Screen |
+| 3 | Feature/Content Grid | Data Table or Card List | List / Feed Screen |
+| 4 | Pricing / CTA Section | Detail / Edit View | Detail Screen |
+| 5 | Social Proof / Testimonials | Empty States | Onboarding Flow |
+| 6 | Footer | Settings Page | Profile Screen |
+
+For Webapp/SaaS also add:
+- Sidebar navigation (collapsible vs. persistent)
+- Modal / Drawer pattern
+- Notification system (toast / banner / badge)
+- Form layout (single column vs. multi-step)
+
+#### After All Elements Selected
+
+Generate:
+
+**1. `docs/plans/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
+```yaml
+wireframe_selections:
+  navigation:
+    variant: "A"
+    description: "Sticky top nav with transparent scroll"
+    components: ["Logo", "NavLinks", "CTAButton", "MobileHamburger"]
+  hero:
+    variant: "B"
+    description: "Split layout — text left, visual right"
+    components: ["Heading", "Subheading", "CTAPrimary", "CTASecondary", "HeroImage"]
+  # ... etc for each element
+```
+
+**2. Updated `DESIGN.md`** — full design contract including:
+- All tokens with values (not just names)
+- Component specifications for every selected component
+- Layout grid documentation
+- Animation/motion spec (duration, easing, reduced-motion alternatives)
+- Dark mode token overrides
+- Each screen mapped to its wireframe selection
+
+**3. `docs/plans/04-design/WIREFRAMES.md`** — complete wireframe doc:
+- All screens with full ASCII wireframes as shown above
+- Every screen_id mapped to its page from IA_CONTENT.md
+- States documented (default, hover, loading, empty, error)
+- Accessibility notes per screen
+- Component inventory per screen
+
+Show all three outputs in chat → ask: "Does this match what you want? Type YES to lock or tell me what to change."
+
+On YES:
+- set `design_wireframes: true` in `.cursor/state/plan_progress.yaml`
+
+---
+
+## Planning Completion Gate (duplicate; see bottom section)
+
+While /plan is active, /develop is HARDLOCKED.
+
+The planning pipeline must complete ALL of these phases in order:
+1. /plan seo        → SEO_RESEARCH.md
+2. /plan ia         → IA_CONTENT.md  
+3. /plan content    → CONTENT_MAP.md
+4. /plan arch       → ARCHITECTURE.md
+5. /plan design wireframes → DESIGN_CHOICES.md + updated DESIGN.md
+6. /plan scaffold   → PROJECT_SCAFFOLD.md + scripts/scaffold.sh
+
+State is tracked in `.cursor/state/plan_progress.yaml`:
+
+```yaml
+seo: false
+ia: false
+content: false
+arch: false
+design_wireframes: false
+scaffold: false
+planning_complete: false
+```
+
+After each phase completes, set its flag to true.
+When ALL flags are true, set planning_complete: true.
+
+When planning_complete becomes true, show:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  PLANNING COMPLETE
+
+✅  SEO Research      → docs/plans/01-research/SEO_RESEARCH.md
+✅  Info Architecture → docs/plans/02-ia/IA_CONTENT.md
+✅  Content Map       → docs/plans/03-content/CONTENT_MAP.md
+✅  Architecture      → docs/plans/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → docs/plans/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → docs/plans/scaffold/PROJECT_SCAFFOLD.md
+
+🔓  /develop  → UNLOCKED — ready to use
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Run /develop start to begin Phase 1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**DURING PLANNING: if user tries to run /develop:**
+Show this message:
+```
+🔒  /develop is locked during planning.
+
+Planning is still in progress. Complete all plan phases first:
+[show current plan_progress.yaml status with ✅/⏳ per phase]
+
+Continue with: /plan [next incomplete phase]
+```
+
+Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 
 ---
 
@@ -253,4 +459,66 @@ When `/Settings ai-tools off <tool>` is executed:
 4. For `security: true` tasks, if no valid primary lane exists, mark blocked with
    `SECURITY_TOOL_INACTIVE`.
 5. Output a rerouting summary by tool.
+
+---
+
+## Planning Completion Gate
+
+While /plan is active, /develop is HARDLOCKED.
+
+The planning pipeline must complete ALL of these phases in order:
+1. /plan seo        → SEO_RESEARCH.md
+2. /plan ia         → IA_CONTENT.md  
+3. /plan content    → CONTENT_MAP.md
+4. /plan arch       → ARCHITECTURE.md
+5. /plan design wireframes → DESIGN_CHOICES.md + updated DESIGN.md
+6. /plan scaffold   → PROJECT_SCAFFOLD.md + scripts/scaffold.sh
+
+State is tracked in `.cursor/state/plan_progress.yaml`:
+
+```yaml
+seo: false
+ia: false
+content: false
+arch: false
+design_wireframes: false
+scaffold: false
+planning_complete: false
+```
+
+After each phase completes, set its flag to true.
+When ALL flags are true, set planning_complete: true.
+
+When planning_complete becomes true, show:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  PLANNING COMPLETE
+
+✅  SEO Research      → docs/plans/01-research/SEO_RESEARCH.md
+✅  Info Architecture → docs/plans/02-ia/IA_CONTENT.md
+✅  Content Map       → docs/plans/03-content/CONTENT_MAP.md
+✅  Architecture      → docs/plans/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → docs/plans/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → docs/plans/scaffold/PROJECT_SCAFFOLD.md
+
+🔓  /develop  → UNLOCKED — ready to use
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Run /develop start to begin Phase 1
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**DURING PLANNING: if user tries to run /develop:**
+Show this message:
+```
+🔒  /develop is locked during planning.
+
+Planning is still in progress. Complete all plan phases first:
+[show current plan_progress.yaml status with ✅/⏳ per phase]
+
+Continue with: /plan [next incomplete phase]
+```
+
+Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 """

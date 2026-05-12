@@ -1,5 +1,5 @@
 ---
-description: Cross-tool sync contract — Cursor, Codex, Antigravity, Claude Code, Kilo, OpenCode
+description: Cross-tool sync contract — Cursor, Claude Code, Antigravity, Codex (Tier 1) + Windsurf, Roo, Kilo, OpenCode, Qwen, Gemini (Tier 2)
 alwaysApply: true
 ---
 
@@ -10,16 +10,52 @@ alwaysApply: true
 The `.cursor/` directory is the SINGLE canonical source. All other tool
 directories are GENERATED MIRRORS. Never edit mirrors directly.
 
+### Tier 1 — Fully Maintained (complete parity, actively tested)
+
 | Mirror directory   | Target tool            | Sync method         |
 |--------------------|------------------------|---------------------|
 | `.antigravity/`    | Antigravity IDE        | `pnpm ai:sync`      |
 | `.codex/`          | Codex app / Codex CLI  | `pnpm ai:sync`      |
 | `.claude/`         | Claude Code / CLI      | `pnpm ai:sync`      |
-| `.kilocode/`       | Kilo IDE               | `pnpm ai:sync`      |
-| `.opencode/`       | OpenCode               | `pnpm ai:sync`      |
 | `AGENTS.md`        | Codex CLI (root)       | `pnpm ai:sync`      |
 | `CLAUDE.md`        | Claude Code (root)     | `pnpm ai:sync`      |
+
+### Tier 2 — Best-Effort (synced but not actively tested; may lag by 1-2 minor versions)
+
+| Mirror directory   | Target tool            | Sync method         |
+|--------------------|------------------------|---------------------|
+| `.kilocode/`       | Kilo IDE               | `pnpm ai:sync`      |
+| `.opencode/`       | OpenCode               | `pnpm ai:sync`      |
+| `.windsurf/`       | Windsurf IDE           | `pnpm ai:sync`      |
+| `.roo/`            | Roo Code               | `pnpm ai:sync`      |
+| `.qwen/`           | Qwen CLI               | `pnpm ai:sync`      |
+| `.gemini/`         | Gemini CLI             | `pnpm ai:sync`      |
 | `GEMINI.md`        | Gemini CLI (root)      | `pnpm ai:sync`      |
+| `QWEN.md`          | Qwen CLI (root)        | `pnpm ai:sync`      |
+| `WINDSURF.md`      | Windsurf IDE (root)    | `pnpm ai:sync`      |
+
+> **Universal fallback:** Any tool that reads `CLAUDE.md` or `AGENTS.md` at repo root
+> can use NEZAM. The canonical slash commands and SDD pipeline work regardless of tool.
+
+## Automated Sync (Git Hook)
+
+A pre-commit hook auto-runs `pnpm ai:sync` whenever `.cursor/` files are staged.
+This prevents mirror drift from being committed accidentally.
+
+**Install the hook (run once after cloning):**
+```bash
+bash scripts/setup-hooks.sh
+```
+
+**Hook source:** `scripts/hooks/pre-commit` (tracked in repo)
+**Hook destination:** `.git/hooks/pre-commit` (not tracked — local only)
+**Skip for one commit:** `git commit --no-verify`
+
+The hook:
+1. Detects if any `.cursor/` files are staged
+2. Runs `pnpm ai:sync`
+3. Re-stages generated mirror files (CLAUDE.md, AGENTS.md, .claude/, etc.)
+4. Fails the commit if sync errors out
 
 ## Sync Rules (enforced)
 
@@ -35,16 +71,20 @@ directories are GENERATED MIRRORS. Never edit mirrors directly.
 
 ## Tool-Specific Entrypoints
 
-| Tool              | Start command          | Plan command        | Guide command       |
-|-------------------|------------------------|---------------------|---------------------|
-| Cursor IDE        | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
-| Antigravity IDE   | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
-| Claude Code CLI   | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
-| Claude App        | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
-| Codex CLI         | `codex "/START all"`   | `codex "/PLAN all"` | `codex "/GUIDE"`    |
-| Codex App         | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
-| Kilo              | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
-| OpenCode          | `/START all`           | `/PLAN all`         | `/GUIDE status`     |
+| Tool              | Tier | Root file read      | Start command          | Plan command        | Guide command       | Getting Started |
+|-------------------|------|---------------------|------------------------|---------------------|---------------------|-----------------|
+| Cursor IDE        | 1    | `.cursor/` native   | `/start all`           | `/plan all`         | `/guide status`     | (native)        |
+| Claude Code CLI   | 1    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | [→ CLAUDE_CODE.md](../../docs/nezam/tools/CLAUDE_CODE.md) |
+| Antigravity IDE   | 1    | `.antigravity/`     | `/start all`           | `/plan all`         | `/guide status`     | [→ ANTIGRAVITY.md](../../docs/nezam/tools/ANTIGRAVITY.md) |
+| Codex CLI         | 1    | `AGENTS.md`         | `codex "/start all"`   | `codex "/plan all"` | `codex "/guide"`    | [→ CODEX.md](../../docs/nezam/tools/CODEX.md) |
+| Codex App         | 1    | `.codex/`           | `/start all`           | `/plan all`         | `/guide status`     | [→ CODEX.md](../../docs/nezam/tools/CODEX.md) |
+| Windsurf IDE      | 2    | `WINDSURF.md`       | `/start all`           | `/plan all`         | `/guide status`     | (read WINDSURF.md) |
+| Kilo IDE          | 2    | `.kilocode/`        | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
+| OpenCode          | 2    | `.opencode/`        | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
+| Roo Code          | 2    | `.roo/`             | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
+| Gemini CLI        | 2    | `GEMINI.md`         | `/start all`           | `/plan all`         | `/guide status`     | (read GEMINI.md)   |
+| Qwen CLI          | 2    | `QWEN.md`           | `/start all`           | `/plan all`         | `/guide status`     | (read QWEN.md)     |
+| Any other tool    | —    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
 
 ## Session Handoff Protocol
 

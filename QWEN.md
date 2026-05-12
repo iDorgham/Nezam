@@ -28,10 +28,10 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `deploy.md`
 - `develop.md`
 - `fix.md`
-- `founder.md`
 - `git.md`
 - `guide.md`
 - `help.md`
+- `nezam.md`
 - `plan.md`
 - `scan.md`
 - `settings.md`

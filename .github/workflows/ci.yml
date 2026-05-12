@@ -88,8 +88,7 @@ jobs:
           from pathlib import Path
 
           candidates = [
-              Path("docs/plans/gates/GITHUB_GATE_MATRIX.json"),
-              Path("docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json"),
+              Path("docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json"),
           ]
           path = next((p for p in candidates if p.exists()), None)
           if path is None:
@@ -134,8 +133,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          design_template="docs/workspace/templates/research-design/DESIGN.template.md"
-          feature_spec="docs/workspace/templates/specs/FEATURE_SPEC.template.md"
+          design_template="docs/templates/research-design/DESIGN.template.md"
+          feature_spec="docs/templates/specs/FEATURE_SPEC.template.md"
           if [[ ! -f "$design_template" ]]; then
             echo "Missing $design_template"
             exit 1
@@ -161,9 +160,7 @@ jobs:
           # Hardening performance contract must be populated (non-empty).
           perf_populated=0
           for candidate in \
-            "docs/plans/05-harden/02-performance/perf.md" \
-            "docs/workspace/plans/05-harden/02-performance/perf.md" \
-            "docs/workspace/plans/04-harden/perf.md"; do
+            "docs/nezam/plans/05-harden/02-performance/perf.md"; do
             if [[ -s "$candidate" ]]; then
               perf_populated=1
               break
@@ -208,7 +205,7 @@ jobs:
       - name: Automation smoke (baseline wiring)
         run: |
           set -euo pipefail
-          test -f docs/plans/gates/GITHUB_GATE_MATRIX.json || test -f docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json
           test -f scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Automation smoke passed."
@@ -231,7 +228,7 @@ jobs:
       - name: Nightly automation baseline self-test
         run: |
           set -euo pipefail
-          test -f docs/plans/gates/GITHUB_GATE_MATRIX.json || test -f docs/workspace/plans/gates/GITHUB_GATE_MATRIX.json
+          test -f docs/nezam/plans/gates/GITHUB_GATE_MATRIX.json
           test -f scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Nightly automation self-test baseline passed."

@@ -12,7 +12,7 @@ active_swarm: "Swarm 1 — Architecture"
 active_agent: "swarm-leader"
 active_phase: "05-harden"
 active_feature_slice: "hardening-pass"
-active_spec: "docs/plans/NEZAM-HARDENING-PROMPT.md"
+active_spec: "docs/plan/NEZAM-HARDENING-PROMPT.md"
 
 last_output:
   type: "report"

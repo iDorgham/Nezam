@@ -34,7 +34,7 @@ Ensure the product is inclusive and compliant with WCAG 2.2 AA standards from th
 ## Output Artifacts
 
 1. `docs/reports/a11y/A11Y_AUDIT.md`: Detailed findings and remediation steps.
-2. Updated `docs/plans/design/WIREFRAMES.md`: Inclusion of A11y maps/tab order.
+2. Updated `docs/plan/design/WIREFRAMES.md`: Inclusion of A11y maps/tab order.
 3. `docs/reports/a11y/WCAG_CHECKLIST.md`: Pass/fail status for AA criteria.
 
 ## Validation Checklist

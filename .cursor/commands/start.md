@@ -9,7 +9,7 @@ Before performing any file operation, read `.nezam/gates/workspace.paths.yaml` a
 - `reports_root` → default `docs/reports`
 
 If the file is missing or a key is absent, fall back to the default values above.
-All references to `.nezam/workspace/prd/PRD.md`, `docs/plans/`, and `docs/reports/` in this command
+All references to `.nezam/workspace/prd/PRD.md`, `docs/plan/`, and `docs/reports/` in this command
 use these resolved paths. Users can relocate any of them with `/nezam paths set`.
 
 ## What /START does
@@ -27,7 +27,7 @@ When a user runs `/start` (with or without a subcommand), Claude scaffolds the p
 ## Subcommands
 
   /START             → Interactive: ask the user for their project idea, then scaffold docs/ and create a draft PRD
-  /START docs        → Scaffold .nezam/workspace/prd/, docs/plans/, docs/reports/ if they don't exist, show status
+  /START docs        → Scaffold .nezam/workspace/prd/, docs/plan/, docs/reports/ if they don't exist, show status
   /START prd         → Open .nezam/workspace/prd/PRD.md in guided mode — ask user questions and fill it in together
   /START gates       → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
   /START repo        → Link or initialize the git repository
@@ -53,7 +53,7 @@ Create these paths if they don't already exist:
 
 ```
 .nezam/workspace/prd/PRD.md              ← from .nezam/templates/sdd/PRD_TEMPLATE.md
-docs/plans/.gitkeep
+docs/plan/.gitkeep
 docs/reports/progress/.gitkeep
 docs/reports/tests/.gitkeep
 docs/reports/audits/.gitkeep
@@ -481,7 +481,7 @@ After PRD and DESIGN are both locked, show:
 
 ✅  .nezam/workspace/prd/PRD.md     → Locked
 ✅  DESIGN.md           → Locked
-✅  docs/plans/         → Ready
+✅  docs/plan/         → Ready
 ✅  docs/reports/       → Ready (7 categories)
 🔓  /plan               → UNLOCKED — ready to use
 
@@ -538,7 +538,7 @@ Show status after:
 
 ```
 ✅ .nezam/workspace/prd/PRD.md exists
-✅ docs/plans/ exists (empty — /plan will scaffold phases)
+✅ docs/plan/ exists (empty — /plan will scaffold phases)
 ✅ docs/reports/ exists with 7 category folders
 ```
 
@@ -568,7 +568,7 @@ If plans gate fails: prompt user to run `/plan` after PRD is ready
 ```
 .nezam/workspace/   ← NEZAM workspace governance (DO NOT MODIFY during /start)
 .nezam/workspace/prd/     ← User's project PRD (default; relocatable via /nezam paths)
-docs/plans/   ← User's project plans (default; relocatable via /nezam paths)
+docs/plan/   ← User's project plans (default; relocatable via /nezam paths)
 docs/reports/ ← User's project reports (default; relocatable via /nezam paths)
 ```
 

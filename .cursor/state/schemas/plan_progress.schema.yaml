@@ -19,40 +19,40 @@ fields:
   seo:
     type: boolean
     required: true
-    artifact: "docs/plans/01-research/SEO_RESEARCH.md"
+    artifact: "docs/plan/01-research/SEO_RESEARCH.md"
     description: "SEO research phase complete"
 
   ia:
     type: boolean
     required: true
-    artifact: "docs/plans/02-ia/IA_CONTENT.md"
+    artifact: "docs/plan/02-ia/IA_CONTENT.md"
     description: "Information architecture phase complete"
 
   content:
     type: boolean
     required: true
-    artifact: "docs/plans/03-content/CONTENT_MAP.md"
+    artifact: "docs/plan/03-content/CONTENT_MAP.md"
     description: "Content mapping phase complete"
 
   arch:
     type: boolean
     required: true
-    artifact: "docs/plans/04-arch/ARCHITECTURE.md"
+    artifact: "docs/plan/04-arch/ARCHITECTURE.md"
     description: "Architecture phase complete"
 
   design_wireframes:
     type: boolean
     required: true
     artifacts:
-      - "docs/plans/04-design/DESIGN_CHOICES.yaml OR docs/plans/04-design/DESIGN_CHOICES.md"
-      - "docs/plans/04-design/WIREFRAMES.md"
+      - "docs/plan/04-design/DESIGN_CHOICES.yaml OR docs/plan/04-design/DESIGN_CHOICES.md"
+      - "docs/plan/04-design/WIREFRAMES.md"
     description: "Design choices and wireframes complete"
 
   scaffold:
     type: boolean
     required: true
     artifacts:
-      - "docs/plans/scaffold/PROJECT_SCAFFOLD.md"
+      - "docs/plan/scaffold/PROJECT_SCAFFOLD.md"
       - "scripts/scaffold.sh"
     description: "Project scaffold plan and script complete"
 

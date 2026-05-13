@@ -142,10 +142,10 @@ Present elements ONE AT A TIME. User picks variant before next element appears.
 
 ## Output Files (after all selections made)
 
-1. `docs/plans/04-design/DESIGN_CHOICES.yaml` — locked YAML of every selection (or `DESIGN_CHOICES.md` if the active `/plan` contract uses markdown — keep repo-consistent)
+1. `docs/plan/04-design/DESIGN_CHOICES.yaml` — locked YAML of every selection (or `DESIGN_CHOICES.md` if the active `/plan` contract uses markdown — keep repo-consistent)
 2. Updated root `DESIGN.md` — full token contract + component specs
-3. `docs/plans/04-design/WIREFRAMES.md` — all screens with full wireframes
-4. `docs/plans/04-design/COMPONENT_INVENTORY.md` — every component, variant, state
+3. `docs/plan/04-design/WIREFRAMES.md` — all screens with full wireframes
+4. `docs/plan/04-design/COMPONENT_INVENTORY.md` — every component, variant, state
 
 ## Trigger
 

@@ -79,7 +79,7 @@ Use this controller as a 4-tier runtime coordinator with explicit Swarm Manager,
 - `acceptance_checks`: measurable completion checks per task.
 - `validation_command`: command used to verify completion evidence.
 - `team_owner`: designated Swarm Manager + Team Manager for the task group.
-- `phase_context`: active `docs/plans/<phase>/<subphase>` scope and current swarm-workflow phase.
+- `phase_context`: active `docs/plan/<phase>/<subphase>` scope and current swarm-workflow phase.
 - `tech_stack_constraints`: services that MUST come from `docs/reference/developer-tech-stack-2026.md` unless explicitly overridden by PRD.
 
 ## Routing Decision Criteria

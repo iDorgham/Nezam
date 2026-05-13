@@ -76,8 +76,8 @@ For directional motion (slides, reveals, drawer open/close):
 
 ## Output Artifacts
 
-1. `docs/plans/design/MOTION_CONTRACT.md` — duration, easing, token map, 2-variation pairs.
-2. `docs/plans/design/INTERACTION_STATES.md` — visual and motion specs for all interactive components.
+1. `docs/plan/design/MOTION_CONTRACT.md` — duration, easing, token map, 2-variation pairs.
+2. `docs/plan/design/INTERACTION_STATES.md` — visual and motion specs for all interactive components.
 3. Updated root `DESIGN.md` — motion primitives section (if new tokens proposed).
 4. `.cursor/context/design-init/variation-motion-<component>-A.md` and `-B.md`.
 

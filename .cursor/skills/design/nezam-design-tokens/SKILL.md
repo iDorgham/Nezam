@@ -32,8 +32,8 @@ Define the structural integrity and naming governance for the design system's to
 
 ## Output Artifacts
 
-1. `docs/plans/design/TOKEN_NAMING_CONVENTION.md`: The rulebook for naming new tokens.
-2. `docs/plans/design/PLATFORM_MAPPING.yaml`: How tokens translate across different environments.
+1. `docs/plan/design/TOKEN_NAMING_CONVENTION.md`: The rulebook for naming new tokens.
+2. `docs/plan/design/PLATFORM_MAPPING.yaml`: How tokens translate across different environments.
 3. Updated root `DESIGN.md`: Reflecting the architectural tiers.
 
 ## Validation Checklist

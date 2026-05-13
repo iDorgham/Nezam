@@ -2,17 +2,6 @@
 
 <br/>
 
-```
- ________   _______   ________  ________  _____ ______          ___     ___ ___
-|\   ___  \|\  ___ \ |\_____  \|\   __  \|\   _ \  _   \        /  /|   /  /|\  \
-\ \  \\ \  \ \   __/| \|___/  /\ \  \|\  \ \  \\\__\ \  \       /  / /  /  //\ \  \
- \ \  \\ \  \ \  \_|/__   /  / /\ \   __  \ \  \\|__| \  \      /  / /  /  //  \ \  \
-  \ \  \\ \  \ \  \_|\ \ /  /_/__\ \  \ \  \ \  \    \ \  \    |\  \/  /  //    \/  /|
-   \ \__\\ \__\ \_______\\________\ \__\ \__\ \__\    \ \__\   \ \  \ /_ //     /  //
-    \|__| \|__|\|_______|\|_______|\|__|\|__|\|__|     \|__|    \ \__\__|/     /_ //
-                                                                 \|__|        |__|/                                            
-```
-
 **The operating system for AI-native software development.**
 
 *One canonical source. Eight clients synced. Zero guesswork.*
@@ -335,6 +324,7 @@ NEZAM ships with dedicated Arabic language and MENA-region support built into th
 pnpm ai:sync    # Re-sync all clients
 pnpm ai:check   # Verify no drift remains
 ```
+
 </details>
 
 <details>
@@ -344,6 +334,7 @@ pnpm ai:check   # Verify no drift remains
 pnpm run design:apply -- minimal   # Re-apply the profile
 pnpm run check:tokens              # Validate tokens locally
 ```
+
 </details>
 
 <details>
@@ -376,6 +367,7 @@ Or review `docs/memory/AGENT_COMM_PROTOCOL.md` for inter-agent communication sta
 pnpm run check:specs   # Show which specs are out of sync
 pnpm ai:sync           # Re-sync if agents were edited
 ```
+
 </details>
 
 ---

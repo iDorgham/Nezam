@@ -10,7 +10,7 @@
     "projectPrompt": "docs/start/PROJECT_PROMPT.md"
   },
   "planning": {
-    "changelog": "CHANGELOG.md",
+    "changelog": ".nezam/CHANGELOG.md",
     "versioning": ".nezam/workspace/meta/VERSIONING.md",
     "gateManifest": ".nezam/gates/GITHUB_GATE_MATRIX.json"
   },

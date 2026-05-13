@@ -46,7 +46,7 @@ jobs:
             > release-notes-preview.json
           echo "Generated release-notes-preview.json"
       - name: Upload release notes preview artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-notes-preview
           path: release-notes-preview.json

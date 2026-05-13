@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Sync Drift Check
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v6
       - run: pnpm install --frozen-lockfile
       - run: pnpm ai:check
@@ -32,5 +32,5 @@ jobs:
     runs-on: ubuntu-latest
     name: Spec Version Compliance
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - run: bash scripts/checks/check-spec-versions.sh

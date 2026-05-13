@@ -3,7 +3,7 @@
 <br/>
 
 ```
-◆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◆
+╔══════════════════════════════════════════════════╗
 
   ███╗   ██╗███████╗███████╗ █████╗ ███╗   ███╗
   ████╗  ██║██╔════╝╚══███╔╝██╔══██╗████╗ ████║
@@ -14,7 +14,7 @@
 
   ·  A I - N A T I V E   W O R K S P A C E   O S  ·
 
-◆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◆
+╚══════════════════════════════════════════════════╝
 ```
 
 **The operating system for AI-native software development.**
@@ -23,20 +23,23 @@
 
 <br/>
 
-<!-- CI & Quality -->
+<sub>CI &amp; QUALITY</sub>
+
 [![CI](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml)
 [![Design Gates](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&label=design%20gates&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml)
 [![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat-square)](.nezam/workspace/prd/PRD.md)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=fff&style=flat-square)](https://www.conventionalcommits.org/)
 
-<!-- Stack -->
+<sub>STACK</sub>
+
 [![Version](https://img.shields.io/badge/version-0.1.0-555555?style=flat-square)](docs/core/VERSIONING.md)
 [![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=flat-square)](https://pnpm.io/)
 [![Node](https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=flat-square)](package.json)
 
 <br/>
 
-<!-- AI Clients -->
+<sub>AI CLIENTS</sub>
+
 [![Cursor](https://img.shields.io/static/v1?label=Cursor&message=canonical&color=141321&logo=cursor&logoColor=fff&style=flat-square)](https://cursor.com/)
 [![Claude](https://img.shields.io/static/v1?label=Claude&message=synced&color=cc785c&style=flat-square)](CLAUDE.md)
 [![Gemini](https://img.shields.io/static/v1?label=Gemini&message=synced&color=4285f4&style=flat-square)](GEMINI.md)
@@ -48,7 +51,6 @@
 
 <br/>
 
-<!-- Community -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 

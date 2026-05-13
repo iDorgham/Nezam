@@ -8,7 +8,6 @@ Welcome to **NEZAM**, the operating system for AI-native software development. T
 
 ### 1. Initialize the Workspace
 Run the `/start` command in your chat client. This will:
-- Copy the required folder templates (`plan/` and `reports/`) from `.nezam/templates/folders` to your `docs/` directory.
 - Verify that your environment is ready.
 
 ### 2. Define Your Product (PRD)
@@ -18,7 +17,10 @@ Drop your `PRD.md` file into `docs/start/` to begin. This file will be the execu
 NEZAM requires a design contract at the repository root. Once your PRD is defined:
 - Run `pnpm run design:apply -- <brand>` to apply a brand design from `.nezam/design/<brand>/design.md` to the root `DESIGN.md`.
 
-### 4. Generate the Execution Plan
+### 4. Scaffold Folders
+Copy the required folder templates (`plan/` and `reports/`) from `.nezam/templates/folders` to your `docs/` directory.
+
+### 5. Generate the Execution Plan
 Once your PRD is approved and your design system is selected, run the `/plan` command. This will scaffold your execution roadmap under `docs/plan/`:
 - It creates folders for all 7 phases (00-Define to 06-Ship).
 - Generates `INDEX.md` and `MASTER_TASKS.md` in the root of `docs/plan/`.

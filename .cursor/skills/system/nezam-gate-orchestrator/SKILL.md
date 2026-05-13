@@ -31,7 +31,7 @@ On `STATE_ERROR`:
 ```text
 ❌ State file missing or corrupt: [filename]
 → Run: /FIX gates to attempt remediation.
-→ Or restore from: .cursor/state/schemas/[filename without .yaml].schema.yaml defaults.
+→ Or restore from: .cursor/state/schemas/
 ```
 
 If a YAML file fails to parse:

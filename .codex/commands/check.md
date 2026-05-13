@@ -105,6 +105,10 @@ Score: 92% — PASS
 
 ## /CHECK gates
 
+PRE-FLIGHT: Read .cursor/state/onboarding.yaml and show current values for:
+  user_mode, target_market, prd_locked, design_locked, planning_complete, current_phase, build_mode
+Then run gate checks against these actual values — never assume.
+
 Run all workspace gates in sequence. Same as pre-/DEVELOP checklist but callable anytime.
 
 Order:
@@ -114,13 +118,17 @@ Order:
 4. Check `DESIGN.md` non-template
 5. Check `GITHUB_GATE_MATRIX.json` exists
 6. Check `{prd_path}` non-template
-7. Check active subphase has `prompt.json` + `PROMPT.md`
+7. Check active subphase has `prompt.json` + `PROMPT.md` (from `.nezam/templates/sdd/`)
 
 Output: gate-by-gate ✅/❌ plus overall pass/fail.
 
 ---
 
 ## /CHECK gates — Updated Gate Check Order
+
+PRE-FLIGHT: Read .cursor/state/onboarding.yaml and show current values for:
+  user_mode, target_market, prd_locked, design_locked, planning_complete, current_phase, build_mode
+Then run gate checks against these actual values — never assume.
 
 Before running gate checks, read:
 

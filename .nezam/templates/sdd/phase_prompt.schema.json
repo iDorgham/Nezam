@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "1.0.0",
+  "subphasePath": "{{PHASE_ID}}",
+  "title": "SDD prompt: {{PHASE_NAME}}",
+  "githubGateProfile": "spec_only"
+}

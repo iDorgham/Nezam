@@ -30,7 +30,6 @@ Planning -> SEO -> IA -> Content -> Design (**root `DESIGN.md`**) -> Development
 Do not proceed to development unless all exist:
 
 - `.nezam/workspace/prd/PRD.md`
-- `docs/start/PROJECT_PROMPT.md`
 - **`DESIGN.md` at repository root** for UI scopes (from chosen `.nezam/design/<brand>/design.md`)
 - `.nezam/gates/GITHUB_GATE_MATRIX.json`
 - `docs/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`

@@ -111,6 +111,10 @@ When user runs /develop complete [phase_n]:
 3. Set next phase: status: "unlocked"
 4. Write unlock ceremony to chat
 
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/develop_phases.yaml --key phase_[N].status --value "complete"
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/develop_phases.yaml --key phase_[N].testing_passed --value true
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/develop_phases.yaml --key phase_[N+1].status --value "unlocked"
+
 ### Unlock Ceremony (between phases)
 
 ```

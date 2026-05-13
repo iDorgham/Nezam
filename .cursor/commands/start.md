@@ -151,6 +151,10 @@ After the user types **S** or **T**, update `.cursor/state/onboarding.yaml`:
 - **S** → `user_mode: "solo"`, `tone: "friendly"`, `user_mode_set_at: "[timestamp]"`
 - **T** → `user_mode: "team"`, `tone: "structured"`, `user_mode_set_at: "[timestamp]"`
 
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key user_mode --value "solo" (or "team")
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key tone --value "friendly" (or "structured")
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key user_mode_set_at --value "[ISO timestamp]"
+
 All subsequent responses in the onboarding session adapt to `tone` (friendly vs structured).
 
 ---
@@ -170,11 +174,14 @@ Type yes or no:
 If yes:
 
 - Set `onboarding.yaml:target_market` = "mena"
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key target_market --value "mena"
 - Announce: "Arabic SEO hardlock is ACTIVE. `arabic-seo-aeo-specialist` required in RESEARCH phase."
+⚠️  MENA HARDLOCK ACTIVE — arabic-seo-aeo-specialist MUST complete docs/seo/arabic-seo-brief.md before RESEARCH phase can advance.
 
 If no:
 
 - Set `onboarding.yaml:target_market` = "global"
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key target_market --value "global"
 
 ---
 
@@ -359,6 +366,9 @@ Risks noted:  [count]
 
 Write to `.cursor/state/onboarding.yaml`:
 
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key prd_locked --value true
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key prd_locked_at --value "[ISO timestamp]"
+
 ```yaml
 prd_locked: true
 prd_path: ".nezam/workspace/prd/PRD.md"
@@ -461,6 +471,10 @@ Mode:       [light / dark / both]
 ```
 
 Update `.cursor/state/onboarding.yaml`:
+
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key design_locked --value true
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key design_profile --value "[brand name]"
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key design_locked_at --value "[ISO timestamp]"
 
 ```yaml
 design_locked: true

@@ -7,7 +7,7 @@
   ],
   "intake": {
     "prd": ".nezam/workspace/prd/PRD.md",
-    "projectPrompt": "docs/start/PROJECT_PROMPT.md"
+    "projectPrompt": ".nezam/templates/sdd/PHASE_PROMPT.md"
   },
   "planning": {
     "changelog": "CHANGELOG.md",

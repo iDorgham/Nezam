@@ -394,6 +394,9 @@ planning_complete: false
 After each phase completes, set its flag to true.
 When ALL flags are true, set planning_complete: true.
 
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key planning_complete --value true
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key planning_completed_at --value "[ISO timestamp]"
+
 When planning_complete becomes true, show:
 
 ```
@@ -485,6 +488,9 @@ planning_complete: false
 
 After each phase completes, set its flag to true.
 When ALL flags are true, set planning_complete: true.
+
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key planning_complete --value true
+Run: node .nezam/scripts/state/write-state.js --file .cursor/state/onboarding.yaml --key planning_completed_at --value "[ISO timestamp]"
 
 When planning_complete becomes true, show:
 

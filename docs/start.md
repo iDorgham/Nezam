@@ -1,37 +1,58 @@
-# Project Docs
+# 🚀 Getting Started with NEZAM
 
-> This folder is where your project lives. Run `/start` to initialize.
-
----
-
-## Structure
-
-```
-docs/
-├── prd/          ← Product Requirements Documents
-│   └── PRD.md    ← Add your PRD here (or let /start generate it)
-├── plans/        ← AI-generated execution plans (created by /plan)
-│   └── ...
-└── reports/      ← CI and audit reports (generated automatically)
-    └── ...
-```
+Welcome to **NEZAM**, the operating system for AI-native software development. This guide will walk you through the onboarding process, from your initial idea to full execution using our Specification-Driven Development (SDD) pipeline.
 
 ---
 
-## How to Start
+## 🛠️ Onboarding Process
 
-1. **Add your PRD** — drop a `PRD.md` in `.nezam/workspace/prd/`, or run `/start` and Claude will guide you through creating one.
-2. **Generate a plan** — run `/plan` once your PRD is ready. Claude will scaffold `docs/plans/` with phase folders.
-3. **Track progress** — reports land in `docs/reports/` as phases complete.
+### 1. Initialize the Workspace
+Run the `/start` command in your chat client. This will:
+- Copy the required folder templates (`plan/` and `reports/`) from `.nezam/templates/folders` to your `docs/` directory.
+- Verify that your environment is ready.
+
+### 2. Define Your Product (PRD)
+Your idea needs a "North Star". You have two options:
+- **Option A:** Drop your existing `PRD.md` into `.nezam/workspace/prd/`.
+- **Option B:** Run `/start` without a PRD, and the AI will guide you through an interactive interview to generate a PRD for you.
+
+### 3. Generate the Execution Plan
+Once your PRD is approved and closed, run the `/plan` command. This will scaffold your execution roadmap under `docs/plan/`:
+- It creates folders for all 7 phases (00-Define to 06-Ship).
+- Generates `INDEX.md` and `MASTER_TASKS.md` in the root of `docs/plan/`.
 
 ---
 
-## Status
+## 📊 The SDD Pipeline (Specification-Driven Development)
 
-| Folder | Status |
-|--------|--------|
-| `prd/` | ⬜ Awaiting PRD |
-| `plans/` | ⬜ Pending (requires PRD) |
-| `reports/` | ⬜ Pending (generated during execution) |
+NEZAM enforces a strict, gate-driven pipeline to ensure quality and prevent hallucination. You will progress through these phases:
 
-> Run `/start` to begin.
+1. **Phase 00: Define** — Lock in scope and architecture.
+2. **Phase 01: Research** — SEO, competitor analysis, and feasibility.
+3. **Phase 02: Design** — Tokens, wireframes, and components.
+4. **Phase 03: Content** — Strategy, copy, and compliance.
+5. **Phase 04: Build** — Backend, frontend, and features.
+6. **Phase 05: Harden** — Security, performance, and accessibility.
+7. **Phase 06: Ship** — Staging and production deployment.
+
+Each phase has **Gates** defined in `.nezam/gates/GITHUB_GATE_MATRIX.json`. You cannot proceed to the next phase until the current phase's gates are satisfied and signed off.
+
+---
+
+## 💻 Developing Your Idea
+
+Once planning is complete and you are in the **Build** phase:
+- Use `/develop` to start building features.
+- Use `/scan` to check for quality, security, and performance.
+- Use `/fix` to automatically address issues found during scans.
+
+---
+
+## 🤖 AI Swarm & Skills
+You are assisted by a swarm of specialized agents and specific skills located in `.cursor/skills/`.
+- Always respect the **Governance First** rule.
+- Keep your changes traceable and follow the commit conventions.
+
+---
+
+> Ready to build? Type `/start` to begin your journey.

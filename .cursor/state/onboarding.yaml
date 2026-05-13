@@ -2,28 +2,27 @@
 # Do not edit manually. Use /start, /plan, /develop commands.
 
 # User mode — set during /start onboarding (Step 2, before PRD menu)
-user_mode: ""           # "solo" | "team"
-user_mode_set_at: ""
-target_market: ""       # "global" | "mena" | "ar" | "en" — set during /start Step 2
+user_mode: "solo"           # "solo" | "team"
+user_mode_set_at: "2026-05-13T01:40:00Z"
+target_market: "global"     # "global" | "mena" | "ar" | "en" — set during /start Step 2
 
 # Tone preference derived from user_mode
 # solo  → friendly, plain language, opinionated defaults
 # team  → structured, governance-aware, full agent assignment
-tone: ""                # "friendly" | "structured"
+tone: "friendly"            # "friendly" | "structured"
 
-prd_locked: false
+prd_locked: true
 prd_path: ".nezam/workspace/prd/PRD.md"
-prd_locked_at: ""
+prd_locked_at: "2026-05-13T01:40:00Z"
 
-design_locked: false
-design_profile: ""
-design_locked_at: ""
+design_locked: true
+design_profile: "minimal"
+design_locked_at: "2026-05-13T01:40:00Z"
 
 planning_complete: false
 planning_completed_at: ""
 
 current_phase: 0
 
-build_mode: ""          # "sdd" | "lean" | "tdd" | "api-first" — set during /start Step 2.5
-build_mode_set_at: ""
-
+build_mode: "sdd"           # "sdd" | "lean" | "tdd" | "api-first" — set during /start Step 2.5
+build_mode_set_at: "2026-05-13T01:40:00Z"

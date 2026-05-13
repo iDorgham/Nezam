@@ -13,7 +13,7 @@ Run the `/start` command in your chat client. This will:
 
 ### 2. Define Your Product (PRD)
 Your idea needs a "North Star". You have two options:
-- **Option A:** Drop your existing `PRD.md` into `.nezam/workspace/prd/`.
+- **Option A:** Drop your existing `PRD.md` into `docs/`.
 - **Option B:** Run `/start` without a PRD, and the AI will guide you through an interactive interview to generate a PRD for you.
 
 ### 3. Choose Your Design System

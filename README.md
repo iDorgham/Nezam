@@ -25,16 +25,16 @@
 
 <sub>CI &amp; QUALITY</sub>
 
-[![CI](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml)
-[![Design Gates](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&label=design%20gates&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml)
-[![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat-square)](.nezam/workspace/prd/PRD.md)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=fff&style=flat-square)](https://www.conventionalcommits.org/)
+[![CI](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&label=CI&logo=github&style=for-the-badge)](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml)
+[![Design Gates](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&label=design%20gates&logo=github&style=for-the-badge)](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml)
+[![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=for-the-badge)](.nezam/workspace/prd/PRD.md)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=fff&style=for-the-badge)](https://www.conventionalcommits.org/)
 
 <sub>STACK</sub>
 
-[![Version](https://img.shields.io/badge/version-0.1.0-555555?style=flat-square)](docs/core/VERSIONING.md)
-[![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=flat-square)](https://pnpm.io/)
-[![Node](https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=flat-square)](package.json)
+[![Version](https://img.shields.io/badge/version-0.1.0-555555?style=for-the-badge)](docs/core/VERSIONING.md)
+[![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=for-the-badge)](https://pnpm.io/)
+[![Node](https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=for-the-badge)](package.json)
 
 <br/>
 

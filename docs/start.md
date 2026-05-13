@@ -16,8 +16,12 @@ Your idea needs a "North Star". You have two options:
 - **Option A:** Drop your existing `PRD.md` into `.nezam/workspace/prd/`.
 - **Option B:** Run `/start` without a PRD, and the AI will guide you through an interactive interview to generate a PRD for you.
 
-### 3. Generate the Execution Plan
-Once your PRD is approved and closed, run the `/plan` command. This will scaffold your execution roadmap under `docs/plan/`:
+### 3. Choose Your Design System
+NEZAM requires a design contract at the repository root. Once your PRD is defined:
+- Run `pnpm run design:apply -- <brand>` to apply a brand design from `.nezam/design/<brand>/design.md` to the root `DESIGN.md`.
+
+### 4. Generate the Execution Plan
+Once your PRD is approved and your design system is selected, run the `/plan` command. This will scaffold your execution roadmap under `docs/plan/`:
 - It creates folders for all 7 phases (00-Define to 06-Ship).
 - Generates `INDEX.md` and `MASTER_TASKS.md` in the root of `docs/plan/`.
 

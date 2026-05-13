@@ -16,7 +16,7 @@ jobs:
     name: Sync Drift Check
     steps:
       - uses: actions/checkout@v5.0.1
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
       - run: pnpm install --frozen-lockfile
       - run: pnpm ai:check
       - name: Write sync status

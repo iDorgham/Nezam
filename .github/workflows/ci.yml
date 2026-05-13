@@ -81,9 +81,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5.0.1
       - name: Verify onboarding planning artifacts
-        run: ./scripts/checks/check-onboarding-readiness.sh
+        run: bash .nezam/scripts/checks/check-onboarding-readiness.sh
       - name: Verify PRD release roadmap (§11) matches release-roadmap.json
-        run: node scripts/prd/render-release-roadmap.mjs --check
+        run: node .nezam/scripts/prd/render-release-roadmap.mjs --check
       - name: Validate canonical gate manifest structure
         run: |
           python3 - <<'PY'
@@ -192,14 +192,14 @@ jobs:
       - uses: actions/checkout@v5.0.1
       - name: Verify cross-client AI sync drift
         run: |
-          node scripts/checks/check-ai-drift.js
+          node .nezam/scripts/checks/check-ai-drift.js
 
   docs-layout-policy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5.0.1
       - name: Enforce docs/core + docs/reports layout
-        run: bash scripts/checks/docs-layout-policy.sh
+        run: bash .nezam/scripts/checks/docs-layout-policy.sh
 
   automation-smoke:
     runs-on: ubuntu-latest
@@ -209,7 +209,7 @@ jobs:
         run: |
           set -euo pipefail
           test -f .nezam/gates/GITHUB_GATE_MATRIX.json
-          test -f scripts/checks/check-onboarding-readiness.sh
+          test -f .nezam/scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Automation smoke passed."
 
@@ -232,7 +232,7 @@ jobs:
         run: |
           set -euo pipefail
           test -f .nezam/gates/GITHUB_GATE_MATRIX.json
-          test -f scripts/checks/check-onboarding-readiness.sh
+          test -f .nezam/scripts/checks/check-onboarding-readiness.sh
           test -f .github/workflows/ci.yml
           echo "Nightly automation self-test baseline passed."
 

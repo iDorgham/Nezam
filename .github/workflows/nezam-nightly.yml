@@ -33,4 +33,4 @@ jobs:
     name: Spec Version Compliance
     steps:
       - uses: actions/checkout@v5.0.1
-      - run: bash scripts/checks/check-spec-versions.sh
+      - run: bash .nezam/scripts/checks/check-spec-versions.sh

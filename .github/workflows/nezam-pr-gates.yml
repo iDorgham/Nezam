@@ -18,6 +18,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run check:tokens
       - run: pnpm ai:check
-      - run: bash scripts/checks/check-spec-versions.sh
-      - run: bash scripts/checks/check-sdd-integrity.sh
-      - run: bash scripts/checks/sdd-gate-validator.sh
+      - run: bash .nezam/scripts/checks/check-spec-versions.sh
+      - run: bash .nezam/scripts/checks/check-sdd-integrity.sh
+      - run: bash .nezam/scripts/checks/sdd-gate-validator.sh

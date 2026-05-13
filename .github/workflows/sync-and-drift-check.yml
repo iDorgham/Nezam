@@ -11,7 +11,7 @@ jobs:
       - run: pnpm ai:sync
       - run: pnpm ai:check
       - name: Validate Skill Frontmatter
-        run: node scripts/checks/check-skill-frontmatter.js
+        run: node .nezam/scripts/checks/check-skill-frontmatter.js
       - name: Check Path Normalization
         run: |
           grep -r "\.cursor/templates/" .cursor/ .nezam/ docs/ || true

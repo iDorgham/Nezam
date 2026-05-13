@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5.0.1
       - name: Check for hardcoded design primitives
-        run: bash scripts/checks/check-design-tokens.sh
+        run: bash .nezam/scripts/checks/check-design-tokens.sh
 
   a11y-gate:
     name: Gate 6 - Performance and Accessibility

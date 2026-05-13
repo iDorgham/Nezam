@@ -11,33 +11,39 @@
 ╚═╝  ╚═══╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
 ```
 
-**AI Workspace Orchestration — Specification-Driven, Swarm-Ready, Multi-Client Synced**
+**The operating system for AI-native software development.**
 
-*From `/START` to `/DEPLOY` — every step is traceable, gated, and repeatable.*
+*One canonical source. Eight clients synced. Zero guesswork.*
 
 <br/>
 
 [![CI](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml)
 [![Design Gates](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&label=design%20gates&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml)
-[![SemVer](https://img.shields.io/badge/version-0.1.0-555555?style=flat-square)](docs/core/VERSIONING.md)
-[![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat-square)](docs/prd/PRD.md)
+[![Version](https://img.shields.io/badge/version-0.1.0-555555?style=flat-square)](docs/core/VERSIONING.md)
+[![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat-square)](.nezam/workspace/prd/PRD.md)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow?style=flat-square)](https://www.conventionalcommits.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=flat-square)](https://pnpm.io/)
 [![Node](https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=flat-square)](package.json)
-[![AI Clients Synced](https://img.shields.io/static/v1?label=AI%20clients&message=8%20synced&color=6e7681&style=flat-square)](docs/memory/MULTI_TOOL_INDEX.md)
 
 <br/>
 
-[![Cursor](https://img.shields.io/static/v1?label=Cursor&message=orchestration&color=141321&logo=cursor&logoColor=fff&style=flat-square)](https://cursor.com/)
+[![Cursor](https://img.shields.io/static/v1?label=Cursor&message=canonical&color=141321&logo=cursor&logoColor=fff&style=flat-square)](https://cursor.com/)
 [![Claude](https://img.shields.io/static/v1?label=Claude&message=synced&color=cc785c&style=flat-square)](CLAUDE.md)
 [![Gemini](https://img.shields.io/static/v1?label=Gemini&message=synced&color=4285f4&style=flat-square)](GEMINI.md)
 [![OpenCode](https://img.shields.io/static/v1?label=OpenCode&message=synced&color=24292f&style=flat-square)](.opencode/)
 [![Codex](https://img.shields.io/static/v1?label=Codex&message=synced&color=10a37f&style=flat-square)](AGENTS.md)
 [![Qwen](https://img.shields.io/static/v1?label=Qwen&message=synced&color=6b21a8&style=flat-square)](QWEN.md)
+[![Antigravity](https://img.shields.io/static/v1?label=Antigravity&message=synced&color=336699&style=flat-square)](.antigravity/)
+[![Kilocode](https://img.shields.io/static/v1?label=Kilocode&message=synced&color=e06c75&style=flat-square)](.kilocode/)
 
 <br/>
 
-[**Documentation Hub**](docs/README.md) · [**PRD**](docs/prd/PRD.md) · [**Wiki**](docs/wiki/Home.md) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+<br/>
+
+[**Docs**](docs/README.md) · [**PRD**](.nezam/workspace/prd/PRD.md) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md) · [**Wiki**](https://github.com/iDorgham/Nezam/wiki)
 
 </div>
 
@@ -45,55 +51,57 @@
 
 ## What is NEZAM?
 
-**NEZAM is a workspace orchestration kit for AI-native software development.**
+NEZAM is a workspace orchestration kit that gives every AI assistant a shared contract — a strict, specification-driven delivery spine that carries your project from idea to production without drift, hallucination, or lost context between sessions.
 
-It gives every AI assistant a shared contract — a strict delivery spine that goes from idea to production without drift, guesswork, or re-explaining context every session.
+Every phase is gated. Every decision is persisted. Every AI client reads from the same source of truth.
 
-Think of it as the **operating system** for your AI development workflow:
-
-| Problem | NEZAM Solution |
+| Without NEZAM | With NEZAM |
 |---|---|
-| AI skips planning and jumps to code | Hardlock system blocks implementation until spec + design gates pass |
-| Decisions don't survive session resets | 4-layer memory system persists all decisions to git |
-| Different AI tools disagree or drift | Single canonical source (`.cursor/`) synced to all 8 AI clients |
-| No traceability from spec to ship | SDD pipeline with phase gates, task IDs, and CI enforcement |
-| Swarm agents have no coordination | `swarm-leader` → `subagent-controller` → 100+ specialized agents |
-| Design changes break layout silently | Token-first design contracts + CI gate checks |
+| AI skips planning and jumps straight to code | Phase gates block implementation until spec and design are approved |
+| Context vanishes on session reset | 4-layer memory system persists all decisions to git |
+| Different AI tools disagree and drift | Single canonical source (`.cursor/`) synced to 8 clients via `pnpm ai:sync` |
+| No traceability from spec to production | SDD pipeline with phase IDs, task gates, and CI enforcement |
+| Swarm agents have no coordination layer | `swarm-leader` → `subagent-controller` → 100+ specialized agents |
+| Design changes silently break layout | Token-first design contracts with CI gate enforcement |
 
 ---
 
-## Architecture
+## How It Works
 
+NEZAM enforces a seven-phase **Specification-Driven Development (SDD)** pipeline. Phases are hardlocked — implementation cannot begin until upstream gates pass. This prevents AI agents from hallucinating scope or skipping foundational decisions.
+
+```mermaid
+flowchart LR
+    A["00\nDefine"] --> B["01\nResearch"]
+    B --> C["02\nDesign 🔒"]
+    C --> D["03\nContent"]
+    D --> E["04\nBuild 🔒"]
+    E --> F["05\nHarden"]
+    F --> G["06\nShip"]
+
+    style C fill:#1f6feb,color:#fff,stroke:#1f6feb
+    style E fill:#1f6feb,color:#fff,stroke:#1f6feb
 ```
-.cursor/            ← CANONICAL SOURCE (never edit synced copies)
-  agents/           ← 100+ specialized agent definitions
-  commands/         ← Slash command definitions
-  skills/           ← 10 domain skill packs
-  rules/            ← Governance (hardlock, SDD, design gates)
-  design/           ← Brand design profiles
 
-docs/
-  memory/           ← Durable AI memory (decisions, context, protocols)
-  prd/              ← Product Requirements Document
-  architecture/     ← ADRs + system diagrams
-  design/           ← Design philosophy + contracts
-  specs/            ← Feature specs + SDD artifacts
-  plans/            ← Phase execution plans + gate matrix
-  reports/          ← CI-generated reports
-  templates/        ← Reusable doc templates
-  wiki/             ← GitHub Wiki pages
+> **🔒 Gated phases** require automated checks to pass before the next phase unlocks.  
+> Design (02) requires `DESIGN.md` approval + `check-design-tokens.sh`.  
+> Build (04) requires approved feature specs + CI green.
 
-.claude/            ← Claude sync  ┐
-.gemini/            ← Gemini sync  │ All derived from .cursor/
-.opencode/          ← OpenCode sync│ via: pnpm ai:sync
-.codex/             ← Codex sync   ┘
-.antigravity/       ← Antigravity sync
-.kilocode/          ← Kilocode sync
-.qwen/              ← Qwen sync
+### Slash Commands
 
-scripts/            ← Automation (checks, sync, design, release)
-.github/workflows/  ← CI/CD gate enforcement
-```
+Every phase has a command. Type it in any synced AI client to orient the agent and load the correct context.
+
+| Command | Phase | What it does |
+|---|---|---|
+| `/START` | Initialize | Load workspace state, check prerequisites, orient the AI |
+| `/PLAN` | Plan | Build phase plans, populate `TASKS.md` files |
+| `/START design` | Design | Apply a design profile to `DESIGN.md` |
+| `/DEVELOP` | Build | Start a gated feature slice |
+| `/CHECK` | Any | Run all workspace readiness checks |
+| `/FIX` | Any | Diagnose and repair workspace issues |
+| `/SCAN` | Any | Full workspace health report |
+| `/GIT` | Any | Conventional commit + PR workflow |
+| `/DEPLOY` | Ship | Trigger the release pipeline |
 
 ---
 
@@ -110,119 +118,121 @@ pnpm install
 pnpm run check:onboarding
 pnpm ai:check
 
-# 4. Open in Cursor and initialize
+# 4. Open in Cursor and start
 /START
 ```
 
-That's it. The `/START` command reads your workspace state and tells you exactly what to do next.
+`/START` reads your workspace state and tells you exactly what to do next — no manual orientation required.
 
 ---
 
-## SDD Pipeline
+## Architecture
 
-NEZAM enforces a strict phase order. Phases are locked until prerequisites pass.
+```mermaid
+graph TD
+    SRC[".cursor/\n─────────────\nCanonical Source\nagents · skills · rules\ncommands · design"]
+
+    SRC -->|pnpm ai:sync| CL["CLAUDE.md\n.claude/"]
+    SRC -->|pnpm ai:sync| GE["GEMINI.md\n.gemini/"]
+    SRC -->|pnpm ai:sync| OC[".opencode/"]
+    SRC -->|pnpm ai:sync| CX["AGENTS.md\n.codex/"]
+    SRC -->|pnpm ai:sync| QW["QWEN.md\n.qwen/"]
+    SRC -->|pnpm ai:sync| AG[".antigravity/"]
+    SRC -->|pnpm ai:sync| KC[".kilocode/"]
+
+    style SRC fill:#1f6feb,color:#fff,stroke:#1f6feb
+```
+
+> **Rule:** Never edit synced folders directly. Always edit `.cursor/` and run `pnpm ai:sync` to propagate with zero drift.
+
+**Directory overview:**
 
 ```
-00-define ──► 01-research ──► 02-design ──► 03-content ──► 04-build ──► 05-harden ──► 06-ship
-    │               │              │              │             │             │            │
-  PRD.md        keywords       DESIGN.md       copy        features       tests       release
-  CONTEXT.md    IA plan        tokens          legal        slices         CI          tag
-                               (gated)                     (gated)        green
+.cursor/            ← Canonical source (agents, commands, skills, rules, design)
+.nezam/             ← Workspace state (memory, specs, scripts, evals, gates)
+docs/               ← Reports, plans, architecture, wiki pages
+scripts/            ← Automation (sync, checks, design, release, changelog)
+.github/workflows/  ← CI/CD gate enforcement
 ```
-
-**Hardlock:** Implementation is blocked until `DESIGN.md` is approved + `check-design-tokens.sh` passes.
-
-### Phase Commands
-
-| Phase | Command | What It Does |
-|---|---|---|
-| Initialize | `/START` | Load context, check prerequisites, orient AI |
-| Plan | `/PLAN` | Build phase plans, populate TASKS.md files |
-| Design | `/START design` | Apply a design profile to `DESIGN.md` |
-| Develop | `/DEVELOP` | Start a feature slice (gated) |
-| Check | `/CHECK` | Run all workspace readiness checks |
-| Fix | `/FIX` | Diagnose and repair issues |
-| Audit | `/SCAN` | Full workspace health report |
-| Deploy | `/DEPLOY` | Trigger release pipeline |
-| Commit | `/GIT` | Conventional commit + PR workflow |
 
 ---
 
 ## Agent Swarm
 
-100+ specialized agents organized in a lazy-loaded hierarchy.
+100+ specialized agents organized in a lazy-loaded hierarchy. The orchestration layer routes tasks to the right specialist automatically — no manual agent selection required.
 
 <details>
-<summary><strong>View Swarm Hierarchy</strong></summary>
+<summary><strong>View swarm hierarchy</strong></summary>
 
-```
-executive-director
-└── swarm-leader
-    └── deputy-swarm-leader
-        └── subagent-controller
-            ├── Lead Architects
-            │   backend · frontend · mobile · infra · security
-            │   database · devops · solution · analytics · AI ethics
-            │
-            ├── Backend Domain
-            │   api-logic · database-design · sql · nosql
-            │   data-engineer · pipeline · real-time · vector-store
-            │
-            ├── Frontend Domain
-            │   react-components · design-systems-tokens · ui-components
-            │   frontend-performance · motion-3d · prototyping
-            │
-            ├── Mobile Domain
-            │   ios · android · flutter · cross-platform · offline-sync
-            │
-            ├── Infrastructure & DevOps
-            │   docker-k8s · gitops · observability · sre · performance
-            │
-            ├── Security & Compliance
-            │   app-security · auth · infra-security · threat-modeling
-            │   encryption · compliance · privacy
-            │
-            ├── Product & Content
-            │   product-manager · content-strategist · cms · seo · aeo
-            │
-            ├── Quality & Testing
-            │   qa-lead · testing · code-review · a11y · rtl
-            │
-            ├── AI & Ethics
-            │   safety · sustainability · bias-fairness · explainability
-            │
-            └── Arabic / MENA Specialists
-                arabic-content · arabic-seo · khaleeji · levantine
-                masri · maghrebi · msa-formal
+```mermaid
+graph TD
+    ED["executive-director"] --> SL["swarm-leader"]
+    SL --> DSL["deputy-swarm-leader"]
+    DSL --> SC["subagent-controller"]
+
+    SC --> LA["Lead Architects\nbackend · frontend · mobile\ninfra · security · analytics"]
+    SC --> BE["Backend\napi-logic · database · sql\nnosql · pipeline · real-time"]
+    SC --> FE["Frontend\nreact · design-systems\nperformance · motion"]
+    SC --> MB["Mobile\nios · flutter · cross-platform"]
+    SC --> IN["Infra & DevOps\ndocker-k8s · gitops · sre"]
+    SC --> SE["Security\nauth · encryption · compliance"]
+    SC --> PC["Product & Content\ncms · seo · aeo · crm"]
+    SC --> QA["Quality\nqa-lead · testing · a11y · rtl"]
+    SC --> AR["Arabic / MENA\nkhaleeji · levantine · masri\nmaghrebi · msa-formal"]
+
+    style ED fill:#1f6feb,color:#fff,stroke:#1f6feb
+    style SL fill:#388bfd,color:#fff,stroke:#388bfd
 ```
 
-Agents are lazy-loaded via `agent-lazy-load.mdc`. See the full [Agent Map](docs/wiki/Agent-Map.md).
+Agents are lazy-loaded via `agent-lazy-load.mdc`. Full details in the [Agent Map](docs/wiki/Agent-Map.md).
 
 </details>
 
 ---
 
+## Multi-Client Sync
+
+All 8 AI clients derive their configuration from `.cursor/`. One sync command, no drift.
+
+```bash
+pnpm ai:sync   # Propagate .cursor/ changes to all clients
+pnpm ai:check  # Verify no drift between clients
+```
+
+| Client | Entry Point | Sync Folder |
+|---|---|---|
+| **Cursor** | `.cursor/` | — (canonical, never synced) |
+| **Claude** | `CLAUDE.md` | `.claude/` |
+| **Gemini** | `GEMINI.md` | `.gemini/` |
+| **OpenCode** | — | `.opencode/` |
+| **Codex** | `AGENTS.md` | `.codex/` |
+| **Qwen** | `QWEN.md` | `.qwen/` |
+| **Antigravity** | — | `.antigravity/` |
+| **Kilocode** | — | `.kilocode/` |
+
+---
+
 ## Memory System
 
-4-layer architecture ensuring decisions survive session resets.
+Decisions survive session resets through a four-layer persistence architecture.
 
 <details>
-<summary><strong>View Memory Layers</strong></summary>
+<summary><strong>View memory layers</strong></summary>
 
-| Layer | What | Where |
+| Layer | Scope | Location |
 |---|---|---|
-| **0** — Session | Ephemeral chat context | Cursor window |
-| **1** — Project | Durable decisions + plans | `docs/memory/` |
-| **2** — Team | Agent + rule contracts | `.cursor/agents/`, `.cursor/rules/` |
-| **3** — Workspace | Root governance | `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` |
+| **0 — Session** | Ephemeral chat context | Active AI window |
+| **1 — Project** | Durable decisions + plans | `.nezam/memory/` |
+| **2 — Team** | Agent + rule contracts | `.cursor/agents/`, `.cursor/rules/` |
+| **3 — Workspace** | Root governance | `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` |
 
 **Key memory files:**
 
 | File | Purpose |
 |---|---|
-| `docs/memory/MEMORY.md` | Stack decisions, ADRs, design locks, scorecards |
+| `.nezam/memory/MEMORY.md` | Stack decisions, ADRs, design locks, scorecards |
 | `docs/memory/CONTEXT.md` | Current phase, priorities, blockers |
-| `docs/memory/PHASE_HANDOFF.md` | Briefing for next agent/session |
+| `docs/memory/PHASE_HANDOFF.md` | Briefing for the next agent or session |
 | `docs/memory/DECISIONS.md` | Plain-language decision log |
 | `docs/memory/MCP_REGISTRY.md` | MCP tool registry |
 | `docs/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
@@ -233,28 +243,27 @@ Agents are lazy-loaded via `agent-lazy-load.mdc`. See the full [Agent Map](docs/
 
 ## Design System
 
-Token-first governance. Design gates block development.
+Token-first governance. Design gates block development until tokens are approved and validated.
 
 <details>
-<summary><strong>View Design Governance</strong></summary>
+<summary><strong>View design governance</strong></summary>
 
-**Apply a design profile:**
 ```bash
+# Apply a design profile
 pnpm run design:apply -- minimal
-# or: pnpm run design:apply -- brand
-```
+pnpm run design:apply -- brand
 
-**Check tokens:**
-```bash
+# Validate tokens
 pnpm run check:tokens
 ```
 
-**What gets locked:**
+**What gets locked and enforced:**
+
 - Color primitives + semantic tokens
 - Typography scale (family, size, weight, line-height)
 - Spacing grid (base unit + scale)
 - Border radius + shadow system
-- Motion/animation tokens
+- Motion and animation tokens
 - Dark mode parity (required for all tokens)
 - RTL layout support
 
@@ -264,63 +273,21 @@ Design profiles live in `.cursor/design/<brand>/design.md`.
 
 ---
 
-## Multi-Client Sync
+## CI/CD Gates
 
-All 8 AI clients read from the same canonical source.
-
-```bash
-# After editing .cursor/ — always sync
-pnpm ai:sync
-
-# Verify no drift
-pnpm ai:check
-```
-
-**Supported Clients:**
-
-| Client | Config File | Sync Folder |
+| Workflow | Trigger | Checks |
 |---|---|---|
-| Cursor | `.cursor/` | — (canonical) |
-| Claude | `CLAUDE.md` | `.claude/` |
-| Gemini | `GEMINI.md` | `.gemini/` |
-| OpenCode | — | `.opencode/` |
-| Codex | `AGENTS.md` | `.codex/` |
-| Qwen | `QWEN.md` | `.qwen/` |
-| Antigravity | — | `.antigravity/` |
-| Kilocode | — | `.kilocode/` |
-
-> **Rule:** Never edit `.claude/`, `.gemini/`, `.opencode/`, etc. directly. Always edit `.cursor/` and run `pnpm ai:sync`.
-
----
-
-## Key Scripts
-
-| Script | Purpose |
-|---|---|
-| `pnpm ai:sync` | Sync `.cursor/` to all AI client folders |
-| `pnpm ai:check` | Verify no drift between clients |
-| `pnpm run check:onboarding` | Validate workspace setup |
-| `pnpm run check:tokens` | Validate design tokens |
-| `pnpm run design:apply -- <brand>` | Apply a design profile |
-| `pnpm continual-learning:on` | Enable continual-learning mode |
-
----
-
-## CI/CD
-
-| Workflow | Trigger | What It Checks |
-|---|---|---|
-| `ci.yml` | Push / PR | Onboarding, AI sync, design tokens, tests |
-| `design-gates.yml` | Design changes | Token validity, dark mode parity, RTL coverage |
-| `release.yml` | Push to main | Semantic release, CHANGELOG, GitHub Release |
+| `ci.yml` | Push / PR | Onboarding, AI sync drift, design tokens, tests |
+| `design-gates.yml` | Design file changes | Token validity, dark mode parity, RTL coverage |
+| `release.yml` | Push to `main` | Semantic release, CHANGELOG, GitHub Release |
 
 Gate matrix: [`docs/plans/gates/GITHUB_GATE_MATRIX.json`](docs/plans/gates/GITHUB_GATE_MATRIX.json)
 
 ---
 
-## MENA / Arabic Language Stack
+## MENA / Arabic Stack
 
-NEZAM includes dedicated Arabic and MENA-region support:
+NEZAM ships with dedicated Arabic language and MENA-region support built into the agent layer.
 
 - **Content agents:** `arabic-content-master`, `arabic-seo-aeo-specialist`
 - **Dialect specialists:** Khaleeji, Levantine (Shami), Egyptian (Masri), Maghrebi, MSA Formal
@@ -335,24 +302,39 @@ NEZAM includes dedicated Arabic and MENA-region support:
 | Resource | Path | Description |
 |---|---|---|
 | Docs Hub | [`docs/README.md`](docs/README.md) | Master documentation index |
-| PRD | [`docs/prd/PRD.md`](docs/prd/PRD.md) | Full product requirements |
+| PRD | [`.nezam/workspace/prd/PRD.md`](.nezam/workspace/prd/PRD.md) | Full product requirements |
 | Wiki | [`docs/wiki/Home.md`](docs/wiki/Home.md) | Architecture, agents, design, CI |
-| Memory | [`docs/memory/`](docs/memory/) | All durable memory files |
+| Memory | [`.nezam/memory/`](.nezam/memory/) | All durable memory files |
 | Plans | [`docs/plans/`](docs/plans/) | Phase execution plans |
-| Architecture | [`docs/architecture/`](docs/architecture/) | ADRs + diagrams |
-| Templates | [`docs/templates/`](docs/templates/) | Reusable doc templates |
+| Architecture | [`.nezam/workspace/architecture/`](.nezam/workspace/architecture/) | ADRs + system diagrams |
+| Templates | [`.nezam/templates/`](.nezam/templates/) | Reusable doc templates |
 | Reports | [`docs/reports/`](docs/reports/) | CI-generated reports |
+
+---
+
+## Key Scripts
+
+| Script | Purpose |
+|---|---|
+| `pnpm ai:sync` | Sync `.cursor/` to all AI client folders |
+| `pnpm ai:check` | Verify no drift between clients |
+| `pnpm run check:onboarding` | Validate workspace setup |
+| `pnpm run check:tokens` | Validate design tokens |
+| `pnpm run check:all` | Run every check in sequence |
+| `pnpm run design:apply -- <brand>` | Apply a design profile |
+| `pnpm run prd:roadmap` | Refresh release roadmap from JSON |
+| `pnpm continual-learning:on` | Enable continual-learning mode |
 
 ---
 
 ## Troubleshooting
 
 <details>
-<summary><strong>AI check fails after editing .cursor/</strong></summary>
+<summary><strong>AI check fails after editing <code>.cursor/</code></strong></summary>
 
 ```bash
 pnpm ai:sync    # Re-sync all clients
-pnpm ai:check   # Verify
+pnpm ai:check   # Verify no drift remains
 ```
 </details>
 
@@ -360,48 +342,48 @@ pnpm ai:check   # Verify
 <summary><strong>Design gate fails in CI</strong></summary>
 
 ```bash
-pnpm run design:apply -- minimal   # Re-apply profile
-pnpm run check:tokens              # Verify tokens
+pnpm run design:apply -- minimal   # Re-apply the profile
+pnpm run check:tokens              # Validate tokens locally
 ```
 </details>
 
 <details>
 <summary><strong>Onboarding check fails</strong></summary>
 
-Check which file is missing. Required files:
-- `docs/prd/PRD.md`
+Check which required file is missing:
+
+- `.nezam/workspace/prd/PRD.md`
 - `docs/memory/CONTEXT.md`
 - `docs/plans/INDEX.md`
 - `.cursor/agents/swarm-leader.md`
 
-Create missing files using templates in `docs/templates/`.
+Create missing files from templates in `.nezam/templates/`.
 </details>
 
 <details>
-<summary><strong>Agent not responding / wrong behavior</strong></summary>
+<summary><strong>Agent not responding or behaving incorrectly</strong></summary>
 
 ```
 /FIX agents
 ```
 
-Or check `docs/memory/AGENT_COMM_PROTOCOL.md` for inter-agent communication standards.
+Or review `docs/memory/AGENT_COMM_PROTOCOL.md` for inter-agent communication standards.
 </details>
 
 ---
 
 ## Versioning
 
-NEZAM follows [Semantic Versioning](https://semver.org/) with [Conventional Commits](https://www.conventionalcommits.org/).
+NEZAM follows [Semantic Versioning](https://semver.org/) with [Conventional Commits](https://www.conventionalcommits.org/).  
+Current: `v0.1.0` — Workspace Kit baseline.
 
-Current: `v0.1.0` — Workspace Kit baseline
-
-Roadmap: canonical [`docs/prd/release-roadmap.json`](docs/prd/release-roadmap.json) (edit milestones there, then `pnpm prd:roadmap` to refresh the table). Rendered in [`docs/prd/PRD.md#11-release-roadmap`](docs/prd/PRD.md#11-release-roadmap).
+Roadmap is maintained in [`.nezam/workspace/prd/release-roadmap.json`](.nezam/workspace/prd/release-roadmap.json) — edit milestones there, then run `pnpm prd:roadmap` to refresh the rendered table in the PRD.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE) if present, or fork freely as a template.
+MIT — see [LICENSE](LICENSE), or fork freely as a template.
 
 ---
 

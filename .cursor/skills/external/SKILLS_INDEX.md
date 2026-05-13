@@ -45,7 +45,7 @@ Last updated: 2026-05-12
 2. Create `SKILL.md` with required frontmatter (`name`, `description`, `paths`, `version`, `updated`, `changelog`).
 3. Add entry to this index table (alphabetical by skill name).
 4. Run `pnpm ai:sync` to propagate to mirrors.
-5. Update `docs/nezam/SKILLS_CHANGELOG.md` with the new addition.
+5. Update `.nezam/workspace/meta/SKILLS_CHANGELOG.md` with the new addition.
 
 ---
 

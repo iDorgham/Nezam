@@ -1,0 +1,52 @@
+# NEZAM Workspace Path Configuration
+# ─────────────────────────────────────────────────────────────────────────────
+# Edit paths here to relocate key project files/folders.
+# After any change: run  pnpm ai:sync
+#
+# Used by: /start, /plan, /check gates, check-onboarding-readiness.sh
+# Change via UI:  /nezam paths set <key> <value>
+#   e.g.  /nezam paths set project.prd src/docs/PRD.md
+# ─────────────────────────────────────────────────────────────────────────────
+
+project:
+  # Your project PRD file. Change if you keep your PRD at a different location.
+  prd: ".nezam/workspace/prd/PRD.md"
+
+  # Root folder for phase-based execution plans. /plan scaffolds sub-folders here.
+  plans_root: "docs/plans"
+
+  # Root folder for reports. Execution outputs are written here by category.
+  # Valid category sub-folders: progress | tests | audits | a11y | security | perf | lighthouse
+  reports_root: "docs/reports"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NEZAM workspace internals
+# Only change these if you are restructuring the workspace itself.
+# Use /nezam paths set or /nezam customize — do NOT hand-edit during project work.
+# ─────────────────────────────────────────────────────────────────────────────
+workspace:
+  # Root of all NEZAM governance docs (plans, memory, reports, specs, prd)
+  nezam_root: ".nezam/workspace"
+
+  # Canonical template library — edit files here to customise generated artifacts
+  templates_root: ".nezam/templates"
+
+  # Memory & Context
+  memory: ".nezam/memory"
+  context: ".nezam/context"
+  
+  # Design profiles
+  design_profiles: ".nezam/design"
+  
+  # Tools, Specs, Scratch
+  tools: ".nezam/tools"
+  specs: ".nezam/specs"
+  scratch: ".nezam/scratch"
+  
+  # Gates & Configuration
+  gates_config: ".nezam/gates"
+  hardlock_paths: ".nezam/gates/hardlock-paths.json"
+  
+  # Workspace Config Mirrors
+  paths: ".nezam/gates/workspace.paths.yaml"
+  settings: ".nezam/gates/workspace.settings.yaml"

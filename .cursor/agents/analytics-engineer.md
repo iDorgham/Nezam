@@ -25,7 +25,7 @@ when: ["/PLAN data", "/DEVELOP data", "metric definition request", "dashboard bu
 - Reconciliation note when warehouse and PostHog metrics diverge.
 - Deprecation plan for any metric or event being retired.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-database-optimization`
 - `@nezam-monitoring-observability`
 - `@nezam-content-modeling`

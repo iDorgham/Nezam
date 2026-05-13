@@ -1,0 +1,43 @@
+---
+name: "nezam-ux-research-protocol"
+description: Standardized framework for user research, persona creation, and empathy mapping within the SDD pipeline.
+version: 1.0.0
+updated: 2026-05-12
+changelog:
+  - 1.0.0: Initial release as part of the Design Skill Gap Fill.
+---
+# UX Research Protocol Skill
+
+## Purpose
+
+Standardize the discovery and research phase to ensure all product decisions are rooted in verified user needs, behaviors, and pain points. This skill guides the creation of personas, empathy maps, and research summaries.
+
+## Procedure
+
+### 1. Research Planning
+- Define research objectives (what do we need to learn?).
+- Identify target segments.
+- Select methods (interviews, surveys, competitive benchmarking).
+
+### 2. Data Synthesis
+- Extract themes from raw research data.
+- Identify "Critical Moments" in the user journey.
+- Map pain points to specific requirements.
+
+### 3. Artifact Generation
+- **Personas**: Create 2-3 detailed user archetypes with goals, frustrations, and tech literacy levels.
+- **Empathy Maps**: Document what users Say, Think, Do, and Feel.
+- **Problem Statements**: Draft "How Might We" statements to guide design.
+
+## Output Artifacts
+
+1. `docs/plans/01-research/USER_PERSONAS.md`: Detailed archetypes.
+2. `docs/plans/01-research/EMPATHY_MAPS.md`: Behavioral insights.
+3. `docs/plans/01-research/RESEARCH_SUMMARY.md`: Key findings and strategic recommendations.
+
+## Validation Checklist
+
+- [ ] Personas are distinct and non-overlapping.
+- [ ] Every "Goal" in the persona is addressed in the PRD.
+- [ ] Empathy maps include actual quotes or observed behaviors (if data available).
+- [ ] Research summary links findings directly to P0/P1 requirements.

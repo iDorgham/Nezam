@@ -7,7 +7,7 @@ Subcommands:
   /CREATE task          → Add a task to MASTER_TASKS.md with ID, owner, phase, metric
   /CREATE report        → Initialize a fresh progress report shell
   /CREATE handoff       → Generate AI handoff packet for external AI companion
-  /CREATE design        → Create a new design profile in .cursor/design/<name>/design.md
+  /CREATE design        → Create a new design profile in .nezam/design/<name>/design.md
   /CREATE agent         → Scaffold a new agent file with standard frontmatter
   /CREATE skill         → Scaffold a new skill folder with SKILL.md template
   /CREATE changelog     → Initialize CHANGELOG.md at workspace root if missing
@@ -23,7 +23,7 @@ When creating a task entry in `docs/plans/MASTER_TASKS.md`, include routing fiel
 
 1. Determine task `type` (for example: `documentation`, `scan`, `boilerplate`, `architecture-decision`).
 2. Read active tool state from `.cursor/workspace.settings.yaml`.
-3. Read routing matrix from `docs/nezam/memory/CLI_TOOLS_CONTEXT.md`.
+3. Read routing matrix from `.nezam/memory/CLI_TOOLS_CONTEXT.md`.
 4. Assign:
    - `assigned_tool` from the matching task-type lane.
    - `fallback_tool` from deactivation chain.

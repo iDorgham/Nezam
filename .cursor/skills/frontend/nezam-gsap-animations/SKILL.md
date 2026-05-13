@@ -1,0 +1,61 @@
+---
+skill_id: nezam-gsap-animations"
+name: "nezam-gsap-animations"
+description: "Implements high-performance, scroll-triggered animations and timeline composition using GSAP and Framer Motion."
+version: 1.0.0
+updated: 2026-05-12
+changelog:
+  - version: 1.0.0
+    date: 2026-05-12
+    notes: "Initial Wave 2 implementation."
+owner: "frontend-lead"
+tier: 1
+sdd_phase: "Development"
+rtl_aware: true
+certified: true
+dependencies: ["design/motion-3d", "design/interaction-choreography"]
+---
+# GSAP & Framer Motion Animations
+
+## Purpose
+
+Implement premium, high-performance web animations using GSAP (GreenSock Animation Platform) and Framer Motion. Focuses on scroll-triggered effects, complex timeline composition, and layout animations to fulfill the design system's interaction choreography.
+
+## Trigger Conditions
+
+- High-impact landing pages requiring scroll-driven storytelling.
+- Complex multi-step UI transitions (e.g., page loading sequences).
+- Micro-interactions requiring physics-based spring physics (Framer Motion).
+
+## Prerequisites
+
+- Motion design specs from `design/interaction-choreography`.
+- GSAP and ScrollTrigger plugins installed.
+- Framer Motion installed for component-level variants.
+
+## Procedure
+
+1. **Tool Selection:** 
+   - Use **GSAP + ScrollTrigger** for complex, sequenced, or scroll-linked animations affecting multiple DOM nodes.
+   - Use **Framer Motion** for React component state transitions, layout animations (`layoutId`), and simple hover/tap variants.
+2. **GSAP Context:** Always use `gsap.context()` in React (`useGSAP` hook) to ensure proper cleanup of animations on component unmount.
+3. **Timeline Composition:** Build modular timelines (`gsap.timeline()`) rather than isolated tweens to coordinate multi-element choreographies.
+4. **Performance:** Animate only transform (`translate`, `scale`, `rotate`) and `opacity` properties to avoid browser repaints. Use `will-change: transform` sparingly.
+5. **RTL Awareness:** Ensure horizontal translations (`x`) account for RTL layouts (e.g., sliding "in" might mean `-x` in LTR but `+x` in RTL). Check the `dir` attribute context.
+6. **Accessibility:** Respect `prefers-reduced-motion` media queries. Disable or dramatically simplify animations for users who request it.
+
+## Output Artifacts
+
+- Animation hooks (e.g., `useScrollSequence`).
+- Component variants and timeline configurations.
+
+## Validation Checklist
+
+- [ ] GSAP animations are properly cleaned up on unmount.
+- [ ] No layout-thrashing properties (width, height, top) are animated.
+- [ ] Animations respect `prefers-reduced-motion`.
+- [ ] RTL layouts execute horizontal animations correctly.
+
+## Handoff Target
+
+`quality/a11y-automation` for accessibility checks, or `quality/performance-optimization` to verify render costs.

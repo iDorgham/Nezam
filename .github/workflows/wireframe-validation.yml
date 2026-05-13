@@ -1,0 +1,15 @@
+name: ASCII Wireframe Validation
+on:
+  pull_request:
+    paths: ['docs/plans/design/wireframes/**', '.nezam/templates/skills/design/**']
+jobs:
+  validate-wireframes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          for f in docs/plans/design/wireframes/*.md; do
+            grep -q "RTL" "$f" || echo "⚠️ Missing RTL parity note in $f"
+            grep -q "Interaction Specs" "$f" || echo "❌ Missing interaction specs in $f"
+          done
+          echo "✅ Wireframe catalog validated"

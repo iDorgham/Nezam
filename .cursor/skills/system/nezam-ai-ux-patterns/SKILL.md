@@ -1,0 +1,146 @@
+---
+name: "nezam-ai-ux-patterns"
+description: UI/UX design patterns for AI-powered product features — loading states, confidence indicators, streaming, error recovery, and MENA-specific AI UX.
+paths:
+  - "docs/plans/04-design/**"
+  - "DESIGN.md"
+  - "docs/specs/ai/**"
+version: 1.0.0
+updated: 2026-05-12
+changelog: []
+---
+# AI UX Patterns Skill
+
+## Purpose
+
+Define standard UX patterns for surfaces where LLMs power product features. Ensures AI interactions feel reliable, transparent, and human-centered. Covers streaming output, loading states, confidence display, error recovery, and culturally-aware AI UX for MENA products.
+
+## Core Pattern Catalog
+
+---
+### Pattern 1: Streaming Text Output
+
+**When:** LLM streams tokens progressively (chat, generation, summarization).
+
+**UX Rules:**
+- Show typing indicator (animated dots or cursor blink) from first token.
+- Render tokens as they arrive — do not buffer and batch.
+- Provide "Stop generating" button from first token.
+- On stream complete: show a subtle "done" state change (color shift or checkmark).
+- If stream interrupted: show partial result + "Generation stopped" notice with retry option.
+
+**RTL (Arabic/MENA) note:** Use `dir="auto"` on streaming container so Arabic text renders RTL, Latin text LTR, dynamically per paragraph.
+
+---
+### Pattern 2: Loading States (Non-Streaming)
+
+**When:** LLM call takes 1–30 seconds with no intermediate output.
+
+**States:**
+1. **Idle:** Normal input state.
+2. **Thinking (0–2s):** Spinner or skeleton loader. Label: "Thinking..." / "جارٍ التفكير..."
+3. **Processing (2–8s):** Progress hint. Label: "Analyzing..." / "جارٍ التحليل..."
+4. **Long wait (8s+):** Extended wait notice. Label: "This is taking longer than usual. Still working..." / "يستغرق هذا وقتاً أطول من المعتاد..."
+5. **Timeout (30s):** Timeout error + retry button. Do not leave user in infinite loading.
+
+---
+### Pattern 3: Confidence Indicators
+
+**When:** AI output has variable accuracy (search, classification, extraction).
+
+**Implementation:**
+- High confidence (≥ 85%): No indicator — present result normally.
+- Medium confidence (60–84%): Subtle badge "AI suggestion" / "اقتراح ذكاء اصطناعي".
+- Low confidence (< 60%): Yellow warning badge + "Review recommended" / "يُنصح بالمراجعة".
+- Unknown confidence: Show "AI-generated" label always.
+
+**Anti-pattern:** Showing exact percentage to users (undermines trust; humans interpret 73% as unreliable).
+
+---
+### Pattern 4: Error Recovery
+
+**Error types and UX response:**
+
+| Error | User message | Action |
+|-------|-------------|--------|
+| Timeout | "Our AI took too long. Try again." / "استغرق الذكاء الاصطناعي وقتاً طويلاً. حاول مجدداً." | Retry button |
+| Safety block | "I can't help with that." / "لا أستطيع المساعدة في ذلك." | No details exposed |
+| Low quality | "I'm not confident in this answer. Here's what I found:" | Show partial + feedback |
+| Service down | "AI features are temporarily unavailable." | Graceful degradation to manual |
+
+**Golden rule:** Never expose raw error messages, stack traces, or model names to end users.
+
+---
+### Pattern 5: AI Feature Transparency
+
+**Disclosure requirements:**
+- Label all AI-generated content clearly: badge, icon, or inline label.
+- EN label: "AI-generated" | AR label: "مولّد بالذكاء الاصطناعي"
+- Provide "How does this work?" link pointing to a plain-language explanation.
+- Allow users to report incorrect AI output (feedback loop).
+- Store feedback in `docs/reports/ai/USER_FEEDBACK.md` for periodic review.
+
+---
+### Pattern 6: Feedback & Rating
+
+**When:** AI output quality matters to product value.
+
+**Implementation:**
+- Thumbs up / thumbs down immediately after AI response.
+- Optional: short-form reason on thumbs down (max 3 choices, not free text).
+- Aggregate ratings weekly; use to improve prompt quality (pairs with `prompt-audit` skill).
+
+---
+### Pattern 7: MENA-Specific AI UX
+
+**7A. Language Handling**
+- Detect input language (Arabic vs. English vs. Arabizi) before LLM call.
+- Route to appropriate system prompt variant per detected language.
+- Never mix Arabic and English in a single AI response unless user explicitly requests it.
+
+**7B. Cultural Tone**
+- Gulf users: formal by default, switch to casual if user initiates.
+- Levantine users: warm, conversational OK from first message.
+- Egyptian users: practical, direct, light humor acceptable.
+- Never use Western idioms/metaphors that don't translate (e.g., "home run", "ballpark").
+
+**7C. RTL Layout**
+- AI chat bubbles: RTL container, right-aligned for Arabic, left-aligned for English.
+- Streaming cursor: appears at start of Arabic text (right side), end of English text (left side).
+- Timestamps: localize to user's regional format (not ISO 8601 raw).
+
+## Output Format
+
+When designing an AI feature, produce:
+1. **State machine diagram** — all UX states and transitions.
+2. **Component spec** — loading, streaming, confidence, error components.
+3. **Copy deck** — EN and AR strings for all states.
+4. **Accessibility notes** — screen reader announcements for dynamic content.
+
+## Validation & Metrics
+- All AI surfaces have labeled loading states with timeout handling.
+- All AI-generated content is labeled (no dark patterns).
+- RTL rendering tested with Arabic input on all streaming components.
+- User feedback mechanism present on all high-stakes AI outputs.
+- Error recovery tested for each error type defined above.
+
+## Integration Hooks
+- Used by `design-lead` and `frontend-lead` agents when designing AI features.
+- Pairs with `ai-safety-guardrails` skill for safety message copy.
+- Pairs with `llm-integration` skill for streaming vs. non-streaming decision.
+- Pairs with `rtl-specialist` agent for Arabic layout review.
+- Referenced in `DESIGN.md` → AI Feature UX section.
+
+## Anti-Patterns
+- Infinite loading with no timeout.
+- Showing model names or API errors to users.
+- Using English-only error messages in Arabic-primary products.
+- Confidence percentages shown as exact numbers.
+- AI content not labeled (deceives users about content origin).
+- Streaming container without `dir="auto"` (breaks RTL Arabic mid-stream).
+
+## External Reference
+- Nielsen Norman Group — AI UX guidelines: https://www.nngroup.com/articles/ai-ux/
+- Google PAIR (People + AI Research): https://pair.withgoogle.com/guidebook/
+- Microsoft AI UX Design Guide: https://learn.microsoft.com/en-us/ai/
+- W3C WCAG 2.2 (for accessible AI content announcements): https://www.w3.org/TR/WCAG22/

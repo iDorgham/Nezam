@@ -31,7 +31,7 @@ You are the Technical Feasibility Analyst within the Architecture & Planning swa
 - Dependency map naming the critical path and the single point of failure.
 - Risk-adjusted estimate band (P50 / P90).
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-strategic-planning` for milestone alignment.
 - `@nezam-risk-mitigation` for pre-mortem framing.

@@ -1,0 +1,11 @@
+{
+  "phase": "00-define",
+  "subphase": "01-product",
+  "task": "Define Visual Builder product requirements and scope",
+  "status": "completed",
+  "owner": "Dorgham",
+  "gates": [
+    "PRD_VALIDATED",
+    "SCOPE_LOCKED"
+  ]
+}

@@ -31,7 +31,7 @@ You are the Docker & Kubernetes Specialist within the Performance & DevOps swarm
 - Resource request / limit and probe configuration.
 - Autoscaling policy with metrics and bounds.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-aws-infra` for cloud-K8s integration patterns.
 - `@nezam-secret-management` for secret mounting.

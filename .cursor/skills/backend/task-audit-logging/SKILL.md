@@ -1,0 +1,47 @@
+---
+name: task-audit-logging
+description: Implements comprehensive auditing for all task modifications and state changes.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
+---
+
+# Task Audit Logging
+
+## Purpose
+Ensures every change to a task (status, assignee, metadata) is recorded for historical analysis and accountability.
+
+## Inputs
+- Database schema for `tasks` and `task_history` tables.
+- Compliance requirements for data retention.
+
+## Step-by-Step Workflow
+1. Design the audit log schema including timestamp, actor_id, field_changed, old_value, and new_value.
+2. Implement triggers or middleware to capture changes on every save operation.
+3. Ensure atomicity between the task update and the audit log entry.
+4. Build retrieval API for fetching a task's history timeline.
+
+## Examples
+```sql
+-- Example Audit Log Schema
+CREATE TABLE task_history (
+  id UUID PRIMARY KEY,
+  task_id UUID REFERENCES tasks(id),
+  actor_id UUID,
+  changed_at TIMESTAMP DEFAULT NOW(),
+  changes JSONB
+);
+```
+
+## Validation & Metrics
+- Coverage: 100% of task table writes must generate an audit entry.
+- Query Performance: Audit history retrieval < 50ms.
+
+## Output Format
+- Database Migration (SQL)
+- Audit Middleware Implementation
+
+## Integration Hooks
+- `/SCAN` for data integrity checks.
+- Backend data-access-layer (DAL).

@@ -18,7 +18,7 @@ Own inbound bug triage: intake from support / observability / customers, severit
 
 ## Team Leader Scope
 
-- Run daily bug-triage stand-down per Phase 6 of [`SWARM_WORKFLOW.md`](../../docs/workspace/context/governance/SWARM_WORKFLOW.md).
+- Run daily bug-triage stand-down per Phase 6 of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - Maintain severity / priority taxonomy with consistent SLAs.
 - Route bugs to the owning swarm with reproduction evidence.
 - Track aging and escalate stuck items.

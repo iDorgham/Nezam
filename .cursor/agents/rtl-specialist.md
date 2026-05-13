@@ -25,7 +25,7 @@ when: ["/PLAN localization", "/PLAN design", "RTL regression", "Arabic typograph
 - Mirrored-icon classification list (mirror / do-not-mirror / variant).
 - Bidi text test cases (LTR-in-RTL, numbers, punctuation, embedded URLs).
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@css-architecture-runtime`
 - `@token-grid-typography`
 - `@brand-visual-direction`

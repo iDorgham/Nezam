@@ -1,7 +1,7 @@
 /Settings — Workspace control plane. Manage all configuration for NEZAM in one place.
 
 Settings are persisted to: `.cursor/workspace.settings.yaml`
-Tool context reference: `docs/nezam/memory/CLI_TOOLS_CONTEXT.md`
+Tool context reference: `.nezam/memory/CLI_TOOLS_CONTEXT.md`
 Run `pnpm ai:sync` after any settings change to propagate to all AI clients.
 
 Hard blocks: none — /Settings is always available
@@ -239,7 +239,7 @@ Routing Configuration
   Project policy: default
   Change policy: /Settings project tool-policy <strict|cost-optimized|arabic-heavy|default>
 
-  View full routing matrix: docs/nezam/memory/CLI_TOOLS_CONTEXT.md
+  View full routing matrix: .nezam/memory/CLI_TOOLS_CONTEXT.md
 ```
 
 ### /Settings ai-tools test
@@ -377,7 +377,7 @@ MCP Server Status
 
   MCP-first policy: ON
   Configure env vars → then run /Settings mcp on <service>
-  Full registry: docs/nezam/memory/MCP_REGISTRY.md
+  Full registry: .nezam/memory/MCP_REGISTRY.md
 ```
 
 ---
@@ -416,7 +416,7 @@ Reset any section to defaults. Asks for confirmation before resetting.
 
 ## /Settings export
 Export current workspace.settings.yaml to a dated backup file.
-Creates: `docs/nezam/memory/settings-backup-YYYY-MM-DD.yaml`
+Creates: `.nezam/memory/settings-backup-YYYY-MM-DD.yaml`
 Useful before major upgrades or team onboarding.
 
 ---

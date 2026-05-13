@@ -8,9 +8,9 @@ owner: PM-01
 
 ## Path resolution
 
-Read `.cursor/workspace.paths.yaml` before any gate path check:
-- `project.prd` → default `docs/prd/PRD.md`
-- `project.plans_root` → default `docs/plans`
+Read `.nezam/gates/workspace.paths.yaml` before any gate path check:
+- `project.prd` → default `.nezam/workspace/prd/PRD.md`
+- `project.plans_root` → default `.nezam/workspace/plans`
 - `project.reports_root` → default `docs/reports`
 
 Subcommands:
@@ -126,7 +126,7 @@ Before running gate checks, read:
 2. `.cursor/state/plan_progress.yaml`
 3. `.cursor/state/develop_phases.yaml`
 
-Run checks in this order using the `sdd-gate-validator` skill:
+Run checks in this order using the `gate-orchestrator` skill:
 
 **Gate 0 (Onboarding → Planning):**
 
@@ -155,7 +155,12 @@ Run checks in this order using the `sdd-gate-validator` skill:
 - A11y audit passes WCAG 2.2 AA
 - Test coverage ≥80% on critical paths
 
-Show results using validator output format from `sdd-gate-validator` skill.
+Show results using validator output format from `gate-orchestrator` skill.
+If any check fails, block the operation with:
+> **HARDLOCK VIOLATION:** [Phase] blocked. 
+> **Missing:** [Specific file / YAML flag]. 
+> **Required gate:** [Gate name]. 
+> Run `/CHECK` for details or `/FIX gates` to attempt remediation.
 
 ---
 

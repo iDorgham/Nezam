@@ -1,0 +1,11 @@
+{
+  "phase": "00-define",
+  "subphase": "02-architecture",
+  "task": "Define Visual Builder technical architecture",
+  "status": "completed",
+  "owner": "Dorgham",
+  "gates": [
+    "ARCH_APPROVED",
+    "DATA_MODEL_VALIDATED"
+  ]
+}

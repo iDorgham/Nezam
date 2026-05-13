@@ -2,14 +2,14 @@
 
 ## Path resolution
 
-Before performing any file operation, read `docs/gates/workspace.paths.yaml` and resolve:
+Before performing any file operation, read `.nezam/gates/workspace.paths.yaml` and resolve:
 
-- `prd` → default `docs/prd/PRD.md`
+- `prd` → default `.nezam/workspace/prd/PRD.md`
 - `plans_root` → default `.nezam/workspace/plans`
 - `reports_root` → default `docs/reports`
 
 If the file is missing or a key is absent, fall back to the default values above.
-All references to `docs/prd/PRD.md`, `docs/plans/`, and `docs/reports/` in this command
+All references to `.nezam/workspace/prd/PRD.md`, `docs/plans/`, and `docs/reports/` in this command
 use these resolved paths. Users can relocate any of them with `/nezam paths set`.
 
 ## What /START does
@@ -27,8 +27,8 @@ When a user runs `/start` (with or without a subcommand), Claude scaffolds the p
 ## Subcommands
 
   /START             → Interactive: ask the user for their project idea, then scaffold docs/ and create a draft PRD
-  /START docs        → Scaffold docs/prd/, docs/plans/, docs/reports/ if they don't exist, show status
-  /START prd         → Open docs/prd/PRD.md in guided mode — ask user questions and fill it in together
+  /START docs        → Scaffold .nezam/workspace/prd/, docs/plans/, docs/reports/ if they don't exist, show status
+  /START prd         → Open .nezam/workspace/prd/PRD.md in guided mode — ask user questions and fill it in together
   /START gates       → Run all prerequisite checks. Shows ✅/❌ per gate in plain language.
   /START repo        → Link or initialize the git repository
   /START settings    → Jump to AI tools setup (onboarding shortcut)
@@ -52,7 +52,7 @@ When the user runs `/start` with no subcommand, execute the full onboarding flow
 Create these paths if they don't already exist:
 
 ```
-docs/prd/PRD.md              ← from .nezam/templates/sdd/PRD_TEMPLATE.md
+.nezam/workspace/prd/PRD.md              ← from .nezam/templates/sdd/PRD_TEMPLATE.md
 docs/plans/.gitkeep
 docs/reports/progress/.gitkeep
 docs/reports/tests/.gitkeep
@@ -247,7 +247,7 @@ How do you want to start?
       and rewrite it in standard NEZAM format.
 
   [4] Add my PRD directly → No AI editing
-      Drop PRD.md into docs/prd/ and I'll accept
+      Drop PRD.md into .nezam/workspace/prd/ and I'll accept
       it as-is and move to the next step.
 
 Type 1, 2, 3, or 4:
@@ -262,7 +262,7 @@ Type 1, 2, 3, or 4:
 - Agent echoes back in 2 sentences to confirm understanding
 - Agent presents exactly 3 targeted improvement suggestions (not generic)
 - User can say YES to incorporate, NO to skip, or pick specific ones
-- Agent writes complete PRD → saves to `docs/prd/PRD.md`
+- Agent writes complete PRD → saves to `.nezam/workspace/prd/PRD.md`
 - Shows PRD summary card (product name, type, users, core problem, revenue model)
 - Asks: "Looks good? Type YES to lock or tell me what to change."
 
@@ -332,7 +332,7 @@ After response → write PRD → save → show PRD lock ceremony.
 
 #### Mode 4 — Add PRD directly (No AI editing)
 
-- Tell user: "Drop your PRD.md into `docs/prd/` then type READY."
+- Tell user: "Drop your PRD.md into `.nezam/workspace/prd/` then type READY."
 - When they type READY:
   - read the file
   - validate it has content (not just template)
@@ -346,7 +346,7 @@ After PRD is accepted/locked, show:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅  PRD LOCKED: docs/prd/PRD.md
+✅  PRD LOCKED: .nezam/workspace/prd/PRD.md
 
 Product:      [name]
 Type:         [Web App / SaaS / Mobile / Website / API]
@@ -361,7 +361,7 @@ Write to `.cursor/state/onboarding.yaml`:
 
 ```yaml
 prd_locked: true
-prd_path: "docs/prd/PRD.md"
+prd_path: ".nezam/workspace/prd/PRD.md"
 prd_locked_at: "[timestamp]"
 design_locked: false
 planning_complete: false
@@ -479,7 +479,7 @@ After PRD and DESIGN are both locked, show:
   ONBOARDING COMPLETE — Gates Status
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅  docs/prd/PRD.md     → Locked
+✅  .nezam/workspace/prd/PRD.md     → Locked
 ✅  DESIGN.md           → Locked
 ✅  docs/plans/         → Ready
 ✅  docs/reports/       → Ready (7 categories)
@@ -496,7 +496,7 @@ Next step: Run /plan to generate your execution roadmap
 
 ## Behavior: /START prd
 
-Guide the user through filling in `docs/prd/PRD.md` interactively:
+Guide the user through filling in `.nezam/workspace/prd/PRD.md` interactively:
 
 Ask these questions one at a time (don't dump all at once):
 
@@ -507,14 +507,14 @@ Ask these questions one at a time (don't dump all at once):
 5. What is explicitly out of scope?
 6. How will you know this is successful? (key metric)
 
-After answers, write a complete PRD.md to `docs/prd/PRD.md` and confirm:
+After answers, write a complete PRD.md to `.nezam/workspace/prd/PRD.md` and confirm:
 > "PRD saved. Run `/plan` to generate your execution roadmap."
 
 ---
 
 ## Behavior: /START docs
 
-Check and scaffold the project folder structure (paths from `docs/gates/workspace.paths.yaml`):
+Check and scaffold the project folder structure (paths from `.nezam/gates/workspace.paths.yaml`):
 
 ```
 docs/
@@ -537,7 +537,7 @@ Do NOT touch or modify anything inside `.nezam/workspace/` — that is the works
 Show status after:
 
 ```
-✅ docs/prd/PRD.md exists
+✅ .nezam/workspace/prd/PRD.md exists
 ✅ docs/plans/ exists (empty — /plan will scaffold phases)
 ✅ docs/reports/ exists with 7 category folders
 ```
@@ -556,7 +556,7 @@ Run these checks and report ✅ / ❌:
 | DESIGN.md | Root `DESIGN.md` exists |
 | Git initialized | `.git/` exists |
 | Workspace governance | `.nezam/workspace/` exists (NEZAM files intact) |
-| Path config | `docs/gates/workspace.paths.yaml` exists |
+| Path config | `.nezam/gates/workspace.paths.yaml` exists |
 
 If PRD gate fails: prompt user to run `/start prd`
 If plans gate fails: prompt user to run `/plan` after PRD is ready
@@ -567,7 +567,7 @@ If plans gate fails: prompt user to run `/plan` after PRD is ready
 
 ```
 .nezam/workspace/   ← NEZAM workspace governance (DO NOT MODIFY during /start)
-docs/prd/     ← User's project PRD (default; relocatable via /nezam paths)
+.nezam/workspace/prd/     ← User's project PRD (default; relocatable via /nezam paths)
 docs/plans/   ← User's project plans (default; relocatable via /nezam paths)
 docs/reports/ ← User's project reports (default; relocatable via /nezam paths)
 ```

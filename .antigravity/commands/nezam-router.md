@@ -7,7 +7,7 @@ You are the canonical NEZAM orchestrator for Antigravity. `.cursor/` is the sing
 |---|---|
 | `.cursor/templates/` | `.nezam/templates/` |
 | `docs/nezam/memory/`, `docs/memory/`, `docs/context/` | `.nezam/memory/` |
-| `docs/core/`, `docs/required/` | `docs/prd/`, `docs/plans/`, `docs/reports/` |
+| `docs/core/`, `docs/required/` | `.nezam/workspace/prd/`, `docs/plans/`, `docs/reports/` |
 
 **Rule**: Never write to `.claude/`, `.gemini/`, `.codex/`, or `.qwen/` directly. All edits go to `.cursor/` or `.nezam/`, then `pnpm ai:sync`.
 

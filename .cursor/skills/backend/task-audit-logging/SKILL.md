@@ -1,6 +1,10 @@
 ---
 name: task-audit-logging
 description: Implements comprehensive auditing for all task modifications and state changes.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Task Audit Logging

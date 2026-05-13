@@ -21,7 +21,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 **Action:**
 
-1. Create `scripts/write-state.js` — a Node script that:
+1. Create `scripts/state/write-state.js` — a Node script that:
    - Accepts `--file <yaml-path> --key <dot.notation.key> --value <val>` as CLI args
    - Reads the target YAML file
    - Sets the key to the value (supports nested dot notation: `develop_phases.phase_2.status`)
@@ -30,7 +30,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 2. Add to `package.json` scripts:
    ```json
-   "state:set": "node scripts/write-state.js"
+   "state:set": "node scripts/state/write-state.js"
    ```
 
 3. Edit `.cursor/agents/swarm-leader.md` — in the **Session Start Protocol** section, add:
@@ -85,7 +85,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 **Action:**
 
-1. Create `scripts/check-agent-bus.js`:
+1. Create `scripts/checks/check-agent-bus.js`:
    - Read `.cursor/state/agent-bus.yaml`
    - If messages array is empty or contains only template entries (id === "" or id === null): print warning `[agent-bus] WARNING: No messages logged. Agent Bus appears unused.`
    - For each message: check required fields (id, from, to, type, payload, phase, mode, timestamp, status). Print `[agent-bus] ERROR: Message <index> missing field: <field>` for any missing field.
@@ -93,7 +93,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 2. Add to `package.json` scripts:
    ```json
-   "check:agent-bus": "node scripts/check-agent-bus.js"
+   "check:agent-bus": "node scripts/checks/check-agent-bus.js"
    ```
 
 3. Edit `package.json` — append `&& pnpm check:agent-bus` to the `check:all` script.
@@ -165,7 +165,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 **Action:**
 
-1. Create `scripts/generate-skills-registry.js`:
+1. Create `scripts/skills/generate-skills-registry.js`:
    - Walk `.cursor/skills/` recursively, find all `SKILL.md` files
    - For each: parse frontmatter (yaml between `---` markers) — extract `skill`, `version`, `agent`, `swarm` if present
    - Walk `.cursor/agents/` (not archive), find all `.md` files, grep for `@skill` references
@@ -191,7 +191,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 2. Add to `package.json`:
    ```json
-   "skills:registry": "node scripts/generate-skills-registry.js"
+   "skills:registry": "node scripts/skills/generate-skills-registry.js"
    ```
 
 3. Append `&& pnpm skills:registry` to `check:all`.
@@ -232,7 +232,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 **Action:**
 
-1. Create `scripts/swarm-cost-report.js`:
+1. Create `scripts/reports/swarm-cost-report.js`:
    - Read `.cursor/state/agent-bus.yaml` messages
    - Group messages by `assigned_swarm`
    - For each swarm: count messages, count MODE A/B/C splits
@@ -252,7 +252,7 @@ The 20 items below were identified in a comprehensive audit. Execute them top-to
 
 2. Add to `package.json`:
    ```json
-   "report:swarm-cost": "node scripts/swarm-cost-report.js"
+   "report:swarm-cost": "node scripts/reports/swarm-cost-report.js"
    ```
 
 3. Add `/report swarm-cost` as a slash command alias in `.cursor/commands/scan.md`.

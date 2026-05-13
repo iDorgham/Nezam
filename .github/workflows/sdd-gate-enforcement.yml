@@ -12,5 +12,5 @@ jobs:
             echo "❌ plan_progress.yaml missing"
             exit 1
           fi
-          node scripts/check-sdd-swarm-integrity.js
+          node scripts/checks/check-sdd-swarm-integrity.js
           echo "✅ SDD gates validated"

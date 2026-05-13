@@ -1,6 +1,10 @@
 ---
 name: data-aggregation-pipelines
 description: Pre-aggregation and materialized view strategies for high-performance analytics.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Data Aggregation Pipelines

@@ -1,6 +1,10 @@
 ---
 name: resource-optimization
 description: Algorithms and logic for optimal task assignment and capacity management.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Resource Optimization

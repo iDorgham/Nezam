@@ -40,7 +40,7 @@ Govern how AI-powered product features connect to LLM providers. Covers provider
 
 ### 3. Context Assembly
 - Pull context from `.cursor/state/` files for workspace-aware tasks.
-- For product features: pull from `docs/prd/PRD.md` relevant sections only (not full file).
+- For product features: pull from `.nezam/workspace/prd/PRD.md` relevant sections only (not full file).
 - Chunk long documents: use sliding window of 1500 tokens with 200-token overlap.
 - Never inject raw file contents > 10k tokens without chunking.
 

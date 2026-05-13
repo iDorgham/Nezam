@@ -20,7 +20,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml)
 [![Design Gates](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&label=design%20gates&logo=github&style=flat-square)](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml)
 [![SemVer](https://img.shields.io/badge/version-0.1.0-555555?style=flat-square)](docs/core/VERSIONING.md)
-[![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat-square)](docs/prd/PRD.md)
+[![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=flat-square)](.nezam/workspace/prd/PRD.md)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow?style=flat-square)](https://www.conventionalcommits.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=flat-square)](https://pnpm.io/)
 [![Node](https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=flat-square)](package.json)
@@ -43,7 +43,7 @@
 
 <br/>
 
-[**Documentation Hub**](docs/README.md) · [**PRD**](docs/prd/PRD.md) · [**Wiki**](https://github.com/iDorgham/Nezam/wiki) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md)
+[**Documentation Hub**](docs/README.md) · [**PRD**](.nezam/workspace/prd/PRD.md) · [**Wiki**](https://github.com/iDorgham/Nezam/wiki) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md)
 
 </div>
 
@@ -342,11 +342,11 @@ NEZAM includes dedicated Arabic and MENA-region support:
 | Resource | Path | Description |
 |---|---|---|
 | Docs Hub | [`docs/README.md`](docs/README.md) | Master documentation index |
-| PRD | [`docs/prd/PRD.md`](docs/prd/PRD.md) | Full product requirements |
+| PRD | [`.nezam/workspace/prd/PRD.md`](.nezam/workspace/prd/PRD.md) | Full product requirements |
 | Wiki | [`docs/wiki/Home.md`](docs/wiki/Home.md) | Architecture, agents, design, CI |
 | Memory | [`docs/memory/`](docs/memory/) | All durable memory files |
 | Plans | [`docs/plans/`](docs/plans/) | Phase execution plans |
-| Architecture | [`docs/architecture/`](docs/architecture/) | ADRs + diagrams |
+| Architecture | [`.nezam/workspace/architecture/`](.nezam/workspace/architecture/) | ADRs + diagrams |
 | Templates | [`.nezam/templates/`](.nezam/templates/) | Reusable doc templates |
 | Reports | [`docs/reports/`](docs/reports/) | CI-generated reports |
 
@@ -376,7 +376,7 @@ pnpm run check:tokens              # Verify tokens
 <summary><strong>Onboarding check fails</strong></summary>
 
 Check which file is missing. Required files:
-- `docs/prd/PRD.md`
+- `.nezam/workspace/prd/PRD.md`
 - `docs/memory/CONTEXT.md`
 - `docs/plans/INDEX.md`
 - `.cursor/agents/swarm-leader.md`
@@ -402,7 +402,7 @@ NEZAM follows [Semantic Versioning](https://semver.org/) with [Conventional Comm
 
 Current: `v0.1.0` — Workspace Kit baseline
 
-Roadmap: canonical [`docs/prd/release-roadmap.json`](docs/prd/release-roadmap.json) (edit milestones there, then `pnpm prd:roadmap` to refresh the table). Rendered in [`docs/prd/PRD.md#11-release-roadmap`](docs/prd/PRD.md#11-release-roadmap).
+Roadmap: canonical [`.nezam/workspace/prd/release-roadmap.json`](.nezam/workspace/prd/release-roadmap.json) (edit milestones there, then `pnpm prd:roadmap` to refresh the table). Rendered in [`.nezam/workspace/prd/PRD.md#11-release-roadmap`](.nezam/workspace/prd/PRD.md#11-release-roadmap).
 
 ---
 

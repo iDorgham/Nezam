@@ -2,7 +2,7 @@
 # Enforce docs layout policy:
 #   - Forbid legacy top-level doc trees
 #   - docs/reports/ must contain only recognised category sub-folders (no loose files, no README)
-#   - docs/prd/ must contain only PRD.md (no extra loose files)
+#   - .nezam/workspace/prd/ must contain only PRD.md (no extra loose files)
 #   - docs/plans/ must be empty or contain only .gitkeep
 set -euo pipefail
 

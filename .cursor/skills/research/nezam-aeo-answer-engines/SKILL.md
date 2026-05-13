@@ -14,7 +14,7 @@ Format content so answer engines (Google PAA, voice assistants, chat search) can
 - Keyword clusters and intent tags from `docs/specs/SEO_RESEARCH.md`.
 - "People Also Ask" / Reddit / community FAQ harvest.
 - Page-level outlines in `docs/specs/IA_CONTENT.md`.
-- Voice/chat persona guidance from `docs/prd/PROJECT_PROMPT.md`.
+- Voice/chat persona guidance from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
 
 # Step-by-Step Workflow
 

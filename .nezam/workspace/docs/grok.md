@@ -1,4 +1,4 @@
-# Nezam Workspace Agents - Complete Architecture & Knowledge Base (.nezam/workspace/grok.md)
+# Nezam Workspace Agents - Complete Architecture & Knowledge Base (.nezam/workspace/docs/grok.md)
 
 > **Audience:** Grok, Gemini, Qwen, Claude, Codex, and any external model assisting with this repository.  
 > **Scope:** NEZAM as a **workspace governance kit** (Cursor-first, multi-tool sync), not any single application’s product code unless that app lives in the same repo.  
@@ -12,8 +12,8 @@
 
 **Brutally honest status:**
 
-- **Strengths:** Clear pipeline story (planning → design → develop → ship), explicit hardlocks in rules, rich agent/skill library, CI hooks for sync and design gates, path indirection via `docs/gates/workspace.paths.yaml`.
-- **Weaknesses:** Orchestration is **documentation-driven**, not a running scheduler—compliance depends on the model following markdown. Several **cross-links point at paths that are not present** in this tree (example: `subagent-controller.md` links to `.nezam/memory/governance/SWARM_WORKFLOW.md`, which is missing). Legacy path strings (`docs/prd/...`, `.nezam/memory/...`) still appear in some agents/rules while **canonical project memory has moved under `.nezam/workspace/`** for the workspace kit. **State files default to “unlocked / false”** until `/start` and `/plan` flows populate them—automation does not enforce gates without an LLM actually reading them.
+- **Strengths:** Clear pipeline story (planning → design → develop → ship), explicit hardlocks in rules, rich agent/skill library, CI hooks for sync and design gates, path indirection via `.nezam/gates/workspace.paths.yaml`.
+- **Weaknesses:** Orchestration is **documentation-driven**, not a running scheduler—compliance depends on the model following markdown. Several **cross-links point at paths that are not present** in this tree (example: `subagent-controller.md` links to `.nezam/memory/governance/SWARM_WORKFLOW.md`, which is missing). Legacy path strings (`.nezam/workspace/prd/...`, `.nezam/memory/...`) still appear in some agents/rules while **canonical project memory has moved under `.nezam/workspace/`** for the workspace kit. **State files default to “unlocked / false”** until `/start` and `/plan` flows populate them—automation does not enforce gates without an LLM actually reading them.
 
 ---
 
@@ -29,7 +29,7 @@
 | **Templates** | Scaffolding for plans, specs, SDD, swarm handoffs, AI client root files | `.nezam/templates/` |
 | **Scripts** | Sync, drift checks, hooks, design profile copy, continual learning, audits | `scripts/` |
 | **Workspace docs** | NEZAM’s own wiki, memory, PRD for the kit | `.nezam/workspace/` (see `.nezam/workspace/README.md`) |
-| **User project** | PRD, plans, reports for whatever product uses NEZAM | Default: `docs/prd/`, `docs/plans/`, `docs/reports/` (see `docs/gates/workspace.paths.yaml`) |
+| **User project** | PRD, plans, reports for whatever product uses NEZAM | Default: `.nezam/workspace/prd/`, `docs/plans/`, `docs/reports/` (see `.nezam/gates/workspace.paths.yaml`) |
 
 The npm package name in `package.json` is `nezam-workspace-kit`—this repo is the **kit**, not necessarily your shipping product.
 
@@ -48,7 +48,7 @@ The npm package name in `package.json` is `nezam-workspace-kit`—this repo is t
 ## Why This Architecture Was Chosen
 
 - **Markdown + YAML** is inspectable in Git, diff-friendly, and works across IDEs and CLIs without a proprietary runtime.
-- **Sync script** (`scripts/sync-ai-folders.js`) trades a little complexity for **one edit surface** and CI-enforced parity.
+- **Sync script** (`scripts/sync/sync-ai-folders.js`) trades a little complexity for **one edit surface** and CI-enforced parity.
 - **Skills** encode repetitive multi-step logic once; **agents** encode authority and tone; **commands** encode user entrypoints—separation limits copy-paste and keeps `/guide` / `/check` consistent.
 
 ---
@@ -72,13 +72,13 @@ flowchart TB
   end
 
   subgraph Sync[Multi-tool sync]
-    SAF[scripts/sync-ai-folders.js]
-    TCFG[scripts/tools.config.json]
+    SAF[scripts/sync/sync-ai-folders.js]
+    TCFG[scripts/config/tools.config.json]
     MIRRORS[.claude .codex .gemini .qwen .opencode .antigravity .kilocode]
   end
 
   subgraph ProjectDocs[User project artifacts]
-    PRD[docs/prd/PRD.md]
+    PRD[.nezam/workspace/prd/PRD.md]
     PLN[docs/plans/]
     REP[docs/reports/]
     DM[DESIGN.md root]
@@ -349,13 +349,13 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 ### Discovery and invocation
 
 - **Cursor:** User or orchestrator `@`-mentions a skill path, or rules/agents tell the model to read a skill.
-- **Synced tools:** `pnpm ai:sync` copies skills into `.claude/skills`, `.opencode/skills`, etc., per `scripts/tools.config.json`.
+- **Synced tools:** `pnpm ai:sync` copies skills into `.claude/skills`, `.opencode/skills`, etc., per `scripts/config/tools.config.json`.
 - **Gemini / Qwen:** Receive command mirrors as TOML (`.gemini/commands`, `.qwen/commands`)—skills are **not** always file-mirrored for those tiers; root `GEMINI.md` / `QWEN.md` still index skill categories.
 - **Antigravity:** Global skills (like `nezam-commands`) act as dispatchers for workspace-local commands until native discovery is supported.
 
 ### Skill development standards
 
-- **Frontmatter:** `name`, `description`, optional `version`, `updated`, `changelog` (`scripts/check-skill-frontmatter.js` enforces expectations).
+- **Frontmatter:** `name`, `description`, optional `version`, `updated`, `changelog` (`scripts/checks/check-skill-frontmatter.js` enforces expectations).
 - **Body sections:** Follow `.nezam/templates/ai-client/SKILL.template.md` (Purpose, Inputs, Step-by-Step Workflow, Examples, Validation & Metrics, Output Format).
 - **Version discipline:** Prefer bumping `updated` and `changelog` when behavior changes.
 
@@ -388,7 +388,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | content | content-modeling | Design content types, field schemas, reusable blocks, and preview/revision workflows for headless CMSes. |
 | content | editorial-workflows | Draft → review → publish pipelines, role permissions, and version control for content operations. |
 | content | egyptian-arabic-content | Masri content pack (JSON contract): tone matrix, humour gates, legal-adjacent UX guardrails, rubrics; references sibling paths under `arabic-content` and legacy pack paths—verify paths exist before relying on them. |
-| design | brand-visual-direction | Translate brand strategy into visual direction; still cites legacy `docs/prd/prd/PRD.md` in Inputs—update to `docs/prd/PRD.md` when editing. |
+| design | brand-visual-direction | Translate brand strategy into visual direction; still cites legacy `.nezam/workspace/prd/prd/PRD.md` in Inputs—update to `.nezam/workspace/prd/PRD.md` when editing. |
 | design | component-library-api | Design typed, variant-driven React component APIs with Storybook, forwardRef, tree-shaking, and a11y defaults. |
 | design | css-architecture | Runtime-safe, token-driven CSS layering for React (frontmatter name: `css-architecture-runtime`). |
 | design | dashboard-patterns | Dense data layouts, filtering/sorting UX, KPI cards, responsive tables, and admin panel composition. |
@@ -463,7 +463,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | system | tavily-research | Implements agentic search, extraction, and RAG optimization using Tavily. |
 | system | token-budget-manager | Minimize token spend across Claude, Cursor, Antigravity, and Codex through caching, compression, and routing. |
 
-> **Note:** Some skills use JSON embedded in Markdown instead of a YAML `description:` line; treat the file body as authoritative. A few skills still reference **legacy PRD paths**—normalize to `docs/gates/workspace.paths.yaml` → `project.prd` when improving docs.
+> **Note:** Some skills use JSON embedded in Markdown instead of a YAML `description:` line; treat the file body as authoritative. A few skills still reference **legacy PRD paths**—normalize to `.nezam/gates/workspace.paths.yaml` → `project.prd` when improving docs.
 
 ---
 
@@ -514,7 +514,7 @@ Antigravity currently does **not** natively discover workspace-local `.antigravi
 
 ## Templates
 
-Root: `.nezam/templates/` (also referenced as `workspace.templates_root` in `docs/gates/workspace.paths.yaml`).
+Root: `.nezam/templates/` (also referenced as `workspace.templates_root` in `.nezam/gates/workspace.paths.yaml`).
 
 | Folder | Purpose |
 |--------|---------|
@@ -526,7 +526,7 @@ Root: `.nezam/templates/` (also referenced as `workspace.templates_root` in `doc
 | `ui-ux/` | Tokens, layout RTL motion, component blueprint, swarm UI task templates, validation checklist |
 | `research-design/` | Design template for research-heavy design phase |
 
-**Integration:** `sync-ai-folders.js` composes root memory files from `.nezam/templates/ai-client/*.template.md` plus live indexes of commands/agents/skills/rules.
+**Integration:** `sync/sync-ai-folders.js` composes root memory files from `.nezam/templates/ai-client/*.template.md` plus live indexes of commands/agents/skills/rules.
 
 **Creation guidelines:** Prefer copying an existing template; keep placeholders explicit; run `pnpm ai:sync` after changing templates that feed generated roots.
 
@@ -536,16 +536,16 @@ Root: `.nezam/templates/` (also referenced as `workspace.templates_root` in `doc
 
 | Script | Purpose | Typical invocation |
 |--------|---------|-------------------|
-| `scripts/sync-ai-folders.js` | Copy `.cursor/` to mirrored tool dirs; optional `--status`, `--target=` | `pnpm ai:sync` |
-| `scripts/check-ai-drift.js` | CI drift detection | `pnpm ai:check` |
-| `scripts/check-sdd-swarm-integrity.js` | Swarm/agent integrity | `pnpm ai:check` |
-| `scripts/check-skill-frontmatter.js` | Skill metadata validation | `pnpm ai:check` |
+| `scripts/sync/sync-ai-folders.js` | Copy `.cursor/` to mirrored tool dirs; optional `--status`, `--target=` | `pnpm ai:sync` |
+| `scripts/checks/check-ai-drift.js` | CI drift detection | `pnpm ai:check` |
+| `scripts/checks/check-sdd-swarm-integrity.js` | Swarm/agent integrity | `pnpm ai:check` |
+| `scripts/checks/check-skill-frontmatter.js` | Skill metadata validation | `pnpm ai:check` |
 | `scripts/checks/check-design-tokens.sh` | Token / literal gate | `pnpm run check:tokens` |
 | `scripts/checks/check-onboarding-readiness.sh` | Onboarding readiness | `pnpm run check:onboarding` |
 | `scripts/checks/docs-layout-policy.sh` | Docs placement policy | (called from CI / checks) |
-| `scripts/check-spec-versions.sh` | Spec version discipline | `pnpm run check:specs` |
+| `scripts/checks/check-spec-versions.sh` | Spec version discipline | `pnpm run check:specs` |
 | `scripts/design/copy-profile-to-design-md.sh` | Apply design profile to root `DESIGN.md` | `pnpm run design:apply -- <brand>` |
-| `scripts/setup-hooks.sh` | Install git hooks | `bash scripts/setup-hooks.sh` |
+| `scripts/hooks/setup-hooks.sh` | Install git hooks | `bash scripts/hooks/setup-hooks.sh` |
 | `scripts/hooks/pre-commit` | Run sync when `.cursor/` staged | Git hook |
 | `scripts/prd/render-release-roadmap.mjs` | PRD roadmap rendering | `pnpm run prd:roadmap` |
 | `scripts/changelog/*.js` | Changelog helpers | package.json scripts |
@@ -638,7 +638,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 ### Stable / working well
 
-- **Sync pipeline** (`sync-ai-folders.js` + `tools.config.json`) is explicit and testable.
+- **Sync pipeline** (`sync/sync-ai-folders.js` + `config/tools.config.json`) is explicit and testable.
 - **CI workflows** exist for general CI, design gates, NEZAM PR gates, nightly, semantic release (`/.github/workflows/`).
 - **Rich catalogs** of agents and skills suitable for large-org roleplay, now expanded to a standardized **13 swarm unit architecture**.
 - **State schemas** co-located with YAML in `.cursor/state/schemas/`.
@@ -655,7 +655,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 ### Major technical debt
 
-- Path migration (`docs/core`, `docs/memory` → `docs/nezam`, `docs/prd`) incomplete across all markdown.
+- Path migration (`docs/core`, `docs/memory` → `docs/nezam`, `.nezam/workspace/prd`) incomplete across all markdown.
 - Duplicate orchestration concepts (`sdd-hardlock-manager` vs `sdd-gate-validator` vs rules) — overlap can confuse maintainers.
 - **Tier-2 mirrors** partial (e.g. Kilo rules-only) — users may assume full parity where not supported.
 
@@ -696,7 +696,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 ## Best Practices for Grok (and Other AIs)
 
-1. **Treat `.cursor/` as law** for behavior; treat `.nezam/workspace/` as NEZAM self-docs; treat `docs/prd` + `docs/plans` as the user’s product unless told otherwise.
+1. **Treat `.cursor/` as law** for behavior; treat `.nezam/workspace/` as NEZAM self-docs; treat `.nezam/workspace/prd` + `docs/plans` as the user’s product unless told otherwise.
 2. **Before proposing architecture changes**, read `multi-tool-sync.mdc`—editing `.claude/` alone will be overwritten.
 3. **When debugging “gates wrong”**, read the three YAML state files and compare to `sdd-gate-validator/SKILL.md`.
 4. **Prefer `@` path references** over pasting large bodies.
@@ -742,4 +742,4 @@ Files under `.cursor/rules/`:
 
 ---
 
-*End of `.nezam/workspace/grok.md`.*
+*End of `.nezam/workspace/docs/grok.md`.*

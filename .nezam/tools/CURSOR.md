@@ -15,7 +15,7 @@ cd your-project
 pnpm install
 
 # 2. Install the git pre-commit hook
-bash scripts/setup-hooks.sh
+bash scripts/hooks/setup-hooks.sh
 
 # 3. Open in Cursor
 cursor .
@@ -69,4 +69,4 @@ pnpm ai:check  # verify no drift
 
 - **Gate fails unexpectedly** → run `/check repair` to validate state files
 - **Design not applying** → confirm `DESIGN.md` exists at repo root
-- **PRD not found** → check `docs/prd/PRD.md` exists and has content
+- **PRD not found** → check `.nezam/workspace/prd/PRD.md` exists and has content

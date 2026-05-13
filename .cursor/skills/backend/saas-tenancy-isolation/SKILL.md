@@ -1,6 +1,10 @@
 ---
 name: saas-tenancy-isolation
 description: Implementation patterns for multi-tenant data isolation and security.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # SaaS Tenancy Isolation

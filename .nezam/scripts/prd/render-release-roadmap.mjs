@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Sync PRD.md §11 Release Roadmap table from docs/prd/release-roadmap.json
+ * Sync PRD.md §11 Release Roadmap table from .nezam/workspace/prd/release-roadmap.json
  *
  * Usage:
- *   node scripts/prd/render-release-roadmap.mjs --write   # update PRD.md
- *   node scripts/prd/render-release-roadmap.mjs --check  # exit 1 if drift
+ *   node .nezam/scripts/prd/render-release-roadmap.mjs --write   # update PRD.md
+ *   node .nezam/scripts/prd/render-release-roadmap.mjs --check  # exit 1 if drift
  */
 import fs from 'fs';
 import path from 'path';
@@ -12,8 +12,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '../..');
-const jsonPath = path.join(root, 'docs/prd/release-roadmap.json');
-const prdPath = path.join(root, 'docs/prd/PRD.md');
+const jsonPath = path.join(root, '.nezam/workspace/prd/release-roadmap.json');
+const prdPath = path.join(root, '.nezam/workspace/prd/PRD.md');
 
 const START = '<!-- NEZAM_RELEASE_ROADMAP_TABLE_START -->';
 const END = '<!-- NEZAM_RELEASE_ROADMAP_TABLE_END -->';
@@ -83,7 +83,7 @@ const mode = process.argv.includes('--check')
     : null;
 
 if (!mode) {
-  console.error('Usage: node scripts/prd/render-release-roadmap.mjs --write | --check');
+  console.error('Usage: node .nezam/scripts/prd/render-release-roadmap.mjs --write | --check');
   process.exit(1);
 }
 
@@ -93,7 +93,7 @@ const current = extractMarkedTable(prd);
 if (mode === 'check') {
   if (current !== tableMd.trim()) {
     console.error(
-      'PRD.md §11 release roadmap table is out of sync with docs/prd/release-roadmap.json'
+      'PRD.md §11 release roadmap table is out of sync with .nezam/workspace/prd/release-roadmap.json'
     );
     console.error('Run: pnpm prd:roadmap');
     process.exit(1);

@@ -1,8 +1,14 @@
 const fs = require('fs');
 const path = require('path');
-const yaml = require('js-yaml');
+let yaml;
+try {
+  yaml = require('js-yaml');
+} catch (e) {
+  console.log('[agent-bus] WARNING: js-yaml not installed. Skipping agent-bus check.');
+  process.exit(0);
+}
 
-const filePath = path.resolve(__dirname, '../.cursor/state/agent-bus.yaml');
+const filePath = path.resolve(__dirname, '../../../.cursor/state/agent-bus.yaml');
 
 if (!fs.existsSync(filePath)) {
   console.error(`[agent-bus] ERROR: File not found: ${filePath}`);

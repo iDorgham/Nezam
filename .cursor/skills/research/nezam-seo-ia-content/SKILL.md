@@ -16,7 +16,7 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 - Audience + product intent from `docs/specs/prd/PRD.md`.
 - Competitor / reference set (non-plagiarism stance).
-- Brand voice + glossary from `docs/prd/PROJECT_PROMPT.md`.
+- Brand voice + glossary from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
 - Optional log file / Search Console data for crawl analysis.
 
 # Step-by-Step Workflow

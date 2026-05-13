@@ -92,7 +92,7 @@ pnpm ai:check          # Verify AI client sync
 pnpm run check         # Run all workspace checks
 ```
 
-**PRD release roadmap (§11):** Milestones live in [`docs/prd/release-roadmap.json`](../prd/release-roadmap.json). After you change that JSON, run **`pnpm prd:roadmap`** so the markdown table in [`docs/prd/PRD.md`](../prd/PRD.md) stays in sync—otherwise CI **`readiness`** fails on **`pnpm prd:roadmap:check`**. You can run **`pnpm prd:roadmap:check`** locally before pushing.
+**PRD release roadmap (§11):** Milestones live in [`.nezam/workspace/prd/release-roadmap.json`](../prd/release-roadmap.json). After you change that JSON, run **`pnpm prd:roadmap`** so the markdown table in [`.nezam/workspace/prd/PRD.md`](../prd/PRD.md) stays in sync—otherwise CI **`readiness`** fails on **`pnpm prd:roadmap:check`**. You can run **`pnpm prd:roadmap:check`** locally before pushing.
 
 ### 7. Open a Pull Request
 

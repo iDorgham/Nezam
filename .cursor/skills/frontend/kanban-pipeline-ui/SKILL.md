@@ -1,6 +1,10 @@
 ---
 name: kanban-pipeline-ui
 description: UI/UX patterns for drag-and-drop sales pipelines and Kanban boards.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Kanban Pipeline UI

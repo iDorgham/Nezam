@@ -9,7 +9,7 @@ Work **in this repository root** (ensure `pwd` is the git checkout). You have fu
 Read end-to-end:
 
 1. `docs/specs/prd/PRD.md`
-2. `docs/prd/PROJECT_PROMPT.md`
+2. `.nezam/workspace/prd/PROJECT_PROMPT.md`
 3. `.nezam/memory/CONTEXT.md`
 
 Do **not** contradict committed specs without adding a dated **Decision Log** note in the relevant SDD or feature spec.

@@ -30,7 +30,7 @@ Recommendation footer: required
 /nezam rules                   → List all rules in .cursor/rules/
 /nezam rules edit <name>       → Edit a .mdc rule file
 /nezam scripts                 → List scripts/ with purpose descriptions
-/nezam paths                   → Show current docs/gates/workspace.paths.yaml
+/nezam paths                   → Show current .nezam/gates/workspace.paths.yaml
 /nezam paths set <key> <value> → Change a path (e.g. /nezam paths set project.prd src/PRD.md)
 /nezam sync                    → Run pnpm ai:sync + pnpm ai:check, show result
 /nezam check                   → Validate workspace integrity (drift, skill frontmatter, SDD swarm)
@@ -49,11 +49,11 @@ Display a snapshot of the workspace state:
 ╔══════════════════════════════════════════════════════════════╗
 ║  NEZAM Workspace Status                                      ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Version        1.0.0 (.nezam/workspace/VERSIONING.md)       ║
+║  Version        1.0.0 (.nezam/workspace/meta/VERSIONING.md)       ║
 ║  Sync           ✅ in sync (last: pnpm ai:sync)              ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Project Paths  (from docs/gates/workspace.paths.yaml)         ║
-║  PRD            docs/prd/PRD.md                             ║
+║  Project Paths  (from .nezam/gates/workspace.paths.yaml)         ║
+║  PRD            .nezam/workspace/prd/PRD.md                             ║
 ║  Plans root     docs/plans/                           ║
 ║  Reports root   docs/reports/                               ║
 ╠══════════════════════════════════════════════════════════════╣
@@ -230,10 +230,10 @@ List all scripts with descriptions:
 ```
 Scripts — scripts/
 
-  sync-ai-folders.js          Sync .cursor/ to all AI client mirrors
-  check-ai-drift.js           Detect drift between .cursor/ and mirrors
-  check-sdd-swarm-integrity.js  Validate SDD swarm file structure
-  check-skill-frontmatter.js  Validate skill SKILL.md frontmatter
+  sync/sync-ai-folders.js          Sync .cursor/ to all AI client mirrors
+  checks/check-ai-drift.js           Detect drift between .cursor/ and mirrors
+  checks/check-sdd-swarm-integrity.js  Validate SDD swarm file structure
+  checks/check-skill-frontmatter.js  Validate skill SKILL.md frontmatter
   checks/check-onboarding-readiness.sh  CI gate for PRD + project prompt
   checks/docs-layout-policy.sh          CI gate for docs folder structure
   checks/check-design-tokens.sh         CI gate for token-first CSS
@@ -253,17 +253,17 @@ Scripts — scripts/
 Show the current path configuration:
 
 ```
-Workspace Paths — docs/gates/workspace.paths.yaml
+Workspace Paths — .nezam/gates/workspace.paths.yaml
 
   PROJECT PATHS (user-configurable)
-  prd          docs/prd/PRD.md
+  prd          .nezam/workspace/prd/PRD.md
   plans_root   docs/plans/
   reports_root docs/reports/
 
   WORKSPACE INTERNALS (advanced)
   nezam_root       .nezam/workspace/
   templates_root   .nezam/templates/
-  hardlock_paths   docs/gates/hardlock-paths.json
+  hardlock_paths   .nezam/gates/hardlock-paths.json
 
   Change: /nezam paths set <key> <value>
   Example: /nezam paths set project.prd src/product/PRD.md
@@ -271,11 +271,11 @@ Workspace Paths — docs/gates/workspace.paths.yaml
 
 ### /nezam paths set \<key\> \<value\>
 
-1. Parse `docs/gates/workspace.paths.yaml`
+1. Parse `.nezam/gates/workspace.paths.yaml`
 2. Set the given key to the given value (dot-notation: `project.prd`, `project.plans_root`)
 3. Validate: the new path must be a plausible file/folder path (no absolute paths outside repo)
 4. Write back
-5. If the key is `project.prd` → also update `docs/gates/hardlock-paths.json intake.prd`
+5. If the key is `project.prd` → also update `.nezam/gates/hardlock-paths.json intake.prd`
 6. Confirm and remind: "Run `pnpm ai:sync` to propagate."
 
 ---
@@ -299,8 +299,8 @@ Run full workspace integrity checks:
 
 ```bash
 pnpm ai:check                              # drift check
-node scripts/check-skill-frontmatter.js   # skill frontmatter
-node scripts/check-sdd-swarm-integrity.js # SDD swarm
+node scripts/checks/check-skill-frontmatter.js   # skill frontmatter
+node scripts/checks/check-sdd-swarm-integrity.js # SDD swarm
 bash scripts/checks/docs-layout-policy.sh # docs folder layout
 ```
 
@@ -336,7 +336,7 @@ Display instructions for updating NEZAM to a newer version:
 ```
 NEZAM Workspace Upgrade
 
-  Current version: 1.0.0 (.nezam/workspace/VERSIONING.md)
+  Current version: 1.0.0 (.nezam/workspace/meta/VERSIONING.md)
 
   To upgrade:
   1. Review the NEZAM changelog for breaking changes

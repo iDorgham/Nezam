@@ -71,7 +71,7 @@ The GitHub Gate Matrix at `docs/plans/gates/GITHUB_GATE_MATRIX.json` defines wha
 ## Onboarding Readiness
 
 The `check-onboarding-readiness.sh` script verifies:
-- [ ] `docs/prd/PRD.md` exists
+- [ ] `.nezam/workspace/prd/PRD.md` exists
 - [ ] `.nezam/memory/CONTEXT.md` exists
 - [ ] `docs/plans/INDEX.md` exists
 - [ ] `.cursor/agents/swarm-leader.md` exists

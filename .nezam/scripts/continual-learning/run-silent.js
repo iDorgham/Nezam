@@ -6,7 +6,7 @@ const path = require("node:path");
 const { isEnabled } = require("./control-state");
 
 const repoRoot = process.cwd();
-const prepareScript = path.join(repoRoot, "scripts/continual-learning/prepare-incremental.js");
+const prepareScript = path.join(repoRoot, ".nezam/scripts/continual-learning/prepare-incremental.js");
 const candidatesPath = path.join(
   repoRoot,
   ".cursor/hooks/state/continual-learning-candidates.json"

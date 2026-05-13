@@ -46,7 +46,7 @@ print(json.dumps({
 }
 
 function runOptimized() {
-  const script = path.join(repoRoot, "scripts/continual-learning/prepare-incremental.js");
+  const script = path.join(repoRoot, ".nezam/scripts/continual-learning/prepare-incremental.js");
   const out = spawnSync("node", [script, "--json", "--silent"], {
     cwd: repoRoot,
     encoding: "utf8",

@@ -18,7 +18,7 @@ Adapts language based on `user_mode` (`solo` / `team`) from `.cursor/state/onboa
 - `.cursor/state/onboarding.yaml`
 - `.cursor/state/plan_progress.yaml`
 - `.cursor/state/develop_phases.yaml`
-- `docs/prd/PRD.md` (for product name and type; respect `project.prd` in paths yaml)
+- `.nezam/workspace/prd/PRD.md` (for product name and type; respect `project.prd` in paths yaml)
 
 ## Output Rules
 
@@ -41,7 +41,7 @@ Adapts language based on `user_mode` (`solo` / `team`) from `.cursor/state/onboa
 ### PRD Locked
 
 Solo: "Your product brief is saved. Now let's pick a design direction."  
-Team: "PRD locked at docs/prd/PRD.md. Gate G0 prerequisite satisfied. Proceed to design selection."
+Team: "PRD locked at .nezam/workspace/prd/PRD.md. Gate G0 prerequisite satisfied. Proceed to design selection."
 
 ### Design Locked
 

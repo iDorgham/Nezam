@@ -20,29 +20,29 @@ Use Specification-Driven Development with repository docs as source of truth.
 
 ## Core Paths
 
-- Product requirements (contract): `docs/prd/prd/PRD.md`
-- Product requirements (reference copy when used): `docs/prd/PRD.md`
-- SDD docs: `docs/prd/sdd/`
-- Feature specs: `docs/prd/features/`
+- Product requirements (contract): `.nezam/workspace/prd/prd/PRD.md`
+- Product requirements (reference copy when used): `.nezam/workspace/prd/PRD.md`
+- SDD docs: `.nezam/workspace/prd/sdd/`
+- Feature specs: `.nezam/workspace/prd/features/`
 - Design catalog: `.nezam/design/<brand>/design.md` — **project design system:** root `DESIGN.md` (copy chosen profile with `/START design` or `pnpm run design:apply -- <brand>`)
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — BaaS, AI, auth, payments, media, infra, observability catalog with CLI/MCP availability
 - AI tools context: `.nezam/memory/CLI_TOOLS_CONTEXT.md` — routing matrix, profiles, fallback chains
 - Workspace settings: `.cursor/workspace.settings.yaml` — active tools, routing switches, onboarding state
 - Test matrix: `docs/reports/tests/TEST_MATRIX.md`
 - Progress report: `docs/reports/progress/PROGRESS_REPORT.latest.md`
-- Prompt docs: `docs/prd/` (or active planning package under `docs/plans/`)
+- Prompt docs: `.nezam/workspace/prd/` (or active planning package under `docs/plans/`)
 
 ## AI Upload Bundle (1-4 Files)
 
 Default minimal pack:
 
 1. `.nezam/memory/CONTEXT.md`
-2. `docs/prd/prd/PRD.md`
+2. `.nezam/workspace/prd/prd/PRD.md`
 3. `docs/reports/progress/PROGRESS_REPORT.latest.md`
 
 Optional fourth file:
 
-4. `docs/DESIGN.md` (for UI work) or active spec from `docs/prd/features/`
+4. `docs/DESIGN.md` (for UI work) or active spec from `.nezam/workspace/prd/features/`
 
 ## External Assistant Guidance
 
@@ -50,7 +50,7 @@ Optional fourth file:
 - Work from uploaded docs only.
 - Prioritize actionable next steps.
 - Keep recommendations aligned with the pipeline order.
-- For Claude CLI/Code usage, rely on prompt files under `docs/prd/`.
+- For Claude CLI/Code usage, rely on prompt files under `.nezam/workspace/prd/`.
 
 ## Working Notes
 

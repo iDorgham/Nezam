@@ -1,6 +1,10 @@
 ---
 name: crm-erp-sync
 description: Design and implementation of data synchronization between CRM and ERP systems.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # CRM-ERP Sync

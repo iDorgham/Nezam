@@ -1,6 +1,10 @@
 ---
 name: omnichannel-routing
 description: Unified routing and logging for multi-channel customer communications.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Omnichannel Routing

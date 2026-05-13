@@ -24,7 +24,7 @@ else if (value === 'false') value = false;
 else if (!isNaN(value) && value !== '') value = Number(value);
 
 if (!filePath || !keyPath || value === undefined) {
-  console.error('Usage: node write-state.js --file <file> --key <key> --value <value>');
+  console.error('Usage: node state/write-state.js --file <file> --key <key> --value <value>');
   process.exit(1);
 }
 

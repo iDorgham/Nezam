@@ -1,6 +1,10 @@
 ---
 name: graph-logic-engine
 description: Manages graph theory implementations, node connectivity validation, and execution flow logic.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Graph Logic Engine

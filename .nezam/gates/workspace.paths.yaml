@@ -10,7 +10,7 @@
 
 project:
   # Your project PRD file. Change if you keep your PRD at a different location.
-  prd: "docs/prd/PRD.md"
+  prd: ".nezam/workspace/prd/PRD.md"
 
   # Root folder for phase-based execution plans. /plan scaffolds sub-folders here.
   plans_root: "docs/plans"
@@ -44,9 +44,9 @@ workspace:
   scratch: ".nezam/scratch"
   
   # Gates & Configuration
-  gates_config: "docs/gates"
-  hardlock_paths: "docs/gates/hardlock-paths.json"
+  gates_config: ".nezam/gates"
+  hardlock_paths: ".nezam/gates/hardlock-paths.json"
   
   # Workspace Config Mirrors
-  paths: "docs/gates/workspace.paths.yaml"
-  settings: "docs/gates/workspace.settings.yaml"
+  paths: ".nezam/gates/workspace.paths.yaml"
+  settings: ".nezam/gates/workspace.settings.yaml"

@@ -45,7 +45,7 @@ Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to 
 ## Session Start Protocol
 
 At session start:
-1. Read `docs/gates/workspace.paths.yaml` → resolve all paths
+1. Read `.nezam/gates/workspace.paths.yaml` → resolve all paths
 2. Read `.cursor/state/onboarding.yaml`:
    - If `prd_locked: false` → route user to `/start` immediately
    - If `design_locked: false` → route user to `/start` (design step)
@@ -58,7 +58,7 @@ At session start:
    - If `build_mode: "api-first"` → reversed pipeline: API spec → IA → design → PRD
    - Load `.cursor/skills/system/build-modes/SKILL.md` when build_mode is non-empty
 3. Read `.cursor/state/agent-status.yaml` → resume any pending handoffs
-4. Read `docs/prd/PRD.md` → load product context (name, type, users, revenue) (respect `project.prd` from paths yaml if set)
+4. Read `.nezam/workspace/prd/PRD.md` → load product context (name, type, users, revenue) (respect `project.prd` from paths yaml if set)
 5. Adapt tone based on `onboarding.yaml` → `tone`:
    - `"friendly"` → plain language, no jargon, explain decisions simply
    - `"structured"` → governance-aware, show agent assignments and gate IDs

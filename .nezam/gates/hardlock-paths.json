@@ -3,16 +3,16 @@
   "notes": [
     "Single source of truth for hardlock-critical file locations.",
     "Edit paths here when you intentionally move/rename required artifacts.",
-    "For user-adjustable project paths (PRD, plans, reports) see docs/gates/workspace.paths.yaml"
+    "For user-adjustable project paths (PRD, plans, reports) see .nezam/gates/workspace.paths.yaml"
   ],
   "intake": {
-    "prd": "docs/prd/PRD.md",
+    "prd": ".nezam/workspace/prd/PRD.md",
     "projectPrompt": "docs/start/PROJECT_PROMPT.md"
   },
   "planning": {
     "changelog": "CHANGELOG.md",
-    "versioning": ".nezam/workspace/VERSIONING.md",
-    "gateManifest": "docs/gates/GITHUB_GATE_MATRIX.json"
+    "versioning": ".nezam/workspace/meta/VERSIONING.md",
+    "gateManifest": ".nezam/gates/GITHUB_GATE_MATRIX.json"
   },
   "design": {
     "designSpec": "DESIGN.md"

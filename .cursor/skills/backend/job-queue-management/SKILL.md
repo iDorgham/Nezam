@@ -1,6 +1,10 @@
 ---
 name: job-queue-management
 description: Governs the architecture and monitoring of background jobs and recurring tasks.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Job Queue Management

@@ -44,7 +44,7 @@ This prevents mirror drift from being committed accidentally.
 
 **Install the hook (run once after cloning):**
 ```bash
-bash scripts/setup-hooks.sh
+bash scripts/hooks/setup-hooks.sh
 ```
 
 **Hook source:** `scripts/hooks/pre-commit` (tracked in repo)
@@ -108,7 +108,7 @@ Root-level contract files (CLAUDE.md, AGENTS.md) receive:
 
 ## Drift severity scale
 
-Use **`pnpm ai:status`** (`node scripts/sync-ai-folders.js --status`) for a quick mirror survey. Severity guides whether to block work or only warn:
+Use **`pnpm ai:status`** (`node scripts/sync/sync-ai-folders.js --status`) for a quick mirror survey. Severity guides whether to block work or only warn:
 
 | Severity | Signal | Handling |
 |----------|--------|----------|
@@ -116,4 +116,4 @@ Use **`pnpm ai:status`** (`node scripts/sync-ai-folders.js --status`) for a quic
 | **WARNING** | **Agent/command markdown** differs (non-identical synced copies under `.claude/`, `.codex/`, `.opencode/`, etc.) | Surface warning; workflows may proceed for local-only work; **avoid** parallel-tool execution until synced |
 | **INFO** | Whitespace/markdown wrapping only — no semantic change (`pnpm ai:sync` is idempotent noop except formatting) | Run `pnpm ai:sync` on next touch to `.cursor/`; no user-facing blocker |
 
-Canonical definition of drift remains **`pnpm ai:check`** in CI (`scripts/sync-ai-folders.js` drift + integrity scripts).
+Canonical definition of drift remains **`pnpm ai:check`** in CI (`scripts/sync/sync-ai-folders.js` drift + integrity scripts).

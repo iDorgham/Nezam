@@ -31,7 +31,7 @@ Highest strategic authority for modern frontend frameworks, rendering strategies
 During architecture reviews for new web projects, performance audits, or framework migration planning.
 
 ### Input requirements
-- `docs/prd/PRD.md`
+- `.nezam/workspace/prd/PRD.md`
 - Performance benchmarks.
 
 ### Output deliverables

@@ -192,7 +192,7 @@ jobs:
       - uses: actions/checkout@v5.0.1
       - name: Verify cross-client AI sync drift
         run: |
-          node scripts/check-ai-drift.js
+          node scripts/checks/check-ai-drift.js
 
   docs-layout-policy:
     runs-on: ubuntu-latest

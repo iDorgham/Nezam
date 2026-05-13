@@ -12,7 +12,7 @@ Produce and maintain a living `HEALTH.md` at the repository root that summarizes
 - `.cursor/state/onboarding.yaml` — prd_locked, design_locked, planning_complete, current_phase, build_mode
 - `.cursor/state/plan_progress.yaml` — seo, ia, content, arch, design_wireframes, scaffold flags
 - `.cursor/state/develop_phases.yaml` — phase status, testing_passed per phase
-- `docs/prd/PRD.md` — presence and line count (>10 non-comment lines = filled)
+- `.nezam/workspace/prd/PRD.md` — presence and line count (>10 non-comment lines = filled)
 - `DESIGN.md` at repo root — presence and non-blank check
 - `docs/plans/**` — artifact presence per planning phase
 - `docs/reports/security/SECURITY_AUDIT.md` — pass/fail status
@@ -26,7 +26,7 @@ Produce and maintain a living `HEALTH.md` at the repository root that summarizes
 ## Dimension Scoring (0–100 each)
 
 ### 1. Spec Completeness (max 100 pts)
-- `docs/prd/PRD.md` exists and has >10 non-comment lines: +40 pts
+- `.nezam/workspace/prd/PRD.md` exists and has >10 non-comment lines: +40 pts
 - `onboarding.yaml` → `prd_locked: true`: +20 pts
 - All 6 plan_progress flags true: +30 pts (5 pts each)
 - `build_mode` is set (not empty): +10 pts

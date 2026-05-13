@@ -3,7 +3,7 @@
 # Auto-runs pnpm ai:sync when any .cursor/ files are staged.
 # Prevents mirror drift between .cursor/ (canonical) and generated files.
 #
-# Install via: bash scripts/setup-hooks.sh
+# Install via: bash scripts/hooks/setup-hooks.sh
 # Skip for one commit: git commit --no-verify
 
 CURSOR_STAGED=$(git diff --cached --name-only | grep -c "^\.cursor/" || true)

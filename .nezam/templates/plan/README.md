@@ -19,7 +19,7 @@ Non-negotiable default phase order:
 
 Sub-phases are intentionally flexible and should be derived from:
 
-- `docs/prd/PROJECT_PROMPT.md`
+- `.nezam/workspace/prd/PROJECT_PROMPT.md`
 - `docs/specs/prd/PRD.md`
 - active planning constraints and risk profile
 
@@ -34,7 +34,7 @@ Each `docs/plans/<phase>/<sub-phase>/` directory must include:
 
 ## Gate Manifest Source of Truth
 
-Use `docs/gates/GITHUB_GATE_MATRIX.json` as the canonical gate contract for:
+Use `.nezam/gates/GITHUB_GATE_MATRIX.json` as the canonical gate contract for:
 
 - start/end gate checks
 - pre-merge and post-merge responsibilities

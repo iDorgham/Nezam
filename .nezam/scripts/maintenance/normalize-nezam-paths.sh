@@ -30,9 +30,9 @@ done
 
 # 4. Handle core/required moves if they exist
 if [ -d docs/core ]; then
-  echo "Moving docs/core to docs/prd..."
-  mkdir -p docs/prd
-  find docs/core -type f -exec mv -t docs/prd/ {} + 2>/dev/null || true
+  echo "Moving docs/core to .nezam/workspace/prd..."
+  mkdir -p .nezam/workspace/prd
+  find docs/core -type f -exec mv -t .nezam/workspace/prd/ {} + 2>/dev/null || true
 fi
 
 # 5. Update workspace paths config
@@ -54,7 +54,7 @@ find .cursor .nezam -name "*.md" -o -name "*.mdc" -o -name "*.yaml" | while read
     sed -i '' \
       -e 's|\.cursor/templates/|.nezam/templates/|g' \
       -e 's|docs/nezam/memory/|.nezam/memory/|g' \
-      -e 's|docs/core/required/|docs/prd/|g' \
+      -e 's|docs/core/required/|.nezam/workspace/prd/|g' \
       -e 's|docs/memory/|.nezam/memory/|g' \
       "$f"
   fi

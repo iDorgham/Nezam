@@ -30,7 +30,7 @@ Skills follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added (indexes)
 
 - **`skills/external/SKILLS_INDEX.md`** — First full index of all 7 external skills with categories, trigger mapping, and instructions for adding new skills.
-- **`.nezam/workspace/SKILLS_CHANGELOG.md`** — This file. Central changelog for all skill additions, updates, and deprecations.
+- **`.nezam/workspace/meta/SKILLS_CHANGELOG.md`** — This file. Central changelog for all skill additions, updates, and deprecations.
 
 ---
 

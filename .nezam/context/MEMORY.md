@@ -11,7 +11,7 @@
 - Agents reference `PHASE_HANDOFF.md` for cross-agent state.
 
 ## 3. Where agents read/write
-- **Read**: `.nezam/memory/MEMORY.md`, `docs/prd/PRD.md`.
+- **Read**: `.nezam/memory/MEMORY.md`, `.nezam/workspace/prd/PRD.md`.
 - **Write**: `.nezam/memory/MEMORY.md` (appends only), `.nezam/memory/PHASE_HANDOFF.md` (updates).
 
 ## 4. Example entries

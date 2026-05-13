@@ -16,7 +16,7 @@ Each phase has:
 ## Phases in Detail
 
 ### 00 — Define
-**Output:** `docs/prd/PRD.md` · `.nezam/memory/CONTEXT.md`
+**Output:** `.nezam/workspace/prd/PRD.md` · `.nezam/memory/CONTEXT.md`
 
 - Write or update the PRD
 - Define success metrics and KPIs

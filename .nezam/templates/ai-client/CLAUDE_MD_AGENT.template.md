@@ -6,7 +6,7 @@ This repository follows workspace orchestration: Specification-Driven Developmen
 
 - `.nezam/memory/CONTEXT.md`
 - `docs/specs/prd/PRD.md`
-- `docs/prd/PROJECT_PROMPT.md`
+- `.nezam/workspace/prd/PROJECT_PROMPT.md`
 
 ## Planning behavior
 

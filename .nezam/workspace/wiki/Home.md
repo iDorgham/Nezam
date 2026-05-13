@@ -28,7 +28,7 @@ NEZAM is an AI workspace orchestration system built on Specification-Driven Deve
 ```
 .cursor/       ← The canonical brain (agents, rules, skills, commands)
 .nezam/memory/   ← The workspace's long-term memory
-docs/prd/      ← What we're building and why
+.nezam/workspace/prd/      ← What we're building and why
 docs/plans/    ← How we're building it, phase by phase
 docs/specs/    ← What each feature must do
 .github/       ← CI/CD gates that enforce the contracts

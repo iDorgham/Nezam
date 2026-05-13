@@ -12,7 +12,7 @@ Govern how content moves from draft through review to publish, with explicit rol
 # Inputs
 
 - Content model from `@.cursor/skills/nezam-content-modeling/SKILL.md`.
-- Brand voice + editorial guidelines from `docs/prd/PROJECT_PROMPT.md`.
+- Brand voice + editorial guidelines from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
 - CMS capabilities from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
 - Compliance requirements from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 

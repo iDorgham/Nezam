@@ -18,7 +18,7 @@ Canonical order (do not skip knowingly):
 
 **Planning → SEO research → IA/menus → Content map → UI/design system (`.nezam/design/<brand>/design.md`) → Development → Product hardening/release.**
 
-Spec spine: **roadmap → phases → specs → docs** under `docs/prd/`.
+Spec spine: **roadmap → phases → specs → docs** under `.nezam/workspace/prd/`.
 
 ---
 
@@ -193,19 +193,19 @@ Index and categories: `[README.md](../templates/README.md)`. Source files for `*
 
 | Template | Typical destination |
 | -------- | ------------------- |
-| `specs/PRD.template.md` | `docs/prd/prd/PRD.md` |
-| `specs/PROMPT_DOCUMENT.template.md` | `docs/prd/PROJECT_PROMPT.md` |
+| `specs/PRD.template.md` | `.nezam/workspace/prd/prd/PRD.md` |
+| `specs/PROMPT_DOCUMENT.template.md` | `.nezam/workspace/prd/PROJECT_PROMPT.md` |
 | `research-design/DESIGN.template.md` | `.nezam/design/<brand>/design.md` |
-| `research-design/SEO_RESEARCH.template.md` | `docs/prd/sdd/SEO_RESEARCH.md` |
-| `specs/FEATURE_SPEC.template.md` | `docs/prd/features/...` |
-| `sdd/SDD_VERSIONING.template.md` | `docs/prd/sdd/VERSIONING.md` (+ SDD README scaffolding via `/CREATE sdd`) |
+| `research-design/SEO_RESEARCH.template.md` | `.nezam/workspace/prd/sdd/SEO_RESEARCH.md` |
+| `specs/FEATURE_SPEC.template.md` | `.nezam/workspace/prd/features/...` |
+| `sdd/SDD_VERSIONING.template.md` | `.nezam/workspace/prd/sdd/VERSIONING.md` (+ SDD README scaffolding via `/CREATE sdd`) |
 | `specs/PROGRESS_REPORT.template.md` | `docs/reports/progress/PROGRESS_REPORT.latest.md` |
 | `specs/CONSTITUTION.template.md` | `docs/CONSTITUTION.md` |
 | `ai-client/AGENT.template.md` | `.cursor/agents/<slug>.md` |
 | `ai-client/SKILL.template.md` | `.cursor/skills/<name>/SKILL.md` |
 | `ai-client/SKILL_VERSION_HEADER.template.md` | Version/frontmatter scaffold for skill metadata and changelog tracking. |
-| `ai-client/CLAUDE_CLI_PLAN_PROMPT.template.md` | `docs/prd/CLAUDE_CLI_PLAN.md` via `/CREATE claude-cli-prompt` |
-| `ai-client/CLAUDE_CODE_HANDOFF.template.md` | `docs/prd/CLAUDE_CODE_HANDOFF.md` via `/CREATE claude-code-handoff` |
+| `ai-client/CLAUDE_CLI_PLAN_PROMPT.template.md` | `.nezam/workspace/prd/CLAUDE_CLI_PLAN.md` via `/CREATE claude-cli-prompt` |
+| `ai-client/CLAUDE_CODE_HANDOFF.template.md` | `.nezam/workspace/prd/CLAUDE_CODE_HANDOFF.md` via `/CREATE claude-code-handoff` |
 | `ai-client/CLAUDE_MD_AGENT.template.md` | Root `CLAUDE.md` via `/CREATE claude-md` |
 | `ai-client/AGENTS.md.template.md` | Root `AGENTS.md` via `/CREATE agents-md` |
 | `ai-client/GEMINI.md.template.md` | Root `GEMINI.md` via `/CREATE gemini-md` |
@@ -217,7 +217,7 @@ Exact mappings and `**force**` behavior: `[.cursor/commands/create.md](../../.cu
 
 ---
 
-## Prompts (`docs/prd/`)
+## Prompts (`.nezam/workspace/prd/`)
 
 
 | File                      | Role                                                                                        |
@@ -267,12 +267,12 @@ Use `docs/plans/*/TASKS.md` as the operational tracker when running phased work.
 
 | Script                                                                         | Role                                                                                                  |
 | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `[check-onboarding-readiness.sh](../../scripts/checks/check-onboarding-readiness.sh)` | CI-oriented check: `docs/prd/prd/PRD.md` + `docs/prd/PROJECT_PROMPT.md` (see script for exact list). |
+| `[check-onboarding-readiness.sh](../../scripts/checks/check-onboarding-readiness.sh)` | CI-oriented check: `.nezam/workspace/prd/prd/PRD.md` + `.nezam/workspace/prd/PROJECT_PROMPT.md` (see script for exact list). |
 | `[workspace-tui.sh](../../scripts/ui/workspace-tui.sh)`                                     | TUI formatting helpers (badges, banners) aligned with command output conventions.                     |
 | `[install-context-hooks.sh](../../scripts/context/install-context-hooks.sh)`           | Hooks to refresh context docs.                                                                        |
 | `[auto-memory-hooks.sh](../../scripts/context/auto-memory-hooks.sh)`           | Post-commit memory/health updates and companion bundle generation.                                                                        |
 | `[check-design-tokens.sh](../../scripts/checks/check-design-tokens.sh)`           | Token-first CSS gate check for local and CI use (`pnpm run check:tokens`).                                                                        |
-| `[check-skill-frontmatter.js](../../scripts/check-skill-frontmatter.js)`           | Warning-only check for skill version metadata completeness.                                                                        |
+| `[checks/check-skill-frontmatter.js](../../scripts/checks/check-skill-frontmatter.js)`           | Warning-only check for skill version metadata completeness.                                                                        |
 | `[update-context-docs.py](../../scripts/context/update-context-docs.py)`               | Updates auto-managed sections in context files.                                                       |
 | `[version-plan.sh](../../scripts/release/version-plan.sh)`                       | SemVer planning helper.                                                                               |
 | `[test-tui.sh](../../scripts/testing/test-tui.sh)`                                     | Optional TUI smoke test.                                                                              |
@@ -293,7 +293,7 @@ What the kit encodes end-to-end:
 1. **Repo + docs** — `/START repo`, `/START docs`.
 2. **PRD + project prompt** — `/CREATE prd`, `/CREATE prompt`.
 3. **Gates** — `/START gates` (remote, PRD, PROJECT_PROMPT, archetype, context files).
-4. **Claude handoff** — `/CREATE claude-cli-prompt`, `/CREATE claude-code-handoff`, optional `/CREATE claude-md`; user runs planning in **Claude CLI** or **Claude Code** using `docs/prd/CLAUDE_*.md`.
+4. **Claude handoff** — `/CREATE claude-cli-prompt`, `/CREATE claude-code-handoff`, optional `/CREATE claude-md`; user runs planning in **Claude CLI** or **Claude Code** using `.nezam/workspace/prd/CLAUDE_*.md`.
 5. **Cursor planning** — `/PLAN ...` to refine or align SDD artifacts with the pipeline.
 6. **Build** — `/DEVELOP` after selected design profile and spec readiness.
 

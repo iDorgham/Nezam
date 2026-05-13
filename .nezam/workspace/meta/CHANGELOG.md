@@ -22,10 +22,10 @@ Format: `## [version] - YYYY-MM-DD`
 - Getting Started guides: `.nezam/workspace/tools/` for Cursor, Claude Code, Antigravity, Codex
 
 ### Fixed
-- **CRITICAL:** PRD path conflict — replaced `docs/prd/PRD.md` with `docs/prd/PRD.md` everywhere
-- WIREFRAMES path: `docs/prd/sdd/WIREFRAMES.md` → `docs/plans/04-design/WIREFRAMES.md`
-- health-score SKILL.md: replaced `docs/prd/` inputs with state-file-based inputs
-- Memory layers reference: updated to `docs/prd/`, `docs/plans/`, `docs/reports/`
+- **CRITICAL:** PRD path conflict — replaced `.nezam/workspace/prd/PRD.md` with `.nezam/workspace/prd/PRD.md` everywhere
+- WIREFRAMES path: `.nezam/workspace/prd/sdd/WIREFRAMES.md` → `docs/plans/04-design/WIREFRAMES.md`
+- health-score SKILL.md: replaced `.nezam/workspace/prd/` inputs with state-file-based inputs
+- Memory layers reference: updated to `.nezam/workspace/prd/`, `docs/plans/`, `docs/reports/`
 
 ### Changed
 - `workspace-orchestration.mdc`: legacy Planning hardlock section preserved as comment, superseded by state-file-aware section

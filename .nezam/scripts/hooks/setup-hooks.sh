@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # NEZAM — Git Hook Installer
 # Installs the pre-commit hook that auto-runs pnpm ai:sync when .cursor/ files are staged.
-# Run once after cloning: bash scripts/setup-hooks.sh
+# Run once after cloning: bash .nezam/scripts/hooks/setup-hooks.sh
 
 set -euo pipefail
 
-HOOK_SOURCE="scripts/hooks/pre-commit"
+HOOK_SOURCE=".nezam/scripts/hooks/pre-commit"
 HOOK_DEST=".git/hooks/pre-commit"
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo ".")"
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Optional local validation for scripts/ui/workspace-tui.sh — safe in CI logs (TTY optional).
+# Optional local validation for .nezam/scripts/ui/workspace-tui.sh — safe in CI logs (TTY optional).
 # Do not pipe this script to `head`/`tail`; long-running demos will SIGPIPE (exit 141).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-SRC="${ROOT}/scripts/ui/workspace-tui.sh"
+SRC="${ROOT}/.nezam/scripts/ui/workspace-tui.sh"
 
 run_demo() {
   local fmt="${1:?}"

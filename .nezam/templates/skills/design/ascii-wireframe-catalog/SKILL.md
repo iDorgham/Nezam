@@ -12,7 +12,7 @@ Generates precise, high-fidelity ASCII wireframes as implementation contracts du
 
 ## Inputs
 - `.cursor/state/plan_progress.yaml`
-- `docs/prd/PRD.md`
+- `.nezam/workspace/prd/PRD.md`
 - `@.nezam/templates/design/wireframe-base/SKILL.md`
 - `@.cursor/agents/lead-uiux-designer.md`
 

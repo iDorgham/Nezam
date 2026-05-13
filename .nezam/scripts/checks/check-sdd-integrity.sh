@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/checks/check-sdd-integrity.sh
+# .nezam/scripts/checks/check-sdd-integrity.sh
 # Detects legacy path references (.nezam/memory/ and docs/core/) across the workspace
 
 set -e
@@ -10,7 +10,7 @@ FAIL=0
 
 # Check for legacy .nezam/memory/ references, ignoring .nezam/memory/
 echo "Checking for legacy .nezam/memory/ references..."
-MEMORY_REFS=$(grep -rn ".nezam/memory/" .cursor/ docs/ scripts/ .github/ 2>/dev/null | grep -v ".nezam/workspace/" | grep -v "check-sdd-integrity.sh" || true)
+MEMORY_REFS=$(grep -rn ".nezam/memory/" .cursor/ docs/ .nezam/scripts/ .github/ 2>/dev/null | grep -v ".nezam/workspace/" | grep -v "check-sdd-integrity.sh" || true)
 
 if [ -n "$MEMORY_REFS" ]; then
     echo "❌ Legacy path '.nezam/memory/' found (should be '.nezam/memory/'):"
@@ -22,7 +22,7 @@ fi
 
 # Check for legacy docs/core/ references
 echo "Checking for legacy docs/core/ references..."
-CORE_REFS=$(grep -rn "docs/core/" .cursor/ docs/ scripts/ .github/ 2>/dev/null | grep -v ".nezam/workspace/" | grep -v "check-sdd-integrity.sh" || true)
+CORE_REFS=$(grep -rn "docs/core/" .cursor/ docs/ .nezam/scripts/ .github/ 2>/dev/null | grep -v ".nezam/workspace/" | grep -v "check-sdd-integrity.sh" || true)
 
 if [ -n "$CORE_REFS" ]; then
     echo "❌ Legacy path 'docs/core/' found (should be '.nezam/workspace/core/'):"

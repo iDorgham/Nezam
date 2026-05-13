@@ -2,8 +2,8 @@
 
 ## Path resolution
 
-Before any file operation, read `docs/gates/workspace.paths.yaml`:
-- `project.prd` → default `docs/prd/PRD.md`
+Before any file operation, read `.nezam/gates/workspace.paths.yaml`:
+- `project.prd` → default `.nezam/workspace/prd/PRD.md`
 - `project.plans_root` → default `.nezam/workspace/plans`
 
 All PRD and plans path references below use these resolved values.
@@ -28,7 +28,7 @@ Aliases: /PLAN menus → /PLAN ia | /PLAN copy → /PLAN content | /PLAN spec �
 
 Hard block:
   /plan (any subcommand) requires ALL of:
-  1. docs/prd/PRD.md exists and is not a blank template
+  1. .nezam/workspace/prd/PRD.md exists and is not a blank template
      (check: file has >10 non-comment lines)
   2. DESIGN.md exists at repo root and is not a blank template
   3. .cursor/state/onboarding.yaml has prd_locked: true AND design_locked: true

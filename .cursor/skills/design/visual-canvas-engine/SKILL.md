@@ -1,6 +1,10 @@
 ---
 name: visual-canvas-engine
 description: Orchestrates high-performance infinite canvas systems, viewport transforms, and spatial indexing.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Visual Canvas Engine

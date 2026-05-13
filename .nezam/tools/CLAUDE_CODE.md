@@ -15,7 +15,7 @@ cd your-project
 pnpm install
 
 # 2. Install the git pre-commit hook
-bash scripts/setup-hooks.sh
+bash scripts/hooks/setup-hooks.sh
 
 # 3. Start Claude Code in your project
 claude .

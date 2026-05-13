@@ -1,6 +1,10 @@
 ---
 name: saas-billing-orchestration
 description: Subscription management, usage metering, and billing lifecycle logic.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # SaaS Billing Orchestration

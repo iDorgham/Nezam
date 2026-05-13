@@ -49,10 +49,10 @@ NEZAM is a **workspace orchestration layer** — not an application. It sits bet
 | `.cursor/rules/` | Governance rules (hardlock, SDD, design gates) |
 | `.nezam/design/` | Brand/design profiles |
 | `.nezam/memory/` | Durable AI memory (decisions, context, protocols) |
-| `docs/prd/` | Product Requirements Document |
+| `.nezam/workspace/prd/` | Product Requirements Document |
 | `docs/plans/` | Phase execution plans + gate matrix |
 | `docs/specs/` | Feature specs + SDD artifacts |
-| `docs/architecture/` | ADRs + diagrams |
+| `.nezam/workspace/architecture/` | ADRs + diagrams |
 | `scripts/` | Automation scripts (checks, sync, design, release) |
 | `.github/workflows/` | CI/CD gate enforcement |
 
@@ -62,7 +62,7 @@ See [Design System](./Design-System) for the full token-first approach.
 
 ## ADR Index
 
-Architecture Decision Records live in `docs/architecture/decisions/`. Each follows:
+Architecture Decision Records live in `.nezam/workspace/architecture/decisions/`. Each follows:
 
 ```
 # ADR-XXXX: [Title]

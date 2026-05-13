@@ -17,7 +17,7 @@ cd your-project
 pnpm install
 
 # 2. Install git hook
-bash scripts/setup-hooks.sh
+bash scripts/hooks/setup-hooks.sh
 
 # 3. Sync mirrors
 pnpm ai:sync

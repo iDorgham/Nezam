@@ -3,7 +3,7 @@
 
 const { spawnSync } = require("node:child_process");
 
-const result = spawnSync("node", ["scripts/sync-ai-folders.js", "--diff"], {
+const result = spawnSync("node", [".nezam/scripts/sync/sync-ai-folders.js", "--diff"], {
   stdio: "inherit",
   shell: false,
 });

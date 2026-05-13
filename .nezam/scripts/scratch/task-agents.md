@@ -33,7 +33,7 @@ Primary authority for the task management engine, governing state machines, depe
 When designing new task management features or refactoring core task engine logic.
 
 ### Input requirements
-- `docs/prd/PRD.md`
+- `.nezam/workspace/prd/PRD.md`
 - Performance and scalability targets
 
 ### Output deliverables

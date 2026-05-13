@@ -1,6 +1,10 @@
 ---
 name: contact-enrichment
 description: Integration patterns for third-party contact data enrichment.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Contact Enrichment

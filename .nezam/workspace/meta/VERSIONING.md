@@ -65,4 +65,4 @@ State schemas live in `.cursor/state/schemas/`. When a schema changes:
 - After any agent/skill/rule change: run `pnpm ai:sync`
 - After sync: run `pnpm ai:check` to verify no drift
 - Git pre-commit hook auto-runs `pnpm ai:sync` when `.cursor/` files are staged
-- Install hook: `bash scripts/setup-hooks.sh`
+- Install hook: `bash scripts/hooks/setup-hooks.sh`

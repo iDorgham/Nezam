@@ -14,7 +14,7 @@ Translate user intent into deterministic flows, interaction states, and copy tha
 - Personas + jobs-to-be-done from `docs/specs/prd/PRD.md`.
 - IA + URL hierarchy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - `docs/DESIGN.md` example pages and interaction states.
-- Brand voice from `docs/prd/PROJECT_PROMPT.md`.
+- Brand voice from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
 
 # Step-by-Step Workflow
 

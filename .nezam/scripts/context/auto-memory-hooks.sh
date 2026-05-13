@@ -14,10 +14,10 @@ now_utc="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 score_spec_completeness() {
   local files=(
-    "$repo_root/docs/prd/PRD.md"
-    "$repo_root/docs/prd/PROJECT_PROMPT.md"
+    "$repo_root/.nezam/workspace/prd/PRD.md"
+    "$repo_root/.nezam/workspace/prd/PROJECT_PROMPT.md"
     "$repo_root/docs/03_architecture/ARCHITECTURE.md"
-    "$repo_root/.nezam/workspace/VERSIONING.md"
+    "$repo_root/.nezam/workspace/meta/VERSIONING.md"
     "$repo_root/CHANGELOG.md"
   )
   local present=0
@@ -119,7 +119,7 @@ PY
 install_hook_call() {
   if ! rg -q "auto-memory-hooks.sh --post-commit" "$post_commit_hook"; then
     {
-      echo "bash \"\$repo_root/scripts/context/auto-memory-hooks.sh\" --post-commit >/dev/null 2>&1 || true"
+      echo "bash \"\$repo_root/.nezam/scripts/context/auto-memory-hooks.sh\" --post-commit >/dev/null 2>&1 || true"
     } >>"$post_commit_hook"
   fi
 }
@@ -163,7 +163,7 @@ case "$mode" in
     build_companion_bundle
     ;;
   *)
-    echo "Usage: bash scripts/context/auto-memory-hooks.sh --install|--post-commit|--bundle-report"
+    echo "Usage: bash .nezam/scripts/context/auto-memory-hooks.sh --install|--post-commit|--bundle-report"
     exit 1
     ;;
 esac

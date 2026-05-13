@@ -2,7 +2,7 @@
 
 > This folder (`.nezam/workspace/`) contains NEZAM's own workspace documentation — memory, agents, rules, plans, and PRD.
 > **Do not modify this folder when working on a user project.**
-> User project files live in `docs/prd/`, `docs/plans/`, and `docs/reports/`.
+> User project files live in `.nezam/workspace/prd/`, `docs/plans/`, and `docs/reports/`.
 
 ---
 
@@ -173,7 +173,7 @@ docs/
 
 | What | Canonical Location |
 |---|---|
-| PRD | `docs/prd/PRD.md` |
+| PRD | `.nezam/workspace/prd/PRD.md` |
 | Memory / decisions | `.nezam/memory/` |
 | Phase plans | `docs/plans/` |
 | Templates | `.nezam/templates/` |

@@ -29,7 +29,7 @@ When any of these events occur in chat, assistants must persist outcomes into do
 
 | Path | Role |
 |---|---|
-| `docs/prd/PRD.md` | Product Requirements Document |
+| `.nezam/workspace/prd/PRD.md` | Product Requirements Document |
 | `docs/plans/**` | Phase and task execution state |
 | `docs/specs/**` | Feature specs and SDD artifacts |
 | `.nezam/design/<brand>/design.md` | Active design profile |
@@ -64,7 +64,7 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | `AGENTS.md` | Codex/AGENTS workspace contract |
 | `GEMINI.md` | Gemini workspace contract |
 | `QWEN.md` | Qwen workspace contract |
-| `.nezam/workspace/VERSIONING.md` | Versioning, tag, and release policy |
+| `.nezam/workspace/meta/VERSIONING.md` | Versioning, tag, and release policy |
 | `.nezam/memory/MCP_REGISTRY.md` | MCP tool registry |
 | `.nezam/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
 | `.nezam/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
@@ -81,7 +81,7 @@ Session Runtime (L0)
 Project SDD Truth (L1)  ←── git committed, source of truth
   .nezam/memory/MEMORY.md
   docs/plans/
-  docs/prd/PRD.md
+  .nezam/workspace/prd/PRD.md
       │ governs behavior via
       ▼
 Team Behavior Contracts (L2)
@@ -109,6 +109,6 @@ Workspace Governance (L3)
 | `.nezam/memory/MULTI_TOOL_INDEX.md` | `.nezam/memory/MULTI_TOOL_INDEX.md` |
 | `.nezam/memory/MCP_REGISTRY.md` | `.nezam/memory/MCP_REGISTRY.md` |
 | `.nezam/memory/SKILL_CHANGELOG.md` | `.nezam/memory/SKILL_CHANGELOG.md` |
-| `docs/prd/PRD.md` | `docs/prd/PRD.md` |
+| `.nezam/workspace/prd/PRD.md` | `.nezam/workspace/prd/PRD.md` |
 | `docs/plans/` | `docs/plans/` |
 | `.nezam/workspace/templates/` | `.nezam/templates/` |

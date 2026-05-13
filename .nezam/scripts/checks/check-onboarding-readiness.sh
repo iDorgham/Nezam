@@ -172,7 +172,7 @@ fi
 # Silent bootstrap: once PRD+PROJECT_PROMPT quality/alignment and other hardlocks pass,
 # initialize CHANGELOG.md from template automatically if it is the only missing gate.
 if [[ "$missing" -eq 0 && "$changelog_missing" -eq 1 ]]; then
-  node "scripts/changelog/ensure-changelog-initialized.js" >/dev/null 2>&1 || true
+  node ".nezam/scripts/changelog/ensure-changelog-initialized.js" >/dev/null 2>&1 || true
   if [[ ! -f "$changelog_path" ]]; then
     echo "Missing required onboarding artifact: $changelog_path"
     missing=1
@@ -184,7 +184,7 @@ if [[ "$missing" -ne 0 ]]; then
   echo "Planning readiness check failed."
   echo "Required order:"
   echo "1. /START repo"
-  echo "2. Add $prd_path manually (preferred; copy from docs/prd/PRD.md if that is your canonical draft)"
+  echo "2. Add $prd_path manually (preferred; copy from .nezam/workspace/prd/PRD.md if that is your canonical draft)"
   echo "3. Optional: /CREATE prd for guided drafting"
   echo "4. Add $prompt_path manually (or /CREATE prompt)"
   echo "5. Create gate manifest at $gate_manifest_path (or docs/plans/gates/GITHUB_GATE_MATRIX.json per hardlock-paths.json)"

@@ -53,7 +53,7 @@ cases:
     input: "Check gates with no PRD"
     expected_behavior:
       - "Returns GATE_FAIL for gate-1"
-      - "Lists missing: docs/prd/PRD.md"
+      - "Lists missing: .nezam/workspace/prd/PRD.md"
     evaluation_type: automated
 ```
 

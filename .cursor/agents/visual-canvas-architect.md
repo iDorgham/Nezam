@@ -32,7 +32,7 @@ During the planning and architectural design of visual building tools, canvas-ba
 
 ### Input requirements
 - `.cursor/state/plan_progress.yaml`
-- `docs/prd/PRD.md`
+- `.nezam/workspace/prd/PRD.md`
 - Performance budgets for canvas rendering.
 
 ### Output deliverables

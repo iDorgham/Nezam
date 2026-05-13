@@ -16,7 +16,7 @@ session_context_loaded:   # List of agent files loaded this session
 
 - Full model: [`MEMORY_ARCHITECTURE.md`](./MEMORY_ARCHITECTURE.md)
 - Cross-agent boundary handoff: [`PHASE_HANDOFF.md`](./PHASE_HANDOFF.md)
-- PRD: [`docs/prd/PRD.md`](../prd/PRD.md)
+- PRD: [`.nezam/workspace/prd/PRD.md`](../prd/PRD.md)
 - Plans: [`docs/plans/`](../plans/)
 - Context: [`CONTEXT.md`](./CONTEXT.md)
 - Wiki: [`docs/wiki/Home.md`](../wiki/Home.md)
@@ -41,7 +41,7 @@ session_context_loaded:   # List of agent files loaded this session
 - **Sync:** Run `pnpm ai:sync` to broadcast L2/L3 changes to all clients.
 
 ## Where agents read/write
-- **Read from:** `docs/prd/PRD.md`, `docs/plans/**`, `.nezam/memory/**`.
+- **Read from:** `.nezam/workspace/prd/PRD.md`, `docs/plans/**`, `.nezam/memory/**`.
 - **Write to:** `.nezam/memory/MEMORY.md` (decisions), `.nezam/memory/PHASE_HANDOFF.md` (phase gates).
 
 ## Example entries

@@ -31,7 +31,7 @@ Highest strategic authority for the Visual Builder and Node Systems domain. Gove
 During high-level design, architectural reviews, or when resolving fundamental conflicts in the visual builder swarms.
 
 ### Input requirements
-- `docs/prd/PRD.md`
+- `.nezam/workspace/prd/PRD.md`
 - Solution architecture blueprints.
 
 ### Output deliverables

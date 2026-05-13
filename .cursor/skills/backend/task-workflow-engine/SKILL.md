@@ -1,6 +1,10 @@
 ---
 name: task-workflow-engine
 description: Governs the design and implementation of task state machines and transition logic.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Task Workflow Engine

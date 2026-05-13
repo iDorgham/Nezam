@@ -1,6 +1,10 @@
 ---
 name: realtime-stream-orchestration
 description: Protocols and logic for managing live data streams for dashboards.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
 ---
 
 # Real-Time Stream Orchestration

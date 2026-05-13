@@ -28,7 +28,7 @@ Initializes the workspace for a session. Loads context, checks prerequisites, an
 
 **What it does:**
 1. Reads `.nezam/memory/CONTEXT.md` and `.nezam/memory/MEMORY.md`
-2. Checks `docs/prd/PRD.md` exists
+2. Checks `.nezam/workspace/prd/PRD.md` exists
 3. Identifies the current SDD phase from `docs/plans/INDEX.md`
 4. Loads the relevant agents for that phase
 5. Reports current workspace health

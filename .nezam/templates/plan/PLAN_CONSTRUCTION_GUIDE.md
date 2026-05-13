@@ -8,7 +8,7 @@ It defines a stable top-level phase order while allowing sub-phases to change pe
 Collect these before drafting:
 
 - `docs/specs/prd/PRD.md`
-- `docs/prd/PROJECT_PROMPT.md`
+- `.nezam/workspace/prd/PROJECT_PROMPT.md`
 - applicable constraints (timeline, compliance, team capacity)
 - relevant technical context (architecture, integrations, deployment model)
 

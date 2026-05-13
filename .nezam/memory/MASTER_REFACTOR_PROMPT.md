@@ -238,7 +238,7 @@ Replace content with:
 Subcommands:
   /CREATE prd           → Guided PRD creation with 7-question interview
   /CREATE prompt        → Scaffold PROJECT_PROMPT.md aligned to PRD
-  /CREATE spec          → Create a feature spec under docs/prd/features/<slug>/
+  /CREATE spec          → Create a feature spec under .nezam/workspace/prd/features/<slug>/
   /CREATE task          → Add a task to MASTER_TASKS.md with ID, owner, phase, metric
   /CREATE report        → Initialize a fresh progress report shell
   /CREATE handoff       → Generate AI handoff packet for external AI companion

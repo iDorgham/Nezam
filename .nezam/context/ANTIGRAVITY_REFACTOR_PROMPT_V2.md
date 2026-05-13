@@ -490,7 +490,7 @@ framework    → 1   (EVAL_FRAMEWORK — governance doc, not an agent; move to t
 
 **Action:**
 
-1. Create `scripts/normalize-skill-ids.js`:
+1. Create `scripts/skills/normalize-skill-ids.js`:
    - Walk `.cursor/skills/` recursively, find all `SKILL.md` files
    - For each: parse frontmatter
    - If `name` field does not start with `nezam-`: prepend `nezam-` (e.g., `api-contract` → `nezam-api-contract`)
@@ -502,7 +502,7 @@ framework    → 1   (EVAL_FRAMEWORK — governance doc, not an agent; move to t
 
 2. Add to `package.json`:
    ```json
-   "skills:normalize": "node scripts/normalize-skill-ids.js"
+   "skills:normalize": "node scripts/skills/normalize-skill-ids.js"
    ```
 
 3. Run `pnpm skills:normalize` now.
@@ -782,7 +782,7 @@ No feature slice starts without a completed SPEC.md signed off by `spec-writer`.
 ## Part 2 — Canonical Spec Types (from spec-writing)
 
 ### PRD (Product Requirements Document)
-Path: `docs/prd/PRD.md`
+Path: `.nezam/workspace/prd/PRD.md`
 Sections: Problem, Users, Goals, Non-goals, Success metrics, Constraints, Roadmap
 
 ### IA Spec (Information Architecture)

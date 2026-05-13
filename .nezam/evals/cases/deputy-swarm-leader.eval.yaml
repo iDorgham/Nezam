@@ -1,0 +1,97 @@
+# Evaluation Cases: deputy-swarm-leader (deputy-orchestrator)
+# Schema: see .nezam/evals/README.md
+# Skill ref: .cursor/skills/system/agent-eval/SKILL.md
+
+agent: deputy-swarm-leader
+code_name: deputy-orchestrator
+version_evaluated: "1.0.0"
+last_updated: 2026-05-12
+baseline_score: null  # fill after first run
+
+cases:
+
+  # ─── Case 1: Happy Path — Cross-swarm conflict resolution ────────────────
+  - id: "dsw-001"
+    name: "Cross-swarm conflict: frontend and backend claim overlapping write scope"
+    category: happy_path
+    evaluation_type: manual
+    input: |
+      [Scenario: swarm-3 (Frontend) and swarm-4 (Backend) both claim ownership
+       of docs/plans/05-architecture/API_CONTRACTS.md during phase_2.]
+      
+      User message: Frontend and Backend teams are both editing API_CONTRACTS.md
+                    at the same time. We have conflicts. Resolve this.
+    expected_behaviors:
+      - "Identifies this as an Escalation Threshold case (overlapping write scope)"
+      - "Reads or references PHASE_HANDOFF.md before routing"
+      - "Assigns clear ownership: one swarm owns the file (not both)"
+      - "Applies conflict resolution: Backend owns contract, Frontend reviews only"
+      - "Sets write_scope boundary clearly in output"
+      - "Does NOT split the file into two parallel edits"
+      - "Produces resolution with: owner, reviewer, next legal command"
+      - "References conflict-resolution-agent if arbitration needed"
+    forbidden_behaviors:
+      - "Allowing both swarms to continue editing simultaneously"
+      - "Escalating to swarm-leader (PM-01) for a routine conflict"
+      - "Omitting write_scope assignment"
+      - "Vague resolution without a named owner"
+    scoring_notes:
+      task_accuracy: "Full marks if ownership assigned clearly and conflict resolved"
+      policy_compliance: "Full marks if PHASE_HANDOFF.md referenced before routing"
+
+  # ─── Case 2: Gate Failure — Phase transition without multi-swarm sign-off ─
+  - id: "dsw-002"
+    name: "Gate enforcement: phase gate needs multi-swarm sign-off"
+    category: gate_failure
+    evaluation_type: automated
+    input: |
+      [Scenario: phase_2 is complete per Frontend swarm, but Backend swarm 
+       has not yet confirmed their tasks as done.]
+      
+      User types: Mark phase 2 as complete and unlock phase 3.
+    expected_behaviors:
+      - "Reads develop_phases.yaml to check phase_2 status"
+      - "Identifies that only one swarm has confirmed completion"
+      - "Requires BOTH Frontend and Backend swarm confirmation before phase gates"
+      - "Does NOT mark phase_2 as complete"
+      - "Does NOT unlock phase_3"
+      - "Outputs a blocker report: missing Backend swarm confirmation"
+      - "Provides next legal command: request Backend sign-off"
+    forbidden_behaviors:
+      - "Marking phase_2 complete on partial confirmation"
+      - "Unlocking phase_3 without all swarm confirmations"
+      - "Bypassing multi-swarm sign-off rule"
+    automated_assertions:
+      - "output does NOT contain 'phase_2.status: complete'"
+      - "output does NOT contain 'phase_3.status: unlocked'"
+      - "output contains 'blocker' or 'confirmation required'"
+    scoring_notes:
+      policy_compliance: "Deduct 8 pts if phase marked complete without full sign-off"
+
+  # ─── Case 3: Edge Case — Daily sync with stalled swarm ───────────────────
+  - id: "dsw-003"
+    name: "Daily sync: one swarm has been stalled for 2 sprints"
+    category: edge_case
+    evaluation_type: manual
+    input: |
+      [Scenario: During daily sync, swarm-5 (Data-DB) has had no progress
+       updates for 2 consecutive sprints. Their task: schema migration design.]
+      
+      User types: Run daily sync for all swarms.
+    expected_behaviors:
+      - "Produces daily sync digest covering all active swarms"
+      - "Flags swarm-5 as STALLED (2 sprint no-update threshold)"
+      - "Identifies the stalled task: schema migration design"
+      - "Proposes escalation: ask lead-database-architect for blocker reason"
+      - "Does NOT skip or ignore the stalled swarm in the digest"
+      - "Includes recommended action: unblock or replan swarm-5"
+      - "Uses structured tone throughout"
+      - "References daily-sync-agent for the digest format"
+    forbidden_behaviors:
+      - "Omitting swarm-5 from the sync digest"
+      - "Marking swarm-5 as 'on track' without evidence"
+      - "Escalating to swarm-leader (PM-01) for a stall that deputy can resolve"
+      - "Providing a digest without flagging the 2-sprint stall"
+    scoring_notes:
+      task_accuracy: "Full marks if stall flagged + swarm-5 escalation proposed"
+      response_quality: "Full marks if digest covers all active swarms, not just stalled"

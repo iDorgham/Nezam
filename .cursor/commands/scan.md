@@ -13,7 +13,7 @@ Subcommands:
   /SCAN all         → Run all scans in sequence, produce unified report
 
 All scan reports write to docs/reports/<category>/<timestamp>.md
-Aliases: /SCAN audit → /SCAN all | /SCAN perf → /SCAN perf | /REPORT swarm-cost → node scripts/swarm-cost-report.js
+Aliases: /SCAN audit → /SCAN all | /SCAN perf → /SCAN perf | /REPORT swarm-cost → node scripts/reports/swarm-cost-report.js
 
 Hard block: none (scans are always safe to run)
 Recommendation footer: required

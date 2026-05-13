@@ -1,0 +1,192 @@
+---
+skill_id: nezam-gemini-integration"
+name: "nezam-gemini-integration"
+description: "Google Gemini API integration using the correct google-genai SDK. Covers multimodal input, streaming, function calling, search grounding, and file API for large documents."
+version: 1.0.0
+updated: 2026-05-12
+changelog:
+  - 1.0.0: Initial release.
+owner: "backend-lead"
+tier: 2
+sdd_phase: "Development"
+rtl_aware: false
+certified: false
+dependencies:
+  - "backend/vercel-ai-sdk"
+---
+# Gemini Integration
+
+## Purpose
+
+Integrate Google Gemini models for multimodal AI tasks — vision, large document processing, search-grounded responses, and function calling. Gemini is an alternate AI provider alongside OpenAI/Anthropic in the NEZAM stack.
+
+## Trigger Conditions
+
+- Task requires vision (image + text) input.
+- Task requires large context window (Gemini 2.5 Pro: 1M tokens).
+- Task requires live web search grounding in AI responses.
+- Task requires large file processing (documents, PDFs, videos).
+- Cost optimization: Gemini Flash is cheaper than GPT-4o for high-volume tasks.
+
+## Prerequisites
+
+- `GEMINI_API_KEY` set in environment variables (from Google AI Studio or Vertex AI).
+- **CRITICAL:** Use the `@google/genai` package — NOT the deprecated `@google-generativeai` package.
+
+```bash
+npm install @google/genai
+```
+
+## Procedure
+
+### CRITICAL — Correct SDK Import
+
+```ts
+// ✅ CORRECT — current SDK
+import { GoogleGenAI } from '@google/genai'
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! })
+
+// ❌ DEPRECATED — do NOT use
+// import { GoogleGenerativeAI } from '@google/generative-ai'
+```
+
+### Model Selection (verify IDs at implementation time — they change)
+
+```ts
+// As of 2026-05 — ALWAYS verify current IDs before using:
+// curl https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY
+
+const model = ai.getGenerativeModel({ model: 'gemini-2.5-pro-preview-05-06' })   // best reasoning
+const flashModel = ai.getGenerativeModel({ model: 'gemini-2.5-flash-preview-04-17' })  // fast/cheap
+```
+
+**Rule:** Never hardcode model IDs in source. Store in environment variable `GEMINI_MODEL_ID`.
+
+### Basic Text Generation
+
+```ts
+const result = await model.generateContent('Explain quantum computing in simple terms')
+console.log(result.response.text())
+```
+
+### Multimodal Input (image + text)
+
+```ts
+import { readFileSync } from 'fs'
+
+const imageData = readFileSync('image.jpg')
+const result = await model.generateContent([
+  {
+    inlineData: {
+      data: imageData.toString('base64'),
+      mimeType: 'image/jpeg',
+    },
+  },
+  'What is shown in this image? Describe in detail.',
+])
+```
+
+### Streaming Response
+
+```ts
+const stream = await model.generateContentStream('Write a detailed analysis...')
+
+for await (const chunk of stream.stream) {
+  process.stdout.write(chunk.text())
+}
+
+const finalResponse = await stream.response
+```
+
+### Function Calling (Tool Use)
+
+```ts
+const tools = [{
+  functionDeclarations: [{
+    name: 'get_weather',
+    description: 'Get current weather for a city',
+    parameters: {
+      type: 'OBJECT',
+      properties: {
+        city: { type: 'STRING', description: 'City name' },
+      },
+      required: ['city'],
+    },
+  }],
+}]
+
+const model = ai.getGenerativeModel({ model: process.env.GEMINI_MODEL_ID!, tools })
+const result = await model.generateContent('What is the weather in Cairo?')
+
+// Check for function call in response
+const functionCall = result.response.functionCalls()?.[0]
+if (functionCall) {
+  const { name, args } = functionCall
+  // Execute the function and send result back
+}
+```
+
+### Search Grounding (live web data in responses)
+
+```ts
+const model = ai.getGenerativeModel({
+  model: process.env.GEMINI_MODEL_ID!,
+  tools: [{ googleSearch: {} }],  // enables real-time web search
+})
+
+const result = await model.generateContent('What are the latest AI model releases in 2026?')
+// Response includes citations from live web search
+```
+
+### File API (large documents)
+
+```ts
+import { GoogleGenAI, createPartFromUri } from '@google/genai'
+
+// Upload file first
+const uploadResult = await ai.files.upload({
+  file: new Blob([fileContent], { type: 'application/pdf' }),
+  config: { mimeType: 'application/pdf' },
+})
+
+// Use in generation
+const result = await model.generateContent([
+  createPartFromUri(uploadResult.file.uri, uploadResult.file.mimeType),
+  'Summarize the key findings in this document.',
+])
+```
+
+Use File API for files >2MB. Uploaded files expire after 48 hours.
+
+### NEZAM Provider Integration
+
+When using Gemini alongside OpenAI/Anthropic via `backend/vercel-ai-sdk`:
+
+```ts
+import { google } from '@ai-sdk/google'  // Vercel AI SDK Gemini provider
+
+const result = await generateText({
+  model: google(process.env.GEMINI_MODEL_ID!),
+  prompt: 'Explain...',
+})
+```
+
+This integrates Gemini as a drop-in provider in the Vercel AI SDK — same interface as OpenAI/Anthropic.
+
+## Output Artifacts
+
+- AI-generated text/structured output (in-memory or stored per use case)
+
+## Validation Checklist
+
+- [ ] Importing from `@google/genai` — NOT `@google-generativeai` (deprecated)
+- [ ] Model ID stored in environment variable, not hardcoded
+- [ ] Model ID verified against live API before use (IDs change with releases)
+- [ ] Streaming used for responses >500 tokens (better UX, faster first token)
+- [ ] Function calling responses handled (check `functionCalls()` before text)
+- [ ] File API used for files >2MB (not inline data)
+- [ ] API key in environment variable, never hardcoded
+
+## Handoff Target
+
+Gemini output feeds `infrastructure/vector-search` (for embedding), `backend/apify-scraper` (for analysis of scraped data), or directly to the API response layer.

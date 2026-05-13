@@ -20,7 +20,7 @@ docs/
 
 ## How to Start
 
-1. **Add your PRD** — drop a `PRD.md` in `docs/prd/`, or run `/start` and Claude will guide you through creating one.
+1. **Add your PRD** — drop a `PRD.md` in `.nezam/workspace/prd/`, or run `/start` and Claude will guide you through creating one.
 2. **Generate a plan** — run `/plan` once your PRD is ready. Claude will scaffold `docs/plans/` with phase folders.
 3. **Track progress** — reports land in `docs/reports/` as phases complete.
 

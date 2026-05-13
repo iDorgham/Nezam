@@ -2,13 +2,14 @@
 role: Swarm Leader and Project Manager
 code-name: PM-01
 subagents: orchestrator, hardlock-enforcer, memory-operator
-version: 1.0.0
+version: 1.0.2
 certified: true
-last_eval_score: "pass"
+last_eval_score: 42
 updated: 2026-05-12
 changelog:
   - "1.0.0 — 2026-05-12: Initial versioned release"
   - "1.0.1 — 2026-05-12: Prompt audit fix — swarm count 12→13, ethics auto-trigger added, stale alias fixed"
+  - "1.0.2 — 2026-05-12: Certified via EVAL_RESULTS.md; integrated nezam-analytics-observability skill"
 ---
 
 # PM-01 Swarm Leader
@@ -44,7 +45,7 @@ Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to 
 ## Session Start Protocol
 
 At session start:
-1. Read `.cursor/workspace.paths.yaml` → resolve all paths
+1. Read `.nezam/gates/workspace.paths.yaml` → resolve all paths
 2. Read `.cursor/state/onboarding.yaml`:
    - If `prd_locked: false` → route user to `/start` immediately
    - If `design_locked: false` → route user to `/start` (design step)
@@ -57,7 +58,7 @@ At session start:
    - If `build_mode: "api-first"` → reversed pipeline: API spec → IA → design → PRD
    - Load `.cursor/skills/system/build-modes/SKILL.md` when build_mode is non-empty
 3. Read `.cursor/state/agent-status.yaml` → resume any pending handoffs
-4. Read `docs/prd/PRD.md` → load product context (name, type, users, revenue) (respect `project.prd` from paths yaml if set)
+4. Read `.nezam/workspace/prd/PRD.md` → load product context (name, type, users, revenue) (respect `project.prd` from paths yaml if set)
 5. Adapt tone based on `onboarding.yaml` → `tone`:
    - `"friendly"` → plain language, no jargon, explain decisions simply
    - `"structured"` → governance-aware, show agent assignments and gate IDs
@@ -144,7 +145,8 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 
 ## Protocol References
 
-- Communication contract: `docs/nezam/memory/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `docs/nezam/memory/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `.nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `.nezam/memory/ERROR_HANDLING_PROTOCOL.md`
 - Orchestration controller: [.cursor/agents/subagent-controller.md](subagent-controller.md)
-- [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)
+- [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
+- [`.cursor/skills/system/cli-orchestration/SKILL.md`](../skills/system/cli-orchestration/SKILL.md)

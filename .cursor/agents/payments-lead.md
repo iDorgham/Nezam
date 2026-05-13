@@ -94,7 +94,7 @@ when: ["/PLAN payments", "/DEVELOP payments", "new PSP integration", "webhook in
 - Refund and dispute handling path with operator runbook.
 - Test plan covering decline codes, network timeouts, partial captures, and replays.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-auth-workflows`
 - `@nezam-security-hardening`
 - `@nezam-privacy-compliance`

@@ -1,0 +1,30 @@
+# Swarm Metrics Tracker
+# Maintained by swarm-super-orchestrator / daily-sync-agent
+
+metrics:
+  task_completion_rate:
+    target: ">=0.95"
+    measurement: "completed / assigned"
+    current_value: 0.00
+  output_accuracy_score:
+    target: ">=0.90"
+    measurement: "auditor-validated / total"
+    current_value: 0.00
+  escalation_frequency:
+    target: "<0.10"
+    measurement: "escalated / total"
+    current_value: 0.00
+  handoff_latency:
+    target: "<5m"
+    measurement: "timestamp diff (created -> accepted)"
+    current_value: "0m"
+  token_efficiency:
+    target: ">0.80"
+    measurement: "useful tokens / total used"
+    current_value: 0.00
+  revision_cycles:
+    target: "<=2.0"
+    measurement: "avg cycles before approval"
+    current_value: 0.0
+
+last_updated: "2026-05-13"

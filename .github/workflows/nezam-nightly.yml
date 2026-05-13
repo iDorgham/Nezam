@@ -7,6 +7,9 @@ on:
     - cron: "0 2 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   sync-check:
     runs-on: ubuntu-latest
@@ -30,4 +33,4 @@ jobs:
     name: Spec Version Compliance
     steps:
       - uses: actions/checkout@v5.0.1
-      - run: bash scripts/check-spec-versions.sh
+      - run: bash scripts/checks/check-spec-versions.sh

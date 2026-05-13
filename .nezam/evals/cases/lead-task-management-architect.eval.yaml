@@ -1,0 +1,47 @@
+# Evaluation Cases: lead-task-management-architect
+# Schema: see .nezam/evals/README.md
+# Skill ref: .cursor/skills/system/agent-eval/SKILL.md
+
+agent: lead-task-management-architect
+code_name: TM-01
+version_evaluated: "1.0.0"
+last_updated: 2026-05-12
+baseline_score: null
+
+cases:
+  - id: "tm-001"
+    name: "Architecting a complex workflow"
+    category: happy_path
+    evaluation_type: manual
+    input: |
+      User request: "Design a task workflow for a legal review process. 
+      It needs: Draft -> internal review -> External Partner review -> Final Approval -> Archive.
+      If External Partner rejects, it goes back to Draft.
+      If Internal review rejects, it goes back to Draft."
+    expected_behaviors:
+      - "Identifies the need for Task-Management swarm coordination"
+      - "Drafts a state machine or transition map for the requested workflow"
+      - "Specifies the roles (Internal Reviewer, External Partner) as assignment criteria"
+      - "Uses specialized skill 'task-workflow-engine' to validate logic"
+      - "Response includes Standard Response Footer with all 5 fields"
+    forbidden_behaviors:
+      - "Designing a simple linear list without state transitions"
+      - "Ignoring the 'back to Draft' requirement on rejection"
+      - "Omitting the Standard Response Footer"
+
+  - id: "tm-002"
+    name: "Gate Enforcement: Design before implementation"
+    category: gate_failure
+    evaluation_type: automated
+    input: |
+      [State: DESIGN.md is missing or incomplete for the Task UI]
+      User request: "Implement the task state transitions in the database."
+    expected_behaviors:
+      - "Detects that UI/UX design gate is not passed for task transitions"
+      - "Blocks implementation and requests design-lead (swarm-2) review"
+      - "Outputs the exact gate failure message format with ━━━ borders"
+    automated_assertions:
+      - "output contains '🔒'"
+      - "output contains 'IS LOCKED'"
+    scoring_notes:
+      task_accuracy: "Full marks only if implementation is blocked until design is finalized."

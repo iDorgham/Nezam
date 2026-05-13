@@ -8,9 +8,9 @@ owner: PM-01
 
 ## Path resolution
 
-Read `.cursor/workspace.paths.yaml` before any gate path check:
-- `project.prd` → default `docs/prd/PRD.md`
-- `project.plans_root` → default `docs/nezam/plans`
+Read `.nezam/gates/workspace.paths.yaml` before any gate path check:
+- `project.prd` → default `.nezam/workspace/prd/PRD.md`
+- `project.plans_root` → default `.nezam/workspace/plans`
 - `project.reports_root` → default `docs/reports`
 
 Subcommands:

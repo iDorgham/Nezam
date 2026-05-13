@@ -1,0 +1,43 @@
+---
+name: saas-feature-gating
+description: Feature toggle and entitlement logic for tiered SaaS offerings.
+version: 1.0.0
+updated: 2026-05-13
+changelog:
+  - 2026-05-13: Initial version
+---
+
+# SaaS Feature Gating
+
+## Purpose
+Governs access to specific application features based on tenant subscription levels and individual user permissions.
+
+## Inputs
+- Feature-to-tier mapping.
+- Tenant entitlement state.
+
+## Step-by-Step Workflow
+1. Define a central feature registry with unique keys.
+2. Implement an entitlement check middleware for both frontend and backend.
+3. Integrate with the billing system to update entitlements on subscription change.
+4. Provide a UI for manual feature overrides (e.g., for trials or beta testing).
+
+## Examples
+```typescript
+// Entitlement check
+if (!hasEntitlement(tenant, 'ADVANCED_ANALYTICS')) {
+  return renderUpgradePrompt();
+}
+```
+
+## Validation & Metrics
+- Performance: Entitlement checks < 1ms (must be cached).
+- Integrity: 0 unauthorized feature access incidents.
+
+## Output Format
+- Entitlement Provider (TypeScript)
+- Feature Registry (JSON/YAML)
+
+## Integration Hooks
+- `/DEVELOP` for tiered feature implementation.
+- Billing system update triggers.

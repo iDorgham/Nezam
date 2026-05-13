@@ -31,7 +31,7 @@ You are the SQL Expert specialist within the Data & Database swarm, reporting to
 - Transaction / isolation note for risky writes.
 - Partitioning / archival plan when retention is in scope.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-database-optimization` for indexing and query-plan strategy.
 - `@nezam-prisma-orm` for ORM-aware tuning when Prisma is used.

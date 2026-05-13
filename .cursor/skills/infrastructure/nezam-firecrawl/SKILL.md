@@ -1,0 +1,128 @@
+---
+skill_id: nezam-firecrawl"
+name: "nezam-firecrawl"
+description: "Web content extraction for AI pipelines using Firecrawl — converts URLs to clean markdown or structured data for RAG ingestion, competitive research, and content pipelines."
+version: 1.0.0
+updated: 2026-05-12
+changelog:
+  - 1.0.0: Initial release.
+owner: "data-pipeline-manager"
+tier: 3
+sdd_phase: "Development"
+rtl_aware: false
+certified: false
+dependencies:
+  - "infrastructure/vector-search"
+---
+# Firecrawl — Web Content Extraction
+
+## Purpose
+
+Extract clean, structured content from any web URL for use in AI pipelines. Firecrawl handles JavaScript rendering, login walls (with session cookies), and converts messy HTML into clean markdown or structured JSON. Primary use cases: RAG data sourcing, competitive content research, automated content ingestion.
+
+## Trigger Conditions
+
+- Building a RAG pipeline that needs web content.
+- Competitive research automation (scrape competitor pages on schedule).
+- Content ingestion pipeline (blog posts, documentation, product pages).
+- Any task requiring clean text extraction from URLs at scale.
+
+## Prerequisites
+
+- `FIRECRAWL_API_KEY` set in environment variables.
+- Target URLs are publicly accessible, or session cookies are available for authenticated pages.
+- `npm install @mendable/firecrawl-js` installed.
+
+## Procedure
+
+### Operation 1: Single URL Scrape
+
+```ts
+import FirecrawlApp from '@mendable/firecrawl-js'
+const app = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY })
+
+const result = await app.scrapeUrl('https://example.com/page', {
+  formats: ['markdown'],           // 'markdown' | 'html' | 'screenshot'
+  onlyMainContent: true,           // strips nav, footer, ads — ALWAYS set to true
+  waitFor: 2000,                   // ms to wait for JS rendering (increase for SPAs)
+  excludeTags: ['nav', 'footer', 'aside', 'script', 'style'],
+})
+
+if (result.success) {
+  const markdownContent = result.markdown
+}
+```
+
+### Operation 2: Full Site Crawl
+
+```ts
+const crawlResult = await app.crawlUrl('https://docs.example.com', {
+  limit: 100,                      // max pages to crawl
+  maxDepth: 3,                     // link depth from start URL
+  allowedDomains: ['docs.example.com'],  // prevent crawl escaping to external domains
+  excludePaths: ['/blog', '/old-docs'],
+  scrapeOptions: {
+    formats: ['markdown'],
+    onlyMainContent: true,
+  },
+})
+
+// crawlResult.data is an array of scraped pages
+for (const page of crawlResult.data) {
+  console.log(page.url, page.markdown)
+}
+```
+
+### Operation 3: LLM-Powered Structured Extraction
+
+```ts
+import { z } from 'zod'
+
+const ProductSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+  description: z.string(),
+  features: z.array(z.string()),
+})
+
+const result = await app.scrapeUrl('https://example.com/product', {
+  formats: ['extract'],
+  extract: {
+    schema: ProductSchema,
+    prompt: 'Extract the product name, price, description, and feature list.',
+  },
+})
+
+const product = result.extract  // typed as ProductSchema
+```
+
+### NEZAM Pipeline Integration
+
+Connect Firecrawl output to the vector search pipeline:
+
+```
+Firecrawl.scrapeUrl() → markdown content
+  → chunk into 512-token segments
+  → embed via OpenAI/Anthropic embedding API
+  → store in vector store (via infrastructure/vector-search skill)
+  → retrieve via similarity search at query time
+```
+
+## Output Artifacts
+
+- Scraped content as markdown strings (in-memory or stored in `/data/scraped/`)
+- Structured JSON if using extract mode
+- Error log for failed URLs
+
+## Validation Checklist
+
+- [ ] `onlyMainContent: true` set on all scrape operations (prevents noise)
+- [ ] `allowedDomains` set on crawl operations (prevents crawl escape)
+- [ ] `waitFor` is set appropriately for JavaScript-heavy pages (SPAs need ≥2000ms)
+- [ ] Rate limiting considered for large crawls (Firecrawl has per-minute limits)
+- [ ] Scraped content validated for minimum length before indexing (reject empty/near-empty pages)
+- [ ] API key in environment variable, never hardcoded
+
+## Handoff Target
+
+`infrastructure/vector-search` — scraped content feeds the embedding and retrieval pipeline.

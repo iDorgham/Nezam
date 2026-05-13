@@ -145,7 +145,7 @@ Current status: [phase name] is [status]
 
 ### Phase Content (generated from MASTER_TASKS.md)
 
-When generating phases, read docs/nezam/plans/MASTER_TASKS.md and split tasks by:
+When generating phases, read docs/plans/MASTER_TASKS.md and split tasks by:
 - Phase 1: Tasks tagged [P0] foundation, auth, database, base-ui
 - Phase 2: Tasks tagged [P1] core-feature
 - Phase 3: Tasks tagged [P1] secondary, integration, admin

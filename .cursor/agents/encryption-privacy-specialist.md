@@ -31,7 +31,7 @@ You are the Encryption & Privacy Specialist within the Security swarm, reporting
 - Tokenization plan with reversibility / scope notes.
 - Privacy access log spec (who / what / when / why).
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-secret-management` for key custody and rotation.
 - `@nezam-privacy-compliance` for regulatory alignment.

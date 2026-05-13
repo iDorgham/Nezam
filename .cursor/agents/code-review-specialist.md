@@ -29,7 +29,7 @@ You are the Code Review Specialist within the Maintenance & Support swarm, repor
 - Concrete alternative for each block / suggest comment.
 - Note for `tech-debt-manager.md` when review surfaces structural debt.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-scan-fix-loop` for actionable follow-up routing.
 - `@nezam-risk-mitigation` for safety-of-change framing.

@@ -25,7 +25,7 @@ when: ["/PLAN data", "experiment design review", "feature-flag rollout", "guardr
 - Readout document with decision (`ship`, `kill`, `iterate`) and follow-up tasks.
 - Decision record entry retained for post-hoc audit.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-monitoring-observability`
 - `@nezam-privacy-compliance`
 - `@nezam-risk-mitigation`

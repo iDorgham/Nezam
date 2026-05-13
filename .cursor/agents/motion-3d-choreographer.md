@@ -24,7 +24,7 @@ when: ["/PLAN design", "motion spec validation", "3d fallback review", "/SCAN pe
 - R3F -> SVG/Canvas -> static fallback map with trigger rules.
 - Reduced-motion parity checklist and test notes.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-motion-3d-progressive`
 - `@nezam-pro-design-tokens`
 - `@nezam-component-library-api`
@@ -60,7 +60,7 @@ Motion & 3D Choreographer designs interaction motion and progressive 3D storytel
 - R3F scene complexity caps and performance guardrails.
 - Audit checklist for layout-safe animation behavior.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@motion-3d-progressive`
 - `@token-grid-typography`
 - `@css-architecture-runtime`

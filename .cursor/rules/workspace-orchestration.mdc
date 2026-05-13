@@ -14,15 +14,15 @@ Use **Specification-Driven Development (SDD)**: roadmap → phases → specs →
 ## Planning hardlock prerequisite (legacy — superseded)
 
 > **Note:** This section is preserved for historical reference only. It referenced the old path
-> `docs/prd/PRD.md`. All hardlock logic has moved to the section below
+> `.nezam/workspace/prd/PRD.md`. All hardlock logic has moved to the section below
 > ("SDD hardlock prerequisites — reads state files") which uses the canonical path
-> `docs/prd/PRD.md`. Do not act on the conditions described here.
+> `.nezam/workspace/prd/PRD.md`. Do not act on the conditions described here.
 
 <!--
 LEGACY (do not enforce):
-- docs/prd/PRD.md  →  now: docs/prd/PRD.md
-- docs/prd/PROJECT_PROMPT.md  →  now: docs/prd/PROJECT_PROMPT.md (optional)
-- docs/nezam/VERSIONING.md  →  now: docs/nezam/VERSIONING.md
+- .nezam/workspace/prd/PRD.md  →  now: .nezam/workspace/prd/PRD.md
+- .nezam/workspace/prd/PROJECT_PROMPT.md  →  now: .nezam/workspace/prd/PROJECT_PROMPT.md (optional)
+- .nezam/workspace/meta/VERSIONING.md  →  now: .nezam/workspace/meta/VERSIONING.md
 All gate logic is enforced via .cursor/state/*.yaml files + gate-orchestrator skill.
 -->
 
@@ -32,7 +32,7 @@ All gate logic is enforced via .cursor/state/*.yaml files + gate-orchestrator sk
 
 Read `.cursor/state/onboarding.yaml` before any `/plan` subcommand:
 
-1. `prd_locked: true` — project PRD path (see `.cursor/workspace.paths.yaml` `project.prd`, default `docs/prd/PRD.md`) is filled in (not template)
+1. `prd_locked: true` — project PRD path (see `.nezam/gates/workspace.paths.yaml` `project.prd`, default `.nezam/workspace/prd/PRD.md`) is filled in (not template)
 2. `design_locked: true` — `DESIGN.md` exists and is not blank template
 
 If either is false → block `/plan` → redirect to `/start` with specific reason.
@@ -79,7 +79,21 @@ The `/nezam` command is always available and never hardlocked.
 - Architecture + design contracts + gate matrix + approved SPECs — see `design-dev-gates.mdc`, `check.md`, and active plan folders
 - `docs/plans/design/WIREFRAMES.md` must exist when any screen-level component is being developed (enforced by wireframe-to-spec and wireframe-pipeline skills).
 
-When `/DEVELOP start` uses a selected profile from `.cursor/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
+When `/DEVELOP start` uses a selected profile from `.nezam/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
+
+## Swarm Governance Hardlocks
+
+Enforced via prompt discipline + state validation + `/check` rituals:
+
+- [GATE-001] No task assignment without valid `SPEC.md` reference
+- [GATE-002] Handoffs require `confidence_score` + `verification_steps` + `auditor_approval`
+- [GATE-003] P0/P1 tasks require dual-agent validation before `/develop`
+- [GATE-004] MENA-localized content requires `arabic-specialist` co-sign + RTL parity check
+- [GATE-005] All escalations log root cause to `DECISIONS_PLAIN.md`
+- [GATE-006] Requirements traceability: PRD → SPEC → DESIGN → Implementation → Test (tag commits with AC-IDs)
+- [GATE-007] Compliance: WCAG 2.2 AA, GDPR/CCPA, MENA cultural sensitivity, AI transparency. `lead-ai-ethics-officer` holds veto authority.
+
+Gate validation enforced via `sdd-gate-validator` + `workspace-orchestration.mdc`. Violations trigger `/FIX gates`.
 
 ## Response Style System
 
@@ -138,7 +152,7 @@ output looks like, and acceptance criteria. Ready to paste immediately.]
 - Short sentences. No jargon.
 - Explain what a step does before showing the command.
 - No file paths in main body — use natural language references.
-- "Your PRD" not `docs/prd/PRD.md`
+- "Your PRD" not `.nezam/workspace/prd/PRD.md`
 - "Pick your design" not "copy DESIGN profile"
 
 **Team / Structured mode (`tone: structured`):**
@@ -210,12 +224,12 @@ Hardlocks block **starting** dependent forward work until prerequisites are sati
 
 ## Memory layers (conceptual)
 
-1. **Source of truth**: repository files (`docs/prd/PRD.md`, `docs/plans/**`, `docs/reports/**`, `docs/nezam/**`, tracked decisions).
+1. **Source of truth**: repository files (`.nezam/workspace/prd/PRD.md`, `docs/plans/**`, `docs/reports/**`, `.nezam/workspace/**`, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
-3. **Durable project memory**: `docs/nezam/memory/MEMORY.md` plus phase logs under `docs/nezam/memory/` (maintain via `/SAVE log`).
-4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `docs/nezam/memory/CONTEXT.md`.
+3. **Durable project memory**: `.nezam/memory/MEMORY.md` plus phase logs under `.nezam/memory/` (maintain via `/SAVE log`).
+4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `.nezam/memory/CONTEXT.md`.
 
-Formal mapping: `docs/nezam/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
+Formal mapping: `.nezam/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
 
 Do not contradict committed specs without an explicit decision record note.
 
@@ -225,14 +239,14 @@ When assistants lock decisions in chat, persist them before finishing the reply 
 
 | Trigger | Persist to |
 |---------|------------|
-| Stack choice | `docs/nezam/memory/MEMORY.md` → **Active Stack Decisions** |
+| Stack choice | `.nezam/memory/MEMORY.md` → **Active Stack Decisions** |
 | Architecture ADR summary | **Locked Architecture Decisions** |
 | Design lock (tokens/grid/motion) | **Locked Design Decisions** |
 | Tradeoff with expiry | **Accepted Tradeoffs** |
 | Tier-1 agent eval | **Agent Scorecards** |
-| Phase transition | `docs/nezam/memory/PHASE_HANDOFF.md` |
+| Phase transition | `.nezam/memory/PHASE_HANDOFF.md` |
 | Session end | Write to `.cursor/state/agent-status.yaml`: last agent, last output, pending handoff, one-sentence resume prompt |
-| Go/no-go decision | Append to `docs/nezam/memory/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
+| Go/no-go decision | Append to `.nezam/memory/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
 
 ## Session Start Checklist
 
@@ -245,18 +259,18 @@ At session open:
 6. Read `.cursor/state/agent-status.yaml` — if `pending_handoff.status: pending`, deliver the handoff before any new work begins.
 7. If `active_spec` is set, confirm with user: "Last session left off at [spec]. Resume? Y/N"
 8. Print `session_resume_prompt` from `agent-status.yaml` as the first message.
-9. Check `docs/nezam/memory/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
+9. Check `.nezam/memory/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
 
 ## MCP Usage Policy
 
-- When a registered MCP server exists for a service (see `docs/nezam/memory/MCP_REGISTRY.md`), use it.
+- When a registered MCP server exists for a service (see `.nezam/memory/MCP_REGISTRY.md`), use it.
 - MCP-first saves tokens: structured results < prose descriptions of API calls.
 - Never write raw HTTP fetch code for a service that has an MCP.
 - Exception: when MCP is unavailable in current tool context — fall back to CLI (see CLI orchestration rules).
 
 ### Wireframe MCP Policy
 When `/PLAN design wireframes` is invoked:
-1. Check `docs/nezam/memory/MCP_REGISTRY.md` for active Figma MCP.
+1. Check `.nezam/memory/MCP_REGISTRY.md` for active Figma MCP.
 2. If active, use Mode A (Figma MCP) automatically.
 3. If inactive, check for uploaded Excalidraw/Penpot file and use Mode B.
 4. If neither is available, use Mode C (text interview fallback).
@@ -301,7 +315,7 @@ Violation: If a MODE B or MODE C handoff has no agent-bus.yaml entry, it is trea
 
 Before any task assignment, agents MUST:
 1. Read `.cursor/workspace.settings.yaml` and check `tools.<name>.active` for each tool.
-2. Read `docs/nezam/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
+2. Read `.nezam/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
 3. Route tasks only to tools marked active in settings.
 4. If the preferred tool is inactive, apply the deactivation chain from CLI tools context.
 5. Keep `security: true` tasks on primary reasoning lanes only (never free CLI lanes).
@@ -314,7 +328,7 @@ Tool activation state in workspace settings is the source of truth; never assume
 When `/Settings ai-tools off <tool>` is used:
 1. Persist `tools.<tool>.active: false` in workspace settings.
 2. Re-route tasks in `docs/plans/MASTER_TASKS.md` using deactivation chains from
-   `docs/nezam/memory/CLI_TOOLS_CONTEXT.md`.
+   `.nezam/memory/CLI_TOOLS_CONTEXT.md`.
 3. Keep an audit trail via `original_tool` where reassignment occurred.
 4. If no fallback exists, mark task blocked with `NO_ACTIVE_TOOL`.
 5. Keep `security: true` tasks on primary reasoning lanes only; otherwise block with

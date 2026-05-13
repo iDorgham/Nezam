@@ -11,12 +11,12 @@ owner: PM-01
 At session start, DO NOT load full agent files.
 Load ONLY:
 - `.cursor/state/AGENT_REGISTRY.yaml` (compact summaries)
-- The agent file(s) for the ACTIVE swarm detected from `docs/nezam/memory/MEMORY.md` or user intent.
+- The agent file(s) for the ACTIVE swarm detected from `.nezam/memory/MEMORY.md` or user intent.
 - `.cursor/agents/swarm-leader.md` (always — CPO context)
 - `.cursor/agents/deputy-swarm-leader.md` (always — coordination context)
 
 Active swarm detection:
-1. Read `docs/nezam/memory/MEMORY.md` and use the `Active Swarm` field.
+1. Read `.nezam/memory/MEMORY.md` and use the `Active Swarm` field.
 2. If absent, infer from user message (e.g. "frontend" → load Swarm 3 agents only).
 3. If still unclear, ask once: "Which swarm are we working in today?"
 

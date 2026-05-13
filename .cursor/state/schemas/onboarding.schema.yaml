@@ -10,7 +10,7 @@ defaults:
   user_mode_set_at: ""
   tone: ""
   prd_locked: false
-  prd_path: "docs/prd/PRD.md"
+  prd_path: ".nezam/workspace/prd/PRD.md"
   prd_locked_at: ""
   design_locked: false
   design_profile: ""
@@ -48,9 +48,9 @@ fields:
 
   prd_path:
     type: string
-    default: "docs/prd/PRD.md"
+    default: ".nezam/workspace/prd/PRD.md"
     required: true
-    note: "Canonical path. Legacy: docs/prd/PRD.md is INVALID."
+    note: "Canonical path. Legacy: .nezam/workspace/prd/PRD.md is INVALID."
 
   prd_locked_at:
     type: string
@@ -64,7 +64,7 @@ fields:
   design_profile:
     type: string
     required: false
-    note: "Matches a key from .cursor/design/<profile>/design.md"
+    note: "Matches a key from .nezam/design/<profile>/design.md"
 
   design_locked_at:
     type: string
@@ -121,4 +121,4 @@ rules:
     description: "prd_path must not reference docs/specs/"
     check: "prd_path does not contain 'docs/""core/required'"
     auto_repair: true
-    repair_value: "docs/prd/PRD.md"
+    repair_value: ".nezam/workspace/prd/PRD.md"

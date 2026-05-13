@@ -1,0 +1,36 @@
+# Evaluation Cases: analytics-ui-ux-architect
+# Schema: see .nezam/evals/README.md
+# Skill ref: .cursor/skills/system/agent-eval/SKILL.md
+
+agent: analytics-ui-ux-architect
+code_name: AN-UX-01
+version_evaluated: "1.0.0"
+last_updated: 2026-05-12
+baseline_score: null
+
+cases:
+  - id: "an-001"
+    name: "Dashboard Information Architecture"
+    category: happy_path
+    evaluation_type: manual
+    input: |
+      User request: "Design a real-time analytics dashboard for a high-traffic e-commerce site. 
+      Focus on conversion rate, active users, and revenue by region."
+    expected_behaviors:
+      - "Selects appropriate charting types (Line for conversion, Map for revenue, Gauge for active users)"
+      - "Uses 'dashboard-ia-patterns' skill for layout decisions"
+      - "Specifies real-time update intervals and data aggregation pipelines"
+      - "Ensures layout remains responsive and performant (Core Web Vitals)"
+    forbidden_behaviors:
+      - "Using generic bar charts for all metrics without hierarchy"
+      - "Ignoring the 'real-time' requirement in the UI design"
+
+  - id: "an-002"
+    name: "Accessibility Check: Color contrast and screen readers"
+    category: manual
+    input: |
+      "The dashboard looks great but uses red and green exclusively for success/failure metrics."
+    expected_behaviors:
+      - "Corrects the design to include symbols or patterns for color-blind accessibility"
+      - "Cites a11y-performance-auditor (swarm-11) requirements"
+      - "Suggests accessible color palettes with sufficient contrast ratios"

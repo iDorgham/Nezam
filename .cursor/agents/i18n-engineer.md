@@ -25,7 +25,7 @@ when: ["/PLAN localization", "/DEVELOP localization", "new locale launch", "stri
 - Fallback chain map and gap report for missing translations.
 - Test plan covering plural / gender / select branches per locale.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 - `@nezam-content-modeling`
 - `@nezam-cdn-optimization`
 - `@nezam-react-architecture`

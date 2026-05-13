@@ -31,7 +31,7 @@ You are the Multi-Tenancy Architect within the CMS & SaaS swarm, reporting to `s
 - RLS / authz policy spec at the DB layer.
 - Tenant lifecycle runbook (provision / suspend / delete / export).
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-supabase-architect` for Postgres + RLS patterns.
 - `@nezam-prisma-orm` when ORM-mediated access is in scope.

@@ -7,26 +7,26 @@ owner: PM-01
 # Do not edit manually. Updated by /GUIDE and swarm commands.
 # Source of truth for session resume.
 
-last_updated: ""           # ISO datetime
-active_swarm: ""           # e.g. "Swarm 3 — Frontend"
-active_agent: ""           # e.g. "lead-frontend-architect"
-active_phase: ""           # e.g. "05-build"
-active_feature_slice: ""   # e.g. "auth-login"
-active_spec: ""            # e.g. "docs/workspace/plans/05-build/auth-login/SPEC.md"
+last_updated: "2026-05-12T19:46:00"
+active_swarm: "Swarm 1 — Architecture"
+active_agent: "swarm-leader"
+active_phase: "05-harden"
+active_feature_slice: "hardening-pass"
+active_spec: "docs/plans/NEZAM-HARDENING-PROMPT.md"
 
 last_output:
-  type: ""                 # "spec" | "design" | "component" | "decision" | "audit"
-  artifact_path: ""        # path to last produced artifact
-  status: ""               # "draft" | "approved" | "in-review"
-  summary: ""              # one sentence of what was produced
+  type: "report"
+  artifact_path: "docs/reports/progress/PROGRESS_REPORT.latest.md"
+  status: "draft"
+  summary: "Initialized progress report with hardening status."
 
 pending_handoff:
   from_agent: ""
   to_agent: ""
   handoff_packet_path: ""
-  status: ""               # "pending" | "delivered" | "none"
+  status: "none"
 
 open_blockers:
-  - ""
+  - "None"
 
-session_resume_prompt: ""  # Auto-generated sentence to paste at next session start
+session_resume_prompt: "Resuming NEZAM hardening pass. Last worked on PROGRESS_REPORT.latest.md."

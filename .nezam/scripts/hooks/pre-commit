@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# NEZAM — Pre-Commit Hook
+# Auto-runs pnpm ai:sync when any .cursor/ files are staged.
+# Prevents mirror drift between .cursor/ (canonical) and generated files.
+#
+# Install via: bash scripts/hooks/setup-hooks.sh
+# Skip for one commit: git commit --no-verify
+
+CURSOR_STAGED=$(git diff --cached --name-only | grep -c "^\.cursor/" || true)
+
+if [ "$CURSOR_STAGED" -gt 0 ]; then
+  echo "⚡ NEZAM: .cursor/ files staged — running pnpm ai:sync..."
+
+  if ! command -v pnpm &>/dev/null; then
+    echo "⚠️  pnpm not found. Skipping ai:sync — install pnpm to enable auto-sync."
+    exit 0
+  fi
+
+  if pnpm ai:sync; then
+    echo "✅ ai:sync complete."
+
+    # Stage any generated files that were updated by sync
+    GENERATED=(
+      "AGENTS.md"
+      "CLAUDE.md"
+      "GEMINI.md"
+      "QWEN.md"
+      "WINDSURF.md"
+      ".claude/"
+      ".antigravity/"
+      ".gemini/"
+      ".qwen/"
+      ".codex/"
+      ".opencode/"
+      ".kilocode/"
+      ".windsurf/"
+    )
+
+    for f in "${GENERATED[@]}"; do
+      if [ -e "$f" ]; then
+        git add "$f" 2>/dev/null || true
+      fi
+    done
+
+    echo "✅ Generated mirrors re-staged."
+  else
+    echo "❌ ai:sync failed. Fix errors before committing."
+    echo "   Run 'pnpm ai:sync' manually to see the full error."
+    exit 1
+  fi
+fi
+
+exit 0

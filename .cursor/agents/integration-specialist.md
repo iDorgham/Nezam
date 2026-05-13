@@ -31,7 +31,7 @@ You are the Integration Specialist within the Architecture & Planning swarm, rep
 - Observability bundle: log schema, dashboard, alert thresholds.
 - Vendor-down runbook with the exact degradation path.
 
-# @skill Dependencies
+# @skill nezam-Dependencies
 
 - `@nezam-api-design` for contract authoring and schema discipline.
 - `@nezam-api-gateway` for inbound rate limits and routing.

@@ -1,0 +1,46 @@
+{
+  "project": "NEZAM Visual Builder",
+  "version": "1.0.0",
+  "gates": [
+    {
+      "id": "GATE_00_DEFINE",
+      "name": "Phase 0: Define",
+      "status": "closed",
+      "prerequisites": [
+        "docs/plans/00-define/01-product/PRD.md",
+        "docs/plans/00-define/02-architecture/SPEC.md",
+        "docs/plans/00-define/03-roadmap/SPEC.md"
+      ],
+      "approver": "Dorgham"
+    },
+    {
+      "id": "GATE_01_RESEARCH",
+      "name": "Phase 1: Research",
+      "status": "open",
+      "prerequisites": [
+        "docs/plans/01-research/01-seo/SPEC.md"
+      ],
+      "approver": "SEO Specialist"
+    },
+    {
+      "id": "GATE_02_DESIGN",
+      "name": "Phase 2: Design",
+      "status": "open",
+      "prerequisites": [
+        "DESIGN.md",
+        "docs/plans/02-design/01-tokens/SPEC.md"
+      ],
+      "approver": "Design Lead"
+    },
+    {
+      "id": "GATE_04_BUILD",
+      "name": "Phase 4: Build",
+      "status": "open",
+      "prerequisites": [
+        "GATE_02_DESIGN",
+        "docs/plans/04-build/01-backend/SPEC.md"
+      ],
+      "approver": "Backend Lead"
+    }
+  ]
+}

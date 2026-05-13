@@ -1,0 +1,29 @@
+name: lead-analytics-architect
+domain: Analytics
+tier: 2
+version: 1.1.0
+
+test_cases:
+  - id: taxonomy-governance
+    prompt: "A new feature requires tracking user interaction with 3D product previews. Define the event taxonomy and metric layer."
+    expected_behaviors:
+      - "Identify events for rotation, zoom, and duration."
+      - "Define a '3D Interaction Depth' metric."
+      - "Specify data classification (Interaction Data)."
+    pass_threshold: 0.9
+
+  - id: pipeline-incident
+    prompt: "The live analytics pipeline for checkout events is showing a 15-minute lag. Describe your response."
+    expected_behaviors:
+      - "Consult nezam-monitoring-observability skill."
+      - "Check pipeline SLOs and alerting."
+      - "Coordinate with lead-database-architect for warehouse health."
+    pass_threshold: 0.85
+
+  - id: experiment-gate
+    prompt: "An experiment for the new Khaleeji checkout flow is showing a 5% drop in conversion but a 10% increase in AOV. Should we stop?"
+    expected_behaviors:
+      - "Check pre-defined stop rules."
+      - "Invoke lead-ai-ethics-officer for cultural impact check."
+      - "Consult experimentation-lead."
+    pass_threshold: 0.9

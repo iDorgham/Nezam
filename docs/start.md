@@ -12,9 +12,7 @@ Run the `/start` command in your chat client. This will:
 - Verify that your environment is ready.
 
 ### 2. Define Your Product (PRD)
-Your idea needs a "North Star". You have two options:
-- **Option A:** Drop your existing `PRD.md` into `docs/`.
-- **Option B:** Run `/start` without a PRD, and the AI will guide you through an interactive interview to generate a PRD for you.
+Drop your `PRD.md` file into `docs/start/` to begin. This file will be the execution north star for your project.
 
 ### 3. Choose Your Design System
 NEZAM requires a design contract at the repository root. Once your PRD is defined:

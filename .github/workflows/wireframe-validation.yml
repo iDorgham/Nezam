@@ -6,7 +6,7 @@ jobs:
   validate-wireframes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: |
           for f in docs/plans/design/wireframes/*.md; do
             grep -q "RTL" "$f" || echo "⚠️ Missing RTL parity note in $f"

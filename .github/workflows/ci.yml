@@ -42,7 +42,7 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Validate conventional commit messages
@@ -79,7 +79,7 @@ jobs:
   readiness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: Verify onboarding planning artifacts
         run: ./scripts/checks/check-onboarding-readiness.sh
       - name: Verify PRD release roadmap (§11) matches release-roadmap.json
@@ -131,7 +131,7 @@ jobs:
   design-gate-readiness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: Verify design-system gate artifacts and references
         run: |
           set -euo pipefail
@@ -189,7 +189,7 @@ jobs:
   ai-sync-drift:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: Verify cross-client AI sync drift
         run: |
           node scripts/checks/check-ai-drift.js
@@ -197,14 +197,14 @@ jobs:
   docs-layout-policy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: Enforce docs/core + docs/reports layout
         run: bash scripts/checks/docs-layout-policy.sh
 
   automation-smoke:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: Automation smoke (baseline wiring)
         run: |
           set -euo pipefail
@@ -217,7 +217,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: readiness
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: No-op scaffold
         run: |
           echo "Replace this job with your real toolchain (pnpm test, mise, cargo, …)."
@@ -227,7 +227,7 @@ jobs:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5.0.1
+      - uses: actions/checkout@v6
       - name: Nightly automation baseline self-test
         run: |
           set -euo pipefail

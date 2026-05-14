@@ -1,13 +1,10 @@
-# /develop phase state — managed by /develop command
-# Phases unlock sequentially. Do not manually edit.
-
 phases:
   phase_1:
     name: "Foundation"
     description: "Core architecture, auth, database schema, base UI"
-    status: "unlocked"          # unlocked | in_progress | testing | complete | locked
+    status: "in_progress"          # unlocked | in_progress | testing | complete | locked
     testing_passed: false
-    unlocked_at: ""
+    unlocked_at: "2026-05-13T18:34:35+03:00"
     completed_at: ""
 
   phase_2:
@@ -54,4 +51,3 @@ phases:
     depends_on: "phase_5"
     unlocked_at: ""
     completed_at: ""
-

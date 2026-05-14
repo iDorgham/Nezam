@@ -29,12 +29,24 @@
     "continual-learning:reset-memory": "node .nezam/scripts/continual-learning/reset-memory.js",
     "hooks:install": "bash .nezam/scripts/context/install-context-hooks.sh && bash .nezam/scripts/context/auto-memory-hooks.sh --install",
     "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open",
-    "state:set": "node .nezam/scripts/state/write-state.js"
+    "state:set": "node .nezam/scripts/state/write-state.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "qrcode.react": "latest"
   },
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/github": "^12.0.8",
+    "@semantic-release/release-notes-generator": "^14.0.0",
+    "@types/react": "19.2.14",
     "semantic-release": "^25.0.3",
-    "@semantic-release/release-notes-generator": "^14.0.0"
+    "typescript": "6.0.3"
   }
 }

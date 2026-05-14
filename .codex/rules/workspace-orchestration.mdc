@@ -304,6 +304,13 @@ For MODE B or MODE C task assignments, agents MUST write a message to `agent-bus
 
 Violation: If a MODE B or MODE C handoff has no agent-bus.yaml entry, it is treated as an incomplete handoff. The receiving agent must reject the assignment and return: "Missing agent-bus entry for task <task_id>. Routing agent must log before re-sending."
 
+### Planning Communication Protocol
+
+During the SDD Planning process (Phases 1-6):
+1. Agents MUST use the `agent-bus.yaml` to notify the `project-architect` of any structural or schema changes.
+2. If the project involves Arabic content or localization, the planning agent MUST tag the `masri-content-specialist` in the `agent-bus.yaml` for a cultural and dialect review (defaulting to Egyptian Arabic per user preference).
+3. All planning decisions that deviate from the PRD MUST be logged to `.nezam/memory/SWARM_DECISION_LOG.md` using the `decision-request` type on the bus before proceeding.
+
 ## Token Economy Rules
 - Load files by path reference (@filename) not content paste
 - Compress prior session context before starting new session (use @nezam-context-window-manager)

@@ -11,7 +11,7 @@ alwaysApply: true
 
 Before any `/DEVELOP` command runs, the following must exist:
 
-1. `docs/plans/scaffold/PROJECT_SCAFFOLD.md` — full annotated file tree
+1. `docs/plan/scaffold/PROJECT_SCAFFOLD.md` — full annotated file tree
 2. `scripts/scaffold.sh` — runnable script that creates the tree
 3. The scaffold script must have been confirmed (user typed `yes` to apply it)
 

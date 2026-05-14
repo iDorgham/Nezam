@@ -57,7 +57,7 @@ List all incomplete work items:
 Single most important next action. Format:
 ```
 NEXT: [Action] → [File to open or command to run] → [Expected outcome]
-Example: NEXT: Complete Phase 2 IA plan → open docs/plans/02-ia/IA_CONTENT.md → fill screen inventory
+Example: NEXT: Complete Phase 2 IA plan → open docs/plan/02-ia/IA_CONTENT.md → fill screen inventory
 ```
 
 ### 5. Write Handoff Report

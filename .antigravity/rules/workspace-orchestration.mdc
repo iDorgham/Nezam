@@ -79,7 +79,7 @@ The `/nezam` command is always available and never hardlocked.
 - `PROJECT_PROMPT.md` aligned with PRD (path per workspace conventions)
 - `CHANGELOG.md` initialized; SemVer policy documented
 - Architecture + design contracts + gate matrix + approved SPECs — see `design-dev-gates.mdc`, `check.md`, and active plan folders
-- `docs/plans/design/WIREFRAMES.md` must exist when any screen-level component is being developed (enforced by wireframe-to-spec and wireframe-pipeline skills).
+- `docs/plan/design/WIREFRAMES.md` must exist when any screen-level component is being developed (enforced by wireframe-to-spec and wireframe-pipeline skills).
 
 When `/DEVELOP start` uses a selected profile from `.nezam/design/*/design.md`, that selected file must be copied into root `DESIGN.md` before development can proceed.
 
@@ -226,7 +226,7 @@ Hardlocks block **starting** dependent forward work until prerequisites are sati
 
 ## Memory layers (conceptual)
 
-1. **Source of truth**: repository files (`.nezam/workspace/prd/PRD.md`, `docs/plans/**`, `docs/reports/**`, `.nezam/workspace/**`, tracked decisions).
+1. **Source of truth**: repository files (`.nezam/workspace/prd/PRD.md`, `docs/plan/**`, `docs/reports/**`, `.nezam/workspace/**`, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
 3. **Durable project memory**: `.nezam/memory/MEMORY.md` plus phase logs under `.nezam/memory/` (maintain via `/SAVE log`).
 4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `.nezam/memory/CONTEXT.md`.
@@ -248,7 +248,7 @@ When assistants lock decisions in chat, persist them before finishing the reply 
 | Tier-1 agent eval | **Agent Scorecards** |
 | Phase transition | `.nezam/memory/PHASE_HANDOFF.md` |
 | Session end | Write to `.cursor/state/agent-status.yaml`: last agent, last output, pending handoff, one-sentence resume prompt |
-| Go/no-go decision | Append to `.nezam/memory/SWARM_DECISION_LOG.md` using `docs/plans/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
+| Go/no-go decision | Append to `.nezam/memory/SWARM_DECISION_LOG.md` using `docs/plan/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
 
 ## Session Start Checklist
 
@@ -329,7 +329,7 @@ Tool activation state in workspace settings is the source of truth; never assume
 
 When `/Settings ai-tools off <tool>` is used:
 1. Persist `tools.<tool>.active: false` in workspace settings.
-2. Re-route tasks in `docs/plans/MASTER_TASKS.md` using deactivation chains from
+2. Re-route tasks in `docs/plan/MASTER_TASKS.md` using deactivation chains from
    `.nezam/memory/CLI_TOOLS_CONTEXT.md`.
 3. Keep an audit trail via `original_tool` where reassignment occurred.
 4. If no fallback exists, mark task blocked with `NO_ACTIVE_TOOL`.

@@ -33,9 +33,9 @@ Standardize the discovery and research phase to ensure all product decisions are
 
 ## Output Artifacts
 
-1. `docs/plans/01-research/USER_PERSONAS.md`: Detailed archetypes.
-2. `docs/plans/01-research/EMPATHY_MAPS.md`: Behavioral insights.
-3. `docs/plans/01-research/RESEARCH_SUMMARY.md`: Key findings and strategic recommendations.
+1. `docs/plan/01-research/USER_PERSONAS.md`: Detailed archetypes.
+2. `docs/plan/01-research/EMPATHY_MAPS.md`: Behavioral insights.
+3. `docs/plan/01-research/RESEARCH_SUMMARY.md`: Key findings and strategic recommendations.
 
 ## Validation Checklist
 

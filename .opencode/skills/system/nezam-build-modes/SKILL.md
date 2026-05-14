@@ -102,13 +102,13 @@ G0 → API Spec (OpenAPI/GraphQL) → IA → Design → PRD (derived) → Archit
 ```
 
 **Additional artifacts required:**
-- `docs/plans/api/API_SPEC.yaml` or `API_SPEC.graphql` — the API contract
-- `docs/plans/api/API_DECISIONS.md` — versioning, auth, rate limiting decisions
+- `docs/plan/api/API_SPEC.yaml` or `API_SPEC.graphql` — the API contract
+- `docs/plan/api/API_DECISIONS.md` — versioning, auth, rate limiting decisions
 - PRD must include `## API Alignment` section confirming PRD matches API spec
 
 **swarm-leader enforcement:**
 When `build_mode: api-first`:
-1. Block `/plan seo` until `docs/plans/api/API_SPEC.yaml` exists
+1. Block `/plan seo` until `docs/plan/api/API_SPEC.yaml` exists
 2. Route planning to api-logic-manager first, then IA, then design-lead
 3. Require PRD to contain `## API Alignment` section before locking
 

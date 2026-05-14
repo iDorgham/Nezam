@@ -69,7 +69,7 @@ Enforce a non-negotiable two-step discipline for all design work: first reproduc
 ### Step C — Selection & Lock
 
 1. Present both variations to the decision-maker (or self-select in solo work).
-2. Document the selection in `docs/plans/design/DESIGN_CHOICES.yaml`.
+2. Document the selection in `docs/plan/design/DESIGN_CHOICES.yaml`.
 3. The selected variation becomes the new baseline for the next iteration cycle.
 
 ## Output Artifacts
@@ -77,7 +77,7 @@ Enforce a non-negotiable two-step discipline for all design work: first reproduc
 - `.cursor/context/design-init/baseline-<screen-slug>.md`
 - `.cursor/context/design-init/variation-<screen-slug>-A.md`
 - `.cursor/context/design-init/variation-<screen-slug>-B.md`
-- Updated `docs/plans/design/DESIGN_CHOICES.yaml`
+- Updated `docs/plan/design/DESIGN_CHOICES.yaml`
 
 ## Validation Checklist
 

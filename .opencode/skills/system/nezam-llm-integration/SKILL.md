@@ -4,7 +4,7 @@
 name: "nezam-llm-integration"
 description: LLM provider routing, prompt engineering contract, context assembly, and response validation for AI-powered features.
 paths:
-  - "docs/plans/**"
+  - "docs/plan/**"
   - "docs/specs/ai/**"
   - ".cursor/state/**"
 version: 1.0.0

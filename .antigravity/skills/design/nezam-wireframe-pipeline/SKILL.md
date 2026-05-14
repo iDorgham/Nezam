@@ -77,9 +77,9 @@ Generate wireframes following the 2-variation rule.
 Transform wireframes into explicit component contracts.
 
 ### Output Artifacts
-1. `docs/plans/design/WIREFRAMES.md`: Full wireframes and specs (both variations).
-2. `docs/plans/design/DESIGN_CHOICES.yaml`: Locked selection data.
-3. `docs/plans/design/COMPONENT_INVENTORY.md`: Every component, variant, and state.
+1. `docs/plan/design/WIREFRAMES.md`: Full wireframes and specs (both variations).
+2. `docs/plan/design/DESIGN_CHOICES.yaml`: Locked selection data.
+3. `docs/plan/design/COMPONENT_INVENTORY.md`: Every component, variant, and state.
 4. Updated root `DESIGN.md`: New tokens if token gaps were resolved.
 5. `.cursor/context/design-init/baseline-<screen-slug>.md`: Phase 0 reproduction.
 6. `.cursor/context/design-init/variation-<screen-slug>-A.md` and `-B.md`.

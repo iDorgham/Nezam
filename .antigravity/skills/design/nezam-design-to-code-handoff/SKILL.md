@@ -26,7 +26,7 @@ Eliminate the "Lost in Translation" gap between design and development by transf
 - `.cursor/context/design-init/` files are current (all 6 files exist and are not stale).
 - `DESIGN.md` is finalized.
 - Selected variation spec exists in `.cursor/context/design-init/variation-<screen>-*.md`.
-- `docs/plans/design/DESIGN_CHOICES.yaml` reflects the approved selection.
+- `docs/plan/design/DESIGN_CHOICES.yaml` reflects the approved selection.
 
 ## Procedure
 
@@ -75,7 +75,7 @@ For files >1000 lines:
 
 ### 5. Spec Document
 
-Write `docs/plans/design/HANDOFF_<screen-slug>.md` containing:
+Write `docs/plan/design/HANDOFF_<screen-slug>.md` containing:
 
 ```markdown
 # Handoff: <Screen/Component Name>
@@ -113,8 +113,8 @@ Write `docs/plans/design/HANDOFF_<screen-slug>.md` containing:
 
 ## Output Artifacts
 
-- `docs/plans/design/HANDOFF_<screen-slug>.md`
-- `docs/plans/design/COMPONENT_INVENTORY.md` (updated)
+- `docs/plan/design/HANDOFF_<screen-slug>.md`
+- `docs/plan/design/COMPONENT_INVENTORY.md` (updated)
 - Updated root `DESIGN.md` (if new tokens were introduced)
 
 ## Validation Checklist

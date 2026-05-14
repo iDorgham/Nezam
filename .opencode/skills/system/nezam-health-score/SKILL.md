@@ -16,7 +16,7 @@ Produce and maintain a living `HEALTH.md` at the repository root that summarizes
 - `.cursor/state/develop_phases.yaml` — phase status, testing_passed per phase
 - `.nezam/workspace/prd/PRD.md` — presence and line count (>10 non-comment lines = filled)
 - `DESIGN.md` at repo root — presence and non-blank check
-- `docs/plans/**` — artifact presence per planning phase
+- `docs/plan/**` — artifact presence per planning phase
 - `docs/reports/security/SECURITY_AUDIT.md` — pass/fail status
 - `docs/reports/perf/LIGHTHOUSE_REPORT.md` — LCP, CLS, INP values
 - `docs/reports/tests/COVERAGE_REPORT.md` — coverage percentage
@@ -36,8 +36,8 @@ Produce and maintain a living `HEALTH.md` at the repository root that summarizes
 ### 2. Design Contract (max 100 pts)
 - `DESIGN.md` exists at repo root: +30 pts
 - `design_locked: true` in onboarding.yaml: +30 pts
-- `docs/plans/04-design/DESIGN_CHOICES.yaml` or `.md` exists: +20 pts
-- `docs/plans/design/WIREFRAMES.md` exists: +20 pts
+- `docs/plan/04-design/DESIGN_CHOICES.yaml` or `.md` exists: +20 pts
+- `docs/plan/design/WIREFRAMES.md` exists: +20 pts
 
 ### 3. Security Posture (max 100 pts)
 - `docs/reports/security/SECURITY_AUDIT.md` exists: +40 pts
@@ -57,9 +57,9 @@ Produce and maintain a living `HEALTH.md` at the repository root that summarizes
 - All develop phases with `testing_passed: true`: +20 pts (proportional)
 
 ### 6. Content Quality (max 100 pts)
-- `docs/plans/01-research/SEO_RESEARCH.md` exists: +20 pts
-- `docs/plans/02-ia/IA_CONTENT.md` exists: +20 pts
-- `docs/plans/03-content/CONTENT_MAP.md` exists: +20 pts
+- `docs/plan/01-research/SEO_RESEARCH.md` exists: +20 pts
+- `docs/plan/02-ia/IA_CONTENT.md` exists: +20 pts
+- `docs/plan/03-content/CONTENT_MAP.md` exists: +20 pts
 - `docs/reports/a11y/A11Y_AUDIT.md` exists: +20 pts
 - A11Y audit passes WCAG 2.2 AA: +20 pts
 

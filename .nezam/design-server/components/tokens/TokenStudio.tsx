@@ -26,14 +26,46 @@ export default function TokenStudio() {
         <div className="bg-ds-surface border border-ds-border rounded-lg p-4">
           <h2 className="text-lg font-medium text-ds-text-primary mb-4">{t('Colors', 'الألوان')}</h2>
           <div className="space-y-1">
-            <ColorTokenRow label="Primary" value={tokens.colors.primary} onChange={(c) => updateColor('primary', c)} />
-            <ColorTokenRow label="Secondary" value={tokens.colors.secondary} onChange={(c) => updateColor('secondary', c)} />
-            <ColorTokenRow label="Accent" value={tokens.colors.accent} onChange={(c) => updateColor('accent', c)} />
-            <ColorTokenRow label="Background" value={tokens.colors.background} onChange={(c) => updateColor('background', c)} />
-            <ColorTokenRow label="Surface" value={tokens.colors.surface} onChange={(c) => updateColor('surface', c)} />
-            <ColorTokenRow label="Text Primary" value={tokens.colors.textPrimary} onChange={(c) => updateColor('textPrimary', c)} />
-            <ColorTokenRow label="Text Muted" value={tokens.colors.textMuted} onChange={(c) => updateColor('textMuted', c)} />
-            <ColorTokenRow label="Border" value={tokens.colors.border} onChange={(c) => updateColor('border', c)} />
+            <ColorTokenRow 
+              label={t('Primary', 'أساسي')} 
+              value={tokens.colors.primary} 
+              onChange={(c) => updateColor('primary', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Secondary', 'ثانوي')} 
+              value={tokens.colors.secondary} 
+              onChange={(c) => updateColor('secondary', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Accent', 'مميز')} 
+              value={tokens.colors.accent} 
+              onChange={(c) => updateColor('accent', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Background', 'الخلفية')} 
+              value={tokens.colors.background} 
+              onChange={(c) => updateColor('background', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Surface', 'السطح')} 
+              value={tokens.colors.surface} 
+              onChange={(c) => updateColor('surface', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Text Primary', 'النص الأساسي')} 
+              value={tokens.colors.textPrimary} 
+              onChange={(c) => updateColor('textPrimary', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Text Muted', 'النص الباهت')} 
+              value={tokens.colors.textMuted} 
+              onChange={(c) => updateColor('textMuted', c)} 
+            />
+            <ColorTokenRow 
+              label={t('Border', 'الحدود')} 
+              value={tokens.colors.border} 
+              onChange={(c) => updateColor('border', c)} 
+            />
           </div>
         </div>
 
@@ -47,7 +79,7 @@ export default function TokenStudio() {
                 type="number"
                 value={tokens.typography.baseSize}
                 onChange={(e) => updateTypography('baseSize', parseInt(e.target.value))}
-                className="w-full bg-white/[0.03] border border-ds-border rounded px-3 py-2 text-ds-text-primary focus:border-[#5e6ad2] focus:outline-none"
+                className="w-full bg-ds-surface-subtle border border-ds-border rounded px-3 py-2 text-ds-text-primary focus:border-ds-primary/50 focus:outline-none"
               />
             </div>
             <div>
@@ -57,7 +89,7 @@ export default function TokenStudio() {
                 step="0.05"
                 value={tokens.typography.scale}
                 onChange={(e) => updateTypography('scale', parseFloat(e.target.value))}
-                className="w-full bg-white/[0.03] border border-ds-border rounded px-3 py-2 text-ds-text-primary focus:border-[#5e6ad2] focus:outline-none"
+                className="w-full bg-ds-surface-subtle border border-ds-border rounded px-3 py-2 text-ds-text-primary focus:border-ds-primary/50 focus:outline-none"
               />
             </div>
           </div>
@@ -80,3 +112,4 @@ export default function TokenStudio() {
     </div>
   )
 }
+

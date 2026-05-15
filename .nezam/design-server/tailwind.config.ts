@@ -17,6 +17,7 @@ const config: Config = {
         ds: {
           primary: 'var(--ds-primary)',
           'primary-hover': 'var(--ds-primary-hover)',
+          'primary-subtle': 'var(--ds-primary-subtle)',
           secondary: 'var(--ds-secondary)',
           accent: 'var(--ds-accent)',
           interactive: 'var(--ds-interactive)',
@@ -27,6 +28,7 @@ const config: Config = {
           background: 'var(--ds-background)',
           surface: 'var(--ds-surface)',
           'surface-elevated': 'var(--ds-surface-elevated)',
+          'surface-subtle': 'var(--ds-surface-subtle)',
           overlay: 'var(--ds-overlay)',
           'text-primary': 'var(--ds-text-primary)',
           'text-secondary': 'var(--ds-text-secondary)',
@@ -35,6 +37,7 @@ const config: Config = {
           'text-inverse': 'var(--ds-text-inverse)',
           border: 'var(--ds-border)',
           'border-strong': 'var(--ds-border-strong)',
+          'border-subtle': 'var(--ds-border-subtle)',
           'border-focus': 'var(--ds-border-focus)',
         },
         // shadcn/ui semantic tokens (mapped to ds vars)
@@ -67,7 +70,7 @@ const config: Config = {
       fontSize: {
         'ds-xs': 'var(--ds-text-xs)',
         'ds-sm': 'var(--ds-text-sm)',
-        'ds-md': 'var(--ds-text-md)',
+        'ds-base': 'var(--ds-text-base)',
         'ds-lg': 'var(--ds-text-lg)',
         'ds-xl': 'var(--ds-text-xl)',
         'ds-2xl': 'var(--ds-text-2xl)',
@@ -88,6 +91,7 @@ const config: Config = {
         md: 'var(--ds-elevation-md)',
         lg: 'var(--ds-elevation-lg)',
         xl: 'var(--ds-elevation-xl)',
+        '2xl': 'var(--ds-elevation-2xl)',
       },
       spacing: {
         'ds-xs': 'var(--ds-spacing-xs)',
@@ -109,10 +113,11 @@ const config: Config = {
         spring: 'var(--ds-easing-spring)',
       },
       zIndex: {
+        below: 'var(--ds-z-below)',
         base: 'var(--ds-z-base)',
+        above: 'var(--ds-z-above)',
         dropdown: 'var(--ds-z-dropdown)',
         sticky: 'var(--ds-z-sticky)',
-        overlay: 'var(--ds-z-overlay)',
         modal: 'var(--ds-z-modal)',
         toast: 'var(--ds-z-toast)',
       }

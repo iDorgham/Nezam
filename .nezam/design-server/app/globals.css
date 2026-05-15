@@ -5,15 +5,28 @@
 :root {
   /* Semantic Colors */
   --ds-primary: #FF5701;
+  --ds-primary-hover: #E64E01;
+  --ds-primary-subtle: rgba(255, 87, 1, 0.1);
+  --ds-secondary: #1A1D2D;
   --ds-background: #090A0F;
   --ds-surface: #0F111A;
+  --ds-surface-elevated: #1A1D2D;
   --ds-surface-hover: #1A1D2D;
+  --ds-surface-subtle: rgba(255, 255, 255, 0.03);
   --ds-text-primary: #F7F8F8;
   --ds-text-secondary: #C0C5CE;
   --ds-text-muted: #8A8F98;
+  --ds-text-disabled: #4B5563;
+  --ds-text-inverse: #090A0F;
   --ds-border: rgba(255, 255, 255, 0.08);
+  --ds-border-strong: rgba(255, 255, 255, 0.16);
+  --ds-border-subtle: rgba(255, 255, 255, 0.05);
+  --ds-border-focus: #FF5701;
   --ds-border-hover: rgba(255, 255, 255, 0.16);
   --ds-accent: #FF5701;
+  --ds-interactive: #2A2F42;
+  --ds-destructive: #EF4444;
+  --ds-overlay: rgba(0, 0, 0, 0.4);
   --ds-success: #10B981;
   --ds-warning: #F59E0B;
   --ds-error: #EF4444;
@@ -46,14 +59,14 @@
   --ds-leading-loose: 2;
 
   /* Spacing */
-  --ds-space-xs: 0.25rem;
-  --ds-space-sm: 0.5rem;
-  --ds-space-md: 1rem;
-  --ds-space-lg: 1.5rem;
-  --ds-space-xl: 2rem;
-  --ds-space-2xl: 3rem;
-  --ds-space-3xl: 4rem;
-  --ds-space-4xl: 6rem;
+  --ds-spacing-xs: 0.25rem;
+  --ds-spacing-sm: 0.5rem;
+  --ds-spacing-md: 1rem;
+  --ds-spacing-lg: 1.5rem;
+  --ds-spacing-xl: 2rem;
+  --ds-spacing-2xl: 3rem;
+  --ds-spacing-3xl: 4rem;
+  --ds-spacing-4xl: 6rem;
 
   /* Radius */
   --ds-radius-none: 0;
@@ -65,16 +78,19 @@
   --ds-radius-full: 9999px;
 
   /* Elevation */
-  --ds-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --ds-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --ds-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --ds-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --ds-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --ds-elevation-none: none;
+  --ds-elevation-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --ds-elevation-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --ds-elevation-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --ds-elevation-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --ds-elevation-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
   /* Motion */
-  --ds-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --ds-transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --ds-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-duration-fast: 150ms;
+  --ds-duration-normal: 300ms;
+  --ds-duration-slow: 500ms;
+  --ds-easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   /* Z-Index */
   --ds-z-below: -1;
@@ -89,15 +105,28 @@
 [data-theme="light"] {
   /* Semantic Colors */
   --ds-primary: #FF5701;
+  --ds-primary-hover: #E64E01;
+  --ds-primary-subtle: rgba(255, 87, 1, 0.1);
+  --ds-secondary: #E5E7EB;
   --ds-background: #F7F8F8;
   --ds-surface: #FFFFFF;
+  --ds-surface-elevated: #FFFFFF;
   --ds-surface-hover: #F3F4F6;
+  --ds-surface-subtle: rgba(0, 0, 0, 0.02);
   --ds-text-primary: #08090A;
-  --ds-text-secondary: #4B5563;
+  --ds-text-secondary: #374151;
   --ds-text-muted: #6B7280;
+  --ds-text-disabled: #9CA3AF;
+  --ds-text-inverse: #F7F8F8;
   --ds-border: rgba(0, 0, 0, 0.08);
+  --ds-border-strong: rgba(0, 0, 0, 0.16);
+  --ds-border-subtle: rgba(0, 0, 0, 0.04);
+  --ds-border-focus: #FF5701;
   --ds-border-hover: rgba(0, 0, 0, 0.16);
   --ds-accent: #FF5701;
+  --ds-interactive: #F3F4F6;
+  --ds-destructive: #EF4444;
+  --ds-overlay: rgba(0, 0, 0, 0.1);
   --ds-success: #10B981;
   --ds-warning: #F59E0B;
   --ds-error: #EF4444;

@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import { Search, Plus, ChevronDown, ChevronRight, Package2 } from 'lucide-react'
+import { Search, Plus, ChevronDown, ChevronRight, ChevronLeft, Package2 } from 'lucide-react'
 import { COMPONENT_LIBRARY, CATEGORIES } from '@/lib/layout-designer/component-library'
-import type { LibraryBlock, BlockCategory } from '@/lib/layout-designer/types'
+import type { LibraryBlock } from '@/lib/layout-designer/types'
+import { useSessionStore } from '@/lib/store/session.store'
 
 interface LibraryPanelProps {
   onAddBlock: (blockId: string, variantId: string) => void
@@ -24,6 +25,9 @@ const CATEGORY_ICONS: Record<string, string> = {
 }
 
 export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+  
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState<string>('all')
   const [expandedBlock, setExpandedBlock] = useState<string | null>(null)
@@ -33,7 +37,12 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
     const q = search.toLowerCase()
     return COMPONENT_LIBRARY.filter(b => {
       const matchesCategory = activeCategory === 'all' || b.category === activeCategory
-      const matchesSearch = !q || b.name.toLowerCase().includes(q) || b.tags.some(t => t.includes(q)) || b.description.toLowerCase().includes(q)
+      const matchesSearch = !q || 
+        b.name.toLowerCase().includes(q) || 
+        (b.nameAr && b.nameAr.toLowerCase().includes(q)) ||
+        b.tags.some(t => t.includes(q)) || 
+        b.description.toLowerCase().includes(q) ||
+        (b.descriptionAr && b.descriptionAr.toLowerCase().includes(q))
       return matchesCategory && matchesSearch
     })
   }, [search, activeCategory])
@@ -48,17 +57,17 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
       {/* Header */}
       <div className="px-3 pt-3 pb-2 border-b border-ds-border">
         <div className="text-[11px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">
-          Component Library
+          {t('Component Library', 'مكتبة المكونات')}
         </div>
         {/* Search */}
         <div className="relative">
           <Search className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted w-3 h-3" />
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={t('Search...', 'بحث...')}
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-black/20 border border-ds-border rounded ps-7 pe-2 py-1.5 text-[11px] text-ds-text-primary placeholder:text-ds-text-muted focus:outline-none focus:border-ds-primary/60"
+            className="w-full bg-ds-background border border-ds-border rounded ps-7 pe-2 py-1.5 text-[11px] text-ds-text-primary placeholder:text-ds-text-muted focus:outline-none focus:border-ds-primary/60"
           />
         </div>
       </div>
@@ -72,11 +81,11 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
             className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium whitespace-nowrap transition-colors shrink-0 ${
               activeCategory === cat.id
                 ? 'bg-ds-primary text-white'
-                : 'bg-white/[0.04] text-ds-text-muted hover:text-ds-text-primary hover:bg-white/[0.07]'
+                : 'bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary'
             }`}
           >
             <span>{CATEGORY_ICONS[cat.id]}</span>
-            {cat.label}
+            {t(cat.label, cat.labelAr)}
             <span className={`text-[9px] ${activeCategory === cat.id ? 'text-white/70' : 'text-ds-text-muted'}`}>
               {cat.count}
             </span>
@@ -89,7 +98,7 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-ds-text-muted">
             <Package2 className="w-6 h-6 mb-2 opacity-40" />
-            <div className="text-[11px]">No components found</div>
+            <div className="text-[11px]">{t('No components found', 'لم يتم العثور على مكونات')}</div>
           </div>
         ) : (
           filtered.map(block => (
@@ -100,8 +109,8 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
               onDragEnd={() => setDragBlockId(null)}
               className={`rounded-lg border transition-all cursor-grab active:cursor-grabbing ${
                 expandedBlock === block.id
-                  ? 'border-ds-primary/40 bg-white/[0.04]'
-                  : 'border-ds-border bg-white/[0.02] hover:border-ds-primary/30 hover:bg-white/[0.03]'
+                  ? 'border-ds-primary/40 bg-ds-surface-hover'
+                  : 'border-ds-border bg-ds-surface hover:border-ds-primary/30 hover:bg-ds-surface-hover'
               } ${dragBlockId === block.id ? 'opacity-50' : ''}`}
             >
               {/* Block Header */}
@@ -110,15 +119,21 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
                 onClick={() => setExpandedBlock(expandedBlock === block.id ? null : block.id)}
               >
                 <div className="flex-1 min-w-0">
-                  <div className="text-[11px] font-semibold text-ds-text-primary truncate">{block.name}</div>
-                  <div className="text-[10px] text-ds-text-muted truncate">{block.description}</div>
+                  <div className="text-[11px] font-semibold text-ds-text-primary truncate">
+                    {t(block.name, block.nameAr || block.name)}
+                  </div>
+                  <div className="text-[10px] text-ds-text-muted truncate">
+                    {t(block.description, block.descriptionAr || block.description)}
+                  </div>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
                   {block.supportsRTL && (
-                    <span className="text-[8px] px-1 py-0.5 rounded bg-ds-primary/10 text-ds-primary font-medium">RTL</span>
+                    <span className="text-[8px] px-1 py-0.5 rounded bg-ds-primary-subtle text-ds-primary font-medium">RTL</span>
                   )}
                   {expandedBlock === block.id ? (
                     <ChevronDown className="w-3 h-3 text-ds-text-muted" />
+                  ) : lang === 'ar' ? (
+                    <ChevronLeft className="w-3 h-3 text-ds-text-muted" />
                   ) : (
                     <ChevronRight className="w-3 h-3 text-ds-text-muted" />
                   )}
@@ -131,12 +146,12 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
                   {/* Shadcn badges */}
                   <div className="flex flex-wrap gap-1 pb-1.5">
                     {block.shadcnComponents.slice(0, 4).map(c => (
-                      <span key={c} className="text-[8px] px-1 py-0.5 rounded bg-white/[0.05] text-ds-text-muted font-mono">
+                      <span key={c} className="text-[8px] px-1 py-0.5 rounded bg-ds-surface-subtle text-ds-text-muted font-mono">
                         {c}
                       </span>
                     ))}
                     {block.shadcnComponents.length > 4 && (
-                      <span className="text-[8px] px-1 py-0.5 rounded bg-white/[0.05] text-ds-text-muted">
+                      <span className="text-[8px] px-1 py-0.5 rounded bg-ds-surface-subtle text-ds-text-muted">
                         +{block.shadcnComponents.length - 4}
                       </span>
                     )}
@@ -146,14 +161,16 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
                     <button
                       key={variant.id}
                       onClick={(e) => { e.stopPropagation(); onAddBlock(block.id, variant.id) }}
-                      className="w-full flex items-center justify-between px-2 py-1.5 rounded bg-black/20 hover:bg-ds-primary/10 border border-transparent hover:border-ds-primary/30 transition-colors group"
+                      className="w-full flex items-center justify-between px-2 py-1.5 rounded bg-ds-background hover:bg-ds-primary-subtle border border-transparent hover:border-ds-primary/30 transition-colors group"
                     >
                       <div className="text-start">
                         <div className="text-[10px] font-medium text-ds-text-primary group-hover:text-ds-primary transition-colors">
-                          {variant.label}
+                          {t(variant.label, variant.labelAr || variant.label)}
                         </div>
-                        {variant.description && (
-                          <div className="text-[9px] text-ds-text-muted">{variant.description}</div>
+                        {(variant.description || variant.descriptionAr) && (
+                          <div className="text-[9px] text-ds-text-muted">
+                            {t(variant.description || '', variant.descriptionAr || variant.description || '')}
+                          </div>
                         )}
                       </div>
                       <Plus className="w-3 h-3 text-ds-text-muted group-hover:text-ds-primary transition-colors shrink-0" />
@@ -169,7 +186,7 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
       {/* Footer stats */}
       <div className="px-3 py-2 border-t border-ds-border">
         <div className="text-[10px] text-ds-text-muted">
-          {filtered.length} components · drag to canvas or click variant
+          {filtered.length} {t('components · drag to canvas or click variant', 'مكونات · اسحب للمساحة أو اضغط على النوع')}
         </div>
       </div>
     </div>

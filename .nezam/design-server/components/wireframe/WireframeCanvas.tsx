@@ -18,6 +18,7 @@ import {
 } from '@dnd-kit/sortable'
 import BlockSlot from './BlockSlot'
 import { useApprovalStore } from '@/lib/store/approval.store'
+import { useSessionStore } from '@/lib/store/session.store'
 import { Layers } from 'lucide-react'
 
 interface BlockInstance {
@@ -45,6 +46,9 @@ export default function WireframeCanvas({
   setSelectedBlockId,
   breakpointWidth = 1280,
 }: WireframeCanvasProps) {
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+  
   const { approvedBlocks, approveBlock, unapproveBlock } = useApprovalStore()
 
   const sensors = useSensors(
@@ -117,8 +121,10 @@ export default function WireframeCanvas({
 
           {blocks.length === 0 && (
             <div className="flex flex-col items-center justify-center py-16 text-center bg-ds-surface border border-dashed border-ds-border rounded-xl">
-              <Layers size={28} className="text-[#2A2E3F] mb-3" />
-              <p className="text-xs text-ds-text-muted">Drop blocks here to start building</p>
+              <Layers size={28} className="text-ds-text-disabled mb-3" />
+              <p className="text-xs text-ds-text-muted">
+                {t('Drop blocks here to start building', 'اسحب البلوكات هنا للبدء في البناء')}
+              </p>
             </div>
           )}
         </div>
@@ -126,3 +132,4 @@ export default function WireframeCanvas({
     </DndContext>
   )
 }
+

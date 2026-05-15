@@ -24,12 +24,12 @@ export default function ColorTokenRow({ label, value, onChange }: ColorTokenRowP
   }, [])
 
   return (
-    <div className="flex items-center justify-between p-2 hover:bg-[#ffffff05] rounded transition-colors">
-      <div className="flex items-center space-x-3">
+    <div className="flex items-center justify-between p-2 hover:bg-ds-surface-subtle rounded transition-colors">
+      <div className="flex items-center gap-3">
         <div className="relative">
           <button
             onClick={() => setShowPicker(!showPicker)}
-            className="w-6 h-6 rounded border border-[#ffffff14] cursor-pointer"
+            className="w-6 h-6 rounded border border-ds-border cursor-pointer"
             style={{ backgroundColor: value }}
             title="Pick color"
           />
@@ -45,8 +45,9 @@ export default function ColorTokenRow({ label, value, onChange }: ColorTokenRowP
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-[#191a1b] border border-[#ffffff14] rounded px-2 py-1 text-xs text-ds-text-primary font-mono w-24 text-end focus:border-[#5e6ad2] focus:outline-none"
+        className="bg-ds-surface-subtle border border-ds-border rounded px-2 py-1 text-xs text-ds-text-primary font-mono w-24 text-end focus:border-ds-primary/50 focus:outline-none"
       />
     </div>
   )
 }
+

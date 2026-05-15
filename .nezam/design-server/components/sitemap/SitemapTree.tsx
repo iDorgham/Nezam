@@ -108,18 +108,21 @@ function SortableItem({ page, isSelected, onClick }: { page: Page, isSelected: b
     }
   }
 
+  const { lang } = useSessionStore()
+  const isAr = lang === 'ar'
+
   return (
     <li
       ref={setNodeRef}
-      style={{ ...style, marginLeft: `${depth * 20}px` }}
+      style={{ ...style, marginInlineStart: `${depth * 20}px` }}
       className={`flex items-center justify-between p-4 ${
         isSelected 
-          ? 'bg-white/[0.06] border-[#5e6ad2] shadow-[0_0_15px_rgba(94,106,210,0.1)]' 
-          : 'bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.04]'
+          ? 'bg-ds-surface-subtle border-ds-primary shadow-sm shadow-ds-primary/10' 
+          : 'bg-ds-surface border-ds-border-subtle hover:bg-ds-surface-hover'
       } border rounded-xl transition-all duration-300 cursor-pointer backdrop-blur-sm group`}
       onClick={onClick}
     >
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center gap-4">
         <button
           {...attributes}
           {...listeners}
@@ -128,38 +131,39 @@ function SortableItem({ page, isSelected, onClick }: { page: Page, isSelected: b
         >
           <GripVertical size={16} />
         </button>
-        <div className={`p-2 rounded-lg ${isSelected ? 'bg-[#5e6ad2]/20 text-[#5e6ad2]' : 'bg-white/[0.03] text-ds-text-muted group-hover:text-white'} transition-colors`}>
+        <div className={`p-2 rounded-lg ${isSelected ? 'bg-ds-primary-subtle text-ds-primary' : 'bg-ds-surface-subtle text-ds-text-muted group-hover:text-ds-text-primary'} transition-colors`}>
           <FileText size={18} />
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#8a8f98] group-hover:bg-clip-text transition-all duration-300">
-            {page.title || 'Untitled'}
+          <span className="font-semibold text-ds-text-primary group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-ds-text-primary group-hover:to-ds-text-muted group-hover:bg-clip-text transition-all duration-300">
+            {page.title || (isAr ? 'بدون عنوان' : 'Untitled')}
           </span>
           <span className="text-xs text-ds-text-muted font-mono mt-0.5">{page.route}</span>
         </div>
       </div>
       
-      <div className="flex items-center space-x-3">
-        <div className="flex items-center bg-white/[0.03] rounded-lg border border-white/[0.05] p-0.5">
+      <div className="flex items-center gap-3">
+        <div className="flex items-center bg-ds-surface-subtle rounded-lg border border-ds-border-subtle p-0.5">
           <button
-            onClick={handleOutdent}
-            disabled={!page.parentId}
-            className="p-1.5 rounded-md hover:bg-white/[0.05] text-ds-text-muted hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ds-text-muted transition-colors"
-            title="Outdent"
+            onClick={isAr ? handleIndent : handleOutdent}
+            disabled={isAr ? false : !page.parentId}
+            className="p-1.5 rounded-md hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ds-text-muted transition-colors"
+            title={isAr ? 'زيادة المستوى' : 'Outdent'}
           >
             <ChevronLeft size={16} />
           </button>
           <button
-            onClick={handleIndent}
-            className="p-1.5 rounded-md hover:bg-white/[0.05] text-ds-text-muted hover:text-white transition-colors"
-            title="Indent"
+            onClick={isAr ? handleOutdent : handleIndent}
+            disabled={isAr ? !page.parentId : false}
+            className="p-1.5 rounded-md hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ds-text-muted transition-colors"
+            title={isAr ? 'تقليل المستوى' : 'Indent'}
           >
             <ChevronRight size={16} />
           </button>
         </div>
         
-        <span className="text-xs bg-white/[0.03] border border-white/[0.05] px-2.5 py-1 rounded-full text-ds-text-muted font-medium uppercase tracking-wider text-[10px]">
-          {page.type}
+        <span className="text-xs bg-ds-surface-subtle border border-ds-border-subtle px-2.5 py-1 rounded-full text-ds-text-muted font-medium uppercase tracking-wider text-[10px]">
+          {page.type === 'dashboard' ? (isAr ? 'لوحة تحكم' : 'dashboard') : page.type}
         </span>
       </div>
     </li>

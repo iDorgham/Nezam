@@ -50,9 +50,10 @@ const BP_WIDTHS: Record<string, number> = {
 
 // ─── Mini library panel ───────────────────────────────────────────────────────
 
-function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void }) {
+function MiniLibrary({ onAdd, t }: { onAdd: (blockId: string, name: string) => void; t: (en: string, ar: string) => string }) {
   const [search, setSearch] = useState('')
   const [openCats, setOpenCats] = useState<Record<string, boolean>>({ hero: true, navigation: true })
+  const { lang } = useSessionStore()
 
   const results = search.trim() ? searchBlocks(search) : null
 
@@ -63,12 +64,12 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
   return (
     <div className="w-[220px] min-w-[220px] bg-ds-surface border-e border-ds-border flex flex-col h-full">
       <div className="px-3 py-3 border-b border-ds-border">
-        <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">Block Library</div>
+        <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">{t('Block Library', 'مكتبة المكونات')}</div>
         <div className="relative">
           <Search size={12} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
-            placeholder="Search…"
+            placeholder={t('Search…', 'بحث…')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-[11px] text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
@@ -96,7 +97,7 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
               </button>
             ))}
             {results.length === 0 && (
-              <div className="text-center py-6 text-[10px] text-ds-text-muted">No results</div>
+              <div className="text-center py-6 text-[10px] text-ds-text-muted">{t('No results', 'لا توجد نتائج')}</div>
             )}
           </div>
         ) : (
@@ -110,7 +111,7 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
                   onClick={() => toggleCat(cat.id)}
                   className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[10px] text-ds-text-muted hover:text-ds-text-muted font-semibold uppercase tracking-wider transition-colors"
                 >
-                  {isOpen ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
+                  {isOpen ? <ChevronDown size={11} /> : <ChevronRight size={11} className="rtl:rotate-180" />}
                   <span className="flex-1 text-start">{cat.label}</span>
                   <span className="text-[9px] text-ds-text-muted">{catBlocks.length}</span>
                 </button>
@@ -135,7 +136,7 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
       </div>
 
       <div className="px-3 py-2 border-t border-ds-border text-[9px] text-ds-text-muted text-center">
-        {WIREFRAME_LIBRARY.length} blocks
+        {WIREFRAME_LIBRARY.length} {t('blocks', 'مكونات')}
       </div>
     </div>
   )
@@ -143,14 +144,15 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
 
 // ─── Template picker ──────────────────────────────────────────────────────────
 
-function TemplatePicker({ onApply, onClose }: {
+function TemplatePicker({ onApply, onClose, t }: {
   onApply: (blocks: BlockInstance[]) => void
   onClose: () => void
+  t: (en: string, ar: string) => string
 }) {
   return (
     <div className="absolute inset-0 z-30 bg-ds-surface/95 backdrop-blur-sm flex flex-col p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-ds-text-primary">Page Templates</h3>
+        <h3 className="text-sm font-semibold text-ds-text-primary">{t('Page Templates', 'قوالب الصفحات')}</h3>
         <button onClick={onClose} className="p-1.5 rounded-lg bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary">
           <X size={14} />
         </button>
@@ -174,7 +176,7 @@ function TemplatePicker({ onApply, onClose }: {
           >
             <div className="text-xl mb-1.5">{template.icon}</div>
             <div className="text-xs font-semibold text-ds-text-primary group-hover:text-ds-primary transition-colors">{template.name}</div>
-            <div className="text-[10px] text-ds-text-muted mt-0.5">{template.slots.length} blocks</div>
+            <div className="text-[10px] text-ds-text-muted mt-0.5">{template.slots.length} {t('blocks', 'مكونات')}</div>
           </button>
         ))}
       </div>
@@ -196,7 +198,8 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
   const [showTemplates, setShowTemplates] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  const { addLog } = useSessionStore()
+  const { lang, addLog } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
   const { initPage, addSlot, setActivePage, setActiveSlot } = useWireframeStore()
 
   // Initialize page in wireframe store
@@ -234,9 +237,9 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ blocks })
       })
-      addLog(`Saved ${blocks.length} blocks for page ${pageId}`)
+      addLog(t(`Saved ${blocks.length} blocks for page ${pageId}`, `تم حفظ ${blocks.length} مكونات للصفحة ${pageId}`))
     } catch (e) {
-      addLog(`Save failed: ${(e as Error).message}`)
+      addLog(t(`Save failed: ${(e as Error).message}`, `فشل الحفظ: ${(e as Error).message}`))
     } finally {
       setSaving(false)
     }
@@ -253,7 +256,7 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
   return (
     <div className="relative flex h-full w-full overflow-hidden bg-ds-surface">
       {/* Block library */}
-      <MiniLibrary onAdd={handleAddBlock} />
+      <MiniLibrary onAdd={handleAddBlock} t={t} />
 
       {/* Center area */}
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -286,7 +289,7 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover transition-colors"
           >
             <LayoutTemplate size={13} />
-            Templates
+            {t('Templates', 'القوالب')}
           </button>
 
           {/* Save */}
@@ -296,7 +299,7 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-ds-primary text-ds-text-primary hover:bg-ds-primary/90 transition-colors disabled:opacity-50"
           >
             <Save size={13} />
-            {saving ? 'Saving…' : 'Save'}
+            {saving ? t('Saving…', 'جاري الحفظ…') : t('Save', 'حفظ')}
           </button>
         </div>
 
@@ -321,6 +324,7 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
         <TemplatePicker
           onApply={setBlocks}
           onClose={() => setShowTemplates(false)}
+          t={t}
         />
       )}
     </div>

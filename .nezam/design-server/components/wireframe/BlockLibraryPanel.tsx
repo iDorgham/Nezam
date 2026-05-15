@@ -9,6 +9,7 @@ import React, { useState, useMemo } from 'react'
 import { WIREFRAME_LIBRARY, WIREFRAME_CATEGORIES, searchBlocks } from '@/lib/wireframe-library/blocks'
 import { getBlockSvg } from '@/lib/wireframe-library/svg-previews'
 import { Plus, Search, ChevronDown, ChevronRight } from 'lucide-react'
+import { useSessionStore } from '@/lib/store/session.store'
 
 interface BlockLibraryPanelProps {
   onAddBlock: (type: string, name: string) => void
@@ -18,6 +19,9 @@ interface BlockLibraryPanelProps {
 }
 
 export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps) {
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+  
   const [search, setSearch] = useState('')
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
     hero: true,
@@ -44,15 +48,17 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
   return (
     <div className="bg-ds-surface border border-ds-border rounded-lg flex flex-col h-full">
       <div className="px-4 py-3 border-b border-ds-border">
-        <h2 className="text-xs font-semibold text-ds-text-muted uppercase tracking-wider mb-2">Block Library</h2>
+        <h2 className="text-xs font-semibold text-ds-text-muted uppercase tracking-wider mb-2">
+          {t('Block Library', 'مكتبة البلوكات')}
+        </h2>
         <div className="relative">
           <Search size={12} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
-            placeholder="Search blocks…"
+            placeholder={t('Search blocks…', 'بحث عن بلوكات...')}
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-xs text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-xs text-ds-text-primary placeholder-ds-text-disabled focus:outline-none focus:border-ds-primary/50"
           />
         </div>
       </div>
@@ -78,7 +84,9 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
               )
             })}
             {results.length === 0 && (
-              <div className="text-center py-8 text-[10px] text-ds-text-muted">No blocks found.</div>
+              <div className="text-center py-8 text-[10px] text-ds-text-muted">
+                {t('No blocks found.', 'لم يتم العثور على بلوكات.')}
+              </div>
             )}
           </div>
         ) : (
@@ -125,8 +133,12 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
       </div>
 
       <div className="px-3 py-2 border-t border-ds-border text-[9px] text-ds-text-muted text-center">
-        {WIREFRAME_LIBRARY.length} blocks · {WIREFRAME_CATEGORIES.length} categories
+        {t(
+          `${WIREFRAME_LIBRARY.length} blocks · ${WIREFRAME_CATEGORIES.length} categories`,
+          `${WIREFRAME_LIBRARY.length} بلوك · ${WIREFRAME_CATEGORIES.length} فئات`
+        )}
       </div>
     </div>
   )
 }
+

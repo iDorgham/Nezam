@@ -45,34 +45,34 @@ export default function ThemeLanguageToggles() {
       {/* Language Switcher */}
       <button
         onClick={toggleLang}
-        className="flex items-center gap-1 px-3 py-1.5 bg-ds-surface hover:bg-ds-surface/80 text-ds-text-primary text-sm font-medium rounded-lg transition-colors border border-ds-border"
-        title={lang === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+        className="flex items-center gap-2 px-3 py-1.5 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary text-sm font-medium rounded-lg transition-all border border-ds-border active:scale-95"
+        title={lang === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
       >
-        <Globe size={16} className="text-ds-text-muted" />
-        <span>{lang === 'en' ? 'EN' : 'AR'}</span>
+        <Globe size={14} className="text-ds-text-muted" />
+        <span className="text-[11px] tracking-wider">{lang === 'en' ? 'EN' : 'AR'}</span>
       </button>
 
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
-        className="p-2 bg-ds-surface hover:bg-ds-surface/80 text-ds-text-primary rounded-lg transition-colors border border-ds-border"
-        title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        className="p-2 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary rounded-lg transition-all border border-ds-border active:scale-95"
+        title={theme === 'dark' ? (lang === 'ar' ? 'الوضع المضيء' : 'Light Mode') : (lang === 'ar' ? 'الوضع الداكن' : 'Dark Mode')}
       >
         {theme === 'dark' ? (
-          <Sun size={16} className="text-ds-text-muted hover:text-ds-text-primary transition-colors" />
+          <Sun size={14} className="text-ds-text-muted hover:text-ds-text-primary transition-colors" />
         ) : (
-          <Moon size={16} className="text-ds-text-muted hover:text-ds-text-primary transition-colors" />
+          <Moon size={14} className="text-ds-text-muted hover:text-ds-text-primary transition-colors" />
         )}
       </button>
 
       {/* Help Button */}
-      <button className="px-3 py-1.5 bg-ds-surface hover:bg-ds-surface/80 text-ds-text-primary text-sm font-medium rounded-lg transition-colors border border-ds-border">
+      <button className="hidden sm:flex px-3 py-1.5 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary text-[11px] font-medium rounded-lg transition-all border border-ds-border active:scale-95">
         {lang === 'ar' ? 'مساعدة' : 'Help'}
       </button>
 
       {/* Lock & Export Button */}
-      <button className="px-3 py-1.5 bg-ds-primary hover:bg-ds-primary/90 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-1.5">
-        <Lock size={14} />
+      <button className="px-3 py-1.5 bg-ds-primary hover:bg-ds-primary/90 text-white text-[11px] font-semibold rounded-lg transition-all flex items-center gap-1.5 shadow-sm shadow-ds-primary/20 active:scale-95">
+        <Lock size={12} />
         <span>{lang === 'ar' ? 'قفل وتصدير' : 'Lock & Export'}</span>
       </button>
     </div>

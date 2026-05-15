@@ -189,12 +189,12 @@ function SlotCard({ slot, pageId, isSelected, onSelect, breakpoint, showLabels }
       onClick={onSelect}
       className={`relative group rounded-lg border transition-all cursor-pointer ${
         isSelected
-          ? 'border-ds-primary bg-ds-primary/5 ring-1 ring-ds-primary/20'
+          ? 'border-ds-primary bg-ds-primary-subtle ring-1 ring-ds-primary/20'
           : slot.locked
           ? 'border-amber-500/30 bg-amber-500/5'
           : slot.approved
           ? 'border-green-500/30 bg-green-500/5'
-          : 'border-ds-border bg-ds-surface hover:border-ds-primary/40 hover:bg-white/[0.02]'
+          : 'border-ds-border bg-ds-surface hover:border-ds-primary/40 hover:bg-ds-surface-hover'
       }`}
     >
       {/* Width indicator */}
@@ -233,7 +233,7 @@ function SlotCard({ slot, pageId, isSelected, onSelect, breakpoint, showLabels }
           )}
           <div className="flex items-center gap-1.5">
             <span className="text-[10px] text-ds-text-muted font-mono truncate">{slot.blockId}</span>
-            <span className="text-[9px] px-1 py-0.5 rounded bg-white/[0.05] text-ds-text-muted shrink-0">
+            <span className="text-[9px] px-1 py-0.5 rounded bg-ds-surface-subtle text-ds-text-muted shrink-0">
               {variant?.label || slot.variantId}
             </span>
           </div>
@@ -309,7 +309,7 @@ function SlotCard({ slot, pageId, isSelected, onSelect, breakpoint, showLabels }
       {/* Preview wireframe */}
       <div className="px-2 pb-2">
         <div
-          className={`rounded border border-ds-border/60 overflow-hidden bg-black/20 transition-all ${
+          className={`rounded border border-ds-border-subtle overflow-hidden bg-ds-background/40 transition-all ${
             isSelected ? 'border-ds-primary/30' : ''
           }`}
           style={{ height: Math.min(block?.canvasHeight || 80, 160) }}
@@ -346,6 +346,8 @@ export default function CanvasArea({ page, onDropBlock }: CanvasAreaProps) {
     canvasZoom,
     reorderSlots,
   } = useLayoutStore()
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
 
   const canvasRef = useRef<HTMLDivElement>(null)
 
@@ -374,9 +376,9 @@ export default function CanvasArea({ page, onDropBlock }: CanvasAreaProps) {
 
   // Breakpoint width indicators
   const bpWidths: Record<string, { label: string; width: string; px: number }> = {
-    mobile: { label: 'Mobile', width: '375px', px: 375 },
-    tablet: { label: 'Tablet', width: '768px', px: 768 },
-    desktop: { label: 'Desktop', width: '1280px', px: 1280 },
+    mobile: { label: t('Mobile', 'جوال'), width: '375px', px: 375 },
+    tablet: { label: t('Tablet', 'تابلت'), width: '768px', px: 768 },
+    desktop: { label: t('Desktop', 'مكتب'), width: '1280px', px: 1280 },
   }
   const bpInfo = bpWidths[activeBreakpoint]
 
@@ -384,8 +386,8 @@ export default function CanvasArea({ page, onDropBlock }: CanvasAreaProps) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center bg-ds-background text-ds-text-muted">
         <div className="text-4xl mb-3 opacity-20">◻</div>
-        <div className="text-sm">Select a page to start designing</div>
-        <div className="text-xs mt-1 opacity-60">Use the Sitemap tab to create pages first</div>
+        <div className="text-sm">{t('Select a page to start designing', 'اختر صفحة لبدء التصميم')}</div>
+        <div className="text-xs mt-1 opacity-60">{t('Use the Sitemap tab to create pages first', 'استخدم علامة تبويب خريطة الموقع لإنشاء الصفحات أولاً')}</div>
       </div>
     )
   }
@@ -427,13 +429,13 @@ export default function CanvasArea({ page, onDropBlock }: CanvasAreaProps) {
               <div className="text-[10px] text-ds-text-muted font-mono">{page.pageRoute}</div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="text-[10px] px-2 py-0.5 rounded bg-white/[0.05] text-ds-text-muted">
-                {sortedSlots.filter(s => s.approved).length}/{sortedSlots.length} approved
+              <div className="text-[10px] px-2 py-0.5 rounded bg-ds-surface-subtle text-ds-text-muted">
+                {sortedSlots.filter(s => s.approved).length}/{sortedSlots.length} {t('approved', 'تمت الموافقة')}
               </div>
               {page.lockedAt && (
                 <div className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 flex items-center gap-1">
                   <Lock className="w-2.5 h-2.5" />
-                  Locked
+                  {t('Locked', 'مغلق')}
                 </div>
               )}
             </div>
@@ -460,18 +462,18 @@ export default function CanvasArea({ page, onDropBlock }: CanvasAreaProps) {
 
           {/* Drop zone */}
           {sortedSlots.length === 0 && (
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-ds-border rounded-xl py-16 text-center">
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-ds-border-subtle rounded-xl py-16 text-center">
               <div className="text-3xl mb-3 opacity-20">+</div>
-              <div className="text-sm text-ds-text-muted">Drop components here</div>
+              <div className="text-sm text-ds-text-muted">{t('Drop components here', 'قم بإفلات المكونات هنا')}</div>
               <div className="text-xs text-ds-text-muted mt-1 opacity-60">
-                Drag from the library panel or click a variant to add
+                {t('Drag from the library panel or click a variant to add', 'اسحب من لوحة المكتبة أو انقر فوق متغير للإضافة')}
               </div>
             </div>
           )}
 
           {sortedSlots.length > 0 && (
-            <div className="mt-2 flex items-center justify-center border-2 border-dashed border-ds-border/40 rounded-xl py-4 text-center hover:border-ds-primary/30 transition-colors">
-              <span className="text-xs text-ds-text-muted opacity-60">Drop to add below</span>
+            <div className="mt-2 flex items-center justify-center border-2 border-dashed border-ds-border-subtle rounded-xl py-4 text-center hover:border-ds-primary/30 transition-colors">
+              <span className="text-xs text-ds-text-muted opacity-60">{t('Drop to add below', 'قم بالإفلات للإضافة أدناه')}</span>
             </div>
           )}
         </div>

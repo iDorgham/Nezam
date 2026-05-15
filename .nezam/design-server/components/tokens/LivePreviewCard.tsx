@@ -1,11 +1,15 @@
 'use client'
 
 import React from 'react'
+import { useSessionStore } from '@/lib/store/session.store'
 
 export default function LivePreviewCard() {
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+
   return (
     <div 
-      className="border rounded-lg p-6 space-y-4 shadow-sm"
+      className="border rounded-lg p-6 flex flex-col gap-4 shadow-sm"
       style={{ 
         backgroundColor: 'var(--ds-background)', 
         borderColor: 'var(--ds-border)',
@@ -13,7 +17,7 @@ export default function LivePreviewCard() {
         fontFamily: 'var(--ds-font-body)'
       }}
     >
-      <div className="space-y-1">
+      <div className="flex flex-col gap-1">
         <h2 
           style={{ 
             fontFamily: 'var(--ds-font-heading)', 
@@ -22,10 +26,10 @@ export default function LivePreviewCard() {
             color: 'var(--ds-text-primary)'
           }}
         >
-          Live Preview Component
+          {t('Live Preview Component', 'معاينة المكونات')}
         </h2>
         <p style={{ fontSize: 'var(--ds-text-sm)', color: 'var(--ds-text-muted)' }}>
-          This card updates in real-time as you tweak tokens.
+          {t('This card updates in real-time as you tweak tokens.', 'تتحدث هذه البطاقة في الوقت الفعلي أثناء تعديل الرموز.')}
         </p>
       </div>
 
@@ -34,19 +38,19 @@ export default function LivePreviewCard() {
         style={{ backgroundColor: 'var(--ds-surface)', borderColor: 'var(--ds-border)' }}
       >
         <p style={{ fontSize: 'var(--ds-text-md)' }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+          {t('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.', 'هذا نص تجريبي باللغة العربية يستخدم في التصميم للتأكد من تناسق الخطوط والأبعاد.')}
         </p>
       </div>
 
-      <div className="flex space-x-2">
+      <div className="flex gap-2">
         <button 
           className="px-4 py-2 rounded font-medium text-sm transition-colors"
           style={{ 
             backgroundColor: 'var(--ds-primary)', 
-            color: '#ffffff' // Assuming text on primary is white for now
+            color: '#ffffff' 
           }}
         >
-          Primary Action
+          {t('Primary Action', 'إجراء أساسي')}
         </button>
         <button 
           className="px-4 py-2 rounded font-medium text-sm border transition-colors"
@@ -56,7 +60,7 @@ export default function LivePreviewCard() {
             color: 'var(--ds-text-primary)'
           }}
         >
-          Secondary
+          {t('Secondary', 'إجراء ثانوي')}
         </button>
       </div>
     </div>

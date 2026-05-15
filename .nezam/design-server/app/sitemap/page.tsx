@@ -935,35 +935,3 @@ export default function SitemapPage() {
     </div>
   )
 }
-
-// ─── Root ─────────────────────────────────────────────────────────────────────
-
-export default function SitemapPage() {
-  const { fetchContext } = useSessionStore()
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [view, setView] = useState<'diagram' | 'list'>('diagram')
-
-  React.useEffect(() => {
-    fetchContext()
-  }, [fetchContext])
-
-  return (
-    <div className="flex flex-col h-[calc(100vh-40px)] overflow-hidden bg-ds-surface">
-      <SitemapToolbar view={view} setView={setView} />
-
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left: page tree */}
-        <PageTree selectedId={selectedId} onSelect={setSelectedId} />
-
-        {/* Center: diagram or list */}
-        {view === 'diagram'
-          ? <SitemapDiagram selectedId={selectedId} onSelect={setSelectedId} />
-          : <SitemapListView selectedId={selectedId} onSelect={setSelectedId} />
-        }
-
-        {/* Right: inspector */}
-        <PageInspector selectedId={selectedId} />
-      </div>
-    </div>
-  )
-}

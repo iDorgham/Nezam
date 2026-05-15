@@ -127,7 +127,7 @@ export default function Home() {
                         {t(`Step 0${index + 1}`, `الخطوة 0${index + 1}`)}
                       </span>
                       {step.completed && (
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                        <span className="w-1.5 h-1.5 bg-ds-success rounded-full" />
                       )}
                     </div>
                     <div className="text-sm font-semibold text-ds-text-primary mb-0.5">{step.name}</div>
@@ -185,7 +185,7 @@ export default function Home() {
                 <button
                   key={action.id}
                   onClick={() => openTab({ id: action.id, title: action.label, type: action.type })}
-                  className="p-2 bg-white/[0.02] hover:bg-white/[0.05] border border-ds-border rounded-lg text-xs text-ds-text-primary text-center transition-colors"
+                  className="p-2 bg-ds-surface-subtle hover:bg-ds-surface-hover border border-ds-border rounded-lg text-xs text-ds-text-primary text-center transition-colors"
                 >
                   {action.label}
                 </button>
@@ -200,7 +200,7 @@ export default function Home() {
               {logs.map((log, idx) => (
                 <div
                   key={idx}
-                  className="text-[11px] text-ds-text-muted bg-white/[0.01] p-2 rounded border border-white/[0.02]"
+                  className="text-[11px] text-ds-text-muted bg-ds-surface-subtle p-2 rounded border border-ds-border"
                 >
                   {log}
                 </div>

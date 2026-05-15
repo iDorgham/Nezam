@@ -27,14 +27,18 @@ export type DisplayMode = 'block' | 'flex' | 'grid' | 'hidden'
 export interface ComponentVariant {
   id: string
   label: string
+  labelAr?: string
   description?: string
+  descriptionAr?: string
   previewSvg?: string // inline SVG thumbnail
 }
 
 export interface LibraryBlock {
   id: string
   name: string
+  nameAr?: string
   description: string
+  descriptionAr?: string
   category: BlockCategory
   shadcnComponents: string[]   // e.g. ['Button', 'Card', 'Input']
   radixPrimitives: string[]    // e.g. ['Dialog', 'Popover']

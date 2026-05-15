@@ -21,9 +21,10 @@ const navItems = [
 
 export default function Sidebar() {
   const { openTab, activeTabId, lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
 
   return (
-    <div className="w-16 hover:w-56 bg-ds-surface border-e border-ds-border flex flex-col h-screen sticky top-0 transition-all duration-300 ease-in-out group z-50">
+    <div className="w-16 group-hover:w-56 bg-ds-surface border-e border-ds-border flex flex-col h-screen sticky top-0 transition-all duration-300 ease-in-out z-50">
       {/* Logo Area */}
       <div className="border-b border-ds-border flex items-center h-14 w-full">
         <div className="w-16 flex items-center justify-center shrink-0">
@@ -32,12 +33,12 @@ export default function Sidebar() {
           </div>
         </div>
         <span className="font-semibold text-ds-text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-          NEZAM Design
+          {t('NEZAM Design', 'تصميم نظام')}
         </span>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-2 space-y-2 flex flex-col transition-all duration-300">
+      <nav className="flex-1 p-2 gap-2 flex flex-col transition-all duration-300">
         {navItems.map((item) => {
           const isActive = activeTabId === item.id
           return (
@@ -51,12 +52,12 @@ export default function Sidebar() {
               <div
                 className={`flex items-center rounded-xl text-xs font-medium transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-ds-primary/10 text-ds-primary'
-                    : 'text-ds-text-muted hover:text-ds-text-primary hover:bg-white/[0.03]'
+                    ? 'bg-ds-primary-subtle text-ds-primary'
+                    : 'text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover'
                 }`}
               >
                 <div className="w-12 h-10 flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 stroke-[1.5]" />
+                  <item.icon className={`w-5 h-5 stroke-[1.5] ${lang === 'ar' && item.id === 'sitemap' ? 'rotate-180' : ''}`} />
                 </div>
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                   {lang === 'ar' ? item.nameAr : item.name}
@@ -74,8 +75,8 @@ export default function Sidebar() {
             D
           </div>
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-            <div className="text-xs font-medium text-ds-text-primary">Dorgham</div>
-            <div className="text-[10px] text-ds-text-muted">Art Director</div>
+            <div className="text-xs font-medium text-ds-text-primary">{t('Dorgham', 'ضرغام')}</div>
+            <div className="text-[10px] text-ds-text-muted">{t('Art Director', 'مدير فني')}</div>
           </div>
         </div>
       </div>

@@ -32,11 +32,14 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
 
   if (!slot) return null
 
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+
   const block = getBlockById(slot.blockId)
   if (!block) {
     return (
       <div className="p-4 text-xs text-ds-text-muted text-center">
-        Block definition not found.
+        {t('Block definition not found.', 'تعريف المكون غير موجود.')}
       </div>
     )
   }
@@ -50,8 +53,8 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs font-semibold text-ds-text-primary">{block.name}</span>
           {slot.approved && (
-            <span className="px-1.5 py-0.5 rounded-full text-[9px] bg-[#10b981]/10 text-[#10b981] font-medium">
-              Approved
+            <span className="px-1.5 py-0.5 rounded-full text-[9px] bg-ds-success/10 text-ds-success font-medium">
+              {t('Approved', 'تمت الموافقة')}
             </span>
           )}
         </div>
@@ -60,12 +63,14 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
           <span className="text-[9px] px-1.5 py-0.5 rounded bg-ds-surface-hover text-ds-text-muted uppercase font-semibold">
             {block.category}
           </span>
-          <span className="text-[9px] text-ds-text-muted">{block.defaultHeight}px default height</span>
+          <span className="text-[9px] text-ds-text-muted">
+            {slot.variantId} · {block.defaultHeight}px {t('height', 'ارتفاع')}
+          </span>
         </div>
       </div>
 
       {/* SVG preview */}
-      <div className="rounded-xl overflow-hidden border border-ds-border bg-[#080A12]">
+      <div className="rounded-xl overflow-hidden border border-ds-border bg-ds-background">
         <div
           className="w-full h-28 overflow-hidden"
           dangerouslySetInnerHTML={{ __html: svgContent }}
@@ -75,7 +80,7 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
       {/* Variant picker */}
       <div>
         <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">
-          Variant
+          {t('Variant', 'النوع')}
         </label>
         <div className="grid grid-cols-1 gap-1 max-h-48 overflow-y-auto">
           {block.variants.map(v => (
@@ -100,13 +105,13 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
       {/* Notes */}
       <div>
         <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">
-          Notes
+          {t('Notes', 'ملاحظات')}
         </label>
         <textarea
           value={slot.notes}
           onChange={e => updateSlotNotes(pageId, instanceId, e.target.value)}
-          placeholder="Add implementation notes…"
-          className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-muted placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50 resize-none"
+          placeholder={t('Add implementation notes…', 'أضف ملاحظات التنفيذ...')}
+          className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-muted placeholder-ds-text-muted/40 focus:outline-none focus:border-ds-primary/50 resize-none"
           rows={3}
         />
       </div>
@@ -115,7 +120,7 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
       {block.tags.length > 0 && (
         <div>
           <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">
-            Tags
+            {t('Tags', 'الوسوم')}
           </label>
           <div className="flex flex-wrap gap-1">
             {block.tags.map(tag => (
@@ -137,7 +142,7 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
         }`}
       >
         <CheckSquare size={13} />
-        {slot.approved ? 'Approved' : 'Mark as Approved'}
+        {slot.approved ? t('Approved', 'تمت الموافقة') : t('Mark as Approved', 'تحديد كموافق عليه')}
       </button>
     </div>
   )
@@ -147,6 +152,9 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
 
 function PageSummary({ pageId }: { pageId: string }) {
   const { pages, lockPage } = useWireframeStore()
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+  
   const page = pages[pageId]
 
   if (!page) return null
@@ -177,9 +185,9 @@ function PageSummary({ pageId }: { pageId: string }) {
       <div>
         <div className="text-xs font-semibold text-ds-text-primary mb-1">{page.pageTitle}</div>
         {locked && (
-          <div className="flex items-center gap-1 text-[10px] text-[#10b981]">
+          <div className="flex items-center gap-1 text-[10px] text-ds-success">
             <Lock size={10} />
-            Locked {new Date(page.lockedAt!).toLocaleDateString()}
+            {t('Locked', 'مغلق')} {new Date(page.lockedAt!).toLocaleDateString(lang)}
           </div>
         )}
       </div>
@@ -187,10 +195,10 @@ function PageSummary({ pageId }: { pageId: string }) {
       {/* Stats grid */}
       <div className="grid grid-cols-2 gap-2">
         {[
-          { label: 'Total Blocks', value: total },
-          { label: 'Approved', value: approved },
-          { label: 'Pending', value: total - approved },
-          { label: 'Progress', value: total > 0 ? `${Math.round(approved / total * 100)}%` : '—' },
+          { label: t('Total Blocks', 'إجمالي المكونات'), value: total },
+          { label: t('Approved', 'تمت الموافقة'), value: approved },
+          { label: t('Pending', 'قيد الانتظار'), value: total - approved },
+          { label: t('Progress', 'التقدم'), value: total > 0 ? `${Math.round(approved / total * 100)}%` : '—' },
         ].map(({ label, value }) => (
           <div key={label} className="bg-ds-surface border border-ds-border rounded-xl p-3">
             <div className="text-[10px] text-ds-text-muted mb-1">{label}</div>
@@ -203,12 +211,12 @@ function PageSummary({ pageId }: { pageId: string }) {
       {total > 0 && (
         <div>
           <div className="flex justify-between text-[10px] text-ds-text-muted mb-1">
-            <span>Approval progress</span>
+            <span>{t('Approval progress', 'تقدم الموافقة')}</span>
             <span>{approved}/{total}</span>
           </div>
           <div className="h-1.5 bg-ds-surface-hover rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-[#FF5701] to-[#10b981] rounded-full transition-all"
+              className={`h-full bg-gradient-to-r ${lang === 'ar' ? 'from-ds-success to-ds-primary' : 'from-ds-primary to-ds-success'} rounded-full transition-all`}
               style={{ width: `${total > 0 ? (approved / total) * 100 : 0}%` }}
             />
           </div>
@@ -218,7 +226,7 @@ function PageSummary({ pageId }: { pageId: string }) {
       {/* Category breakdown */}
       {Object.keys(byCategory).length > 0 && (
         <div>
-          <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">By Category</div>
+          <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">{t('By Category', 'حسب الفئة')}</div>
           <div className="space-y-1">
             {Object.entries(byCategory).map(([cat, count]) => (
               <div key={cat} className="flex items-center gap-2">
@@ -239,12 +247,12 @@ function PageSummary({ pageId }: { pageId: string }) {
       {/* Block sequence */}
       {page.slots.length > 0 && (
         <div>
-          <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">Block Sequence</div>
+          <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">{t('Block Sequence', 'تسلسل المكونات')}</div>
           <div className="space-y-1 max-h-48 overflow-y-auto">
             {page.slots.map((slot, i) => (
               <div key={slot.instanceId} className="flex items-center gap-2 py-1">
                 <span className="text-[10px] text-ds-text-muted tabular-nums w-4">{i + 1}</span>
-                <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${slot.approved ? 'bg-[#10b981]' : 'bg-ds-surface-hover'}`} />
+                <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${slot.approved ? 'bg-ds-success' : 'bg-ds-surface-hover'}`} />
                 <span className="text-[10px] text-ds-text-muted truncate flex-1">{slot.label}</span>
               </div>
             ))}
@@ -257,10 +265,10 @@ function PageSummary({ pageId }: { pageId: string }) {
         {!locked && total > 0 && (
           <button
             onClick={() => lockPage(pageId)}
-            className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981]/20 border border-[#10b981]/20 transition-all"
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold bg-ds-success/10 text-ds-success hover:bg-ds-success/20 border border-ds-success/20 transition-all"
           >
             <Lock size={13} />
-            Lock Page
+            {t('Lock Page', 'قفل الصفحة')}
           </button>
         )}
         <button
@@ -268,7 +276,7 @@ function PageSummary({ pageId }: { pageId: string }) {
           className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold bg-ds-surface-hover text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary border border-ds-border transition-all"
         >
           <Download size={13} />
-          Export Page JSON
+          {t('Export Page JSON', 'تصدير JSON للصفحة')}
         </button>
       </div>
     </div>
@@ -341,7 +349,7 @@ function PagesTab() {
   return (
     <div className="flex flex-col h-full">
       {/* Summary strip */}
-      <div className="px-4 py-3 border-b border-ds-border bg-[#080A12]">
+      <div className="px-4 py-3 border-b border-ds-border bg-ds-surface-hover/30">
         <div className="flex items-center justify-between mb-2">
           <span className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider">
             {t('Project Pages', 'صفحات المشروع')}
@@ -356,7 +364,7 @@ function PagesTab() {
         </div>
         <div className="flex items-center gap-3 text-[10px] text-ds-text-muted">
           <span className="text-ds-text-primary font-semibold">{wireframedPages}</span>
-          <span>/ {totalPages} wireframed</span>
+          <span>/ {totalPages} {t('wireframed', 'مخطط')}</span>
         </div>
         {totalPages > 0 && (
           <div className="mt-2 h-1 bg-ds-surface-hover rounded-full overflow-hidden">
@@ -372,7 +380,7 @@ function PagesTab() {
       <div className="flex-1 overflow-y-auto py-1">
         {sitemap.length === 0 ? (
           <div className="px-4 py-8 text-center">
-            <Map size={22} className="mx-auto text-[#2A2E3F] mb-2" />
+            <Map size={22} className="mx-auto text-ds-text-muted/20 mb-2" />
             <p className="text-xs text-ds-text-muted mb-3">{t('No pages in sitemap', 'لا توجد صفحات')}</p>
             <button
               onClick={() => openTab({ id: 'sitemap', title: 'Sitemap', type: 'sitemap' })}
@@ -412,23 +420,23 @@ function PagesTab() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs truncate flex-1">{page.title}</span>
-                          {locked && <Lock size={9} className="flex-shrink-0 text-[#10b981]" />}
+                          {locked && <Lock size={9} className="flex-shrink-0 text-ds-success" />}
                         </div>
 
                         {slotCount > 0 ? (
                           <div className="flex items-center gap-1.5 mt-1">
                             <div className="flex-1 h-0.5 bg-ds-surface-hover rounded-full overflow-hidden">
                               <div
-                                className="h-full bg-[#10b981] rounded-full"
+                                className="h-full bg-ds-success rounded-full"
                                 style={{ width: `${pct}%` }}
                               />
                             </div>
                             <span className="text-[9px] text-ds-text-muted tabular-nums flex-shrink-0">
-                              {slotCount} block{slotCount !== 1 ? 's' : ''}
+                              {slotCount} {t('blocks', 'مكونات')}
                             </span>
                           </div>
                         ) : (
-                          <div className="text-[9px] text-ds-text-muted mt-0.5">No blocks yet</div>
+                          <div className="text-[9px] text-ds-text-muted mt-0.5">{t('No blocks yet', 'لا توجد مكونات بعد')}</div>
                         )}
                       </div>
                     </button>
@@ -448,7 +456,7 @@ function PagesTab() {
           className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-ds-primary/10 text-ds-primary hover:bg-ds-primary/20 transition-colors text-xs font-medium disabled:opacity-50"
         >
           <Download size={12} />
-          {saving ? 'Saving…' : 'Export All'}
+          {saving ? t('Saving…', 'جاري الحفظ...') : t('Export All', 'تصدير الكل')}
         </button>
       </div>
     </div>
@@ -458,10 +466,11 @@ function PagesTab() {
 // ─── Empty state ──────────────────────────────────────────────────────────────
 
 function InspectorEmpty() {
+  const { lang } = useSessionStore()
   return (
     <div className="flex flex-col items-center justify-center h-full text-center px-4 py-8">
-      <Sliders size={24} className="text-[#2A2E3F] mb-2" />
-      <p className="text-xs text-ds-text-muted">Select a block to inspect</p>
+      <Sliders size={24} className="text-ds-text-muted/20 mb-2" />
+      <p className="text-xs text-ds-text-muted">{lang === 'ar' ? 'اختر مكوناً لفحصه' : 'Select a block to inspect'}</p>
     </div>
   )
 }
@@ -477,10 +486,13 @@ export default function WireframeInspector({ pageId }: Props) {
     if (activeSlotInstanceId) setTab('block')
   }, [activeSlotInstanceId])
 
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => lang === 'ar' ? ar : en
+
   const tabs = [
-    { id: 'pages' as const, icon: Map,    label: 'Pages' },
-    { id: 'block' as const, icon: Layers, label: 'Block' },
-    { id: 'page'  as const, icon: Info,   label: 'Page'  },
+    { id: 'pages' as const, icon: Map,    label: t('Pages', 'الصفحات') },
+    { id: 'block' as const, icon: Layers, label: t('Block', 'المكون') },
+    { id: 'page'  as const, icon: Info,   label: t('Page', 'الصفحة')  },
   ]
 
   return (

@@ -41,13 +41,13 @@ import {
 
 const uid = () => Math.random().toString(36).substring(2, 10)
 
-const PAGE_TYPE_META: Record<Page['type'], { icon: React.FC<any>; color: string; label: string }> = {
-  public:  { icon: Globe,  color: '#3b82f6', label: 'Public'  },
-  auth:    { icon: Lock,   color: '#f59e0b', label: 'Auth'    },
-  admin:   { icon: Shield, color: '#ef4444', label: 'Admin'   },
-  modal:   { icon: Layers, color: '#8b5cf6', label: 'Modal'   },
-  embed:   { icon: Code2,  color: '#10b981', label: 'Embed'   },
-}
+const PAGE_TYPE_META: (t: (en: string, ar: string) => string) => Record<Page['type'], { icon: React.FC<any>; color: string; label: string }> = (t) => ({
+  public:  { icon: Globe,  color: 'var(--ds-info)', label: t('Public', 'عام')  },
+  auth:    { icon: Lock,   color: 'var(--ds-warning)', label: t('Auth', 'دخول')    },
+  admin:   { icon: Shield, color: 'var(--ds-error)', label: t('Admin', 'مسؤول')   },
+  modal:   { icon: Layers, color: '#8b5cf6', label: t('Modal', 'نافذة')   },
+  embed:   { icon: Code2,  color: 'var(--ds-success)', label: t('Embed', 'تضمين')   },
+})
 
 // ─── Left panel: Page tree ────────────────────────────────────────────────────
 
@@ -62,13 +62,14 @@ interface TreeNodeProps {
   onAddChild: (parentId: string) => void
   expandedIds: Set<string>
   toggleExpanded: (id: string) => void
+  t: (en: string, ar: string) => string
 }
 
 function TreeNode({
   page, depth, children, allPages, selectedId, onSelect,
-  onDelete, onAddChild, expandedIds, toggleExpanded,
+  onDelete, onAddChild, expandedIds, toggleExpanded, t
 }: TreeNodeProps) {
-  const meta = PAGE_TYPE_META[page.type]
+  const meta = PAGE_TYPE_META(t)[page.type]
   const Icon = meta.icon
   const hasChildren = children.length > 0
   const isExpanded = expandedIds.has(page.id)
@@ -82,7 +83,7 @@ function TreeNode({
             ? 'bg-ds-primary/10 text-ds-text-primary'
             : 'text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary'
         }`}
-        style={{ paddingLeft: `${8 + depth * 16}px` }}
+        style={{ paddingInlineStart: `${8 + depth * 16}px` }}
         onClick={() => onSelect(page.id)}
       >
         {/* Expand toggle */}
@@ -91,7 +92,7 @@ function TreeNode({
           onClick={e => { e.stopPropagation(); if (hasChildren) toggleExpanded(page.id) }}
         >
           {hasChildren
-            ? (isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />)
+            ? (isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} className="rtl:rotate-180" />)
             : <span className="w-1.5 h-1.5 rounded-full bg-ds-surface-hover inline-block" />}
         </button>
 
@@ -102,7 +103,7 @@ function TreeNode({
         <span className="flex-1 text-xs truncate">{page.title}</span>
 
         {/* Route pill */}
-        <span className="text-[9px] text-ds-text-muted font-mono truncate max-w-[80px] hidden group-hover:block">
+        <span className="text-[9px] text-ds-text-muted font-mono truncate max-w-[80px] hidden group-hover:block mx-2">
           {page.route}
         </span>
 
@@ -116,14 +117,14 @@ function TreeNode({
           <button
             onClick={e => { e.stopPropagation(); onAddChild(page.id) }}
             className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-primary transition-colors"
-            title="Add child page"
+            title={t('Add child page', 'إضافة صفحة فرعية')}
           >
             <Plus size={10} />
           </button>
           <button
             onClick={e => { e.stopPropagation(); onDelete(page.id) }}
             className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444] transition-colors"
-            title="Delete page"
+            title={t('Delete page', 'حذف الصفحة')}
           >
             <Trash2 size={10} />
           </button>
@@ -135,7 +136,7 @@ function TreeNode({
         <div className="relative">
           <div
             className="absolute top-0 bottom-2 w-px bg-ds-surface-hover rounded-full"
-            style={{ left: `${8 + depth * 16 + 6}px` }}
+            style={{ insetInlineStart: `${8 + depth * 16 + 6}px` }}
           />
           {children.map(child => (
             <TreeNode
@@ -150,6 +151,7 @@ function TreeNode({
               onAddChild={onAddChild}
               expandedIds={expandedIds}
               toggleExpanded={toggleExpanded}
+              t={t}
             />
           ))}
         </div>
@@ -165,7 +167,9 @@ function PageTree({
   selectedId: string | null
   onSelect: (id: string) => void
 }) {
-  const { sitemap, setSitemap, addLog } = useSessionStore()
+  const { sitemap, setSitemap, addLog, lang } = useSessionStore()
+  const t = (en: string, ar: string) => lang === 'ar' ? ar : en
+
   const [search, setSearch] = useState('')
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
 
@@ -179,18 +183,18 @@ function PageTree({
 
   const handleAddRoot = (type: Page['type'] = 'public') => {
     const newPage: Page = {
-      id: uid(), title: 'New Page', route: '/new-page', type,
+      id: uid(), title: t('New Page', 'صفحة جديدة'), route: '/new-page', type,
       showInNav: true, navPosition: sitemap.filter(p => !p.parentId).length,
     }
     setSitemap([...sitemap, newPage])
     onSelect(newPage.id)
-    addLog(`Created page: ${newPage.title}`)
+    addLog(`${t('Created page', 'تم إنشاء صفحة')}: ${newPage.title}`)
   }
 
   const handleAddChild = (parentId: string) => {
     const parent = sitemap.find(p => p.id === parentId)
     const newPage: Page = {
-      id: uid(), title: 'Child Page', route: `${parent?.route ?? ''}/child`,
+      id: uid(), title: t('Child Page', 'صفحة فرعية'), route: `${parent?.route ?? ''}/child`,
       type: parent?.type ?? 'public', parentId, showInNav: false,
     }
     setSitemap([...sitemap, newPage])
@@ -207,7 +211,7 @@ function PageTree({
     }
     collect(id)
     setSitemap(sitemap.filter(p => !toRemove.has(p.id)))
-    addLog(`Deleted page: ${id}`)
+    addLog(`${t('Deleted page', 'تم حذف صفحة')}: ${id}`)
   }
 
   const filtered = search
@@ -218,6 +222,7 @@ function PageTree({
     : sitemap
 
   const roots = filtered.filter(p => !p.parentId)
+  const metaLookup = PAGE_TYPE_META(t)
 
   const groupedRoots = {
     public: roots.filter(p => p.type === 'public'),
@@ -232,25 +237,25 @@ function PageTree({
       {/* Header */}
       <div className="px-4 py-3 border-b border-ds-border flex-shrink-0">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold text-ds-text-primary">Site Pages</span>
+          <span className="text-xs font-semibold text-ds-text-primary">{t('Site Pages', 'صفحات الموقع')}</span>
           <div className="flex items-center gap-1">
             <span className="text-[10px] text-ds-text-muted tabular-nums">{sitemap.length}</span>
             <button
               onClick={() => handleAddRoot()}
               className="p-1 rounded-lg bg-ds-primary/10 text-ds-primary hover:bg-ds-primary/20 transition-colors"
-              title="Add page"
+              title={t('Add page', 'إضافة صفحة')}
             >
               <Plus size={13} />
             </button>
           </div>
         </div>
-
+ 
         {/* Search */}
         <div className="relative">
           <Search size={11} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
-            placeholder="Search pages…"
+            placeholder={t('Search pages…', 'بحث في الصفحات…')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-[11px] text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
@@ -263,10 +268,10 @@ function PageTree({
         {sitemap.length === 0 ? (
           <div className="py-8 text-center">
             <Map size={24} className="mx-auto text-[#2A2E3F] mb-3" />
-            <p className="text-xs text-ds-text-muted mb-4">No pages yet</p>
+            <p className="text-xs text-ds-text-muted mb-4">{t('No pages yet', 'لا توجد صفحات بعد')}</p>
             <div className="grid grid-cols-2 gap-1.5">
               {(['public', 'auth', 'admin', 'modal'] as Page['type'][]).map(type => {
-                const meta = PAGE_TYPE_META[type]
+                const meta = metaLookup[type]
                 const Icon = meta.icon
                 return (
                   <button
@@ -284,7 +289,7 @@ function PageTree({
         ) : (
           Object.entries(groupedRoots).map(([groupKey, groupPages]) => {
             if (groupPages.length === 0) return null
-            const meta = PAGE_TYPE_META[groupKey as Page['type']]
+            const meta = metaLookup[groupKey as Page['type']]
             const Icon = meta.icon
             return (
               <div key={groupKey} className="mb-2">
@@ -308,6 +313,7 @@ function PageTree({
                     onAddChild={handleAddChild}
                     expandedIds={expandedIds}
                     toggleExpanded={toggleExpanded}
+                    t={t}
                   />
                 ))}
               </div>
@@ -319,14 +325,14 @@ function PageTree({
       {/* Footer: Add page type buttons */}
       <div className="px-3 py-3 border-t border-ds-border flex-shrink-0">
         <div className="grid grid-cols-5 gap-1">
-          {(Object.keys(PAGE_TYPE_META) as Page['type'][]).map(type => {
-            const meta = PAGE_TYPE_META[type]
+          {(Object.keys(metaLookup) as Page['type'][]).map(type => {
+            const meta = metaLookup[type]
             const Icon = meta.icon
             return (
               <button
                 key={type}
                 onClick={() => handleAddRoot(type)}
-                title={`Add ${meta.label} page`}
+                title={t(`Add ${meta.label} page`, `إضافة صفحة ${meta.label}`)}
                 className="flex flex-col items-center gap-1 py-1.5 rounded-lg bg-ds-surface border border-ds-border hover:border-ds-primary/40 transition-colors"
               >
                 <Icon size={11} style={{ color: meta.color }} />
@@ -383,12 +389,14 @@ function DiagramNodeCard({
   node,
   isSelected,
   onSelect,
+  t,
 }: {
   node: DiagramNode
   isSelected: boolean
   onSelect: (id: string) => void
+  t: (en: string, ar: string) => string
 }) {
-  const meta = PAGE_TYPE_META[node.page.type]
+  const meta = PAGE_TYPE_META(t)[node.page.type]
   const Icon = meta.icon
 
   return (
@@ -402,8 +410,8 @@ function DiagramNodeCard({
         width={NODE_W}
         height={NODE_H}
         rx={10}
-        fill={isSelected ? '#FF5701' : '#0D0F18'}
-        stroke={isSelected ? '#FF5701' : '#1E2130'}
+        fill={isSelected ? 'var(--ds-primary)' : 'var(--ds-surface)'}
+        stroke={isSelected ? 'var(--ds-primary)' : 'var(--ds-border)'}
         strokeWidth={isSelected ? 1.5 : 1}
         className="transition-all"
       />
@@ -426,10 +434,10 @@ function DiagramNodeCard({
       <text
         x={30}
         y={NODE_H / 2 - 3}
-        fill={isSelected ? '#fff' : '#e5e7eb'}
+        fill={isSelected ? '#fff' : 'var(--ds-text-primary)'}
         fontSize={10}
         fontWeight={600}
-        fontFamily="system-ui, sans-serif"
+        fontFamily="inherit"
       >
         {node.page.title.length > 14 ? node.page.title.substring(0, 13) + '…' : node.page.title}
       </text>
@@ -438,7 +446,7 @@ function DiagramNodeCard({
       <text
         x={30}
         y={NODE_H / 2 + 9}
-        fill={isSelected ? 'rgba(255,255,255,0.7)' : '#4B5563'}
+        fill={isSelected ? 'rgba(255,255,255,0.7)' : 'var(--ds-text-muted)'}
         fontSize={8}
         fontFamily="monospace, monospace"
       >
@@ -460,7 +468,8 @@ function SitemapDiagram({
   selectedId: string | null
   onSelect: (id: string) => void
 }) {
-  const { sitemap } = useSessionStore()
+  const { sitemap, lang } = useSessionStore()
+  const t = (en: string, ar: string) => lang === 'ar' ? ar : en
   const roots = sitemap.filter(p => !p.parentId)
 
   // Lay out all root trees side by side
@@ -498,8 +507,8 @@ function SitemapDiagram({
           <div className="w-16 h-16 rounded-2xl bg-ds-surface border border-ds-border flex items-center justify-center mx-auto mb-4">
             <Map size={28} className="text-ds-primary" />
           </div>
-          <p className="text-sm text-ds-text-primary font-medium mb-1">No Pages Yet</p>
-          <p className="text-xs text-ds-text-muted">Add pages from the left panel to visualize your site structure</p>
+          <p className="text-sm text-ds-text-primary font-medium mb-1">{t('No Pages Yet', 'لا توجد صفحات بعد')}</p>
+          <p className="text-xs text-ds-text-muted">{t('Add pages from the left panel to visualize your site structure', 'ضيف صفحات من اللوحة اللي على الشمال عشان تشوف هيكل الموقع')}</p>
         </div>
       </div>
     )
@@ -550,6 +559,7 @@ function SitemapDiagram({
             node={node}
             isSelected={selectedId === node.page.id}
             onSelect={onSelect}
+            t={t}
           />
         ))}
       </svg>
@@ -560,8 +570,9 @@ function SitemapDiagram({
 // ─── Right panel: Page inspector ─────────────────────────────────────────────
 
 function PageInspector({ selectedId }: { selectedId: string | null }) {
-  const { sitemap, updatePage, setSitemap } = useSessionStore()
+  const { sitemap, updatePage, setSitemap, lang } = useSessionStore()
   const [copied, setCopied] = useState(false)
+  const t = (en: string, ar: string) => lang === 'ar' ? ar : en
 
   const page = selectedId ? sitemap.find(p => p.id === selectedId) : null
 
@@ -569,12 +580,15 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
     return (
       <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col items-center justify-center h-full">
         <Settings size={24} className="text-[#2A2E3F] mb-2" />
-        <p className="text-xs text-ds-text-muted text-center px-4">Select a page to inspect its properties</p>
+        <p className="text-xs text-ds-text-muted text-center px-4">
+          {t('Select a page to inspect its properties', 'اختر صفحة لمعاينة خصائصها')}
+        </p>
       </div>
     )
   }
 
-  const meta = PAGE_TYPE_META[page.type]
+  const metaLookup = PAGE_TYPE_META(t)
+  const meta = metaLookup[page.type]
 
   const handleCopyId = () => {
     navigator.clipboard.writeText(page.id)
@@ -586,7 +600,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
     const dupe: Page = {
       ...page,
       id: uid(),
-      title: `${page.title} (copy)`,
+      title: `${page.title} (${t('copy', 'نسخة')})`,
       route: `${page.route}-copy`,
     }
     setSitemap([...sitemap, dupe])
@@ -623,7 +637,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
         {/* Title */}
         <div>
           <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
-            Title
+            {t('Title', 'العنوان')}
           </label>
           <input
             type="text"
@@ -636,7 +650,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
         {/* Route */}
         <div>
           <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
-            Route
+            {t('Route', 'المسار')}
           </label>
           <div className="relative">
             <Link2 size={11} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
@@ -652,11 +666,11 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
         {/* Type */}
         <div>
           <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
-            Page Type
+            {t('Page Type', 'نوع الصفحة')}
           </label>
           <div className="grid grid-cols-1 gap-1">
-            {(Object.keys(PAGE_TYPE_META) as Page['type'][]).map(type => {
-              const m = PAGE_TYPE_META[type]
+            {(Object.keys(metaLookup) as Page['type'][]).map(type => {
+              const m = metaLookup[type]
               const MIcon = m.icon
               return (
                 <button
@@ -680,7 +694,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
         {/* Nav Settings */}
         <div>
           <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
-            Navigation
+            {t('Navigation', 'التنقل')}
           </label>
           <div className="space-y-2">
             {/* Show in nav toggle */}
@@ -693,13 +707,13 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
               }`}
             >
               {page.showInNav ? <Eye size={12} /> : <EyeOff size={12} />}
-              {page.showInNav ? 'Visible in nav' : 'Hidden from nav'}
+              {page.showInNav ? t('Visible in nav', 'ظاهر في القائمة') : t('Hidden from nav', 'مخفي من القائمة')}
             </button>
 
             {/* Nav label */}
             {page.showInNav && (
               <div>
-                <label className="block text-[10px] text-ds-text-muted mb-1">Nav Label (optional)</label>
+                <label className="block text-[10px] text-ds-text-muted mb-1">{t('Nav Label (optional)', 'تسمية القائمة (اختياري)')}</label>
                 <input
                   type="text"
                   value={page.navLabel ?? ''}
@@ -713,7 +727,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
             {/* Nav position */}
             {page.showInNav && (
               <div>
-                <label className="block text-[10px] text-ds-text-muted mb-1">Nav Order</label>
+                <label className="block text-[10px] text-ds-text-muted mb-1">{t('Nav Order', 'ترتيب القائمة')}</label>
                 <input
                   type="number"
                   value={page.navPosition ?? 0}
@@ -730,10 +744,10 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
         {page.parentId && (
           <div>
             <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
-              Parent Page
+              {t('Parent Page', 'الصفحة الأب')}
             </label>
             <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-ds-surface border border-ds-border">
-              <CornerDownRight size={11} className="text-ds-text-muted" />
+              <CornerDownRight size={11} className="text-ds-text-muted rtl:rotate-180" />
               <span className="text-xs text-ds-text-muted truncate">
                 {sitemap.find(p => p.id === page.parentId)?.title ?? page.parentId}
               </span>
@@ -749,7 +763,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
           className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover transition-colors border border-ds-border"
         >
           <Copy size={12} />
-          Duplicate
+          {t('Duplicate', 'تكرار')}
         </button>
         <button
           onClick={() => {
@@ -774,8 +788,10 @@ function SitemapToolbar({
   view: 'diagram' | 'list'
   setView: (v: 'diagram' | 'list') => void
 }) {
-  const { sitemap } = useSessionStore()
+  const { sitemap, lang } = useSessionStore()
+  const t = (en: string, ar: string) => lang === 'ar' ? ar : en
   const totalPages = sitemap.length
+  const metaLookup = PAGE_TYPE_META(t)
   const publicPages = sitemap.filter(p => p.type === 'public').length
   const authPages  = sitemap.filter(p => p.type === 'auth').length
   const adminPages = sitemap.filter(p => p.type === 'admin').length
@@ -784,16 +800,16 @@ function SitemapToolbar({
     <div className="h-11 border-b border-ds-border bg-ds-surface flex items-center px-5 gap-4 flex-shrink-0">
       <div className="flex items-center gap-2">
         <Map size={14} className="text-ds-primary" />
-        <span className="text-sm font-semibold text-ds-text-primary">Sitemap</span>
+        <span className="text-sm font-semibold text-ds-text-primary">{t('Sitemap', 'خريطة الموقع')}</span>
       </div>
 
       {/* Stats */}
       <div className="w-px h-4 bg-ds-surface-hover" />
       <div className="flex items-center gap-3 text-[11px] text-ds-text-muted">
-        <span><span className="text-ds-text-primary font-medium">{totalPages}</span> pages</span>
-        {publicPages > 0 && <span style={{ color: PAGE_TYPE_META.public.color }}>{publicPages} public</span>}
-        {authPages > 0  && <span style={{ color: PAGE_TYPE_META.auth.color  }}>{authPages} auth</span>}
-        {adminPages > 0 && <span style={{ color: PAGE_TYPE_META.admin.color }}>{adminPages} admin</span>}
+        <span><span className="text-ds-text-primary font-medium">{totalPages}</span> {t('pages', 'صفحات')}</span>
+        {publicPages > 0 && <span style={{ color: metaLookup.public.color }}>{publicPages} {t('public', 'عام')}</span>}
+        {authPages > 0  && <span style={{ color: metaLookup.auth.color  }}>{authPages} {t('auth', 'دخول')}</span>}
+        {adminPages > 0 && <span style={{ color: metaLookup.admin.color }}>{adminPages} {t('admin', 'مسؤول')}</span>}
       </div>
 
       <div className="flex-1" />
@@ -807,7 +823,7 @@ function SitemapToolbar({
           }`}
         >
           <Map size={12} />
-          Diagram
+          {t('Diagram', 'رسم بياني')}
         </button>
         <button
           onClick={() => setView('list')}
@@ -816,7 +832,7 @@ function SitemapToolbar({
           }`}
         >
           <FileText size={12} />
-          List
+          {t('List', 'قائمة')}
         </button>
       </div>
     </div>
@@ -825,8 +841,8 @@ function SitemapToolbar({
 
 // ─── List view ────────────────────────────────────────────────────────────────
 
-function ListRow({ page, onSelect, isSelected }: { page: Page; onSelect: (id: string) => void; isSelected: boolean }) {
-  const meta = PAGE_TYPE_META[page.type]
+function ListRow({ page, onSelect, isSelected, t }: { page: Page; onSelect: (id: string) => void; isSelected: boolean; t: (en: string, ar: string) => string }) {
+  const meta = PAGE_TYPE_META(t)[page.type]
   const Icon = meta.icon
   return (
     <tr
@@ -848,9 +864,9 @@ function ListRow({ page, onSelect, isSelected }: { page: Page; onSelect: (id: st
       </td>
       <td className="px-4 py-3 text-[11px] text-ds-text-muted">
         {page.showInNav ? (
-          <span className="flex items-center gap-1 text-[#10b981]"><Eye size={10} /> Yes</span>
+          <span className="flex items-center gap-1 text-[#10b981]"><Eye size={10} /> {t('Yes', 'نعم')}</span>
         ) : (
-          <span className="flex items-center gap-1 text-ds-text-muted"><EyeOff size={10} /> No</span>
+          <span className="flex items-center gap-1 text-ds-text-muted"><EyeOff size={10} /> {t('No', 'لا')}</span>
         )}
       </td>
       <td className="px-4 py-3 text-[10px] text-ds-text-muted font-mono">{page.id.slice(0, 8)}</td>
@@ -859,13 +875,14 @@ function ListRow({ page, onSelect, isSelected }: { page: Page; onSelect: (id: st
 }
 
 function SitemapListView({ selectedId, onSelect }: { selectedId: string | null; onSelect: (id: string) => void }) {
-  const { sitemap } = useSessionStore()
+  const { sitemap, lang } = useSessionStore()
+  const t = (en: string, ar: string) => lang === 'ar' ? ar : en
   return (
     <div className="flex-1 overflow-auto bg-ds-surface">
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b border-ds-border">
-            {['Title', 'Route', 'Type', 'In Nav', 'ID'].map(h => (
+            {[t('Title', 'العنوان'), t('Route', 'المسار'), t('Type', 'النوع'), t('In Nav', 'في القائمة'), t('ID', 'المعرف')].map(h => (
               <th key={h} className="px-4 py-2.5 text-start text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider">
                 {h}
               </th>
@@ -874,15 +891,47 @@ function SitemapListView({ selectedId, onSelect }: { selectedId: string | null; 
         </thead>
         <tbody>
           {sitemap.map(page => (
-            <ListRow key={page.id} page={page} onSelect={onSelect} isSelected={selectedId === page.id} />
+            <ListRow key={page.id} page={page} onSelect={onSelect} isSelected={selectedId === page.id} t={t} />
           ))}
         </tbody>
       </table>
       {sitemap.length === 0 && (
         <div className="py-16 text-center">
-          <p className="text-xs text-ds-text-muted">No pages yet. Add pages from the left panel.</p>
+          <p className="text-xs text-ds-text-muted">{t('No pages yet. Add pages from the left panel.', 'لا توجد صفحات بعد. أضف صفحات من اللوحة اليسرى.')}</p>
         </div>
       )}
+    </div>
+  )
+}
+
+// ─── Root ─────────────────────────────────────────────────────────────────────
+
+export default function SitemapPage() {
+  const { fetchContext } = useSessionStore()
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [view, setView] = useState<'diagram' | 'list'>('diagram')
+
+  React.useEffect(() => {
+    fetchContext()
+  }, [fetchContext])
+
+  return (
+    <div className="flex flex-col h-[calc(100vh-40px)] overflow-hidden bg-ds-surface">
+      <SitemapToolbar view={view} setView={setView} />
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left: page tree */}
+        <PageTree selectedId={selectedId} onSelect={setSelectedId} />
+
+        {/* Center: diagram or list */}
+        {view === 'diagram'
+          ? <SitemapDiagram selectedId={selectedId} onSelect={setSelectedId} />
+          : <SitemapListView selectedId={selectedId} onSelect={setSelectedId} />
+        }
+
+        {/* Right: inspector */}
+        <PageInspector selectedId={selectedId} />
+      </div>
     </div>
   )
 }

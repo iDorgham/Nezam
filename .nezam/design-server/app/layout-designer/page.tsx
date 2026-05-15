@@ -50,6 +50,9 @@ function Toolbar() {
     setActivePage,
   } = useLayoutStore()
 
+  const { lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
+
   const [exportStatus, setExportStatus] = useState<'idle' | 'saving' | 'done' | 'error'>('idle')
 
   const page = getActivePage()
@@ -117,7 +120,7 @@ function Toolbar() {
       <div className="relative group">
         <button className="flex items-center gap-1.5 px-2 py-1 rounded bg-white/[0.04] border border-ds-border hover:border-ds-primary/40 text-[11px] text-ds-text-primary transition-colors">
           <Layers className="w-3 h-3 text-ds-text-muted" />
-          <span className="max-w-[120px] truncate">{page?.pageName || 'Select page'}</span>
+          <span className="max-w-[120px] truncate">{page?.pageName || t('Select page', 'اختر الصفحة')}</span>
           <ChevronDown className="w-3 h-3 text-ds-text-muted" />
         </button>
         {pages.length > 0 && (
@@ -172,7 +175,7 @@ function Toolbar() {
         <button
           onClick={() => setZoom(canvasZoom - 0.1)}
           className="p-1 text-ds-text-muted hover:text-ds-text-primary transition-colors"
-          title="Zoom out"
+          title={t('Zoom out', 'تصغير')}
         >
           <ZoomOut className="w-3.5 h-3.5" />
         </button>
@@ -182,14 +185,14 @@ function Toolbar() {
         <button
           onClick={() => setZoom(canvasZoom + 0.1)}
           className="p-1 text-ds-text-muted hover:text-ds-text-primary transition-colors"
-          title="Zoom in"
+          title={t('Zoom in', 'تكبير')}
         >
           <ZoomIn className="w-3.5 h-3.5" />
         </button>
         <button
           onClick={() => setZoom(1)}
           className="text-[9px] text-ds-text-muted hover:text-ds-primary transition-colors px-1"
-          title="Reset zoom"
+          title={t('Reset zoom', 'إعادة ضبط التكبير')}
         >
           <RotateCcw className="w-3 h-3" />
         </button>
@@ -200,14 +203,14 @@ function Toolbar() {
       {/* View toggles */}
       <button
         onClick={toggleGrid}
-        title="Toggle grid"
+        title={t('Toggle grid', 'تفعيل الشبكة')}
         className={`p-1.5 rounded transition-colors ${showGrid ? 'text-ds-primary' : 'text-ds-text-muted hover:text-ds-text-primary'}`}
       >
         <Grid3X3 className="w-3.5 h-3.5" />
       </button>
       <button
         onClick={toggleLabels}
-        title="Toggle labels"
+        title={t('Toggle labels', 'تفعيل التسميات')}
         className={`p-1.5 rounded transition-colors ${showLabels ? 'text-ds-primary' : 'text-ds-text-muted hover:text-ds-text-primary'}`}
       >
         <Type className="w-3.5 h-3.5" />
@@ -218,9 +221,9 @@ function Toolbar() {
       {/* Stats */}
       {page && (
         <div className="flex items-center gap-2 text-[10px] text-ds-text-muted">
-          <span>{page.slots.length} blocks</span>
+          <span>{page.slots.length} {t('blocks', 'بلوكات')}</span>
           <span>·</span>
-          <span className="text-green-500">{page.slots.filter(s => s.approved).length} approved</span>
+          <span className="text-green-500">{page.slots.filter(s => s.approved).length} {t('approved', 'معتمد')}</span>
         </div>
       )}
 
@@ -230,7 +233,7 @@ function Toolbar() {
       {page && (
         <button
           onClick={handleLockToggle}
-          title={isLocked ? 'Unlock page' : 'Lock page layout'}
+          title={isLocked ? t('Unlock page', 'إلغاء القفل') : t('Lock page layout', 'قفل تصميم الصفحة')}
           className={`flex items-center gap-1.5 px-2 py-1 rounded text-[11px] transition-colors border ${
             isLocked
               ? 'border-amber-500/30 text-amber-500 hover:bg-amber-500/10'
@@ -238,7 +241,7 @@ function Toolbar() {
           }`}
         >
           {isLocked ? <Lock className="w-3 h-3" /> : <Unlock className="w-3 h-3" />}
-          {isLocked ? 'Locked' : 'Lock'}
+          {isLocked ? t('Locked', 'مقفل') : t('Lock', 'قفل')}
         </button>
       )}
 
@@ -255,7 +258,7 @@ function Toolbar() {
         }`}
       >
         <Download className="w-3 h-3" />
-        {exportStatus === 'saving' ? 'Exporting…' : exportStatus === 'done' ? 'Exported!' : 'Export'}
+        {exportStatus === 'saving' ? t('Exporting…', 'جاري التصدير...') : exportStatus === 'done' ? t('Exported!', 'تم التصدير!') : t('Export', 'تصدير')}
       </button>
     </div>
   )
@@ -267,7 +270,8 @@ function Toolbar() {
 
 export default function LayoutDesignerPage() {
   const { syncFromSession, addSlot, getActivePage, pages, activePageId } = useLayoutStore()
-  const { sitemap, fetchContext } = useSessionStore()
+  const { sitemap, fetchContext, lang } = useSessionStore()
+  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
 
   useEffect(() => {
     if (sitemap.length === 0) fetchContext()
@@ -289,9 +293,9 @@ export default function LayoutDesignerPage() {
     return (
       <div className="h-full flex flex-col items-center justify-center bg-ds-background text-ds-text-muted gap-3">
         <LayoutTemplate className="w-8 h-8 opacity-20" />
-        <div className="text-sm">No pages in sitemap yet</div>
+        <div className="text-sm">{t('No pages in sitemap yet', 'لا توجد صفحات في خريطة الموقع بعد')}</div>
         <div className="text-xs opacity-60 text-center max-w-xs">
-          Create your site structure in the Sitemap tab first, then come back here to design each page layout.
+          {t('Create your site structure in the Sitemap tab first, then come back here to design each page layout.', 'قم بإنشاء هيكل موقعك في تبويب خريطة الموقع أولاً، ثم عُد إلى هنا لتصميم كل صفحة.')}
         </div>
       </div>
     )

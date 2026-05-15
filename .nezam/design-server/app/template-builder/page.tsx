@@ -103,9 +103,9 @@ export default function TemplateBuilderPage() {
             return (
               <div
                 key={profile.name}
-                className={`p-2 bg-white/[0.03] border ${
+                className={`p-2 bg-ds-surface border ${
                   isSelected ? 'border-ds-primary' : 'border-ds-border'
-                } rounded hover:border-[#ffffff14] transition-colors cursor-pointer`}
+                } rounded hover:border-ds-border-hover transition-colors cursor-pointer`}
                 onClick={() => updateTemplateConfig({ colorProfile: profile.name })}
               >
                 <div className="flex justify-between items-center">
@@ -139,7 +139,7 @@ export default function TemplateBuilderPage() {
                   key={option.value}
                   className={`p-2 bg-ds-surface border ${
                     isSelected ? 'border-ds-primary' : 'border-ds-border'
-                  } rounded hover:border-[#ffffff24] transition-colors cursor-pointer`}
+                  } rounded hover:border-ds-border-hover transition-colors cursor-pointer`}
                   onClick={() => handleSelect(category, option.value)}
                 >
                   <div className="flex justify-between items-center mb-0.5">

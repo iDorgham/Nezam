@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -18,11 +18,14 @@ import {
 } from '@dnd-kit/sortable'
 import BlockSlot from './BlockSlot'
 import { useApprovalStore } from '@/lib/store/approval.store'
+import { Layers } from 'lucide-react'
 
 interface BlockInstance {
   id: string
   type: string
   name: string
+  variantId?: string
+  blockId?: string
 }
 
 interface WireframeCanvasProps {
@@ -31,28 +34,48 @@ interface WireframeCanvasProps {
   setBlocks: (blocks: BlockInstance[]) => void
   selectedBlockId: string | null
   setSelectedBlockId: (id: string | null) => void
+  breakpointWidth?: number
 }
 
-export default function WireframeCanvas({ pageId, blocks, setBlocks, selectedBlockId, setSelectedBlockId }: WireframeCanvasProps) {
+export default function WireframeCanvas({
+  pageId,
+  blocks,
+  setBlocks,
+  selectedBlockId,
+  setSelectedBlockId,
+  breakpointWidth = 1280,
+}: WireframeCanvasProps) {
   const { approvedBlocks, approveBlock, unapproveBlock } = useApprovalStore()
-  
+
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
 
-  function handleDragEnd(event: DragEndEvent) {
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event
-
     if (over && active.id !== over.id) {
-      const oldIndex = blocks.findIndex((item) => item.id === active.id)
-      const newIndex = blocks.findIndex((item) => item.id === over.id)
-
+      const oldIndex = blocks.findIndex(item => item.id === active.id)
+      const newIndex = blocks.findIndex(item => item.id === over.id)
       setBlocks(arrayMove(blocks, oldIndex, newIndex))
     }
-  }
+  }, [blocks, setBlocks])
+
+  const handleVariantChange = useCallback((blockId: string, variantId: string) => {
+    setBlocks(blocks.map(b => b.id === blockId ? { ...b, variantId } : b))
+  }, [blocks, setBlocks])
+
+  const handleDuplicate = useCallback((blockId: string) => {
+    const idx = blocks.findIndex(b => b.id === blockId)
+    if (idx === -1) return
+    const original = blocks[idx]
+    const dupe = { ...original, id: Math.random().toString(36).substring(2, 10) }
+    const next = [...blocks]
+    next.splice(idx + 1, 0, dupe)
+    setBlocks(next)
+  }, [blocks, setBlocks])
 
   const pageApprovedBlocks = approvedBlocks[pageId] || []
 
@@ -66,16 +89,18 @@ export default function WireframeCanvas({ pageId, blocks, setBlocks, selectedBlo
         items={blocks.map(b => b.id)}
         strategy={verticalListSortingStrategy}
       >
-        <div className="space-y-4">
+        <div className="space-y-3">
           {blocks.map((block) => (
             <BlockSlot
               key={block.id}
               id={block.id}
+              blockId={block.blockId || block.type}
               type={block.type}
               name={block.name}
+              variantId={block.variantId}
               isSelected={selectedBlockId === block.id}
               isApproved={pageApprovedBlocks.includes(block.id)}
-              onSelect={() => setSelectedBlockId(block.id)}
+              onSelect={() => setSelectedBlockId(selectedBlockId === block.id ? null : block.id)}
               onDelete={() => setBlocks(blocks.filter(b => b.id !== block.id))}
               onApprove={() => {
                 if (pageApprovedBlocks.includes(block.id)) {
@@ -84,12 +109,16 @@ export default function WireframeCanvas({ pageId, blocks, setBlocks, selectedBlo
                   approveBlock(pageId, block.id)
                 }
               }}
+              onDuplicate={() => handleDuplicate(block.id)}
+              onVariantChange={(variantId) => handleVariantChange(block.id, variantId)}
+              breakpointWidth={breakpointWidth}
             />
           ))}
-          
+
           {blocks.length === 0 && (
-            <div className="text-center py-12 text-ds-text-muted bg-ds-surface border border-ds-border border-dashed rounded-lg">
-              Drag or add blocks from the library to start building.
+            <div className="flex flex-col items-center justify-center py-16 text-center bg-[#0D0F18] border border-dashed border-[#1E2130] rounded-xl">
+              <Layers size={28} className="text-[#2A2E3F] mb-3" />
+              <p className="text-xs text-[#6B7280]">Drop blocks here to start building</p>
             </div>
           )}
         </div>

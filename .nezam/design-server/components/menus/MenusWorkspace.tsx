@@ -1,175 +1,961 @@
 'use client'
 
-import { useState } from 'react'
+/**
+ * MenusWorkspace — full professional 3-panel visual menu builder
+ *
+ * Left panel   : Menu list (main, footer, side, mega, mobile, utility)
+ * Center panel : Visual menu tree editor with drag-and-drop indicators
+ * Right panel  : Item inspector (title, link type, icon, target, badge)
+ */
+
+import React, { useState, useCallback } from 'react'
 import { useSessionStore } from '@/lib/store/session.store'
-import { Plus, Trash2, Link as LinkIcon, MoveVertical } from 'lucide-react'
+import type { Page } from '@/lib/store/session.store'
+import {
+  Plus,
+  Trash2,
+  ChevronDown,
+  ChevronRight,
+  Link2,
+  Globe,
+  Hash,
+  Phone,
+  Mail,
+  ExternalLink,
+  Home,
+  Settings,
+  GripVertical,
+  Eye,
+  EyeOff,
+  Copy,
+  ArrowUp,
+  ArrowDown,
+  Layers,
+  Navigation,
+  Menu,
+  LayoutGrid,
+  Smartphone,
+  Star,
+  Check,
+  X,
+  Search,
+  FileText,
+  ChevronUp,
+} from 'lucide-react'
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type LinkType = 'page' | 'url' | 'anchor' | 'tel' | 'email' | 'nolink'
 
 interface MenuItem {
   id: string
-  title: string
+  label: string
+  linkType: LinkType
   pageId?: string
   url?: string
+  anchor?: string
+  target?: '_self' | '_blank'
+  icon?: string
+  badge?: string
+  badgeColor?: string
+  visible: boolean
+  children: MenuItem[]
+  description?: string
 }
 
-interface Menu {
+interface MenuConfig {
   id: string
   name: string
+  description: string
+  placement: 'header' | 'footer' | 'sidebar' | 'mega' | 'mobile' | 'utility'
+  maxDepth: number
   items: MenuItem[]
 }
 
-export default function MenusWorkspace() {
-  const { sitemap, lang } = useSessionStore()
-  const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
-  
-  const [menus, setMenus] = useState<Menu[]>([
-    { id: 'main', name: t('Main Menu', 'القائمة الرئيسية'), items: [] },
-    { id: 'footer', name: t('Footer Menu', 'قائمة التذييل'), items: [] },
-    { id: 'side', name: t('Side Menu', 'القائمة الجانبية'), items: [] },
-  ])
-  const [selectedMenuId, setSelectedMenuId] = useState('main')
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-  const selectedMenu = menus.find((m) => m.id === selectedMenuId)
+const uid = () => Math.random().toString(36).substring(2, 10)
 
-  const addItem = (menuId: string) => {
-    setMenus(
-      menus.map((m) =>
-        m.id === menuId
-          ? {
-              ...m,
-              items: [
-                ...m.items,
-                { id: Math.random().toString(36).substring(2, 9), title: 'New Item' },
-              ],
-            }
-          : m
-      )
-    )
+const PLACEMENT_META: Record<MenuConfig['placement'], { icon: React.FC<any>; color: string; label: string }> = {
+  header:  { icon: Navigation,  color: '#3b82f6', label: 'Header'  },
+  footer:  { icon: Layers,      color: '#6b7280', label: 'Footer'  },
+  sidebar: { icon: Menu,        color: '#8b5cf6', label: 'Sidebar' },
+  mega:    { icon: LayoutGrid,  color: '#f59e0b', label: 'Mega'    },
+  mobile:  { icon: Smartphone,  color: '#10b981', label: 'Mobile'  },
+  utility: { icon: Settings,    color: '#ef4444', label: 'Utility' },
+}
+
+const LINK_TYPE_META: Record<LinkType, { icon: React.FC<any>; label: string; placeholder: string }> = {
+  page:    { icon: FileText,     label: 'Page',    placeholder: 'Select a page'  },
+  url:     { icon: Globe,        label: 'URL',     placeholder: 'https://...'    },
+  anchor:  { icon: Hash,         label: 'Anchor',  placeholder: '#section-id'    },
+  tel:     { icon: Phone,        label: 'Phone',   placeholder: 'tel:+1234567'   },
+  email:   { icon: Mail,         label: 'Email',   placeholder: 'mailto:...'     },
+  nolink:  { icon: X,            label: 'No Link', placeholder: '—'              },
+}
+
+const ICON_OPTIONS = ['🏠','📄','⚙️','💡','🔗','📊','🛒','👤','📞','📧','🔍','⭐','🎯','🚀','💬','📁','🔒','🌐','📱','🖥️']
+
+const DEFAULT_MENUS: MenuConfig[] = [
+  {
+    id: 'main-nav',
+    name: 'Main Navigation',
+    description: 'Primary header navigation',
+    placement: 'header',
+    maxDepth: 2,
+    items: [],
+  },
+  {
+    id: 'footer-nav',
+    name: 'Footer Navigation',
+    description: 'Footer links grid',
+    placement: 'footer',
+    maxDepth: 1,
+    items: [],
+  },
+  {
+    id: 'sidebar-nav',
+    name: 'Sidebar Menu',
+    description: 'Collapsible sidebar',
+    placement: 'sidebar',
+    maxDepth: 3,
+    items: [],
+  },
+  {
+    id: 'mega-nav',
+    name: 'Mega Menu',
+    description: 'Rich dropdown with columns',
+    placement: 'mega',
+    maxDepth: 2,
+    items: [],
+  },
+  {
+    id: 'mobile-nav',
+    name: 'Mobile Menu',
+    description: 'Drawer navigation for small screens',
+    placement: 'mobile',
+    maxDepth: 2,
+    items: [],
+  },
+  {
+    id: 'utility-nav',
+    name: 'Utility Bar',
+    description: 'Quick access links (login, cart, etc.)',
+    placement: 'utility',
+    maxDepth: 1,
+    items: [],
+  },
+]
+
+// ─── Recursive helpers ────────────────────────────────────────────────────────
+
+function updateItemInTree(items: MenuItem[], id: string, updates: Partial<MenuItem>): MenuItem[] {
+  return items.map(item => {
+    if (item.id === id) return { ...item, ...updates }
+    return { ...item, children: updateItemInTree(item.children, id, updates) }
+  })
+}
+
+function removeItemFromTree(items: MenuItem[], id: string): MenuItem[] {
+  return items
+    .filter(item => item.id !== id)
+    .map(item => ({ ...item, children: removeItemFromTree(item.children, id) }))
+}
+
+function addChildToItem(items: MenuItem[], parentId: string, child: MenuItem): MenuItem[] {
+  return items.map(item => {
+    if (item.id === parentId) return { ...item, children: [...item.children, child] }
+    return { ...item, children: addChildToItem(item.children, parentId, child) }
+  })
+}
+
+function moveItem(items: MenuItem[], id: string, direction: 'up' | 'down'): MenuItem[] {
+  const idx = items.findIndex(i => i.id === id)
+  if (idx === -1) {
+    return items.map(item => ({
+      ...item,
+      children: moveItem(item.children, id, direction),
+    }))
+  }
+  const newItems = [...items]
+  if (direction === 'up' && idx > 0) {
+    [newItems[idx - 1], newItems[idx]] = [newItems[idx], newItems[idx - 1]]
+  } else if (direction === 'down' && idx < items.length - 1) {
+    [newItems[idx], newItems[idx + 1]] = [newItems[idx + 1], newItems[idx]]
+  }
+  return newItems
+}
+
+function flattenTree(items: MenuItem[]): MenuItem[] {
+  return items.flatMap(item => [item, ...flattenTree(item.children)])
+}
+
+// ─── Left: Menu list panel ────────────────────────────────────────────────────
+
+function MenuListPanel({
+  menus,
+  selectedId,
+  onSelect,
+  onAdd,
+  onDelete,
+}: {
+  menus: MenuConfig[]
+  selectedId: string | null
+  onSelect: (id: string) => void
+  onAdd: () => void
+  onDelete: (id: string) => void
+}) {
+  return (
+    <div className="w-[220px] min-w-[220px] bg-[#0A0C14] border-r border-[#1E2130] flex flex-col h-full">
+      {/* Header */}
+      <div className="px-4 py-3 border-b border-[#1E2130] flex items-center justify-between flex-shrink-0">
+        <span className="text-xs font-semibold text-white">Menus</span>
+        <button
+          onClick={onAdd}
+          className="p-1 rounded-lg bg-[#FF5701]/10 text-[#FF5701] hover:bg-[#FF5701]/20 transition-colors"
+          title="Create menu"
+        >
+          <Plus size={13} />
+        </button>
+      </div>
+
+      {/* Menu list */}
+      <div className="flex-1 overflow-y-auto py-2 px-2">
+        {menus.map(menu => {
+          const meta = PLACEMENT_META[menu.placement]
+          const Icon = meta.icon
+          const isSelected = selectedId === menu.id
+          const itemCount = flattenTree(menu.items).length
+
+          return (
+            <div
+              key={menu.id}
+              className={`group flex items-center gap-2 px-2 py-2.5 rounded-xl cursor-pointer transition-colors mb-0.5 ${
+                isSelected
+                  ? 'bg-[#FF5701]/10 text-white'
+                  : 'text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white'
+              }`}
+              onClick={() => onSelect(menu.id)}
+            >
+              {/* Placement icon */}
+              <div
+                className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                style={{ background: `${meta.color}20` }}
+              >
+                <Icon size={13} style={{ color: meta.color }} />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-medium truncate">{menu.name}</div>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="text-[9px] font-semibold uppercase"
+                    style={{ color: meta.color }}
+                  >
+                    {meta.label}
+                  </span>
+                  <span className="text-[9px] text-[#3A3E4F]">{itemCount} items</span>
+                </div>
+              </div>
+
+              <button
+                onClick={e => { e.stopPropagation(); onDelete(menu.id) }}
+                className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#ef4444] transition-all"
+              >
+                <Trash2 size={11} />
+              </button>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Stats footer */}
+      <div className="px-4 py-2.5 border-t border-[#1E2130] text-[10px] text-[#3A3E4F] flex-shrink-0">
+        {menus.length} menus · {menus.reduce((acc, m) => acc + flattenTree(m.items).length, 0)} total items
+      </div>
+    </div>
+  )
+}
+
+// ─── Center: Visual menu tree ─────────────────────────────────────────────────
+
+interface MenuItemNodeProps {
+  item: MenuItem
+  depth: number
+  maxDepth: number
+  menuId: string
+  selectedItemId: string | null
+  onSelect: (id: string) => void
+  onAddChild: (parentId: string) => void
+  onRemove: (id: string) => void
+  onMove: (id: string, dir: 'up' | 'down') => void
+  expandedIds: Set<string>
+  toggleExpanded: (id: string) => void
+  sitemap: Page[]
+}
+
+function MenuItemNode({
+  item, depth, maxDepth, menuId, selectedItemId, onSelect,
+  onAddChild, onRemove, onMove, expandedIds, toggleExpanded, sitemap,
+}: MenuItemNodeProps) {
+  const isSelected = selectedItemId === item.id
+  const hasChildren = item.children.length > 0
+  const isExpanded = expandedIds.has(item.id)
+  const canHaveChildren = depth < maxDepth - 1
+  const linkMeta = LINK_TYPE_META[item.linkType]
+  const LinkedIcon = linkMeta.icon
+
+  // Resolve display URL
+  const displayHref = item.linkType === 'page'
+    ? (sitemap.find(p => p.id === item.pageId)?.route ?? '—')
+    : (item.url ?? item.anchor ?? '—')
+
+  return (
+    <div>
+      <div
+        className={`group flex items-center gap-1.5 px-3 py-2.5 rounded-xl cursor-pointer transition-colors mb-0.5 ${
+          isSelected
+            ? 'bg-[#FF5701]/10 border border-[#FF5701]/20 text-white'
+            : 'text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white border border-transparent'
+        }`}
+        style={{ marginLeft: `${depth * 20}px` }}
+        onClick={() => onSelect(item.id)}
+      >
+        {/* Grip */}
+        <GripVertical size={12} className="text-[#3A3E4F] flex-shrink-0 cursor-grab" />
+
+        {/* Expand toggle */}
+        <button
+          className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-[#3A3E4F] hover:text-[#9CA3AF]"
+          onClick={e => { e.stopPropagation(); if (hasChildren) toggleExpanded(item.id) }}
+        >
+          {hasChildren
+            ? (isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />)
+            : <span className="w-1.5 h-1.5 rounded-full bg-[#1E2130] inline-block" />}
+        </button>
+
+        {/* Icon */}
+        {item.icon && (
+          <span className="text-sm flex-shrink-0">{item.icon}</span>
+        )}
+
+        {/* Label */}
+        <span className="flex-1 text-xs font-medium truncate">{item.label}</span>
+
+        {/* Badge */}
+        {item.badge && (
+          <span
+            className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold flex-shrink-0"
+            style={{ background: `${item.badgeColor ?? '#FF5701'}20`, color: item.badgeColor ?? '#FF5701' }}
+          >
+            {item.badge}
+          </span>
+        )}
+
+        {/* Link type + href */}
+        <div className="flex items-center gap-1 text-[9px] text-[#3A3E4F] flex-shrink-0">
+          <LinkedIcon size={9} />
+          <span className="font-mono truncate max-w-[80px]">{displayHref}</span>
+        </div>
+
+        {/* Visibility */}
+        {!item.visible && (
+          <EyeOff size={10} className="text-[#3A3E4F] flex-shrink-0" />
+        )}
+
+        {/* External target */}
+        {item.target === '_blank' && (
+          <ExternalLink size={9} className="text-[#3A3E4F] flex-shrink-0" />
+        )}
+
+        {/* Actions */}
+        <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-1">
+          {canHaveChildren && (
+            <button
+              onClick={e => { e.stopPropagation(); onAddChild(item.id) }}
+              className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#FF5701]"
+              title="Add child item"
+            >
+              <Plus size={10} />
+            </button>
+          )}
+          <button
+            onClick={e => { e.stopPropagation(); onMove(item.id, 'up') }}
+            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-white"
+          >
+            <ArrowUp size={9} />
+          </button>
+          <button
+            onClick={e => { e.stopPropagation(); onMove(item.id, 'down') }}
+            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-white"
+          >
+            <ArrowDown size={9} />
+          </button>
+          <button
+            onClick={e => { e.stopPropagation(); onRemove(item.id) }}
+            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#ef4444]"
+          >
+            <Trash2 size={10} />
+          </button>
+        </div>
+      </div>
+
+      {/* Children */}
+      {hasChildren && isExpanded && (
+        <div className="relative">
+          <div
+            className="absolute top-0 bottom-2 w-px bg-[#1E2130] rounded-full"
+            style={{ left: `${depth * 20 + 19}px` }}
+          />
+          {item.children.map(child => (
+            <MenuItemNode
+              key={child.id}
+              item={child}
+              depth={depth + 1}
+              maxDepth={maxDepth}
+              menuId={menuId}
+              selectedItemId={selectedItemId}
+              onSelect={onSelect}
+              onAddChild={onAddChild}
+              onRemove={onRemove}
+              onMove={onMove}
+              expandedIds={expandedIds}
+              toggleExpanded={toggleExpanded}
+              sitemap={sitemap}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function MenuEditor({
+  menu,
+  selectedItemId,
+  onSelectItem,
+  onUpdateMenu,
+}: {
+  menu: MenuConfig
+  selectedItemId: string | null
+  onSelectItem: (id: string | null) => void
+  onUpdateMenu: (updated: MenuConfig) => void
+}) {
+  const { sitemap } = useSessionStore()
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
+  const [search, setSearch] = useState('')
+
+  const meta = PLACEMENT_META[menu.placement]
+
+  const toggleExpanded = (id: string) => {
+    setExpandedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id); else next.add(id)
+      return next
+    })
   }
 
-  const removeItem = (menuId: string, itemId: string) => {
-    setMenus(
-      menus.map((m) =>
-        m.id === menuId
-          ? { ...m, items: m.items.filter((i) => i.id !== itemId) }
-          : m
-      )
-    )
+  const addRootItem = () => {
+    const newItem: MenuItem = {
+      id: uid(), label: 'New Item', linkType: 'page',
+      visible: true, children: [],
+    }
+    onUpdateMenu({ ...menu, items: [...menu.items, newItem] })
+    onSelectItem(newItem.id)
   }
 
-  const updateItem = (menuId: string, itemId: string, updates: Partial<MenuItem>) => {
-    setMenus(
-      menus.map((m) =>
-        m.id === menuId
-          ? {
-              ...m,
-              items: m.items.map((i) => (i.id === itemId ? { ...i, ...updates } : i)),
-            }
-          : m
-      )
+  const addChildItem = (parentId: string) => {
+    const newItem: MenuItem = {
+      id: uid(), label: 'Child Item', linkType: 'page',
+      visible: true, children: [],
+    }
+    onUpdateMenu({ ...menu, items: addChildToItem(menu.items, parentId, newItem) })
+    setExpandedIds(prev => new Set(prev).add(parentId))
+    onSelectItem(newItem.id)
+  }
+
+  const removeItem = (id: string) => {
+    onUpdateMenu({ ...menu, items: removeItemFromTree(menu.items, id) })
+    if (selectedItemId === id) onSelectItem(null)
+  }
+
+  const moveItem_ = (id: string, dir: 'up' | 'down') => {
+    onUpdateMenu({ ...menu, items: moveItem(menu.items, id, dir) })
+  }
+
+  const filtered = search
+    ? menu.items.filter(item => item.label.toLowerCase().includes(search.toLowerCase()))
+    : menu.items
+
+  const totalItems = flattenTree(menu.items).length
+
+  // Build a nav preview
+  const NavPreviewItem = ({ item, depth }: { item: MenuItem; depth: number }) => {
+    const href = item.linkType === 'page'
+      ? (sitemap.find(p => p.id === item.pageId)?.route ?? '#')
+      : (item.url ?? item.anchor ?? '#')
+    return (
+      <div>
+        <div
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+            item.visible ? 'text-[#9CA3AF] hover:text-white hover:bg-[#1E2130]' : 'text-[#3A3E4F] line-through'
+          }`}
+          style={{ paddingLeft: `${12 + depth * 12}px` }}
+        >
+          {item.icon && <span className="text-sm">{item.icon}</span>}
+          <span>{item.label}</span>
+          {item.badge && (
+            <span
+              className="ml-auto text-[9px] px-1.5 py-0.5 rounded-full"
+              style={{ background: `${item.badgeColor ?? '#FF5701'}30`, color: item.badgeColor ?? '#FF5701' }}
+            >
+              {item.badge}
+            </span>
+          )}
+          {item.target === '_blank' && <ExternalLink size={9} className="ml-auto text-[#3A3E4F]" />}
+        </div>
+        {item.children.map(c => <NavPreviewItem key={c.id} item={c} depth={depth + 1} />)}
+      </div>
     )
   }
 
   return (
-    <div className="p-6 space-y-6 text-ds-text-primary">
-      <div className="flex justify-between items-center bg-ds-surface backdrop-blur-md border border-ds-border p-5 rounded-2xl shadow-2xl">
-        <div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-ds-text-primary to-[#8a8f98] bg-clip-text text-transparent">{t('Menus Builder', 'باني القوائم')}</h1>
-          <p className="text-xs text-[#8a8f98] mt-1">{t('Manage your application navigation menus', 'إدارة قوائم التنقل في تطبيقك')}</p>
+    <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Toolbar */}
+      <div className="h-11 border-b border-[#1E2130] bg-[#0D0F18] flex items-center px-4 gap-3 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <meta.icon size={14} style={{ color: meta.color }} />
+          <span className="text-sm font-semibold text-white">{menu.name}</span>
+          <span
+            className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
+            style={{ background: `${meta.color}20`, color: meta.color }}
+          >
+            {meta.label}
+          </span>
         </div>
+
+        <div className="w-px h-4 bg-[#1E2130]" />
+
+        <span className="text-[11px] text-[#6B7280]">{totalItems} items · max depth {menu.maxDepth}</span>
+
+        <div className="flex-1" />
+
+        {/* Search */}
+        <div className="relative">
+          <Search size={11} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+          <input
+            type="text"
+            placeholder="Search items…"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="w-40 bg-[#0A0C14] border border-[#1E2130] rounded-lg pl-7 pr-3 py-1.5 text-[11px] text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+          />
+        </div>
+
+        <button
+          onClick={addRootItem}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#FF5701] text-white hover:bg-[#e04e00] transition-colors"
+        >
+          <Plus size={13} />
+          Add Item
+        </button>
       </div>
 
-      <div className="grid grid-cols-4 gap-6">
-        {/* Menus List */}
-        <div className="col-span-1 space-y-2">
-          {menus.map((menu) => (
-            <button
-              key={menu.id}
-              onClick={() => setSelectedMenuId(menu.id)}
-              className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                selectedMenuId === menu.id
-                  ? 'bg-[#7c3aed]/20 text-[#7c3aed] border border-[#7c3aed]/30'
-                  : 'bg-white/[0.02] text-[#8a8f98] hover:text-ds-text-primary hover:bg-white/[0.05] border border-ds-border'
-              }`}
-            >
-              {menu.name}
-              <span className="float-right text-xs bg-white/[0.05] px-1.5 py-0.5 rounded-full">
-                {menu.items.length}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Menu Items Editor */}
-        <div className="col-span-3 bg-ds-surface backdrop-blur-md border border-ds-border p-6 rounded-2xl shadow-2xl">
-          {selectedMenu ? (
-            <div className="space-y-4">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold">{selectedMenu.name} {t('Items', 'عناصر')}</h2>
-                <button
-                  onClick={() => addItem(selectedMenu.id)}
-                  className="px-3 py-1.5 bg-[#7c3aed] text-white rounded-lg text-xs font-medium hover:bg-[#6d28d9] transition-colors flex items-center gap-1"
-                >
-                  <Plus size={14} /> {t('Add Item', 'إضافة عنصر')}
-                </button>
+      {/* Content split: tree + preview */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Tree */}
+        <div className="flex-1 overflow-y-auto p-4">
+          {menu.items.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center py-16">
+              <div className="w-14 h-14 rounded-2xl bg-[#0D0F18] border border-[#1E2130] flex items-center justify-center mx-auto mb-4">
+                <Navigation size={22} className="text-[#FF5701]" />
               </div>
-
-              {selectedMenu.items.length === 0 ? (
-                <div className="text-sm text-[#8a8f98] text-center py-12 bg-white/[0.01] border border-ds-border rounded-xl">
-                  {t('No items in this menu. Click "Add Item" to start.', 'لا توجد عناصر في هذه القائمة. انقر فوق "إضافة عنصر" للبدء.')}
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {selectedMenu.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center gap-3 bg-white/[0.02] border border-ds-border p-3 rounded-xl hover:border-white/[0.1] transition-colors"
-                    >
-                      <div className="text-[#8a8f98] cursor-move">
-                        <MoveVertical size={16} />
-                      </div>
-                      
-                      <div className="flex-1 grid grid-cols-2 gap-3">
-                        <input
-                          type="text"
-                          value={item.title}
-                          onChange={(e) => updateItem(selectedMenu.id, item.id, { title: e.target.value })}
-                          className="bg-white/[0.03] border border-ds-border rounded-lg px-3 py-1.5 text-xs text-ds-text-primary focus:outline-none focus:border-[#7c3aed]/50 transition-colors"
-                          placeholder={t('Item Title', 'عنوان العنصر')}
-                        />
-                        
-                        <select
-                          value={item.pageId || ''}
-                          onChange={(e) => updateItem(selectedMenu.id, item.id, { pageId: e.target.value })}
-                          className="bg-white/[0.03] border border-ds-border rounded-lg px-3 py-1.5 text-xs text-ds-text-primary focus:outline-none focus:border-[#7c3aed]/50 transition-colors"
-                        >
-                          <option value="">{t('Select Page...', 'اختر صفحة...')}</option>
-                          {sitemap.map((page) => (
-                            <option key={page.id} value={page.id}>
-                              {page.title} ({page.route})
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <button
-                        onClick={() => removeItem(selectedMenu.id, item.id)}
-                        className="p-1.5 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500/20 transition-colors"
-                        title={t('Remove Item', 'إزالة العنصر')}
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <p className="text-sm text-white font-medium mb-1">{menu.name}</p>
+              <p className="text-xs text-[#6B7280] mb-5 max-w-xs">{menu.description}. No items yet.</p>
+              <button
+                onClick={addRootItem}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF5701] text-white text-xs font-semibold hover:bg-[#e04e00] transition-colors"
+              >
+                <Plus size={13} />
+                Add First Item
+              </button>
             </div>
           ) : (
-            <div className="text-sm text-[#8a8f98] text-center py-12">
-              {t('Select a menu to edit its items.', 'اختر قائمة لتحرير عناصرها.')}
+            <div className="space-y-0.5">
+              {filtered.map(item => (
+                <MenuItemNode
+                  key={item.id}
+                  item={item}
+                  depth={0}
+                  maxDepth={menu.maxDepth}
+                  menuId={menu.id}
+                  selectedItemId={selectedItemId}
+                  onSelect={onSelectItem}
+                  onAddChild={addChildItem}
+                  onRemove={removeItem}
+                  onMove={moveItem_}
+                  expandedIds={expandedIds}
+                  toggleExpanded={toggleExpanded}
+                  sitemap={sitemap}
+                />
+              ))}
             </div>
           )}
         </div>
+
+        {/* Live Preview */}
+        {menu.items.length > 0 && (
+          <div className="w-[200px] min-w-[200px] border-l border-[#1E2130] bg-[#080A12] flex flex-col">
+            <div className="px-3 py-2 border-b border-[#1E2130] flex-shrink-0">
+              <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider">Live Preview</span>
+            </div>
+            <div className="flex-1 overflow-y-auto py-2 px-1">
+              {menu.items.map(item => <NavPreviewItem key={item.id} item={item} depth={0} />)}
+            </div>
+          </div>
+        )}
       </div>
+    </div>
+  )
+}
+
+// ─── Right: Item inspector ────────────────────────────────────────────────────
+
+function ItemInspector({
+  item,
+  menu,
+  onUpdateItem,
+}: {
+  item: MenuItem | null
+  menu: MenuConfig | null
+  onUpdateItem: (id: string, updates: Partial<MenuItem>) => void
+}) {
+  const { sitemap } = useSessionStore()
+  const [showIconPicker, setShowIconPicker] = useState(false)
+
+  if (!item || !menu) {
+    return (
+      <div className="w-[260px] min-w-[260px] bg-[#0A0C14] border-l border-[#1E2130] flex flex-col items-center justify-center h-full">
+        <Navigation size={22} className="text-[#2A2E3F] mb-2" />
+        <p className="text-xs text-[#3A3E4F] text-center px-4">Select an item to configure it</p>
+      </div>
+    )
+  }
+
+  const update = (updates: Partial<MenuItem>) => onUpdateItem(item.id, updates)
+
+  return (
+    <div className="w-[260px] min-w-[260px] bg-[#0A0C14] border-l border-[#1E2130] flex flex-col h-full">
+      {/* Header */}
+      <div className="px-4 py-3 border-b border-[#1E2130] flex-shrink-0">
+        <div className="flex items-center gap-2">
+          {item.icon && <span className="text-base">{item.icon}</span>}
+          <span className="text-xs font-semibold text-white truncate flex-1">{item.label}</span>
+          <button
+            onClick={() => update({ visible: !item.visible })}
+            className={`p-1 rounded transition-colors ${item.visible ? 'text-[#10b981]' : 'text-[#3A3E4F]'}`}
+            title={item.visible ? 'Visible' : 'Hidden'}
+          >
+            {item.visible ? <Eye size={13} /> : <EyeOff size={13} />}
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {/* Label */}
+        <div>
+          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            Label
+          </label>
+          <input
+            type="text"
+            value={item.label}
+            onChange={e => update({ label: e.target.value })}
+            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF5701]/50"
+          />
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            Description <span className="text-[#3A3E4F] normal-case font-normal">(tooltip/subtitle)</span>
+          </label>
+          <input
+            type="text"
+            value={item.description ?? ''}
+            onChange={e => update({ description: e.target.value || undefined })}
+            placeholder="Optional subtitle or tooltip text"
+            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+          />
+        </div>
+
+        {/* Icon picker */}
+        <div>
+          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            Icon (emoji)
+          </label>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowIconPicker(!showIconPicker)}
+              className="w-10 h-10 rounded-lg bg-[#0D0F18] border border-[#1E2130] flex items-center justify-center text-xl hover:border-[#FF5701]/50 transition-colors"
+            >
+              {item.icon ?? '➕'}
+            </button>
+            {item.icon && (
+              <button
+                onClick={() => update({ icon: undefined })}
+                className="text-[10px] text-[#6B7280] hover:text-[#ef4444] transition-colors"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+          {showIconPicker && (
+            <div className="mt-2 grid grid-cols-7 gap-1 p-2 bg-[#0D0F18] border border-[#1E2130] rounded-xl">
+              {ICON_OPTIONS.map(emoji => (
+                <button
+                  key={emoji}
+                  onClick={() => { update({ icon: emoji }); setShowIconPicker(false) }}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#1E2130] text-base transition-colors"
+                >
+                  {emoji}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Link type */}
+        <div>
+          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            Link Type
+          </label>
+          <div className="grid grid-cols-3 gap-1">
+            {(Object.keys(LINK_TYPE_META) as LinkType[]).map(type => {
+              const m = LINK_TYPE_META[type]
+              const MIcon = m.icon
+              return (
+                <button
+                  key={type}
+                  onClick={() => update({ linkType: type })}
+                  className={`flex flex-col items-center gap-1 py-2 rounded-lg text-[10px] font-medium transition-all border ${
+                    item.linkType === type
+                      ? 'border-[#FF5701] bg-[#FF5701]/10 text-white'
+                      : 'border-[#1E2130] bg-[#0D0F18] text-[#6B7280] hover:border-[#2A2E3F] hover:text-[#9CA3AF]'
+                  }`}
+                >
+                  <MIcon size={12} />
+                  {m.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Link target input */}
+        {item.linkType === 'page' && (
+          <div>
+            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+              Target Page
+            </label>
+            <select
+              value={item.pageId ?? ''}
+              onChange={e => update({ pageId: e.target.value || undefined })}
+              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF5701]/50"
+            >
+              <option value="">Select a page…</option>
+              {sitemap.map(page => (
+                <option key={page.id} value={page.id}>
+                  {page.title} — {page.route}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {(item.linkType === 'url' || item.linkType === 'tel' || item.linkType === 'email') && (
+          <div>
+            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+              {LINK_TYPE_META[item.linkType].label}
+            </label>
+            <input
+              type="text"
+              value={item.url ?? ''}
+              onChange={e => update({ url: e.target.value })}
+              placeholder={LINK_TYPE_META[item.linkType].placeholder}
+              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] font-mono focus:outline-none focus:border-[#FF5701]/50"
+            />
+          </div>
+        )}
+
+        {item.linkType === 'anchor' && (
+          <div>
+            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+              Anchor ID
+            </label>
+            <input
+              type="text"
+              value={item.anchor ?? ''}
+              onChange={e => update({ anchor: e.target.value })}
+              placeholder="#section-id"
+              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] font-mono focus:outline-none focus:border-[#FF5701]/50"
+            />
+          </div>
+        )}
+
+        {/* Open in new tab */}
+        {item.linkType !== 'nolink' && item.linkType !== 'anchor' && (
+          <button
+            onClick={() => update({ target: item.target === '_blank' ? '_self' : '_blank' })}
+            className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
+              item.target === '_blank'
+                ? 'border-[#3b82f6]/40 bg-[#3b82f6]/5 text-[#3b82f6]'
+                : 'border-[#1E2130] bg-[#0D0F18] text-[#9CA3AF]'
+            }`}
+          >
+            <ExternalLink size={12} />
+            {item.target === '_blank' ? 'Opens in new tab' : 'Same tab'}
+          </button>
+        )}
+
+        {/* Badge */}
+        <div>
+          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            Badge
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={item.badge ?? ''}
+              onChange={e => update({ badge: e.target.value || undefined })}
+              placeholder="New / Hot / 3"
+              className="flex-1 bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+            />
+            {item.badge && (
+              <input
+                type="color"
+                value={item.badgeColor ?? '#FF5701'}
+                onChange={e => update({ badgeColor: e.target.value })}
+                className="w-9 h-9 rounded-lg border border-[#1E2130] bg-[#0D0F18] cursor-pointer"
+                title="Badge color"
+              />
+            )}
+          </div>
+          {item.badge && (
+            <div className="mt-2 flex items-center gap-1.5">
+              <span className="text-[10px] text-[#6B7280]">Preview:</span>
+              <span
+                className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                style={{ background: `${item.badgeColor ?? '#FF5701'}20`, color: item.badgeColor ?? '#FF5701' }}
+              >
+                {item.badge}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Visibility */}
+        <button
+          onClick={() => update({ visible: !item.visible })}
+          className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
+            item.visible
+              ? 'border-[#10b981]/30 bg-[#10b981]/5 text-[#10b981]'
+              : 'border-[#1E2130] bg-[#0D0F18] text-[#9CA3AF]'
+          }`}
+        >
+          {item.visible ? <Eye size={12} /> : <EyeOff size={12} />}
+          {item.visible ? 'Visible in menu' : 'Hidden from menu'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─── Root ─────────────────────────────────────────────────────────────────────
+
+export default function MenusWorkspace() {
+  const [menus, setMenus] = useState<MenuConfig[]>(DEFAULT_MENUS)
+  const [selectedMenuId, setSelectedMenuId] = useState<string | null>('main-nav')
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null)
+
+  const handleUpdateMenu = useCallback((updated: MenuConfig) => {
+    setMenus(prev => prev.map(m => m.id === updated.id ? updated : m))
+  }, [])
+
+  const handleAddMenu = () => {
+    const newMenu: MenuConfig = {
+      id: uid(),
+      name: 'New Menu',
+      description: 'Custom navigation menu',
+      placement: 'header',
+      maxDepth: 2,
+      items: [],
+    }
+    setMenus(prev => [...prev, newMenu])
+    setSelectedMenuId(newMenu.id)
+    setSelectedItemId(null)
+  }
+
+  const handleDeleteMenu = (id: string) => {
+    setMenus(prev => prev.filter(m => m.id !== id))
+    if (selectedMenuId === id) {
+      setSelectedMenuId(menus.filter(m => m.id !== id)[0]?.id ?? null)
+      setSelectedItemId(null)
+    }
+  }
+
+  const handleUpdateItem = useCallback((itemId: string, updates: Partial<MenuItem>) => {
+    setMenus(prev =>
+      prev.map(m =>
+        m.id === selectedMenuId
+          ? { ...m, items: updateItemInTree(m.items, itemId, updates) }
+          : m
+      )
+    )
+  }, [selectedMenuId])
+
+  const activeMenu = menus.find(m => m.id === selectedMenuId) ?? null
+
+  // Find selected item across tree
+  const selectedItem = activeMenu
+    ? flattenTree(activeMenu.items).find(i => i.id === selectedItemId) ?? null
+    : null
+
+  return (
+    <div className="flex h-[calc(100vh-40px)] overflow-hidden bg-[#090A0F]">
+      {/* Left: menu list */}
+      <MenuListPanel
+        menus={menus}
+        selectedId={selectedMenuId}
+        onSelect={id => { setSelectedMenuId(id); setSelectedItemId(null) }}
+        onAdd={handleAddMenu}
+        onDelete={handleDeleteMenu}
+      />
+
+      {/* Center: menu editor */}
+      {activeMenu ? (
+        <MenuEditor
+          menu={activeMenu}
+          selectedItemId={selectedItemId}
+          onSelectItem={setSelectedItemId}
+          onUpdateMenu={handleUpdateMenu}
+        />
+      ) : (
+        <div className="flex-1 flex items-center justify-center bg-[#090A0F]">
+          <div className="text-center">
+            <Navigation size={28} className="mx-auto text-[#FF5701] mb-3" />
+            <p className="text-sm text-white font-medium mb-1">Select a Menu</p>
+            <p className="text-xs text-[#6B7280]">Choose a menu from the left panel to start editing</p>
+          </div>
+        </div>
+      )}
+
+      {/* Right: item inspector */}
+      <ItemInspector
+        item={selectedItem}
+        menu={activeMenu}
+        onUpdateItem={handleUpdateItem}
+      />
     </div>
   )
 }

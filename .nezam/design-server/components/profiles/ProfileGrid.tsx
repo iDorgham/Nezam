@@ -42,7 +42,7 @@ export default function ProfileGrid({ onPreview }: ProfileGridProps) {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 text-[#8a8f98]">
+        <div className="text-center py-12 text-ds-text-muted">
           No profiles found matching your criteria.
         </div>
       )}

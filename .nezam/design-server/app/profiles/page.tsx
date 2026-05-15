@@ -18,14 +18,14 @@ export default function ProfilesPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-semibold">{t('Design Profiles', 'ملفات التصميم')}</h1>
-          <p className="text-sm text-[#8a8f98]">{t('Select a profile to seed your design system tokens.', 'اختر ملف عشان تبدأ بيه رموز نظام التصميم بتاعك.')}</p>
+          <p className="text-sm text-ds-text-muted">{t('Select a profile to seed your design system tokens.', 'اختر ملف عشان تبدأ بيه رموز نظام التصميم بتاعك.')}</p>
         </div>
-        <div className="text-sm text-[#8a8f98]">
+        <div className="text-sm text-ds-text-muted">
           {profiles.length} {t('Profiles Available', 'ملف متاح')}
         </div>
       </div>
       
-      {isLoading && <div className="text-[#8a8f98]">{t('Loading profiles...', 'بتحمل الملفات...')}</div>}
+      {isLoading && <div className="text-ds-text-muted">{t('Loading profiles...', 'بتحمل الملفات...')}</div>}
       
       {error && (
         <div className="bg-[#dc2626] text-white p-4 rounded mb-6">
@@ -45,20 +45,20 @@ export default function ProfilesPage() {
               <h2 className="text-xl font-semibold text-ds-text-primary">{t('Preview:', 'معاينة:')} {previewProfile}</h2>
               <button 
                 onClick={() => setPreviewProfile(null)}
-                className="text-[#8a8f98] hover:text-ds-text-primary"
+                className="text-ds-text-muted hover:text-ds-text-primary"
               >
                 ✕
               </button>
             </div>
             
-            <div className="h-64 bg-ds-background rounded border border-ds-border flex items-center justify-center text-[#8a8f98]">
+            <div className="h-64 bg-ds-background rounded border border-ds-border flex items-center justify-center text-ds-text-muted">
               {t('Live preview content will be rendered here in later phases.', 'المعاينة الحية هتظهر هنا في المراحل الجاية.')}
             </div>
             
             <div className="flex justify-end space-x-2">
               <button
                 onClick={() => setPreviewProfile(null)}
-                className="px-4 py-2 text-sm text-[#8a8f98] hover:text-ds-text-primary"
+                className="px-4 py-2 text-sm text-ds-text-muted hover:text-ds-text-primary"
               >
                 {t('Close', 'إغلاق')}
               </button>
@@ -67,7 +67,7 @@ export default function ProfilesPage() {
                   useSessionStore.getState().setSelectedProfile(previewProfile)
                   setPreviewProfile(null)
                 }}
-                className="px-4 py-2 text-sm bg-[#FF5701] text-white rounded hover:bg-[#e04e00]"
+                className="px-4 py-2 text-sm bg-ds-primary text-white rounded hover:bg-ds-primary/90"
               >
                 {t('Select Profile', 'اختر الملف')}
               </button>

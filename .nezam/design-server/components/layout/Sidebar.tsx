@@ -23,7 +23,7 @@ export default function Sidebar() {
   const { openTab, activeTabId, lang } = useSessionStore()
 
   return (
-    <div className="w-16 hover:w-56 bg-ds-surface border-r border-ds-border flex flex-col h-screen sticky top-0 transition-all duration-300 ease-in-out group z-50">
+    <div className="w-16 hover:w-56 bg-ds-surface border-e border-ds-border flex flex-col h-screen sticky top-0 transition-all duration-300 ease-in-out group z-50">
       {/* Logo Area */}
       <div className="border-b border-ds-border flex items-center h-14 w-full">
         <div className="w-16 flex items-center justify-center shrink-0">

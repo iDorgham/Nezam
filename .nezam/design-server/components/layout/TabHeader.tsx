@@ -13,8 +13,8 @@ export default function TabHeader() {
         return (
           <div
             key={tab.id}
-            className={`flex items-center h-full px-4 border-r border-[#ffffff14] cursor-pointer group transition-colors ${
-              isActive ? 'bg-[#121420] text-white border-t-2 border-[#7c3aed]' : 'text-[#8a8f98] hover:bg-white/[0.02] hover:text-white'
+            className={`flex items-center h-full px-4 border-e border-[#ffffff14] cursor-pointer group transition-colors ${
+              isActive ? 'bg-[#121420] text-ds-text-primary border-t-2 border-[#7c3aed]' : 'text-ds-text-muted hover:bg-white/[0.02] hover:text-ds-text-primary'
             }`}
             onClick={() => setActiveTabId(tab.id)}
           >
@@ -25,7 +25,7 @@ export default function TabHeader() {
                   e.stopPropagation()
                   closeTab(tab.id)
                 }}
-                className="ml-2 p-0.5 rounded-full hover:bg-white/[0.05] opacity-0 group-hover:opacity-100 transition-opacity"
+                className="ms-2 p-0.5 rounded-full hover:bg-white/[0.05] opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 <X size={10} />
               </button>

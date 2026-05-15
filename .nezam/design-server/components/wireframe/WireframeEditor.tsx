@@ -61,20 +61,20 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
   }
 
   return (
-    <div className="w-[220px] min-w-[220px] bg-[#0A0C14] border-r border-[#1E2130] flex flex-col h-full">
-      <div className="px-3 py-3 border-b border-[#1E2130]">
-        <div className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Block Library</div>
+    <div className="w-[220px] min-w-[220px] bg-ds-surface border-e border-ds-border flex flex-col h-full">
+      <div className="px-3 py-3 border-b border-ds-border">
+        <div className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">Block Library</div>
         <div className="relative">
-          <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+          <Search size={12} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
             placeholder="Search…"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg pl-7 pr-3 py-1.5 text-[11px] text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-[11px] text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
           />
           {search && (
-            <button onClick={() => setSearch('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#3A3E4F] hover:text-[#6B7280]">
+            <button onClick={() => setSearch('')} className="absolute end-2 top-1/2 -translate-y-1/2 text-ds-text-muted hover:text-ds-text-muted">
               <X size={11} />
             </button>
           )}
@@ -89,14 +89,14 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
               <button
                 key={block.id}
                 onClick={() => onAdd(block.id, block.name)}
-                className="w-full px-3 py-2 rounded-lg text-left text-[11px] text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white transition-colors group flex items-center justify-between"
+                className="w-full px-3 py-2 rounded-lg text-start text-[11px] text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary transition-colors group flex items-center justify-between"
               >
                 <span className="truncate">{block.name}</span>
-                <Plus size={11} className="flex-shrink-0 opacity-0 group-hover:opacity-100 text-[#FF5701]" />
+                <Plus size={11} className="flex-shrink-0 opacity-0 group-hover:opacity-100 text-ds-primary" />
               </button>
             ))}
             {results.length === 0 && (
-              <div className="text-center py-6 text-[10px] text-[#3A3E4F]">No results</div>
+              <div className="text-center py-6 text-[10px] text-ds-text-muted">No results</div>
             )}
           </div>
         ) : (
@@ -108,22 +108,22 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
               <div key={cat.id}>
                 <button
                   onClick={() => toggleCat(cat.id)}
-                  className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[10px] text-[#6B7280] hover:text-[#9CA3AF] font-semibold uppercase tracking-wider transition-colors"
+                  className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[10px] text-ds-text-muted hover:text-ds-text-muted font-semibold uppercase tracking-wider transition-colors"
                 >
                   {isOpen ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
-                  <span className="flex-1 text-left">{cat.label}</span>
-                  <span className="text-[9px] text-[#3A3E4F]">{catBlocks.length}</span>
+                  <span className="flex-1 text-start">{cat.label}</span>
+                  <span className="text-[9px] text-ds-text-muted">{catBlocks.length}</span>
                 </button>
                 {isOpen && (
-                  <div className="pl-2 space-y-0.5 pb-1">
+                  <div className="ps-2 space-y-0.5 pb-1">
                     {catBlocks.map(block => (
                       <button
                         key={block.id}
                         onClick={() => onAdd(block.id, block.name)}
-                        className="w-full px-3 py-1.5 rounded-lg text-left text-[11px] text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white transition-colors group flex items-center justify-between"
+                        className="w-full px-3 py-1.5 rounded-lg text-start text-[11px] text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary transition-colors group flex items-center justify-between"
                       >
                         <span className="truncate">{block.name}</span>
-                        <Plus size={11} className="flex-shrink-0 opacity-0 group-hover:opacity-100 text-[#FF5701]" />
+                        <Plus size={11} className="flex-shrink-0 opacity-0 group-hover:opacity-100 text-ds-primary" />
                       </button>
                     ))}
                   </div>
@@ -134,7 +134,7 @@ function MiniLibrary({ onAdd }: { onAdd: (blockId: string, name: string) => void
         )}
       </div>
 
-      <div className="px-3 py-2 border-t border-[#1E2130] text-[9px] text-[#3A3E4F] text-center">
+      <div className="px-3 py-2 border-t border-ds-border text-[9px] text-ds-text-muted text-center">
         {WIREFRAME_LIBRARY.length} blocks
       </div>
     </div>
@@ -148,10 +148,10 @@ function TemplatePicker({ onApply, onClose }: {
   onClose: () => void
 }) {
   return (
-    <div className="absolute inset-0 z-30 bg-[#090A0F]/95 backdrop-blur-sm flex flex-col p-6">
+    <div className="absolute inset-0 z-30 bg-ds-surface/95 backdrop-blur-sm flex flex-col p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-white">Page Templates</h3>
-        <button onClick={onClose} className="p-1.5 rounded-lg bg-[#1E2130] text-[#6B7280] hover:text-white">
+        <h3 className="text-sm font-semibold text-ds-text-primary">Page Templates</h3>
+        <button onClick={onClose} className="p-1.5 rounded-lg bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary">
           <X size={14} />
         </button>
       </div>
@@ -170,11 +170,11 @@ function TemplatePicker({ onApply, onClose }: {
               onApply(blocks)
               onClose()
             }}
-            className="p-3 bg-[#0D0F18] border border-[#1E2130] rounded-xl hover:border-[#FF5701]/50 text-left transition-all group"
+            className="p-3 bg-ds-surface border border-ds-border rounded-xl hover:border-ds-primary/50 text-start transition-all group"
           >
             <div className="text-xl mb-1.5">{template.icon}</div>
-            <div className="text-xs font-semibold text-white group-hover:text-[#FF5701] transition-colors">{template.name}</div>
-            <div className="text-[10px] text-[#6B7280] mt-0.5">{template.slots.length} blocks</div>
+            <div className="text-xs font-semibold text-ds-text-primary group-hover:text-ds-primary transition-colors">{template.name}</div>
+            <div className="text-[10px] text-ds-text-muted mt-0.5">{template.slots.length} blocks</div>
           </button>
         ))}
       </div>
@@ -251,26 +251,26 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
   const bpWidth = BP_WIDTHS[breakpoint]
 
   return (
-    <div className="relative flex h-full w-full overflow-hidden bg-[#090A0F]">
+    <div className="relative flex h-full w-full overflow-hidden bg-ds-surface">
       {/* Block library */}
       <MiniLibrary onAdd={handleAddBlock} />
 
       {/* Center area */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Toolbar */}
-        <div className="h-11 border-b border-[#1E2130] bg-[#0D0F18] flex items-center px-4 gap-3 flex-shrink-0">
-          <div className="text-xs font-medium text-white truncate mr-2">{pageName}</div>
-          <div className="w-px h-4 bg-[#1E2130]" />
+        <div className="h-11 border-b border-ds-border bg-ds-surface flex items-center px-4 gap-3 flex-shrink-0">
+          <div className="text-xs font-medium text-ds-text-primary truncate me-2">{pageName}</div>
+          <div className="w-px h-4 bg-ds-surface-hover" />
 
           {/* Breakpoint */}
-          <div className="flex items-center bg-[#0A0C14] border border-[#1E2130] rounded-lg p-0.5 gap-0.5">
+          <div className="flex items-center bg-ds-surface border border-ds-border rounded-lg p-0.5 gap-0.5">
             {bpOptions.map(({ key, icon: Icon, label }) => (
               <button
                 key={key}
                 onClick={() => setBreakpoint(key)}
                 title={`${label}px`}
                 className={`p-1.5 rounded-md transition-colors ${
-                  breakpoint === key ? 'bg-[#FF5701] text-white' : 'text-[#6B7280] hover:text-white hover:bg-[#1E2130]'
+                  breakpoint === key ? 'bg-ds-primary text-ds-text-primary' : 'text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover'
                 }`}
               >
                 <Icon size={13} />
@@ -283,7 +283,7 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
           {/* Templates */}
           <button
             onClick={() => setShowTemplates(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-[#1E2130] text-[#9CA3AF] hover:text-white hover:bg-[#2A2E3F] transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover transition-colors"
           >
             <LayoutTemplate size={13} />
             Templates
@@ -293,7 +293,7 @@ export default function WireframeEditor({ pageId, pageName = 'Page' }: Wireframe
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-[#FF5701] text-white hover:bg-[#e04e00] transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-ds-primary text-ds-text-primary hover:bg-ds-primary/90 transition-colors disabled:opacity-50"
           >
             <Save size={13} />
             {saving ? 'Saving…' : 'Save'}

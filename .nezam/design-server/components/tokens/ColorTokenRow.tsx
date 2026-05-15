@@ -34,18 +34,18 @@ export default function ColorTokenRow({ label, value, onChange }: ColorTokenRowP
             title="Pick color"
           />
           {showPicker && (
-            <div ref={pickerRef} className="absolute left-0 mt-2 z-50">
+            <div ref={pickerRef} className="absolute start-0 mt-2 z-50">
               <HexColorPicker color={value} onChange={onChange} />
             </div>
           )}
         </div>
-        <span className="text-sm font-medium text-white">{label}</span>
+        <span className="text-sm font-medium text-ds-text-primary">{label}</span>
       </div>
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="bg-[#191a1b] border border-[#ffffff14] rounded px-2 py-1 text-xs text-white font-mono w-24 text-right focus:border-[#5e6ad2] focus:outline-none"
+        className="bg-[#191a1b] border border-[#ffffff14] rounded px-2 py-1 text-xs text-ds-text-primary font-mono w-24 text-end focus:border-[#5e6ad2] focus:outline-none"
       />
     </div>
   )

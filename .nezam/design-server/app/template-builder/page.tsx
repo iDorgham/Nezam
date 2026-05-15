@@ -70,7 +70,7 @@ export default function TemplateBuilderPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-lg font-semibold">{t('Template Builder', 'باني القوالب')}</h1>
-          <p className="text-[#8a8f98] text-xs mt-0.5">{t('Configure the global style and layout defaults for your project.', 'قم بتكوين النمط العام والافتراضيات للتخطيط لمشروعك.')}</p>
+          <p className="text-ds-text-muted text-xs mt-0.5">{t('Configure the global style and layout defaults for your project.', 'قم بتكوين النمط العام والافتراضيات للتخطيط لمشروعك.')}</p>
         </div>
       </div>
 
@@ -81,17 +81,17 @@ export default function TemplateBuilderPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
               disabled={currentPage === 0}
-              className="p-1 text-[#8a8f98] hover:text-ds-text-primary disabled:opacity-50"
+              className="p-1 text-ds-text-muted hover:text-ds-text-primary disabled:opacity-50"
             >
               ← {t('Prev', 'السابق')}
             </button>
-            <span className="text-xs text-[#8a8f98]">
+            <span className="text-xs text-ds-text-muted">
               {currentPage + 1} / {totalPages || 1}
             </span>
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
               disabled={currentPage >= totalPages - 1}
-              className="p-1 text-[#8a8f98] hover:text-ds-text-primary disabled:opacity-50"
+              className="p-1 text-ds-text-muted hover:text-ds-text-primary disabled:opacity-50"
             >
               {t('Next', 'التالي')} →
             </button>
@@ -104,22 +104,22 @@ export default function TemplateBuilderPage() {
               <div
                 key={profile.name}
                 className={`p-2 bg-white/[0.03] border ${
-                  isSelected ? 'border-[#FF5701]' : 'border-ds-border'
+                  isSelected ? 'border-ds-primary' : 'border-ds-border'
                 } rounded hover:border-[#ffffff14] transition-colors cursor-pointer`}
                 onClick={() => updateTemplateConfig({ colorProfile: profile.name })}
               >
                 <div className="flex justify-between items-center">
                   <div className="font-medium text-xs text-ds-text-primary">{profile.name}</div>
                   {isSelected && (
-                    <span className="w-1.5 h-1.5 bg-[#FF5701] rounded-full"></span>
+                    <span className="w-1.5 h-1.5 bg-ds-primary rounded-full"></span>
                   )}
                 </div>
-                <div className="text-[10px] text-[#8a8f98]">{profile.category}</div>
+                <div className="text-[10px] text-ds-text-muted">{profile.category}</div>
               </div>
             )
           })}
           {profiles.length === 0 && (
-            <div className="col-span-4 text-center text-[#8a8f98] text-xs py-2">
+            <div className="col-span-4 text-center text-ds-text-muted text-xs py-2">
               {t('Loading profiles...', 'جاري تحميل الملفات الشخصية...')}
             </div>
           )}
@@ -138,17 +138,17 @@ export default function TemplateBuilderPage() {
                 <div
                   key={option.value}
                   className={`p-2 bg-ds-surface border ${
-                    isSelected ? 'border-[#FF5701]' : 'border-ds-border'
+                    isSelected ? 'border-ds-primary' : 'border-ds-border'
                   } rounded hover:border-[#ffffff24] transition-colors cursor-pointer`}
                   onClick={() => handleSelect(category, option.value)}
                 >
                   <div className="flex justify-between items-center mb-0.5">
                     <span className="font-medium text-ds-text-primary text-xs">{t(option.labelEn, option.labelAr)}</span>
                     {isSelected && (
-                      <span className="w-1.5 h-1.5 bg-[#FF5701] rounded-full"></span>
+                      <span className="w-1.5 h-1.5 bg-ds-primary rounded-full"></span>
                     )}
                   </div>
-                  <p className="text-[10px] text-[#8a8f98]">{t(option.descEn, option.descAr)}</p>
+                  <p className="text-[10px] text-ds-text-muted">{t(option.descEn, option.descAr)}</p>
                 </div>
               )
             })}

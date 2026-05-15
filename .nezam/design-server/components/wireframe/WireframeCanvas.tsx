@@ -116,9 +116,9 @@ export default function WireframeCanvas({
           ))}
 
           {blocks.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-16 text-center bg-[#0D0F18] border border-dashed border-[#1E2130] rounded-xl">
+            <div className="flex flex-col items-center justify-center py-16 text-center bg-ds-surface border border-dashed border-ds-border rounded-xl">
               <Layers size={28} className="text-[#2A2E3F] mb-3" />
-              <p className="text-xs text-[#6B7280]">Drop blocks here to start building</p>
+              <p className="text-xs text-ds-text-muted">Drop blocks here to start building</p>
             </div>
           )}
         </div>

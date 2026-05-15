@@ -12,7 +12,7 @@ export default function TokensPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-semibold">{t('Design Token Studio', 'استوديو رموز التصميم')}</h1>
-          <p className="text-sm text-[#8a8f98]">{t('Fine-tune your design system tokens with real-time feedback.', 'قم بضبط رموز نظام التصميم الخاص بك مع تعليقات في الوقت الفعلي.')}</p>
+          <p className="text-sm text-ds-text-muted">{t('Fine-tune your design system tokens with real-time feedback.', 'قم بضبط رموز نظام التصميم الخاص بك مع تعليقات في الوقت الفعلي.')}</p>
         </div>
       </div>
       

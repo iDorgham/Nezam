@@ -52,7 +52,7 @@ function BlockCard({ block, pageId }: { block: WireframeBlock; pageId: string })
 
   return (
     <div
-      className="group relative cursor-pointer rounded-xl overflow-hidden border border-[#1E2130] hover:border-[#FF5701]/50 transition-all duration-200 bg-[#0D0F18]"
+      className="group relative cursor-pointer rounded-xl overflow-hidden border border-ds-border hover:border-ds-primary/50 transition-all duration-200 bg-ds-surface"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={handleAdd}
@@ -68,18 +68,18 @@ function BlockCard({ block, pageId }: { block: WireframeBlock; pageId: string })
       {/* Label */}
       <div className="px-2 py-1.5 flex items-center justify-between">
         <div className="min-w-0">
-          <div className="text-[11px] font-medium text-[#9CA3AF] truncate group-hover:text-white transition-colors">
+          <div className="text-[11px] font-medium text-ds-text-muted truncate group-hover:text-ds-text-primary transition-colors">
             {block.name}
           </div>
-          <div className="text-[9px] text-[#3A3E4F] uppercase tracking-wider">
+          <div className="text-[9px] text-ds-text-muted uppercase tracking-wider">
             {block.variants.length} variants
           </div>
         </div>
         <button
           onClick={handleAdd}
-          className="flex-shrink-0 w-5 h-5 rounded-md bg-[#FF5701]/0 group-hover:bg-[#FF5701] flex items-center justify-center transition-all"
+          className="flex-shrink-0 w-5 h-5 rounded-md bg-ds-primary/0 group-hover:bg-ds-primary flex items-center justify-center transition-all"
         >
-          <Plus size={10} className="text-[#FF5701] group-hover:text-white transition-colors" />
+          <Plus size={10} className="text-ds-primary group-hover:text-ds-text-primary transition-colors" />
         </button>
       </div>
     </div>
@@ -99,16 +99,16 @@ function CategorySection({ category, blocks, pageId }: {
     <div className="mb-3">
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="w-full flex items-center gap-1.5 px-3 py-1.5 hover:bg-[#1E2130]/50 rounded-lg transition-colors group"
+        className="w-full flex items-center gap-1.5 px-3 py-1.5 hover:bg-ds-surface-hover/50 rounded-lg transition-colors group"
       >
         <span className="text-sm">{CATEGORY_ICONS[category.id] ?? '•'}</span>
-        <span className="flex-1 text-left text-[11px] font-semibold text-[#6B7280] uppercase tracking-wider group-hover:text-[#9CA3AF] transition-colors">
+        <span className="flex-1 text-start text-[11px] font-semibold text-ds-text-muted uppercase tracking-wider group-hover:text-ds-text-muted transition-colors">
           {category.label}
         </span>
-        <span className="text-[10px] text-[#3A3E4F] tabular-nums">{blocks.length}</span>
+        <span className="text-[10px] text-ds-text-muted tabular-nums">{blocks.length}</span>
         {collapsed
-          ? <ChevronRight size={12} className="text-[#3A3E4F]" />
-          : <ChevronDown size={12} className="text-[#3A3E4F]" />
+          ? <ChevronRight size={12} className="text-ds-text-muted" />
+          : <ChevronDown size={12} className="text-ds-text-muted" />
         }
       </button>
 
@@ -147,30 +147,30 @@ export default function WireframeBlockLibrary({ pageId }: Props) {
   const isFiltered = activeCategory !== 'all'
 
   return (
-    <div className="w-[240px] min-w-[240px] bg-[#0A0C14] border-r border-[#1E2130] flex flex-col h-full">
+    <div className="w-[240px] min-w-[240px] bg-ds-surface border-e border-ds-border flex flex-col h-full">
       {/* Search */}
-      <div className="px-3 py-3 border-b border-[#1E2130]">
+      <div className="px-3 py-3 border-b border-ds-border">
         <div className="relative">
-          <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+          <Search size={13} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
             placeholder="Search blocks…"
             value={searchQuery}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50 transition-colors"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg ps-8 pe-3 py-1.5 text-xs text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50 transition-colors"
           />
         </div>
       </div>
 
       {/* Category filter pills */}
       {!isSearching && (
-        <div className="flex gap-1 px-3 py-2 overflow-x-auto scrollbar-none border-b border-[#1E2130] flex-shrink-0">
+        <div className="flex gap-1 px-3 py-2 overflow-x-auto scrollbar-none border-b border-ds-border flex-shrink-0">
           <button
             onClick={() => setCategory('all')}
             className={`px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
               activeCategory === 'all'
-                ? 'bg-[#FF5701] text-white'
-                : 'bg-[#1E2130] text-[#6B7280] hover:text-white hover:bg-[#2A2E3F]'
+                ? 'bg-ds-primary text-ds-text-primary'
+                : 'bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover'
             }`}
           >
             All
@@ -181,8 +181,8 @@ export default function WireframeBlockLibrary({ pageId }: Props) {
               onClick={() => setCategory(cat.id)}
               className={`px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
                 activeCategory === cat.id
-                  ? 'bg-[#FF5701] text-white'
-                  : 'bg-[#1E2130] text-[#6B7280] hover:text-white hover:bg-[#2A2E3F]'
+                  ? 'bg-ds-primary text-ds-text-primary'
+                  : 'bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover'
               }`}
             >
               {CATEGORY_ICONS[cat.id]} {cat.label}
@@ -200,7 +200,7 @@ export default function WireframeBlockLibrary({ pageId }: Props) {
               <BlockCard key={block.id} block={block} pageId={pageId} />
             ))}
             {filteredBlocks.length === 0 && (
-              <div className="col-span-2 text-center py-8 text-xs text-[#3A3E4F]">
+              <div className="col-span-2 text-center py-8 text-xs text-ds-text-muted">
                 No blocks match your search.
               </div>
             )}
@@ -223,7 +223,7 @@ export default function WireframeBlockLibrary({ pageId }: Props) {
       </div>
 
       {/* Footer */}
-      <div className="px-3 py-2 border-t border-[#1E2130] text-[10px] text-[#3A3E4F] text-center">
+      <div className="px-3 py-2 border-t border-ds-border text-[10px] text-ds-text-muted text-center">
         {WIREFRAME_LIBRARY.length} blocks · {WIREFRAME_CATEGORIES.length} categories
       </div>
     </div>

@@ -43,7 +43,7 @@ export default function CompletionMatrix() {
               item.isComplete ? 'border-[#10b98124] bg-[#10b98105]' : 'border-[#ffffff0a] bg-[#08090a]'
             }`}
           >
-            <span className={`text-sm ${item.isComplete ? 'text-white' : 'text-[#8a8f98]'}`}>
+            <span className={`text-sm ${item.isComplete ? 'text-white' : 'text-ds-text-muted'}`}>
               {item.name}
             </span>
             {item.isComplete ? (

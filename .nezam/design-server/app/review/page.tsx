@@ -39,7 +39,7 @@ export default function ReviewPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-semibold">Review & Locking Gateway</h1>
-          <p className="text-sm text-[#8a8f98]">Verify all criteria are met before locking the design.</p>
+          <p className="text-sm text-ds-text-muted">Verify all criteria are met before locking the design.</p>
         </div>
       </div>
 
@@ -59,7 +59,7 @@ export default function ReviewPage() {
           disabled={isLocked}
           className={`px-6 py-3 rounded font-medium text-sm transition-colors ${
             isLocked
-              ? 'bg-[#191a1b] text-[#8a8f98] cursor-default'
+              ? 'bg-[#191a1b] text-ds-text-muted cursor-default'
               : 'bg-[#5e6ad2] text-white hover:bg-[#7170ff]'
           }`}
         >

@@ -206,13 +206,13 @@ function MenuListPanel({
   onDelete: (id: string) => void
 }) {
   return (
-    <div className="w-[220px] min-w-[220px] bg-[#0A0C14] border-r border-[#1E2130] flex flex-col h-full">
+    <div className="w-[220px] min-w-[220px] bg-ds-surface border-e border-ds-border flex flex-col h-full">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#1E2130] flex items-center justify-between flex-shrink-0">
-        <span className="text-xs font-semibold text-white">Menus</span>
+      <div className="px-4 py-3 border-b border-ds-border flex items-center justify-between flex-shrink-0">
+        <span className="text-xs font-semibold text-ds-text-primary">Menus</span>
         <button
           onClick={onAdd}
-          className="p-1 rounded-lg bg-[#FF5701]/10 text-[#FF5701] hover:bg-[#FF5701]/20 transition-colors"
+          className="p-1 rounded-lg bg-ds-primary/10 text-ds-primary hover:bg-ds-primary/20 transition-colors"
           title="Create menu"
         >
           <Plus size={13} />
@@ -232,8 +232,8 @@ function MenuListPanel({
               key={menu.id}
               className={`group flex items-center gap-2 px-2 py-2.5 rounded-xl cursor-pointer transition-colors mb-0.5 ${
                 isSelected
-                  ? 'bg-[#FF5701]/10 text-white'
-                  : 'text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white'
+                  ? 'bg-ds-primary/10 text-ds-text-primary'
+                  : 'text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary'
               }`}
               onClick={() => onSelect(menu.id)}
             >
@@ -254,13 +254,13 @@ function MenuListPanel({
                   >
                     {meta.label}
                   </span>
-                  <span className="text-[9px] text-[#3A3E4F]">{itemCount} items</span>
+                  <span className="text-[9px] text-ds-text-muted">{itemCount} items</span>
                 </div>
               </div>
 
               <button
                 onClick={e => { e.stopPropagation(); onDelete(menu.id) }}
-                className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#ef4444] transition-all"
+                className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444] transition-all"
               >
                 <Trash2 size={11} />
               </button>
@@ -270,7 +270,7 @@ function MenuListPanel({
       </div>
 
       {/* Stats footer */}
-      <div className="px-4 py-2.5 border-t border-[#1E2130] text-[10px] text-[#3A3E4F] flex-shrink-0">
+      <div className="px-4 py-2.5 border-t border-ds-border text-[10px] text-ds-text-muted flex-shrink-0">
         {menus.length} menus · {menus.reduce((acc, m) => acc + flattenTree(m.items).length, 0)} total items
       </div>
     </div>
@@ -315,23 +315,23 @@ function MenuItemNode({
       <div
         className={`group flex items-center gap-1.5 px-3 py-2.5 rounded-xl cursor-pointer transition-colors mb-0.5 ${
           isSelected
-            ? 'bg-[#FF5701]/10 border border-[#FF5701]/20 text-white'
-            : 'text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white border border-transparent'
+            ? 'bg-ds-primary/10 border border-ds-primary/20 text-ds-text-primary'
+            : 'text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary border border-transparent'
         }`}
         style={{ marginLeft: `${depth * 20}px` }}
         onClick={() => onSelect(item.id)}
       >
         {/* Grip */}
-        <GripVertical size={12} className="text-[#3A3E4F] flex-shrink-0 cursor-grab" />
+        <GripVertical size={12} className="text-ds-text-muted flex-shrink-0 cursor-grab" />
 
         {/* Expand toggle */}
         <button
-          className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-[#3A3E4F] hover:text-[#9CA3AF]"
+          className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-ds-text-muted hover:text-ds-text-muted"
           onClick={e => { e.stopPropagation(); if (hasChildren) toggleExpanded(item.id) }}
         >
           {hasChildren
             ? (isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />)
-            : <span className="w-1.5 h-1.5 rounded-full bg-[#1E2130] inline-block" />}
+            : <span className="w-1.5 h-1.5 rounded-full bg-ds-surface-hover inline-block" />}
         </button>
 
         {/* Icon */}
@@ -353,27 +353,27 @@ function MenuItemNode({
         )}
 
         {/* Link type + href */}
-        <div className="flex items-center gap-1 text-[9px] text-[#3A3E4F] flex-shrink-0">
+        <div className="flex items-center gap-1 text-[9px] text-ds-text-muted flex-shrink-0">
           <LinkedIcon size={9} />
           <span className="font-mono truncate max-w-[80px]">{displayHref}</span>
         </div>
 
         {/* Visibility */}
         {!item.visible && (
-          <EyeOff size={10} className="text-[#3A3E4F] flex-shrink-0" />
+          <EyeOff size={10} className="text-ds-text-muted flex-shrink-0" />
         )}
 
         {/* External target */}
         {item.target === '_blank' && (
-          <ExternalLink size={9} className="text-[#3A3E4F] flex-shrink-0" />
+          <ExternalLink size={9} className="text-ds-text-muted flex-shrink-0" />
         )}
 
         {/* Actions */}
-        <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-1">
+        <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ms-1">
           {canHaveChildren && (
             <button
               onClick={e => { e.stopPropagation(); onAddChild(item.id) }}
-              className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#FF5701]"
+              className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-primary"
               title="Add child item"
             >
               <Plus size={10} />
@@ -381,19 +381,19 @@ function MenuItemNode({
           )}
           <button
             onClick={e => { e.stopPropagation(); onMove(item.id, 'up') }}
-            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-white"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary"
           >
             <ArrowUp size={9} />
           </button>
           <button
             onClick={e => { e.stopPropagation(); onMove(item.id, 'down') }}
-            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-white"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary"
           >
             <ArrowDown size={9} />
           </button>
           <button
             onClick={e => { e.stopPropagation(); onRemove(item.id) }}
-            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#ef4444]"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444]"
           >
             <Trash2 size={10} />
           </button>
@@ -404,7 +404,7 @@ function MenuItemNode({
       {hasChildren && isExpanded && (
         <div className="relative">
           <div
-            className="absolute top-0 bottom-2 w-px bg-[#1E2130] rounded-full"
+            className="absolute top-0 bottom-2 w-px bg-ds-surface-hover rounded-full"
             style={{ left: `${depth * 20 + 19}px` }}
           />
           {item.children.map(child => (
@@ -498,7 +498,7 @@ function MenuEditor({
       <div>
         <div
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
-            item.visible ? 'text-[#9CA3AF] hover:text-white hover:bg-[#1E2130]' : 'text-[#3A3E4F] line-through'
+            item.visible ? 'text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover' : 'text-ds-text-muted line-through'
           }`}
           style={{ paddingLeft: `${12 + depth * 12}px` }}
         >
@@ -506,13 +506,13 @@ function MenuEditor({
           <span>{item.label}</span>
           {item.badge && (
             <span
-              className="ml-auto text-[9px] px-1.5 py-0.5 rounded-full"
+              className="ms-auto text-[9px] px-1.5 py-0.5 rounded-full"
               style={{ background: `${item.badgeColor ?? '#FF5701'}30`, color: item.badgeColor ?? '#FF5701' }}
             >
               {item.badge}
             </span>
           )}
-          {item.target === '_blank' && <ExternalLink size={9} className="ml-auto text-[#3A3E4F]" />}
+          {item.target === '_blank' && <ExternalLink size={9} className="ms-auto text-ds-text-muted" />}
         </div>
         {item.children.map(c => <NavPreviewItem key={c.id} item={c} depth={depth + 1} />)}
       </div>
@@ -522,10 +522,10 @@ function MenuEditor({
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Toolbar */}
-      <div className="h-11 border-b border-[#1E2130] bg-[#0D0F18] flex items-center px-4 gap-3 flex-shrink-0">
+      <div className="h-11 border-b border-ds-border bg-ds-surface flex items-center px-4 gap-3 flex-shrink-0">
         <div className="flex items-center gap-2">
           <meta.icon size={14} style={{ color: meta.color }} />
-          <span className="text-sm font-semibold text-white">{menu.name}</span>
+          <span className="text-sm font-semibold text-ds-text-primary">{menu.name}</span>
           <span
             className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
             style={{ background: `${meta.color}20`, color: meta.color }}
@@ -534,27 +534,27 @@ function MenuEditor({
           </span>
         </div>
 
-        <div className="w-px h-4 bg-[#1E2130]" />
+        <div className="w-px h-4 bg-ds-surface-hover" />
 
-        <span className="text-[11px] text-[#6B7280]">{totalItems} items · max depth {menu.maxDepth}</span>
+        <span className="text-[11px] text-ds-text-muted">{totalItems} items · max depth {menu.maxDepth}</span>
 
         <div className="flex-1" />
 
         {/* Search */}
         <div className="relative">
-          <Search size={11} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+          <Search size={11} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
             placeholder="Search items…"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-40 bg-[#0A0C14] border border-[#1E2130] rounded-lg pl-7 pr-3 py-1.5 text-[11px] text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+            className="w-40 bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-[11px] text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
           />
         </div>
 
         <button
           onClick={addRootItem}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#FF5701] text-white hover:bg-[#e04e00] transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-ds-primary text-ds-text-primary hover:bg-ds-primary/90 transition-colors"
         >
           <Plus size={13} />
           Add Item
@@ -567,14 +567,14 @@ function MenuEditor({
         <div className="flex-1 overflow-y-auto p-4">
           {menu.items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center py-16">
-              <div className="w-14 h-14 rounded-2xl bg-[#0D0F18] border border-[#1E2130] flex items-center justify-center mx-auto mb-4">
-                <Navigation size={22} className="text-[#FF5701]" />
+              <div className="w-14 h-14 rounded-2xl bg-ds-surface border border-ds-border flex items-center justify-center mx-auto mb-4">
+                <Navigation size={22} className="text-ds-primary" />
               </div>
-              <p className="text-sm text-white font-medium mb-1">{menu.name}</p>
-              <p className="text-xs text-[#6B7280] mb-5 max-w-xs">{menu.description}. No items yet.</p>
+              <p className="text-sm text-ds-text-primary font-medium mb-1">{menu.name}</p>
+              <p className="text-xs text-ds-text-muted mb-5 max-w-xs">{menu.description}. No items yet.</p>
               <button
                 onClick={addRootItem}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF5701] text-white text-xs font-semibold hover:bg-[#e04e00] transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-ds-primary text-ds-text-primary text-xs font-semibold hover:bg-ds-primary/90 transition-colors"
               >
                 <Plus size={13} />
                 Add First Item
@@ -605,9 +605,9 @@ function MenuEditor({
 
         {/* Live Preview */}
         {menu.items.length > 0 && (
-          <div className="w-[200px] min-w-[200px] border-l border-[#1E2130] bg-[#080A12] flex flex-col">
-            <div className="px-3 py-2 border-b border-[#1E2130] flex-shrink-0">
-              <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider">Live Preview</span>
+          <div className="w-[200px] min-w-[200px] border-s border-ds-border bg-[#080A12] flex flex-col">
+            <div className="px-3 py-2 border-b border-ds-border flex-shrink-0">
+              <span className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider">Live Preview</span>
             </div>
             <div className="flex-1 overflow-y-auto py-2 px-1">
               {menu.items.map(item => <NavPreviewItem key={item.id} item={item} depth={0} />)}
@@ -635,9 +635,9 @@ function ItemInspector({
 
   if (!item || !menu) {
     return (
-      <div className="w-[260px] min-w-[260px] bg-[#0A0C14] border-l border-[#1E2130] flex flex-col items-center justify-center h-full">
+      <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col items-center justify-center h-full">
         <Navigation size={22} className="text-[#2A2E3F] mb-2" />
-        <p className="text-xs text-[#3A3E4F] text-center px-4">Select an item to configure it</p>
+        <p className="text-xs text-ds-text-muted text-center px-4">Select an item to configure it</p>
       </div>
     )
   }
@@ -645,15 +645,15 @@ function ItemInspector({
   const update = (updates: Partial<MenuItem>) => onUpdateItem(item.id, updates)
 
   return (
-    <div className="w-[260px] min-w-[260px] bg-[#0A0C14] border-l border-[#1E2130] flex flex-col h-full">
+    <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col h-full">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#1E2130] flex-shrink-0">
+      <div className="px-4 py-3 border-b border-ds-border flex-shrink-0">
         <div className="flex items-center gap-2">
           {item.icon && <span className="text-base">{item.icon}</span>}
-          <span className="text-xs font-semibold text-white truncate flex-1">{item.label}</span>
+          <span className="text-xs font-semibold text-ds-text-primary truncate flex-1">{item.label}</span>
           <button
             onClick={() => update({ visible: !item.visible })}
-            className={`p-1 rounded transition-colors ${item.visible ? 'text-[#10b981]' : 'text-[#3A3E4F]'}`}
+            className={`p-1 rounded transition-colors ${item.visible ? 'text-[#10b981]' : 'text-ds-text-muted'}`}
             title={item.visible ? 'Visible' : 'Hidden'}
           >
             {item.visible ? <Eye size={13} /> : <EyeOff size={13} />}
@@ -664,59 +664,59 @@ function ItemInspector({
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {/* Label */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Label
           </label>
           <input
             type="text"
             value={item.label}
             onChange={e => update({ label: e.target.value })}
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF5701]/50"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
-            Description <span className="text-[#3A3E4F] normal-case font-normal">(tooltip/subtitle)</span>
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
+            Description <span className="text-ds-text-muted normal-case font-normal">(tooltip/subtitle)</span>
           </label>
           <input
             type="text"
             value={item.description ?? ''}
             onChange={e => update({ description: e.target.value || undefined })}
             placeholder="Optional subtitle or tooltip text"
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
           />
         </div>
 
         {/* Icon picker */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Icon (emoji)
           </label>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowIconPicker(!showIconPicker)}
-              className="w-10 h-10 rounded-lg bg-[#0D0F18] border border-[#1E2130] flex items-center justify-center text-xl hover:border-[#FF5701]/50 transition-colors"
+              className="w-10 h-10 rounded-lg bg-ds-surface border border-ds-border flex items-center justify-center text-xl hover:border-ds-primary/50 transition-colors"
             >
               {item.icon ?? '➕'}
             </button>
             {item.icon && (
               <button
                 onClick={() => update({ icon: undefined })}
-                className="text-[10px] text-[#6B7280] hover:text-[#ef4444] transition-colors"
+                className="text-[10px] text-ds-text-muted hover:text-[#ef4444] transition-colors"
               >
                 Remove
               </button>
             )}
           </div>
           {showIconPicker && (
-            <div className="mt-2 grid grid-cols-7 gap-1 p-2 bg-[#0D0F18] border border-[#1E2130] rounded-xl">
+            <div className="mt-2 grid grid-cols-7 gap-1 p-2 bg-ds-surface border border-ds-border rounded-xl">
               {ICON_OPTIONS.map(emoji => (
                 <button
                   key={emoji}
                   onClick={() => { update({ icon: emoji }); setShowIconPicker(false) }}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#1E2130] text-base transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ds-surface-hover text-base transition-colors"
                 >
                   {emoji}
                 </button>
@@ -727,7 +727,7 @@ function ItemInspector({
 
         {/* Link type */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Link Type
           </label>
           <div className="grid grid-cols-3 gap-1">
@@ -740,8 +740,8 @@ function ItemInspector({
                   onClick={() => update({ linkType: type })}
                   className={`flex flex-col items-center gap-1 py-2 rounded-lg text-[10px] font-medium transition-all border ${
                     item.linkType === type
-                      ? 'border-[#FF5701] bg-[#FF5701]/10 text-white'
-                      : 'border-[#1E2130] bg-[#0D0F18] text-[#6B7280] hover:border-[#2A2E3F] hover:text-[#9CA3AF]'
+                      ? 'border-ds-primary bg-ds-primary/10 text-ds-text-primary'
+                      : 'border-ds-border bg-ds-surface text-ds-text-muted hover:border-ds-border hover:text-ds-text-muted'
                   }`}
                 >
                   <MIcon size={12} />
@@ -755,13 +755,13 @@ function ItemInspector({
         {/* Link target input */}
         {item.linkType === 'page' && (
           <div>
-            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
               Target Page
             </label>
             <select
               value={item.pageId ?? ''}
               onChange={e => update({ pageId: e.target.value || undefined })}
-              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF5701]/50"
+              className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
             >
               <option value="">Select a page…</option>
               {sitemap.map(page => (
@@ -775,7 +775,7 @@ function ItemInspector({
 
         {(item.linkType === 'url' || item.linkType === 'tel' || item.linkType === 'email') && (
           <div>
-            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
               {LINK_TYPE_META[item.linkType].label}
             </label>
             <input
@@ -783,14 +783,14 @@ function ItemInspector({
               value={item.url ?? ''}
               onChange={e => update({ url: e.target.value })}
               placeholder={LINK_TYPE_META[item.linkType].placeholder}
-              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] font-mono focus:outline-none focus:border-[#FF5701]/50"
+              className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary placeholder-[#3A3E4F] font-mono focus:outline-none focus:border-ds-primary/50"
             />
           </div>
         )}
 
         {item.linkType === 'anchor' && (
           <div>
-            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
               Anchor ID
             </label>
             <input
@@ -798,7 +798,7 @@ function ItemInspector({
               value={item.anchor ?? ''}
               onChange={e => update({ anchor: e.target.value })}
               placeholder="#section-id"
-              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] font-mono focus:outline-none focus:border-[#FF5701]/50"
+              className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary placeholder-[#3A3E4F] font-mono focus:outline-none focus:border-ds-primary/50"
             />
           </div>
         )}
@@ -810,7 +810,7 @@ function ItemInspector({
             className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
               item.target === '_blank'
                 ? 'border-[#3b82f6]/40 bg-[#3b82f6]/5 text-[#3b82f6]'
-                : 'border-[#1E2130] bg-[#0D0F18] text-[#9CA3AF]'
+                : 'border-ds-border bg-ds-surface text-ds-text-muted'
             }`}
           >
             <ExternalLink size={12} />
@@ -820,7 +820,7 @@ function ItemInspector({
 
         {/* Badge */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Badge
           </label>
           <div className="flex items-center gap-2">
@@ -829,21 +829,21 @@ function ItemInspector({
               value={item.badge ?? ''}
               onChange={e => update({ badge: e.target.value || undefined })}
               placeholder="New / Hot / 3"
-              className="flex-1 bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+              className="flex-1 bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
             />
             {item.badge && (
               <input
                 type="color"
                 value={item.badgeColor ?? '#FF5701'}
                 onChange={e => update({ badgeColor: e.target.value })}
-                className="w-9 h-9 rounded-lg border border-[#1E2130] bg-[#0D0F18] cursor-pointer"
+                className="w-9 h-9 rounded-lg border border-ds-border bg-ds-surface cursor-pointer"
                 title="Badge color"
               />
             )}
           </div>
           {item.badge && (
             <div className="mt-2 flex items-center gap-1.5">
-              <span className="text-[10px] text-[#6B7280]">Preview:</span>
+              <span className="text-[10px] text-ds-text-muted">Preview:</span>
               <span
                 className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
                 style={{ background: `${item.badgeColor ?? '#FF5701'}20`, color: item.badgeColor ?? '#FF5701' }}
@@ -860,7 +860,7 @@ function ItemInspector({
           className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
             item.visible
               ? 'border-[#10b981]/30 bg-[#10b981]/5 text-[#10b981]'
-              : 'border-[#1E2130] bg-[#0D0F18] text-[#9CA3AF]'
+              : 'border-ds-border bg-ds-surface text-ds-text-muted'
           }`}
         >
           {item.visible ? <Eye size={12} /> : <EyeOff size={12} />}
@@ -922,7 +922,7 @@ export default function MenusWorkspace() {
     : null
 
   return (
-    <div className="flex h-[calc(100vh-40px)] overflow-hidden bg-[#090A0F]">
+    <div className="flex h-[calc(100vh-40px)] overflow-hidden bg-ds-surface">
       {/* Left: menu list */}
       <MenuListPanel
         menus={menus}
@@ -941,11 +941,11 @@ export default function MenusWorkspace() {
           onUpdateMenu={handleUpdateMenu}
         />
       ) : (
-        <div className="flex-1 flex items-center justify-center bg-[#090A0F]">
+        <div className="flex-1 flex items-center justify-center bg-ds-surface">
           <div className="text-center">
-            <Navigation size={28} className="mx-auto text-[#FF5701] mb-3" />
-            <p className="text-sm text-white font-medium mb-1">Select a Menu</p>
-            <p className="text-xs text-[#6B7280]">Choose a menu from the left panel to start editing</p>
+            <Navigation size={28} className="mx-auto text-ds-primary mb-3" />
+            <p className="text-sm text-ds-text-primary font-medium mb-1">Select a Menu</p>
+            <p className="text-xs text-ds-text-muted">Choose a menu from the left panel to start editing</p>
           </div>
         </div>
       )}

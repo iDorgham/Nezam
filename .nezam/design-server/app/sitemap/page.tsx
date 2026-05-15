@@ -79,20 +79,20 @@ function TreeNode({
       <div
         className={`flex items-center gap-1 px-2 py-1.5 rounded-lg cursor-pointer group transition-colors ${
           isSelected
-            ? 'bg-[#FF5701]/10 text-white'
-            : 'text-[#9CA3AF] hover:bg-[#1E2130] hover:text-white'
+            ? 'bg-ds-primary/10 text-ds-text-primary'
+            : 'text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary'
         }`}
         style={{ paddingLeft: `${8 + depth * 16}px` }}
         onClick={() => onSelect(page.id)}
       >
         {/* Expand toggle */}
         <button
-          className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-[#3A3E4F] hover:text-[#9CA3AF] transition-colors"
+          className="w-4 h-4 flex items-center justify-center flex-shrink-0 text-ds-text-muted hover:text-ds-text-muted transition-colors"
           onClick={e => { e.stopPropagation(); if (hasChildren) toggleExpanded(page.id) }}
         >
           {hasChildren
             ? (isExpanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />)
-            : <span className="w-1.5 h-1.5 rounded-full bg-[#2A2E3F] inline-block" />}
+            : <span className="w-1.5 h-1.5 rounded-full bg-ds-surface-hover inline-block" />}
         </button>
 
         {/* Page type icon */}
@@ -102,27 +102,27 @@ function TreeNode({
         <span className="flex-1 text-xs truncate">{page.title}</span>
 
         {/* Route pill */}
-        <span className="text-[9px] text-[#3A3E4F] font-mono truncate max-w-[80px] hidden group-hover:block">
+        <span className="text-[9px] text-ds-text-muted font-mono truncate max-w-[80px] hidden group-hover:block">
           {page.route}
         </span>
 
         {/* Nav indicator */}
         {page.showInNav && (
-          <Eye size={10} className="text-[#6B7280] flex-shrink-0" />
+          <Eye size={10} className="text-ds-text-muted flex-shrink-0" />
         )}
 
         {/* Action buttons — appear on hover */}
         <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
           <button
             onClick={e => { e.stopPropagation(); onAddChild(page.id) }}
-            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#FF5701] transition-colors"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-primary transition-colors"
             title="Add child page"
           >
             <Plus size={10} />
           </button>
           <button
             onClick={e => { e.stopPropagation(); onDelete(page.id) }}
-            className="p-0.5 rounded hover:bg-[#2A2E3F] text-[#6B7280] hover:text-[#ef4444] transition-colors"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444] transition-colors"
             title="Delete page"
           >
             <Trash2 size={10} />
@@ -134,7 +134,7 @@ function TreeNode({
       {hasChildren && isExpanded && (
         <div className="relative">
           <div
-            className="absolute top-0 bottom-2 w-px bg-[#1E2130] rounded-full"
+            className="absolute top-0 bottom-2 w-px bg-ds-surface-hover rounded-full"
             style={{ left: `${8 + depth * 16 + 6}px` }}
           />
           {children.map(child => (
@@ -228,16 +228,16 @@ function PageTree({
   }
 
   return (
-    <div className="w-[240px] min-w-[240px] bg-[#0A0C14] border-r border-[#1E2130] flex flex-col h-full">
+    <div className="w-[240px] min-w-[240px] bg-ds-surface border-e border-ds-border flex flex-col h-full">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#1E2130] flex-shrink-0">
+      <div className="px-4 py-3 border-b border-ds-border flex-shrink-0">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold text-white">Site Pages</span>
+          <span className="text-xs font-semibold text-ds-text-primary">Site Pages</span>
           <div className="flex items-center gap-1">
-            <span className="text-[10px] text-[#6B7280] tabular-nums">{sitemap.length}</span>
+            <span className="text-[10px] text-ds-text-muted tabular-nums">{sitemap.length}</span>
             <button
               onClick={() => handleAddRoot()}
-              className="p-1 rounded-lg bg-[#FF5701]/10 text-[#FF5701] hover:bg-[#FF5701]/20 transition-colors"
+              className="p-1 rounded-lg bg-ds-primary/10 text-ds-primary hover:bg-ds-primary/20 transition-colors"
               title="Add page"
             >
               <Plus size={13} />
@@ -247,13 +247,13 @@ function PageTree({
 
         {/* Search */}
         <div className="relative">
-          <Search size={11} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+          <Search size={11} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
             placeholder="Search pages…"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg pl-7 pr-3 py-1.5 text-[11px] text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-[11px] text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
           />
         </div>
       </div>
@@ -263,7 +263,7 @@ function PageTree({
         {sitemap.length === 0 ? (
           <div className="py-8 text-center">
             <Map size={24} className="mx-auto text-[#2A2E3F] mb-3" />
-            <p className="text-xs text-[#6B7280] mb-4">No pages yet</p>
+            <p className="text-xs text-ds-text-muted mb-4">No pages yet</p>
             <div className="grid grid-cols-2 gap-1.5">
               {(['public', 'auth', 'admin', 'modal'] as Page['type'][]).map(type => {
                 const meta = PAGE_TYPE_META[type]
@@ -272,10 +272,10 @@ function PageTree({
                   <button
                     key={type}
                     onClick={() => handleAddRoot(type)}
-                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-[#0D0F18] border border-[#1E2130] hover:border-[#FF5701]/40 transition-colors text-left"
+                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-ds-surface border border-ds-border hover:border-ds-primary/40 transition-colors text-start"
                   >
                     <Icon size={10} style={{ color: meta.color }} />
-                    <span className="text-[10px] text-[#9CA3AF]">{meta.label}</span>
+                    <span className="text-[10px] text-ds-text-muted">{meta.label}</span>
                   </button>
                 )
               })}
@@ -293,7 +293,7 @@ function PageTree({
                   <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: meta.color }}>
                     {meta.label}
                   </span>
-                  <span className="text-[9px] text-[#3A3E4F] ml-auto">{groupPages.length}</span>
+                  <span className="text-[9px] text-ds-text-muted ms-auto">{groupPages.length}</span>
                 </div>
                 {groupPages.map(page => (
                   <TreeNode
@@ -317,7 +317,7 @@ function PageTree({
       </div>
 
       {/* Footer: Add page type buttons */}
-      <div className="px-3 py-3 border-t border-[#1E2130] flex-shrink-0">
+      <div className="px-3 py-3 border-t border-ds-border flex-shrink-0">
         <div className="grid grid-cols-5 gap-1">
           {(Object.keys(PAGE_TYPE_META) as Page['type'][]).map(type => {
             const meta = PAGE_TYPE_META[type]
@@ -327,10 +327,10 @@ function PageTree({
                 key={type}
                 onClick={() => handleAddRoot(type)}
                 title={`Add ${meta.label} page`}
-                className="flex flex-col items-center gap-1 py-1.5 rounded-lg bg-[#0D0F18] border border-[#1E2130] hover:border-[#FF5701]/40 transition-colors"
+                className="flex flex-col items-center gap-1 py-1.5 rounded-lg bg-ds-surface border border-ds-border hover:border-ds-primary/40 transition-colors"
               >
                 <Icon size={11} style={{ color: meta.color }} />
-                <span className="text-[8px] text-[#3A3E4F]">{meta.label}</span>
+                <span className="text-[8px] text-ds-text-muted">{meta.label}</span>
               </button>
             )
           })}
@@ -493,20 +493,20 @@ function SitemapDiagram({
 
   if (sitemap.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-[#090A0F]">
+      <div className="flex-1 flex items-center justify-center bg-ds-surface">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#0D0F18] border border-[#1E2130] flex items-center justify-center mx-auto mb-4">
-            <Map size={28} className="text-[#FF5701]" />
+          <div className="w-16 h-16 rounded-2xl bg-ds-surface border border-ds-border flex items-center justify-center mx-auto mb-4">
+            <Map size={28} className="text-ds-primary" />
           </div>
-          <p className="text-sm text-white font-medium mb-1">No Pages Yet</p>
-          <p className="text-xs text-[#6B7280]">Add pages from the left panel to visualize your site structure</p>
+          <p className="text-sm text-ds-text-primary font-medium mb-1">No Pages Yet</p>
+          <p className="text-xs text-ds-text-muted">Add pages from the left panel to visualize your site structure</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex-1 overflow-auto bg-[#090A0F] relative">
+    <div className="flex-1 overflow-auto bg-ds-surface relative">
       {/* Dot grid background */}
       <svg
         className="absolute inset-0 w-full h-full opacity-20 pointer-events-none"
@@ -514,7 +514,7 @@ function SitemapDiagram({
       >
         <defs>
           <pattern id="sitemap-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.8" fill="#3A3E4F" />
+            <circle cx="1" cy="1" r="0.8" fill="var(--ds-text-muted)" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#sitemap-dots)" />
@@ -536,7 +536,7 @@ function SitemapDiagram({
               key={i}
               d={`M ${e.x1} ${e.y1} C ${e.x1} ${my}, ${e.x2} ${my}, ${e.x2} ${e.y2}`}
               fill="none"
-              stroke="#1E2130"
+              stroke="var(--ds-border)"
               strokeWidth={1.5}
               strokeDasharray="4 3"
             />
@@ -567,9 +567,9 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
 
   if (!page) {
     return (
-      <div className="w-[260px] min-w-[260px] bg-[#0A0C14] border-l border-[#1E2130] flex flex-col items-center justify-center h-full">
+      <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col items-center justify-center h-full">
         <Settings size={24} className="text-[#2A2E3F] mb-2" />
-        <p className="text-xs text-[#3A3E4F] text-center px-4">Select a page to inspect its properties</p>
+        <p className="text-xs text-ds-text-muted text-center px-4">Select a page to inspect its properties</p>
       </div>
     )
   }
@@ -593,12 +593,12 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
   }
 
   return (
-    <div className="w-[260px] min-w-[260px] bg-[#0A0C14] border-l border-[#1E2130] flex flex-col h-full">
+    <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col h-full">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-[#1E2130] flex-shrink-0">
+      <div className="px-4 py-3 border-b border-ds-border flex-shrink-0">
         <div className="flex items-center gap-2 mb-1">
           <meta.icon size={14} style={{ color: meta.color }} />
-          <span className="text-xs font-semibold text-white truncate flex-1">{page.title}</span>
+          <span className="text-xs font-semibold text-ds-text-primary truncate flex-1">{page.title}</span>
         </div>
         <div className="flex items-center gap-2">
           <span
@@ -609,7 +609,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
           </span>
           <button
             onClick={handleCopyId}
-            className="text-[9px] text-[#3A3E4F] hover:text-[#6B7280] flex items-center gap-0.5 transition-colors"
+            className="text-[9px] text-ds-text-muted hover:text-ds-text-muted flex items-center gap-0.5 transition-colors"
           >
             {copied ? <Check size={9} /> : <Copy size={9} />}
             {page.id.slice(0, 8)}
@@ -622,36 +622,36 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
 
         {/* Title */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Title
           </label>
           <input
             type="text"
             value={page.title}
             onChange={e => updatePage(page.id, { title: e.target.value })}
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF5701]/50 transition-colors"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50 transition-colors"
           />
         </div>
 
         {/* Route */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Route
           </label>
           <div className="relative">
-            <Link2 size={11} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+            <Link2 size={11} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
             <input
               type="text"
               value={page.route}
               onChange={e => updatePage(page.id, { route: e.target.value })}
-              className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg pl-7 pr-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-[#FF5701]/50 transition-colors"
+              className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-2 text-xs text-ds-text-primary font-mono focus:outline-none focus:border-ds-primary/50 transition-colors"
             />
           </div>
         </div>
 
         {/* Type */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Page Type
           </label>
           <div className="grid grid-cols-1 gap-1">
@@ -662,15 +662,15 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
                 <button
                   key={type}
                   onClick={() => updatePage(page.id, { type })}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-left text-xs transition-all border ${
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-start text-xs transition-all border ${
                     page.type === type
-                      ? 'border-[#FF5701] bg-[#FF5701]/5 text-white'
-                      : 'border-[#1E2130] bg-[#0D0F18] text-[#9CA3AF] hover:border-[#2A2E3F]'
+                      ? 'border-ds-primary bg-ds-primary/5 text-ds-text-primary'
+                      : 'border-ds-border bg-ds-surface text-ds-text-muted hover:border-ds-border'
                   }`}
                 >
                   <MIcon size={11} style={{ color: m.color }} />
                   <span>{m.label}</span>
-                  {page.type === type && <Check size={10} className="ml-auto text-[#FF5701]" />}
+                  {page.type === type && <Check size={10} className="ms-auto text-ds-primary" />}
                 </button>
               )
             })}
@@ -679,7 +679,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
 
         {/* Nav Settings */}
         <div>
-          <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+          <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
             Navigation
           </label>
           <div className="space-y-2">
@@ -689,7 +689,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
                 page.showInNav
                   ? 'border-[#10b981]/40 bg-[#10b981]/5 text-[#10b981]'
-                  : 'border-[#1E2130] bg-[#0D0F18] text-[#9CA3AF]'
+                  : 'border-ds-border bg-ds-surface text-ds-text-muted'
               }`}
             >
               {page.showInNav ? <Eye size={12} /> : <EyeOff size={12} />}
@@ -699,13 +699,13 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
             {/* Nav label */}
             {page.showInNav && (
               <div>
-                <label className="block text-[10px] text-[#6B7280] mb-1">Nav Label (optional)</label>
+                <label className="block text-[10px] text-ds-text-muted mb-1">Nav Label (optional)</label>
                 <input
                   type="text"
                   value={page.navLabel ?? ''}
                   placeholder={page.title}
                   onChange={e => updatePage(page.id, { navLabel: e.target.value || undefined })}
-                  className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-1.5 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+                  className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-1.5 text-xs text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
                 />
               </div>
             )}
@@ -713,13 +713,13 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
             {/* Nav position */}
             {page.showInNav && (
               <div>
-                <label className="block text-[10px] text-[#6B7280] mb-1">Nav Order</label>
+                <label className="block text-[10px] text-ds-text-muted mb-1">Nav Order</label>
                 <input
                   type="number"
                   value={page.navPosition ?? 0}
                   min={0}
                   onChange={e => updatePage(page.id, { navPosition: Number(e.target.value) })}
-                  className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#FF5701]/50"
+                  className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-1.5 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
                 />
               </div>
             )}
@@ -729,12 +729,12 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
         {/* Parent */}
         {page.parentId && (
           <div>
-            <label className="block text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider mb-1.5">
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
               Parent Page
             </label>
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#0D0F18] border border-[#1E2130]">
-              <CornerDownRight size={11} className="text-[#3A3E4F]" />
-              <span className="text-xs text-[#9CA3AF] truncate">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-ds-surface border border-ds-border">
+              <CornerDownRight size={11} className="text-ds-text-muted" />
+              <span className="text-xs text-ds-text-muted truncate">
                 {sitemap.find(p => p.id === page.parentId)?.title ?? page.parentId}
               </span>
             </div>
@@ -743,10 +743,10 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
       </div>
 
       {/* Footer actions */}
-      <div className="px-4 py-3 border-t border-[#1E2130] flex gap-2 flex-shrink-0">
+      <div className="px-4 py-3 border-t border-ds-border flex gap-2 flex-shrink-0">
         <button
           onClick={handleDuplicate}
-          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium bg-[#1E2130] text-[#9CA3AF] hover:text-white hover:bg-[#2A2E3F] transition-colors border border-[#2A2E3F]"
+          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium bg-ds-surface-hover text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-surface-hover transition-colors border border-ds-border"
         >
           <Copy size={12} />
           Duplicate
@@ -781,16 +781,16 @@ function SitemapToolbar({
   const adminPages = sitemap.filter(p => p.type === 'admin').length
 
   return (
-    <div className="h-11 border-b border-[#1E2130] bg-[#0D0F18] flex items-center px-5 gap-4 flex-shrink-0">
+    <div className="h-11 border-b border-ds-border bg-ds-surface flex items-center px-5 gap-4 flex-shrink-0">
       <div className="flex items-center gap-2">
-        <Map size={14} className="text-[#FF5701]" />
-        <span className="text-sm font-semibold text-white">Sitemap</span>
+        <Map size={14} className="text-ds-primary" />
+        <span className="text-sm font-semibold text-ds-text-primary">Sitemap</span>
       </div>
 
       {/* Stats */}
-      <div className="w-px h-4 bg-[#1E2130]" />
-      <div className="flex items-center gap-3 text-[11px] text-[#6B7280]">
-        <span><span className="text-white font-medium">{totalPages}</span> pages</span>
+      <div className="w-px h-4 bg-ds-surface-hover" />
+      <div className="flex items-center gap-3 text-[11px] text-ds-text-muted">
+        <span><span className="text-ds-text-primary font-medium">{totalPages}</span> pages</span>
         {publicPages > 0 && <span style={{ color: PAGE_TYPE_META.public.color }}>{publicPages} public</span>}
         {authPages > 0  && <span style={{ color: PAGE_TYPE_META.auth.color  }}>{authPages} auth</span>}
         {adminPages > 0 && <span style={{ color: PAGE_TYPE_META.admin.color }}>{adminPages} admin</span>}
@@ -799,11 +799,11 @@ function SitemapToolbar({
       <div className="flex-1" />
 
       {/* View toggle */}
-      <div className="flex items-center bg-[#0A0C14] border border-[#1E2130] rounded-lg p-0.5 gap-0.5">
+      <div className="flex items-center bg-ds-surface border border-ds-border rounded-lg p-0.5 gap-0.5">
         <button
           onClick={() => setView('diagram')}
           className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors ${
-            view === 'diagram' ? 'bg-[#1E2130] text-white' : 'text-[#6B7280] hover:text-white'
+            view === 'diagram' ? 'bg-ds-surface-hover text-ds-text-primary' : 'text-ds-text-muted hover:text-ds-text-primary'
           }`}
         >
           <Map size={12} />
@@ -812,7 +812,7 @@ function SitemapToolbar({
         <button
           onClick={() => setView('list')}
           className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-colors ${
-            view === 'list' ? 'bg-[#1E2130] text-white' : 'text-[#6B7280] hover:text-white'
+            view === 'list' ? 'bg-ds-surface-hover text-ds-text-primary' : 'text-ds-text-muted hover:text-ds-text-primary'
           }`}
         >
           <FileText size={12} />
@@ -832,11 +832,11 @@ function ListRow({ page, onSelect, isSelected }: { page: Page; onSelect: (id: st
     <tr
       onClick={() => onSelect(page.id)}
       className={`cursor-pointer transition-colors ${
-        isSelected ? 'bg-[#FF5701]/5' : 'hover:bg-[#1E2130]/50'
+        isSelected ? 'bg-ds-primary/5' : 'hover:bg-ds-surface-hover/50'
       }`}
     >
-      <td className="px-4 py-3 text-xs text-white font-medium">{page.title}</td>
-      <td className="px-4 py-3 font-mono text-[11px] text-[#6B7280]">{page.route}</td>
+      <td className="px-4 py-3 text-xs text-ds-text-primary font-medium">{page.title}</td>
+      <td className="px-4 py-3 font-mono text-[11px] text-ds-text-muted">{page.route}</td>
       <td className="px-4 py-3">
         <span
           className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full w-fit"
@@ -846,14 +846,14 @@ function ListRow({ page, onSelect, isSelected }: { page: Page; onSelect: (id: st
           {meta.label}
         </span>
       </td>
-      <td className="px-4 py-3 text-[11px] text-[#6B7280]">
+      <td className="px-4 py-3 text-[11px] text-ds-text-muted">
         {page.showInNav ? (
           <span className="flex items-center gap-1 text-[#10b981]"><Eye size={10} /> Yes</span>
         ) : (
-          <span className="flex items-center gap-1 text-[#3A3E4F]"><EyeOff size={10} /> No</span>
+          <span className="flex items-center gap-1 text-ds-text-muted"><EyeOff size={10} /> No</span>
         )}
       </td>
-      <td className="px-4 py-3 text-[10px] text-[#3A3E4F] font-mono">{page.id.slice(0, 8)}</td>
+      <td className="px-4 py-3 text-[10px] text-ds-text-muted font-mono">{page.id.slice(0, 8)}</td>
     </tr>
   )
 }
@@ -861,12 +861,12 @@ function ListRow({ page, onSelect, isSelected }: { page: Page; onSelect: (id: st
 function SitemapListView({ selectedId, onSelect }: { selectedId: string | null; onSelect: (id: string) => void }) {
   const { sitemap } = useSessionStore()
   return (
-    <div className="flex-1 overflow-auto bg-[#090A0F]">
+    <div className="flex-1 overflow-auto bg-ds-surface">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-[#1E2130]">
+          <tr className="border-b border-ds-border">
             {['Title', 'Route', 'Type', 'In Nav', 'ID'].map(h => (
-              <th key={h} className="px-4 py-2.5 text-left text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider">
+              <th key={h} className="px-4 py-2.5 text-start text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider">
                 {h}
               </th>
             ))}
@@ -880,7 +880,7 @@ function SitemapListView({ selectedId, onSelect }: { selectedId: string | null; 
       </table>
       {sitemap.length === 0 && (
         <div className="py-16 text-center">
-          <p className="text-xs text-[#6B7280]">No pages yet. Add pages from the left panel.</p>
+          <p className="text-xs text-ds-text-muted">No pages yet. Add pages from the left panel.</p>
         </div>
       )}
     </div>
@@ -899,7 +899,7 @@ export default function SitemapPage() {
   }, [fetchContext])
 
   return (
-    <div className="flex flex-col h-[calc(100vh-40px)] overflow-hidden bg-[#090A0F]">
+    <div className="flex flex-col h-[calc(100vh-40px)] overflow-hidden bg-ds-surface">
       <SitemapToolbar view={view} setView={setView} />
 
       <div className="flex flex-1 overflow-hidden">

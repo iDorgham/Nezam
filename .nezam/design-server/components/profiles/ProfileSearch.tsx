@@ -30,7 +30,7 @@ export default function ProfileSearch({ search, setSearch, selectedCategory, set
             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
               selectedCategory === category
                 ? 'bg-[#5e6ad2] text-white'
-                : 'bg-[#0f1011] text-[#8a8f98] hover:bg-[#191a1b] hover:text-white'
+                : 'bg-[#0f1011] text-ds-text-muted hover:bg-[#191a1b] hover:text-white'
             }`}
           >
             {category}

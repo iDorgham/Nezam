@@ -123,19 +123,19 @@ function SortableItem({ page, isSelected, onClick }: { page: Page, isSelected: b
         <button
           {...attributes}
           {...listeners}
-          className="cursor-grab hover:text-white text-[#8a8f98] transition-colors"
+          className="cursor-grab hover:text-white text-ds-text-muted transition-colors"
           onClick={(e) => e.stopPropagation()} // Prevent selection when dragging
         >
           <GripVertical size={16} />
         </button>
-        <div className={`p-2 rounded-lg ${isSelected ? 'bg-[#5e6ad2]/20 text-[#5e6ad2]' : 'bg-white/[0.03] text-[#8a8f98] group-hover:text-white'} transition-colors`}>
+        <div className={`p-2 rounded-lg ${isSelected ? 'bg-[#5e6ad2]/20 text-[#5e6ad2]' : 'bg-white/[0.03] text-ds-text-muted group-hover:text-white'} transition-colors`}>
           <FileText size={18} />
         </div>
         <div className="flex flex-col">
           <span className="font-semibold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#8a8f98] group-hover:bg-clip-text transition-all duration-300">
             {page.title || 'Untitled'}
           </span>
-          <span className="text-xs text-[#8a8f98] font-mono mt-0.5">{page.route}</span>
+          <span className="text-xs text-ds-text-muted font-mono mt-0.5">{page.route}</span>
         </div>
       </div>
       
@@ -144,21 +144,21 @@ function SortableItem({ page, isSelected, onClick }: { page: Page, isSelected: b
           <button
             onClick={handleOutdent}
             disabled={!page.parentId}
-            className="p-1.5 rounded-md hover:bg-white/[0.05] text-[#8a8f98] hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#8a8f98] transition-colors"
+            className="p-1.5 rounded-md hover:bg-white/[0.05] text-ds-text-muted hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ds-text-muted transition-colors"
             title="Outdent"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={handleIndent}
-            className="p-1.5 rounded-md hover:bg-white/[0.05] text-[#8a8f98] hover:text-white transition-colors"
+            className="p-1.5 rounded-md hover:bg-white/[0.05] text-ds-text-muted hover:text-white transition-colors"
             title="Indent"
           >
             <ChevronRight size={16} />
           </button>
         </div>
         
-        <span className="text-xs bg-white/[0.03] border border-white/[0.05] px-2.5 py-1 rounded-full text-[#8a8f98] font-medium uppercase tracking-wider text-[10px]">
+        <span className="text-xs bg-white/[0.03] border border-white/[0.05] px-2.5 py-1 rounded-full text-ds-text-muted font-medium uppercase tracking-wider text-[10px]">
           {page.type}
         </span>
       </div>

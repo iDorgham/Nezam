@@ -31,10 +31,10 @@ export default function AIPage() {
     <div className="p-8 max-w-4xl mx-auto space-y-6 text-ds-text-primary">
       <div>
         <div className="flex items-center gap-2">
-          <Bot className="w-6 h-6 text-[#FF5701]" />
+          <Bot className="w-6 h-6 text-ds-primary" />
           <h1 className="text-2xl font-semibold">{t('AI Assistant', 'مساعد الذكاء الاصطناعي')}</h1>
         </div>
-        <p className="text-sm text-[#8a8f98] mt-1">{t('Use AI to get design suggestions and improvements via CLI.', 'استخدم الذكاء الاصطناعي عشان تاخد اقتراحات وتحسينات للتصميم.')}</p>
+        <p className="text-sm text-ds-text-muted mt-1">{t('Use AI to get design suggestions and improvements via CLI.', 'استخدم الذكاء الاصطناعي عشان تاخد اقتراحات وتحسينات للتصميم.')}</p>
       </div>
       
       <div className="bg-ds-surface border border-ds-border rounded-xl p-6 space-y-4">
@@ -44,14 +44,14 @@ export default function AIPage() {
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder={t('Ask AI for suggestions (e.g., "Review my color contrast")', 'اسأل الذكاء الاصطناعي (مثلاً: "راجع تباين الألوان")')}
-            className="w-full h-32 bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-[#FF5701]/50 resize-none"
+            className="w-full h-32 bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-ds-primary/50 resize-none"
           />
         </div>
         
         <button
           onClick={handleGenerate}
           disabled={isLoading || !prompt.trim()}
-          className="flex items-center gap-2 px-4 py-2 bg-[#FF5701] text-white rounded-lg hover:bg-[#e04e00] disabled:opacity-50 transition-colors text-sm font-medium"
+          className="flex items-center gap-2 px-4 py-2 bg-ds-primary text-white rounded-lg hover:bg-ds-primary/90 disabled:opacity-50 transition-colors text-sm font-medium"
         >
           {isLoading ? (
             <span className="animate-spin">◌</span>
@@ -66,14 +66,14 @@ export default function AIPage() {
       {suggestions.length > 0 && (
         <div className="bg-ds-surface border border-ds-border rounded-xl p-6 space-y-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#FF5701]" />
+            <Sparkles className="w-5 h-5 text-ds-primary" />
             <h2 className="text-lg font-semibold">{t('AI Suggestions', 'اقتراحات الذكاء الاصطناعي')}</h2>
           </div>
           
           <ul className="space-y-2">
             {suggestions.map((suggestion, index) => (
               <li key={index} className="text-sm text-ds-text-primary bg-ds-background p-3 rounded-lg border border-ds-border flex items-start gap-2">
-                <span className="text-[#FF5701]">•</span>
+                <span className="text-ds-primary">•</span>
                 {suggestion}
               </li>
             ))}

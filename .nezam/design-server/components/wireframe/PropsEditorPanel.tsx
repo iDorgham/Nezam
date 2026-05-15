@@ -12,7 +12,7 @@ interface PropsEditorPanelProps {
 export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpdateProps }: PropsEditorPanelProps) {
   if (!selectedBlock) {
     return (
-      <div className="bg-ds-surface border border-ds-border rounded-lg p-4 text-center py-8 text-[#8a8f98] text-sm">
+      <div className="bg-ds-surface border border-ds-border rounded-lg p-4 text-center py-8 text-ds-text-muted text-sm">
         Select a block to edit its properties.
       </div>
     )
@@ -29,14 +29,14 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
     <div className="bg-ds-surface border border-ds-border rounded-lg p-4 space-y-4">
       <div>
         <h2 className="text-lg font-medium text-[#d0d6e0]">{selectedBlock.name}</h2>
-        <div className="text-xs text-[#8a8f98] font-mono">{selectedBlock.type}</div>
+        <div className="text-xs text-ds-text-muted font-mono">{selectedBlock.type}</div>
       </div>
 
       <div className="space-y-3 pt-2 border-t border-[#ffffff14]">
         {Object.entries(propsSchema).map(([propName, schema]) => {
           return (
             <div key={propName}>
-              <label className="text-xs text-[#8a8f98] uppercase block mb-1">
+              <label className="text-xs text-ds-text-muted uppercase block mb-1">
                 {propName.replace(/_/g, ' ')}
               </label>
               
@@ -86,14 +86,14 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
               )}
 
               {schema.description && (
-                <div className="text-xs text-[#8a8f98] mt-1">{schema.description}</div>
+                <div className="text-xs text-ds-text-muted mt-1">{schema.description}</div>
               )}
             </div>
           )
         })}
 
         {Object.keys(propsSchema).length === 0 && (
-          <div className="text-sm text-[#8a8f98] text-center py-4">
+          <div className="text-sm text-ds-text-muted text-center py-4">
             No configurable properties for this block.
           </div>
         )}

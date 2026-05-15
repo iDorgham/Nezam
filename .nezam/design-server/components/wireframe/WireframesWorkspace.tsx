@@ -51,36 +51,36 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
   ] as const
 
   return (
-    <div className="h-12 border-b border-[#1E2130] bg-[#0D0F18] flex items-center px-4 gap-3 flex-shrink-0">
+    <div className="h-12 border-b border-ds-border bg-ds-surface flex items-center px-4 gap-3 flex-shrink-0">
       {/* Page title */}
-      <div className="flex items-center gap-2 mr-2">
-        <FileText size={14} className="text-[#FF5701]" />
+      <div className="flex items-center gap-2 me-2">
+        <FileText size={14} className="text-ds-primary" />
         <span className="text-sm font-medium text-white">{pageTitle}</span>
         {locked && <Lock size={12} className="text-[#10b981]" />}
       </div>
 
-      <div className="w-px h-5 bg-[#1E2130]" />
+      <div className="w-px h-5 bg-ds-surface-hover" />
 
       {/* Approval progress */}
       {slotCount > 0 && (
         <>
           <div className="flex items-center gap-1.5">
-            <div className="w-20 h-1.5 bg-[#1E2130] rounded-full overflow-hidden">
+            <div className="w-20 h-1.5 bg-ds-surface-hover rounded-full overflow-hidden">
               <div
                 className="h-full bg-[#10b981] rounded-full transition-all"
                 style={{ width: `${(approvedCount / slotCount) * 100}%` }}
               />
             </div>
-            <span className="text-[10px] text-[#6B7280] tabular-nums">
+            <span className="text-[10px] text-ds-text-muted tabular-nums">
               {approvedCount}/{slotCount}
             </span>
           </div>
-          <div className="w-px h-5 bg-[#1E2130]" />
+          <div className="w-px h-5 bg-ds-surface-hover" />
         </>
       )}
 
       {/* Breakpoint */}
-      <div className="flex items-center bg-[#0A0C14] border border-[#1E2130] rounded-lg p-0.5 gap-0.5">
+      <div className="flex items-center bg-ds-surface border border-ds-border rounded-lg p-0.5 gap-0.5">
         {bpOptions.map(({ key, icon: Icon, label }) => (
           <button
             key={key}
@@ -88,8 +88,8 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
             title={label}
             className={`p-1.5 rounded-md transition-colors ${
               breakpoint === key
-                ? 'bg-[#FF5701] text-white'
-                : 'text-[#6B7280] hover:text-white hover:bg-[#1E2130]'
+                ? 'bg-ds-primary text-white'
+                : 'text-ds-text-muted hover:text-white hover:bg-ds-surface-hover'
             }`}
           >
             <Icon size={14} />
@@ -98,7 +98,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
       </div>
 
       {/* View mode */}
-      <div className="flex items-center bg-[#0A0C14] border border-[#1E2130] rounded-lg p-0.5 gap-0.5">
+      <div className="flex items-center bg-ds-surface border border-ds-border rounded-lg p-0.5 gap-0.5">
         {viewOptions.map(({ key, icon: Icon, label }) => (
           <button
             key={key}
@@ -106,8 +106,8 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
             title={label}
             className={`p-1.5 rounded-md transition-colors ${
               viewMode === key
-                ? 'bg-[#1E2130] text-white'
-                : 'text-[#6B7280] hover:text-white'
+                ? 'bg-ds-surface-hover text-white'
+                : 'text-ds-text-muted hover:text-white'
             }`}
           >
             <Icon size={14} />
@@ -122,8 +122,8 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
         onClick={() => setShowTemplates(!showTemplates)}
         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
           showTemplates
-            ? 'bg-[#FF5701]/20 text-[#FF5701]'
-            : 'bg-[#1E2130] text-[#9CA3AF] hover:text-white hover:bg-[#2A2E3F]'
+            ? 'bg-ds-primary/20 text-ds-primary'
+            : 'bg-ds-surface-hover text-ds-text-muted hover:text-white hover:bg-ds-surface-hover'
         }`}
       >
         <LayoutGrid size={13} />
@@ -145,7 +145,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
       {activePageId && slotCount > 0 && (
         <button
           onClick={() => clearPage(activePageId)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#1E2130] text-[#6B7280] hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-ds-surface-hover text-ds-text-muted hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
         >
           <X size={13} />
           Clear
@@ -156,7 +156,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
       <button
         onClick={() => setShowLibrary(!showLibrary)}
         className={`p-1.5 rounded-lg transition-colors ${
-          showLibrary ? 'text-white bg-[#1E2130]' : 'text-[#6B7280] hover:text-white hover:bg-[#1E2130]'
+          showLibrary ? 'text-white bg-ds-surface-hover' : 'text-ds-text-muted hover:text-white hover:bg-ds-surface-hover'
         }`}
         title="Toggle block library"
       >
@@ -175,19 +175,19 @@ function NoPageSelected() {
   const quickStartPages = sitemap.slice(0, 6)
 
   return (
-    <div className="flex-1 flex items-center justify-center bg-[#090A0F]">
+    <div className="flex-1 flex items-center justify-center bg-ds-surface">
       <div className="text-center max-w-md px-6">
-        <div className="w-16 h-16 rounded-2xl bg-[#0D0F18] border border-[#1E2130] flex items-center justify-center mx-auto mb-4">
-          <Layers size={28} className="text-[#FF5701]" />
+        <div className="w-16 h-16 rounded-2xl bg-ds-surface border border-ds-border flex items-center justify-center mx-auto mb-4">
+          <Layers size={28} className="text-ds-primary" />
         </div>
         <h2 className="text-xl font-semibold text-white mb-2">Wireframe Builder</h2>
-        <p className="text-sm text-[#6B7280] mb-6 leading-relaxed">
-          Select a page from the <strong className="text-[#9CA3AF]">Pages</strong> tab in the right panel to start building your wireframe.
+        <p className="text-sm text-ds-text-muted mb-6 leading-relaxed">
+          Select a page from the <strong className="text-ds-text-muted">Pages</strong> tab in the right panel to start building your wireframe.
           Each page holds an ordered sequence of blocks with SVG previews.
         </p>
 
         {quickStartPages.length > 0 && (
-          <div className="grid grid-cols-2 gap-2 text-left">
+          <div className="grid grid-cols-2 gap-2 text-start">
             {quickStartPages.map(page => (
               <button
                 key={page.id}
@@ -195,12 +195,12 @@ function NoPageSelected() {
                   initPage(page.id, page.title)
                   setActivePage(page.id)
                 }}
-                className="p-3 bg-[#0D0F18] border border-[#1E2130] rounded-xl hover:border-[#FF5701]/50 transition-colors text-left group"
+                className="p-3 bg-ds-surface border border-ds-border rounded-xl hover:border-ds-primary/50 transition-colors text-start group"
               >
-                <div className="text-sm font-medium text-white group-hover:text-[#FF5701] transition-colors">
+                <div className="text-sm font-medium text-white group-hover:text-ds-primary transition-colors">
                   {page.title}
                 </div>
-                <div className="text-[10px] text-[#6B7280] mt-0.5 uppercase">{page.type}</div>
+                <div className="text-[10px] text-ds-text-muted mt-0.5 uppercase">{page.type}</div>
               </button>
             ))}
           </div>
@@ -235,7 +235,7 @@ export default function WireframesWorkspace() {
   const activePage = activePageId ? pages[activePageId] : null
 
   return (
-    <div className="flex h-full w-full overflow-hidden bg-[#090A0F]">
+    <div className="flex h-full w-full overflow-hidden bg-ds-surface">
       {/* Full-width editor area (pages list moved to right inspector "Pages" tab) */}
       <div className="flex-1 flex flex-col overflow-hidden relative">
         {activePage ? (

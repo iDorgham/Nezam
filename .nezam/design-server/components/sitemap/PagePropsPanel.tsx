@@ -24,7 +24,7 @@ export default function PagePropsPanel() {
 
   if (!selectedPage) {
     return (
-      <div className="text-sm text-[#8a8f98] text-center py-8">
+      <div className="text-sm text-ds-text-muted text-center py-8">
         Select a page to edit properties
       </div>
     )
@@ -40,7 +40,7 @@ export default function PagePropsPanel() {
   return (
     <div className="space-y-5">
       <div>
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-1.5">Title</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-1.5">Title</label>
         <input
           type="text"
           name="title"
@@ -51,7 +51,7 @@ export default function PagePropsPanel() {
       </div>
       
       <div>
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-1.5">Route</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-1.5">Route</label>
         <input
           type="text"
           name="route"
@@ -62,7 +62,7 @@ export default function PagePropsPanel() {
       </div>
       
       <div>
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-1.5">Type</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-1.5">Type</label>
         <select
           name="type"
           value={selectedPage.type}
@@ -78,7 +78,7 @@ export default function PagePropsPanel() {
       </div>
 
       <div>
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-1.5">Parent Page</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-1.5">Parent Page</label>
         <select
           name="parentId"
           value={selectedPage.parentId || ''}
@@ -97,7 +97,7 @@ export default function PagePropsPanel() {
       </div>
 
       <div>
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-1.5">Nav Label</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-1.5">Nav Label</label>
         <input
           type="text"
           name="navLabel"
@@ -109,10 +109,10 @@ export default function PagePropsPanel() {
       </div>
 
       <div>
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-1.5">Icon</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-1.5">Icon</label>
         <div className="flex items-center space-x-3 mb-3">
           <div className="w-10 h-10 bg-white/[0.03] border border-white/[0.08] rounded-xl flex items-center justify-center text-white shadow-inner">
-            {CurrentIcon ? <CurrentIcon size={20} /> : <Icons.FileText size={20} className="text-[#8a8f98]" />}
+            {CurrentIcon ? <CurrentIcon size={20} /> : <Icons.FileText size={20} className="text-ds-text-muted" />}
           </div>
           <span className="text-sm font-medium text-white">{selectedPage.navIcon || 'Default'}</span>
         </div>
@@ -135,7 +135,7 @@ export default function PagePropsPanel() {
       </div>
       
       <div className="pt-4 border-t border-white/[0.05]">
-        <label className="text-xs text-[#8a8f98] uppercase font-medium tracking-wider block mb-3">Wiring (Links to)</label>
+        <label className="text-xs text-ds-text-muted uppercase font-medium tracking-wider block mb-3">Wiring (Links to)</label>
         <div className="space-y-2 max-h-40 overflow-auto bg-white/[0.01] border border-white/[0.05] rounded-xl p-3 shadow-inner">
           {sitemap.filter(p => p.id !== selectedPage.id).map((page) => (
             <div key={page.id} className="flex items-center space-x-3 hover:bg-white/[0.02] p-1.5 rounded-lg transition-colors">
@@ -154,12 +154,12 @@ export default function PagePropsPanel() {
               />
               <label htmlFor={`link-${page.id}`} className="text-sm text-[#d0d6e0] cursor-pointer">
                 <span className="font-medium text-white">{page.title || 'Untitled'}</span>
-                <span className="text-xs text-[#8a8f98] font-mono ml-1.5">({page.route})</span>
+                <span className="text-xs text-ds-text-muted font-mono ms-1.5">({page.route})</span>
               </label>
             </div>
           ))}
           {sitemap.length <= 1 && (
-            <div className="text-xs text-[#8a8f98] text-center py-2">
+            <div className="text-xs text-ds-text-muted text-center py-2">
               No other pages to link to.
             </div>
           )}

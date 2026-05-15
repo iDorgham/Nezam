@@ -17,7 +17,7 @@ export default function TerminalFrame({ children, title = 'bash' }: TerminalFram
           <div className="w-3 h-3 bg-[#ffbd2e] rounded-full"></div>
           <div className="w-3 h-3 bg-[#27c93f] rounded-full"></div>
         </div>
-        <div className="text-xs text-[#8a8f98] font-mono">{title}</div>
+        <div className="text-xs text-ds-text-muted font-mono">{title}</div>
         <div className="w-12"></div> {/* Spacer to center title */}
       </div>
       

@@ -64,7 +64,7 @@ export default function ProfileEditorPage() {
     <div className="p-8 max-w-4xl mx-auto space-y-6 text-ds-text-primary">
       <div>
         <h1 className="text-2xl font-semibold">{t('Profile Editor', 'محرر الملفات الشخصية')}</h1>
-        <p className="text-sm text-[#8a8f98]">{t('Clone an existing profile to customize and export.', 'انسخ ملف موجود عشان تخصصه وتصدره.')}</p>
+        <p className="text-sm text-ds-text-muted">{t('Clone an existing profile to customize and export.', 'انسخ ملف موجود عشان تخصصه وتصدره.')}</p>
       </div>
       
       <div className="bg-ds-surface border border-ds-border rounded-xl p-6 space-y-6">
@@ -74,7 +74,7 @@ export default function ProfileEditorPage() {
           <select
             value={selectedProfile}
             onChange={(e) => handleClone(e.target.value)}
-            className="w-full bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-[#FF5701]/50"
+            className="w-full bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
           >
             <option value="">{t('Select a profile to clone...', 'اختر ملف للنسخ...')}</option>
             {profiles.map((p) => (
@@ -98,7 +98,7 @@ export default function ProfileEditorPage() {
                 type="text"
                 value={primaryColor}
                 onChange={(e) => setPrimaryColor(e.target.value)}
-                className="flex-1 bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-[#FF5701]/50"
+                className="flex-1 bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
               />
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function ProfileEditorPage() {
                 type="text"
                 value={surfaceColor}
                 onChange={(e) => setSurfaceColor(e.target.value)}
-                className="flex-1 bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-[#FF5701]/50"
+                className="flex-1 bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-sm text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
               />
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function ProfileEditorPage() {
             <h3 className="text-lg font-semibold mb-2 transition-colors" style={{ color: primaryColor }}>
               {t('Sample Header', 'عنوان عينة')}
             </h3>
-            <p className="text-sm text-[#8a8f98] mb-4">
+            <p className="text-sm text-ds-text-muted mb-4">
               {t('This is a preview of how your profile style will look on components.', 'دي معاينة لشكل ملف التصميم بتاعك على العناصر.')}
             </p>
             <button 
@@ -149,7 +149,7 @@ export default function ProfileEditorPage() {
         <div className="flex justify-end mt-6">
           <button
             onClick={handleExport}
-            className="px-4 py-2 bg-[#FF5701] text-white rounded-lg hover:bg-[#e04e00] text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-ds-primary text-white rounded-lg hover:bg-ds-primary/90 text-sm font-medium transition-colors"
           >
             {t('Save & Export', 'حفظ وتصدير')}
           </button>

@@ -199,7 +199,7 @@ function SlotCard({ slot, pageId, isSelected, onSelect, breakpoint, showLabels }
     >
       {/* Width indicator */}
       <div
-        className="absolute top-0 left-0 h-0.5 bg-ds-primary/30 rounded-t-lg transition-all"
+        className="absolute top-0 start-0 h-0.5 bg-ds-primary/30 rounded-t-lg transition-all"
         style={{ width: `${colWidthPercent}%` }}
       />
 
@@ -243,7 +243,7 @@ function SlotCard({ slot, pageId, isSelected, onSelect, breakpoint, showLabels }
         <div className="text-[9px] text-ds-text-muted shrink-0 font-mono">
           {effectiveColSpan}<span className="opacity-50">/12</span>
           {effectiveDisplay === 'hidden' && (
-            <span className="ml-1 text-amber-500">hidden</span>
+            <span className="ms-1 text-amber-500">hidden</span>
           )}
         </div>
 

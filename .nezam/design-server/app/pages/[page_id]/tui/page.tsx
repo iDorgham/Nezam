@@ -23,7 +23,7 @@ export default function TUIPage({ params }: { params: Promise<{ page_id: string 
   return (
     <div className="p-8 max-w-4xl mx-auto space-y-6">
       <h1 className="text-2xl font-semibold">TUI Preview</h1>
-      <p className="text-sm text-[#8a8f98]">This is the terminal representation of the page.</p>
+      <p className="text-sm text-ds-text-muted">This is the terminal representation of the page.</p>
       
       <TerminalFrame title={`tui-preview — ${page_id}`}>
         <pre className="whitespace-pre">{tuiText}</pre>

@@ -73,18 +73,18 @@ export default function BlockSlot({
       style={style}
       className={`rounded-xl overflow-hidden border transition-all ${
         isSelected
-          ? 'border-[#FF5701] shadow-[0_0_0_1px_rgba(255,87,1,0.1)]'
-          : 'border-[#1E2130] hover:border-[#2A2E3F]'
-      } ${isDragging ? 'z-50 shadow-xl' : ''} bg-[#0D0F18] group`}
+          ? 'border-ds-primary shadow-[0_0_0_1px_rgba(255,87,1,0.1)]'
+          : 'border-ds-border hover:border-ds-border'
+      } ${isDragging ? 'z-50 shadow-xl' : ''} bg-ds-surface group`}
       onClick={onSelect}
     >
       {/* Header bar */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-[#080A12] border-b border-[#1E2130]">
+      <div className="flex items-center gap-2 px-3 py-2 bg-[#080A12] border-b border-ds-border">
         {/* Drag handle */}
         <div
           {...attributes}
           {...listeners}
-          className="cursor-grab active:cursor-grabbing text-[#2A2E3F] hover:text-[#6B7280] transition-colors"
+          className="cursor-grab active:cursor-grabbing text-[#2A2E3F] hover:text-ds-text-muted transition-colors"
           onClick={e => e.stopPropagation()}
         >
           <GripVertical size={14} />
@@ -92,11 +92,11 @@ export default function BlockSlot({
 
         {/* Name + type */}
         <div className="flex-1 min-w-0">
-          <div className="text-xs font-medium text-[#9CA3AF] truncate group-hover:text-white transition-colors">
+          <div className="text-xs font-medium text-ds-text-muted truncate group-hover:text-white transition-colors">
             {name}
           </div>
           {block && (
-            <div className="text-[9px] text-[#3A3E4F] uppercase tracking-wider">{block.category}</div>
+            <div className="text-[9px] text-ds-text-muted uppercase tracking-wider">{block.category}</div>
           )}
         </div>
 
@@ -106,7 +106,7 @@ export default function BlockSlot({
             value={activeVariantId}
             onChange={e => { e.stopPropagation(); onVariantChange(e.target.value) }}
             onClick={e => e.stopPropagation()}
-            className="bg-[#0D0F18] border border-[#1E2130] rounded text-[10px] text-[#6B7280] px-1.5 py-0.5 focus:outline-none focus:border-[#FF5701]/50 max-w-[90px] cursor-pointer"
+            className="bg-ds-surface border border-ds-border rounded text-[10px] text-ds-text-muted px-1.5 py-0.5 focus:outline-none focus:border-ds-primary/50 max-w-[90px] cursor-pointer"
           >
             {block.variants.map(v => (
               <option key={v.id} value={v.id}>{v.label}</option>
@@ -122,7 +122,7 @@ export default function BlockSlot({
             className={`p-1.5 rounded-md transition-colors ${
               isApproved
                 ? 'text-[#10b981] bg-[#10b981]/10'
-                : 'text-[#3A3E4F] hover:text-[#10b981] hover:bg-[#10b981]/10'
+                : 'text-ds-text-muted hover:text-[#10b981] hover:bg-[#10b981]/10'
             }`}
           >
             <Check size={12} />
@@ -131,7 +131,7 @@ export default function BlockSlot({
             <button
               onClick={e => { e.stopPropagation(); onDuplicate() }}
               title="Duplicate"
-              className="p-1.5 rounded-md text-[#3A3E4F] hover:text-[#9CA3AF] hover:bg-[#1E2130] transition-colors"
+              className="p-1.5 rounded-md text-ds-text-muted hover:text-ds-text-muted hover:bg-ds-surface-hover transition-colors"
             >
               <Copy size={12} />
             </button>
@@ -139,14 +139,14 @@ export default function BlockSlot({
           <button
             onClick={e => { e.stopPropagation(); setExpanded(p => !p) }}
             title={expanded ? 'Collapse' : 'Expand'}
-            className="p-1.5 rounded-md text-[#3A3E4F] hover:text-[#9CA3AF] hover:bg-[#1E2130] transition-colors"
+            className="p-1.5 rounded-md text-ds-text-muted hover:text-ds-text-muted hover:bg-ds-surface-hover transition-colors"
           >
             {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
           </button>
           <button
             onClick={e => { e.stopPropagation(); onDelete() }}
             title="Delete"
-            className="p-1.5 rounded-md text-[#3A3E4F] hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
+            className="p-1.5 rounded-md text-ds-text-muted hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
           >
             <Trash2 size={12} />
           </button>

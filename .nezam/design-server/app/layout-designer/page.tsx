@@ -121,12 +121,12 @@ function Toolbar() {
           <ChevronDown className="w-3 h-3 text-ds-text-muted" />
         </button>
         {pages.length > 0 && (
-          <div className="absolute top-full left-0 mt-1 z-50 w-48 bg-ds-surface border border-ds-border rounded-lg shadow-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+          <div className="absolute top-full start-0 mt-1 z-50 w-48 bg-ds-surface border border-ds-border rounded-lg shadow-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
             {pages.map(p => (
               <button
                 key={p.pageId}
                 onClick={() => setActivePage(p.pageId)}
-                className={`w-full text-left px-3 py-2 text-[11px] hover:bg-white/[0.05] transition-colors flex items-center justify-between ${
+                className={`w-full text-start px-3 py-2 text-[11px] hover:bg-white/[0.05] transition-colors flex items-center justify-between ${
                   p.pageId === activePageId ? 'text-ds-primary' : 'text-ds-text-primary'
                 }`}
               >
@@ -155,7 +155,7 @@ function Toolbar() {
             title={`${bp.id} — ${bp.label}`}
             className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] transition-colors ${
               activeBreakpoint === bp.id
-                ? 'bg-ds-primary text-white'
+                ? 'bg-ds-primary text-ds-text-primary'
                 : 'text-ds-text-muted hover:text-ds-text-primary'
             }`}
           >
@@ -248,10 +248,10 @@ function Toolbar() {
         disabled={exportStatus === 'saving'}
         className={`flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-medium transition-colors ${
           exportStatus === 'done'
-            ? 'bg-green-600 text-white'
+            ? 'bg-green-600 text-ds-text-primary'
             : exportStatus === 'saving'
-            ? 'bg-ds-primary/50 text-white'
-            : 'bg-ds-primary text-white hover:opacity-90'
+            ? 'bg-ds-primary/50 text-ds-text-primary'
+            : 'bg-ds-primary text-ds-text-primary hover:opacity-90'
         }`}
       >
         <Download className="w-3 h-3" />

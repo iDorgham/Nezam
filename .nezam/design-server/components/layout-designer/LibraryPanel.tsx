@@ -44,7 +44,7 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
   }
 
   return (
-    <div className="flex flex-col h-full bg-ds-surface border-r border-ds-border select-none">
+    <div className="flex flex-col h-full bg-ds-surface border-e border-ds-border select-none">
       {/* Header */}
       <div className="px-3 pt-3 pb-2 border-b border-ds-border">
         <div className="text-[11px] font-semibold text-ds-text-muted uppercase tracking-wider mb-2">
@@ -52,13 +52,13 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
         </div>
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted w-3 h-3" />
+          <Search className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted w-3 h-3" />
           <input
             type="text"
             placeholder="Search..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-black/20 border border-ds-border rounded pl-7 pr-2 py-1.5 text-[11px] text-ds-text-primary placeholder:text-ds-text-muted focus:outline-none focus:border-ds-primary/60"
+            className="w-full bg-black/20 border border-ds-border rounded ps-7 pe-2 py-1.5 text-[11px] text-ds-text-primary placeholder:text-ds-text-muted focus:outline-none focus:border-ds-primary/60"
           />
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function LibraryPanel({ onAddBlock }: LibraryPanelProps) {
                       onClick={(e) => { e.stopPropagation(); onAddBlock(block.id, variant.id) }}
                       className="w-full flex items-center justify-between px-2 py-1.5 rounded bg-black/20 hover:bg-ds-primary/10 border border-transparent hover:border-ds-primary/30 transition-colors group"
                     >
-                      <div className="text-left">
+                      <div className="text-start">
                         <div className="text-[10px] font-medium text-ds-text-primary group-hover:text-ds-primary transition-colors">
                           {variant.label}
                         </div>

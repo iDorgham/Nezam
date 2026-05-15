@@ -42,17 +42,17 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
   }, [])
 
   return (
-    <div className="bg-[#0A0C14] border border-[#1E2130] rounded-lg flex flex-col h-full">
-      <div className="px-4 py-3 border-b border-[#1E2130]">
-        <h2 className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider mb-2">Block Library</h2>
+    <div className="bg-ds-surface border border-ds-border rounded-lg flex flex-col h-full">
+      <div className="px-4 py-3 border-b border-ds-border">
+        <h2 className="text-xs font-semibold text-ds-text-muted uppercase tracking-wider mb-2">Block Library</h2>
         <div className="relative">
-          <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#3A3E4F]" />
+          <Search size={12} className="absolute start-2.5 top-1/2 -translate-y-1/2 text-ds-text-muted" />
           <input
             type="text"
             placeholder="Search blocks…"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full bg-[#0D0F18] border border-[#1E2130] rounded-lg pl-7 pr-3 py-1.5 text-xs text-white placeholder-[#3A3E4F] focus:outline-none focus:border-[#FF5701]/50"
+            className="w-full bg-ds-surface border border-ds-border rounded-lg ps-7 pe-3 py-1.5 text-xs text-ds-text-primary placeholder-[#3A3E4F] focus:outline-none focus:border-ds-primary/50"
           />
         </div>
       </div>
@@ -67,18 +67,18 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
                 <button
                   key={block.id}
                   onClick={() => onAddBlock(block.id, block.name)}
-                  className="w-full rounded-lg overflow-hidden border border-[#1E2130] hover:border-[#FF5701]/50 transition-all group bg-[#0D0F18]"
+                  className="w-full rounded-lg overflow-hidden border border-ds-border hover:border-ds-primary/50 transition-all group bg-ds-surface"
                 >
                   <div className="h-12 overflow-hidden" dangerouslySetInnerHTML={{ __html: preview }} />
                   <div className="px-2 py-1 flex items-center justify-between">
-                    <span className="text-[11px] text-[#9CA3AF] group-hover:text-white transition-colors truncate">{block.name}</span>
-                    <Plus size={11} className="text-[#FF5701] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="text-[11px] text-ds-text-muted group-hover:text-ds-text-primary transition-colors truncate">{block.name}</span>
+                    <Plus size={11} className="text-ds-primary flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </button>
               )
             })}
             {results.length === 0 && (
-              <div className="text-center py-8 text-[10px] text-[#3A3E4F]">No blocks found.</div>
+              <div className="text-center py-8 text-[10px] text-ds-text-muted">No blocks found.</div>
             )}
           </div>
         ) : (
@@ -90,11 +90,11 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
               <div key={cat.id} className="mb-1">
                 <button
                   onClick={() => toggleCategory(cat.id)}
-                  className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-[#6B7280] hover:text-[#9CA3AF] uppercase tracking-wider transition-colors"
+                  className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-semibold text-ds-text-muted hover:text-ds-text-muted uppercase tracking-wider transition-colors"
                 >
                   {isOpen ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
-                  <span className="flex-1 text-left">{cat.label}</span>
-                  <span className="text-[9px] text-[#3A3E4F]">{catBlocks.length}</span>
+                  <span className="flex-1 text-start">{cat.label}</span>
+                  <span className="text-[9px] text-ds-text-muted">{catBlocks.length}</span>
                 </button>
                 {isOpen && (
                   <div className="px-2 space-y-1 pb-1">
@@ -104,14 +104,14 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
                         <button
                           key={block.id}
                           onClick={() => onAddBlock(block.id, block.name)}
-                          className="w-full rounded-lg overflow-hidden border border-[#1E2130] hover:border-[#FF5701]/50 transition-all group bg-[#0D0F18] text-left"
+                          className="w-full rounded-lg overflow-hidden border border-ds-border hover:border-ds-primary/50 transition-all group bg-ds-surface text-start"
                         >
                           <div className="h-10 overflow-hidden" dangerouslySetInnerHTML={{ __html: preview }} />
                           <div className="px-2 py-1 flex items-center justify-between">
-                            <span className="text-[11px] text-[#9CA3AF] group-hover:text-white transition-colors truncate">
+                            <span className="text-[11px] text-ds-text-muted group-hover:text-ds-text-primary transition-colors truncate">
                               {block.name}
                             </span>
-                            <Plus size={10} className="text-[#FF5701] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <Plus size={10} className="text-ds-primary flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
                           </div>
                         </button>
                       )
@@ -124,7 +124,7 @@ export default function BlockLibraryPanel({ onAddBlock }: BlockLibraryPanelProps
         )}
       </div>
 
-      <div className="px-3 py-2 border-t border-[#1E2130] text-[9px] text-[#3A3E4F] text-center">
+      <div className="px-3 py-2 border-t border-ds-border text-[9px] text-ds-text-muted text-center">
         {WIREFRAME_LIBRARY.length} blocks · {WIREFRAME_CATEGORIES.length} categories
       </div>
     </div>

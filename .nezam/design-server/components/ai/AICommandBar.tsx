@@ -45,16 +45,16 @@ export default function AICommandBar({ onBlocksGenerated }: AICommandBarProps) {
         placeholder="Ask Gemini to generate blocks... (e.g., 'Add a pricing section')"
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
-        className="w-full bg-ds-surface border border-ds-border rounded-lg pl-10 pr-12 py-3 text-ds-text-primary focus:border-[#FF5701] focus:outline-none focus:ring-1 focus:ring-[#FF5701] transition-all"
+        className="w-full bg-ds-surface border border-ds-border rounded-lg ps-10 pe-12 py-3 text-ds-text-primary focus:border-ds-primary focus:outline-none focus:ring-1 focus:ring-[#FF5701] transition-all"
         disabled={isLoading}
       />
-      <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#8a8f98]">
+      <div className="absolute start-3 top-1/2 transform -translate-y-1/2 text-ds-text-muted">
         <Sparkles size={18} />
       </div>
       <button
         type="submit"
         disabled={isLoading || !prompt.trim()}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 py-1 bg-[#5e6ad2] text-white rounded text-sm hover:bg-[#7170ff] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="absolute end-2 top-1/2 transform -translate-y-1/2 px-3 py-1 bg-[#5e6ad2] text-white rounded text-sm hover:bg-[#7170ff] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? (
           <Loader2 size={16} className="animate-spin" />

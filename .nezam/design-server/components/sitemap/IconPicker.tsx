@@ -47,7 +47,7 @@ export default function IconPicker({ currentIcon, onSelect }: IconPickerProps) {
               key={iconName}
               onClick={() => onSelect(iconName)}
               className={`p-2 rounded flex items-center justify-center hover:bg-[#ffffff0a] transition-colors ${
-                currentIcon === iconName ? 'bg-[#5e6ad2] text-white' : 'text-[#8a8f98]'
+                currentIcon === iconName ? 'bg-[#5e6ad2] text-white' : 'text-ds-text-muted'
               }`}
               title={iconName}
             >

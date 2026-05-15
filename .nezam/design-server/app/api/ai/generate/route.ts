@@ -39,7 +39,7 @@ You must respond ONLY with a valid JSON array. Do not include markdown formattin
     
     // Extract JSON array from content if it's wrapped in markdown
     let jsonString = content
-    const match = content.match(/\[.*\]/s)
+    const match = content.match(/\[[\s\S]*\]/)
     if (match) {
       jsonString = match[0]
     }

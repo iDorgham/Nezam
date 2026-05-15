@@ -22,7 +22,7 @@ export default function LockingModal({ onConfirm, onCancel }: LockingModalProps)
       <div className="bg-[#0f1011] border border-[#ffffff14] rounded-lg max-w-md w-full p-6 space-y-6">
         <div className="space-y-2">
           <h2 className="text-xl font-semibold text-white">Lock & Export Design</h2>
-          <p className="text-sm text-[#8a8f98]">
+          <p className="text-sm text-ds-text-muted">
             This will generate `DESIGN.md` and lock your wireframes. This action is final and will commit the changes to Git.
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function LockingModal({ onConfirm, onCancel }: LockingModalProps)
         <div className="flex justify-end space-x-2">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-sm text-[#8a8f98] hover:text-white transition-colors"
+            className="px-4 py-2 text-sm text-ds-text-muted hover:text-white transition-colors"
           >
             Cancel
           </button>
@@ -43,7 +43,7 @@ export default function LockingModal({ onConfirm, onCancel }: LockingModalProps)
             disabled={countdown > 0}
             className={`px-4 py-2 text-sm rounded font-medium transition-colors ${
               countdown > 0
-                ? 'bg-[#191a1b] text-[#8a8f98] cursor-not-allowed'
+                ? 'bg-[#191a1b] text-ds-text-muted cursor-not-allowed'
                 : 'bg-[#dc2626] text-white hover:bg-[#b91c1c]'
             }`}
           >

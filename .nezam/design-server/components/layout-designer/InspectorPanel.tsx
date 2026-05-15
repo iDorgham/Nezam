@@ -337,7 +337,7 @@ export default function InspectorPanel() {
   const selectedSlot = page?.slots.find(s => s.id === selectedSlotId) ?? null
 
   return (
-    <div className="flex flex-col h-full bg-ds-surface border-l border-ds-border">
+    <div className="flex flex-col h-full bg-ds-surface border-s border-ds-border">
       {/* Header */}
       <div className="px-3 pt-3 pb-2 border-b border-ds-border shrink-0">
         <div className="flex items-center gap-2">

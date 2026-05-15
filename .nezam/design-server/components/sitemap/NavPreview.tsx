@@ -12,12 +12,12 @@ export default function NavPreview() {
 
   return (
     <div className="bg-ds-surface border border-ds-border rounded-xl p-4">
-      <h2 className="text-sm font-medium text-[#8a8f98] uppercase mb-4">{t('Navigation Preview', 'معاينة المنيو')}</h2>
+      <h2 className="text-sm font-medium text-ds-text-muted uppercase mb-4">{t('Navigation Preview', 'معاينة المنيو')}</h2>
       
       <div className="border border-ds-border rounded-lg overflow-hidden bg-ds-background flex">
         {/* Mini Sidebar */}
-        <div className="w-16 border-r border-ds-border p-2 flex flex-col items-center space-y-4 bg-ds-surface">
-          <div className="w-8 h-8 bg-[#FF5701] rounded-md flex items-center justify-center font-bold text-white text-xs">N</div>
+        <div className="w-16 border-e border-ds-border p-2 flex flex-col items-center space-y-4 bg-ds-surface">
+          <div className="w-8 h-8 bg-ds-primary rounded-md flex items-center justify-center font-bold text-white text-xs">N</div>
           <div className="w-8 h-8 bg-ds-border rounded-md"></div>
           <div className="w-8 h-8 bg-ds-border rounded-md"></div>
         </div>
@@ -30,11 +30,11 @@ export default function NavPreview() {
           </div>
           
           <div className="flex-1 p-3">
-            <div className="text-xs text-[#8a8f98] mb-2">{t('Main Navigation Links:', 'روابط المنيو الرئيسية:')}</div>
+            <div className="text-xs text-ds-text-muted mb-2">{t('Main Navigation Links:', 'روابط المنيو الرئيسية:')}</div>
             <ul className="space-y-1">
               {navItems.map((item) => (
                 <li key={item.id} className={`flex items-center space-x-2 text-xs text-ds-text-primary p-1.5 hover:bg-ds-background rounded ${lang === 'ar' ? 'space-x-reverse' : ''}`}>
-                  <FileText size={12} className="text-[#8a8f98]" />
+                  <FileText size={12} className="text-ds-text-muted" />
                   <span>{item.navLabel || item.title}</span>
                 </li>
               ))}

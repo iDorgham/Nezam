@@ -42,7 +42,7 @@ export default function TokenStudio() {
           <h2 className="text-lg font-medium text-ds-text-primary mb-4">{t('Typography', 'الطباعة')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-[#8a8f98] uppercase block mb-1">{t('Base Size (px)', 'الحجم الأساسي (بكسل)')}</label>
+              <label className="text-xs text-ds-text-muted uppercase block mb-1">{t('Base Size (px)', 'الحجم الأساسي (بكسل)')}</label>
               <input
                 type="number"
                 value={tokens.typography.baseSize}
@@ -51,7 +51,7 @@ export default function TokenStudio() {
               />
             </div>
             <div>
-              <label className="text-xs text-[#8a8f98] uppercase block mb-1">{t('Scale Ratio', 'نسبة القياس')}</label>
+              <label className="text-xs text-ds-text-muted uppercase block mb-1">{t('Scale Ratio', 'نسبة القياس')}</label>
               <input
                 type="number"
                 step="0.05"
@@ -73,7 +73,7 @@ export default function TokenStudio() {
         <h2 className="text-lg font-medium text-ds-text-primary mb-4">{t('Real-Time Preview', 'معاينة في الوقت الحقيقي')}</h2>
         <LivePreviewCard />
         
-        <div className="text-xs text-[#8a8f98] bg-ds-surface border border-ds-border rounded p-4">
+        <div className="text-xs text-ds-text-muted bg-ds-surface border border-ds-border rounded p-4">
           {t('Changing tokens updates CSS custom properties on `:root` instantly without React re-renders.', 'يؤدي تغيير الرموز إلى تحديث خصائص CSS المخصصة على `:root` فورًا دون إعادة عرض React.')}
         </div>
       </div>

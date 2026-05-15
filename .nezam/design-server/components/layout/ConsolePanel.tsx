@@ -9,25 +9,25 @@ export default function ConsolePanel() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className={`fixed bottom-0 left-56 right-0 bg-[#000000] border-t border-[#ffffff14] transition-all z-50 ${isOpen ? 'h-64' : 'h-10'}`}>
+    <div className={`fixed bottom-0 start-56 end-0 bg-[#000000] border-t border-[#ffffff14] transition-all z-50 ${isOpen ? 'h-64' : 'h-10'}`}>
       {/* Header */}
       <div 
         className="h-10 px-4 flex items-center justify-between cursor-pointer hover:bg-[#ffffff05]"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-2 text-xs font-medium text-white">
-          <Terminal className="w-4 h-4 text-[#FF5701]" />
+          <Terminal className="w-4 h-4 text-ds-primary" />
           <span>Console</span>
-          <span className="text-[#8a8f98]">({logs.length})</span>
+          <span className="text-ds-text-muted">({logs.length})</span>
         </div>
         <div className="flex items-center gap-2">
-          {isOpen ? <ChevronDown className="w-4 h-4 text-[#8a8f98]" /> : <ChevronUp className="w-4 h-4 text-[#8a8f98]" />}
+          {isOpen ? <ChevronDown className="w-4 h-4 text-ds-text-muted" /> : <ChevronUp className="w-4 h-4 text-ds-text-muted" />}
         </div>
       </div>
 
       {/* Content */}
       {isOpen && (
-        <div className="p-4 h-[calc(100%-40px)] overflow-auto font-mono text-xs text-[#8a8f98] space-y-1">
+        <div className="p-4 h-[calc(100%-40px)] overflow-auto font-mono text-xs text-ds-text-muted space-y-1">
           {logs.length === 0 ? (
             <div className="text-[#ffffff50]">No logs yet. Execute an action to see CLI output.</div>
           ) : (

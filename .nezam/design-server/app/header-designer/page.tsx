@@ -1,14 +1,11 @@
 import React from 'react'
-import { getAllBlocks } from '@/lib/blocks/registry'
 import WireframeEditor from '@/components/wireframe/WireframeEditor'
 
 export default function HeaderDesignerPage() {
-  const availableBlocks = getAllBlocks()
-
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-ds-text-primary mb-4">Header Designer</h1>
-      <WireframeEditor pageId="__header__" availableBlocks={availableBlocks} />
+      <WireframeEditor pageId="__header__" />
     </div>
   )
 }

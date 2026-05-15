@@ -28,7 +28,7 @@ function TabFallback() {
   )
 }
 
-const TAB_MAP: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
+const TAB_MAP: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
   sitemap:         SitemapPage,
   menus:           MenusWorkspace,
   canvas:          CanvasWorkspace,

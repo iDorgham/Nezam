@@ -58,6 +58,7 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
     duplicateSlot,
     updateSlotVariant,
     reorderSlots,
+    updateSlotNotes,
   } = useWireframeStore()
 
   const block = getBlockById(slot.blockId)

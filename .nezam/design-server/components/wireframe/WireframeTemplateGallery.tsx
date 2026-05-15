@@ -181,21 +181,21 @@ export default function WireframeTemplateGallery({ pageId, pageTitle, onApply, o
           All ({PAGE_TEMPLATES.length})
         </button>
         {TEMPLATE_CATEGORIES.map(cat => {
-          const count = PAGE_TEMPLATES.filter(t => t.category === cat).length
-          const color = CAT_COLORS[cat] ?? '#6B7280'
+          const count = PAGE_TEMPLATES.filter(t => t.category === cat.id).length
+          const color = CAT_COLORS[cat.id] ?? '#6B7280'
           return (
             <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
               className={`px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 ${
-                activeCategory === cat
+                activeCategory === cat.id
                   ? 'text-white'
                   : 'bg-ds-surface-hover text-ds-text-muted hover:text-white hover:bg-ds-surface-hover'
               }`}
-              style={activeCategory === cat ? { backgroundColor: color } : {}}
+              style={activeCategory === cat.id ? { backgroundColor: color } : {}}
             >
-              {CAT_LABELS[cat]}
-              <span className={`text-[9px] ${activeCategory === cat ? 'text-white/70' : 'text-ds-text-muted'}`}>
+              {cat.label}
+              <span className={`text-[9px] ${activeCategory === cat.id ? 'text-white/70' : 'text-ds-text-muted'}`}>
                 {count}
               </span>
             </button>

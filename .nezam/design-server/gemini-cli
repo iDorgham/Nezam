@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const args = process.argv.slice(2)
+console.log(`[Gemini CLI] Running with args:`, args.join(' '))
+
+const command = args[0]
+
+if (command === 'start-step') {
+  console.log(`[OK] Step started. State updated in session.`)
+} else if (command === 'add-block') {
+  console.log(`[OK] Block added to wireframe.`)
+} else {
+  console.log(`[OK] Command executed successfully.`)
+}

@@ -1,0 +1,23 @@
+# Next.js
+.next/
+out/
+
+# Session state (local only — never commit)
+.session/
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# Env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# System
+.DS_Store
+*.log

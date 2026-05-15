@@ -1,0 +1,71 @@
+{
+  "$schemaVersion": "1.0.0",
+  "description": "Default block registry for NEZAM Wireframe Server",
+  "canvas_modes": ["web", "saas", "mobile"],
+  "blocks": {
+    "navigation": [
+      {
+        "type": "Nav_TopBar",
+        "name": "Top Navigation Bar",
+        "canvas_modes": ["web", "saas"],
+        "description": "Standard top navigation bar",
+        "props": {
+          "logo": { "type": "string", "default": "Logo" },
+          "links": { "type": "array", "default": ["Home", "About", "Contact"] }
+        }
+      },
+      {
+        "type": "Nav_Sidebar",
+        "name": "Sidebar Navigation",
+        "canvas_modes": ["saas"],
+        "description": "Vertical sidebar navigation",
+        "props": {
+          "items": { "type": "array", "default": ["Dashboard", "Settings", "Profile"] }
+        }
+      },
+      {
+        "type": "Nav_Mobile",
+        "name": "Mobile Bottom Navigation",
+        "canvas_modes": ["mobile"],
+        "description": "Bottom navigation bar for mobile apps",
+        "props": {
+          "items": { "type": "array", "default": ["Home", "Search", "Profile"] }
+        }
+      }
+    ],
+    "hero": [
+      {
+        "type": "Hero_Simple",
+        "name": "Simple Hero Section",
+        "canvas_modes": ["web"],
+        "description": "Simple hero section with title and CTA",
+        "props": {
+          "title": { "type": "string", "default": "Welcome to NEZAM" },
+          "subtitle": { "type": "string", "default": "The ultimate workspace" },
+          "cta": { "type": "string", "default": "Get Started" }
+        }
+      }
+    ],
+    "content": [
+      {
+        "type": "Content_Text",
+        "name": "Text Content",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Simple text block",
+        "props": {
+          "text": { "type": "string", "default": "Lorem ipsum dolor sit amet..." }
+        }
+      },
+      {
+        "type": "Content_Card",
+        "name": "Card",
+        "canvas_modes": ["web", "saas"],
+        "description": "Card with title, content and image placeholder",
+        "props": {
+          "title": { "type": "string", "default": "Card Title" },
+          "content": { "type": "string", "default": "Card content goes here." }
+        }
+      }
+    ]
+  }
+}

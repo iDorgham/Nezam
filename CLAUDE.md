@@ -48,6 +48,7 @@ When conflicts appear, follow:
 - `scan.md`
 - `settings.md`
 - `start.md`
+- `wireframe.md`
 
 ## Synced agent index
 - `EVAL_FRAMEWORK.md`

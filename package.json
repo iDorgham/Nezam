@@ -30,6 +30,9 @@
     "hooks:install": "bash .nezam/scripts/context/install-context-hooks.sh && bash .nezam/scripts/context/auto-memory-hooks.sh --install",
     "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open",
     "state:set": "node .nezam/scripts/state/write-state.js",
+    "design-server": "cd .nezam/design-server && pnpm dev",
+    "design-server:build": "cd .nezam/design-server && pnpm build",
+    "design-server:install": "cd .nezam/design-server && pnpm install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

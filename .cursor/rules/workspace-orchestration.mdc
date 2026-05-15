@@ -268,13 +268,18 @@ At session open:
 - Never write raw HTTP fetch code for a service that has an MCP.
 - Exception: when MCP is unavailable in current tool context — fall back to CLI (see CLI orchestration rules).
 
-### Wireframe MCP Policy
+### Wireframe MCP Policy (Interactive Local Server)
 When `/PLAN design wireframes` is invoked:
 1. Check `.nezam/memory/MCP_REGISTRY.md` for active Figma MCP.
 2. If active, use Mode A (Figma MCP) automatically.
 3. If inactive, check for uploaded Excalidraw/Penpot file and use Mode B.
-4. If neither is available, use Mode C (text interview fallback).
-5. Always write source mode to `WIREFRAMES.md` front-matter: `wireframe_source: figma|excalidraw|text`.
+4. **If neither is available, use Mode C (Interactive Local Wireframe Server):**
+   - The agent MUST generate a structured `docs/plans/04-design/wireframes_draft.json` file containing the proposed screen layouts, components, and data bindings.
+   - The agent MUST instruct the user to run the local Wireframe Server (e.g., `pnpm run wireframe:server`).
+   - The user opens `localhost`, visually previews, drag-and-drops edits, and approves the layout in the browser.
+   - Upon user approval, the server writes back `docs/plans/04-design/wireframes_locked.json`.
+   - The agent MUST read `wireframes_locked.json` to generate the final UI code, entirely replacing the old text-interview fallback.
+5. Always write source mode to `WIREFRAMES.md` front-matter: `wireframe_source: figma|excalidraw|json_server`.
 
 ## Agent Bus Protocol
 

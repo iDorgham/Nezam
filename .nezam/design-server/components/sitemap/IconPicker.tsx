@@ -28,13 +28,13 @@ export default function IconPicker({ currentIcon, onSelect }: IconPickerProps) {
   )
 
   return (
-    <div className="bg-[#191a1b] border border-[#ffffff14] rounded p-3">
+    <div className="bg-ds-surface border border-ds-border rounded p-3">
       <input
         type="text"
         placeholder="Search icons..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full bg-[#08090a] border border-[#ffffff14] rounded px-3 py-1.5 text-sm text-white focus:border-[#5e6ad2] focus:outline-none mb-3"
+        className="w-full bg-ds-background border border-ds-border rounded px-3 py-1.5 text-sm text-white focus:border-ds-primary focus:outline-none mb-3"
       />
       
       <div className="grid grid-cols-6 gap-2 max-h-40 overflow-auto">
@@ -46,8 +46,8 @@ export default function IconPicker({ currentIcon, onSelect }: IconPickerProps) {
             <button
               key={iconName}
               onClick={() => onSelect(iconName)}
-              className={`p-2 rounded flex items-center justify-center hover:bg-[#ffffff0a] transition-colors ${
-                currentIcon === iconName ? 'bg-[#5e6ad2] text-white' : 'text-ds-text-muted'
+              className={`p-2 rounded flex items-center justify-center hover:bg-ds-surface-hover transition-colors ${
+                currentIcon === iconName ? 'bg-ds-primary text-white' : 'text-ds-text-muted'
               }`}
               title={iconName}
             >

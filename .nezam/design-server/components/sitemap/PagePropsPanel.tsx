@@ -46,7 +46,7 @@ export default function PagePropsPanel() {
           name="title"
           value={selectedPage.title || ''}
           onChange={handleChange}
-          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-[#5e6ad2] focus:ring-1 focus:ring-[#5e6ad2]/30 focus:outline-none transition-all duration-300"
+          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-ds-primary focus:ring-1 focus:ring-ds-primary/30 focus:outline-none transition-all duration-300"
         />
       </div>
       
@@ -57,7 +57,7 @@ export default function PagePropsPanel() {
           name="route"
           value={selectedPage.route || ''}
           onChange={handleChange}
-          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:border-[#5e6ad2] focus:ring-1 focus:ring-[#5e6ad2]/30 focus:outline-none transition-all duration-300"
+          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white font-mono text-sm focus:border-ds-primary focus:ring-1 focus:ring-ds-primary/30 focus:outline-none transition-all duration-300"
         />
       </div>
       
@@ -67,13 +67,13 @@ export default function PagePropsPanel() {
           name="type"
           value={selectedPage.type}
           onChange={handleChange}
-          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-[#5e6ad2] focus:ring-1 focus:ring-[#5e6ad2]/30 focus:outline-none transition-all duration-300"
+          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-ds-primary focus:ring-1 focus:ring-ds-primary/30 focus:outline-none transition-all duration-300"
         >
-          <option value="public" className="bg-[#08090a]">Public</option>
-          <option value="auth" className="bg-[#08090a]">Auth</option>
-          <option value="admin" className="bg-[#08090a]">Admin</option>
-          <option value="modal" className="bg-[#08090a]">Modal</option>
-          <option value="embed" className="bg-[#08090a]">Embed</option>
+          <option value="public" className="bg-ds-background">Public</option>
+          <option value="auth" className="bg-ds-background">Auth</option>
+          <option value="admin" className="bg-ds-background">Admin</option>
+          <option value="modal" className="bg-ds-background">Modal</option>
+          <option value="embed" className="bg-ds-background">Embed</option>
         </select>
       </div>
 
@@ -83,13 +83,13 @@ export default function PagePropsPanel() {
           name="parentId"
           value={selectedPage.parentId || ''}
           onChange={(e) => updatePage(selectedPage.id, { parentId: e.target.value || undefined })}
-          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-[#5e6ad2] focus:ring-1 focus:ring-[#5e6ad2]/30 focus:outline-none transition-all duration-300"
+          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-ds-primary focus:ring-1 focus:ring-ds-primary/30 focus:outline-none transition-all duration-300"
         >
-          <option value="" className="bg-[#08090a]">None (Root)</option>
+          <option value="" className="bg-ds-background">None (Root)</option>
           {sitemap
             .filter(p => p.id !== selectedPage.id && !isDescendant(p.id, selectedPage.id))
             .map((page) => (
-              <option key={page.id} value={page.id} className="bg-[#08090a]">
+              <option key={page.id} value={page.id} className="bg-ds-background">
                 {page.title || 'Untitled'} ({page.route})
               </option>
             ))}
@@ -104,7 +104,7 @@ export default function PagePropsPanel() {
           value={selectedPage.navLabel || ''}
           onChange={handleChange}
           placeholder={selectedPage.title}
-          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-[#5e6ad2] focus:ring-1 focus:ring-[#5e6ad2]/30 focus:outline-none transition-all duration-300"
+          className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-2.5 text-white focus:border-ds-primary focus:ring-1 focus:ring-ds-primary/30 focus:outline-none transition-all duration-300"
         />
       </div>
 
@@ -129,9 +129,9 @@ export default function PagePropsPanel() {
           name="showInNav"
           checked={selectedPage.showInNav ?? true}
           onChange={(e) => updatePage(selectedPage.id, { showInNav: e.target.checked })}
-          className="rounded-md border-white/[0.08] bg-white/[0.03] text-[#5e6ad2] focus:ring-[#5e6ad2]/30 focus:ring-offset-0 transition-colors"
+          className="rounded-md border-white/[0.08] bg-white/[0.03] text-ds-primary focus:ring-ds-primary/30 focus:ring-offset-0 transition-colors"
         />
-        <label htmlFor="showInNav" className="text-sm font-medium text-[#d0d6e0]">Show in navigation</label>
+        <label htmlFor="showInNav" className="text-sm font-medium text-ds-text-secondary">Show in navigation</label>
       </div>
       
       <div className="pt-4 border-t border-white/[0.05]">
@@ -150,9 +150,9 @@ export default function PagePropsPanel() {
                     : currentLinks.filter(id => id !== page.id)
                   updatePage(selectedPage.id, { linkedPageIds: newLinks })
                 }}
-                className="rounded-md border-white/[0.08] bg-white/[0.03] text-[#5e6ad2] focus:ring-[#5e6ad2]/30 focus:ring-offset-0 transition-colors"
+                className="rounded-md border-white/[0.08] bg-white/[0.03] text-ds-primary focus:ring-ds-primary/30 focus:ring-offset-0 transition-colors"
               />
-              <label htmlFor={`link-${page.id}`} className="text-sm text-[#d0d6e0] cursor-pointer">
+              <label htmlFor={`link-${page.id}`} className="text-sm text-ds-text-secondary cursor-pointer">
                 <span className="font-medium text-white">{page.title || 'Untitled'}</span>
                 <span className="text-xs text-ds-text-muted font-mono ms-1.5">({page.route})</span>
               </label>

@@ -1,6 +1,6 @@
 ---
 id: nezam-cli-orchestration
-name: CLI Orchestration
+name: "nezam- nezam-cli-orchestration"
 description: Managing multi-tool CLI execution and output routing across the workspace.
 tier: 2
 swarm: Swarm 1 (Architecture)

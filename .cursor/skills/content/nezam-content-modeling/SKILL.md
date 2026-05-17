@@ -1,5 +1,6 @@
 ---
-name: nezam-content-modeling
+tier: 3
+name: "nezam- nezam-content-modeling"
 description: Design content types, field schemas, reusable blocks, and preview/revision workflows for headless CMSes.
 version: 1.0.0
 updated: 2026-05-08

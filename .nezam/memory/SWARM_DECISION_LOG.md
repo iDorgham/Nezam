@@ -1,3 +1,1 @@
-# Swarm Decision Log
-
-*Project state has been reset.*
+# Swarm Decision Log\n\n*Project state has been reset.*

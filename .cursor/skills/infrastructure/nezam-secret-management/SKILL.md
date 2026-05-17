@@ -1,5 +1,6 @@
 ---
-name: nezam-secret-management
+tier: 3
+name: "nezam- nezam-secret-management"
 description: Secret stores (Vault / AWS SM / Vercel / Doppler), env injection, rotation policies, and least-privilege access.
 version: 1.0.0
 updated: 2026-05-08

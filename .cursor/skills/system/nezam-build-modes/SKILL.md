@@ -1,5 +1,6 @@
 ---
-name: "nezam-build-modes"
+tier: 3
+name: "nezam-"nezam-build-modes"
 description: Development method overlays for NEZAM. Modifies phase execution and gate thresholds without changing the SDD pipeline structure.
 version: 1.0.0
 certified: false

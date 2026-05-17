@@ -19,7 +19,7 @@ export default function ProfileSearch({ search, setSearch, selectedCategory, set
         placeholder="Search profiles..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full bg-[#0f1011] border border-[#ffffff14] rounded px-4 py-2 text-white focus:border-[#5e6ad2] focus:outline-none"
+        className="w-full bg-ds-background border border-ds-border rounded px-4 py-2 text-white focus:border-ds-primary focus:outline-none"
       />
       
       <div className="flex flex-wrap gap-2">
@@ -29,8 +29,8 @@ export default function ProfileSearch({ search, setSearch, selectedCategory, set
             onClick={() => setSelectedCategory(category)}
             className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
               selectedCategory === category
-                ? 'bg-[#5e6ad2] text-white'
-                : 'bg-[#0f1011] text-ds-text-muted hover:bg-[#191a1b] hover:text-white'
+                ? 'bg-ds-primary text-white'
+                : 'bg-ds-background text-ds-text-muted hover:bg-ds-surface hover:text-white'
             }`}
           >
             {category}

@@ -96,12 +96,12 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
       onClick={() => setActiveSlot(isSelected ? null : slot.instanceId)}
     >
       {/* Top bar: drag handle + meta + actions */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-[#080A12] border-b border-ds-border">
+      <div className="flex items-center gap-2 px-3 py-2 bg-ds-background border-b border-ds-border">
         {/* Drag handle */}
         <div
           {...attributes}
           {...listeners}
-          className="cursor-grab active:cursor-grabbing text-[#2A2E3F] hover:text-ds-text-muted transition-colors flex-shrink-0"
+          className="cursor-grab active:cursor-grabbing text-ds-text-disabled hover:text-ds-text-muted transition-colors flex-shrink-0"
           onClick={e => e.stopPropagation()}
         >
           <GripVertical size={14} />
@@ -143,8 +143,8 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
             onClick={e => { e.stopPropagation(); toggleSlotApproval(pageId, slot.instanceId) }}
             className={`p-1.5 rounded-md transition-colors ${
               slot.approved
-                ? 'text-[#10b981] bg-[#10b981]/10 hover:bg-[#10b981]/20'
-                : 'text-ds-text-muted hover:text-[#10b981] hover:bg-[#10b981]/10'
+                ? 'text-ds-success bg-ds-success/10 hover:bg-ds-success/20'
+                : 'text-ds-text-muted hover:text-ds-success hover:bg-ds-success/10'
             }`}
             title={slot.approved ? 'Unapprove' : 'Approve'}
           >
@@ -159,7 +159,7 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
           </button>
           <button
             onClick={e => { e.stopPropagation(); removeSlot(pageId, slot.instanceId) }}
-            className="p-1.5 rounded-md text-ds-text-muted hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
+            className="p-1.5 rounded-md text-ds-text-muted hover:text-ds-destructive hover:bg-ds-destructive/10 transition-colors"
             title="Remove"
           >
             <Trash2 size={12} />
@@ -168,13 +168,13 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
 
         {/* Approved badge */}
         {slot.approved && (
-          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-ds-success" />
         )}
       </div>
 
       {/* SVG preview */}
       <div
-        className="w-full overflow-hidden relative bg-[#080A12]"
+        className="w-full overflow-hidden relative bg-ds-background"
         style={{ height: scaledHeight }}
       >
         {svgContent ? (
@@ -189,7 +189,7 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
             dangerouslySetInnerHTML={{ __html: svgContent }}
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-[10px] text-[#2A2E3F]">
+          <div className="flex items-center justify-center h-full text-[10px] text-ds-text-disabled">
             No preview
           </div>
         )}
@@ -205,7 +205,7 @@ function SortableSlotCard({ slot, index, total, pageId, isSelected, breakpointWi
             value={slot.notes}
             onChange={e => updateSlotNotes(pageId, slot.instanceId, e.target.value)}
             placeholder="Add notes for this block…"
-            className="w-full bg-[#080A12] border border-ds-border rounded-lg px-2 py-1.5 text-[11px] text-ds-text-muted placeholder-[#2A2E3F] focus:outline-none focus:border-ds-primary/50 resize-none"
+            className="w-full bg-ds-background border border-ds-border rounded-lg px-2 py-1.5 text-[11px] text-ds-text-muted placeholder-ds-text-disabled focus:outline-none focus:border-ds-primary/50 resize-none"
             rows={2}
           />
         </div>
@@ -236,7 +236,7 @@ function EmptyCanvas() {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center px-8">
       <div className="w-14 h-14 rounded-2xl bg-ds-surface border border-ds-border flex items-center justify-center mb-4">
-        <Layers size={24} className="text-[#2A2E3F]" />
+        <Layers size={24} className="text-ds-text-disabled" />
       </div>
       <h3 className="text-sm font-medium text-ds-text-muted mb-1">Empty canvas</h3>
       <p className="text-xs text-ds-text-muted mb-4 max-w-xs leading-relaxed">
@@ -323,7 +323,7 @@ function GridView({ pageId, slots }: { pageId: string; slots: WireframeSlot[] })
               isSelected ? 'border-ds-primary' : 'border-ds-border hover:border-ds-border'
             }`}
           >
-            <div className="h-24 bg-[#080A12] overflow-hidden" dangerouslySetInnerHTML={{ __html: svg }} />
+            <div className="h-24 bg-ds-background overflow-hidden" dangerouslySetInnerHTML={{ __html: svg }} />
             <div className="px-2 py-1.5 bg-ds-surface border-t border-ds-border flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-medium text-ds-text-muted truncate">{slot.label}</div>
@@ -331,11 +331,11 @@ function GridView({ pageId, slots }: { pageId: string; slots: WireframeSlot[] })
               </div>
               <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button onClick={e => { e.stopPropagation(); toggleSlotApproval(pageId, slot.instanceId) }}
-                  className={`p-1 rounded ${slot.approved ? 'text-[#10b981]' : 'text-ds-text-muted hover:text-[#10b981]'}`}>
+                  className={`p-1 rounded ${slot.approved ? 'text-ds-success' : 'text-ds-text-muted hover:text-ds-success'}`}>
                   <Check size={10} />
                 </button>
                 <button onClick={e => { e.stopPropagation(); removeSlot(pageId, slot.instanceId) }}
-                  className="p-1 rounded text-ds-text-muted hover:text-[#dc2626]">
+                  className="p-1 rounded text-ds-text-muted hover:text-ds-destructive">
                   <Trash2 size={10} />
                 </button>
               </div>
@@ -400,20 +400,20 @@ function ListView({ pageId, slots }: { pageId: string; slots: WireframeSlot[] })
               </td>
               <td className="py-2 px-3">
                 <span className={`inline-flex items-center gap-1 text-[9px] uppercase font-semibold ${
-                  slot.approved ? 'text-[#10b981]' : 'text-ds-text-muted'
+                  slot.approved ? 'text-ds-success' : 'text-ds-text-muted'
                 }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${slot.approved ? 'bg-[#10b981]' : 'bg-ds-surface-hover'}`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${slot.approved ? 'bg-ds-success' : 'bg-ds-surface-hover'}`} />
                   {slot.approved ? 'Approved' : 'Pending'}
                 </span>
               </td>
               <td className="py-2 px-3">
                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity justify-end">
                   <button onClick={e => { e.stopPropagation(); toggleSlotApproval(pageId, slot.instanceId) }}
-                    className={`p-1 rounded ${slot.approved ? 'text-[#10b981]' : 'text-ds-text-muted hover:text-[#10b981]'}`}>
+                    className={`p-1 rounded ${slot.approved ? 'text-ds-success' : 'text-ds-text-muted hover:text-ds-success'}`}>
                     <Check size={11} />
                   </button>
                   <button onClick={e => { e.stopPropagation(); removeSlot(pageId, slot.instanceId) }}
-                    className="p-1 rounded text-ds-text-muted hover:text-[#dc2626]">
+                    className="p-1 rounded text-ds-text-muted hover:text-ds-destructive">
                     <Trash2 size={11} />
                   </button>
                 </div>

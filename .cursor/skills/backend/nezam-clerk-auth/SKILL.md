@@ -1,5 +1,6 @@
 ---
-name: "nezam-clerk-auth"
+tier: 3
+name: "nezam-"nezam-clerk-auth"
 description: Implement hosted authentication and organization-aware auth flows with Clerk.
 version: 1.0.0
 updated: 2026-05-10

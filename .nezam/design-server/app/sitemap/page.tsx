@@ -123,7 +123,7 @@ function TreeNode({
           </button>
           <button
             onClick={e => { e.stopPropagation(); onDelete(page.id) }}
-            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444] transition-colors"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-destructive transition-colors"
             title={t('Delete page', 'حذف الصفحة')}
           >
             <Trash2 size={10} />
@@ -267,7 +267,7 @@ function PageTree({
       <div className="flex-1 overflow-y-auto py-2 px-2">
         {sitemap.length === 0 ? (
           <div className="py-8 text-center">
-            <Map size={24} className="mx-auto text-[#2A2E3F] mb-3" />
+            <Map size={24} className="mx-auto text-ds-text-disabled mb-3" />
             <p className="text-xs text-ds-text-muted mb-4">{t('No pages yet', 'لا توجد صفحات بعد')}</p>
             <div className="grid grid-cols-2 gap-1.5">
               {(['public', 'auth', 'admin', 'modal'] as Page['type'][]).map(type => {
@@ -579,7 +579,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
   if (!page) {
     return (
       <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col items-center justify-center h-full">
-        <Settings size={24} className="text-[#2A2E3F] mb-2" />
+        <Settings size={24} className="text-ds-text-disabled mb-2" />
         <p className="text-xs text-ds-text-muted text-center px-4">
           {t('Select a page to inspect its properties', 'اختر صفحة لمعاينة خصائصها')}
         </p>
@@ -702,7 +702,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
               onClick={() => updatePage(page.id, { showInNav: !page.showInNav })}
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
                 page.showInNav
-                  ? 'border-[#10b981]/40 bg-[#10b981]/5 text-[#10b981]'
+                  ? 'border-ds-success/40 bg-ds-success/5 text-ds-success'
                   : 'border-ds-border bg-ds-surface text-ds-text-muted'
               }`}
             >
@@ -770,7 +770,7 @@ function PageInspector({ selectedId }: { selectedId: string | null }) {
             const { setSitemap, sitemap: sm } = useSessionStore.getState()
             setSitemap(sm.filter(p => p.id !== page.id))
           }}
-          className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-[#ef4444]/10 text-[#ef4444] hover:bg-[#ef4444]/20 transition-colors border border-[#ef4444]/20"
+          className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-ds-destructive/10 text-ds-destructive hover:bg-ds-destructive/20 transition-colors border border-ds-destructive/20"
         >
           <Trash2 size={12} />
         </button>
@@ -864,7 +864,7 @@ function ListRow({ page, onSelect, isSelected, t }: { page: Page; onSelect: (id:
       </td>
       <td className="px-4 py-3 text-[11px] text-ds-text-muted">
         {page.showInNav ? (
-          <span className="flex items-center gap-1 text-[#10b981]"><Eye size={10} /> {t('Yes', 'نعم')}</span>
+          <span className="flex items-center gap-1 text-ds-success"><Eye size={10} /> {t('Yes', 'نعم')}</span>
         ) : (
           <span className="flex items-center gap-1 text-ds-text-muted"><EyeOff size={10} /> {t('No', 'لا')}</span>
         )}

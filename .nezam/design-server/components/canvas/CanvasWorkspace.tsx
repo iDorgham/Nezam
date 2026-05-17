@@ -286,7 +286,7 @@ export default function CanvasWorkspace() {
           <div className="relative">
             <button
               onClick={() => setOpenMenu((current) => current === 'app' ? null : 'app')}
-              className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-ds-primary-hover transition-colors flex items-center gap-1"
             >
               <Plus size={14} /> {t('App', 'تطبيق')}
             </button>
@@ -300,7 +300,7 @@ export default function CanvasWorkspace() {
           <div className="relative">
             <button
               onClick={() => setOpenMenu((current) => current === 'service' ? null : 'service')}
-              className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-ds-primary-hover transition-colors flex items-center gap-1"
             >
               <Plus size={14} /> {t('Service', 'خدمة')}
             </button>
@@ -314,7 +314,7 @@ export default function CanvasWorkspace() {
           {/* Create Page Button */}
           <button
             onClick={() => addNode('page')}
-            className="px-3 py-1.5 bg-[#27a644] text-white rounded-lg text-xs font-medium hover:bg-[#208a37] transition-colors flex items-center gap-1"
+            className="px-3 py-1.5 bg-ds-success text-white rounded-lg text-xs font-medium hover:bg-ds-success/90 transition-colors flex items-center gap-1"
           >
             <Plus size={14} /> Create Page
           </button>
@@ -342,7 +342,7 @@ export default function CanvasWorkspace() {
                 addNode('group')
               }
             }}
-            className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1"
+            className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-ds-primary-hover transition-colors flex items-center gap-1"
           >
             <Plus size={14} /> Group
           </button>
@@ -677,7 +677,7 @@ export default function CanvasWorkspace() {
                         setNodes(nodes.map((n) => n.id === selectedNodeId ? { ...n, notes: [...(n.notes || []), note] } : n))
                       }
                     }}
-                    className="text-[10px] text-ds-primary hover:text-[#e04e00]"
+                    className="text-[10px] text-ds-primary hover:text-ds-primary-hover"
                   >
                     + {t('Add Note', 'إضافة ملاحظة')}
                   </button>
@@ -705,7 +705,7 @@ export default function CanvasWorkspace() {
                         setNodes(nodes.map((n) => n.id === selectedNodeId ? { ...n, attachments: [...(n.attachments || []), url] } : n))
                       }
                     }}
-                    className="text-[10px] text-ds-primary hover:text-[#e04e00]"
+                    className="text-[10px] text-ds-primary hover:text-ds-primary-hover"
                   >
                     + {t('Add', 'إضافة')}
                   </button>
@@ -729,7 +729,7 @@ export default function CanvasWorkspace() {
                 <div className="flex gap-2">
                   <select
                     id="new-connection-target"
-                    className="flex-1 bg-white/[0.03] border border-ds-border rounded-lg px-2 py-1 text-xs text-ds-text-primary focus:outline-none focus:border-[#7c3aed]/50"
+                    className="flex-1 bg-white/[0.03] border border-ds-border rounded-lg px-2 py-1 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
                   >
                     <option value="">{t('Select Target...', 'اختر الهدف...')}</option>
                     {nodes.filter((n) => n.id !== selectedNodeId).map((n) => (
@@ -738,7 +738,7 @@ export default function CanvasWorkspace() {
                   </select>
                   <select
                     id="new-connection-type"
-                    className="w-20 bg-white/[0.03] border border-ds-border rounded-lg px-2 py-1 text-xs text-ds-text-primary focus:outline-none focus:border-[#7c3aed]/50"
+                    className="w-20 bg-white/[0.03] border border-ds-border rounded-lg px-2 py-1 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
                   >
                     <option value="out">{t('Out', 'خارج')}</option>
                     <option value="in">{t('In', 'داخل')}</option>
@@ -772,7 +772,7 @@ export default function CanvasWorkspace() {
                     return (
                       <div key={c.id} className="text-xs text-ds-text-primary bg-white/[0.02] p-2 rounded-lg border border-ds-border flex justify-between items-center">
                         <span>{otherNode?.title || otherId}</span>
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${c.type === 'out' ? 'bg-[#27a644]/20 text-[#27a644]' : c.type === 'in' ? 'bg-[#7c3aed]/20 text-[#7c3aed]' : 'bg-ds-primary/20 text-ds-primary'}`}>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${c.type === 'out' ? 'bg-ds-success/20 text-ds-success' : c.type === 'in' ? 'bg-ds-primary-subtle text-ds-primary' : 'bg-ds-primary/20 text-ds-primary'}`}>
                           {c.type.toUpperCase()}
                         </span>
                       </div>
@@ -821,7 +821,7 @@ export default function CanvasWorkspace() {
                 setNodes(nodes.filter((n) => n.id !== contextMenu.nodeId))
                 setContextMenu(null)
               }}
-              className="w-full text-start px-3 py-1.5 text-xs text-ds-text-primary hover:bg-[#7c3aed]/20 transition-colors"
+              className="w-full text-start px-3 py-1.5 text-xs text-ds-text-primary hover:bg-ds-primary-subtle transition-colors"
             >
               Ungroup
             </button>

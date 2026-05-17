@@ -1,7 +1,12 @@
 ---
-name: nezam-design-server
+tier: 3
+name: "nezam- nezam-design-server"
 description: Operate the NEZAM Design Server to create wireframes and tokens.
 category: design
+version: 1.0.0
+updated: 2026-05-15
+changelog:
+  - 1.0.0: Initial release of Design Server skill.
 ---
 
 # Skill: NEZAM Design Server

@@ -28,7 +28,7 @@ export default function ProfilesPage() {
       {isLoading && <div className="text-ds-text-muted">{t('Loading profiles...', 'بتحمل الملفات...')}</div>}
       
       {error && (
-        <div className="bg-[#dc2626] text-white p-4 rounded mb-6">
+        <div className="bg-ds-destructive text-white p-4 rounded mb-6">
           Error: {error}
         </div>
       )}

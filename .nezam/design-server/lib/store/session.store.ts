@@ -142,7 +142,14 @@ export const useSessionStore = create<SessionState>((set) => ({
   },
   setSitemap: (sitemap) => set({ sitemap }),
   setSelectedPageId: (selectedPageId) => set({ selectedPageId }),
-  setSelectedProfile: (selectedProfile) => set({ selectedProfile }),
+  setSelectedProfile: (selectedProfile) => set((state) => {
+    if (selectedProfile) {
+      setTimeout(() => {
+        state.applyProfileToTokens(selectedProfile)
+      }, 0)
+    }
+    return { selectedProfile }
+  }),
   updatePage: (id, updates) => set((state) => ({
     sitemap: state.sitemap.map((page) => 
       page.id === id ? { ...page, ...updates } : page

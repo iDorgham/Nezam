@@ -25,14 +25,14 @@ export default function CompletionMatrix() {
   const percent = Math.round((completeCount / totalCount) * 100)
 
   return (
-    <div className="bg-[#0f1011] border border-[#ffffff14] rounded-lg p-6 space-y-6">
+    <div className="bg-ds-background border border-ds-border rounded-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-medium text-[#d0d6e0]">Completion Matrix</h2>
-        <div className="text-sm font-medium text-[#5e6ad2]">{percent}% Complete</div>
+        <h2 className="text-lg font-medium text-ds-text-secondary">Completion Matrix</h2>
+        <div className="text-sm font-medium text-ds-primary">{percent}% Complete</div>
       </div>
 
-      <div className="w-full bg-[#191a1b] h-2 rounded-full overflow-hidden">
-        <div className="bg-[#5e6ad2] h-full" style={{ width: `${percent}%` }}></div>
+      <div className="w-full bg-ds-surface h-2 rounded-full overflow-hidden">
+        <div className="bg-ds-primary h-full" style={{ width: `${percent}%` }}></div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -40,16 +40,16 @@ export default function CompletionMatrix() {
           <div
             key={item.id}
             className={`p-3 border rounded-lg flex items-center justify-between ${
-              item.isComplete ? 'border-[#10b98124] bg-[#10b98105]' : 'border-[#ffffff0a] bg-[#08090a]'
+              item.isComplete ? 'border-ds-success/20 bg-ds-success/5' : 'border-ds-border-subtle bg-ds-background'
             }`}
           >
             <span className={`text-sm ${item.isComplete ? 'text-white' : 'text-ds-text-muted'}`}>
               {item.name}
             </span>
             {item.isComplete ? (
-              <Check size={16} className="text-[#10b981]" />
+              <Check size={16} className="text-ds-success" />
             ) : (
-              <X size={16} className="text-[#dc2626]" />
+              <X size={16} className="text-ds-destructive" />
             )}
           </div>
         ))}

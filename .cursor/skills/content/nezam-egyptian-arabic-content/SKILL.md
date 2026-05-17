@@ -1,5 +1,6 @@
 ---
-name: "nezam-egyptian-arabic-content-master"
+tier: 3
+name: "nezam-"nezam-egyptian-arabic-content-master"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

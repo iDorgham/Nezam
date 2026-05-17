@@ -1,3 +1,1 @@
-# Phase Handoff
-
-*Project state has been reset.*
+# Phase Handoff\n\n*Project state has been reset.*

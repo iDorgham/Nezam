@@ -28,11 +28,11 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
   return (
     <div className="bg-ds-surface border border-ds-border rounded-lg p-4 space-y-4">
       <div>
-        <h2 className="text-lg font-medium text-[#d0d6e0]">{selectedBlock.name}</h2>
+        <h2 className="text-lg font-medium text-ds-text-secondary">{selectedBlock.name}</h2>
         <div className="text-xs text-ds-text-muted font-mono">{selectedBlock.type}</div>
       </div>
 
-      <div className="space-y-3 pt-2 border-t border-[#ffffff14]">
+      <div className="space-y-3 pt-2 border-t border-ds-border">
         {Object.entries(propsSchema).map(([propName, schema]) => {
           return (
             <div key={propName}>
@@ -45,7 +45,7 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
                   type="text"
                   value={currentProps[propName] ?? schema.default ?? ''}
                   onChange={(e) => handleChange(propName, e.target.value)}
-                  className="w-full bg-[#191a1b] border border-[#ffffff14] rounded px-3 py-1.5 text-sm text-white focus:border-[#5e6ad2] focus:outline-none"
+                  className="w-full bg-ds-surface border border-ds-border rounded px-3 py-1.5 text-sm text-white focus:border-ds-primary focus:outline-none"
                 />
               )}
 
@@ -56,9 +56,9 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
                     id={`prop-${propName}`}
                     checked={currentProps[propName] ?? schema.default ?? false}
                     onChange={(e) => handleChange(propName, e.target.checked)}
-                    className="rounded border-[#ffffff14] bg-[#191a1b] text-[#5e6ad2]"
+                    className="rounded border-ds-border bg-ds-surface text-ds-primary"
                   />
-                  <label htmlFor={`prop-${propName}`} className="text-sm text-[#d0d6e0]">
+                  <label htmlFor={`prop-${propName}`} className="text-sm text-ds-text-secondary">
                     Enabled
                   </label>
                 </div>
@@ -68,7 +68,7 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
                 <select
                   value={currentProps[propName] ?? schema.default ?? ''}
                   onChange={(e) => handleChange(propName, e.target.value)}
-                  className="w-full bg-[#191a1b] border border-[#ffffff14] rounded px-3 py-1.5 text-sm text-white focus:border-[#5e6ad2] focus:outline-none"
+                  className="w-full bg-ds-surface border border-ds-border rounded px-3 py-1.5 text-sm text-white focus:border-ds-primary focus:outline-none"
                 >
                   {schema.values?.map((val) => (
                     <option key={val} value={val}>{val}</option>
@@ -81,7 +81,7 @@ export default function PropsEditorPanel({ selectedBlock, blockDefinition, onUpd
                   type="number"
                   value={currentProps[propName] ?? schema.default ?? 0}
                   onChange={(e) => handleChange(propName, parseInt(e.target.value))}
-                  className="w-full bg-[#191a1b] border border-[#ffffff14] rounded px-3 py-1.5 text-sm text-white focus:border-[#5e6ad2] focus:outline-none"
+                  className="w-full bg-ds-surface border border-ds-border rounded px-3 py-1.5 text-sm text-white focus:border-ds-primary focus:outline-none"
                 />
               )}
 

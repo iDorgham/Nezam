@@ -1,5 +1,6 @@
 ---
-name: "nezam-drizzle-orm"
+tier: 3
+name: "nezam-"nezam-drizzle-orm"
 description: SQL-first ORM workflows for TypeScript apps with migration discipline.
 version: 1.0.0
 updated: 2026-05-10

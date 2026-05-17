@@ -137,7 +137,7 @@ function BlockInspector({ pageId, instanceId }: { pageId: string; instanceId: st
         onClick={() => toggleSlotApproval(pageId, instanceId)}
         className={`w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold transition-all ${
           slot.approved
-            ? 'bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981]/20 border border-[#10b981]/20'
+            ? 'bg-ds-success/10 text-ds-success hover:bg-ds-success/20 border border-ds-success/20'
             : 'bg-ds-surface-hover text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary border border-ds-border'
         }`}
       >
@@ -396,7 +396,7 @@ function PagesTab() {
               <div key={groupKey} className="mb-1">
                 <div className="px-4 py-1.5 text-[10px] font-semibold text-ds-text-muted uppercase tracking-widest flex items-center justify-between">
                   <span>{groupLabels[groupKey]}</span>
-                  <span className="text-[#2A2E3F]">{groupPages.length}</span>
+                  <span className="text-ds-text-disabled">{groupPages.length}</span>
                 </div>
                 {groupPages.map(page => {
                   const isActive = activePageId === page.id

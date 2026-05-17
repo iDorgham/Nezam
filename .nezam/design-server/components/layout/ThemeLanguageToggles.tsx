@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Sun, Moon, Globe, Lock, Images } from 'lucide-react'
+import { Sun, Moon, Globe, Lock, Images, HelpCircle } from 'lucide-react'
 import { useSessionStore } from '@/lib/store/session.store'
+import { Tooltip } from '@/components/ui/Tooltip'
+import { restartOnboarding } from '@/components/onboarding/OnboardingTour'
 
 export default function ThemeLanguageToggles() {
   const [hydrated, setHydrated] = useState(false)
@@ -37,50 +39,53 @@ export default function ThemeLanguageToggles() {
 
   if (!hydrated) return null
 
+  const btnBase =
+    'h-8 px-2.5 inline-flex items-center gap-1.5 rounded-ds-md border border-ds-border bg-ds-surface text-ds-text-primary hover:bg-ds-surface-hover hover:border-ds-border-hover transition-colors text-[11px] font-medium'
+
   return (
-    <div className="flex items-center gap-3">
-      <button
-        onClick={openAssetManager}
-        className="flex items-center gap-2 px-3 py-1.5 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary text-sm font-medium rounded-lg transition-all border border-ds-border active:scale-95"
-        title={lang === 'ar' ? 'افتح مدير الملفات' : 'Open Asset Manager'}
+    <div className="flex items-center gap-1.5">
+      <Tooltip side="bottom" content={lang === 'ar' ? 'افتح مدير الملفات' : 'Open Asset Manager'}>
+        <button onClick={openAssetManager} className={btnBase} aria-label="Asset manager">
+          <Images size={14} className="text-ds-text-muted" />
+          <span>{lang === 'ar' ? 'الأصول' : 'Assets'}</span>
+        </button>
+      </Tooltip>
+
+      <Tooltip side="bottom" content={lang === 'en' ? 'Switch to Arabic' : 'Switch to English'}>
+        <button onClick={toggleLang} className={btnBase} aria-label="Toggle language">
+          <Globe size={14} className="text-ds-text-muted" />
+          <span className="tracking-wider">{lang === 'en' ? 'EN' : 'AR'}</span>
+        </button>
+      </Tooltip>
+
+      <Tooltip
+        side="bottom"
+        content={
+          theme === 'dark'
+            ? lang === 'ar' ? 'الوضع الفاتح' : 'Light Mode'
+            : lang === 'ar' ? 'الوضع الداكن' : 'Dark Mode'
+        }
       >
-        <Images size={14} className="text-ds-text-muted" />
-        <span className="text-[11px]">{lang === 'ar' ? 'الأصول' : 'Assets'}</span>
-      </button>
+        <button onClick={toggleTheme} className={`${btnBase} px-2`} aria-label="Toggle theme">
+          {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+        </button>
+      </Tooltip>
 
-      {/* Language Switcher */}
-      <button
-        onClick={toggleLang}
-        className="flex items-center gap-2 px-3 py-1.5 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary text-sm font-medium rounded-lg transition-all border border-ds-border active:scale-95"
-        title={lang === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
-      >
-        <Globe size={14} className="text-ds-text-muted" />
-        <span className="text-[11px] tracking-wider">{lang === 'en' ? 'EN' : 'AR'}</span>
-      </button>
+      <Tooltip side="bottom" content={lang === 'ar' ? 'إعادة الجولة التعريفية' : 'Restart tour'}>
+        <button onClick={restartOnboarding} className={`${btnBase} px-2`} aria-label="Restart onboarding">
+          <HelpCircle size={14} />
+        </button>
+      </Tooltip>
 
-      {/* Theme Toggle */}
-      <button
-        onClick={toggleTheme}
-        className="p-2 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary rounded-lg transition-all border border-ds-border active:scale-95"
-        title={theme === 'dark' ? (lang === 'ar' ? 'الوضع المضيء' : 'Light Mode') : (lang === 'ar' ? 'الوضع الداكن' : 'Dark Mode')}
-      >
-        {theme === 'dark' ? (
-          <Sun size={14} className="text-ds-text-muted hover:text-ds-text-primary transition-colors" />
-        ) : (
-          <Moon size={14} className="text-ds-text-muted hover:text-ds-text-primary transition-colors" />
-        )}
-      </button>
-
-      {/* Help Button */}
-      <button className="hidden sm:flex px-3 py-1.5 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary text-[11px] font-medium rounded-lg transition-all border border-ds-border active:scale-95">
-        {lang === 'ar' ? 'مساعدة' : 'Help'}
-      </button>
-
-      {/* Lock & Export Button */}
-      <button className="px-3 py-1.5 bg-ds-primary hover:bg-ds-primary/90 text-white text-[11px] font-semibold rounded-lg transition-all flex items-center gap-1.5 shadow-sm shadow-ds-primary/20 active:scale-95">
-        <Lock size={12} />
-        <span>{lang === 'ar' ? 'قفل وتصدير' : 'Lock & Export'}</span>
-      </button>
+      <Tooltip side="bottom" content={lang === 'ar' ? 'قفل وتصدير العقد' : 'Lock & export contract'} shortcut="⌘ ↵">
+        <button
+          onClick={() => useSessionStore.getState().openTab({ id: 'export', title: lang === 'ar' ? 'تصدير' : 'Export', type: 'export' as any })}
+          className="h-8 px-3 inline-flex items-center gap-1.5 rounded-ds-md bg-ds-primary text-ds-primary-foreground text-[11px] font-semibold hover:bg-ds-primary-hover transition-colors shadow-ds-sm"
+        >
+          <Lock size={12} />
+          <span>{lang === 'ar' ? 'قفل وتصدير' : 'Lock & Export'}</span>
+        </button>
+      </Tooltip>
     </div>
   )
 }

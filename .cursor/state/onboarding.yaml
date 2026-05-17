@@ -3,21 +3,19 @@
 
 # User mode — set during /start onboarding (Step 2, before PRD menu)
 user_mode: "solo"           # "solo" | "team"
-user_mode_set_at: "2026-05-13T15:18:08+03:00"
-target_market: "eg"       # "global" | "mena" | "ar" | "en" | "eg" — set during /start Step 2
+user_mode_set_at: "2026-05-17T07:49:00+03:00"
+target_market: "eg"       # "global" | "mena" | "ar" | "en" | "eg"
 
 # Tone preference derived from user_mode
-# solo  → friendly, plain language, opinionated defaults
-# team  → structured, governance-aware, full agent assignment
 tone: "friendly"                # "friendly" | "structured"
 
-prd_locked: true
-prd_path: "docs/start/PRD.md"
-prd_locked_at: "2026-05-13T15:31:53+03:00"
+prd_locked: false
+prd_path: "docs/plans/00-define/01-product/PRD.md"
+prd_locked_at: ""
 
-design_locked: true
-design_profile: "spotify-custom"
-design_locked_at: "2026-05-13T15:34:22+03:00"
+design_locked: false
+design_profile: "devflow-remix"
+design_locked_at: ""
 
 planning_complete: false
 planning_completed_at: ""
@@ -25,5 +23,5 @@ planning_completed_at: ""
 current_phase: 0
 
 build_mode: "sdd"
-build_mode_set_at: "2026-05-13T15:19:17+03:00"
+build_mode_set_at: "2026-05-17T07:49:00+03:00"
 

@@ -260,7 +260,7 @@ function MenuListPanel({
 
               <button
                 onClick={e => { e.stopPropagation(); onDelete(menu.id) }}
-                className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444] transition-all"
+                className="opacity-0 group-hover:opacity-100 p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-destructive transition-all"
               >
                 <Trash2 size={11} />
               </button>
@@ -393,7 +393,7 @@ function MenuItemNode({
           </button>
           <button
             onClick={e => { e.stopPropagation(); onRemove(item.id) }}
-            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-[#ef4444]"
+            className="p-0.5 rounded hover:bg-ds-surface-hover text-ds-text-muted hover:text-ds-destructive"
           >
             <Trash2 size={10} />
           </button>
@@ -610,7 +610,7 @@ function MenuEditor({
 
         {/* Live Preview */}
         {menu.items.length > 0 && (
-          <div className="w-[200px] min-w-[200px] border-s border-ds-border bg-[#080A12] flex flex-col">
+          <div className="w-[200px] min-w-[200px] border-s border-ds-border bg-ds-background flex flex-col">
             <div className="px-3 py-2 border-b border-ds-border flex-shrink-0">
               <span className="text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider">Live Preview</span>
             </div>
@@ -643,7 +643,7 @@ function ItemInspector({
   if (!menu) {
     return (
       <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col items-center justify-center h-full">
-        <Navigation size={22} className="text-[#2A2E3F] mb-2" />
+        <Navigation size={22} className="text-ds-text-disabled mb-2" />
         <p className="text-xs text-ds-text-muted text-center px-4">Select a menu to configure it</p>
       </div>
     )
@@ -743,7 +743,7 @@ function ItemInspector({
           <span className="text-xs font-semibold text-ds-text-primary truncate flex-1">{item.label}</span>
           <button
             onClick={() => update({ visible: !item.visible })}
-            className={`p-1 rounded transition-colors ${item.visible ? 'text-[#10b981]' : 'text-ds-text-muted'}`}
+            className={`p-1 rounded transition-colors ${item.visible ? 'text-ds-success' : 'text-ds-text-muted'}`}
             title={item.visible ? 'Visible' : 'Hidden'}
           >
             {item.visible ? <Eye size={13} /> : <EyeOff size={13} />}
@@ -794,7 +794,7 @@ function ItemInspector({
             {item.icon && (
               <button
                 onClick={() => update({ icon: undefined })}
-                className="text-[10px] text-ds-text-muted hover:text-[#ef4444] transition-colors"
+                className="text-[10px] text-ds-text-muted hover:text-ds-destructive transition-colors"
               >
                 Remove
               </button>
@@ -899,7 +899,7 @@ function ItemInspector({
             onClick={() => update({ target: item.target === '_blank' ? '_self' : '_blank' })}
             className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
               item.target === '_blank'
-                ? 'border-[#3b82f6]/40 bg-[#3b82f6]/5 text-[#3b82f6]'
+                ? 'border-ds-info/40 bg-ds-info/5 text-ds-info'
                 : 'border-ds-border bg-ds-surface text-ds-text-muted'
             }`}
           >
@@ -949,7 +949,7 @@ function ItemInspector({
           onClick={() => update({ visible: !item.visible })}
           className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
             item.visible
-              ? 'border-[#10b981]/30 bg-[#10b981]/5 text-[#10b981]'
+              ? 'border-ds-success/30 bg-ds-success/5 text-ds-success'
               : 'border-ds-border bg-ds-surface text-ds-text-muted'
           }`}
         >

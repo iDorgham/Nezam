@@ -1,5 +1,6 @@
 ---
-name: "nezam-guide-instructor-domains"
+tier: 3
+name: "nezam-"nezam-guide-instructor-domains"
 description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:
   - ".nezam/workspace/context/CONTEXT.md"

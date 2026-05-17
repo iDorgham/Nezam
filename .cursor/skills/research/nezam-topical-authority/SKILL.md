@@ -1,5 +1,6 @@
 ---
-name: nezam-topical-authority
+tier: 3
+name: "nezam- nezam-topical-authority"
 description: Hub-and-spoke content architecture, semantic clustering, and internal linking strategy for topic dominance.
 version: 1.0.0
 updated: 2026-05-08

@@ -2,9 +2,9 @@
 
 ---
 id: nezam-analytics-chart-types
-name: Analytics Chart Types
+name: "nezam-Analytics Chart Types"
 description: Selection and implementation of appropriate chart types for various data dimensions.
-tier: 4
+tier: 3
 swarm: Swarm 8 (Analytics)
 version: 1.0.0
 created: 2026-05-12

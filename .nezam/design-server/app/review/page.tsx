@@ -47,7 +47,7 @@ export default function ReviewPage() {
 
       {message && (
         <div className={`p-4 rounded-lg text-sm ${
-          isLocked ? 'bg-[#10b98110] border border-[#10b98124] text-[#10b981]' : 'bg-[#dc262610] border border-[#dc262624] text-[#ef4444]'
+          isLocked ? 'bg-ds-success/10 border border-ds-success/20 text-ds-success' : 'bg-ds-destructive/10 border border-ds-destructive/20 text-ds-destructive'
         }`}>
           {message}
         </div>
@@ -59,8 +59,8 @@ export default function ReviewPage() {
           disabled={isLocked}
           className={`px-6 py-3 rounded font-medium text-sm transition-colors ${
             isLocked
-              ? 'bg-[#191a1b] text-ds-text-muted cursor-default'
-              : 'bg-[#5e6ad2] text-white hover:bg-[#7170ff]'
+              ? 'bg-ds-surface text-ds-text-muted cursor-default'
+              : 'bg-ds-primary text-ds-primary-foreground hover:bg-ds-primary-hover'
           }`}
         >
           {isLocked ? 'Design Locked' : 'Lock & Export Contract'}

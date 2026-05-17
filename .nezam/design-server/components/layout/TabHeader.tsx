@@ -7,14 +7,14 @@ export default function TabHeader() {
   const { tabs, activeTabId, setActiveTabId, closeTab } = useSessionStore()
 
   return (
-    <div className="flex bg-[#000000] border-b border-[#ffffff14] overflow-x-auto h-10 shrink-0">
+    <div className="flex bg-ds-background border-b border-ds-border overflow-x-auto h-10 shrink-0">
       {tabs.map((tab) => {
         const isActive = tab.id === activeTabId
         return (
           <div
             key={tab.id}
-            className={`flex items-center h-full px-4 border-e border-[#ffffff14] cursor-pointer group transition-colors ${
-              isActive ? 'bg-[#121420] text-ds-text-primary border-t-2 border-[#7c3aed]' : 'text-ds-text-muted hover:bg-white/[0.02] hover:text-ds-text-primary'
+            className={`flex items-center h-full px-4 border-e border-ds-border cursor-pointer group transition-colors ${
+              isActive ? 'bg-ds-surface text-ds-text-primary border-t-2 border-ds-primary' : 'text-ds-text-muted hover:bg-ds-surface-hover hover:text-ds-text-primary'
             }`}
             onClick={() => setActiveTabId(tab.id)}
           >

@@ -56,7 +56,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
       <div className="flex items-center gap-2 me-2">
         <FileText size={14} className="text-ds-primary" />
         <span className="text-sm font-medium text-white">{pageTitle}</span>
-        {locked && <Lock size={12} className="text-[#10b981]" />}
+        {locked && <Lock size={12} className="text-ds-success" />}
       </div>
 
       <div className="w-px h-5 bg-ds-surface-hover" />
@@ -67,7 +67,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
           <div className="flex items-center gap-1.5">
             <div className="w-20 h-1.5 bg-ds-surface-hover rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#10b981] rounded-full transition-all"
+                className="h-full bg-ds-success rounded-full transition-all"
                 style={{ width: `${(approvedCount / slotCount) * 100}%` }}
               />
             </div>
@@ -134,7 +134,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
       {activePageId && !locked && slotCount > 0 && (
         <button
           onClick={() => lockPage(activePageId)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981]/20 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-ds-success/10 text-ds-success hover:bg-ds-success/20 transition-colors"
         >
           <Lock size={13} />
           Lock Page
@@ -145,7 +145,7 @@ function EditorToolbar({ pageTitle }: { pageTitle: string }) {
       {activePageId && slotCount > 0 && (
         <button
           onClick={() => clearPage(activePageId)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-ds-surface-hover text-ds-text-muted hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-ds-surface-hover text-ds-text-muted hover:text-ds-destructive hover:bg-ds-destructive/10 transition-colors"
         >
           <X size={13} />
           Clear

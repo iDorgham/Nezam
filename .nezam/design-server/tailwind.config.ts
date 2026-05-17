@@ -1,71 +1,83 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './lib/**/*.{ts,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
-      // All design system colors are driven by CSS custom properties (--ds-*)
-      // Tailwind utilities reference those vars so the token studio updates
-      // everything in real time without a rebuild.
       colors: {
-        ds: {
-          primary: 'var(--ds-primary)',
-          'primary-hover': 'var(--ds-primary-hover)',
-          'primary-subtle': 'var(--ds-primary-subtle)',
-          secondary: 'var(--ds-secondary)',
-          accent: 'var(--ds-accent)',
-          interactive: 'var(--ds-interactive)',
-          destructive: 'var(--ds-destructive)',
-          success: 'var(--ds-success)',
-          warning: 'var(--ds-warning)',
-          info: 'var(--ds-info)',
-          background: 'var(--ds-background)',
-          surface: 'var(--ds-surface)',
-          'surface-elevated': 'var(--ds-surface-elevated)',
-          'surface-subtle': 'var(--ds-surface-subtle)',
-          overlay: 'var(--ds-overlay)',
-          'text-primary': 'var(--ds-text-primary)',
-          'text-secondary': 'var(--ds-text-secondary)',
-          'text-muted': 'var(--ds-text-muted)',
-          'text-disabled': 'var(--ds-text-disabled)',
-          'text-inverse': 'var(--ds-text-inverse)',
-          border: 'var(--ds-border)',
-          'border-strong': 'var(--ds-border-strong)',
-          'border-subtle': 'var(--ds-border-subtle)',
-          'border-focus': 'var(--ds-border-focus)',
-        },
-        // shadcn/ui semantic tokens (mapped to ds vars)
-        background: 'var(--ds-background)',
-        foreground: 'var(--ds-text-primary)',
-        border: 'var(--ds-border)',
-        ring: 'var(--ds-primary)',
-        primary: {
-          DEFAULT: 'var(--ds-primary)',
-          foreground: 'var(--ds-text-inverse)',
-        },
-        muted: {
-          DEFAULT: 'var(--ds-surface)',
-          foreground: 'var(--ds-text-muted)',
-        },
-        accent: {
-          DEFAULT: 'var(--ds-accent)',
-          foreground: 'var(--ds-text-inverse)',
-        },
-        destructive: {
-          DEFAULT: 'var(--ds-destructive)',
-          foreground: 'var(--ds-text-inverse)',
-        },
+        // Brand
+        'ds-primary': 'var(--ds-primary)',
+        'ds-primary-hover': 'var(--ds-primary-hover)',
+        'ds-primary-subtle': 'var(--ds-primary-subtle)',
+        'ds-primary-foreground': 'var(--ds-primary-foreground)',
+        'ds-secondary': 'var(--ds-secondary)',
+        'ds-accent': 'var(--ds-accent)',
+
+        // Surfaces
+        'ds-background': 'var(--ds-background)',
+        'ds-surface': 'var(--ds-surface)',
+        'ds-surface-elevated': 'var(--ds-surface-elevated)',
+        'ds-surface-hover': 'var(--ds-surface-hover)',
+        'ds-surface-subtle': 'var(--ds-surface-subtle)',
+        'ds-overlay': 'var(--ds-overlay)',
+
+        // Text
+        'ds-text-primary': 'var(--ds-text-primary)',
+        'ds-text-secondary': 'var(--ds-text-secondary)',
+        'ds-text-muted': 'var(--ds-text-muted)',
+        'ds-text-disabled': 'var(--ds-text-disabled)',
+        'ds-text-inverse': 'var(--ds-text-inverse)',
+
+        // Borders
+        'ds-border': 'var(--ds-border)',
+        'ds-border-strong': 'var(--ds-border-strong)',
+        'ds-border-subtle': 'var(--ds-border-subtle)',
+        'ds-border-hover': 'var(--ds-border-hover)',
+        'ds-border-focus': 'var(--ds-border-focus)',
+
+        // Semantic
+        'ds-interactive': 'var(--ds-interactive)',
+        'ds-destructive': 'var(--ds-destructive)',
+        'ds-success': 'var(--ds-success)',
+        'ds-warning': 'var(--ds-warning)',
+        'ds-error': 'var(--ds-error)',
+        'ds-info': 'var(--ds-info)',
+      },
+      borderRadius: {
+        'ds-none': 'var(--ds-radius-none)',
+        'ds-sm': 'var(--ds-radius-sm)',
+        'ds-md': 'var(--ds-radius-md)',
+        'ds-lg': 'var(--ds-radius-lg)',
+        'ds-xl': 'var(--ds-radius-xl)',
+        'ds-2xl': 'var(--ds-radius-2xl)',
+        'ds-full': 'var(--ds-radius-full)',
+      },
+      boxShadow: {
+        'ds-sm': 'var(--ds-elevation-sm)',
+        'ds-md': 'var(--ds-elevation-md)',
+        'ds-lg': 'var(--ds-elevation-lg)',
+        'ds-xl': 'var(--ds-elevation-xl)',
+        'ds-2xl': 'var(--ds-elevation-2xl)',
+      },
+      transitionTimingFunction: {
+        'ds-default': 'var(--ds-easing-default)',
+        'ds-spring': 'var(--ds-easing-spring)',
+      },
+      transitionDuration: {
+        'ds-fast': '150ms',
+        'ds-normal': '300ms',
+        'ds-slow': '500ms',
       },
       fontFamily: {
-        heading: 'var(--ds-font-heading)',
-        body: 'var(--ds-font-body)',
-        mono: 'var(--ds-font-mono)',
+        heading: ['var(--ds-font-heading)', 'Inter', 'system-ui', 'sans-serif'],
+        body: ['var(--ds-font-body)', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['var(--ds-font-mono)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
+        sans: ['var(--ds-font-body)', 'Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'ds-xs': 'var(--ds-text-xs)',
@@ -77,53 +89,17 @@ const config: Config = {
         'ds-3xl': 'var(--ds-text-3xl)',
         'ds-4xl': 'var(--ds-text-4xl)',
       },
-      borderRadius: {
-        none: 'var(--ds-radius-none)',
-        sm: 'var(--ds-radius-sm)',
-        md: 'var(--ds-radius-md)',
-        lg: 'var(--ds-radius-lg)',
-        xl: 'var(--ds-radius-xl)',
-        full: 'var(--ds-radius-full)',
-      },
-      boxShadow: {
-        none: 'var(--ds-elevation-none)',
-        sm: 'var(--ds-elevation-sm)',
-        md: 'var(--ds-elevation-md)',
-        lg: 'var(--ds-elevation-lg)',
-        xl: 'var(--ds-elevation-xl)',
-        '2xl': 'var(--ds-elevation-2xl)',
-      },
-      spacing: {
-        'ds-xs': 'var(--ds-spacing-xs)',
-        'ds-sm': 'var(--ds-spacing-sm)',
-        'ds-md': 'var(--ds-spacing-md)',
-        'ds-lg': 'var(--ds-spacing-lg)',
-        'ds-xl': 'var(--ds-spacing-xl)',
-        'ds-2xl': 'var(--ds-spacing-2xl)',
-        'ds-3xl': 'var(--ds-spacing-3xl)',
-        'ds-4xl': 'var(--ds-spacing-4xl)',
-      },
-      transitionDuration: {
-        fast: 'var(--ds-duration-fast)',
-        normal: 'var(--ds-duration-normal)',
-        slow: 'var(--ds-duration-slow)',
-      },
-      transitionTimingFunction: {
-        default: 'var(--ds-easing-default)',
-        spring: 'var(--ds-easing-spring)',
-      },
       zIndex: {
-        below: 'var(--ds-z-below)',
-        base: 'var(--ds-z-base)',
-        above: 'var(--ds-z-above)',
-        dropdown: 'var(--ds-z-dropdown)',
-        sticky: 'var(--ds-z-sticky)',
-        modal: 'var(--ds-z-modal)',
-        toast: 'var(--ds-z-toast)',
-      }
+        'ds-below': 'var(--ds-z-below)',
+        'ds-base': 'var(--ds-z-base)',
+        'ds-above': 'var(--ds-z-above)',
+        'ds-dropdown': 'var(--ds-z-dropdown)',
+        'ds-sticky': 'var(--ds-z-sticky)',
+        'ds-modal': 'var(--ds-z-modal)',
+        'ds-toast': 'var(--ds-z-toast)',
+      },
     },
   },
   plugins: [],
 }
-
 export default config

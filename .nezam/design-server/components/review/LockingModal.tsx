@@ -19,7 +19,7 @@ export default function LockingModal({ onConfirm, onCancel }: LockingModalProps)
 
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-      <div className="bg-[#0f1011] border border-[#ffffff14] rounded-lg max-w-md w-full p-6 space-y-6">
+      <div className="bg-ds-background border border-ds-border rounded-lg max-w-md w-full p-6 space-y-6">
         <div className="space-y-2">
           <h2 className="text-xl font-semibold text-white">Lock & Export Design</h2>
           <p className="text-sm text-ds-text-muted">
@@ -27,7 +27,7 @@ export default function LockingModal({ onConfirm, onCancel }: LockingModalProps)
           </p>
         </div>
 
-        <div className="bg-[#dc262610] border border-[#dc262624] p-4 rounded-lg text-sm text-[#ef4444]">
+        <div className="bg-ds-destructive/10 border border-ds-destructive/20 p-4 rounded-lg text-sm text-ds-destructive">
           Warning: Ensure all stakeholders have reviewed the wireframes before proceeding.
         </div>
 
@@ -43,8 +43,8 @@ export default function LockingModal({ onConfirm, onCancel }: LockingModalProps)
             disabled={countdown > 0}
             className={`px-4 py-2 text-sm rounded font-medium transition-colors ${
               countdown > 0
-                ? 'bg-[#191a1b] text-ds-text-muted cursor-not-allowed'
-                : 'bg-[#dc2626] text-white hover:bg-[#b91c1c]'
+                ? 'bg-ds-surface text-ds-text-muted cursor-not-allowed'
+                : 'bg-ds-destructive text-white hover:bg-ds-destructive/80'
             }`}
           >
             {countdown > 0 ? `Wait (${countdown}s)` : 'Confirm Lock & Export'}

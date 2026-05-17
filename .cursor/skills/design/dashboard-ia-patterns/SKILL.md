@@ -1,5 +1,6 @@
 ---
-name: dashboard-ia-patterns
+tier: 3
+name: "nezam-dashboard-ia-patterns"
 description: Design patterns for information architecture and hierarchical data display.
 version: 1.0.0
 updated: 2026-05-13

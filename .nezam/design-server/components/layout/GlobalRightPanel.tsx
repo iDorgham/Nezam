@@ -29,13 +29,13 @@ export default function GlobalRightPanel() {
           <div className="flex border-b border-white/[0.05] bg-white/[0.02]">
             <button
               onClick={() => setActiveTab('properties')}
-              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'properties' ? 'text-white border-b-2 border-[#5e6ad2] bg-white/[0.02]' : 'text-ds-text-muted hover:text-white'}`}
+              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'properties' ? 'text-ds-text-primary border-b-2 border-ds-primary bg-ds-surface-hover' : 'text-ds-text-muted hover:text-ds-text-primary'}`}
             >
               Properties
             </button>
             <button
               onClick={() => setActiveTab('settings')}
-              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'settings' ? 'text-white border-b-2 border-[#5e6ad2] bg-white/[0.02]' : 'text-ds-text-muted hover:text-white'}`}
+              className={`flex-1 py-3 text-sm font-medium transition-colors ${activeTab === 'settings' ? 'text-ds-text-primary border-b-2 border-ds-primary bg-ds-surface-hover' : 'text-ds-text-muted hover:text-ds-text-primary'}`}
             >
               Settings
             </button>
@@ -64,14 +64,14 @@ export default function GlobalRightPanel() {
         <div className="flex-1 flex flex-col items-center pt-4 space-y-4">
           <button 
             onClick={() => { setIsCollapsed(false); setActiveTab('properties'); }}
-            className={`p-2 rounded-lg ${activeTab === 'properties' ? 'bg-[#5e6ad2]/20 text-[#5e6ad2]' : 'bg-white/[0.03] text-ds-text-muted hover:text-white'} transition-colors`}
+            className={`p-2 rounded-lg ${activeTab === 'properties' ? 'bg-ds-primary-subtle text-ds-primary' : 'bg-ds-surface text-ds-text-muted hover:text-ds-text-primary'} transition-colors`}
             title="Properties"
           >
             <FileText size={16} />
           </button>
-          <button 
+          <button
             onClick={() => { setIsCollapsed(false); setActiveTab('settings'); }}
-            className={`p-2 rounded-lg ${activeTab === 'settings' ? 'bg-[#5e6ad2]/20 text-[#5e6ad2]' : 'bg-white/[0.03] text-ds-text-muted hover:text-white'} transition-colors`}
+            className={`p-2 rounded-lg ${activeTab === 'settings' ? 'bg-ds-primary-subtle text-ds-primary' : 'bg-ds-surface text-ds-text-muted hover:text-ds-text-primary'} transition-colors`}
             title="Settings"
           >
             <Settings size={16} />

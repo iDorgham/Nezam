@@ -79,12 +79,12 @@ export default function BlockSlot({
       onClick={onSelect}
     >
       {/* Header bar */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-[#080A12] border-b border-ds-border">
+      <div className="flex items-center gap-2 px-3 py-2 bg-ds-background border-b border-ds-border">
         {/* Drag handle */}
         <div
           {...attributes}
           {...listeners}
-          className="cursor-grab active:cursor-grabbing text-[#2A2E3F] hover:text-ds-text-muted transition-colors"
+          className="cursor-grab active:cursor-grabbing text-ds-text-disabled hover:text-ds-text-muted transition-colors"
           onClick={e => e.stopPropagation()}
         >
           <GripVertical size={14} />
@@ -121,8 +121,8 @@ export default function BlockSlot({
             title={isApproved ? 'Unapprove' : 'Approve'}
             className={`p-1.5 rounded-md transition-colors ${
               isApproved
-                ? 'text-[#10b981] bg-[#10b981]/10'
-                : 'text-ds-text-muted hover:text-[#10b981] hover:bg-[#10b981]/10'
+                ? 'text-ds-success bg-ds-success/10'
+                : 'text-ds-text-muted hover:text-ds-success hover:bg-ds-success/10'
             }`}
           >
             <Check size={12} />
@@ -146,21 +146,21 @@ export default function BlockSlot({
           <button
             onClick={e => { e.stopPropagation(); onDelete() }}
             title="Delete"
-            className="p-1.5 rounded-md text-ds-text-muted hover:text-[#dc2626] hover:bg-[#dc2626]/10 transition-colors"
+            className="p-1.5 rounded-md text-ds-text-muted hover:text-ds-destructive hover:bg-ds-destructive/10 transition-colors"
           >
             <Trash2 size={12} />
           </button>
         </div>
 
         {isApproved && (
-          <div className="w-1.5 h-1.5 rounded-full bg-[#10b981] flex-shrink-0" />
+          <div className="w-1.5 h-1.5 rounded-full bg-ds-success flex-shrink-0" />
         )}
       </div>
 
       {/* SVG preview */}
       {expanded && (
         <div
-          className="relative bg-[#080A12] overflow-hidden"
+          className="relative bg-ds-background overflow-hidden"
           style={{ height: scaledHeight }}
         >
           {svgContent ? (
@@ -177,7 +177,7 @@ export default function BlockSlot({
               dangerouslySetInnerHTML={{ __html: svgContent }}
             />
           ) : (
-            <div className="flex items-center justify-center h-full text-[10px] text-[#2A2E3F]">
+            <div className="flex items-center justify-center h-full text-[10px] text-ds-text-disabled">
               {type}
             </div>
           )}

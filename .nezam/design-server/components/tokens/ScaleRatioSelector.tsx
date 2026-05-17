@@ -18,7 +18,7 @@ export default function ScaleRatioSelector({ baseSize, scale }: ScaleRatioSelect
   ]
 
   return (
-    <div className="bg-[#191a1b] border border-[#ffffff14] rounded p-4">
+    <div className="bg-ds-surface border border-ds-border rounded p-4">
       <h3 className="text-xs text-ds-text-muted uppercase mb-3">Computed Type Scale</h3>
       <div className="space-y-2">
         {sizes.map((size) => (

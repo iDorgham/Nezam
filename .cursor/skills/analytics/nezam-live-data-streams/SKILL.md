@@ -1,8 +1,8 @@
 ---
 id: nezam-live-data-streams
-name: Live Data Streams
+name: "nezam-Live Data Streams"
 description: Handling real-time data ingestion and visualization updates.
-tier: 4
+tier: 3
 swarm: Swarm 8 (Analytics)
 version: 1.0.0
 created: 2026-05-12

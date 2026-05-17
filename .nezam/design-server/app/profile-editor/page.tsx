@@ -1,6 +1,7 @@
 'use client'
 
 import { useSessionStore } from '@/lib/store/session.store'
+import { useTokensStore } from '@/lib/store/tokens.store'
 import { useState, useEffect } from 'react'
 
 export default function ProfileEditorPage() {
@@ -37,27 +38,51 @@ export default function ProfileEditorPage() {
     }
   }
 
-  const handleExport = () => {
-    const profileData = {
-      name: selectedProfile ? `${selectedProfile}-clone` : 'custom-profile',
+  const handleExport = async () => {
+    const name = selectedProfile ? `${selectedProfile}-clone` : 'custom-profile'
+    const profileName = name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')
+    
+    // Get full active tokens and update with editor's primary/surface colors
+    const currentTokens = useTokensStore.getState().tokens
+    const updatedTokens = {
+      ...currentTokens,
       colors: {
+        ...currentTokens.colors,
         primary: primaryColor,
         surface: surfaceColor,
+        background: surfaceColor, // keep background aligned to surface for clean previews
       }
     }
-    
-    // Create a blob and download it
-    const blob = new Blob([JSON.stringify(profileData, null, 2)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${profileData.name}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-    
-    alert(t('Profile exported as JSON!', 'تم تصدير الملف كـ JSON!'))
+
+    try {
+      const res = await fetch(`/api/profiles/${profileName}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tokens: updatedTokens }),
+      })
+
+      if (!res.ok) throw new Error('Failed to save profile to disk')
+      const data = await res.json()
+      
+      // Also download JSON
+      const blob = new Blob([JSON.stringify(data.profile || updatedTokens, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${profileName}.json`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+
+      // Refresh profiles list in session store
+      await fetchProfiles()
+
+      alert(t(`Profile saved successfully to .nezam/design/${profileName}/design.md and exported as JSON!`, `تم حفظ الملف بنجاح في .nezam/design/${profileName}/design.md وتصديره كـ JSON!`))
+    } catch (err: any) {
+      console.error(err)
+      alert(t(`Error saving profile: ${err.message}`, `خطأ أثناء حفظ الملف: ${err.message}`))
+    }
   }
   
   return (

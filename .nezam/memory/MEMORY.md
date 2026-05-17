@@ -1,3 +1,1 @@
-# Workspace Memory
-
-*Project state has been reset.*
+# Workspace Memory\n\n*Project state has been reset.*

@@ -300,7 +300,7 @@ export default function WireframeTemplateGallery({ pageId, pageTitle, onApply, o
       <div className="flex-1 overflow-y-auto p-6">
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center py-12">
-            <LayoutTemplate size={32} className="text-[#2A2E3F] mb-3" />
+            <LayoutTemplate size={32} className="text-ds-text-disabled mb-3" />
             <p className="text-sm text-ds-text-muted">No templates match your search.</p>
           </div>
         ) : (

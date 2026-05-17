@@ -1,5 +1,6 @@
 ---
-name: chart-library-abstraction
+tier: 3
+name: "nezam-chart-library-abstraction"
 description: Reusable frontend abstraction for consistent charting across the application.
 version: 1.0.0
 updated: 2026-05-13

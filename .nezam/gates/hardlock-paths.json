@@ -6,8 +6,8 @@
     "For user-adjustable project paths (PRD, plans, reports) see .nezam/gates/workspace.paths.yaml"
   ],
   "intake": {
-    "prd": "docs/plan/00-define/01-product/PRD.md",
-    "projectPrompt": "docs/plan/00-define/01-product/PROJECT_PROMPT.md"
+    "prd": "docs/plans/00-define/01-product/PRD.md",
+    "projectPrompt": "docs/plans/00-define/01-product/PROJECT_PROMPT.md"
   },
   "planning": {
     "changelog": ".nezam/CHANGELOG.md",
@@ -24,7 +24,7 @@
     ]
   },
   "subphasePrompts": {
-    "plansRoot": "docs/plan",
+    "plansRoot": "docs/plans",
     "taskFileGlob": "**/*/*/TASKS.md",
     "requiredFiles": ["prompt.json", "PROMPT.md"]
   }

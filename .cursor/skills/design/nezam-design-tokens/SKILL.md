@@ -1,5 +1,6 @@
 ---
-name: "nezam-design-token-architecture"
+tier: 3
+name: "nezam-"nezam-design-token-architecture"
 description: High-level governance for token hierarchy, naming conventions, and multi-platform synchronization (web, mobile, email).
 version: 1.0.0
 updated: 2026-05-12

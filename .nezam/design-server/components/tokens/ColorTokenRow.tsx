@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
-import { HexColorPicker } from 'react-colorful'
+import React from 'react'
 
 interface ColorTokenRowProps {
   label: string
@@ -10,34 +9,38 @@ interface ColorTokenRowProps {
 }
 
 export default function ColorTokenRow({ label, value, onChange }: ColorTokenRowProps) {
-  const [showPicker, setShowPicker] = useState(false)
-  const pickerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-        setShowPicker(false)
+  // Safe helper to get a valid 7-character hex value for the color input.
+  // Native input type="color" strictly requires lowercase #rrggbb format.
+  const getSafeHexValue = (val: string) => {
+    if (!val) return '#000000'
+    const trimmed = val.trim()
+    if (trimmed.startsWith('#')) {
+      if (trimmed.length === 7) return trimmed.toLowerCase()
+      if (trimmed.length === 4) {
+        // Expand shorthand hex #rgb -> #rrggbb
+        const r = trimmed[1]
+        const g = trimmed[2]
+        const b = trimmed[3]
+        return `#${r}${r}${g}${g}${b}${b}`.toLowerCase()
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+    // Return a fallback if it's a CSS variable or invalid hex
+    return '#3b82f6' // Default blue
+  }
+
+  const safeHexValue = getSafeHexValue(value)
 
   return (
     <div className="flex items-center justify-between p-2 hover:bg-ds-surface-subtle rounded transition-colors">
       <div className="flex items-center gap-3">
-        <div className="relative">
-          <button
-            onClick={() => setShowPicker(!showPicker)}
-            className="w-6 h-6 rounded border border-ds-border cursor-pointer"
-            style={{ backgroundColor: value }}
+        <div className="relative w-6 h-6 rounded overflow-hidden border border-ds-border flex items-center justify-center cursor-pointer">
+          <input
+            type="color"
+            value={safeHexValue}
+            onChange={(e) => onChange(e.target.value)}
+            className="absolute inset-0 w-[150%] h-[150%] -translate-x-[16.6%] -translate-y-[16.6%] border-0 cursor-pointer p-0 bg-transparent appearance-none"
             title="Pick color"
           />
-          {showPicker && (
-            <div ref={pickerRef} className="absolute start-0 mt-2 z-50">
-              <HexColorPicker color={value} onChange={onChange} />
-            </div>
-          )}
         </div>
         <span className="text-sm font-medium text-ds-text-primary">{label}</span>
       </div>
@@ -50,4 +53,3 @@ export default function ColorTokenRow({ label, value, onChange }: ColorTokenRowP
     </div>
   )
 }
-

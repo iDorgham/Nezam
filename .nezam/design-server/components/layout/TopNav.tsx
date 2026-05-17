@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function TopNav() {
   return (
-    <header className="flex h-14 items-center justify-between border-b border-[#ffffff14] bg-[#08090a] px-4 text-sm">
+    <header className="flex h-14 items-center justify-between border-b border-ds-border bg-ds-background px-4 text-sm">
       <div className="flex items-center space-x-6">
         <span className="font-semibold text-white">◆ NEZAM Design Server</span>
         <nav className="flex space-x-4 text-ds-text-muted">
@@ -14,7 +14,7 @@ export default function TopNav() {
       </div>
       <div className="flex items-center space-x-4">
         {/* Progress indicator will go here later */}
-        <button className="px-3 py-1.5 bg-[#5e6ad2] text-white rounded font-medium text-xs hover:bg-[#7170ff] transition-colors">
+        <button className="px-3 py-1.5 bg-ds-primary text-ds-primary-foreground rounded font-medium text-xs hover:bg-ds-primary-hover transition-colors">
           Export
         </button>
       </div>

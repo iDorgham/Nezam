@@ -1,5 +1,6 @@
 ---
-name: nezam-monitoring-observability
+tier: 3
+name: "nezam- nezam-monitoring-observability"
 description: OpenTelemetry, structured logging, distributed tracing, and alerting strategy for production observability.
 version: 1.0.0
 updated: 2026-05-08

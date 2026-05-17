@@ -1,5 +1,6 @@
 ---
-name: "nezam-handoff-report"
+tier: 3
+name: "nezam-"nezam-handoff-report"
 description: Structured handoff report generator — session state capture, decision log, next-action brief, and context package for human-to-human or agent-to-agent transitions.
 paths:
   - ".nezam/workspace/context/**"

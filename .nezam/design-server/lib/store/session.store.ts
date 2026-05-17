@@ -216,6 +216,10 @@ export const useSessionStore = create<SessionState>((set) => ({
         ...currentTokens.spacing,
         ...(newTokens.spacing || {})
       },
+      radius: {
+        ...currentTokens.radius,
+        ...(newTokens.radius || {})
+      },
       motion: {
         ...currentTokens.motion,
         ...(newTokens.motion || {})

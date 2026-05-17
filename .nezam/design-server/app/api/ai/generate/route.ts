@@ -55,18 +55,83 @@ function buildSystemPrompt(): string {
 }
 
 function extractJsonArray(text: string): unknown[] {
-  // Strip optional markdown fences then locate the outermost [...]
   const stripped = text.replace(/```(?:json)?\s*/gi, '').replace(/```/g, '').trim()
+  try {
+    const parsed = JSON.parse(stripped)
+    if (Array.isArray(parsed)) return parsed
+    if (parsed && typeof parsed === 'object') {
+      for (const val of Object.values(parsed)) {
+        if (Array.isArray(val)) return val
+      }
+    }
+  } catch {
+    // Fallback to regex extraction
+  }
+
   const match = stripped.match(/\[[\s\S]*\]/)
   const jsonString = match ? match[0] : stripped
   const parsed = JSON.parse(jsonString)
-  if (!Array.isArray(parsed)) throw new Error('Model returned non-array JSON')
+  if (!Array.isArray(parsed)) {
+    if (parsed && typeof parsed === 'object') {
+      for (const val of Object.values(parsed)) {
+        if (Array.isArray(val)) return val
+      }
+    }
+    throw new Error('Model returned non-array JSON')
+  }
   return parsed
+}
+
+async function callGemini(apiKey: string, prompt: string, system: string): Promise<string> {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`
+  
+  let lastError: unknown = null
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{ text: prompt }]
+          }],
+          systemInstruction: {
+            parts: [{ text: system }]
+          },
+          generationConfig: {
+            responseMimeType: 'application/json'
+          }
+        })
+      })
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}))
+        const msg = errorData?.error?.message ?? res.statusText
+        if (res.status >= 500 || res.status === 429) {
+          lastError = new Error(`Gemini API Error ${res.status}: ${msg}`)
+          await new Promise((r) => setTimeout(r, 500 * (attempt + 1)))
+          continue
+        }
+        throw new Error(`Gemini API Error ${res.status}: ${msg}`)
+      }
+
+      const data = await res.json()
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+      if (!text) throw new Error('Gemini returned empty response')
+      return text
+    } catch (err) {
+      lastError = err
+      if (attempt === 1) throw err
+      await new Promise((r) => setTimeout(r, 500 * (attempt + 1)))
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error('Gemini call failed')
 }
 
 async function callAnthropic(apiKey: string, prompt: string, system: string) {
   let lastError: unknown = null
-  // Two attempts — handle transient 5xx / overload.
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const res = await fetch(ANTHROPIC_URL, {
@@ -87,7 +152,6 @@ async function callAnthropic(apiKey: string, prompt: string, system: string) {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
         const msg = data?.error?.message ?? res.statusText
-        // Retry on 5xx / 429
         if (res.status >= 500 || res.status === 429) {
           lastError = new Error(`Anthropic ${res.status}: ${msg}`)
           await new Promise((r) => setTimeout(r, 500 * (attempt + 1)))
@@ -114,12 +178,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing "prompt" in request body' }, { status: 400 })
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY
-    if (!apiKey) {
+    const geminiKey = process.env.GEMINI_API_KEY
+    const anthropicKey = process.env.ANTHROPIC_API_KEY
+
+    if (!geminiKey && !anthropicKey) {
       return NextResponse.json(
         {
-          error: 'ANTHROPIC_API_KEY is not set',
-          hint: 'Add ANTHROPIC_API_KEY to your environment, then restart the design server.',
+          error: 'Neither GEMINI_API_KEY nor ANTHROPIC_API_KEY is set',
+          hint: 'Add GEMINI_API_KEY or ANTHROPIC_API_KEY to your environment, then restart the design server.',
         },
         { status: 500 }
       )
@@ -135,8 +201,29 @@ export async function POST(request: Request) {
       .filter(Boolean)
       .join('\n')
 
-    const data = await callAnthropic(apiKey, userPrompt, buildSystemPrompt())
-    const text: string = data?.content?.[0]?.text ?? ''
+    let text = ''
+    let activeModel = ''
+
+    if (geminiKey) {
+      try {
+        activeModel = 'gemini-2.5-flash'
+        text = await callGemini(geminiKey, userPrompt, buildSystemPrompt())
+      } catch (geminiError: any) {
+        console.warn('Gemini generation failed, falling back to Anthropic if key is available:', geminiError)
+        if (anthropicKey) {
+          activeModel = MODEL
+          const data = await callAnthropic(anthropicKey, userPrompt, buildSystemPrompt())
+          text = data?.content?.[0]?.text ?? ''
+        } else {
+          throw geminiError
+        }
+      }
+    } else if (anthropicKey) {
+      activeModel = MODEL
+      const data = await callAnthropic(anthropicKey, userPrompt, buildSystemPrompt())
+      text = data?.content?.[0]?.text ?? ''
+    }
+
     if (!text) {
       return NextResponse.json(
         { error: 'Model returned an empty response' },
@@ -145,7 +232,7 @@ export async function POST(request: Request) {
     }
 
     const blocks = extractJsonArray(text)
-    return NextResponse.json({ blocks, model: MODEL })
+    return NextResponse.json({ blocks, model: activeModel })
   } catch (error: any) {
     console.error('[api/ai/generate] Error:', error)
     return NextResponse.json(

@@ -12,8 +12,11 @@ interface ProfileCardProps {
 }
 
 export default function ProfileCard({ profile, isSelected, onSelect, onPreview }: ProfileCardProps) {
-  // Placeholders for colors since parser is minimal for now
-  const placeholderColors = ['#5e6ad2', '#0f1011', '#f7f8f8']
+  const visualColors = [
+    profile.colorProfile?.primary || '#FF5701',
+    profile.colorProfile?.surface || '#0F111A',
+    profile.colorProfile?.background || '#090A0F'
+  ]
 
   const { lang } = useSessionStore()
   const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
@@ -33,7 +36,7 @@ export default function ProfileCard({ profile, isSelected, onSelect, onPreview }
         
         {/* Mini Preview Strip */}
         <div className={`flex items-center space-x-2 mb-2 ${lang === 'ar' ? 'space-x-reverse' : ''}`}>
-          {placeholderColors.map((color, i) => (
+          {visualColors.map((color, i) => (
             <div key={i} className="w-6 h-6 rounded-full border border-ds-border" style={{ backgroundColor: color }} />
           ))}
           <span className="text-xs text-ds-text-muted ms-2">Aa</span>

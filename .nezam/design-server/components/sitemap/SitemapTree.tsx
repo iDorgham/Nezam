@@ -138,7 +138,14 @@ function SortableItem({ page, isSelected, onClick }: { page: Page, isSelected: b
           <span className="font-semibold text-ds-text-primary group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-ds-text-primary group-hover:to-ds-text-muted group-hover:bg-clip-text transition-all duration-300">
             {page.title || (isAr ? 'بدون عنوان' : 'Untitled')}
           </span>
-          <span className="text-xs text-ds-text-muted font-mono mt-0.5">{page.route}</span>
+          <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
+            <span className="text-xs text-ds-text-muted font-mono">{page.route}</span>
+            {page.showInNav !== false && (
+              <span className="rounded-full bg-ds-primary/10 px-2 py-0.5 text-[10px] font-medium text-ds-primary">
+                {page.navLabel || page.title}
+              </span>
+            )}
+          </div>
         </div>
       </div>
       
@@ -163,7 +170,7 @@ function SortableItem({ page, isSelected, onClick }: { page: Page, isSelected: b
         </div>
         
         <span className="text-xs bg-ds-surface-subtle border border-ds-border-subtle px-2.5 py-1 rounded-full text-ds-text-muted font-medium uppercase tracking-wider text-[10px]">
-          {page.type === 'dashboard' ? (isAr ? 'لوحة تحكم' : 'dashboard') : page.type}
+          {page.type}
         </span>
       </div>
     </li>

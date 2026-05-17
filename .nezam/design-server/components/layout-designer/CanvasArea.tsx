@@ -31,6 +31,7 @@ import {
 } from 'lucide-react'
 import { COMPONENT_LIBRARY } from '@/lib/layout-designer/component-library'
 import { useLayoutStore } from '@/lib/layout-designer/layout.store'
+import { useSessionStore } from '@/lib/store/session.store'
 import type { LayoutSlot, PageLayout, Breakpoint } from '@/lib/layout-designer/types'
 
 // ── Block preview SVG wireframe thumbnails ────────────────────────────────────

@@ -135,7 +135,7 @@ export default function Home() {
                   </div>
                   <div className="mt-3 text-[10px] text-ds-primary font-medium flex items-center gap-0.5">
                     {t('Open', 'افتح')}
-                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-2.5 h-2.5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>

@@ -3,7 +3,7 @@
 import { useSessionStore } from '@/lib/store/session.store'
 
 export default function SettingsPage() {
-  const { lang, setLang } = useSessionStore()
+  const { lang, setLang, theme, setTheme } = useSessionStore()
   const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
   
   return (
@@ -35,8 +35,35 @@ export default function SettingsPage() {
             <h3 className="text-sm font-medium">{t('Theme Mode', 'وضع السمة')}</h3>
             <p className="text-xs text-ds-text-muted">{t('Toggle between light and dark mode.', 'بدل بين الوضع الفاتح والغامق.')}</p>
           </div>
-          <div className="text-xs text-ds-text-muted">
-            {t('Controlled via header toggle.', 'بيتم التحكم فيها من فوق.')}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                setTheme('light')
+                document.documentElement.setAttribute('data-theme', 'light')
+                localStorage.setItem('theme', 'light')
+              }}
+              className={`rounded-lg border px-3 py-1.5 text-xs transition-colors ${
+                theme === 'light'
+                  ? 'border-ds-primary bg-ds-primary/10 text-ds-primary'
+                  : 'border-ds-border bg-ds-background text-ds-text-muted'
+              }`}
+            >
+              {t('Light', 'فاتح')}
+            </button>
+            <button
+              onClick={() => {
+                setTheme('dark')
+                document.documentElement.setAttribute('data-theme', 'dark')
+                localStorage.setItem('theme', 'dark')
+              }}
+              className={`rounded-lg border px-3 py-1.5 text-xs transition-colors ${
+                theme === 'dark'
+                  ? 'border-ds-primary bg-ds-primary/10 text-ds-primary'
+                  : 'border-ds-border bg-ds-background text-ds-text-muted'
+              }`}
+            >
+              {t('Dark', 'غامق')}
+            </button>
           </div>
         </div>
       </div>

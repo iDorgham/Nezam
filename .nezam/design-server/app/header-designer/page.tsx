@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 import WireframeEditor from '@/components/wireframe/WireframeEditor'
-import { useSessionStore } from '@/store/sessionStore'
+import { useSessionStore } from '@/lib/store/session.store'
 
 export default function HeaderDesignerPage() {
-  const lang = useSessionStore(state => state.lang)
+  const lang = useSessionStore((state) => state.lang)
   const t = (en: string, ar: string) => lang === 'ar' ? ar : en
 
   return (

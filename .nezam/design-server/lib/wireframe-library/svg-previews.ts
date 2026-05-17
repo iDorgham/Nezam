@@ -801,7 +801,7 @@ const RENDERERS: Record<string, Renderer> = {
     rect(12, 160, 88, 108, C.surface, 6),
     rect(108, 160, 88, 108, C.surface, 6),
     rect(204, 160, 104, 108, C.surface, 6),
-    text(102, 100, '', 0, C.surface2, 0),
+    text(102, 100, '', 0, C.surface2, 'start'),
   ].join('')),
 
   'grid-gallery': (v) => wrapSvg(320, 240, [

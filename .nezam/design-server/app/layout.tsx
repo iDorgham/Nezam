@@ -8,20 +8,25 @@ import TabRouter from '@/components/layout/TabRouter'
 import ActiveTabLabel from '@/components/layout/ActiveTabLabel'
 import { useSessionStore } from '@/lib/store/session.store'
 import { useEffect } from 'react'
+import AssetManagerOverlay from '@/components/layout/AssetManagerOverlay'
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { lang } = useSessionStore()
+  const { lang, theme, hydratePreferences } = useSessionStore()
   const dir = lang === 'ar' ? 'rtl' : 'ltr'
 
   useEffect(() => {
-    // Sync attributes with document for hydration and external scripts
+    hydratePreferences()
+  }, [hydratePreferences])
+
+  useEffect(() => {
     document.documentElement.lang = lang
     document.documentElement.dir = dir
-  }, [lang, dir])
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [lang, dir, theme])
 
   const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
 
@@ -49,9 +54,9 @@ export default function RootLayout({
             <TabRouter>{children}</TabRouter>
           </main>
           <ConsolePanel />
+          <AssetManagerOverlay />
         </div>
       </body>
     </html>
   )
 }
-

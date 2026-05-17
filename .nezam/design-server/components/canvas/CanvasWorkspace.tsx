@@ -2,7 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { useSessionStore } from '@/lib/store/session.store'
-import { Plus, Trash2, Pencil, Eraser, MousePointer, Image as ImageIcon, Type, AlignLeft, AlignCenter, AlignRight, AlignVerticalJustifyStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, Globe, Smartphone, Database, Server, FileText } from 'lucide-react'
+import { Plus, Trash2, Pencil, Eraser, MousePointer, Image as ImageIcon, Type, AlignLeft, AlignCenter, AlignRight, AlignVerticalJustifyStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, Globe, Smartphone, Database, Server, FileText, Images } from 'lucide-react'
+import type { DesignAsset } from '@/lib/assets'
 
 interface Node {
   id: string
@@ -35,7 +36,7 @@ interface Connection {
 }
 
 export default function CanvasWorkspace() {
-  const { sitemap, lang } = useSessionStore()
+  const { sitemap, lang, openAssetManager } = useSessionStore()
   const t = (en: string, ar: string) => (lang === 'ar' ? ar : en)
 
   const [nodes, setNodes] = useState<Node[]>([
@@ -56,6 +57,7 @@ export default function CanvasWorkspace() {
   const [isSpacePressed, setIsSpacePressed] = useState(false)
   const [isPanning, setIsPanning] = useState(false)
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 })
+  const [openMenu, setOpenMenu] = useState<'app' | 'service' | null>(null)
 
   const canvasRef = useRef<HTMLDivElement>(null)
 
@@ -212,10 +214,45 @@ export default function CanvasWorkspace() {
     ])
   }
 
+  const attachAssetToNode = (nodeId: string, asset: DesignAsset) => {
+    setNodes((currentNodes) =>
+      currentNodes.map((node) => {
+        if (node.id !== nodeId) return node
+        const attachments = Array.from(new Set([...(node.attachments || []), asset.name]))
+        return { ...node, attachments }
+      }),
+    )
+  }
+
+  const handleCanvasDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+
+    const rawAsset = event.dataTransfer.getData('application/x-nezam-asset')
+    if (!rawAsset || !canvasRef.current) return
+
+    const asset = JSON.parse(rawAsset) as DesignAsset
+    const rect = canvasRef.current.getBoundingClientRect()
+    const x = event.clientX - rect.left - pan.x
+    const y = event.clientY - rect.top - pan.y
+
+    setNodes((currentNodes) => [
+      ...currentNodes,
+      {
+        id: Math.random().toString(36).substring(2, 9),
+        title: asset.name,
+        type: 'page',
+        subType: asset.type,
+        attachments: [asset.name],
+        x,
+        y,
+      },
+    ])
+  }
+
   return (
     <div className="p-6 space-y-6 text-ds-text-primary h-full flex flex-col">
-      <div className="flex justify-between items-center bg-ds-surface backdrop-blur-md border border-ds-border p-3 rounded-2xl shadow-2xl shrink-0">
-        <div className="flex items-center gap-2">
+      <div className="flex justify-between items-center bg-ds-surface backdrop-blur-md border border-ds-border p-3 rounded-2xl shadow-2xl shrink-0 overflow-visible">
+        <div className="flex flex-wrap items-center gap-2 overflow-visible">
           <button
             onClick={() => setTool('select')}
             className={`p-2 rounded-lg transition-colors ${tool === 'select' ? 'bg-ds-primary/20 text-ds-primary' : 'text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-background'}`}
@@ -246,22 +283,28 @@ export default function CanvasWorkspace() {
           </button>
           <div className="w-px h-6 bg-ds-border mx-1"></div>
           {/* Add App Dropdown */}
-          <div className="relative group">
-            <button className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1">
+          <div className="relative">
+            <button
+              onClick={() => setOpenMenu((current) => current === 'app' ? null : 'app')}
+              className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1"
+            >
               <Plus size={14} /> {t('App', 'تطبيق')}
             </button>
-            <div className={`absolute start-0 mt-1 w-32 bg-ds-surface border border-ds-border rounded-lg shadow-xl hidden group-hover:block z-50 ${lang === 'ar' ? 'end-0 start-auto' : 'start-0'}`}>
+            <div className={`${openMenu === 'app' ? 'block' : 'hidden'} absolute start-0 bottom-full mb-2 w-32 bg-ds-surface border border-ds-border rounded-lg shadow-xl z-[120] ${lang === 'ar' ? 'end-0 start-auto' : 'start-0'}`}>
               <button onClick={() => addNode('application', 'web')} className={`w-full ${lang === 'ar' ? 'text-end' : 'text-start'} px-3 py-2 text-xs text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-primary/20`}>{t('Web App', 'تطبيق ويب')}</button>
               <button onClick={() => addNode('application', 'mobile')} className={`w-full ${lang === 'ar' ? 'text-end' : 'text-start'} px-3 py-2 text-xs text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-primary/20`}>{t('Mobile App', 'تطبيق موبايل')}</button>
             </div>
           </div>
 
           {/* Add Service Dropdown */}
-          <div className="relative group">
-            <button className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1">
+          <div className="relative">
+            <button
+              onClick={() => setOpenMenu((current) => current === 'service' ? null : 'service')}
+              className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1"
+            >
               <Plus size={14} /> {t('Service', 'خدمة')}
             </button>
-            <div className={`absolute start-0 mt-1 w-40 bg-ds-surface border border-ds-border rounded-lg shadow-xl hidden group-hover:block z-50 max-h-48 overflow-auto ${lang === 'ar' ? 'end-0 start-auto' : 'start-0'}`}>
+            <div className={`${openMenu === 'service' ? 'block' : 'hidden'} absolute start-0 bottom-full mb-2 w-40 bg-ds-surface border border-ds-border rounded-lg shadow-xl z-[120] max-h-48 overflow-auto ${lang === 'ar' ? 'end-0 start-auto' : 'start-0'}`}>
               {['database', 'cache', 'storage', 'cdn', 'mail', 'CRM', 'AI LLM', 'automation', 'ai agent'].map((srv) => (
                 <button key={srv} onClick={() => addNode('service', srv)} className={`w-full ${lang === 'ar' ? 'text-end' : 'text-start'} px-3 py-2 text-xs text-ds-text-muted hover:text-ds-text-primary hover:bg-ds-primary/20`}>{srv.charAt(0).toUpperCase() + srv.slice(1)}</button>
               ))}
@@ -302,6 +345,13 @@ export default function CanvasWorkspace() {
             className="px-3 py-1.5 bg-ds-primary text-white rounded-lg text-xs font-medium hover:bg-[#e04c00] transition-colors flex items-center gap-1"
           >
             <Plus size={14} /> Group
+          </button>
+
+          <button
+            onClick={openAssetManager}
+            className="px-3 py-1.5 bg-ds-surface-elevated text-ds-text-primary rounded-lg text-xs font-medium border border-ds-border hover:bg-ds-surface-hover transition-colors flex items-center gap-1"
+          >
+            <Images size={14} /> {t('Assets', 'الأصول')}
           </button>
 
           {/* Alignment Tools */}
@@ -346,6 +396,8 @@ export default function CanvasWorkspace() {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
+        onDragOver={(event) => event.preventDefault()}
+        onDrop={handleCanvasDrop}
       >
         <div
           className="absolute inset-0"
@@ -504,6 +556,47 @@ export default function CanvasWorkspace() {
                 </div>
                 <button onClick={() => setSelectedNodeId(null)} className="text-ds-text-muted hover:text-ds-text-primary">✕</button>
               </div>
+
+              <button
+                onClick={openAssetManager}
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-ds-border bg-ds-background px-3 py-2 text-xs font-medium text-ds-text-primary transition-colors hover:bg-ds-surface-hover"
+              >
+                <ImageIcon size={14} />
+                <span>{t('Open Asset Manager', 'افتح مدير الملفات')}</span>
+              </button>
+
+              <div
+                onDragOver={(event) => event.preventDefault()}
+                onDrop={(event) => {
+                  event.preventDefault()
+                  const rawAsset = event.dataTransfer.getData('application/x-nezam-asset')
+                  if (!rawAsset || !selectedNodeId) return
+                  const asset = JSON.parse(rawAsset) as DesignAsset
+                  attachAssetToNode(selectedNodeId, asset)
+                }}
+                className="rounded-xl border border-dashed border-ds-border bg-ds-background px-3 py-3"
+              >
+                <div className="flex items-center gap-2 text-xs font-medium text-ds-text-primary">
+                  <ImageIcon size={14} className="text-ds-primary" />
+                  <span>{t('Drop assets here for this element', 'اسحب الأصل هنا للعنصر ده')}</span>
+                </div>
+                <p className="mt-1 text-[11px] text-ds-text-muted">
+                  {t('You can also drag assets directly onto the canvas to create a new asset card.', 'تقدر كمان تسحب الأصل على الكانفاس مباشرة عشان تعمل كارت جديد ليه.')}
+                </p>
+              </div>
+
+              {!!selectedNode.attachments?.length && (
+                <div className="space-y-2">
+                  <label className="text-xs text-ds-text-muted">{t('Attached Assets', 'الأصول المربوطة')}</label>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedNode.attachments.map((attachment) => (
+                      <span key={attachment} className="rounded-full bg-ds-primary/10 px-2.5 py-1 text-[11px] text-ds-primary">
+                        {attachment}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Settings */}
               <div className="space-y-2">

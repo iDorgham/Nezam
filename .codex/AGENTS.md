@@ -72,6 +72,7 @@ Do not proceed to development unless all exist:
 - `scan.md`
 - `settings.md`
 - `start.md`
+- `wireframe.md`
 
 ## Synced agent index
 - `EVAL_FRAMEWORK.md`
@@ -128,6 +129,10 @@ Do not proceed to development unless all exist:
 - `database-design-manager.md`
 - `deputy-swarm-leader.md`
 - `design-lead.md`
+- `design-server-sitemap.md`
+- `design-server-specialist.md`
+- `design-server-tokens.md`
+- `design-server-wireframe.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -248,6 +253,7 @@ Do not proceed to development unless all exist:
 - `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-gates.mdc`
+- `.cursor/rules/design-server-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`
 - `.cursor/rules/plan-phase-scaffold.mdc`

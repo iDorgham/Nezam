@@ -1,29 +1,24 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Sun, Moon, Globe, Lock } from 'lucide-react'
+import { Sun, Moon, Globe, Lock, Images } from 'lucide-react'
 import { useSessionStore } from '@/lib/store/session.store'
 
 export default function ThemeLanguageToggles() {
-  const [theme, setTheme] = useState('dark')
-  const { lang, setLang } = useSessionStore()
+  const [hydrated, setHydrated] = useState(false)
+  const {
+    lang,
+    setLang,
+    theme,
+    setTheme,
+    hydratePreferences,
+    openAssetManager,
+  } = useSessionStore()
 
   useEffect(() => {
-    // Check initial theme from document
-    const savedTheme = localStorage.getItem('theme')
-    const currentTheme = savedTheme || document.documentElement.getAttribute('data-theme') || 'dark'
-    setTheme(currentTheme)
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', currentTheme)
-    }
-    
-    // Check initial lang from localStorage
-    const savedLang = localStorage.getItem('lang')
-    const currentLang = savedLang || document.documentElement.getAttribute('lang') || 'en'
-    setLang(currentLang)
-    document.documentElement.setAttribute('lang', currentLang)
-    document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr')
-  }, [setLang])
+    hydratePreferences()
+    setHydrated(true)
+  }, [hydratePreferences])
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark'
@@ -40,8 +35,19 @@ export default function ThemeLanguageToggles() {
     document.documentElement.setAttribute('dir', newLang === 'ar' ? 'rtl' : 'ltr')
   }
 
+  if (!hydrated) return null
+
   return (
     <div className="flex items-center gap-3">
+      <button
+        onClick={openAssetManager}
+        className="flex items-center gap-2 px-3 py-1.5 bg-ds-surface hover:bg-ds-surface-hover text-ds-text-primary text-sm font-medium rounded-lg transition-all border border-ds-border active:scale-95"
+        title={lang === 'ar' ? 'افتح مدير الملفات' : 'Open Asset Manager'}
+      >
+        <Images size={14} className="text-ds-text-muted" />
+        <span className="text-[11px]">{lang === 'ar' ? 'الأصول' : 'Assets'}</span>
+      </button>
+
       {/* Language Switcher */}
       <button
         onClick={toggleLang}

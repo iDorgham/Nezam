@@ -24,6 +24,15 @@ export interface TemplateConfig {
   typography: string
   spacing: string
   formStyle: string
+  headerLogoPosition: 'left' | 'center' | 'right'
+  headerMenuPosition: 'left' | 'center' | 'right'
+  headerMenuMode: 'topbar' | 'sidebar'
+  headerShowCta: boolean
+  headerShowSocials: boolean
+  headerShowPhone: boolean
+  footerColumns: 1 | 3 | 4 | 5
+  footerShowSocials: boolean
+  footerShowPhone: boolean
 }
 
 export interface Tab {
@@ -46,6 +55,8 @@ interface SessionState {
   isLoading: boolean
   error: string | null
   lang: string
+  theme: 'light' | 'dark'
+  isAssetManagerOpen: boolean
   fetchContext: () => Promise<void>
   fetchProfiles: () => Promise<void>
   setSitemap: (sitemap: Page[]) => void
@@ -58,6 +69,11 @@ interface SessionState {
   closeTab: (id: string) => void
   setActiveTabId: (id: string) => void
   setLang: (lang: string) => void
+  setTheme: (theme: 'light' | 'dark') => void
+  hydratePreferences: () => void
+  openAssetManager: () => void
+  closeAssetManager: () => void
+  toggleAssetManager: () => void
   applyProfileToTokens: (name: string) => void
 }
 
@@ -76,12 +92,23 @@ export const useSessionStore = create<SessionState>((set) => ({
     colorProfile: 'dark',
     typography: 'modern',
     spacing: 'compact',
-    formStyle: 'minimal'
+    formStyle: 'minimal',
+    headerLogoPosition: 'left',
+    headerMenuPosition: 'right',
+    headerMenuMode: 'topbar',
+    headerShowCta: true,
+    headerShowSocials: false,
+    headerShowPhone: false,
+    footerColumns: 3,
+    footerShowSocials: true,
+    footerShowPhone: false,
   },
   logs: [],
   isLoading: false,
   error: null,
   lang: 'en',
+  theme: 'dark',
+  isAssetManagerOpen: false,
   fetchContext: async () => {
     set({ isLoading: true, error: null })
     try {
@@ -142,6 +169,24 @@ export const useSessionStore = create<SessionState>((set) => ({
   }),
   setActiveTabId: (activeTabId) => set({ activeTabId }),
   setLang: (lang) => set({ lang }),
+  setTheme: (theme) => set({ theme }),
+  hydratePreferences: () => {
+    if (typeof window === 'undefined') return
+
+    const savedTheme = localStorage.getItem('theme')
+    const savedLang = localStorage.getItem('lang')
+    const theme = savedTheme === 'light' ? 'light' : 'dark'
+    const lang = savedLang === 'ar' ? 'ar' : 'en'
+
+    document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.setAttribute('lang', lang)
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr')
+
+    set({ theme, lang })
+  },
+  openAssetManager: () => set({ isAssetManagerOpen: true }),
+  closeAssetManager: () => set({ isAssetManagerOpen: false }),
+  toggleAssetManager: () => set((state) => ({ isAssetManagerOpen: !state.isAssetManagerOpen })),
   applyProfileToTokens: (name) => {
     const state = useSessionStore.getState()
     const profile = state.profiles.find(p => p.name === name)

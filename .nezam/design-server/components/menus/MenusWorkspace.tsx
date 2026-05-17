@@ -525,7 +525,12 @@ function MenuEditor({
       <div className="h-11 border-b border-ds-border bg-ds-surface flex items-center px-4 gap-3 flex-shrink-0">
         <div className="flex items-center gap-2">
           <meta.icon size={14} style={{ color: meta.color }} />
-          <span className="text-sm font-semibold text-ds-text-primary">{menu.name}</span>
+          <input
+            type="text"
+            value={menu.name}
+            onChange={e => onUpdateMenu({ ...menu, name: e.target.value })}
+            className="min-w-[180px] bg-transparent text-sm font-semibold text-ds-text-primary outline-none"
+          />
           <span
             className="text-[10px] px-2 py-0.5 rounded-full font-semibold"
             style={{ background: `${meta.color}20`, color: meta.color }}
@@ -625,19 +630,104 @@ function ItemInspector({
   item,
   menu,
   onUpdateItem,
+  onUpdateMenu,
 }: {
   item: MenuItem | null
   menu: MenuConfig | null
   onUpdateItem: (id: string, updates: Partial<MenuItem>) => void
+  onUpdateMenu: (updated: MenuConfig) => void
 }) {
   const { sitemap } = useSessionStore()
   const [showIconPicker, setShowIconPicker] = useState(false)
 
-  if (!item || !menu) {
+  if (!menu) {
     return (
       <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col items-center justify-center h-full">
         <Navigation size={22} className="text-[#2A2E3F] mb-2" />
-        <p className="text-xs text-ds-text-muted text-center px-4">Select an item to configure it</p>
+        <p className="text-xs text-ds-text-muted text-center px-4">Select a menu to configure it</p>
+      </div>
+    )
+  }
+
+  if (!item) {
+    return (
+      <div className="w-[260px] min-w-[260px] bg-ds-surface border-s border-ds-border flex flex-col h-full">
+        <div className="px-4 py-3 border-b border-ds-border flex-shrink-0">
+          <span className="text-xs font-semibold text-ds-text-primary">Menu Settings</span>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div>
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
+              Menu Name
+            </label>
+            <input
+              type="text"
+              value={menu.name}
+              onChange={e => onUpdateMenu({ ...menu, name: e.target.value })}
+              className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
+            />
+          </div>
+
+          <div>
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
+              Description
+            </label>
+            <textarea
+              value={menu.description}
+              onChange={e => onUpdateMenu({ ...menu, description: e.target.value })}
+              rows={3}
+              className="w-full resize-none bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
+            />
+          </div>
+
+          <div>
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
+              Placement
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {(Object.keys(PLACEMENT_META) as MenuConfig['placement'][]).map((placement) => {
+                const placementMeta = PLACEMENT_META[placement]
+                return (
+                  <button
+                    key={placement}
+                    onClick={() => onUpdateMenu({ ...menu, placement })}
+                    className={`rounded-lg border px-2 py-2 text-[11px] transition-colors ${
+                      menu.placement === placement
+                        ? 'border-ds-primary bg-ds-primary/10 text-ds-primary'
+                        : 'border-ds-border text-ds-text-muted'
+                    }`}
+                  >
+                    {placementMeta.label}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-[10px] font-semibold text-ds-text-muted uppercase tracking-wider mb-1.5">
+              Max Depth
+            </label>
+            <input
+              type="number"
+              value={menu.maxDepth}
+              min={1}
+              max={4}
+              onChange={e => onUpdateMenu({ ...menu, maxDepth: Number(e.target.value) || 1 })}
+              className="w-full bg-ds-surface border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary focus:outline-none focus:border-ds-primary/50"
+            />
+          </div>
+
+          <div className="rounded-xl border border-ds-border bg-ds-background p-3">
+            <div className="text-[11px] font-semibold text-ds-text-primary">Summary</div>
+            <div className="mt-2 space-y-1 text-[11px] text-ds-text-muted">
+              <div>{flattenTree(menu.items).length} items</div>
+              <div>{PLACEMENT_META[menu.placement].label} placement</div>
+              <div>Depth up to {menu.maxDepth} levels</div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -955,6 +1045,7 @@ export default function MenusWorkspace() {
         item={selectedItem}
         menu={activeMenu}
         onUpdateItem={handleUpdateItem}
+        onUpdateMenu={handleUpdateMenu}
       />
     </div>
   )

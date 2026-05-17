@@ -177,7 +177,7 @@ Everything from `/GUIDE status` **plus** a full phases table:
 └──────────────┴──────────┴──────────────┴───────────────────────┘
 ```
 
-If `docs/plans/MASTER_TASKS.md` exists, also show open task counts by phase and any blocked tasks with reason.
+If `docs/plan/MASTER_TASKS.md` exists, also show open task counts by phase and any blocked tasks with reason.
 
 ---
 

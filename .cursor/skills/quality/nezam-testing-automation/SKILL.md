@@ -1,5 +1,6 @@
 ---
-name: nezam-testing-automation
+tier: 3
+name: "nezam- nezam-testing-automation"
 description: Deterministic testing automation workflow for unit, E2E, and visual coverage with `/SCAN tests` integration.
 version: 1.0.0
 updated: 2026-05-08

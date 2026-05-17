@@ -2,12 +2,12 @@
 
 ## Path resolution
 
-Before any file operation, read `.nezam/gates/workspace.paths.yaml`:
-- `project.prd` → default `.nezam/workspace/prd/PRD.md`
-- `project.plans_root` → default `.nezam/workspace/plans`
+Before any file operation, read `.nezam/gates/hardlock-paths.json`:
+- `intake.prd` → default `docs/plan/00-define/01-product/PRD.md`
+- `intake.projectPrompt` → default `docs/plan/00-define/01-product/PROJECT_PROMPT.md`
+- `subphasePrompts.plansRoot` → default `docs/plan`
 
 All PRD and plans path references below use these resolved values.
-To change paths: `/nezam paths set project.prd <path>`.
 
 Subcommands (in recommended execution order):
   /PLAN idea        → Idea Workshop: 3-mode entry — describe / upload PRD / live interview + brainstorm
@@ -28,22 +28,24 @@ Aliases: /PLAN menus → /PLAN ia | /PLAN copy → /PLAN content | /PLAN spec �
 
 Hard block:
   /plan (any subcommand) requires ALL of:
-  1. .nezam/workspace/prd/PRD.md exists and is not a blank template
-     (check: file has >10 non-comment lines)
-  2. DESIGN.md exists at repo root and is not a blank template
-  3. .cursor/state/onboarding.yaml has prd_locked: true AND design_locked: true
+  1. `docs/plan/00-define/01-product/PRD.md` exists and is not a blank template
+     (check: file has content, no `{{PLACEHOLDER}}` tokens)
+  2. `docs/plan/00-define/01-product/PROJECT_PROMPT.md` exists and has content
+  3. `DESIGN.md` exists at repo root and is not a blank template
+  4. `.cursor/state/onboarding.yaml` has `prd_locked: true` AND `design_locked: true`
+  5. At least 1 feature spec exists in `docs/plan/00-define/specs/`
 
 If any check fails:
-  → Read .cursor/state/onboarding.yaml to detect which step missing
-  → Tell user exactly which step is missing using the gate-orchestrator skill.
+  → Read `.cursor/state/onboarding.yaml` to detect which step is missing
+  → Tell user exactly which step is missing and the exact command to fix it
   → Do NOT run any /plan subcommand
   → Redirect to /start
 
 Example gate failure message:
-> **HARDLOCK VIOLATION:** /plan blocked. 
-> **Missing:** DESIGN.md at repo root. 
-> **Required gate:** Gate 0 (Onboarding → Planning). 
-> Run `/CHECK` for details or `/FIX gates` to attempt remediation.
+> **HARDLOCK VIOLATION:** /plan blocked.
+> **Missing:** PRD at `docs/plan/00-define/01-product/PRD.md`
+> **Required gate:** Onboarding must be completed first.
+> Run `/START` to begin onboarding.
 
 Recommendation footer: required
 
@@ -76,9 +78,9 @@ User types a description. Agent responds with:
    - Underserved user segment
    - Technical shortcut that reduces build time significantly
    - Viral or growth mechanic
-3. **3 Clarifying Questions** (exactly 3, targeted, not generic)
-4. After answers → generate PRD → save to `{prd_path}`
-5. Show PRD summary card → ask: "Does this match your vision? Type YES to lock or tell me what to change."
+3. **3 Clarifying Questions** (exactly 3, targeted, based on what was said — not generic)
+4. After answers → enter **Deep Thinking Phase** (see below) before writing anything
+5. Show scope preview → get user confirmation → generate deep PRD → save → lock ceremony
 
 ---
 
@@ -112,51 +114,131 @@ Adaptive interview — later questions informed by earlier answers.
 **Phase 3: Scale (1 question)**
 7. "Timeline and team size?"
 
-**Brainstorm Mode (after all answers)**
+**Deep Thinking Phase (after all interview answers — all modes)**
 
-Before writing the PRD, the agent enters Brainstorm Mode:
+> This phase runs internally before showing the user anything.
+> It is mandatory. Skipping it produces shallow, improvisation-prone plans.
+> The agent must complete every item in this checklist before writing the PRD.
+
+**INTERNAL ENUMERATION CHECKLIST (agent completes silently):**
+
+☐ **Feature map** — list every feature this product needs, from core to edge:
+  - What does the user do on Day 1?
+  - What do they do on Day 30?
+  - What admin/management capabilities are required?
+  - What notification/communication flows are needed?
+  - What settings/preferences must exist?
+
+☐ **User permission matrix** — for each persona:
+  - What can they create?
+  - What can they read?
+  - What can they edit?
+  - What can they delete?
+  - What is locked to admins only?
+
+☐ **Every user flow** — including failure branches:
+  - Registration flow (email verify? social login? invite-only?)
+  - Onboarding flow (guided setup? empty state? first action prompt?)
+  - Core task flow (the #1 thing users come to do)
+  - Error recovery flows (what happens when the thing fails?)
+  - Offboarding/account deletion flow
+
+☐ **Every data entity** — named and fielded:
+  - What objects does this system create?
+  - What does each object contain?
+  - How do they relate to each other?
+  - What gets soft-deleted vs hard-deleted?
+  - What is audited/logged?
+
+☐ **Every screen** — named and stated:
+  - List every URL/route the product will have
+  - For each: loading state, empty state, error state, populated state, offline state
+  - Which screens are public vs authenticated?
+  - Which screens exist on mobile vs desktop?
+
+☐ **Every integration** — external dependencies:
+  - Authentication provider
+  - Payment processor (if any)
+  - Email service
+  - File/media storage
+  - Analytics
+  - Error monitoring
+  - Any domain-specific APIs
+
+☐ **Every edge case** — things that can go wrong:
+  - What happens when a user's session expires mid-action?
+  - What happens when an upload is interrupted?
+  - What happens when two users edit the same thing simultaneously?
+  - What happens when a payment fails?
+  - What happens when a required third-party API is down?
+
+☐ **Every non-functional concern**:
+  - Performance budget (page load, API response)
+  - Accessibility target (WCAG AA minimum)
+  - RTL/i18n requirements
+  - Security requirements (auth, rate limiting, data encryption)
+  - Mobile responsiveness rules
+
+After checklist is complete, show the user:
 
 ```
-Before I write your PRD, here are ways to make this stronger:
+Before I write the full PRD, here's the scope I've mapped:
 
-🔵 DEPTH IMPROVEMENT
-   [specific feature that dramatically increases retention or engagement]
-   Why it matters: [one sentence]
+📋 FEATURES ({{N}} total)
+   P0 (launch-critical): [list]
+   P1 (important): [list]
+   P2 (nice-to-have): [list]
 
-🟢 GROWTH MECHANIC
-   [viral, referral, or network effect that fits this product type]
-   Why it matters: [one sentence]
+👤 USER TYPES: [list]
 
-🟡 MONETIZATION UPGRADE
-   [higher-leverage pricing or revenue model based on your answers]
-   Why it matters: [one sentence]
+📊 DATA ENTITIES: [list]
 
-🔴 RISK FLAG
-   [the #1 thing that kills products like this]
-   How to avoid it: [one sentence]
+🖥️  SCREENS: [N] screens across [list of sections]
 
-Want me to incorporate any of these into the PRD?
-Type YES to include all / tell me which ones / or type NO to proceed as described.
+🔗 INTEGRATIONS: [list]
+
+⚠️  KEY RISKS IDENTIFIED: [list]
+
+💡 ENHANCEMENTS TO CONSIDER:
+   [list specific improvements they may not have thought of]
+
+Does this match your vision?
+- Type YES to proceed to full PRD generation
+- Tell me what to add, remove, or reprioritize
 ```
 
-After user responds → PRD generated → saved → lock ceremony shown.
+After user confirms → generate full PRD from `.nezam/templates/specs/PRD.template.md`
+After PRD confirmed → generate full PROJECT_PROMPT from `.nezam/templates/specs/PROMPT_DOCUMENT.template.md`
+After PROJECT_PROMPT confirmed → generate FEATURE_SPEC for every P0 feature from `.nezam/templates/specs/FEATURE_SPEC.template.md`
+
+**PRD quality gate — no `{{PLACEHOLDER}}` tokens allowed, all sections must have real content.**
+
+After user responds → PRD generated → PROJECT_PROMPT generated → Feature Specs generated → lock ceremony shown.
 
 ---
 
 ### PRD Lock Ceremony (all modes)
 
 ```
-✅ PRD locked: {prd_path}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅  SPECS LOCKED — [Product Name]
 
-Product:      [name]
-Type:         [Web App / SaaS / Mobile App / Website / API]
-Users:        [primary persona in one line]
-Core Problem: [one sentence]
-Revenue:      [model]
-Stack Hint:   [detected or stated]
-Risks Noted:  [count from brainstorm]
+📋  PRD              → docs/plan/00-define/01-product/PRD.md
+📝  PROJECT_PROMPT   → docs/plan/00-define/01-product/PROJECT_PROMPT.md
+🔖  Feature Specs    → docs/plan/00-define/specs/ ([N] specs)
 
-Next: /PLAN seo → or run /PLAN all to complete the full pipeline at once
+Product:     [name]
+Type:        [Web App / SaaS / Mobile App / Website / API]
+Personas:    [N] defined
+Features:    [N] P0 · [N] P1 · [N] P2
+Entities:    [N] with [N] fields total
+Screens:     [N] screens × 5 states each
+Endpoints:   [N] defined
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔓  /PLAN seo → Next step in the SDD pipeline
+    Or run /PLAN all to complete the full pipeline at once.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ---
@@ -168,7 +250,7 @@ Runs AFTER arch, design, and IA are complete. Hard-blocked until all three exist
 **Behavior:**
 1. Reads: PRD.md + ARCHITECTURE.md + DESIGN.md + IA_CONTENT.md
 2. Detects product type (SaaS, website, mobile, API)
-3. Produces `docs/plans/scaffold/PROJECT_SCAFFOLD.md` with:
+3. Produces `docs/plan/scaffold/PROJECT_SCAFFOLD.md` with:
    - Complete directory tree (every folder and file, including empty stubs)
    - Each file annotated: purpose / owner agent / SDD phase when created
    - Config file inventory (env, tsconfig, CI configs, package.json, etc.)
@@ -331,7 +413,7 @@ For Webapp/SaaS also add:
 
 Generate:
 
-**1. `docs/plans/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
+**1. `docs/plan/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
 ```yaml
 wireframe_selections:
   navigation:
@@ -353,7 +435,7 @@ wireframe_selections:
 - Dark mode token overrides
 - Each screen mapped to its wireframe selection
 
-**3. `docs/plans/04-design/WIREFRAMES.md`** — complete wireframe doc:
+**3. `docs/plan/04-design/WIREFRAMES.md`** — complete wireframe doc:
 - All screens with full ASCII wireframes as shown above
 - Every screen_id mapped to its page from IA_CONTENT.md
 - States documented (default, hover, loading, empty, error)
@@ -400,12 +482,12 @@ When planning_complete becomes true, show:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  PLANNING COMPLETE
 
-✅  SEO Research      → docs/plans/01-research/SEO_RESEARCH.md
-✅  Info Architecture → docs/plans/02-ia/IA_CONTENT.md
-✅  Content Map       → docs/plans/03-content/CONTENT_MAP.md
-✅  Architecture      → docs/plans/04-arch/ARCHITECTURE.md
-✅  Design Wireframes → docs/plans/04-design/DESIGN_CHOICES.md
-✅  Project Scaffold  → docs/plans/scaffold/PROJECT_SCAFFOLD.md
+✅  SEO Research      → docs/plan/01-research/SEO_RESEARCH.md
+✅  Info Architecture → docs/plan/02-ia/IA_CONTENT.md
+✅  Content Map       → docs/plan/03-content/CONTENT_MAP.md
+✅  Architecture      → docs/plan/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → docs/plan/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → docs/plan/scaffold/PROJECT_SCAFFOLD.md
 
 🔓  /develop  → UNLOCKED — ready to use
 
@@ -431,7 +513,7 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 
 ## /PLAN tasks — Settings-Aware Task Tool Tagging
 
-When generating `docs/plans/MASTER_TASKS.md`, apply routing metadata when
+When generating `docs/plan/MASTER_TASKS.md`, apply routing metadata when
 `tools.routing.auto_assign_tasks: true` in `.cursor/workspace.settings.yaml`.
 
 ### Task Tool Tagging
@@ -492,12 +574,12 @@ When planning_complete becomes true, show:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  PLANNING COMPLETE
 
-✅  SEO Research      → docs/plans/01-research/SEO_RESEARCH.md
-✅  Info Architecture → docs/plans/02-ia/IA_CONTENT.md
-✅  Content Map       → docs/plans/03-content/CONTENT_MAP.md
-✅  Architecture      → docs/plans/04-arch/ARCHITECTURE.md
-✅  Design Wireframes → docs/plans/04-design/DESIGN_CHOICES.md
-✅  Project Scaffold  → docs/plans/scaffold/PROJECT_SCAFFOLD.md
+✅  SEO Research      → docs/plan/01-research/SEO_RESEARCH.md
+✅  Info Architecture → docs/plan/02-ia/IA_CONTENT.md
+✅  Content Map       → docs/plan/03-content/CONTENT_MAP.md
+✅  Architecture      → docs/plan/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → docs/plan/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → docs/plan/scaffold/PROJECT_SCAFFOLD.md
 
 🔓  /develop  → UNLOCKED — ready to use
 

@@ -1,5 +1,6 @@
 ---
-name: nezam-testing-strategy
+tier: 3
+name: "nezam- nezam-testing-strategy"
 description: Unit, integration, E2E, and visual regression strategy with Playwright/Cypress/Vitest, mocking, and test data discipline.
 version: 1.0.0
 updated: 2026-05-08

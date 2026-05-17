@@ -10,10 +10,10 @@
 
 project:
   # Your project PRD file. Change if you keep your PRD at a different location.
-  prd: ".nezam/workspace/prd/PRD.md"
+  prd: "docs/start/PRD.md"
 
   # Root folder for phase-based execution plans. /plan scaffolds sub-folders here.
-  plans_root: "docs/plans"
+  plans_root: "docs/plan"
 
   # Root folder for reports. Execution outputs are written here by category.
   # Valid category sub-folders: progress | tests | audits | a11y | security | perf | lighthouse

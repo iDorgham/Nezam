@@ -1,5 +1,5 @@
 ---
-description: Enforce client workspace onboarding before deep docs/plans/dev/guide modes when under workspaces/clients/.
+description: Enforce client workspace onboarding before deep docs/plan/dev/guide modes when under workspaces/clients/.
 globs: workspaces/clients/**/*
 alwaysApply: false
 ---

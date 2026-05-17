@@ -1,0 +1,26 @@
+---
+description: "NEZAM Design Server Gates — Enforce Wireframe and Token Locks before Development"
+globs: ["**/*.tsx","**/*.ts","**/*.md","**/DESIGN.md"]
+alwaysApply: true
+---
+
+# NEZAM Design Server Gates
+
+This rule enforces that the NEZAM Design Server is used to lock design decisions before frontend development can proceed.
+
+## Gate 1: Wireframe Lock (Hard Block)
+
+- Block implementation-oriented `/DEVELOP` actions until `wireframes_locked.json` exists in the repository root or `.session/`.
+- `wireframes_locked.json` must contain the structured contract for all P0 pages.
+- If the file is missing, the agent must run `/wireframe` or guide the user to the Design Server at `http://localhost:4000`.
+
+## Gate 2: Token Consistency
+
+- All components generated after the lock must use the tokens defined in `wireframes_locked.json` or `DESIGN.md`.
+- No hardcoded colors or spacing that deviate from the locked profile.
+
+## Pre-Develop Checklist
+
+Before `/DEVELOP`:
+1. Verify `wireframes_locked.json` exists.
+2. Verify that the requested component/page is defined in the locked contract.

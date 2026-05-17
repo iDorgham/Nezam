@@ -1,15 +1,13 @@
 # MASTER TASKS — NEZAM Project
 
 > **Current Phase:** 00 Define  
-> **Status:** Blank Slate
+> **Status:** Reset / Initialized
 
 ## 🛠 Active Task List
 
 | ID | Task | Owner | Status | Due |
 |---|---|---|---|---|
 | **T-000-001** | Define PRD and Project Scope | PM-01 | ⚪️ Not Started | - |
-| **T-000-002** | Establish Technical Architecture | ARCH-01 | ⚪️ Not Started | - |
-| **T-000-003** | Finalize Design Tokens & Foundations | DESIGN-01 | ⚪️ Not Started | - |
 
 ## 📦 Phase Summary
 

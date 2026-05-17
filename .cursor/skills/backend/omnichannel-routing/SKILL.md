@@ -1,5 +1,6 @@
 ---
-name: omnichannel-routing
+tier: 3
+name: "nezam-omnichannel-routing"
 description: Unified routing and logging for multi-channel customer communications.
 version: 1.0.0
 updated: 2026-05-13

@@ -70,7 +70,7 @@ NEZAM enforces a seven-phase **Specification-Driven Development (SDD)** pipeline
 ```
 
 > **🔒 Gated phases** require automated checks to pass before the next phase unlocks.
-> Design (02) requires `DESIGN.md` approval + `check-design-tokens.sh`.
+> Design (02) requires `DESIGN.md` approval + `check-design-tokens.sh` + **design-server wireframe lock** (`wireframes_locked.json`).
 > Build (04) requires approved feature specs + CI green.
 
 ### Slash Commands
@@ -81,7 +81,8 @@ Every phase has a command. Type it in any synced AI client to orient the agent a
 |---|---|---|
 | `/START` | Initialize | Load workspace state, check prerequisites, orient the AI |
 | `/PLAN` | Plan | Build phase plans, populate `TASKS.md` files |
-| `/START design` | Design | Apply a design profile to `DESIGN.md` |
+| `/START design` | Design | Launch the Design Server (port 4000) to configure tokens, sitemap, wireframes |
+| `/DESIGN` | Design | Open the Design Server dashboard for wireframing and design lock |
 | `/DEVELOP` | Build | Start a gated feature slice |
 | `/CHECK` | Any | Run all workspace readiness checks |
 | `/FIX` | Any | Diagnose and repair workspace issues |
@@ -132,10 +133,12 @@ pnpm ai:check
 **Directory overview:**
 
 ```
-.cursor/            ← Canonical source (agents, commands, skills, rules, design)
-.nezam/             ← Workspace state (memory, specs, scripts, evals, gates)
-docs/               ← Reports, plans, architecture, wiki pages
-.github/workflows/  ← CI/CD gate enforcement
+.cursor/                ← Canonical source (agents, commands, skills, rules, design)
+.nezam/                 ← Workspace state (memory, specs, scripts, evals, gates)
+.nezam/design-server/   ← Local design decision engine (Next.js 15, port 4000)
+.nezam/design/          ← 100+ design profiles by brand
+docs/                   ← Reports, plans, architecture, wiki pages
+.github/workflows/      ← CI/CD gate enforcement
 ```
 
 ---
@@ -179,16 +182,16 @@ pnpm ai:status  # Show sync status per client
 pnpm ai:check   # Verify no drift between clients
 ```
 
-| Client | Entry Point | Sync Folder |
-|---|---|---|
-| **Cursor** | `.cursor/` | — (canonical, never synced) |
-| **Claude** | `CLAUDE.md` | `.claude/` |
-| **Gemini** | `GEMINI.md` | `.gemini/` |
-| **OpenCode** | — | `.opencode/` |
-| **Codex** | `AGENTS.md` | `.codex/` |
-| **Qwen** | `QWEN.md` | `.qwen/` |
-| **Antigravity** | — | `.antigravity/` |
-| **Kilocode** | — | `.kilocode/` |
+| Client | Entry Point | Sync Folder | Design-Server Agents |
+|---|---|---|---|---|
+| **Cursor** | `.cursor/` | — (canonical, never synced) | 4 agents |
+| **Claude** | `CLAUDE.md` | `.claude/` | 4 agents |
+| **Gemini** | `GEMINI.md` | `.gemini/` | 4 agents |
+| **OpenCode** | — | `.opencode/` | 4 agents |
+| **Codex** | `AGENTS.md` | `.codex/` | 4 agents |
+| **Qwen** | `QWEN.md` | `.qwen/` | 4 agents |
+| **Antigravity** | — | `.antigravity/` | 4 agents |
+| **Kilocode** | — | `.kilocode/` | 4 agents |
 
 ---
 
@@ -223,13 +226,33 @@ Decisions survive session resets through a four-layer persistence architecture.
 
 ## Design System
 
-Token-first governance. Design gates block development until tokens are approved and validated.
+Token-first governance backed by a **human-in-the-loop design server** — a local Next.js 15 app (port 4000) where design decisions are reviewed, configured, and locked before any frontend code runs.
+
+### Design Server
+
+The Design Server (`.nezam/design-server/`) sits between PRD planning and frontend implementation. It produces two machine-readable contracts that gate all `/DEVELOP` commands:
+
+| Artifact | Purpose |
+|---|---|
+| `DESIGN.md` (root) | Locked design contract — tokens, typography, palette, spacing, motion |
+| `wireframes_locked.json` | Per-page block layout contract (P0 pages required) |
+
+**5 core modules:**
+
+1. **Sitemap Builder** — Visual page hierarchy editor; AI pre-populates from PRD
+2. **Wireframe Editor** — Per-page block canvas (Hero, CTA, Cards, Features, etc.)
+3. **Token Studio** — Live editor with CSS custom property preview (`--ds-*`)
+4. **Profile Browser** — Browse & apply 100+ brand profiles from `.nezam/design/`
+5. **State Review** — Review loading/empty/error/populated states per section
 
 <details>
 <summary><strong>View design governance</strong></summary>
 
 ```bash
-# Apply a design profile
+# Start the design server
+pnpm design-server
+
+# Apply a design profile (CLI fallback)
 pnpm run design:apply -- minimal
 pnpm run design:apply -- brand
 
@@ -246,8 +269,10 @@ pnpm run check:tokens
 - Motion and animation tokens
 - Dark mode parity (required for all tokens)
 - RTL layout support
+- Wireframe lock (`wireframes_locked.json`) — required before development
 
-Design profiles live in `.cursor/design/<brand>/design.md`.
+Design profiles live in `.nezam/design/<brand>/design.md`.  
+4 dedicated agents (`design-server-specialist`, `design-server-wireframe`, `design-server-tokens`, `design-server-sitemap`) operate the server across all synced clients.
 
 </details>
 
@@ -257,7 +282,7 @@ Design profiles live in `.cursor/design/<brand>/design.md`.
 
 | Workflow | Trigger | Checks |
 |---|---|---|
-| `ci.yml` | Push / PR | Onboarding, AI sync drift, design tokens, tests |
+| `ci.yml` | Push / PR | Onboarding, AI sync drift, design tokens, design-server wireframe lock, tests |
 | `design-gates.yml` | Design file changes | Token validity, dark mode parity, RTL coverage |
 | `release.yml` | Push to `main` | Semantic release, CHANGELOG, GitHub Release |
 
@@ -289,7 +314,10 @@ NEZAM ships with dedicated Arabic language and MENA-region support built into th
 | `pnpm run check:specs` | Validate spec version consistency |
 | `pnpm run check:agent-bus` | Check agent bus configuration |
 | `pnpm run check:all` | Run every check in sequence |
-| `pnpm run design:apply -- <brand>` | Apply a design profile |
+| `pnpm design-server` | Start the design server (port 4000) |
+| `pnpm design-server:build` | Build the design server for production |
+| `pnpm design-server:install` | Install design server dependencies |
+| `pnpm run design:apply -- <brand>` | Apply a design profile (CLI fallback) |
 | `pnpm run skills:registry` | Regenerate skills registry |
 | `pnpm run skills:normalize` | Normalize skill IDs |
 | `pnpm run report:swarm-cost` | Generate swarm cost report |

@@ -1,6 +1,6 @@
 ---
 id: nezam-supabase-architect
-name: Supabase Architect
+name: "nezam- nezam-supabase-architect"
 description: Architecting and managing Supabase projects, including DB schema, Auth, and Edge Functions.
 tier: 3
 swarm: Swarm 4 (Backend)

@@ -31,7 +31,7 @@ Ensures data integrity and atomic transitions of task states across distributed 
 When implementing backend logic for task updates, comments, or attachments.
 
 ### Input requirements
-- `docs/plans/backend/TASK_STATE_TRANSITION.md`
+- `docs/plan/backend/TASK_STATE_TRANSITION.md`
 - Database schema for `tasks` table.
 
 ### Output deliverables

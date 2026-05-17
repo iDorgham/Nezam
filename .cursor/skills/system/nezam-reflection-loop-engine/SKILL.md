@@ -1,5 +1,6 @@
 ---
-name: "nezam-reflection-loop-engine"
+tier: 3
+name: "nezam-"nezam-reflection-loop-engine"
 description: Run bounded self-review loops to reduce mistakes before finalizing outputs.
 version: 1.0.0
 updated: 2026-05-08

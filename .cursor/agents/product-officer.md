@@ -22,7 +22,7 @@ Final authority across the 12-swarm system. Owns project scoping, timeline, budg
 
 - Own cross-swarm arbitration across the 12 fixed swarms.
 - Assign a Swarm Manager and Team Manager for every active workstream.
-- Enforce SDD hardlocks from `docs/specs/**` and `docs/plans/**`.
+- Enforce SDD hardlocks from `docs/specs/**` and `docs/plan/**`.
 - Approve the Project Charter and Architecture Decision Record at intake.
 - Approve Go-Live before deployment and approve sprint priorities.
 - Final escalation tier: Specialist -> Team Manager -> Swarm Manager -> Deputy Orchestrator -> CPO.

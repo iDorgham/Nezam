@@ -1,5 +1,6 @@
 ---
-name: "nezam-design-md"
+tier: 3
+name: "nezam-"nezam-design-md"
 description: Author DESIGN.md textual prototypes — layout archetypes, color systems, typography, motion, accessibility, example pages BEFORE implementation.
 paths:
   - "DESIGN.md"

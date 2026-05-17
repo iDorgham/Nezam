@@ -49,6 +49,8 @@ Do not proceed to development unless all exist:
 - For NEZAM README work, keep README body copy in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections (for example Mermaid) rather than Arabic wording inside README narrative text.
 - Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
 - When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `.nezam/templates/ai-client/` and `.nezam/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
+- **Arabic Language Preference:** When Arabic is chosen or required for content, localization, or communication, default to **Egyptian Arabic** (Masri) to match the project's Cairo/Sahel context, rather than Modern Standard Arabic (MSA).
+- **Planning Team Improvement:** To strengthen the Planning team, ensure all agents respect the SDD hardlocks, maintain strict traceability in `docs/plans/INDEX.md`, and consult the `masri-content-specialist` for regional alignment.
 
 ## Learned Workspace Facts
 
@@ -70,6 +72,7 @@ Do not proceed to development unless all exist:
 - `scan.md`
 - `settings.md`
 - `start.md`
+- `wireframe.md`
 
 ## Synced agent index
 - `EVAL_FRAMEWORK.md`
@@ -126,6 +129,10 @@ Do not proceed to development unless all exist:
 - `database-design-manager.md`
 - `deputy-swarm-leader.md`
 - `design-lead.md`
+- `design-server-sitemap.md`
+- `design-server-specialist.md`
+- `design-server-tokens.md`
+- `design-server-wireframe.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -246,6 +253,7 @@ Do not proceed to development unless all exist:
 - `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/design-gates.mdc`
+- `.cursor/rules/design-server-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`
 - `.cursor/rules/plan-phase-scaffold.mdc`

@@ -1,8 +1,9 @@
 ---
-name: "nezam-deployment-checklist"
+tier: 3
+name: "nezam-"nezam-deployment-checklist"
 description: Pre/post deployment checklist — environment validation, smoke tests, rollback plan, observability confirmation, and go/no-go decision for production releases.
 paths:
-  - "docs/plans/**"
+  - "docs/plan/**"
   - ".github/workflows/**"
   - "docs/reports/**"
 version: 1.0.0

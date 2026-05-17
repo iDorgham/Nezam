@@ -1,6 +1,6 @@
 ---
-skill_id: nezam-stripe"
-name: "nezam-stripe"
+skill_id: "nezam- nezam-stripe"
+name: "nezam-"nezam-stripe"
 description: "Implements Stripe payment processing, Checkout, subscriptions, Connect, and secure webhooks."
 version: 1.0.0
 updated: 2026-05-12

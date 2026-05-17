@@ -12,8 +12,8 @@ Planning -> SEO/IA -> Content -> `DESIGN.md` -> Development -> Hardening.
 Block implementation-oriented `/DEVELOP` actions until design, token, motion, and component contracts are in place and auditable.
 
 Additionally block `/DEVELOP` until SDD prompt artifacts are complete for active sub-phases:
-- `docs/plans/<phase>/<subphase>/prompt.json`
-- `docs/plans/<phase>/<subphase>/PROMPT.md`
+- `docs/plan/<phase>/<subphase>/prompt.json`
+- `docs/plan/<phase>/<subphase>/PROMPT.md`
 
 ## Activation & Cross-References
 
@@ -85,8 +85,8 @@ Block `/DEVELOP` until:
 1. **Planning & Research:** Planning, SEO/IA (including SEO/AEO/GEO research artifacts driving wording), and content outlines are complete.
 2. **Design Contract:** `DESIGN.md` is approved capturing layout paradigm, palettes, typography, motion rules, component inventory, and textual example screens.
 3. **Handoff & Governance:** Handoff evidence from `nezam-multi-agent-handoff` is present for multi-agent flows.
-4. **Artifacts:** `docs/plans/<phase>/<subphase>/prompt.json` and `PROMPT.md` exist.
-5. **Gate Policy:** `docs/plans/gates/GITHUB_GATE_MATRIX.json` exists for gate policy source-of-truth.
+4. **Artifacts:** `docs/plan/<phase>/<subphase>/prompt.json` and `PROMPT.md` exist.
+5. **Gate Policy:** `docs/plan/gates/GITHUB_GATE_MATRIX.json` exists for gate policy source-of-truth.
 6. All implemented UI traces to current `DESIGN.md`. Visual deviations require explicit spec/design update.
 7. Versioning hooks (semver strategy, changelog, conventional commits) are documented in specs before automation.
 
@@ -105,6 +105,6 @@ Before `/DEVELOP`:
 4. Confirm alignment with `DESIGN.md` and active SDD docs.
 5. Run `/SCAN a11y perf` for baseline readiness when scope is significant.
 6. Confirm wireframe-to-spec conversion is complete:
-   - `docs/plans/design/WIREFRAMES.md` exists and is non-template.
+   - `docs/plan/design/WIREFRAMES.md` exists and is non-template.
    - Each screen has a `screen_id`, `components`, `states`, and `accessibility_notes`.
-   - Run: `grep -c "screen_id" docs/plans/design/WIREFRAMES.md` to verify count > 0.
+   - Run: `grep -c "screen_id" docs/plan/design/WIREFRAMES.md` to verify count > 0.

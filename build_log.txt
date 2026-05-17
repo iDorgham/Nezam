@@ -1,0 +1,1058 @@
+
+> @nezam/design-server@1.0.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/Dorgham/Documents/Work/Devleopment/NEZAM/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/Dorgham/Documents/Work/Devleopment/NEZAM/.nezam/design-server/pnpm-lock.yaml
+
+▲ Next.js 16.2.6 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 42 errors:
+./.nezam/design-server/components/layout-designer/CanvasArea.tsx:4:1
+Module not found: Can't resolve '@dnd-kit/core'
+  [90m 2 |[0m
+  [90m 3 |[0m [36mimport[0m [33mReact[0m, { useRef } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m 4 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   [33mDndContext[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   closestCenter,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   [33mPointerSensor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   [33mKeyboardSensor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   useSensor,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   useSensors,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [33mDragEndEvent[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m'@dnd-kit/core'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m {
+  [90m14 |[0m   [33mSortableContext[0m,
+  [90m15 |[0m   sortableKeyboardCoordinates,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeCanvas.tsx:4:1
+Module not found: Can't resolve '@dnd-kit/core'
+  [90m 2 |[0m
+  [90m 3 |[0m [36mimport[0m [33mReact[0m, { useCallback } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m 4 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   [33mDndContext[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   closestCenter,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   [33mKeyboardSensor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   [33mPointerSensor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   useSensor,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   useSensors,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [33mDragEndEvent[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m'@dnd-kit/core'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m {
+  [90m14 |[0m   arrayMove,
+  [90m15 |[0m   [33mSortableContext[0m,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:4:1
+Module not found: Can't resolve '@dnd-kit/core'
+  [90m 2 |[0m
+  [90m 3 |[0m [36mimport[0m [33mReact[0m, { useCallback } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m 4 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   [33mDndContext[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   closestCenter,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   [33mPointerSensor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   [33mKeyboardSensor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   useSensor,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   useSensors,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [33mDragEndEvent[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m'@dnd-kit/core'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m {
+  [90m14 |[0m   [33mSortableContext[0m,
+  [90m15 |[0m   useSortable,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout-designer/CanvasArea.tsx:13:1
+Module not found: Can't resolve '@dnd-kit/sortable'
+  [90m11 |[0m   [33mDragEndEvent[0m,
+  [90m12 |[0m } [36mfrom[0m [32m'@dnd-kit/core'[0m
+[31m[1m>[0m [90m13 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   [33mSortableContext[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   sortableKeyboardCoordinates,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   verticalListSortingStrategy,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   useSortable,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m19 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+  [90m20 |[0m [36mimport[0m {
+  [90m21 |[0m   [33mGripVertical[0m,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/BlockSlot.tsx:4:1
+Module not found: Can't resolve '@dnd-kit/sortable'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m [33mReact[0m, { useState } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { useSortable } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+  [90m6 |[0m [36mimport[0m { [33mGripVertical[0m, [33mTrash2[0m, [33mCheck[0m, [33mCopy[0m, [33mChevronDown[0m, [33mChevronUp[0m } [36mfr..[0m.
+  [90m7 |[0m [36mimport[0m { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeCanvas.tsx:13:1
+Module not found: Can't resolve '@dnd-kit/sortable'
+  [90m11 |[0m   [33mDragEndEvent[0m
+  [90m12 |[0m } [36mfrom[0m [32m'@dnd-kit/core'[0m
+[31m[1m>[0m [90m13 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   arrayMove,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   [33mSortableContext[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   sortableKeyboardCoordinates,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   verticalListSortingStrategy
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m19 |[0m [36mimport[0m [33mBlockSlot[0m [36mfrom[0m [32m'./BlockSlot'[0m
+  [90m20 |[0m [36mimport[0m { useApprovalStore } [36mfrom[0m [32m'@/lib/store/approval.store'[0m
+  [90m21 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:13:1
+Module not found: Can't resolve '@dnd-kit/sortable'
+  [90m11 |[0m   [33mDragEndEvent[0m,
+  [90m12 |[0m } [36mfrom[0m [32m'@dnd-kit/core'[0m
+[31m[1m>[0m [90m13 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   [33mSortableContext[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   useSortable,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   sortableKeyboardCoordinates,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   verticalListSortingStrategy,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m19 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+  [90m20 |[0m [36mimport[0m { useWireframeStore, [36mtype[0m [33mWireframeSlot[0m } [36mfrom[0m [32m'@/lib/store/wir...[0m
+  [90m21 |[0m [36mimport[0m { getBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout-designer/CanvasArea.tsx:19:1
+Module not found: Can't resolve '@dnd-kit/utilities'
+  [90m17 |[0m   useSortable,
+  [90m18 |[0m } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+[31m[1m>[0m [90m19 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m20 |[0m [36mimport[0m {
+  [90m21 |[0m   [33mGripVertical[0m,
+  [90m22 |[0m   [33mTrash2[0m,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/BlockSlot.tsx:5:1
+Module not found: Can't resolve '@dnd-kit/utilities'
+  [90m3 |[0m [36mimport[0m [33mReact[0m, { useState } [36mfrom[0m [32m'react'[0m
+  [90m4 |[0m [36mimport[0m { useSortable } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mGripVertical[0m, [33mTrash2[0m, [33mCheck[0m, [33mCopy[0m, [33mChevronDown[0m, [33mChevronUp[0m } [36mfr..[0m.
+  [90m7 |[0m [36mimport[0m { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+  [90m8 |[0m [36mimport[0m { getBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:19:1
+Module not found: Can't resolve '@dnd-kit/utilities'
+  [90m17 |[0m   verticalListSortingStrategy,
+  [90m18 |[0m } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+[31m[1m>[0m [90m19 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m20 |[0m [36mimport[0m { useWireframeStore, [36mtype[0m [33mWireframeSlot[0m } [36mfrom[0m [32m'@/lib/store/wir...[0m
+  [90m21 |[0m [36mimport[0m { getBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+  [90m22 |[0m [36mimport[0m { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/app/ai/page.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+  [90m4 |[0m [36mimport[0m { useState } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { [33mBot[0m, [33mSparkles[0m, [33mWand2[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mAIPage[0m() {
+  [90m8 |[0m   [36mconst[0m { lang } = useSessionStore()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/app/export/page.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m [36mimport[0m [33mReact[0m [36mfrom[0m [32m'react'[0m
+  [90m4 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { [33mFileText[0m, [33mDownload[0m, [33mCheckCircle[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mExportPage[0m() {
+  [90m8 |[0m   [36mconst[0m { sitemap, templateConfig, addLog, lang } = useSessionStore()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/app/layout-designer/page.tsx:4:1
+Module not found: Can't resolve 'lucide-react'
+  [90m 2 |[0m
+  [90m 3 |[0m [36mimport[0m [33mReact[0m, { useEffect, useState, useCallback } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m 4 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   [33mSmartphone[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   [33mTablet[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   [33mMonitor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   [33mGrid3X3[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   [33mType[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [33mZoomIn[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [33mZoomOut[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   [33mLock[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   [33mUnlock[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   [33mDownload[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   [33mCheckSquare[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   [33mRotateCcw[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   [33mFileText[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   [33mLayoutTemplate[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   [33mChevronDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   [33mLayers[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m22 |[0m [36mimport[0m { useLayoutStore } [36mfrom[0m [32m'@/lib/layout-designer/layout.store'[0m
+  [90m23 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+  [90m24 |[0m [36mimport[0m [33mLibraryPanel[0m [36mfrom[0m [32m'@/components/layout-designer/LibraryPanel'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/app/sitemap/page.tsx:14:1
+Module not found: Can't resolve 'lucide-react'
+  [90m12 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+  [90m13 |[0m [36mimport[0m [36mtype[0m { [33mPage[0m } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m14 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   [33mPlus[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   [33mTrash2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   [33mChevronRight[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   [33mChevronDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   [33mGlobe[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   [33mLock[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m   [33mShield[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m22 |[0m   [33mLayers[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   [33mCode2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   [33mLink2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m   [33mEye[0m,
+  [90m   |[0m [31m[1m^^^^^^[0m
+[31m[1m>[0m [90m26 |[0m   [33mEyeOff[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m27 |[0m   [33mGripVertical[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m28 |[0m   [33mSearch[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m29 |[0m   [33mMap[0m,
+  [90m   |[0m [31m[1m^^^^^^[0m
+[31m[1m>[0m [90m30 |[0m   [33mFileText[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m31 |[0m   [33mSettings[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m32 |[0m   [33mHome[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m33 |[0m   [33mArrowRight[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m34 |[0m   [33mCopy[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m35 |[0m   [33mCornerDownRight[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m36 |[0m   [33mCheck[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m37 |[0m   [33mX[0m,
+  [90m   |[0m [31m[1m^^^^[0m
+[31m[1m>[0m [90m38 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m39 |[0m
+  [90m40 |[0m [90m// ─── Helpers ───────────────────────────────────────────────────────...[0m
+  [90m41 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/app/template-builder/page.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m ...[36mort[0m [33mReact[0m, { useEffect, useMemo, useState } [36mfrom[0m [32m'react'[0m
+  [90m4 |[0m ...[36mort[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m5 |[0m ...[36mort[0m { [33mCheck[0m, [33mImages[0m, [33mPhone[0m, [33mSave[0m, [33mShare2[0m, [33mSparkles[0m } [36mfrom[0m [32m'lucide-re...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m ...
+  [90m7 |[0m ...[36mst[0m options = {
+  [90m8 |[0m ...eaderStyle: [
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/app/theme-editor/page.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m [36mimport[0m [33mReact[0m, { useState } [36mfrom[0m [32m'react'[0m
+  [90m4 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { [33mCheck[0m, [33mSave[0m, [33mRotateCcw[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mThemeEditorPage[0m() {
+  [90m8 |[0m   [36mconst[0m { lang, templateConfig, updateTemplateConfig, addLog } = useSes...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/canvas/CanvasWorkspace.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m ...
+  [90m4 |[0m ...
+[31m[1m>[0m [90m5 |[0m ..., [33mAlignRight[0m, [33mAlignVerticalJustifyStart[0m, [33mAlignVerticalJustifyCenter[0m,.[33m..[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m ...
+  [90m7 |[0m ...
+  [90m8 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout-designer/CanvasArea.tsx:20:1
+Module not found: Can't resolve 'lucide-react'
+  [90m18 |[0m } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+  [90m19 |[0m [36mimport[0m { [33mCSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+[31m[1m>[0m [90m20 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m   [33mGripVertical[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m22 |[0m   [33mTrash2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   [33mChevronUp[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   [33mChevronDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m   [33mCopy[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m26 |[0m   [33mLock[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m27 |[0m   [33mUnlock[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m28 |[0m   [33mCheckCircle2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m29 |[0m   [33mCircle[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m30 |[0m   [33mAlertCircle[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m31 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m32 |[0m [36mimport[0m { [33mCOMPONENT_LIBRARY[0m } [36mfrom[0m [32m'@/lib/layout-designer/component-lib...[0m
+  [90m33 |[0m [36mimport[0m { useLayoutStore } [36mfrom[0m [32m'@/lib/layout-designer/layout.store'[0m
+  [90m34 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout-designer/InspectorPanel.tsx:4:1
+Module not found: Can't resolve 'lucide-react'
+  [90m2 |[0m ...
+  [90m3 |[0m ...
+[31m[1m>[0m [90m4 |[0m ...[33martphone[0m, [33mTablet[0m, [33mMonitor[0m, [33mAlignLeft[0m, [33mAlignCenter[0m, [33mAlignRight[0m, [33mAlign...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m ...[36mom[0m [32m'@/lib/layout-designer/layout.store'[0m
+  [90m6 |[0m ...[36mrom[0m [32m'@/lib/store/session.store'[0m
+  [90m7 |[0m ... [36mfrom[0m [32m'@/lib/layout-designer/component-library'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout-designer/LibraryPanel.tsx:4:1
+Module not found: Can't resolve 'lucide-react'
+  [90m2 |[0m ...
+  [90m3 |[0m ..., { useState, useMemo } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m4 |[0m ...[33mrch[0m, [33mPlus[0m, [33mChevronDown[0m, [33mChevronRight[0m, [33mChevronLeft[0m, [33mPackage2[0m } [36mfrom[0m [32m'...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m ...[33mPONENT_LIBRARY[0m, [33mCATEGORIES[0m } [36mfrom[0m [32m'@/lib/layout-designer/component-l...[0m
+  [90m6 |[0m ...{ [33mLibraryBlock[0m } [36mfrom[0m [32m'@/lib/layout-designer/types'[0m
+  [90m7 |[0m ...SessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout/AssetManagerOverlay.tsx:4:1
+Module not found: Can't resolve 'lucide-react'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { useMemo, useState } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mX[0m, [33mSearch[0m, [33mUpload[0m, [33mGripVertical[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+  [90m6 |[0m [36mimport[0m { designAssets } [36mfrom[0m [32m'@/lib/assets'[0m
+  [90m7 |[0m [36mimport[0m [33mAssetCard[0m [36mfrom[0m [32m'./AssetCard'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout/ConsolePanel.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m [36mimport[0m [33mReact[0m, { useState } [36mfrom[0m [32m'react'[0m
+  [90m4 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { [33mTerminal[0m, [33mChevronUp[0m, [33mChevronDown[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mConsolePanel[0m() {
+  [90m8 |[0m   [36mconst[0m { logs, lang } = useSessionStore()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout/Sidebar.tsx:5:1
+Module not found: Can't resolve 'lucide-react'
+  [90m3 |[0m ...[32meact'[0m
+  [90m4 |[0m ...[32m/lib/store/session.store'[0m
+[31m[1m>[0m [90m5 |[0m ... [33mMenu[0m, [33mPenTool[0m, [33mFileCode[0m, [33mComponent[0m, [33mLayout[0m, [33mPaintbrush[0m, [33mFileJson[0m, [33mS...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m ...
+  [90m7 |[0m ...
+  [90m8 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/layout/ThemeLanguageToggles.tsx:4:1
+Module not found: Can't resolve 'lucide-react'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { useState, useEffect } [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mSun[0m, [33mMoon[0m, [33mGlobe[0m, [33mLock[0m, [33mImages[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mThemeLanguageToggles[0m() {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/menus/MenusWorkspace.tsx:14:1
+Module not found: Can't resolve 'lucide-react'
+  [90m12 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+  [90m13 |[0m [36mimport[0m [36mtype[0m { [33mPage[0m } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m14 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   [33mPlus[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   [33mTrash2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   [33mChevronDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   [33mChevronRight[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   [33mLink2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   [33mGlobe[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m   [33mHash[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m22 |[0m   [33mPhone[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   [33mMail[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   [33mExternalLink[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m   [33mHome[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m26 |[0m   [33mSettings[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m27 |[0m   [33mGripVertical[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m28 |[0m   [33mEye[0m,
+  [90m   |[0m [31m[1m^^^^^^[0m
+[31m[1m>[0m [90m29 |[0m   [33mEyeOff[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m30 |[0m   [33mCopy[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m31 |[0m   [33mArrowUp[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m32 |[0m   [33mArrowDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m33 |[0m   [33mLayers[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m34 |[0m   [33mNavigation[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m35 |[0m   [33mMenu[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m36 |[0m   [33mLayoutGrid[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m37 |[0m   [33mSmartphone[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m38 |[0m   [33mStar[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m39 |[0m   [33mCheck[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m40 |[0m   [33mX[0m,
+  [90m   |[0m [31m[1m^^^^[0m
+[31m[1m>[0m [90m41 |[0m   [33mSearch[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m42 |[0m   [33mFileText[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m43 |[0m   [33mChevronUp[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m44 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m45 |[0m
+  [90m46 |[0m [90m// ─── Types ─────────────────────────────────────────────────────────...[0m
+  [90m47 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/review/CompletionMatrix.tsx:4:1
+Module not found: Can't resolve 'lucide-react'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m [33mReact[0m [36mfrom[0m [32m'react'[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mCheck[0m, [33mX[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36minterface[0m [33mCriteria[0m {
+  [90m7 |[0m   id: string
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/tokens/RadiusStudio.tsx:6:1
+Module not found: Can't resolve 'lucide-react'
+  [90m4 |[0m [36mimport[0m { useTokensStore } [36mfrom[0m [32m'@/lib/store/tokens.store'[0m
+  [90m5 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { [33mSliders[0m, [33mRefreshCw[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mRadiusStudio[0m() {
+  [90m9 |[0m   [36mconst[0m { tokens, updateRadius } = useTokensStore()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/tokens/TokenStudio.tsx:11:1
+Module not found: Can't resolve 'lucide-react'
+  [90m 9 |[0m [36mimport[0m [33mRadiusStudio[0m [36mfrom[0m [32m'./RadiusStudio'[0m
+  [90m10 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m11 |[0m [36mimport[0m { [33mSave[0m, [33mCheckCircle2[0m, [33mAlertTriangle[0m, [33mLoader2[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m
+  [90m13 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mTokenStudio[0m() {
+  [90m14 |[0m   [36mconst[0m { tokens, updateColor, updateTypography } = useTokensStore()
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/BlockSlot.tsx:6:1
+Module not found: Can't resolve 'lucide-react'
+  [90m4 |[0m ...seSortable } [36mfrom[0m [32m'@dnd-kit/sortable'[0m
+  [90m5 |[0m ...[33mSS[0m } [36mfrom[0m [32m'@dnd-kit/utilities'[0m
+[31m[1m>[0m [90m6 |[0m ...[33mripVertical[0m, [33mTrash2[0m, [33mCheck[0m, [33mCopy[0m, [33mChevronDown[0m, [33mChevronUp[0m } [36mfrom[0m [32m'luc...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m ...etBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+  [90m8 |[0m ...etBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+  [90m9 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeBlockLibrary.tsx:13:1
+Module not found: Can't resolve 'lucide-react'
+  [90m11 |[0m } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+  [90m12 |[0m [36mimport[0m { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+[31m[1m>[0m [90m13 |[0m [36mimport[0m { [33mSearch[0m, [33mPlus[0m, [33mChevronDown[0m, [33mChevronRight[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m14 |[0m
+  [90m15 |[0m [36minterface[0m [33mProps[0m {
+  [90m16 |[0m   pageId: string
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeCanvas.tsx:22:1
+Module not found: Can't resolve 'lucide-react'
+  [90m20 |[0m [36mimport[0m { useApprovalStore } [36mfrom[0m [32m'@/lib/store/approval.store'[0m
+  [90m21 |[0m [36mimport[0m { useSessionStore } [36mfrom[0m [32m'@/lib/store/session.store'[0m
+[31m[1m>[0m [90m22 |[0m [36mimport[0m { [33mLayers[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m23 |[0m
+  [90m24 |[0m [36minterface[0m [33mBlockInstance[0m {
+  [90m25 |[0m   id: string
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeEditor.tsx:18:1
+Module not found: Can't resolve 'lucide-react'
+  [90m16 |[0m [36mimport[0m [33mWireframeCanvas[0m [36mfrom[0m [32m'./WireframeCanvas'[0m
+  [90m17 |[0m [36mimport[0m [33mWireframeInspector[0m [36mfrom[0m [32m'./WireframeInspector'[0m
+[31m[1m>[0m [90m18 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   [33mSearch[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   [33mMonitor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m   [33mTablet[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m22 |[0m   [33mSmartphone[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   [33mLayoutTemplate[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   [33mLock[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m   [33mDownload[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m26 |[0m   [33mSave[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m27 |[0m   [33mPlus[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m28 |[0m   [33mX[0m,
+  [90m   |[0m [31m[1m^^^^[0m
+[31m[1m>[0m [90m29 |[0m   [33mChevronDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m30 |[0m   [33mChevronRight[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m31 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m32 |[0m
+  [90m33 |[0m [90m// ─── Block instance type ───────────────────────────────────────────...[0m
+  [90m34 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeInspector.tsx:8:1
+Module not found: Can't resolve 'lucide-react'
+  [90m 6 |[0m [36mimport[0m { getBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+  [90m 7 |[0m [36mimport[0m { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   [33mSliders[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [33mInfo[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [33mTag[0m,
+  [90m   |[0m [31m[1m^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   [33mCheckSquare[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   [33mLayers[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   [33mLock[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   [33mDownload[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   [33mFileText[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   [33mPlus[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   [33mChevronRight[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   [33mMap[0m,
+  [90m   |[0m [31m[1m^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m21 |[0m
+  [90m22 |[0m [36minterface[0m [33mProps[0m {
+  [90m23 |[0m   pageId: string
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:23:1
+Module not found: Can't resolve 'lucide-react'
+  [90m21 |[0m [36mimport[0m { getBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+  [90m22 |[0m [36mimport[0m { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+[31m[1m>[0m [90m23 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   [33mGripVertical[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m   [33mTrash2[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m26 |[0m   [33mCheck[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m27 |[0m   [33mCopy[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m28 |[0m   [33mChevronDown[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m29 |[0m   [33mChevronUp[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m30 |[0m   [33mPlus[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m31 |[0m   [33mLayers[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m32 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m33 |[0m
+  [90m34 |[0m [90m// ─── Breakpoint widths ─────────────────────────────────────────────...[0m
+  [90m35 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframeTemplateGallery.tsx:12:1
+Module not found: Can't resolve 'lucide-react'
+  [90m10 |[0m ... { getBlockById } [36mfrom[0m [32m'@/lib/wireframe-library/blocks'[0m
+  [90m11 |[0m ... { getBlockSvg } [36mfrom[0m [32m'@/lib/wireframe-library/svg-previews'[0m
+[31m[1m>[0m [90m12 |[0m ... { [33mX[0m, [33mCheck[0m, [33mChevronRight[0m, [33mLayoutTemplate[0m, [33mSparkles[0m } [36mfrom[0m [32m'lucide-...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m ...
+  [90m14 |[0m ...[36mace[0m [33mProps[0m {
+  [90m15 |[0m ...Id: string
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/components/wireframe/WireframesWorkspace.tsx:11:1
+Module not found: Can't resolve 'lucide-react'
+  [90m 9 |[0m [36mimport[0m [33mWireframeTemplateGallery[0m [36mfrom[0m [32m'./WireframeTemplateGallery'[0m
+  [90m10 |[0m [36mimport[0m [33mWireframeInspector[0m [36mfrom[0m [32m'./WireframeInspector'[0m
+[31m[1m>[0m [90m11 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   [33mLayoutGrid[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   [33mFileText[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   [33mLock[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   [33mLayers[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   [33mPanelLeft[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   [33mMonitor[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   [33mTablet[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   [33mSmartphone[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   [33mLayoutList[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m   [33mLayoutTemplate[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m22 |[0m   [33mGrid3X3[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   [33mX[0m,
+  [90m   |[0m [31m[1m^^^^[0m
+[31m[1m>[0m [90m24 |[0m } [36mfrom[0m [32m'lucide-react'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m25 |[0m
+  [90m26 |[0m [90m// ─── Sub-component: Toolbar ────────────────────────────────────────...[0m
+  [90m27 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/lib/layout-designer/layout.store.ts:5:1
+Module not found: Can't resolve 'zustand'
+  [90m3 |[0m [90m// ────────────────────────────────────────────────────────────────────...[0m
+  [90m4 |[0m
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { create } [36mfrom[0m [32m'zustand'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mconst[0m nanoid = (n = [35m8[0m) => [33mMath[0m.random().toString([35m36[0m).substring([35m2[0m, [35m2[0m + n)
+  [90m7 |[0m [36mimport[0m [36mtype[0m {
+  [90m8 |[0m   [33mLayoutDesignerState[0m,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/lib/store/approval.store.ts:1:1
+Module not found: Can't resolve 'zustand'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { create } [36mfrom[0m [32m'zustand'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36minterface[0m [33mApprovalState[0m {
+  [90m4 |[0m   approvedPages: string[] [90m// IDs of approved pages[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/lib/store/session.store.ts:1:1
+Module not found: Can't resolve 'zustand'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { create } [36mfrom[0m [32m'zustand'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m [36mtype[0m { [33mProjectContext[0m } [36mfrom[0m [32m'../parsers/context.parser'[0m
+  [90m3 |[0m [36mimport[0m { [36mtype[0m [33mParsedProfile[0m, profileToTokens } [36mfrom[0m [32m'../parsers/profile...[0m
+  [90m4 |[0m [36mimport[0m { useTokensStore } [36mfrom[0m [32m'./tokens.store'[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/lib/store/tokens.store.ts:1:1
+Module not found: Can't resolve 'zustand'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { create } [36mfrom[0m [32m'zustand'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mexport[0m [36minterface[0m [33mDesignTokens[0m {
+  [90m4 |[0m   colors: {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/lib/store/wireframe.store.ts:1:1
+Module not found: Can't resolve 'zustand'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { create } [36mfrom[0m [32m'zustand'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { persist } [36mfrom[0m [32m'zustand/middleware'[0m
+  [90m3 |[0m [36mimport[0m [36mtype[0m { [33mWireframeBlock[0m, [33mWireframeVariant[0m } [36mfrom[0m [32m'../wireframe-lib...[0m
+  [90m4 |[0m [36mimport[0m [36mtype[0m { [33mPageTemplate[0m, [33mTemplateSlot[0m } [36mfrom[0m [32m'../wireframe-library/p...[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./.nezam/design-server/lib/store/wireframe.store.ts:2:1
+Module not found: Can't resolve 'zustand/middleware'
+  [90m1 |[0m [36mimport[0m { create } [36mfrom[0m [32m'zustand'[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { persist } [36mfrom[0m [32m'zustand/middleware'[0m
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m [36mtype[0m { [33mWireframeBlock[0m, [33mWireframeVariant[0m } [36mfrom[0m [32m'../wireframe-lib...[0m
+  [90m4 |[0m [36mimport[0m [36mtype[0m { [33mPageTemplate[0m, [33mTemplateSlot[0m } [36mfrom[0m [32m'../wireframe-library/p...[0m
+  [90m5 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./.nezam/design-server/components/layout-designer/CanvasArea.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeCanvas.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout-designer/CanvasArea.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/BlockSlot.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeCanvas.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout-designer/CanvasArea.tsx:19:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/BlockSlot.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:19:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/app/ai/page.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/app/export/page.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/app/layout-designer/page.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/app/sitemap/page.tsx:14:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/app/template-builder/page.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/app/theme-editor/page.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/canvas/CanvasWorkspace.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout-designer/CanvasArea.tsx:20:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout-designer/InspectorPanel.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout-designer/LibraryPanel.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout/AssetManagerOverlay.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout/ConsolePanel.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout/Sidebar.tsx:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/layout/ThemeLanguageToggles.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/menus/MenusWorkspace.tsx:14:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/review/CompletionMatrix.tsx:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/tokens/RadiusStudio.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/tokens/TokenStudio.tsx:11:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/BlockSlot.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeBlockLibrary.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeCanvas.tsx:22:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeEditor.tsx:18:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeInspector.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframePageEditor.tsx:23:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframeTemplateGallery.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/components/wireframe/WireframesWorkspace.tsx:11:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/lib/layout-designer/layout.store.ts:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/lib/store/approval.store.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/lib/store/session.store.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/lib/store/tokens.store.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/lib/store/wireframe.store.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./.nezam/design-server/lib/store/wireframe.store.ts:2:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)

@@ -1,5 +1,6 @@
 ---
-name: nezam-gh-security-compliance
+tier: 3
+name: "nezam- nezam-gh-security-compliance"
 description: Security and compliance workflow for GitHub repositories covering secret scanning, dependency audits, code scanning, and policy enforcement.
 version: 1.0.0
 updated: 2026-05-08

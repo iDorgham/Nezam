@@ -1,5 +1,6 @@
 ---
-name: nezam-performance-optimization
+tier: 3
+name: "nezam- nezam-performance-optimization"
 description: Core Web Vitals budgeting, code splitting, bundle analysis, and lazy-loading strategy for sustained perf.
 version: 1.0.0
 updated: 2026-05-08

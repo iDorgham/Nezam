@@ -1174,6 +1174,18 @@
       ]
     },
     {
+      "provider": "masri",
+      "provenance": [
+        {
+          "source_id": "local-existing",
+          "tier": "local",
+          "digest": "d35d29d300000000000000000000000000000000000000000000000000000000",
+          "license": "n/a",
+          "selected": true
+        }
+      ]
+    },
+    {
       "provider": "mastercard",
       "provenance": [
         {

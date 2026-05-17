@@ -29,6 +29,7 @@ const files = walk(skillsRoot);
 const missingVersion = [];
 const missingUpdated = [];
 const missingChangelog = [];
+const invalidTiers = [];
 
 for (const file of files) {
   const content = fs.readFileSync(file, "utf8");
@@ -43,9 +44,20 @@ for (const file of files) {
   if (!/^version:\s+/m.test(fm)) missingVersion.push(file);
   if (!/^updated:\s+/m.test(fm)) missingUpdated.push(file);
   if (!/^changelog:\s*/m.test(fm)) missingChangelog.push(file);
+
+  // C1 Tier validation: exactly 1 | 2 | 3
+  if (!/^tier:\s+[123]\s*$/m.test(fm)) {
+    invalidTiers.push(file);
+  }
 }
 
+const hasErrors = invalidTiers.length;
 const hasWarnings = missingVersion.length || missingUpdated.length || missingChangelog.length;
+
+if (hasErrors) {
+  console.error("Error: skill tier validation failed in one or more .cursor/skills/**/SKILL.md files. Tier must be exactly 1, 2, or 3.");
+  invalidTiers.forEach((f) => console.error(`- ${path.relative(repoRoot, f)}`));
+}
 
 if (hasWarnings) {
   console.warn("Warning: skill version frontmatter is incomplete in one or more .cursor/skills/**/SKILL.md files.");
@@ -63,5 +75,4 @@ if (hasWarnings) {
   }
 }
 
-// Warning-only check by design.
-process.exit(0);
+process.exit(hasErrors ? 1 : 0);

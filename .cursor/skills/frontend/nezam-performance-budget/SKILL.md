@@ -1,6 +1,6 @@
 ---
-skill_id: nezam-performance-budget
-name: "nezam-performance-budget"
+skill_id: "nezam- nezam-performance-budget"
+name: "nezam-"nezam-performance-budget"
 description: Core Web Vitals by route type, bundle analysis, dynamic imports, images, Arabic font subsetting, prefetch, and Lighthouse CI gates.
 version: 1.0.0
 updated: 2026-05-12

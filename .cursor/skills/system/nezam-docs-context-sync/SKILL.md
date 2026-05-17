@@ -1,5 +1,6 @@
 ---
-name: nezam-docs-context-sync
+tier: 3
+name: "nezam- nezam-docs-context-sync"
 description: Deterministic documentation lifecycle workflow for syncing context docs, workspace index, and plan artifacts after repository changes.
 version: 1.0.0
 updated: 2026-05-08

@@ -1,7 +1,7 @@
 # NEZAM — Project Plans Index
 
 > **Domain:** Enterprise Dashboard & Platform Systems  
-> **Status:** Blank Slate / Initialized
+> **Status:** Blank Slate / Reset
 
 ## 📑 Traceability Matrix
 
@@ -34,7 +34,7 @@
 
 ## 🚦 Gate Status
 
-- **Define Gate:** 🔴 Blocked
-- **Design Gate:** 🔴 Blocked
-- **Build Gate:** 🔴 Blocked
-- **Ship Gate:** 🔴 Blocked
+- **Define Gate:** ⚪️ Pending
+- **Design Gate:** ⚪️ Pending
+- **Build Gate:** ⚪️ Pending
+- **Ship Gate:** ⚪️ Pending

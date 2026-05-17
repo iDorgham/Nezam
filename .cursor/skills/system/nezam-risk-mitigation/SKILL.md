@@ -1,5 +1,6 @@
 ---
-name: nezam-risk-mitigation
+tier: 3
+name: "nezam- nezam-risk-mitigation"
 description: Track technical debt, run failure-mode analysis, and define fallback plans for high-risk slices before /DEVELOP.
 version: 1.0.0
 updated: 2026-05-08

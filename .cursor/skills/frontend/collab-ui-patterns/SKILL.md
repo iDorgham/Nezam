@@ -1,5 +1,6 @@
 ---
-name: collab-ui-patterns
+tier: 3
+name: "nezam-collab-ui-patterns"
 description: UI/UX patterns and frontend logic for real-time collaboration.
 version: 1.0.0
 updated: 2026-05-13

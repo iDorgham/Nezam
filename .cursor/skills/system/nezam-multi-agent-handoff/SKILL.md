@@ -1,5 +1,6 @@
 ---
-name: nezam-multi-agent-handoff
+tier: 3
+name: "nezam- nezam-multi-agent-handoff"
 description: Coordinate deterministic subagent handoffs across NEZAM SDD phases with explicit context packets and validation gates.
 version: 1.0.0
 updated: 2026-05-08

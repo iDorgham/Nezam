@@ -1,5 +1,6 @@
 ---
-name: "nezam-wireframe-to-spec-converter"
+tier: 3
+name: "nezam-"nezam-wireframe-to-spec-converter"
 description: Convert low-fidelity wireframes into implementation-ready component specifications.
 version: 1.0.0
 updated: 2026-05-08
@@ -21,7 +22,7 @@ Transform wireframes or textual page drafts into explicit component contracts de
 ## Output artifacts
 
 Create or update:
-- `docs/plans/04-design/WIREFRAMES.md`
+- `docs/plan/04-design/WIREFRAMES.md`
 - `.nezam/workspace/templates/ui-ux/COMPONENT_BLUEPRINT.md` (for reusable API patterns)
 
 For each screen/section include:
@@ -30,7 +31,7 @@ For each screen/section include:
 screen_id: nezam-"home-hero"
 layout_intent: "what this section must achieve"
 components:
-  - name: "Hero"
+  - name: "nezam-Hero"
     variants: ["default", "compact"]
     states: ["default", "loading", "error", "empty"]
     props_contract:

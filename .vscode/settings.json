@@ -25,5 +25,6 @@
     ".windsurf/**": true,
     ".kiro/**": true,
     "node_modules/**": true
-  }
+  },
+  "specstory.cloudSync.enabled": "always"
 }

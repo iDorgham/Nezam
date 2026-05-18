@@ -15,6 +15,30 @@ export interface WireframeSlot {
   notes: string
   approved: boolean
   height?: number
+  style?: {
+    padding?: string
+    margin?: string
+    borderRadius?: number
+    borderWidth?: number
+    borderColor?: string
+    borderStyle?: string
+    boxShadow?: string
+    color?: string
+    fontSize?: number
+    fontWeight?: string
+    fontFamily?: string
+    lineHeight?: string
+    textAlign?: 'left' | 'center' | 'right' | 'justify'
+    backgroundColor?: string
+    backgroundGradient?: string
+    backgroundImage?: string
+    backgroundOverlay?: string
+    customCss?: string
+  }
+  animation?: {
+    keyframes?: Array<{ time: number; opacity?: number; scale?: number; x?: number; y?: number }>
+    bezierCurve?: string
+  }
 }
 
 export interface WireframePage {
@@ -57,6 +81,8 @@ interface WireframeState {
   reorderSlots: (pageId: string, fromIndex: number, toIndex: number) => void
   updateSlotVariant: (pageId: string, instanceId: string, variantId: string) => void
   updateSlotNotes: (pageId: string, instanceId: string, notes: string) => void
+  updateSlotStyles: (pageId: string, instanceId: string, styles: Partial<Exclude<WireframeSlot['style'], undefined>>) => void
+  updateSlotAnimation: (pageId: string, instanceId: string, animation: Partial<Exclude<WireframeSlot['animation'], undefined>>) => void
   toggleSlotApproval: (pageId: string, instanceId: string) => void
   duplicateSlot: (pageId: string, instanceId: string) => void
 
@@ -188,6 +214,42 @@ export const useWireframeStore = create<WireframeState>()(
             [pageId]: {
               ...page,
               slots: page.slots.map(s => s.instanceId === instanceId ? { ...s, notes } : s)
+            }
+          }
+        }
+      }),
+
+      updateSlotStyles: (pageId, instanceId, styles) => set((state) => {
+        const page = state.pages[pageId]
+        if (!page) return state
+        return {
+          pages: {
+            ...state.pages,
+            [pageId]: {
+              ...page,
+              slots: page.slots.map(s =>
+                s.instanceId === instanceId
+                  ? { ...s, style: { ...s.style, ...styles } }
+                  : s
+              )
+            }
+          }
+        }
+      }),
+
+      updateSlotAnimation: (pageId, instanceId, animation) => set((state) => {
+        const page = state.pages[pageId]
+        if (!page) return state
+        return {
+          pages: {
+            ...state.pages,
+            [pageId]: {
+              ...page,
+              slots: page.slots.map(s =>
+                s.instanceId === instanceId
+                  ? { ...s, animation: { ...s.animation, ...animation } }
+                  : s
+              )
             }
           }
         }

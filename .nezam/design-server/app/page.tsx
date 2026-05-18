@@ -184,7 +184,7 @@ export default function Home() {
               ].map((action) => (
                 <button
                   key={action.id}
-                  onClick={() => openTab({ id: action.id, title: action.label, type: action.type })}
+                  onClick={() => openTab({ id: action.id, title: action.label, type: action.type as any })}
                   className="p-2 bg-ds-surface-subtle hover:bg-ds-surface-hover border border-ds-border rounded-lg text-xs text-ds-text-primary text-center transition-colors"
                 >
                   {action.label}

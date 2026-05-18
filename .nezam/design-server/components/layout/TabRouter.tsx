@@ -4,21 +4,10 @@ import React, { lazy, Suspense } from 'react'
 import { useSessionStore } from '@/lib/store/session.store'
 
 // Lazy-load each workspace — only bundled when first opened
-const SitemapPage        = lazy(() => import('@/app/sitemap/page'))
-const MenusWorkspace     = lazy(() => import('@/components/menus/MenusWorkspace'))
-const CanvasWorkspace    = lazy(() => import('@/components/canvas/CanvasWorkspace'))
-const TemplateBuilderPage = lazy(() => import('@/app/template-builder/page'))
-const WireframesWorkspace = lazy(() => import('@/components/wireframe/WireframesWorkspace'))
-const ProfilesPage       = lazy(() => import('@/app/profiles/page'))
-const ProfileEditorPage  = lazy(() => import('@/app/profile-editor/page'))
-const SettingsPage       = lazy(() => import('@/app/settings/page'))
-const AIPage             = lazy(() => import('@/app/ai/page'))
-const TokensPage         = lazy(() => import('@/app/tokens/page'))
-const LayoutDesignerPage = lazy(() => import('@/app/layout-designer/page'))
-const ThemeEditorPage    = lazy(() => import('@/app/theme-editor/page'))
-const AssetManagerPage   = lazy(() => import('@/app/asset-manager/page'))
-const ExportPage         = lazy(() => import('@/app/export/page'))
-const ReviewPage         = lazy(() => import('@/app/review/page'))
+const SitemapPage           = lazy(() => import('@/components/canvas/CanvasWorkspace'))
+const TemplateBuilderPage    = lazy(() => import('@/app/template-builder/page'))
+const SectionsBuilderWorkspace = lazy(() => import('@/components/sections/SectionsBuilderWorkspace'))
+const PageBuilderWorkspace   = lazy(() => import('@/components/page-builder/PageBuilderWorkspace'))
 
 function TabFallback() {
   return (
@@ -29,21 +18,10 @@ function TabFallback() {
 }
 
 const TAB_MAP: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
-  sitemap:         SitemapPage,
-  menus:           MenusWorkspace,
-  canvas:          CanvasWorkspace,
-  template:        TemplateBuilderPage,
-  wireframes:      WireframesWorkspace,
-  profiles:        ProfilesPage,
-  'profile-editor': ProfileEditorPage,
-  settings:        SettingsPage,
-  ai:              AIPage,
-  tokens:          TokensPage,
-  'layout-designer': LayoutDesignerPage,
-  'theme-editor':  ThemeEditorPage,
-  'asset-manager': AssetManagerPage,
-  export:          ExportPage,
-  review:          ReviewPage,
+  sitemap:        SitemapPage,
+  template:       TemplateBuilderPage,
+  sections:       SectionsBuilderWorkspace,
+  'page-builder': PageBuilderWorkspace,
 }
 
 interface TabRouterProps {

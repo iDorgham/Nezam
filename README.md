@@ -10,6 +10,8 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/ci.yml?branch=main&label=CI&logo=github&style=for-the-badge)](https://github.com/iDorgham/Nezam/actions/workflows/ci.yml)
 [![Design Gates](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/design-gates.yml?branch=main&label=design%20gates&logo=github&style=for-the-badge)](https://github.com/iDorgham/Nezam/actions/workflows/design-gates.yml)
+[![Wireframe Lock](https://img.shields.io/github/actions/workflow/status/iDorgham/Nezam/wireframe-validation.yml?branch=main&label=wireframe%20lock&logo=github&style=for-the-badge)](https://github.com/iDorgham/Nezam/actions/workflows/wireframe-validation.yml)
+[![DS](https://img.shields.io/badge/Design%20Server-.nezam%2Fdesign--server-1f6feb?style=for-the-badge)](.nezam/design-server/)
 [![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=for-the-badge)](.nezam/workspace/prd/PRD.md)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=fff&style=for-the-badge)](https://www.conventionalcommits.org/)
 [![Version](https://img.shields.io/badge/version-0.1.0-555555?style=for-the-badge)](docs/core/VERSIONING.md)
@@ -183,7 +185,7 @@ pnpm ai:check   # Verify no drift between clients
 ```
 
 | Client | Entry Point | Sync Folder | Design-Server Agents |
-|---|---|---|---|---|
+|---|---|---|---|
 | **Cursor** | `.cursor/` | — (canonical, never synced) | 4 agents |
 | **Claude** | `CLAUDE.md` | `.claude/` | 4 agents |
 | **Gemini** | `GEMINI.md` | `.gemini/` | 4 agents |
@@ -274,6 +276,8 @@ pnpm run check:tokens
 Design profiles live in `.nezam/design/<brand>/design.md`.  
 4 dedicated agents (`design-server-specialist`, `design-server-wireframe`, `design-server-tokens`, `design-server-sitemap`) operate the server across all synced clients.
 
+Full source audit and improvement plan: [`docs/design-server-audit.md`](docs/design-server-audit.md).
+
 </details>
 
 ---
@@ -282,8 +286,9 @@ Design profiles live in `.nezam/design/<brand>/design.md`.
 
 | Workflow | Trigger | Checks |
 |---|---|---|
-| `ci.yml` | Push / PR | Onboarding, AI sync drift, design tokens, design-server wireframe lock, tests |
-| `design-gates.yml` | Design file changes | Token validity, dark mode parity, RTL coverage |
+| `ci.yml` | Push / PR | Onboarding, AI sync drift, design tokens, design-server build + wireframe lock validation, tests |
+| `design-gates.yml` | Design file changes | Token validity (Gate 1), design-server wireframe lock schema (Gate 4), dark mode parity, RTL coverage |
+| `wireframe-validation.yml` | Design/plan changes | ASCII wireframe catalog validation, RTL parity, interaction specs |
 | `release.yml` | Push to `main` | Semantic release, CHANGELOG, GitHub Release |
 
 Gate matrix: [`docs/plans/gates/GITHUB_GATE_MATRIX.json`](docs/plans/gates/GITHUB_GATE_MATRIX.json)
@@ -340,6 +345,8 @@ NEZAM ships with dedicated Arabic language and MENA-region support built into th
 | Architecture | [`.nezam/workspace/architecture/`](.nezam/workspace/architecture/) | ADRs + system diagrams |
 | Templates | [`.nezam/templates/`](.nezam/templates/) | Reusable doc templates |
 | Reports | [`docs/reports/`](docs/reports/) | CI-generated reports |
+| **Design Server** | [`docs/design-server.md`](docs/design-server.md) | Design server overview, modules, API |
+| Design Server Audit | [`docs/design-server-audit.md`](docs/design-server-audit.md) | Full design-server source audit + improvement plan |
 
 ---
 

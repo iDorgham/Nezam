@@ -38,7 +38,7 @@ export interface TemplateConfig {
 export interface Tab {
   id: string
   title: string
-  type: 'dashboard' | 'sitemap' | 'template' | 'wireframe' | 'menus' | 'canvas' | 'profiles' | 'profile-editor' | 'settings' | 'ai' | 'layout-designer' | 'theme-editor' | 'asset-manager' | 'export' | 'review' | 'tokens' | 'wireframes'
+  type: 'dashboard' | 'sitemap' | 'template' | 'sections' | 'page-builder' | 'settings' | 'wireframe' | 'export'
   contentId?: string
 }
 
@@ -215,6 +215,10 @@ export const useSessionStore = create<SessionState>((set) => ({
       spacing: {
         ...currentTokens.spacing,
         ...(newTokens.spacing || {})
+      },
+      radius: {
+        ...currentTokens.radius,
+        ...(newTokens.radius || {})
       },
       motion: {
         ...currentTokens.motion,

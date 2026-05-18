@@ -66,3 +66,35 @@ export async function POST(
   }
 }
 
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ name: string }> }
+) {
+  try {
+    const { name } = await params
+    const profileName = name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')
+    const mdPath = getDesignProfilePath(profileName)
+    const dir = path.dirname(mdPath)
+
+    if (fs.existsSync(mdPath)) {
+      fs.unlinkSync(mdPath)
+    }
+
+    if (fs.existsSync(dir)) {
+      const files = fs.readdirSync(dir)
+      if (files.length === 0) {
+        fs.rmdirSync(dir)
+      }
+    }
+
+    return NextResponse.json({ success: true, message: `Profile ${profileName} deleted successfully` })
+  } catch (error: any) {
+    console.error(`Error deleting profile:`, error)
+    return NextResponse.json(
+      { error: 'Failed to delete profile', details: error.message },
+      { status: 500 }
+    )
+  }
+}
+
+

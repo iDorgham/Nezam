@@ -26,55 +26,30 @@ type NavItem = {
   type:
     | 'dashboard'
     | 'sitemap'
-    | 'menus'
-    | 'canvas'
     | 'template'
-    | 'wireframe'
-    | 'layout-designer'
-    | 'theme-editor'
-    | 'profile-editor'
+    | 'sections'
+    | 'page-builder'
     | 'settings'
-    | 'ai'
-    | 'tokens'
   tourId?: string
   shortcut?: string
 }
 
 const navGroups: { label: string; labelAr: string; items: NavItem[] }[] = [
   {
-    label: 'Main',
-    labelAr: 'رئيسي',
+    label: 'Workspace',
+    labelAr: 'مساحة العمل',
     items: [
-      { id: 'dashboard', name: 'Dashboard', nameAr: 'لوحة التحكم', icon: LayoutDashboard, type: 'dashboard', shortcut: 'G D' },
-      { id: 'sitemap', name: 'Sitemap', nameAr: 'خريطة الموقع', icon: Network, type: 'sitemap', tourId: 'sitemap', shortcut: 'G S' },
-      { id: 'menus', name: 'Menus', nameAr: 'القوائم', icon: Menu, type: 'menus', shortcut: 'G M' },
-      { id: 'canvas', name: 'Canvas', nameAr: 'الكانفاس', icon: PenTool, type: 'canvas', shortcut: 'G C' },
+      { id: 'dashboard', name: 'Onboarding', nameAr: 'التهيئة والترحيب', icon: LayoutDashboard, type: 'dashboard', shortcut: 'G D' },
+      { id: 'sitemap', name: 'Sitemap Canvas', nameAr: 'مخطط الصفحات', icon: Network, type: 'sitemap', tourId: 'sitemap', shortcut: 'G S' },
     ],
   },
   {
-    label: 'Build',
-    labelAr: 'بناء',
+    label: 'Builders',
+    labelAr: 'أدوات البناء',
     items: [
-      { id: 'template', name: 'Template', nameAr: 'القالب', icon: FileCode, type: 'template', tourId: 'template', shortcut: 'G T' },
-      { id: 'wireframes', name: 'Wireframes', nameAr: 'هياكل العمل', icon: Component, type: 'wireframe', tourId: 'wireframes', shortcut: 'G W' },
-      { id: 'layout-designer', name: 'Layout Designer', nameAr: 'محرر الهيكل', icon: Layout, type: 'layout-designer', shortcut: 'G L' },
-      { id: 'tokens', name: 'Tokens', nameAr: 'الـ Tokens', icon: Boxes, type: 'tokens', shortcut: 'G K' },
-    ],
-  },
-  {
-    label: 'Design',
-    labelAr: 'تصميم',
-    items: [
-      { id: 'theme-editor', name: 'Theme Editor', nameAr: 'محرر الألوان', icon: Paintbrush, type: 'theme-editor' },
-      { id: 'profile-editor', name: 'Profile Editor', nameAr: 'محرر الملفات', icon: FileJson, type: 'profile-editor' },
-    ],
-  },
-  {
-    label: 'Tools',
-    labelAr: 'أدوات',
-    items: [
-      { id: 'ai', name: 'AI Assistant', nameAr: 'مساعد الذكاء', icon: Bot, type: 'ai' },
-      { id: 'settings', name: 'Settings', nameAr: 'الإعدادات', icon: Settings, type: 'settings' },
+      { id: 'template', name: 'Template Builder', nameAr: 'باني القوالب', icon: FileCode, type: 'template', tourId: 'template', shortcut: 'G T' },
+      { id: 'sections', name: 'Sections Builder', nameAr: 'باني الأقسام', icon: Boxes, type: 'sections', shortcut: 'G K' },
+      { id: 'page-builder', name: 'Page Builder', nameAr: 'باني الصفحات', icon: Component, type: 'page-builder', tourId: 'page-builder', shortcut: 'G W' },
     ],
   },
 ]

@@ -355,7 +355,7 @@ When `/Settings ai-tools on <tool>` is used:
 
 Treat non-Cursor tool surfaces as generated artifacts:
 
-- Generated files include `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, and directories `.claude/`, `.antigravity/`, `.gemini/`, `.qwen/`, `.codex/`, `.opencode/`, `.kilocode/`.
+- Generated files include `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, `KIRO.md`, `WINDSURF.md`, `VSCODE.md`, and directories `.claude/`, `.antigravity/`, `.gemini/`, `.qwen/`, `.codex/`, `.opencode/`, `.kilocode/`, `.kiro/`, `.windsurf/`, `.vscode/nezam/`.
 - Do not hand-edit generated files as source of truth.
 - Edit canonical `.cursor/` commands/agents/skills/rules, then run `pnpm ai:sync`.
 - CI drift checks (`pnpm ai:check`) are authoritative for sync integrity.

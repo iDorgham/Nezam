@@ -32,13 +32,17 @@ pnpm ai:check
 | Gemini CLI | `GEMINI.md`, `.gemini/commands/*.toml` | Generated (tier-2 fidelity) |
 | Qwen CLI | `QWEN.md`, `.qwen/commands/*.toml` | Generated (tier-2 fidelity) |
 | Kilo Code CLI | `.kilocode/rules/**` | Generated (tier-2 fidelity) |
+| Kiro IDE | `KIRO.md`, `.kiro/steering/**` | Generated (tier-2 fidelity) |
+| Windsurf IDE | `WINDSURF.md`, `.windsurf/**` | Generated (tier-2 fidelity) |
+| VS Code + Copilot | `VSCODE.md`, `.vscode/nezam/**` | Generated (tier-2 fidelity) |
+| Copilot CLI | `AGENTS.md` | Synced |
 
 ## Mapping summary
 
-- `.cursor/commands/*.md` -> `.claude/commands/*.md`, `.opencode/command/*.md`, `.antigravity/commands/*.md`, `.gemini/commands/*.toml`, `.qwen/commands/*.toml`
-- `.cursor/agents/*.md` -> `.claude/agents/*.md`, `.opencode/agent/*.md`, `.antigravity/agents/*.md`
-- `.cursor/skills/**` -> `.claude/skills/**`, `.antigravity/skills/**`
-- `.cursor/rules/*.mdc` -> memory injection (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`) and rules copy (`.antigravity/rules/**`, `.kilocode/rules/**`)
+- `.cursor/commands/*.md` -> `.claude/commands/*.md`, `.opencode/command/*.md`, `.antigravity/commands/*.md`, `.gemini/commands/*.toml`, `.qwen/commands/*.toml`, `.windsurf/commands/*.md`, `.vscode/nezam/commands/*.md`
+- `.cursor/agents/*.md` -> `.claude/agents/*.md`, `.opencode/agent/*.md`, `.antigravity/agents/*.md`, `.windsurf/agents/*.md`, `.vscode/nezam/agents/*.md`
+- `.cursor/skills/**` -> `.claude/skills/**`, `.antigravity/skills/**`, `.windsurf/skills/**`, `.vscode/nezam/skills/**`
+- `.cursor/rules/*.mdc` -> memory injection (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, `KIRO.md`, `WINDSURF.md`, `VSCODE.md`) and rules copy (`.antigravity/rules/**`, `.kilocode/rules/**`, `.kiro/steering/rules/**`, `.windsurf/rules/**`, `.vscode/nezam/rules/**`)
 
 ## Design system contract (same in every client)
 
@@ -49,7 +53,7 @@ Orchestration treats **repository root `DESIGN.md`** as the primary design artif
 | Browse profiles | Folders under `.nezam/design/<brand>/` each contain `design.md` (see [`.nezam/design/README.md`](../../.nezam/design/README.md)). |
 | Lock the contract | `pnpm run design:apply -- <brand>` copies the chosen file to **`DESIGN.md`** at repo root. |
 | Cursor shortcut | `/START design` mirrors the same intent (see `.cursor/commands/start.md`). |
-| After changing commands/agents/skills/rules | `pnpm ai:sync` then `pnpm ai:check` so Claude, Codex, Antigravity, Gemini, Qwen, Opencode, and Kilo stay aligned. |
+| After changing commands/agents/skills/rules | `pnpm ai:sync` then `pnpm ai:check` so Claude, Codex, Antigravity, Gemini, Qwen, Opencode, Kilo, Kiro, Windsurf, VS Code, and Copilot stay aligned. |
 
 ### Clients without a root “memory” file
 

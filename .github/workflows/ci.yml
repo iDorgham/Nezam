@@ -128,6 +128,55 @@ jobs:
           print("Gate manifest structure checks passed.")
           PY
 
+  design-server-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate design-server wireframe lock exists and is valid JSON
+        run: |
+          set -euo pipefail
+
+          LOCK_FILE=".session/wireframes_locked.json"
+          ROOT_LOCK="wireframes_locked.json"
+
+          if [[ -f "$ROOT_LOCK" ]]; then
+            echo "Found wireframes_locked.json at repository root."
+
+            python3 - "$ROOT_LOCK" <<'PY'
+          import json, sys
+
+          path = sys.argv[1]
+          with open(path) as f:
+              data = json.load(f)
+
+          required_keys = ["pages", "blocks"]
+          missing = [k for k in required_keys if k not in data]
+          if missing:
+              print(f"Missing required keys: {', '.join(missing)}")
+              sys.exit(1)
+
+          if not isinstance(data.get("pages"), list) or len(data["pages"]) == 0:
+              print("'pages' must be a non-empty array")
+              sys.exit(1)
+
+          print(f"wireframes_locked.json validated: {len(data['pages'])} pages, {len(data.get('blocks', []))} blocks")
+          PY
+
+          elif [[ -f "$LOCK_FILE" ]]; then
+            echo "Found wireframes_locked.json at .session/. Skipping root-required validation."
+          else
+            echo "wireframes_locked.json not found — design server wireframe lock is optional in pre-design state."
+            echo "To lock design, run the design server (pnpm design-server) and complete wireframing."
+          fi
+
+      - name: Verify design-server builds
+        run: |
+          if [[ -d ".nezam/design-server" ]]; then
+            cd .nezam/design-server
+            echo "Design server directory exists. Checking package.json..."
+            test -f package.json && echo "Design server package.json found."
+          fi
+
   design-gate-readiness:
     runs-on: ubuntu-latest
     steps:

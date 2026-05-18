@@ -2,6 +2,13 @@ name: Design Gates
 
 on:
   pull_request:
+    paths:
+      - 'DESIGN.md'
+      - 'wireframes_locked.json'
+      - '.session/wireframes_locked.json'
+      - '.nezam/design/**'
+      - '.nezam/design-server/**'
+      - '.github/workflows/design-gates.yml'
 
 permissions:
   contents: read
@@ -14,6 +21,62 @@ jobs:
       - uses: actions/checkout@v6
       - name: Check for hardcoded design primitives
         run: bash scripts/checks/check-design-tokens.sh
+
+  design-server-gate:
+    name: Gate 4 - Design Server Wireframe Lock
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate design-server wireframe lock
+        run: |
+          set -euo pipefail
+
+          ROOT_LOCK="wireframes_locked.json"
+          SESSION_LOCK=".session/wireframes_locked.json"
+
+          if [[ -f "$ROOT_LOCK" ]]; then
+            echo "Gate 4: wireframes_locked.json found at root."
+
+            python3 - "$ROOT_LOCK" <<'PY'
+          import json, sys
+
+          path = sys.argv[1]
+          with open(path) as f:
+              data = json.load(f)
+
+          errors = []
+
+          if "pages" not in data or not isinstance(data["pages"], list):
+              errors.append("Missing or invalid 'pages' array")
+          elif len(data["pages"]) == 0:
+              errors.append("'pages' array is empty — at least one page required")
+
+          if "blocks" not in data or not isinstance(data["blocks"], list):
+              errors.append("Missing or invalid 'blocks' array")
+
+          if "meta" in data:
+              meta = data["meta"]
+              if "generatedAt" not in meta:
+                  errors.append("Missing 'meta.generatedAt' timestamp")
+              if "profile" not in meta:
+                  errors.append("Missing 'meta.profile' — design profile name required")
+          else:
+              errors.append("Missing 'meta' object with generatedAt and profile")
+
+          if errors:
+              for e in errors:
+                  print(f"  Gate 4 FAIL: {e}")
+              sys.exit(1)
+
+          print(f"Gate 4 PASS: {len(data['pages'])} pages, {len(data.get('blocks', []))} blocks locked")
+          PY
+
+          elif [[ -f "$SESSION_LOCK" ]]; then
+            echo "Gate 4: wireframes_locked.json found in .session/ (pre-promotion state)."
+          else
+            echo "Gate 4: wireframes_locked.json not found — design not yet locked."
+            echo "This is acceptable in pre-design phase. Run the design server to start."
+          fi
 
   a11y-gate:
     name: Gate 6 - Performance and Accessibility

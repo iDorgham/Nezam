@@ -9,13 +9,13 @@ target_market: "eg"       # "global" | "mena" | "ar" | "en" | "eg"
 # Tone preference derived from user_mode
 tone: "friendly"                # "friendly" | "structured"
 
-prd_locked: false
+prd_locked: true
 prd_path: "docs/plans/00-define/01-product/PRD.md"
-prd_locked_at: ""
+prd_locked_at: "2026-05-18T00:00:00+03:00"
 
-design_locked: false
-design_profile: "devflow-remix"
-design_locked_at: ""
+design_locked: true
+design_profile: "nezam-obsidian-cyan-orange"
+design_locked_at: "2026-05-18T00:00:00+03:00"
 
 planning_complete: false
 planning_completed_at: ""

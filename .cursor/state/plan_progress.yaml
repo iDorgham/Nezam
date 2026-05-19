@@ -8,4 +8,7 @@ arch: true
 design_wireframes: true
 scaffold: true
 planning_complete: true
+canvas_graph_spec: true
+canvas_graph_spec_version: "SPEC-DS-CANVAS-001-v1.0.0"
+canvas_graph_spec_date: "2026-05-18"
 

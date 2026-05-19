@@ -20,12 +20,14 @@
   "architecture": {
     "allowed": [
       "docs/03_architecture/ARCHITECTURE.md",
-      "docs/start/architecture/ARCHITECTURE.md"
+      "docs/start/architecture/ARCHITECTURE.md",
+      "docs/plans/04-arch/ARCHITECTURE.md"
     ]
   },
   "subphasePrompts": {
     "plansRoot": "docs/plans",
-    "taskFileGlob": "**/*/*/TASKS.md",
-    "requiredFiles": ["prompt.json", "PROMPT.md"]
+    "specGlob": "00-define/specs/F-*.md",
+    "specIdPattern": "^F-\\d{3}(?:-[a-z0-9-]+)?\\.md$",
+    "minimumSpecs": 1
   }
 }

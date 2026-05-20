@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { z } from 'zod'
+import { compressPayload, DEFAULT_MAX_TOKENS } from '@/src/lib/context-compression'
 
 // ── Schemas ───────────────────────────────────────────────────────────────────
 
@@ -32,6 +33,27 @@ const HardlockFailureSchema = z.object({
   message: z.string(),
 })
 
+// F-007 §3 — Editable CSS surface for the Property Inspector. All margins
+// and paddings are logical (inline/block), not directional (left/right/top/bottom).
+export const NodeStyleSchema = z.object({
+  marginInlineStart:  z.number().optional(),
+  marginInlineEnd:    z.number().optional(),
+  marginBlockStart:   z.number().optional(),
+  marginBlockEnd:     z.number().optional(),
+  paddingInlineStart: z.number().optional(),
+  paddingInlineEnd:   z.number().optional(),
+  paddingBlockStart:  z.number().optional(),
+  paddingBlockEnd:    z.number().optional(),
+  fontFamily:         z.string().optional(),
+  fontWeight:         z.number().optional(),
+  fontSize:           z.string().optional(),
+  lineHeight:         z.number().optional(),
+  fgColor:            z.string().optional(),
+  bgColor:            z.string().optional(),
+  tabIndex:           z.number().optional(),
+  ariaRole:           z.string().optional(),
+})
+
 export const CanvasNodeSchema = z.object({
   id: z.string(),
   type: z.enum(['page', 'service', 'auth', 'mobile', 'group']),
@@ -47,6 +69,7 @@ export const CanvasNodeSchema = z.object({
   locked: z.boolean().default(false),
   attachments: z.array(AttachmentPayloadSchema).default([]),
   generationStatus: z.enum(['idle', 'generating', 'done', 'error']).default('idle'),
+  style: NodeStyleSchema.default({}),
 })
 
 export const CanvasWireSchema = z.object({
@@ -81,6 +104,7 @@ export type AttachmentPayload = z.infer<typeof AttachmentPayloadSchema>
 export type ContextPayload = z.infer<typeof ContextPayloadSchema>
 export type HardlockFailure = z.infer<typeof HardlockFailureSchema>
 export type CanvasNode = z.infer<typeof CanvasNodeSchema>
+export type NodeStyle  = z.infer<typeof NodeStyleSchema>
 export type CanvasWire = z.infer<typeof CanvasWireSchema>
 export type CanvasState = z.infer<typeof CanvasStateSchema>
 export type GenerativeMode = CanvasState['generativeMode']
@@ -130,13 +154,6 @@ const defaultCanvasState: CanvasState = {
   selectedWireId: null,
   generativeMode: 'idle',
   rtlMode: false,
-}
-
-// ── Token estimation (rough character-based heuristic) ────────────────────────
-
-function estimateTokens(payload: ContextPayload): number {
-  const json = JSON.stringify(payload)
-  return Math.ceil(json.length / 4)
 }
 
 // ── Store ─────────────────────────────────────────────────────────────────────
@@ -293,63 +310,22 @@ export const useCanvasGraphStore = create<CanvasState & CanvasActions>()(
 
       // ── Context compression (3-tier) ──────────────────────────────────────
 
-      compressContext: (wireId, maxTokens = 32000) => {
+      compressContext: (wireId, maxTokens = DEFAULT_MAX_TOKENS) => {
         const state = get()
         const basePayload = state.aggregateContext(wireId)
         if (!basePayload) return { error: 'Wire or source node not found' }
 
-        let payload = { ...basePayload }
+        const result = compressPayload(basePayload, maxTokens)
+        if (!result.ok) return { error: result.error }
 
-        // Tier 1: drop block prop details — keep type/name only
-        if (estimateTokens(payload) > maxTokens) {
-          const ast = payload.sourceNodeAST as Record<string, unknown>
-          const blocks = Array.isArray(ast.blocks) ? ast.blocks : []
-          payload = {
-            ...payload,
-            sourceNodeAST: {
-              ...ast,
-              blocks: blocks.map((b: unknown) => {
-                const block = b as Record<string, unknown>
-                return { type: block.type, name: block.name }
-              }),
-            },
-          }
-        }
-
-        // Tier 2: drop lowest-priority attachments (prd-note first, then content-source)
-        if (estimateTokens(payload) > maxTokens) {
-          const priority: AttachmentPayload['role'][] = ['style-reference', 'content-source', 'prd-note']
-          let assets = [...payload.attachedAssets]
-          for (const role of [...priority].reverse()) {
-            if (estimateTokens(payload) <= maxTokens) break
-            assets = assets.filter((a) => a.role !== role)
-            payload = { ...payload, attachedAssets: assets }
-          }
-        }
-
-        // Tier 3: truncate directives to 3
-        if (estimateTokens(payload) > maxTokens) {
-          payload = { ...payload, annotativeDirectives: payload.annotativeDirectives.slice(0, 3) }
-        }
-
-        const tokenCount = estimateTokens(payload)
-        if (tokenCount > maxTokens) {
-          return { error: 'Context too large — remove attachments or simplify source' }
-        }
-
-        const compressedPayload: ContextPayload = {
-          ...payload,
-          compressedAt: new Date().toISOString(),
-          tokenCount,
-        }
-
+        const compressedPayload = result.payload
         set((s) => ({
           wires: s.wires.map((w) =>
             w.id === wireId ? { ...w, contextPayload: compressedPayload } : w
           ),
         }))
 
-        return { compressedPayload, tokenCount }
+        return { compressedPayload, tokenCount: result.tokenCount }
       },
 
       // ── Generation pipeline ───────────────────────────────────────────────

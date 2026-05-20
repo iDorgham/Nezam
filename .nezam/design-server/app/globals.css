@@ -116,6 +116,9 @@
   --ds-spacing-3xl:  64px;
   --ds-spacing-4xl:  96px;
 
+  /* ── Component sizing — F-008 Asset Browser ─────────────────── */
+  --ds-asset-card-min: 120px;   /* Minimum column width in the asset grid */
+
   /* ── Border Radius ──────────────────────────────────────────── */
   --ds-radius-none: 0px;
   --ds-radius-sm:   4px;    /* Badges, chips */

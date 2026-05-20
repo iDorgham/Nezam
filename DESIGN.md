@@ -103,6 +103,10 @@ Every font-size value MUST use `clamp(min, preferred, max)`. Fixed `px`/`rem` va
 | `3xl` | `--ds-text-3xl` | `clamp(1.5rem, 5vw, 1.875rem)` |
 | `4xl` | `--ds-text-4xl` | `clamp(1.875rem, 6vw, 2.25rem)` |
 
+### 3.2.1 Sub-token sizes — accepted exception
+
+Decorative dense-data micro-typography (MIME badges, progress tickers, ruler labels in the motion timeline) may use Tailwind's arbitrary syntax `text-[9px]` / `text-[10px]` **for non-text-content metadata only**. These are below the `xs` token by design — they are visual chrome, not readable copy. WCAG AA contrast still applies. Anything that carries a sentence or longer copy must use a named `--ds-text-*` token.
+
 ### 3.3 Letter Spacing
 
 ```css

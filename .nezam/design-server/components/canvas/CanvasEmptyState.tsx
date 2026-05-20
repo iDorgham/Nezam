@@ -32,6 +32,7 @@ export default function CanvasEmptyState() {
       locked:             false,
       attachments:        [],
       generationStatus:   'idle',
+      style:              {},
     })
   }
 

@@ -9,7 +9,11 @@ export default defineConfig({
     environment: 'happy-dom',
     globals:     true,
     setupFiles:  ['src/test/setup.ts'],
-    include:     ['src/**/*.{test,spec}.{ts,tsx}', 'components/**/*.{test,spec}.{ts,tsx}'],
+    include: [
+      'src/**/*.{test,spec}.{ts,tsx}',
+      'components/**/*.{test,spec}.{ts,tsx}',
+      'app/**/*.{test,spec}.{ts,tsx}',
+    ],
   },
   esbuild: {
     jsx: 'automatic',

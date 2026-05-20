@@ -20,6 +20,7 @@ function makeNode(overrides: Partial<CanvasNode> = {}): CanvasNode {
     locked: false,
     attachments: [],
     generationStatus: 'idle',
+    style: {},
     ...overrides,
   }
 }

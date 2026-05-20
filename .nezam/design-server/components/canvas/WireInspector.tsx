@@ -13,6 +13,8 @@ import {
   type AttachmentPayload,
   type WireType,
 } from '@/src/store/canvas-graph.store'
+import VisionGateBadge from './VisionGateBadge'
+import GenerateButton from './GenerateButton'
 
 // SPEC-DS-CANVAS-001 §5 Flow 1 Step 4 — wire type selector + drop zone +
 // directive textarea + Generate button. AC-007.
@@ -134,11 +136,6 @@ export default function WireInspector() {
 
   if (!selectedWireId || !wire) return null
 
-  const isGenerating =
-    generativeMode === 'validating' ||
-    generativeMode === 'compressing' ||
-    generativeMode === 'generating'
-
   return (
     <aside
       role="complementary"
@@ -254,16 +251,7 @@ export default function WireInspector() {
                   key={a.id}
                   className="flex items-center gap-2 px-2 py-1 rounded-ds-sm bg-ds-surface-elevated text-ds-xs"
                 >
-                  <span
-                    aria-hidden="true"
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      a.visionStatus === 'valid'
-                        ? 'bg-ds-success'
-                        : a.visionStatus === 'rejected'
-                        ? 'bg-ds-destructive'
-                        : 'bg-ds-warning'
-                    }`}
-                  />
+                  <VisionGateBadge status={a.visionStatus} reason={a.altText} />
                   <span className="flex-1 truncate text-ds-text-secondary">
                     {a.content ?? a.url ?? a.id}
                   </span>
@@ -322,20 +310,11 @@ export default function WireInspector() {
 
       {/* Footer — Generate */}
       <footer className="px-4 py-3 border-t border-ds-border">
-        <button
-          type="button"
+        <GenerateButton
+          canGenerate={canGenerate}
+          mode={generativeMode}
           onClick={handleGenerate}
-          disabled={!canGenerate || isGenerating}
-          aria-disabled={!canGenerate || isGenerating}
-          className="w-full px-3 py-2 rounded-ds-sm text-ds-sm font-semibold bg-ds-primary text-ds-primary-foreground hover:bg-ds-primary-hover disabled:bg-ds-interactive disabled:text-ds-text-disabled disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-ds-border-focus"
-        >
-          {isGenerating ? 'Generating…' : 'Generate target'}
-        </button>
-        {!canGenerate && (
-          <p className="mt-1.5 text-[10px] text-ds-text-muted text-center">
-            Add an attachment or directive to enable
-          </p>
-        )}
+        />
       </footer>
     </aside>
   )

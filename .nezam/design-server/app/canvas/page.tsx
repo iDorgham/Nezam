@@ -1,6 +1,7 @@
 'use client'
 
 import InfinityCanvas from '@/components/canvas/InfinityCanvas'
+import PropertyInspector from '@/components/inspector/PropertyInspector'
 import { useCanvasGraphStore } from '@/src/store/canvas-graph.store'
 import { useSessionStore } from '@/lib/store/session.store'
 
@@ -13,6 +14,13 @@ export default function CanvasPage() {
   const setRTLMode = useCanvasGraphStore((s) => s.setRTLMode)
   const setViewport = useCanvasGraphStore((s) => s.setViewport)
   const scale      = useCanvasGraphStore((s) => s.viewport.scale)
+
+  // F-007 T-F007-007 — Right-dock auto-opens when a single node is selected.
+  // Empty + multi-select states are handled inside PropertyInspector itself,
+  // but the dock collapses entirely when nothing is selected so the canvas
+  // reclaims the full viewport.
+  const selectedCount = useCanvasGraphStore((s) => s.selectedNodeIds.length)
+  const dockOpen      = selectedCount > 0
 
   return (
     <div className="h-[calc(100vh-0px)] flex flex-col text-ds-text-primary">
@@ -59,9 +67,12 @@ export default function CanvasPage() {
         </div>
       </header>
 
-      {/* Canvas fills the rest of the page. */}
-      <main className="flex-1 min-h-0 relative">
-        <InfinityCanvas />
+      {/* Canvas + right-docked Property Inspector. */}
+      <main className="flex-1 min-h-0 relative flex">
+        <div className="flex-1 min-w-0 relative">
+          <InfinityCanvas />
+        </div>
+        {dockOpen && <PropertyInspector />}
       </main>
     </div>
   )

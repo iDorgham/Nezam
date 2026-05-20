@@ -7,6 +7,7 @@ import {
 } from '@/src/store/canvas-graph.store'
 import { lodForScale, screenToCanvas } from '@/src/lib/canvas-math'
 import { nodeTypeColorVar } from '@/src/lib/node-style'
+import HardlockOverlay from './HardlockOverlay'
 
 interface CanvasNodeProps {
   node:        CanvasNodeData
@@ -143,6 +144,30 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
     isSelected          ? 'var(--dv-node-border-active)' :
                           'var(--ds-border)'
 
+  // F-007 AC-002 — Live preview: apply Property Inspector style edits to the
+  // node card. Logical margins are no-ops on an absolutely-positioned card,
+  // so we map them to padding/typography on the inner surface instead.
+  const s = node.style ?? {}
+  const fullStyle: CSSProperties = {
+    ...baseStyle,
+    backgroundColor: s.bgColor ?? 'var(--dv-node-page)',
+    color:           s.fgColor ?? 'var(--ds-text-primary)',
+    borderColor,
+    borderWidth:     hasHardlockFailures || isSelected ? 2 : 1,
+    borderStyle:     'solid',
+    borderRadius:    6,
+    boxShadow:       'var(--ds-shadow-node)',
+    cursor:          wiringMode ? 'crosshair' : 'grab',
+    paddingInlineStart: s.paddingInlineStart,
+    paddingInlineEnd:   s.paddingInlineEnd,
+    paddingBlockStart:  s.paddingBlockStart,
+    paddingBlockEnd:    s.paddingBlockEnd,
+    fontFamily:         s.fontFamily,
+    fontWeight:         s.fontWeight,
+    fontSize:           s.fontSize,
+    lineHeight:         s.lineHeight,
+  }
+
   return (
     <div
       role="button"
@@ -151,16 +176,7 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      style={{
-        ...baseStyle,
-        backgroundColor: 'var(--dv-node-page)',
-        borderColor,
-        borderWidth:     hasHardlockFailures || isSelected ? 2 : 1,
-        borderStyle:     'solid',
-        borderRadius:    6,
-        boxShadow:       'var(--ds-shadow-node)',
-        cursor:          wiringMode ? 'crosshair' : 'grab',
-      }}
+      style={fullStyle}
       className="flex flex-col justify-between p-2.5"
     >
       <div className="flex items-start gap-2 min-w-0">
@@ -181,18 +197,11 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
         </div>
       </div>
 
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1.5 flex-wrap">
         <span className="text-[9px] uppercase tracking-wide text-ds-text-muted">
           {node.type}
         </span>
-        {hasHardlockFailures && (
-          <span
-            role="status"
-            className="text-[9px] px-1 py-px rounded-ds-sm bg-ds-destructive/10 text-ds-destructive font-mono"
-          >
-            {node.hardlockFailures.length} hardlock
-          </span>
-        )}
+        <HardlockOverlay failures={node.hardlockFailures} />
       </div>
 
       {/* Port handles — only meaningful at full LOD. In RTL the source

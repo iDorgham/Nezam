@@ -6,17 +6,17 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 
 // ── Token constants ───────────────────────────────────────────────────────────
 export const PT = {
-  bg:           '#181819',
-  bgElevated:   '#1e1e1f',
-  bgHover:      '#232324',
-  surface:      '#232324',
-  border:       '#2a2a2c',
-  borderHover:  '#3a3a3c',
+  bg:           'var(--pt-bg, #181819)',
+  bgElevated:   'var(--pt-bg-elevated, #1e1e1f)',
+  bgHover:      'var(--pt-bg-hover, #232324)',
+  surface:      'var(--pt-surface, #232324)',
+  border:       'var(--pt-border, #2a2a2c)',
+  borderHover:  'var(--pt-border-hover, #3a3a3c)',
   primary:      'var(--ds-primary, #06b6d4)',
-  textPrimary:  '#e8e8ed',
-  textSecondary:'#8e8e93',
-  textMuted:    '#48484a',
-  textLabel:    '#636366',
+  textPrimary:  'var(--pt-text-primary, #e8e8ed)',
+  textSecondary:'var(--pt-text-secondary, #8e8e93)',
+  textMuted:    'var(--pt-text-muted, #48484a)',
+  textLabel:    'var(--pt-text-label, #636366)',
   radius:       '8px',
   radiusSm:     '6px',
   radiusLg:     '10px',
@@ -82,7 +82,7 @@ export function PanelField({
   label, hint, children, row = false,
 }: {
   label: string
-  hint?: string
+  hint?: React.ReactNode
   children: React.ReactNode
   row?: boolean
 }) {
@@ -189,7 +189,7 @@ export function PanelBadge({ children, color = 'default' }: {
   color?: 'default' | 'green' | 'amber' | 'red' | 'primary'
 }) {
   const styles: Record<string, { bg: string; text: string; border: string }> = {
-    default: { bg: '#232324', text: '#8e8e93', border: '#2a2a2c' },
+    default: { bg: 'var(--pt-surface, #232324)', text: 'var(--pt-text-secondary, #8e8e93)', border: 'var(--pt-border, #2a2a2c)' },
     green:   { bg: '#052e1c', text: '#22c55e', border: '#064e2c' },
     amber:   { bg: '#2d1a00', text: '#f59e0b', border: '#4d2a00' },
     red:     { bg: '#2d0a0a', text: '#ef4444', border: '#4d1010' },
@@ -214,10 +214,10 @@ export function PanelButton({ children, onClick, variant = 'default', size = 'sm
   icon?: React.ReactNode
 }) {
   const styles: Record<string, string> = {
-    default: 'bg-[#232324] border border-[#2a2a2c] text-[#8e8e93] hover:text-[#e8e8ed] hover:border-[#3a3a3c]',
+    default: 'border text-[color:var(--pt-text-secondary,#8e8e93)] hover:text-[color:var(--pt-text-primary,#e8e8ed)]',
     primary: 'bg-ds-primary text-white hover:opacity-90 border border-transparent',
     danger:  'bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20',
-    ghost:   'text-[#636366] hover:text-[#e8e8ed] hover:bg-white/[0.04] border border-transparent',
+    ghost:   'text-[color:var(--pt-text-label,#636366)] hover:text-[color:var(--pt-text-primary,#e8e8ed)] hover:bg-white/[0.04] border border-transparent',
   }
   return (
     <button

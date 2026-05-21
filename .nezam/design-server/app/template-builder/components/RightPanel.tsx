@@ -33,28 +33,47 @@ import { useSessionStore } from '@/lib/store/session.store'
 import type { TemplateConfig } from '@/lib/store/session.store'
 import WidgetLibraryPanel from '@/components/canvas/WidgetLibraryPanel'
 import PagesMenuBoard from './PagesMenuBoard'
+import ContentManagerPanel from './ContentManagerPanel'
+import ContentSettingsPanel from './ContentSettingsPanel'
+import AiGenerationPanel from './AiGenerationPanel'
+import ChatbotBuilderPanel from './ChatbotBuilderPanel'
+import CssVisualEditorPanel from './CssVisualEditorPanel'
+import RichTextEditorPanel from './RichTextEditorPanel'
+import TypographyManagerPanel from './TypographyManagerPanel'
+import GlobalSettingsPanel from './GlobalSettingsPanel'
 import type { WebsiteType, RadiusScale, TopBarTheme, ButtonStyle, InputVariant, FontValue } from './config'
 import type { DesignSystemState } from './LeftPanel'
 
 type Tab = 'settings' | 'style' | 'structure' | 'components' | 'console' | 'assets' | 'pages' | 'menus' | 'layers' | 'categories' | 'general' | 'automation' | 'appsettings'
+  | 'content-manager' | 'content-settings' | 'ai-gen' | 'chatbot' | 'css-editor' | 'rich-text' | 'typography' | 'global-settings'
 
 const RAIL_TABS: { id: Tab; icon: React.ReactNode; label: string; group?: string }[] = [
   // Design group
-  { id: 'settings',   icon: <Settings2  size={12} />, label: 'Settings',   group: 'design'  },
-  { id: 'style',      icon: <Palette    size={12} />, label: 'Style',       group: 'design'  },
-  { id: 'structure',  icon: <Layers     size={12} />, label: 'Structure',   group: 'design'  },
-  { id: 'components', icon: <LayoutGrid size={12} />, label: 'Widgets',     group: 'design'  },
+  { id: 'settings',        icon: <Settings2  size={12} />, label: 'Settings',        group: 'design'  },
+  { id: 'style',           icon: <Palette    size={12} />, label: 'Style',            group: 'design'  },
+  { id: 'structure',       icon: <Layers     size={12} />, label: 'Structure',        group: 'design'  },
+  { id: 'components',      icon: <LayoutGrid size={12} />, label: 'Widgets',          group: 'design'  },
   // Content group
-  { id: 'layers',     icon: <Layers2   size={12} />, label: 'Layers',       group: 'content' },
-  { id: 'categories', icon: <Tag        size={12} />, label: 'Sections',    group: 'content' },
-  { id: 'assets',     icon: <Images     size={12} />, label: 'Assets',      group: 'content' },
+  { id: 'layers',          icon: <Layers2    size={12} />, label: 'Layers',           group: 'content' },
+  { id: 'categories',      icon: <Tag        size={12} />, label: 'Sections',         group: 'content' },
+  { id: 'assets',          icon: <Images     size={12} />, label: 'Assets',           group: 'content' },
+  { id: 'content-manager', icon: <FileText   size={12} />, label: 'Content Manager',  group: 'content' },
+  { id: 'content-settings',icon: <Lock       size={12} />, label: 'Content Settings', group: 'content' },
   // Site group
-  { id: 'pages',      icon: <FileText   size={12} />, label: 'Pages',      group: 'site'    },
-  { id: 'menus',      icon: <AlignLeft  size={12} />, label: 'Menus',      group: 'site'    },
-  { id: 'general',    icon: <Globe      size={12} />, label: 'SEO/Domain',  group: 'site'    },
+  { id: 'pages',           icon: <LayoutTemplate size={12} />, label: 'Pages',        group: 'site'    },
+  { id: 'menus',           icon: <AlignLeft  size={12} />, label: 'Menus',            group: 'site'    },
+  { id: 'general',         icon: <Globe      size={12} />, label: 'SEO/Domain',       group: 'site'    },
+  // AI group
+  { id: 'ai-gen',          icon: <Zap        size={12} />, label: 'AI Generate',      group: 'ai'      },
+  { id: 'chatbot',         icon: <Bot        size={12} />, label: 'Chatbot Builder',  group: 'ai'      },
+  // Editor group
+  { id: 'css-editor',      icon: <Code2      size={12} />, label: 'CSS Editor',       group: 'editor'  },
+  { id: 'rich-text',       icon: <Type       size={12} />, label: 'Rich Text',        group: 'editor'  },
+  { id: 'typography',      icon: <AlignLeft  size={12} />, label: 'Typography',       group: 'editor'  },
   // System group
-  { id: 'automation', icon: <Bot        size={12} />, label: 'Automation',  group: 'system'  },
-  { id: 'appsettings',icon: <Settings2  size={12} />, label: 'App Config', group: 'system'  },
+  { id: 'automation',      icon: <Bot        size={12} />, label: 'Automation',       group: 'system'  },
+  { id: 'appsettings',     icon: <Settings2  size={12} />, label: 'App Config',       group: 'system'  },
+  { id: 'global-settings', icon: <Globe      size={12} />, label: 'Global Settings',  group: 'system'  },
 ]
 
 interface Props {
@@ -190,6 +209,22 @@ export default function RightPanel(props: Props) {
 
         <div className="w-5 h-px bg-[#2a2a2c] my-1 shrink-0" />
 
+        {/* Content CMS group */}
+        {(['content-manager','content-settings'] as Tab[]).map(id => {
+          const rt = RAIL_TABS.find(r => r.id === id)!
+          return (
+            <button key={id} title={rt.label} onClick={() => setTab(id)}
+              style={tab === id ? { background: 'var(--ds-primary)', color: '#fff' } : {}}
+              className={`w-7 h-7 flex items-center justify-center rounded-md transition-all ${
+                tab === id ? '' : 'text-[#636366] hover:text-[#e1e1e6] hover:bg-[#2b2b2c]'
+              }`}>
+              {rt.icon}
+            </button>
+          )
+        })}
+
+        <div className="w-5 h-px bg-[#2a2a2c] my-1 shrink-0" />
+
         {/* Site group */}
         {(['pages','menus','general'] as Tab[]).map(id => {
           const rt = RAIL_TABS.find(r => r.id === id)!
@@ -206,8 +241,40 @@ export default function RightPanel(props: Props) {
 
         <div className="w-5 h-px bg-[#2a2a2c] my-1 shrink-0" />
 
+        {/* AI group */}
+        {(['ai-gen','chatbot'] as Tab[]).map(id => {
+          const rt = RAIL_TABS.find(r => r.id === id)!
+          return (
+            <button key={id} title={rt.label} onClick={() => setTab(id)}
+              style={tab === id ? { background: 'var(--ds-primary)', color: '#fff' } : {}}
+              className={`w-7 h-7 flex items-center justify-center rounded-md transition-all ${
+                tab === id ? '' : 'text-[#636366] hover:text-[#e1e1e6] hover:bg-[#2b2b2c]'
+              }`}>
+              {rt.icon}
+            </button>
+          )
+        })}
+
+        <div className="w-5 h-px bg-[#2a2a2c] my-1 shrink-0" />
+
+        {/* Editor group */}
+        {(['css-editor','rich-text','typography'] as Tab[]).map(id => {
+          const rt = RAIL_TABS.find(r => r.id === id)!
+          return (
+            <button key={id} title={rt.label} onClick={() => setTab(id)}
+              style={tab === id ? { background: 'var(--ds-primary)', color: '#fff' } : {}}
+              className={`w-7 h-7 flex items-center justify-center rounded-md transition-all ${
+                tab === id ? '' : 'text-[#636366] hover:text-[#e1e1e6] hover:bg-[#2b2b2c]'
+              }`}>
+              {rt.icon}
+            </button>
+          )
+        })}
+
+        <div className="w-5 h-px bg-[#2a2a2c] my-1 shrink-0" />
+
         {/* System group */}
-        {(['automation','appsettings'] as Tab[]).map(id => {
+        {(['automation','appsettings','global-settings'] as Tab[]).map(id => {
           const rt = RAIL_TABS.find(r => r.id === id)!
           return (
             <button key={id} title={rt.label} onClick={() => setTab(id)}
@@ -263,7 +330,9 @@ export default function RightPanel(props: Props) {
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* Search — always visible at top (hidden for full-page tabs) */}
-        {!['components', 'console', 'assets', 'pages', 'layers', 'categories', 'general', 'automation'].includes(tab) && (
+        {!['components', 'console', 'assets', 'pages', 'layers', 'categories', 'general', 'automation',
+            'content-manager', 'content-settings', 'ai-gen', 'chatbot',
+            'css-editor', 'rich-text', 'typography', 'global-settings'].includes(tab) && (
           <div className="px-2 pt-2.5 pb-2 border-b border-[#2e2e30] shrink-0">
             <div className="relative">
               <Search size={10} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#636366] pointer-events-none" />
@@ -436,8 +505,69 @@ export default function RightPanel(props: Props) {
           </div>
         )}
 
+        {/* ── Content Manager tab ── */}
+        {tab === 'content-manager' && (
+          <div className="flex-1 overflow-hidden">
+            <ContentManagerPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── Content Settings tab ── */}
+        {tab === 'content-settings' && (
+          <div className="flex-1 overflow-hidden">
+            <ContentSettingsPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── AI Generation tab ── */}
+        {tab === 'ai-gen' && (
+          <div className="flex-1 overflow-hidden">
+            <AiGenerationPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── Chatbot Builder tab ── */}
+        {tab === 'chatbot' && (
+          <div className="flex-1 overflow-hidden">
+            <ChatbotBuilderPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── CSS Visual Editor tab ── */}
+        {tab === 'css-editor' && (
+          <div className="flex-1 overflow-hidden">
+            <CssVisualEditorPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── Rich Text Editor tab ── */}
+        {tab === 'rich-text' && (
+          <div className="flex-1 overflow-hidden">
+            <RichTextEditorPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── Typography Manager tab ── */}
+        {tab === 'typography' && (
+          <div className="flex-1 overflow-hidden">
+            <TypographyManagerPanel lang={props.lang} />
+          </div>
+        )}
+
+        {/* ── Global Settings tab ── */}
+        {tab === 'global-settings' && (
+          <div className="flex-1 overflow-hidden">
+            <GlobalSettingsPanel lang={props.lang} />
+          </div>
+        )}
+
         {/* Scrollable panel body — hidden when special full-height tabs are active */}
-        <div className={`flex-1 overflow-y-auto p-2 space-y-2 select-none ${['components', 'console', 'assets', 'pages', 'menus', 'layers', 'categories', 'general', 'automation', 'appsettings'].includes(tab) ? 'hidden' : ''}`}>
+        <div className={`flex-1 overflow-y-auto p-2 space-y-2 select-none ${[
+          'components', 'console', 'assets', 'pages', 'menus', 'layers', 'categories',
+          'general', 'automation', 'appsettings',
+          'content-manager', 'content-settings', 'ai-gen', 'chatbot',
+          'css-editor', 'rich-text', 'typography', 'global-settings',
+        ].includes(tab) ? 'hidden' : ''}`}>
 
 
           {/* ── SEARCH RESULTS ── */}

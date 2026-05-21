@@ -176,6 +176,45 @@
   --dv-canvas-grid:         #27272A;   /* Canvas dot grid color */
 }
 
+/* ── PT (Panel Token) variables — dark defaults ─────────────── */
+:root {
+  --pt-bg:             #181819;
+  --pt-bg-elevated:    #1e1e1f;
+  --pt-bg-hover:       #232324;
+  --pt-surface:        #232324;
+  --pt-border:         #2a2a2c;
+  --pt-border-hover:   #3a3a3c;
+  --pt-text-primary:   #e8e8ed;
+  --pt-text-secondary: #8e8e93;
+  --pt-text-muted:     #48484a;
+  --pt-text-label:     #636366;
+}
+
+/* ── PT light theme overrides ────────────────────────────────── */
+[data-theme="light"] {
+  --pt-bg:             #f5f5f7;
+  --pt-bg-elevated:    #ffffff;
+  --pt-bg-hover:       #ebebed;
+  --pt-surface:        #ffffff;
+  --pt-border:         #d1d1d6;
+  --pt-border-hover:   #b0b0b8;
+  --pt-text-primary:   #1c1c1e;
+  --pt-text-secondary: #3a3a3c;
+  --pt-text-muted:     #8e8e93;
+  --pt-text-label:     #6e6e73;
+
+  /* DS surface overrides for light */
+  --ds-background:       #f5f5f7;
+  --ds-surface:          #ffffff;
+  --ds-surface-elevated: #f0f0f2;
+  --ds-surface-hover:    #e8e8ed;
+  --ds-text-primary:     #1c1c1e;
+  --ds-text-secondary:   #3a3a3c;
+  --ds-text-muted:       #6e6e73;
+  --ds-border:           #d1d1d6;
+  --ds-border-muted:     #c7c7cc;
+}
+
 /* ── Body defaults ───────────────────────────────────────────── */
 html {
   font-family: var(--ds-font-sans);

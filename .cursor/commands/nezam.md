@@ -299,9 +299,9 @@ Run full workspace integrity checks:
 
 ```bash
 pnpm ai:check                              # drift check
-node scripts/checks/check-skill-frontmatter.js   # skill frontmatter
-node scripts/checks/check-sdd-swarm-integrity.js # SDD swarm
-bash scripts/checks/docs-layout-policy.sh # docs folder layout
+node .nezam/scripts/checks/check-skill-frontmatter.js   # skill frontmatter
+node .nezam/scripts/checks/check-sdd-swarm-integrity.js # SDD swarm
+bash .nezam/scripts/checks/docs-layout-policy.sh # docs folder layout
 ```
 
 Output: per-check ✅/❌ with fix commands on failure.

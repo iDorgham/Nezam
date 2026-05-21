@@ -49,3 +49,7 @@ export const getPageSessionPath = (pageId: string) => {
   return path.join(getPagesSessionDir(), `${pageId}.json`)
 }
 
+export const getCanvasSessionPath = () => {
+  return path.join(getProjectRoot(), '.session/canvas.json')
+}
+

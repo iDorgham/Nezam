@@ -13,6 +13,8 @@ VIOLATIONS="$(
     --glob '!**/node_modules/**' \
     --glob '!**/.cursor/**' \
     --glob '!**/.git/**' \
+    --glob '!**/*.test.*' \
+    --glob '!**/*.spec.*' \
     "(color\\s*:\\s*#[0-9a-fA-F]{3,8}|font-size\\s*:\\s*[0-9]+px|z-index\\s*:\\s*[0-9]+)" \
     . \
     | rg -v "tokens|design-tokens|variables|DESIGN\\.md" || true

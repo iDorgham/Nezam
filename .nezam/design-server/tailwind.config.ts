@@ -40,6 +40,14 @@ const config: Config = {
         'ds-border-hover': 'var(--ds-border-hover)',
         'ds-border-focus': 'var(--ds-border-focus)',
 
+        // Alert (GateFlow Orange)
+        'ds-alert': 'var(--ds-alert)',
+        'ds-alert-hover': 'var(--ds-alert-hover)',
+        'ds-alert-subtle': 'var(--ds-alert-subtle)',
+
+        // Border muted
+        'ds-border-muted': 'var(--ds-border-muted)',
+
         // Semantic
         'ds-interactive': 'var(--ds-interactive)',
         'ds-destructive': 'var(--ds-destructive)',
@@ -47,6 +55,18 @@ const config: Config = {
         'ds-warning': 'var(--ds-warning)',
         'ds-error': 'var(--ds-error)',
         'ds-info': 'var(--ds-info)',
+
+        // Canvas viewer (--dv-* tokens)
+        'dv-wire-navigational': 'var(--dv-wire-navigational)',
+        'dv-wire-data': 'var(--dv-wire-data)',
+        'dv-wire-auth': 'var(--dv-wire-auth)',
+        'dv-wire-conditional': 'var(--dv-wire-conditional)',
+        'dv-node-page': 'var(--dv-node-page)',
+        'dv-node-border-active': 'var(--dv-node-border-active)',
+        'dv-node-border-hardlock': 'var(--dv-node-border-hardlock)',
+        'dv-timeline-header': 'var(--dv-timeline-header)',
+        'dv-keyframe': 'var(--dv-keyframe)',
+        'dv-canvas-grid': 'var(--dv-canvas-grid)',
       },
       borderRadius: {
         'ds-none': 'var(--ds-radius-none)',
@@ -58,10 +78,13 @@ const config: Config = {
         'ds-full': 'var(--ds-radius-full)',
       },
       boxShadow: {
-        'ds-sm': 'var(--ds-elevation-sm)',
-        'ds-md': 'var(--ds-elevation-md)',
-        'ds-lg': 'var(--ds-elevation-lg)',
-        'ds-xl': 'var(--ds-elevation-xl)',
+        'ds-sm':         'var(--ds-shadow-sm)',
+        'ds-md':         'var(--ds-shadow-md)',
+        'ds-lg':         'var(--ds-shadow-lg)',
+        'ds-node':       'var(--ds-shadow-node)',
+        'ds-node-active':'var(--ds-shadow-node-active)',
+        // Legacy aliases
+        'ds-xl':  'var(--ds-elevation-xl)',
         'ds-2xl': 'var(--ds-elevation-2xl)',
       },
       transitionTimingFunction: {
@@ -74,10 +97,10 @@ const config: Config = {
         'ds-slow': '500ms',
       },
       fontFamily: {
-        heading: ['var(--ds-font-heading)', 'Inter', 'system-ui', 'sans-serif'],
-        body: ['var(--ds-font-body)', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['var(--ds-font-mono)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
-        sans: ['var(--ds-font-body)', 'Inter', 'system-ui', 'sans-serif'],
+        sans:    ['var(--ds-font-sans)', 'Geist', 'Inter', 'system-ui', 'sans-serif'],
+        mono:    ['var(--ds-font-mono)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
+        heading: ['var(--ds-font-sans)', 'Geist', 'system-ui', 'sans-serif'],
+        body:    ['var(--ds-font-sans)', 'Geist', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'ds-xs': 'var(--ds-text-xs)',

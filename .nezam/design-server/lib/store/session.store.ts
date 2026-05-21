@@ -33,6 +33,14 @@ export interface TemplateConfig {
   footerColumns: 1 | 3 | 4 | 5
   footerShowSocials: boolean
   footerShowPhone: boolean
+
+  // Section visibility toggles
+  showFeatures?: boolean
+  showForm?: boolean
+  showTestimonials?: boolean
+  showPricing?: boolean
+  showStats?: boolean
+  showTeam?: boolean
 }
 
 export interface Tab {
@@ -41,6 +49,8 @@ export interface Tab {
   type: 'dashboard' | 'sitemap' | 'template' | 'sections' | 'page-builder' | 'settings' | 'wireframe' | 'export'
   contentId?: string
 }
+
+export type CanvasMode = 'sitemap' | 'page' | 'section' | 'element'
 
 interface SessionState {
   projectContext: ProjectContext | null
@@ -51,12 +61,16 @@ interface SessionState {
   selectedProfile: string | null
   selectedPageId: string | null
   templateConfig: TemplateConfig
+  configHistory: TemplateConfig[]
+  configFuture: TemplateConfig[]
+  historyIndex: number
   logs: string[]
   isLoading: boolean
   error: string | null
   lang: string
   theme: 'light' | 'dark'
   isAssetManagerOpen: boolean
+  canvasMode: CanvasMode
   fetchContext: () => Promise<void>
   fetchProfiles: () => Promise<void>
   setSitemap: (sitemap: Page[]) => void
@@ -64,6 +78,8 @@ interface SessionState {
   setSelectedProfile: (name: string | null) => void
   updatePage: (id: string, updates: Partial<Page>) => void
   updateTemplateConfig: (updates: Partial<TemplateConfig>) => void
+  undo: () => void
+  redo: () => void
   addLog: (log: string) => void
   openTab: (tab: Tab) => void
   closeTab: (id: string) => void
@@ -75,14 +91,15 @@ interface SessionState {
   closeAssetManager: () => void
   toggleAssetManager: () => void
   applyProfileToTokens: (name: string) => void
+  setCanvasMode: (mode: CanvasMode) => void
 }
 
 export const useSessionStore = create<SessionState>((set) => ({
   projectContext: null,
   sitemap: [],
   profiles: [],
-  tabs: [{ id: 'dashboard', title: 'Dashboard', type: 'dashboard' }],
-  activeTabId: 'dashboard',
+  tabs: [{ id: 'template', title: 'All-in-One Builder', type: 'template' }],
+  activeTabId: 'template',
   selectedProfile: null,
   selectedPageId: null,
   templateConfig: {
@@ -102,13 +119,23 @@ export const useSessionStore = create<SessionState>((set) => ({
     footerColumns: 3,
     footerShowSocials: true,
     footerShowPhone: false,
+    showFeatures: true,
+    showForm: true,
+    showTestimonials: true,
+    showPricing: false,
+    showStats: false,
+    showTeam: false,
   },
+  configHistory: [],
+  configFuture: [],
+  historyIndex: -1,
   logs: [],
   isLoading: false,
   error: null,
   lang: 'en',
   theme: 'dark',
   isAssetManagerOpen: false,
+  canvasMode: 'sitemap',
   fetchContext: async () => {
     set({ isLoading: true, error: null })
     try {
@@ -155,9 +182,38 @@ export const useSessionStore = create<SessionState>((set) => ({
       page.id === id ? { ...page, ...updates } : page
     )
   })),
-  updateTemplateConfig: (updates) => set((state) => ({
-    templateConfig: { ...state.templateConfig, ...updates }
-  })),
+  updateTemplateConfig: (updates) => set((state) => {
+    const newConfig = { ...state.templateConfig, ...updates }
+    const newHistory = [...state.configHistory, state.templateConfig].slice(-50)
+    return {
+      templateConfig: newConfig,
+      configHistory: newHistory,
+      configFuture: [], // clear redo stack on new change
+      historyIndex: newHistory.length - 1,
+    }
+  }),
+  undo: () => set((state) => {
+    if (state.configHistory.length === 0) return {}
+    const newHistory = [...state.configHistory]
+    const prev = newHistory.pop()!
+    return {
+      templateConfig: prev,
+      configHistory: newHistory,
+      configFuture: [state.templateConfig, ...state.configFuture].slice(0, 50),
+      historyIndex: newHistory.length - 1,
+    }
+  }),
+  redo: () => set((state) => {
+    if (state.configFuture.length === 0) return {}
+    const newFuture = [...state.configFuture]
+    const next = newFuture.shift()!
+    return {
+      templateConfig: next,
+      configHistory: [...state.configHistory, state.templateConfig].slice(-50),
+      configFuture: newFuture,
+      historyIndex: state.configHistory.length,
+    }
+  }),
   addLog: (log) => set((state) => ({ logs: [...state.logs, log] })),
   openTab: (tab) => set((state) => {
     const exists = state.tabs.find((t) => t.id === tab.id)
@@ -194,6 +250,7 @@ export const useSessionStore = create<SessionState>((set) => ({
   openAssetManager: () => set({ isAssetManagerOpen: true }),
   closeAssetManager: () => set({ isAssetManagerOpen: false }),
   toggleAssetManager: () => set((state) => ({ isAssetManagerOpen: !state.isAssetManagerOpen })),
+  setCanvasMode: (mode) => set({ canvasMode: mode }),
   applyProfileToTokens: (name) => {
     const state = useSessionStore.getState()
     const profile = state.profiles.find(p => p.name === name)

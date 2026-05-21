@@ -3,8 +3,19 @@
 import { useMemo, useState } from 'react'
 import { X, Search, Upload, GripVertical } from 'lucide-react'
 import { useSessionStore } from '@/lib/store/session.store'
-import { designAssets } from '@/lib/assets'
-import AssetCard from './AssetCard'
+import { designAssets, type DesignAsset } from '@/lib/assets'
+
+function AssetCard({ asset }: { asset: DesignAsset }) {
+  return (
+    <div className="flex flex-col gap-1.5 rounded-xl border border-ds-border bg-ds-background p-3 text-left hover:border-ds-primary/50 transition-colors cursor-grab active:cursor-grabbing">
+      <div className="flex h-16 items-center justify-center rounded-lg bg-ds-surface text-ds-text-muted text-xs font-mono uppercase">
+        {asset.type}
+      </div>
+      <p className="truncate text-xs font-medium text-ds-text-primary">{asset.name}</p>
+      <p className="text-[10px] text-ds-text-muted">{asset.size}</p>
+    </div>
+  )
+}
 
 export default function AssetManagerOverlay() {
   const { isAssetManagerOpen, closeAssetManager, lang } = useSessionStore()

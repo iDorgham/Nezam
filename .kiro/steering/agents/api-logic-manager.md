@@ -33,7 +33,7 @@ Strategic authority for API contracts (REST, GraphQL, tRPC), request validation,
 During the implementation of new endpoints, breaking changes to API surfaces, or when designing core business logic.
 
 ### Input requirements
-- `.nezam/workspace/prd/PRD.md`
+- `.nezam/core/prd/PRD.md`
 - Frontend/Mobile contract expectations.
 
 ### Output deliverables

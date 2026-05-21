@@ -57,7 +57,7 @@ The CPO directs 12 Swarm Managers via the Deputy Orchestrator:
 
 - Dependency chain from `docs/specs/**`.
 - Gates: `/START gates`, `/PLAN` preflight, `/DEPLOY` go/no-go.
-- Lifecycle workflow: [`.nezam/workspace/context/governance/SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Lifecycle workflow: [`.nezam/core/context/governance/SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Routing matrix: [`.nezam/memory/ORCHESTRATION_ALIASES.md`](../../.nezam/memory/ORCHESTRATION_ALIASES.md).
 
 ## When to invoke
@@ -73,7 +73,7 @@ The CPO directs 12 Swarm Managers via the Deputy Orchestrator:
 - Active swarm map with assigned Swarm Manager, Team Manager, and specialists.
 - Ordered next 3 actions + single **Recommendation** block.
 - Decision status: `go`, `no-go`, or `replan` with next legal command.
-- For phase-gate transitions: explicit reference to the matching phase in [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- For phase-gate transitions: explicit reference to the matching phase in [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 
 ## Escalation
 

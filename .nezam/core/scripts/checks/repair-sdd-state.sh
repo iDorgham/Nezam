@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# .nezam/scripts/checks/repair-sdd-state.sh
+# .nezam/core/scripts/checks/repair-sdd-state.sh
 # Restores missing state files from schemas in .cursor/state/schemas/
 
 set -euo pipefail

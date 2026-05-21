@@ -14,7 +14,7 @@ Bridges the gap between planning and development. The wireframe server is a **ma
 
 ## Path resolution
 
-Before any file operation, read `.nezam/gates/hardlock-paths.json` and resolve paths.
+Before any file operation, read `.nezam/core/gates/hardlock-paths.json` and resolve paths.
 
 Context file output: `project_context.json` (repo root)
 Lock file output: `wireframes_locked.json` (repo root)

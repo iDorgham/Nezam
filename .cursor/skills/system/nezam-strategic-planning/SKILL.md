@@ -13,10 +13,10 @@ Convert business intent and PRD signals into a deterministic, phase-gated roadma
 # Inputs
 
 - `docs/specs/prd/PRD.md` (problem, audience, success metrics).
-- `.nezam/workspace/prd/PROJECT_PROMPT.md` (north-star + guardrails).
+- `.nezam/core/prd/PROJECT_PROMPT.md` (north-star + guardrails).
 - `docs/CONSTITUTION.md` if present.
 - Stakeholder list, capacity model, time horizon, regulatory constraints.
-- External market signals (browser companion progress reports under `.nezam/workspace/context/`).
+- External market signals (browser companion progress reports under `.nezam/core/context/`).
 
 # Step-by-Step Workflow
 
@@ -25,7 +25,7 @@ Convert business intent and PRD signals into a deterministic, phase-gated roadma
 3. Map each objective to a phase; reject any that violate pipeline order.
 4. Build resource matrix: capability × phase × owner; flag gaps and dependencies.
 5. Define exit metrics for each milestone (LCP/CLS/INP, WCAG 2.2 AA, coverage %, security gates).
-6. Write `.nezam/workspace/plans/MASTER_TASKS.md` outcomes/metrics/risk summary; cross-link to `.nezam/workspace/plans/INDEX.md` traceability matrix.
+6. Write `.nezam/core/plans/MASTER_TASKS.md` outcomes/metrics/risk summary; cross-link to `.nezam/core/plans/INDEX.md` traceability matrix.
 7. Run `/PLAN sdd` to expand into spec scaffolds; require explicit acceptance before phase 2.
 
 # Validation & Metrics
@@ -37,8 +37,8 @@ Convert business intent and PRD signals into a deterministic, phase-gated roadma
 
 # Output Format
 
-- `.nezam/workspace/plans/MASTER_TASKS.md` (objectives, KPIs, risk summary).
-- `.nezam/workspace/plans/INDEX.md` (MT/PT traceability matrix, phase-gate map).
+- `.nezam/core/plans/MASTER_TASKS.md` (objectives, KPIs, risk summary).
+- `.nezam/core/plans/INDEX.md` (MT/PT traceability matrix, phase-gate map).
 - Resource matrix table (markdown).
 - Milestone exit-metric checklist per phase.
 

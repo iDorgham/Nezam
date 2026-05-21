@@ -25,7 +25,7 @@ let updated = 0;
 files.forEach(file => {
   let content = fs.readFileSync(file, 'utf8');
   let newContent = content.replace(/docs\/gates/g, '.nezam/gates');
-  newContent = newContent.replace(/docs\/architecture/g, '.nezam/workspace/architecture');
+  newContent = newContent.replace(/docs\/architecture/g, '.nezam/core/architecture');
   if (content !== newContent) {
     fs.writeFileSync(file, newContent);
     updated++;

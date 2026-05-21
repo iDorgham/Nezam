@@ -7,12 +7,12 @@ updated: 2026-05-08
 changelog: []
 ---
 # Purpose
-Provide a repeatable remediation loop from `/SCAN` findings to verified fixes with documented status updates in `.nezam/workspace/plans/INDEX.md`.
+Provide a repeatable remediation loop from `/SCAN` findings to verified fixes with documented status updates in `.nezam/core/plans/INDEX.md`.
 
 # Inputs
 - `/SCAN` output payload (security, tests, perf, docs, a11y, content categories).
 - Current branch diff and impacted files.
-- `.nezam/workspace/plans/INDEX.md` and active phase task files.
+- `.nezam/core/plans/INDEX.md` and active phase task files.
 
 # Step-by-Step Workflow
 1. Capture `/SCAN` findings and classify each by severity (`critical`, `high`, `medium`, `low`) and domain (`security`, `tests`, `docs`, `perf`, `a11y`).
@@ -22,7 +22,7 @@ Provide a repeatable remediation loop from `/SCAN` findings to verified fixes wi
 5. After each batch, run domain-specific verification commands (for example `npm test`, lint, type-check, or security scan command).
 6. If verification fails, rollback only the failing conceptual change and replace with a narrower patch.
 7. Re-run `/SCAN` for affected domains to confirm finding closure.
-8. Update `.nezam/workspace/plans/INDEX.md` with:
+8. Update `.nezam/core/plans/INDEX.md` with:
    - Finding IDs/status.
    - Fix owner.
    - Verification timestamp and command evidence.
@@ -32,12 +32,12 @@ Provide a repeatable remediation loop from `/SCAN` findings to verified fixes wi
 - Closure rate of targeted findings (target: 100% for critical/high in current loop).
 - Verification pass rate after patches (target: >= 95% command pass within loop).
 - Regression count introduced by fixes (target: 0 net new critical/high findings).
-- Plan freshness: `.nezam/workspace/plans/INDEX.md` reflects current scan state.
+- Plan freshness: `.nezam/core/plans/INDEX.md` reflects current scan state.
 
 # Output Format
 - Triage table: finding -> severity -> owner -> patch path -> status.
 - Patch batch summary with verification commands and outcomes.
-- Updated `.nezam/workspace/plans/INDEX.md` entries for each resolved/deferred finding.
+- Updated `.nezam/core/plans/INDEX.md` entries for each resolved/deferred finding.
 - Residual risk register for deferred low-priority items.
 
 # Integration Hooks

@@ -45,7 +45,7 @@ Translate approved requirements into concrete system design: component boundarie
 
 ## When to invoke
 
-- Phase 2 (Planning & Design) of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Phase 2 (Planning & Design) of [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Cross-cutting refactors and technology pivots.
 - New ADRs required by build decisions.
 

@@ -2,7 +2,7 @@
 
 ## Path resolution
 
-Before any file operation, read `.nezam/gates/hardlock-paths.json`:
+Before any file operation, read `.nezam/core/gates/hardlock-paths.json`:
 - `intake.prd` → default `docs/plan/00-define/01-product/PRD.md`
 - `intake.projectPrompt` → default `docs/plan/00-define/01-product/PROJECT_PROMPT.md`
 - `subphasePrompts.plansRoot` → default `docs/plan`
@@ -257,10 +257,10 @@ Runs AFTER arch, design, and IA are complete. Hard-blocked until all three exist
    - Database schema and migration file locations
    - Component file list from DESIGN.md component inventory
    - Test file locations mirroring source structure
-4. Produces `.nezam/scripts/scaffold.sh` — idempotent bash script (mkdir -p + touch)
+4. Produces `.nezam/core/scripts/scaffold.sh` — idempotent bash script (mkdir -p + touch)
 5. Shows tree in chat for review
 6. Asks: "Does this structure look right? Type YES to run the scaffold script."
-7. On YES → runs `bash .nezam/scripts/scaffold.sh` → confirms files created
+7. On YES → runs `bash .nezam/core/scripts/scaffold.sh` → confirms files created
 
 **Rule:** No developer touches `src/` or `app/` until scaffold is confirmed.
 **Gate:** scaffold must exist before `/DEVELOP start` is allowed.
@@ -283,7 +283,7 @@ Example output format:
 │   │   └── auth/                       [Auth · auth-security-manager]
 ├── docs/                               [Planning docs — all phases]
 ├── .cursor/                            [Workspace contracts — do not edit mirrors]
-└── .nezam/scripts/                            [Build and scaffold scripts]
+└── .nezam/core/scripts/                            [Build and scaffold scripts]
 ```
 
 ---
@@ -459,7 +459,7 @@ The planning pipeline must complete ALL of these phases in order:
 3. /plan content    → CONTENT_MAP.md
 4. /plan arch       → ARCHITECTURE.md
 5. /plan design wireframes → DESIGN_CHOICES.md + updated DESIGN.md
-6. /plan scaffold   → PROJECT_SCAFFOLD.md + .nezam/scripts/scaffold.sh
+6. /plan scaffold   → PROJECT_SCAFFOLD.md + .nezam/core/scripts/scaffold.sh
 
 State is tracked in `.cursor/state/plan_progress.yaml`:
 
@@ -551,7 +551,7 @@ The planning pipeline must complete ALL of these phases in order:
 3. /plan content    → CONTENT_MAP.md
 4. /plan arch       → ARCHITECTURE.md
 5. /plan design wireframes → DESIGN_CHOICES.md + updated DESIGN.md
-6. /plan scaffold   → PROJECT_SCAFFOLD.md + .nezam/scripts/scaffold.sh
+6. /plan scaffold   → PROJECT_SCAFFOLD.md + .nezam/core/scripts/scaffold.sh
 
 State is tracked in `.cursor/state/plan_progress.yaml`:
 

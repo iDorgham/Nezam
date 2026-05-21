@@ -7,22 +7,22 @@ updated: 2026-05-08
 changelog: []
 ---
 # Purpose
-Keep `.nezam/workspace/context/`, `WORKSPACE_INDEX.md`, and `.nezam/workspace/plans/` artifacts synchronized so project memory and navigation remain current across SDD phases.
+Keep `.nezam/core/context/`, `WORKSPACE_INDEX.md`, and `.nezam/core/plans/` artifacts synchronized so project memory and navigation remain current across SDD phases.
 
 # Inputs
 - Changed file list from current branch.
-- `.nezam/workspace/context/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
-- Plan artifacts (`.nezam/workspace/plans/INDEX.md`, phase `TASKS.md` files).
-- Maintenance script: `.nezam/scripts/context/update-context-docs.py`.
+- `.nezam/core/context/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
+- Plan artifacts (`.nezam/core/plans/INDEX.md`, phase `TASKS.md` files).
+- Maintenance script: `.nezam/core/scripts/context/update-context-docs.py`.
 
 # Step-by-Step Workflow
 1. Identify docs-impacting changes (new commands, skills, agents, workflows, scripts, structural moves).
-2. Update `.nezam/workspace/context/WORKSPACE_INDEX.md` tables and references for added/removed capabilities.
-3. Refresh `.nezam/workspace/context/CONTEXT.md` and `.nezam/workspace/context/MEMORY_ARCHITECTURE.md` summaries for current scope and state.
-4. Log durable decisions and milestones in `.nezam/workspace/context/MEMORY.md`.
-5. Sync active execution metadata in `.nezam/workspace/plans/INDEX.md` and related phase task boards.
+2. Update `.nezam/core/context/WORKSPACE_INDEX.md` tables and references for added/removed capabilities.
+3. Refresh `.nezam/core/context/CONTEXT.md` and `.nezam/core/context/MEMORY_ARCHITECTURE.md` summaries for current scope and state.
+4. Log durable decisions and milestones in `.nezam/core/context/MEMORY.md`.
+5. Sync active execution metadata in `.nezam/core/plans/INDEX.md` and related phase task boards.
 6. Run context maintenance script if available:
-   - `python .nezam/scripts/context/update-context-docs.py`
+   - `python .nezam/core/scripts/context/update-context-docs.py`
 7. Run `/SCAN docs` to detect stale links, missing references, or outdated sections.
 8. Apply `/FIX docs` for any drift found during scan.
 9. Close with `/SAVE log` including what changed and why.
@@ -34,7 +34,7 @@ Keep `.nezam/workspace/context/`, `WORKSPACE_INDEX.md`, and `.nezam/workspace/pl
 - Memory update completeness (major decisions logged).
 
 # Output Format
-- Updated `.nezam/workspace/context/*` files and `.nezam/workspace/plans/INDEX.md` changes.
+- Updated `.nezam/core/context/*` files and `.nezam/core/plans/INDEX.md` changes.
 - Doc sync report: changed files, reason, verification results.
 - Outstanding documentation debt list with owner.
 

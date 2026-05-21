@@ -49,7 +49,7 @@ Enforce runtime-safe CSS architecture that keeps layout stable, token-driven, an
 - `css/utilities.css`
 - `css/components/*.css`
 - `docs/specs/CSS_ARCHITECTURE.md`
-- `.nezam/workspace/context/audit/css-runtime-audit.md`
+- `.nezam/core/context/audit/css-runtime-audit.md`
 
 # Integration Hooks
 - `/PLAN design`: define architecture before component implementation.

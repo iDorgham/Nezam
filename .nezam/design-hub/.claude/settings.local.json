@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *)",
+      "Bash(pnpm type-check *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm vitest *)",
+      "Bash(grep -nA 20 \"POST /api/assets/upload\" /Users/Dorgham/Documents/Work/Devleopment/NEZAM/docs/plans/00-define/01-product/PRD.md)",
+      "Bash(pnpm add *)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "insforge",
+    "shadcn"
+  ]
+}

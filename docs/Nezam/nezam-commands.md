@@ -28,7 +28,7 @@ Initializes the workspace for a session. Loads context, checks prerequisites, an
 
 **What it does:**
 1. Reads `.nezam/memory/CONTEXT.md` and `.nezam/memory/MEMORY.md`
-2. Checks `.nezam/workspace/prd/PRD.md` exists
+2. Checks `.nezam/core/prd/PRD.md` exists
 3. Identifies the current SDD phase from `docs/plans/INDEX.md`
 4. Loads the relevant agents for that phase
 5. Reports current workspace health
@@ -72,8 +72,8 @@ Runs all readiness checks.
 
 ```bash
 # What runs:
-.nezam/scripts/checks/check-onboarding-readiness.sh
-.nezam/scripts/checks/check-design-tokens.sh
+.nezam/core/scripts/checks/check-onboarding-readiness.sh
+.nezam/core/scripts/checks/check-design-tokens.sh
 pnpm ai:check
 ```
 

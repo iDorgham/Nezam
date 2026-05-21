@@ -33,7 +33,7 @@ Also triggered by: `/PLAN design wireframes`
 
 ## Prerequisites
 
-- `.nezam/workspace/prd/PRD.md` must exist and be locked (check `onboarding.yaml` → `prd_locked: true`)
+- `.nezam/core/prd/PRD.md` must exist and be locked (check `onboarding.yaml` → `prd_locked: true`)
 - Product type must be detectable from PRD
 
 If PRD missing → redirect to `/start` Step 3
@@ -42,7 +42,7 @@ If PRD missing → redirect to `/start` Step 3
 
 ## Step 1 — Detect Product Type and Load Element Sequence
 
-Read `.nezam/workspace/prd/PRD.md`. Detect type:
+Read `.nezam/core/prd/PRD.md`. Detect type:
 
 | PRD signals | Type | Element sequence |
 |---|---|---|

@@ -3,7 +3,7 @@ user_mode: ""
 user_mode_set_at: ""
 tone: ""
 prd_locked: false
-prd_path: ".nezam/workspace/prd/PRD.md"
+prd_path: ".nezam/core/prd/PRD.md"
 prd_locked_at: ""
 design_locked: false
 design_profile: ""

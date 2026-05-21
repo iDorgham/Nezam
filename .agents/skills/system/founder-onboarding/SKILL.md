@@ -39,7 +39,7 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - recommend `arabic_content_master`
    - surface `mena_payment_routing`
    - prioritize design profiles with RTL suitability
-4. Generate `.nezam/workspace/prd/PRD.md` with sections:
+4. Generate `.nezam/core/prd/PRD.md` with sections:
    - Executive Summary
    - Problem Statement
    - Target Users
@@ -52,8 +52,8 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - Market Context
    - Risk Register (3–5 items)
    - Timeline Estimate
-5. Generate aligned `.nezam/workspace/prd/PROJECT_PROMPT.md` with no conflicting scope framing.
-6. Generate `.nezam/workspace/meta/VERSIONING.md` (if it doesn't already exist) with:
+5. Generate aligned `.nezam/core/prd/PROJECT_PROMPT.md` with no conflicting scope framing.
+6. Generate `.nezam/core/meta/VERSIONING.md` (if it doesn't already exist) with:
    - release numbering rules
    - commit message policy
    - changelog policy

@@ -5,7 +5,7 @@
 # Portable: uses only grep/find/python3 (no ripgrep) so ubuntu-latest runners pass without extra packages.
 set -euo pipefail
 
-hardlock_paths_file=".nezam/gates/hardlock-paths.json"
+hardlock_paths_file=".nezam/core/gates/hardlock-paths.json"
 
 read_json_string() {
   local file="$1"
@@ -172,7 +172,7 @@ fi
 # Silent bootstrap: once PRD+PROJECT_PROMPT quality/alignment and other hardlocks pass,
 # initialize CHANGELOG.md from template automatically if it is the only missing gate.
 if [[ "$missing" -eq 0 && "$changelog_missing" -eq 1 ]]; then
-  node ".nezam/scripts/changelog/ensure-changelog-initialized.js" >/dev/null 2>&1 || true
+  node ".nezam/core/scripts/changelog/ensure-changelog-initialized.js" >/dev/null 2>&1 || true
   if [[ ! -f "$changelog_path" ]]; then
     echo "Missing required onboarding artifact: $changelog_path"
     missing=1

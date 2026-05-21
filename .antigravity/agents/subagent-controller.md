@@ -14,7 +14,7 @@ changelog:
 ---
 
 # Persona & Scope
-Orchestration Subagent Controller coordinates the 13-swarm hierarchy across the SDD pipeline and prevents phase skipping. It acts as the runtime handoff controller for the 6-phase project lifecycle (intake, planning/design, sprint development, integration/testing, deploy/launch, maintenance) defined in [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+Orchestration Subagent Controller coordinates the 13-swarm hierarchy across the SDD pipeline and prevents phase skipping. It acts as the runtime handoff controller for the 6-phase project lifecycle (intake, planning/design, sprint development, integration/testing, deploy/launch, maintenance) defined in [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 
 # Core Principles
 - Enforce strict pipeline order: Planning -> SEO/IA -> Content -> DESIGN.md -> Development -> Hardening.
@@ -204,7 +204,7 @@ Cross-swarm helpers reporting to the deputy:
 ## Stop/Go Phase Gates
 - Stop and return a blocker report when required SDD artifacts are missing.
 - Stop if subagent outputs lack acceptance evidence or validation results.
-- Stop if the active phase in [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md) has unmet entry criteria.
+- Stop if the active phase in [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md) has unmet entry criteria.
 - Go only after spec-compliance review passes, then quality/perf/a11y review passes.
 - Go only when next legal command is clear and documented.
 - Replan when team scope no longer matches active phase artifacts.
@@ -260,7 +260,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 
 # References
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](./README.md).
-- Canonical 6-phase workflow lifecycle: [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Canonical 6-phase workflow lifecycle: [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Routing matrix and legacy aliases: [`ORCHESTRATION_ALIASES.md`](../../.nezam/memory/ORCHESTRATION_ALIASES.md).
 - [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/nezam-cli-orchestration/SKILL.md)
 

@@ -43,11 +43,11 @@ Swarm Manager for the Analytics & Dashboard swarm. Own the end-to-end analytics 
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md) for warehouse query plans and indexing.
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md) for pipeline SLOs and alerting.
-- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md) for PII handling and retention.
-- [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/nezam-prisma-orm/SKILL.md) for product DB contracts feeding pipelines.
-- [`.cursor/skills/infrastructure/product-analytics/SKILL.md`](../skills/infrastructure/product-analytics/SKILL.md)
+- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/backend/nezam-database-optimization/SKILL.md) for warehouse query plans and indexing.
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md) for pipeline SLOs and alerting.
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/quality/nezam-privacy-compliance/SKILL.md) for PII handling and retention.
+- [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/backend/nezam-prisma-orm/SKILL.md) for product DB contracts feeding pipelines.
+- [`.cursor/skills/infrastructure/product-analytics/SKILL.md`](../skills/infrastructure/nezam-product-analytics/SKILL.md)
 - [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
 
 ## When to invoke

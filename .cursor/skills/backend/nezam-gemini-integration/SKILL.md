@@ -1,6 +1,6 @@
 ---
-skill_id: "nezam- nezam-gemini-integration"
-name: "nezam-"nezam-gemini-integration"
+skill_id: "nezam-"nezam- nezam-gemini-integration"
+name: "nezam-"nezam-"nezam-gemini-integration"
 description: "Google Gemini API integration using the correct google-genai SDK. Covers multimodal input, streaming, function calling, search grounding, and file API for large documents."
 version: 1.0.0
 updated: 2026-05-12
@@ -103,7 +103,7 @@ const finalResponse = await stream.response
 ```ts
 const tools = [{
   functionDeclarations: [{
-    name: "nezam-'get_weather',"
+    name: "nezam-"nezam-'get_weather',"
     description: 'Get current weather for a city',
     parameters: {
       type: 'OBJECT',

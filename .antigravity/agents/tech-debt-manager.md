@@ -36,13 +36,13 @@ Own the tech-debt register and the periodic debt sprints that pay it down. Decid
 ## Specialists (referenced)
 
 - [`code-review-specialist.md`](./code-review-specialist.md)
-- [`agent-docs-hygiene.md`](./agent-docs-hygiene.md)
+- [`agent-docs-hygiene.md`](./docs-hygiene.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
-- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/quality/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/system/nezam-risk-mitigation/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
 
 ## When to invoke
 

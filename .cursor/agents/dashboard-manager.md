@@ -38,9 +38,9 @@ Own the dashboard surface for product, growth, ops, and executive consumers. Dec
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/nezam-dashboard-patterns/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
+- [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/design/nezam-dashboard-patterns/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
 
 ## When to invoke
 

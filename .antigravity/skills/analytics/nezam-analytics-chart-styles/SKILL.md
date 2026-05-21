@@ -2,7 +2,7 @@
 
 ---
 id: nezam-analytics-chart-styles
-name: "nezam-Analytics Chart Styles"
+name: "nezam-"nezam-Analytics Chart Styles"
 description: Defining visual styles for charts, including grids, tooltips, and markers.
 tier: 3
 swarm: Swarm 8 (Analytics)

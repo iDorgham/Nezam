@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-analytics-observability"
+name: "nezam-"nezam-"nezam-analytics-observability"
 description: Tracks gate-crossings, hardlock violations, and overall workspace state telemetry in real-time.
 tags: [observability, governance, analytics, monitoring]
 version: 1.0.0

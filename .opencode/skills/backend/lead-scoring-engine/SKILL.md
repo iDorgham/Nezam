@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-lead-scoring-engine"
+name: "nezam-"nezam-lead-scoring-engine"
 description: Logic and scoring models for lead qualification and prioritization.
 version: 1.0.0
 updated: 2026-05-13

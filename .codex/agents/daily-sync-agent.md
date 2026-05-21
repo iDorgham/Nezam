@@ -35,9 +35,9 @@ Run the daily synchronization loop across all 12 swarms. Aggregate per-swarm sta
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
-- [`.cursor/skills/nezam-phase-gating-roadmap/SKILL.md`](../skills/nezam-phase-gating-roadmap/SKILL.md)
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/system/nezam-multi-agent-handoff/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-phase-gating-roadmap/SKILL.md`](../skills/system/nezam-phase-gating-roadmap/SKILL.md)
 
 ## When to invoke
 

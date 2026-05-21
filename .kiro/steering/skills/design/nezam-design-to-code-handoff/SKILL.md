@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-design-to-code-handoff"
+name: "nezam-"nezam-"nezam-design-to-code-handoff"
 description: "Transfers finalized design specs to development with full context: ground-truth component references, recursive import trees, token maps, and RTL verification."
 version: 2.0.0
 updated: 2026-05-12

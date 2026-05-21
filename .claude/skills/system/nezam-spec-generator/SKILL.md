@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-spec-generator"
+name: "nezam-"nezam-"nezam-spec-generator"
 description: Generate complete SDD SPEC.md files for feature slices following the 10-field contract.
 version: 1.0.0
 updated: 2026-05-10

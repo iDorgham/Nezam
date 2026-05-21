@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-seo-ia-content"
+name: "nezam-"nezam-"nezam-seo-ia-content"
 description: SEO fundamentals + keyword research → information architecture & menu labels → on-page content shells (AEO/GEO aware).
 paths:
   - "docs/specs/SEO_RESEARCH.md"

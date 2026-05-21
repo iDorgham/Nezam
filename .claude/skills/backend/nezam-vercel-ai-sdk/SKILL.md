@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-vercel-ai-sdk"
+name: "nezam-"nezam-"nezam-vercel-ai-sdk"
 description: Build streaming, tool-calling AI features with provider-agnostic SDK patterns.
 version: 1.1.0
 updated: 2026-05-12

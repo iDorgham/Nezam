@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-react-architecture"
+name: "nezam-"nezam- nezam-react-architecture"
 description: React 19 / Next.js 15 patterns — Server Components, Suspense, Server Actions, state strategy, and rendering modes.
 version: 2.0.0
 updated: 2026-05-08

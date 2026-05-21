@@ -38,10 +38,10 @@ Swarm Manager for the CMS & SaaS swarm. Own headless / hybrid CMS topology, cont
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-cms-integration/SKILL.md`](../skills/nezam-cms-integration/SKILL.md)
-- [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/nezam-content-modeling/SKILL.md)
-- [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/nezam-editorial-workflows/SKILL.md)
-- [`.cursor/skills/nezam-ia-taxonomy/SKILL.md`](../skills/nezam-ia-taxonomy/SKILL.md)
+- [`.cursor/skills/nezam-cms-integration/SKILL.md`](../skills/backend/nezam-cms-integration/SKILL.md)
+- [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/content/nezam-content-modeling/SKILL.md)
+- [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/content/nezam-editorial-workflows/SKILL.md)
+- [`.cursor/skills/nezam-ia-taxonomy/SKILL.md`](../skills/research/nezam-ia-taxonomy/SKILL.md)
 
 ## When to invoke
 

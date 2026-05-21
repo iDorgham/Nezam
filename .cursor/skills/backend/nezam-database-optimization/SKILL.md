@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-database-optimization"
+name: "nezam-"nezam- nezam-database-optimization"
 description: Index strategies, query planning, connection pooling, and read-replica routing for predictable database performance.
 version: 1.0.0
 updated: 2026-05-08

@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-vercel-deploy"
+name: "nezam-"nezam- nezam-vercel-deploy"
 description: Vercel CLI, vercel.json, Edge Config, ISR/SSR, and deployment hooks for Next.js and framework-aware projects.
 version: 1.0.0
 updated: 2026-05-08

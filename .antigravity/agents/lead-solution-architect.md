@@ -42,10 +42,10 @@ Swarm Manager for the Architecture & Planning swarm. Owns system shape, boundari
 ## Primary skills / lenses
 
 - `ARCHITECTURE.md`, ADRs in specs, `/SCAN all` triage
-- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/nezam-strategic-planning/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
-- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
-- [`.cursor/skills/plan-full/SKILL.md`](../skills/plan-full/SKILL.md)
+- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/system/nezam-strategic-planning/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/system/nezam-risk-mitigation/SKILL.md)
+- [`.cursor/skills/plan-full/SKILL.md`](../skills/external/nezam-plan-full/SKILL.md)
 - [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP-first service routing
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — consult before recommending any third-party service
 

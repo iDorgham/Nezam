@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-repo-file-org"
+name: "nezam-"nezam- nezam-repo-file-org"
 description: Deterministic repository organization workflow for safe file moves, import updates, and clean directory governance.
 version: 1.0.0
 updated: 2026-05-08

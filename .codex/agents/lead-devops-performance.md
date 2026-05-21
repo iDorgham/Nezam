@@ -36,21 +36,21 @@ Swarm Manager for the Performance & DevOps swarm. Own CI / CD pipelines, infrast
 ## Specialists (referenced)
 
 - [`docker-k8s-specialist.md`](./docker-k8s-specialist.md)
-- [`agent-ci-automation.md`](./agent-ci-automation.md)
+- [`agent-ci-automation.md`](./ci-automation.md)
 - [`gitops.md`](./gitops.md)
 - [`a11y-performance-auditor.md`](./a11y-performance-auditor.md)
 
 ## Primary skills / lenses
 
 - `.github/workflows/**`, `/DEPLOY ship`, `@git-workflow`.
-- [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/nezam-devops-pipeline/SKILL.md)
-- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
-- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/nezam-aws-infra/SKILL.md)
-- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
-- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
-- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/infrastructure/nezam-devops-pipeline/SKILL.md)
+- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/quality/nezam-github-actions-ci/SKILL.md)
+- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/infrastructure/nezam-aws-infra/SKILL.md)
+- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/infrastructure/nezam-vercel-deploy/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/infrastructure/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/infrastructure/nezam-cdn-optimization/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
 - [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP-backed infra and observability integrations
 
 ## When to invoke

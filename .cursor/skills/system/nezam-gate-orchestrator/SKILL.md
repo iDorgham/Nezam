@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-gate-orchestrator"
+name: "nezam-"nezam-"nezam-gate-orchestrator"
 description: Unified Gate Orchestrator for NEZAM. Validates SDD phase gates, checks hardlocks, and blocks unsafe progression with aggressive refusal templates. Replaces sdd-gate-validator and sdd-hardlock-manager.
 version: 2.0.0
 updated: 2026-05-12

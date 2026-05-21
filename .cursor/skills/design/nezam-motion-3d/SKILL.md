@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-motion-3d-progressive"
+name: "nezam-"nezam- nezam-motion-3d-progressive"
 description: Motion systems (Framer Motion / GSAP), GPU-composited animation, prefers-reduced-motion, and progressive 3D fallback chains.
 version: 1.0.0
 updated: 2026-05-08

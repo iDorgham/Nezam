@@ -262,7 +262,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](./README.md).
 - Canonical 6-phase workflow lifecycle: [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
 - Routing matrix and legacy aliases: [`ORCHESTRATION_ALIASES.md`](../../.nezam/memory/ORCHESTRATION_ALIASES.md).
-- [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/cli-orchestration/SKILL.md)
+- [.cursor/skills/system/cli-orchestration/SKILL.md](../skills/system/nezam-cli-orchestration/SKILL.md)
 
 # Anti-Patterns
 - Starting cross-domain slices without reading **`PHASE_HANDOFF.md`**.

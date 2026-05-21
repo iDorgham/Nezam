@@ -39,9 +39,9 @@ Run the day-to-day operating rhythm of the 13-swarm system on behalf of the CPO.
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/system/multi-agent-handoff/SKILL.md`](../skills/system/multi-agent-handoff/SKILL.md) for handoff packets.
-- [`.cursor/skills/system/progress-narrator/SKILL.md`](../skills/system/progress-narrator/SKILL.md) for gate evidence and sprint narratives.
-- [`.cursor/skills/system/task-decomposition/SKILL.md`](../skills/system/task-decomposition/SKILL.md) for sprint slicing.
+- [`.cursor/skills/system/multi-agent-handoff/SKILL.md`](../skills/system/nezam-multi-agent-handoff/SKILL.md) for handoff packets.
+- [`.cursor/skills/system/progress-narrator/SKILL.md`](../skills/system/nezam-progress-narrator/SKILL.md) for gate evidence and sprint narratives.
+- [`.cursor/skills/system/task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md) for sprint slicing.
 - [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
 - [`.nezam/workspace/context/governance/SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md) lifecycle phases.
 

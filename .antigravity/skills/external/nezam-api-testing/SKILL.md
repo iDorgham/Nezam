@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-api-testing"
+name: "nezam-"nezam-"nezam-api-testing"
 description: External API testing skill — contract testing, integration test scaffolding, Postman/Bruno collections, mock server setup, and API health checks for third-party and internal APIs.
 paths:
   - "docs/specs/api/**"
@@ -86,10 +86,10 @@ docker run -p 8080:8080 wiremock/wiremock
 
 Add to `.github/workflows/ci.yml`:
 ```yaml
-- name: "nezam-API Contract Tests"
+- name: "nezam-"nezam-API Contract Tests"
   run: npx schemathesis run docs/specs/api/API_SPEC.yaml --url http://localhost:3000
 
-- name: "nezam-Integration Tests"
+- name: "nezam-"nezam-Integration Tests"
   run: npm run test:api
 ```
 

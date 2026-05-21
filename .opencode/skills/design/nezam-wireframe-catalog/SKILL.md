@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-wireframe-catalog"
+name: "nezam-"nezam-"nezam-wireframe-catalog"
 description: Generate precise high-fidelity ASCII wireframes as implementation contracts during /PLAN design wireframes.
 version: 2.0.0
 updated: 2026-05-11

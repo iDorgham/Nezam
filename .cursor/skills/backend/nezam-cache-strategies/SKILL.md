@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-cache-strategies"
+name: "nezam-"nezam- nezam-cache-strategies"
 description: HTTP, Redis, edge cache, and tag-based invalidation strategies that prevent stampedes and stale data.
 version: 1.0.0
 updated: 2026-05-08

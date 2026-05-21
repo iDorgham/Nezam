@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-phase-gating-roadmap"
+name: "nezam-"nezam- nezam-phase-gating-roadmap"
 description: Enforce SDD phase transitions with hard-block exit criteria, versioning triggers, and traceable evidence.
 version: 1.0.0
 updated: 2026-05-08

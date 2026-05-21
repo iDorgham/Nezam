@@ -35,8 +35,8 @@ Govern AI / agent-generated code across the swarms. Enforce policy on what can b
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
-- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/quality/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/system/nezam-multi-agent-handoff/SKILL.md)
 - [`.cursor/skills/nezam-gh-security-compliance/SKILL.md`](../skills/nezam-gh-security-compliance/SKILL.md)
 
 ## When to invoke

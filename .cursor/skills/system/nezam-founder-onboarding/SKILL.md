@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-founder-onboarding"
+name: "nezam-"nezam- nezam-founder-onboarding"
 description: Convert a plain-language founder idea into complete gate-ready project artifacts without requiring technical ceremony.
 version: 1.0.0
 updated: 2026-05-08

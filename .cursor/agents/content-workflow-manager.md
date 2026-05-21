@@ -40,10 +40,10 @@ Own the editorial workflow surface inside the CMS / SaaS: roles (author / editor
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/nezam-editorial-workflows/SKILL.md)
-- [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/nezam-content-modeling/SKILL.md)
-- [`.cursor/skills/nezam-ia-taxonomy/SKILL.md`](../skills/nezam-ia-taxonomy/SKILL.md)
-- [`.cursor/skills/seo-ia-content/SKILL.md`](../skills/seo-ia-content/SKILL.md)
+- [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/content/nezam-editorial-workflows/SKILL.md)
+- [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/content/nezam-content-modeling/SKILL.md)
+- [`.cursor/skills/nezam-ia-taxonomy/SKILL.md`](../skills/research/nezam-ia-taxonomy/SKILL.md)
+- [`.cursor/skills/seo-ia-content/SKILL.md`](../skills/research/nezam-seo-ia-content/SKILL.md)
 
 ## When to invoke
 

@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-cloudflare-edge"
+name: "nezam-"nezam- nezam-cloudflare-edge"
 description: Cloudflare Workers, KV/D1/R2, Pages, cache rules, and geographic routing patterns at the edge.
 version: 1.0.0
 updated: 2026-05-08

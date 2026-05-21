@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-crm-erp-sync"
+name: "nezam-"nezam-crm-erp-sync"
 description: Design and implementation of data synchronization between CRM and ERP systems.
 version: 1.0.0
 updated: 2026-05-13

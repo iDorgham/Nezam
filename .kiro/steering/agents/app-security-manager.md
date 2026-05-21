@@ -35,12 +35,12 @@ Own application-layer security: OWASP Top 10 controls, input validation, output 
 
 ## Specialists (referenced)
 
-- [`agent-security-auditor.md`](./agent-security-auditor.md)
+- [`agent-security-auditor.md`](./security-auditor.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/quality/nezam-security-hardening/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md)
 - [`.cursor/skills/nezam-gh-security-compliance/SKILL.md`](../skills/nezam-gh-security-compliance/SKILL.md)
 
 ## When to invoke

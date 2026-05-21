@@ -45,7 +45,7 @@ Read `.cursor/state/plan_progress.yaml`:
 
 1. `planning_complete: true` — all 6 planning phases done
 2. All artifact files exist at their expected paths (validate via `gate-orchestrator` skill)
-3. `PROJECT_SCAFFOLD.md` confirmed and `scripts/scaffold.sh` run
+3. `PROJECT_SCAFFOLD.md` confirmed and `.nezam/scripts/scaffold.sh` run
 
 If any are false → block `/develop` → show plan progress status → tell user which phase to complete.
 

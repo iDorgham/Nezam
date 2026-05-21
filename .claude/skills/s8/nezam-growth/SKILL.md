@@ -2,7 +2,7 @@
 
 ---
 id: nezam-s8-growth
-name: "nezam-"nezam-S8 Growth"
+name: "nezam-"nezam-"nezam-S8 Growth"
 tier: 3
 summary: Growth metrics and analysis for S8 analytics, tracking acquisition and viral loops.
 owner: unassigned

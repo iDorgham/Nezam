@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-contact-enrichment"
+name: "nezam-"nezam-contact-enrichment"
 description: Integration patterns for third-party contact data enrichment.
 version: 1.0.0
 updated: 2026-05-13

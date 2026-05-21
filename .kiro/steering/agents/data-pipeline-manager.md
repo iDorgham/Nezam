@@ -48,9 +48,9 @@ Own ELT / ETL pipelines, change-data-capture, replica replication, and warehousi
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/backend/nezam-database-optimization/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
 
 ## When to invoke
 

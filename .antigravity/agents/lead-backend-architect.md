@@ -36,18 +36,18 @@ Swarm Manager for the Backend swarm. Own server-side architecture, API contracts
 
 - [`lead-database-architect.md`](./lead-database-architect.md) (cross-swarm)
 - [`integration-specialist.md`](./integration-specialist.md)
-- [`agent-security-auditor.md`](./agent-security-auditor.md)
+- [`agent-security-auditor.md`](./security-auditor.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/nezam-api-design/SKILL.md)
-- [`.cursor/skills/nezam-api-gateway/SKILL.md`](../skills/nezam-api-gateway/SKILL.md)
-- [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/nezam-auth-workflows/SKILL.md)
-- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/backend/nezam-api-design/SKILL.md)
+- [`.cursor/skills/nezam-api-gateway/SKILL.md`](../skills/backend/nezam-api-gateway/SKILL.md)
+- [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/backend/nezam-auth-workflows/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
 - [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP availability and ownership
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — consult before recommending any third-party service
-- [.cursor/skills/backend/vercel-ai-sdk/SKILL.md](../skills/backend/vercel-ai-sdk/SKILL.md)
+- [.cursor/skills/backend/vercel-ai-sdk/SKILL.md](../skills/backend/nezam-vercel-ai-sdk/SKILL.md)
 
 ## When to invoke
 

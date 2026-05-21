@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-arabic-content-master"
+name: "nezam-"nezam-"nezam-arabic-content-master"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

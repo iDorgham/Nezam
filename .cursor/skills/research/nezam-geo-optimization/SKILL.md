@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-geo-optimization"
+name: "nezam-"nezam- nezam-geo-optimization"
 description: Generative Engine Optimization — entity mapping, topical depth, and AI-citation readiness for LLM-powered search.
 version: 1.0.0
 updated: 2026-05-08

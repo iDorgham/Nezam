@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-design-server"
+name: "nezam-"nezam- nezam-design-server"
 description: Operate the NEZAM Design Server to create wireframes and tokens.
 category: design
 version: 1.0.0

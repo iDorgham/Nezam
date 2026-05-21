@@ -40,11 +40,11 @@ Own search engines (Elasticsearch / OpenSearch / Meilisearch), vector stores (pg
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
-- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
-- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md)
-- [.cursor/skills/backend/typesense-search/SKILL.md](../skills/backend/typesense-search/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/infrastructure/nezam-cdn-optimization/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/infrastructure/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/backend/nezam-database-optimization/SKILL.md)
+- [.cursor/skills/backend/typesense-search/SKILL.md](../skills/backend/nezam-typesense-search/SKILL.md)
 
 ## When to invoke
 

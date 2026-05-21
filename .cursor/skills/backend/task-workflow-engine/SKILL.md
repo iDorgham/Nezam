@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-task-workflow-engine"
+name: "nezam-"nezam-task-workflow-engine"
 description: Governs the design and implementation of task state machines and transition logic.
 version: 1.0.0
 updated: 2026-05-13

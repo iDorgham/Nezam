@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-guide-instructor-domains"
+name: "nezam-"nezam-"nezam-guide-instructor-domains"
 description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:
   - ".nezam/workspace/context/CONTEXT.md"
@@ -21,13 +21,13 @@ Adapted from [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/ski
 
 | Domain | NEZAM anchors |
 | ------ | ------------- |
-| Security / secrets | [`.github/workflows/`](../../../.github/workflows/), [`nezam-security-hardening`](../nezam-security-hardening/SKILL.md), [`nezam-secret-management`](../nezam-secret-management/SKILL.md) |
-| Planning / SDD | [`.nezam/workspace/plans/`](../../../.nezam/workspace/plans/), [`docs/specs/prd/PRD.md`](../../../docs/specs/prd/PRD.md), [`plan-full`](../plan-full/SKILL.md) |
-| Design / tokens | [`docs/DESIGN.md`](../../../DESIGN.md), [`.nezam/design/<brand>/`](../../design/), [`design-md`](../design-md/SKILL.md), [`nezam-pro-design-tokens`](../nezam-pro-design-tokens/SKILL.md) |
-| SEO / IA / content | [`seo-ia-content`](../seo-ia-content/SKILL.md), `docs/specs/SEO_RESEARCH.md` (when present) |
-| GitHub / CI | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`git-workflow`](../git-workflow/SKILL.md), [`nezam-github-actions-ci`](../nezam-github-actions-ci/SKILL.md) |
-| Deploy | [`nezam-vercel-deploy`](../nezam-vercel-deploy/SKILL.md), [`nezam-devops-pipeline`](../nezam-devops-pipeline/SKILL.md) |
-| Agents / skills | [`.cursor/agents/README.md`](../../agents/README.md), [`.nezam/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../../.nezam/workspace/context/governance/ORCHESTRATION_ALIASES.md) |
+| Security / secrets | [`.github/workflows/`](../../../.github/workflows/), [`nezam-security-hardening`](../../quality/nezam-security-hardening/SKILL.md), [`nezam-secret-management`](../../infrastructure/nezam-secret-management/SKILL.md) |
+| Planning / SDD | [`.nezam/workspace/plans/`](../../../.nezam/workspace/plans/), [`docs/specs/prd/PRD.md`](../../../docs/specs/prd/PRD.md), [`plan-full`](../nezam-plan-full/SKILL.md) |
+| Design / tokens | [`docs/DESIGN.md`](../../../DESIGN.md), [`.nezam/design/<brand>/`](../../design/), [`design-md`](../../design/nezam-design-md/SKILL.md), [`nezam-pro-design-tokens`](../nezam-pro-design-tokens/SKILL.md) |
+| SEO / IA / content | [`seo-ia-content`](../../research/nezam-seo-ia-content/SKILL.md), `docs/specs/SEO_RESEARCH.md` (when present) |
+| GitHub / CI | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`git-workflow`](../nezam-git-workflow/SKILL.md), [`nezam-github-actions-ci`](../../quality/nezam-github-actions-ci/SKILL.md) |
+| Deploy | [`nezam-vercel-deploy`](../../infrastructure/nezam-vercel-deploy/SKILL.md), [`nezam-devops-pipeline`](../../infrastructure/nezam-devops-pipeline/SKILL.md) |
+| Agents / skills | [`.cursor/agents/README.md`](../../../agents/README.md), [`.nezam/workspace/context/governance/ORCHESTRATION_ALIASES.md`](../../../.nezam/workspace/context/governance/ORCHESTRATION_ALIASES.md) |
 
 ## Anti-patterns
 

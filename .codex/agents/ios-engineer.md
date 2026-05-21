@@ -49,10 +49,10 @@ Own iOS engineering: SwiftUI / UIKit topology, App Store submission, ATT / priva
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md) when the surface is React Native.
-- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/frontend/nezam-react-architecture/SKILL.md) when the surface is React Native.
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
 
 ## When to invoke
 

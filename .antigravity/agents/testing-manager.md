@@ -35,13 +35,13 @@ Own the test pyramid: unit, integration, contract, and end-to-end tests across w
 
 ## Specialists (referenced)
 
-- [`agent-qa-test-lead.md`](./agent-qa-test-lead.md)
+- [`agent-qa-test-lead.md`](./qa-test-lead.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-testing-strategy/SKILL.md`](../skills/nezam-testing-strategy/SKILL.md)
-- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
-- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-testing-strategy/SKILL.md`](../skills/quality/nezam-testing-strategy/SKILL.md)
+- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/quality/nezam-testing-automation/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/quality/nezam-scan-fix-loop/SKILL.md)
 
 ## When to invoke
 

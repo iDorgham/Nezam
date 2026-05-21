@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-accessibility-audit"
+name: "nezam-"nezam-"nezam-accessibility-audit"
 description: Comprehensive framework for checking WCAG 2.2 AA compliance, keyboard navigation, and screen reader compatibility.
 version: 1.0.0
 updated: 2026-05-12

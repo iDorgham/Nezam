@@ -33,7 +33,7 @@ Use these agents as reasoning charters:
 - All spacing, color, radius, elevation, z-index, and typography must map to CSS variables or W3C-style token references.
 - Token output must support semantic aliases and CSS variable export.
 - Any hardcoded primitive in component/application styles fails the gate.
-- CI enforcement: `.github/workflows/design-gates.yml` runs `scripts/checks/check-design-tokens.sh` on pull requests. Local baseline command: `pnpm run check:tokens`.
+- CI enforcement: `.github/workflows/design-gates.yml` runs `.nezam/scripts/checks/check-design-tokens.sh` on pull requests. Local baseline command: `pnpm run check:tokens`.
 
 ## Gate 2: Fluid Typography and Grid Systems
 

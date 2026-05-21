@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-mena-payment-routing"
+name: "nezam-"nezam-"nezam-mena-payment-routing"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

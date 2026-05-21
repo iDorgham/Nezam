@@ -33,9 +33,9 @@ Arbitrate conflicts between peer swarms before they reach the CPO: write-scope o
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md)
-- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/system/nezam-multi-agent-handoff/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/system/nezam-risk-mitigation/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
 
 ## When to invoke
 

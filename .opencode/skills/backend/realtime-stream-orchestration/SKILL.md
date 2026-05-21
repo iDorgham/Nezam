@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-realtime-stream-orchestration"
+name: "nezam-"nezam-realtime-stream-orchestration"
 description: Protocols and logic for managing live data streams for dashboards.
 version: 1.0.0
 updated: 2026-05-13

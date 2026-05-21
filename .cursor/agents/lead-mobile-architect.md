@@ -39,10 +39,10 @@ Swarm Manager for the Mobile swarm. Own iOS, Android, and cross-platform deliver
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md) for cross-platform JS surfaces.
-- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md) for startup and runtime budgets.
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md) for crash and ANR pipelines.
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md) for mobile telemetry.
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/frontend/nezam-react-architecture/SKILL.md) for cross-platform JS surfaces.
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md) for startup and runtime budgets.
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md) for crash and ANR pipelines.
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md) for mobile telemetry.
 
 ## When to invoke
 

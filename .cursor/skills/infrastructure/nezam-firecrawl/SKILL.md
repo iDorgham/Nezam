@@ -1,6 +1,6 @@
 ---
-skill_id: "nezam- nezam-firecrawl"
-name: "nezam-"nezam-firecrawl"
+skill_id: "nezam-"nezam- nezam-firecrawl"
+name: "nezam-"nezam-"nezam-firecrawl"
 description: "Web content extraction for AI pipelines using Firecrawl — converts URLs to clean markdown or structured data for RAG ingestion, competitive research, and content pipelines."
 version: 1.0.0
 updated: 2026-05-12
@@ -79,7 +79,7 @@ for (const page of crawlResult.data) {
 import { z } from 'zod'
 
 const ProductSchema = z.object({
-  name: "nezam-z.string(),"
+  name: "nezam-"nezam-z.string(),"
   price: z.number(),
   description: z.string(),
   features: z.array(z.string()),

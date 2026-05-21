@@ -5,7 +5,7 @@
 > `/git`, `/deploy`, `/settings`) operate on **your project only**.
 
 Never edit `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, `.nezam/templates/`,
-`.nezam/workspace/`, or `scripts/` outside of this command. Changes made directly won't get
+`.nezam/workspace/`, or `.nezam/scripts/` outside of this command. Changes made directly won't get
 proper validation or sync.
 
 Hard blocks: none — /nezam is always available
@@ -29,7 +29,7 @@ Recommendation footer: required
 /nezam skills edit <name>      → Edit a skill's SKILL.md
 /nezam rules                   → List all rules in .cursor/rules/
 /nezam rules edit <name>       → Edit a .mdc rule file
-/nezam scripts                 → List scripts/ with purpose descriptions
+/nezam scripts                 → List .nezam/scripts/ with purpose descriptions
 /nezam paths                   → Show current .nezam/gates/workspace.paths.yaml
 /nezam paths set <key> <value> → Change a path (e.g. /nezam paths set project.prd src/PRD.md)
 /nezam sync                    → Run pnpm ai:sync + pnpm ai:check, show result
@@ -228,7 +228,7 @@ Rules — .cursor/rules/
 List all scripts with descriptions:
 
 ```
-Scripts — scripts/
+Scripts — .nezam/scripts/
 
   sync/sync-ai-folders.js          Sync .cursor/ to all AI client mirrors
   checks/check-ai-drift.js           Detect drift between .cursor/ and mirrors

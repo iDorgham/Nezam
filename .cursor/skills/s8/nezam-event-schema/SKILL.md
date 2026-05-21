@@ -1,6 +1,6 @@
 ---
 id: nezam-s8-event-schema
-name: "nezam-"nezam-S8 Event Schema"
+name: "nezam-"nezam-"nezam-S8 Event Schema"
 tier: 3
 summary: Event schema definitions for S8 analytics, ensuring consistent tracking across the application.
 owner: unassigned

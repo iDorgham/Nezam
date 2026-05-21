@@ -40,9 +40,9 @@ Own service decomposition, asynchronous workflows, queue / event topology, and i
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/nezam-api-design/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/nezam-cache-strategies/SKILL.md)
+- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/backend/nezam-api-design/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
 
 ## When to invoke
 

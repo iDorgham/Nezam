@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-graph-logic-engine"
+name: "nezam-"nezam-graph-logic-engine"
 description: Manages graph theory implementations, node connectivity validation, and execution flow logic.
 version: 1.0.0
 updated: 2026-05-13

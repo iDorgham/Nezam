@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-decision-journal"
+name: "nezam-"nezam- nezam-decision-journal"
 description: Write plain-language decision entries to .nezam/workspace/context/DECISIONS_PLAIN.md for founder-readable audit trails.
 version: 1.0.0
 updated: 2026-05-08

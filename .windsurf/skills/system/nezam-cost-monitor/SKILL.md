@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-cost-monitor"
+name: "nezam-"nezam-"nezam-cost-monitor"
 description: LLM and AI infrastructure cost tracking — per-task spend, budget alerts, model optimization recommendations, and monthly cost reports.
 paths:
   - "docs/reports/ai/**"

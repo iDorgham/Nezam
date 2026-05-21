@@ -39,11 +39,11 @@ Own infrastructure-as-code, cloud platform topology (AWS / GCP / Azure / Vercel 
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/nezam-aws-infra/SKILL.md)
-- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
-- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/nezam-cdn-optimization/SKILL.md)
-- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/infrastructure/nezam-aws-infra/SKILL.md)
+- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/infrastructure/nezam-vercel-deploy/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/infrastructure/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/infrastructure/nezam-cdn-optimization/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/infrastructure/nezam-secret-management/SKILL.md)
 
 ## When to invoke
 

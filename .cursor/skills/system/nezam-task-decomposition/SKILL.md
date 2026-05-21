@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-task-decomposition"
+name: "nezam-"nezam- nezam-task-decomposition"
 description: Decompose epics into right-sized features and tasks with explicit dependencies, slice sizing, and acceptance hooks.
 version: 1.0.0
 updated: 2026-05-08

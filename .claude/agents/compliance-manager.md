@@ -36,14 +36,14 @@ Own compliance posture across GDPR / CCPA, SOC 2, HIPAA, PCI-DSS, and regional d
 ## Specialists (referenced)
 
 - [`encryption-privacy-specialist.md`](./encryption-privacy-specialist.md)
-- [`agent-security-auditor.md`](./agent-security-auditor.md)
-- [`agent-docs-hygiene.md`](./agent-docs-hygiene.md)
+- [`agent-security-auditor.md`](./security-auditor.md)
+- [`agent-docs-hygiene.md`](./docs-hygiene.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/quality/nezam-privacy-compliance/SKILL.md)
 - [`.cursor/skills/nezam-gh-security-compliance/SKILL.md`](../skills/nezam-gh-security-compliance/SKILL.md)
-- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/infrastructure/nezam-secret-management/SKILL.md)
 
 ## When to invoke
 

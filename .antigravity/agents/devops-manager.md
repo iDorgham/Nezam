@@ -35,17 +35,17 @@ Own CI / CD pipelines, environment topology (preview / staging / canary / produc
 
 ## Specialists (referenced)
 
-- [`agent-ci-automation.md`](./agent-ci-automation.md)
+- [`agent-ci-automation.md`](./ci-automation.md)
 - [`gitops.md`](./gitops.md)
 - [`docker-k8s-specialist.md`](./docker-k8s-specialist.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/nezam-devops-pipeline/SKILL.md)
-- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
-- [`.cursor/skills/git-workflow/SKILL.md`](../skills/git-workflow/SKILL.md)
-- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/nezam-vercel-deploy/SKILL.md)
-- [.cursor/skills/backend/neon-postgres/SKILL.md](../skills/backend/neon-postgres/SKILL.md)
+- [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/infrastructure/nezam-devops-pipeline/SKILL.md)
+- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/quality/nezam-github-actions-ci/SKILL.md)
+- [`.cursor/skills/git-workflow/SKILL.md`](../skills/external/nezam-git-workflow/SKILL.md)
+- [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/infrastructure/nezam-vercel-deploy/SKILL.md)
+- [.cursor/skills/backend/neon-postgres/SKILL.md](../skills/backend/nezam-neon-postgres/SKILL.md)
 
 ## When to invoke
 

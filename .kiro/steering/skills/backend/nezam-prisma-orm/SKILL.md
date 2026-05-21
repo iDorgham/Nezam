@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-prisma-orm"
+name: "nezam-"nezam- nezam-prisma-orm"
 description: Prisma 6 schema, migrations, type-safe client, seeding, and relations for typed database access.
 version: 1.1.0
 updated: 2026-05-12

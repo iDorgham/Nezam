@@ -35,16 +35,16 @@ Swarm Manager for the Security swarm. Own threat modeling, secure defaults, depe
 
 ## Specialists (referenced)
 
-- [`agent-security-auditor.md`](./agent-security-auditor.md)
+- [`agent-security-auditor.md`](./security-auditor.md)
 - [`encryption-privacy-specialist.md`](./encryption-privacy-specialist.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
-- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
-- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
+- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/quality/nezam-security-hardening/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/infrastructure/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/quality/nezam-privacy-compliance/SKILL.md)
 - [`.cursor/skills/nezam-gh-security-compliance/SKILL.md`](../skills/nezam-gh-security-compliance/SKILL.md)
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md)
 - OWASP-aligned review for stack; `/SCAN security`.
 
 ## When to invoke

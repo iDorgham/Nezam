@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-resend-email"
+name: "nezam-"nezam-"nezam-resend-email"
 description: Transactional email delivery patterns using Resend with reliability safeguards.
 version: 1.1.0
 updated: 2026-05-12

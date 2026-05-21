@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-data-aggregation-pipelines"
+name: "nezam-"nezam-data-aggregation-pipelines"
 description: Pre-aggregation and materialized view strategies for high-performance analytics.
 version: 1.0.0
 updated: 2026-05-13

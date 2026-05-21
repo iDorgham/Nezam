@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-ui-ux-design"
+name: "nezam-"nezam- nezam-ui-ux-design"
 description: User flows, interaction states, microcopy, and WCAG 2.2 AA mapping for product UX before /DEVELOP.
 version: 1.0.0
 updated: 2026-05-08

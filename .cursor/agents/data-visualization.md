@@ -47,9 +47,9 @@ Own visual conventions for data: chart selection rules, color systems for catego
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/nezam-dashboard-patterns/SKILL.md)
+- [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/design/nezam-dashboard-patterns/SKILL.md)
 - [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
-- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/quality/nezam-a11y-automation/SKILL.md)
 
 ## When to invoke
 

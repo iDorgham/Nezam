@@ -41,12 +41,12 @@ Swarm Manager for the UI/UX Design swarm. Own coherent product UX (information a
 
 ## Primary skills / lenses
 
-- [`@design-md`](../skills/design-md/SKILL.md)
-- [`.cursor/skills/nezam-ui-ux-design/SKILL.md`](../skills/nezam-ui-ux-design/SKILL.md)
-- [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/brand-visual-direction/SKILL.md)
+- [`@design-md`](../skills/design/nezam-design-md/SKILL.md)
+- [`.cursor/skills/nezam-ui-ux-design/SKILL.md`](../skills/design/nezam-ui-ux-design/SKILL.md)
+- [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/design/nezam-brand-visual-direction/SKILL.md)
 - [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
 - [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
-- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
 - Alignment with SEO-driven labels from `docs/specs/seo/SEO_RESEARCH.md`.
 
 ## When to invoke

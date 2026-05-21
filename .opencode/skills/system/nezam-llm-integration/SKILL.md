@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-llm-integration"
+name: "nezam-"nezam-"nezam-llm-integration"
 description: LLM provider routing, prompt engineering contract, context assembly, and response validation for AI-powered features.
 paths:
   - "docs/plan/**"

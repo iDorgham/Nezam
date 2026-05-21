@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-agent-eval"
+name: "nezam-"nezam-"nezam-agent-eval"
 description: Evaluation framework for AI agent output quality — rubrics, scoring, automated tests, and regression detection for NEZAM swarm agents.
 paths:
   - "docs/reports/ai/**"

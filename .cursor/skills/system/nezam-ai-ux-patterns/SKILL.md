@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-ai-ux-patterns"
+name: "nezam-"nezam-"nezam-ai-ux-patterns"
 description: UI/UX design patterns for AI-powered product features — loading states, confidence indicators, streaming, error recovery, and MENA-specific AI UX.
 paths:
   - "docs/plan/04-design/**"

@@ -151,4 +151,4 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 - Error and recovery protocol: `.nezam/memory/ERROR_HANDLING_PROTOCOL.md`
 - Orchestration controller: [.cursor/agents/subagent-controller.md](./subagent-controller.md)
 - [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
-- [`.cursor/skills/system/cli-orchestration/SKILL.md`](../skills/system/cli-orchestration/SKILL.md)
+- [`.cursor/skills/system/cli-orchestration/SKILL.md`](../skills/system/nezam-cli-orchestration/SKILL.md)

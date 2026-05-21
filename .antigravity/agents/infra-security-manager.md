@@ -36,14 +36,14 @@ Own infrastructure-layer security: network policy, container / Kubernetes securi
 ## Specialists (referenced)
 
 - [`encryption-privacy-specialist.md`](./encryption-privacy-specialist.md)
-- [`agent-security-auditor.md`](./agent-security-auditor.md)
+- [`agent-security-auditor.md`](./security-auditor.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
-- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/nezam-aws-infra/SKILL.md)
-- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/nezam-cloudflare-edge/SKILL.md)
-- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/nezam-security-hardening/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/infrastructure/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/infrastructure/nezam-aws-infra/SKILL.md)
+- [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/infrastructure/nezam-cloudflare-edge/SKILL.md)
+- [`.cursor/skills/nezam-security-hardening/SKILL.md`](../skills/quality/nezam-security-hardening/SKILL.md)
 
 ## When to invoke
 

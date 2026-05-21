@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-saas-billing-orchestration"
+name: "nezam-"nezam-saas-billing-orchestration"
 description: Subscription management, usage metering, and billing lifecycle logic.
 version: 1.0.0
 updated: 2026-05-13

@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-ia-taxonomy"
+name: "nezam-"nezam- nezam-ia-taxonomy"
 description: Define navigation hierarchy, URL structure, breadcrumb logic, and taxonomy maps before content creation.
 version: 1.0.0
 updated: 2026-05-08

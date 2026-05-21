@@ -39,9 +39,9 @@ Translate approved requirements into concrete system design: component boundarie
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/nezam-strategic-planning/SKILL.md)
-- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/nezam-risk-mitigation/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/system/nezam-strategic-planning/SKILL.md)
+- [`.cursor/skills/nezam-risk-mitigation/SKILL.md`](../skills/system/nezam-risk-mitigation/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
 
 ## When to invoke
 

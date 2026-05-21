@@ -38,9 +38,9 @@ Own multi-tenant SaaS platform concerns: org / workspace / project boundary, ten
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/nezam-privacy-compliance/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/infrastructure/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/quality/nezam-privacy-compliance/SKILL.md)
 
 ## When to invoke
 

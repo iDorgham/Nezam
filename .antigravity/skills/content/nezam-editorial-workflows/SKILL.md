@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-editorial-workflows"
+name: "nezam-"nezam- nezam-editorial-workflows"
 description: Draft → review → publish pipelines, role permissions, and version control for content operations.
 version: 1.0.0
 updated: 2026-05-08

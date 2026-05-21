@@ -2,7 +2,7 @@
 
 ---
 id: nezam-s8-retention
-name: "nezam-"nezam-S8 Retention"
+name: "nezam-"nezam-"nezam-S8 Retention"
 tier: 3
 summary: Retention analysis for S8 analytics, measuring user return rates and cohorts.
 owner: unassigned

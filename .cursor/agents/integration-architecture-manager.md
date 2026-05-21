@@ -34,14 +34,14 @@ Own the external boundary of the system: third-party APIs, payment gateways, aut
 ## Specialists (referenced)
 
 - [`payments-lead.md`](payments-lead.md), [`payments-integration.md`](payments-integration.md), [`payments-mena-routing.md`](payments-mena-routing.md)
-- [`agent-security-auditor.md`](agent-security-auditor.md)
+- [`agent-security-auditor.md`](security-auditor.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/nezam-api-design/SKILL.md)
-- [`.cursor/skills/nezam-api-gateway/SKILL.md`](../skills/nezam-api-gateway/SKILL.md)
-- [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/nezam-auth-workflows/SKILL.md)
-- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/nezam-secret-management/SKILL.md)
+- [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/backend/nezam-api-design/SKILL.md)
+- [`.cursor/skills/nezam-api-gateway/SKILL.md`](../skills/backend/nezam-api-gateway/SKILL.md)
+- [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/backend/nezam-auth-workflows/SKILL.md)
+- [`.cursor/skills/nezam-secret-management/SKILL.md`](../skills/infrastructure/nezam-secret-management/SKILL.md)
 
 ## When to invoke
 

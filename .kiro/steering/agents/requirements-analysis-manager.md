@@ -40,9 +40,9 @@ Run discovery and analysis at the front of every project and major feature. Conv
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/nezam-strategic-planning/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
-- [`.cursor/skills/plan-full/SKILL.md`](../skills/plan-full/SKILL.md)
+- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/system/nezam-strategic-planning/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/plan-full/SKILL.md`](../skills/external/nezam-plan-full/SKILL.md)
 
 ## When to invoke
 

@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam- nezam-docs-context-sync"
+name: "nezam-"nezam- nezam-docs-context-sync"
 description: Deterministic documentation lifecycle workflow for syncing context docs, workspace index, and plan artifacts after repository changes.
 version: 1.0.0
 updated: 2026-05-08
@@ -15,7 +15,7 @@ Keep `.nezam/workspace/context/`, `WORKSPACE_INDEX.md`, and `.nezam/workspace/pl
 - Changed file list from current branch.
 - `.nezam/workspace/context/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
 - Plan artifacts (`.nezam/workspace/plans/INDEX.md`, phase `TASKS.md` files).
-- Maintenance script: `scripts/context/update-context-docs.py`.
+- Maintenance script: `.nezam/scripts/context/update-context-docs.py`.
 
 # Step-by-Step Workflow
 1. Identify docs-impacting changes (new commands, skills, agents, workflows, scripts, structural moves).
@@ -24,7 +24,7 @@ Keep `.nezam/workspace/context/`, `WORKSPACE_INDEX.md`, and `.nezam/workspace/pl
 4. Log durable decisions and milestones in `.nezam/workspace/context/MEMORY.md`.
 5. Sync active execution metadata in `.nezam/workspace/plans/INDEX.md` and related phase task boards.
 6. Run context maintenance script if available:
-   - `python scripts/context/update-context-docs.py`
+   - `python .nezam/scripts/context/update-context-docs.py`
 7. Run `/SCAN docs` to detect stale links, missing references, or outdated sections.
 8. Apply `/FIX docs` for any drift found during scan.
 9. Close with `/SAVE log` including what changed and why.

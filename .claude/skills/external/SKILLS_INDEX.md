@@ -14,13 +14,13 @@ Last updated: 2026-05-12
 
 | Skill | Description | Primary Trigger | Status |
 |-------|-------------|-----------------|--------|
-| [api-testing](./api-testing/SKILL.md) | Contract testing, integration scaffolding, Bruno collections, mock servers, CI integration | `/SCAN api`, `qa-test-lead` agent | ✅ Active |
-| [deployment-checklist](./deployment-checklist/SKILL.md) | Pre/post deployment gates, rollback plan, observability confirmation, go/no-go decision | `/DEPLOY`, `devops-manager` agent | ✅ Active |
-| [external-ai-report](./external-ai-report/SKILL.md) | Progress reports for browser-based AI companions (Grok/Qwen/Gemini) with upload reminders | `/SAVE report` | ✅ Active |
-| [git-workflow](./git-workflow/SKILL.md) | Branching, conventional commits, annotated tags, PR checks, branch protection, Dependabot | `/SAVE branch|commit|tagplan`, `/DEPLOY tag` | ✅ Active |
-| [guide-instructor-domains](./guide-instructor-domains/SKILL.md) | Repo-grounded teaching map for explaining NEZAM paths (security, design, SEO, CI, orchestration) | `/GUIDE explain`, teaching context | ✅ Active |
-| [handoff-report](./handoff-report/SKILL.md) | Structured session/agent/human transition documentation with state capture and next-action briefs | `/SAVE log`, `deputy-swarm-leader` agent | ✅ Active |
-| [plan-full](./plan-full/SKILL.md) | Full SDD planning spine — roadmap, phases, specs, docs scaffolding with acceptance criteria matrices | `/PLAN full`, `product-manager` agent | ✅ Active |
+| [api-testing](./nezam-api-testing/SKILL.md) | Contract testing, integration scaffolding, Bruno collections, mock servers, CI integration | `/SCAN api`, `qa-test-lead` agent | ✅ Active |
+| [deployment-checklist](./nezam-deployment-checklist/SKILL.md) | Pre/post deployment gates, rollback plan, observability confirmation, go/no-go decision | `/DEPLOY`, `devops-manager` agent | ✅ Active |
+| [external-ai-report](./nezam-external-ai-report/SKILL.md) | Progress reports for browser-based AI companions (Grok/Qwen/Gemini) with upload reminders | `/SAVE report` | ✅ Active |
+| [git-workflow](./nezam-git-workflow/SKILL.md) | Branching, conventional commits, annotated tags, PR checks, branch protection, Dependabot | `/SAVE branch|commit|tagplan`, `/DEPLOY tag` | ✅ Active |
+| [guide-instructor-domains](./nezam-guide-instructor-domains/SKILL.md) | Repo-grounded teaching map for explaining NEZAM paths (security, design, SEO, CI, orchestration) | `/GUIDE explain`, teaching context | ✅ Active |
+| [handoff-report](./nezam-handoff-report/SKILL.md) | Structured session/agent/human transition documentation with state capture and next-action briefs | `/SAVE log`, `deputy-swarm-leader` agent | ✅ Active |
+| [plan-full](./nezam-plan-full/SKILL.md) | Full SDD planning spine — roadmap, phases, specs, docs scaffolding with acceptance criteria matrices | `/PLAN full`, `product-manager` agent | ✅ Active |
 
 ---
 

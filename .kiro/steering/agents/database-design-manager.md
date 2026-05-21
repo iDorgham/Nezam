@@ -40,9 +40,9 @@ Own schema design, normalization, indexing, constraints, and migration safety ac
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/nezam-prisma-orm/SKILL.md)
-- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/nezam-database-optimization/SKILL.md)
-- [`.cursor/skills/nezam-supabase-architect/SKILL.md`](../skills/nezam-supabase-architect/SKILL.md)
+- [`.cursor/skills/nezam-prisma-orm/SKILL.md`](../skills/backend/nezam-prisma-orm/SKILL.md)
+- [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/backend/nezam-database-optimization/SKILL.md)
+- [`.cursor/skills/nezam-supabase-architect/SKILL.md`](../skills/backend/nezam-supabase-architect/SKILL.md)
 
 ## When to invoke
 

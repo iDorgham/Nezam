@@ -2,9 +2,6 @@ import { streamText } from 'ai'
 import { NextResponse } from 'next/server'
 import { getAllBlocks } from '@/lib/blocks/registry'
 
-// Routes through Vercel AI Gateway via plain "provider/model" string.
-// Auth: run `vercel env pull` to provision VERCEL_OIDC_TOKEN (auto-refreshed on deployment).
-// Local fallback: set AI_GATEWAY_API_KEY in .env.local if OIDC token is expired.
 const MODEL = 'anthropic/claude-haiku-4.5' as const
 
 type GenerateBody = {

@@ -23,7 +23,7 @@ Planning -> SEO -> IA -> Content -> Design (**root `DESIGN.md`**) -> Development
 
 ## Design system (`DESIGN.md`) — parity with Cursor
 
-- **Catalog:** `.nezam/core/design-hub/design/<brand>/design.md`
+- **Catalog:** `.nezam/design-hub/design/<brand>/design.md`
 - **Contract:** repository root **`DESIGN.md`** — create with `pnpm run design:apply -- <brand>` or follow mirrored `start` / `START` command text from `.cursor/commands/start.md` in your client’s synced commands folder.
 - **Cross-client map:** [`.nezam/core/memory/MULTI_TOOL_INDEX.md`](.nezam/core/memory/MULTI_TOOL_INDEX.md)
 

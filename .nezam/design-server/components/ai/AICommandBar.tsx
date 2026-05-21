@@ -1,67 +1,170 @@
 'use client'
 
-import React, { useState } from 'react'
-import { Sparkles, Loader2 } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Sparkles, Loader2, X } from 'lucide-react'
+import { useCanvasGraphStore } from '@/src/store/canvas-graph.store'
+import { useSessionStore } from '@/lib/store/session.store'
+import type { CanvasNode } from '@/src/store/canvas-graph.store'
 
-interface AICommandBarProps {
-  onBlocksGenerated: (blocks: any[]) => void
+type AIBlock = { id: string; type: string; name: string; props: Record<string, unknown> }
+
+function blocksToNodes(
+  blocks: AIBlock[],
+  viewport: { x: number; y: number; scale: number },
+  screenW: number,
+  screenH: number,
+): CanvasNode[] {
+  const centerWorldX = (screenW / 2 - viewport.x) / viewport.scale
+  const centerWorldY = (screenH / 2 - viewport.y) / viewport.scale
+  const W = 220
+  const H = 100
+  const GAP = 24
+
+  return blocks.map((b, i) => ({
+    id:                 `ai-${b.id}-${Date.now()}`,
+    type:               'page' as const,
+    title:              b.name,
+    route:              `/${b.type.toLowerCase().replace(/_/g, '-')}`,
+    x:                  centerWorldX - W / 2,
+    y:                  centerWorldY + i * (H + GAP) - (blocks.length * (H + GAP)) / 2,
+    width:              W,
+    height:             H,
+    rtlCompliant:       false,
+    wcagCompliant:      false,
+    hardlockFailures:   [],
+    locked:             false,
+    attachments:        [],
+    generationStatus:   'idle' as const,
+    style:              {},
+  }))
 }
 
-export default function AICommandBar({ onBlocksGenerated }: AICommandBarProps) {
-  const [prompt, setPrompt] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+export default function AICommandBar() {
+  const [open,      setOpen]    = useState(false)
+  const [prompt,    setPrompt]  = useState('')
+  const [streaming, setStreaming] = useState(false)
+  const [status,    setStatus]  = useState('')
+  const inputRef  = useRef<HTMLInputElement>(null)
+  const abortRef  = useRef<AbortController | null>(null)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!prompt.trim()) return
+  const viewport  = useCanvasGraphStore((s) => s.viewport)
+  const addNode   = useCanvasGraphStore((s) => s.addNode)
+  const lodLevel  = useSessionStore((s) => s.canvasMode)
+  const lang      = useSessionStore((s) => s.lang)
+  const isRTL     = lang === 'ar'
 
-    setIsLoading(true)
+  // Cmd+K opens; Esc closes
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setOpen((v) => !v)
+      } else if (e.key === 'Escape' && open) {
+        setOpen(false)
+        abortRef.current?.abort()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
+  useEffect(() => {
+    if (open) setTimeout(() => inputRef.current?.focus(), 50)
+  }, [open])
+
+  const handleSubmit = useCallback(async () => {
+    const text = prompt.trim()
+    if (!text || streaming) return
+
+    abortRef.current = new AbortController()
+    setStreaming(true)
+    setStatus(isRTL ? 'جارٍ التوليد…' : 'Generating…')
+
     try {
       const res = await fetch('/api/ai/generate', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
+        body:    JSON.stringify({ prompt: text, lodLevel }),
+        signal:  abortRef.current.signal,
       })
 
-      if (res.ok) {
-        const data = await res.json()
-        onBlocksGenerated(data.blocks || [])
-        setPrompt('')
-      } else {
-        alert('Failed to generate blocks')
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`)
+
+      const reader = res.body.getReader()
+      const dec    = new TextDecoder()
+      let raw = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        raw += dec.decode(value, { stream: true })
       }
-    } catch (error) {
-      console.error('AI Generation error:', error)
-      alert('An error occurred during generation')
+
+      const json: AIBlock[] = JSON.parse(raw)
+      if (!Array.isArray(json) || json.length === 0) throw new Error('Empty result')
+
+      const nodes = blocksToNodes(json, viewport, window.innerWidth, window.innerHeight)
+      nodes.forEach((n) => addNode(n))
+      setStatus(isRTL ? `تمت إضافة ${nodes.length} عناصر` : `Added ${nodes.length} block${nodes.length !== 1 ? 's' : ''}`)
+      setPrompt('')
+      setTimeout(() => { setStatus(''); setOpen(false) }, 1500)
+    } catch (err) {
+      if ((err as Error).name !== 'AbortError') {
+        setStatus(isRTL ? 'فشل التوليد' : 'Generation failed')
+        setTimeout(() => setStatus(''), 2000)
+      }
     } finally {
-      setIsLoading(false)
+      setStreaming(false)
     }
-  }
+  }, [prompt, streaming, lodLevel, viewport, addNode, isRTL])
+
+  if (!open) return null
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
-      <input
-        type="text"
-        placeholder="Ask Gemini to generate blocks... (e.g., 'Add a pricing section')"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        className="w-full bg-ds-surface border border-ds-border rounded-lg ps-10 pe-12 py-3 text-ds-text-primary focus:border-ds-primary focus:outline-none focus:ring-1 focus:ring-ds-primary transition-all"
-        disabled={isLoading}
-      />
-      <div className="absolute start-3 top-1/2 transform -translate-y-1/2 text-ds-text-muted">
-        <Sparkles size={18} />
-      </div>
-      <button
-        type="submit"
-        disabled={isLoading || !prompt.trim()}
-        className="absolute end-2 top-1/2 transform -translate-y-1/2 px-3 py-1 bg-ds-primary text-white rounded text-sm hover:bg-ds-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isLoading ? (
-          <Loader2 size={16} className="animate-spin" />
-        ) : (
-          'Generate'
+    <div
+      role="dialog"
+      aria-label={isRTL ? 'شريط أوامر الذكاء الاصطناعي' : 'AI command bar'}
+      dir={isRTL ? 'rtl' : 'ltr'}
+      className="absolute bottom-16 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl px-4"
+    >
+      <div className="rounded-ds-lg border border-ds-border bg-ds-surface shadow-2xl overflow-hidden">
+        <div className="flex items-center gap-2 px-3 py-2.5">
+          <Sparkles size={15} className="text-ds-primary shrink-0" aria-hidden />
+          <input
+            ref={inputRef}
+            type="text"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+            placeholder={isRTL ? 'صف الصفحة أو القسم المطلوب توليده…' : 'Describe a page or section to generate…'}
+            disabled={streaming}
+            className="flex-1 bg-transparent text-ds-sm text-ds-text-primary placeholder:text-ds-text-muted outline-none min-w-0"
+          />
+          {streaming ? (
+            <Loader2 size={15} className="animate-spin text-ds-primary shrink-0" />
+          ) : (
+            <button
+              type="button"
+              onClick={() => { setOpen(false); abortRef.current?.abort() }}
+              className="text-ds-text-muted hover:text-ds-text-primary transition-colors"
+              aria-label="Close"
+            >
+              <X size={15} />
+            </button>
+          )}
+        </div>
+
+        {status && (
+          <div className="px-3 py-1.5 border-t border-ds-border bg-ds-background text-ds-xs text-ds-text-muted">
+            {status}
+          </div>
         )}
-      </button>
-    </form>
+
+        <div className="px-3 py-1.5 border-t border-ds-border bg-ds-background flex items-center justify-between text-ds-xs text-ds-text-muted">
+          <span>{isRTL ? 'اضغط Enter للتوليد · Esc للإغلاق' : 'Enter to generate · Esc to close'}</span>
+          <span className="capitalize opacity-60">{lodLevel}</span>
+        </div>
+      </div>
+    </div>
   )
 }

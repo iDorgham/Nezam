@@ -1,6 +1,6 @@
 'use client'
-import React from 'react'
-import { Check } from 'lucide-react'
+import React, { useState } from 'react'
+import { Check, ChevronRight } from 'lucide-react'
 
 // ── Shared card ───────────────────────────────────────────────────────────────
 export function Card({ children, className = '', noPad }: { children: React.ReactNode; className?: string; noPad?: boolean }) {
@@ -128,50 +128,166 @@ export function ToggleRow({ active, onClick, label, description, icon }: {
   )
 }
 
-// ── Native select ─────────────────────────────────────────────────────────────
+// ── Side-by-side Property Row (Blender Property Layout) ──────────────────────
+export function PropertyRow({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) {
+  return (
+    <div className="flex items-center justify-between gap-2 min-h-[22px] py-1 border-b border-white/[0.02] select-none text-[10px]">
+      <div className="w-[42%] shrink-0 text-start flex items-center gap-1">
+        <span className="text-[10px] text-[#a1a1aa] font-medium font-sans truncate" title={label}>
+          {label}
+        </span>
+        {hint && <span className="text-[8px] text-[#71717a] font-mono">({hint})</span>}
+      </div>
+      <div className="w-[58%] flex items-center justify-end">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+// ── Native select (Compact Blender Style) ────────────────────────────────────
 export function Select({ value, onChange, options }: {
   value: string | number; onChange: (v: string) => void; options: { value: string | number; label: string }[]
 }) {
   return (
     <select value={value} onChange={e => onChange(e.target.value)}
-      className="w-full bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-xs font-medium text-ds-text-primary focus:outline-none focus:border-ds-primary transition-colors appearance-none cursor-pointer"
-      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center', paddingRight: '28px' }}>
-      {options.map(o => <option key={String(o.value)} value={String(o.value)}>{o.label}</option>)}
+      className="w-full bg-[#202021] border border-[#2e2e30] rounded px-1.5 py-0.5 h-[22px] text-[10px] font-medium text-[#e1e1e6] focus:outline-none focus:border-ds-primary transition-colors appearance-none cursor-pointer"
+      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 6px center', paddingRight: '18px' }}>
+      {options.map(o => <option key={String(o.value)} value={String(o.value)} className="bg-[#202021] text-[#e1e1e6]">{o.label}</option>)}
     </select>
   )
 }
 
-// ── Text input ────────────────────────────────────────────────────────────────
+// ── Text input (Compact Blender Style) ────────────────────────────────────────
 export function Input({ value, onChange, placeholder }: {
   value: string; onChange: (v: string) => void; placeholder?: string
 }) {
   return (
     <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-      className="w-full bg-ds-background border border-ds-border rounded-lg px-3 py-2 text-xs text-ds-text-primary placeholder:text-ds-text-muted focus:outline-none focus:border-ds-primary transition-colors" />
+      className="w-full bg-[#202021] border border-[#2e2e30] rounded px-1.5 py-0.5 h-[22px] text-[10px] text-[#e1e1e6] placeholder-[#555557] focus:outline-none focus:border-ds-primary transition-colors" />
   )
 }
 
 // ── Divider with optional label ───────────────────────────────────────────────
 export function Divider({ label }: { label?: string }) {
-  if (!label) return <div className="border-t border-ds-border my-3" />
+  if (!label) return <div className="border-t border-[#252527] my-2" />
   return (
-    <div className="flex items-center gap-2 my-3">
-      <div className="flex-1 border-t border-ds-border" />
-      <span className="text-[9px] font-semibold uppercase tracking-wider text-ds-text-muted px-1">{label}</span>
-      <div className="flex-1 border-t border-ds-border" />
+    <div className="flex items-center gap-1.5 my-2">
+      <div className="flex-1 border-t border-[#252527]" />
+      <span className="text-[8px] font-bold uppercase tracking-widest text-[#71717a] px-1">{label}</span>
+      <div className="flex-1 border-t border-[#252527]" />
     </div>
+  )
+}
+
+// ── Disclosure Triangle Icon ──────────────────────────────────────────────────
+export function DisclosureTriangle({ open }: { open: boolean }) {
+  return (
+    <svg width="5" height="5" viewBox="0 0 24 24" fill="currentColor"
+      className={`text-[#8e8e93] transition-transform duration-100 ${open ? 'rotate-90' : ''}`}>
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  )
+}
+
+// ── Collapsible section (Blender Accordion Style) ────────────────────────────
+export function CollapsibleSection({
+  title, description, icon, children, defaultOpen = true, action,
+}: {
+  title: string; description?: string; icon?: React.ReactNode
+  children: React.ReactNode; defaultOpen?: boolean; action?: React.ReactNode
+}) {
+  const [open, setOpen] = useState(defaultOpen)
+  return (
+    <div className="border border-[#28282c] rounded bg-[#181819] overflow-hidden shadow-sm">
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="w-full flex items-center gap-1.5 px-2 py-1 text-start bg-[#232324] hover:bg-[#2b2b2c] border-b border-[#181819]/50 transition-colors group"
+      >
+        <DisclosureTriangle open={open} />
+        {icon && <span className="text-[#8e8e93] shrink-0 group-hover:text-ds-primary transition-colors">{icon}</span>}
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] font-bold text-[#e1e1e6] uppercase tracking-wider leading-tight">{title}</div>
+          {description && <div className="text-[8px] text-[#71717a] mt-0.5 truncate">{description}</div>}
+        </div>
+        {action && <div className="shrink-0" onClick={e => e.stopPropagation()}>{action}</div>}
+      </button>
+      {open && (
+        <div className="p-2 space-y-2 border-t border-[#202022] animate-in fade-in duration-75">
+          {children}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Stepper / number input (Compact Blender Style) ────────────────────────────
+export function Stepper({ value, onChange, min = 0, max = 100, step = 1, label, suffix = '' }: {
+  value: number; onChange: (v: number) => void
+  min?: number; max?: number; step?: number; label?: string; suffix?: string
+}) {
+  return (
+    <div className="flex items-center gap-1">
+      {label && <span className="text-[10px] text-[#a1a1aa] flex-1 truncate">{label}</span>}
+      <div className="flex items-center border border-[#2e2e30] rounded overflow-hidden bg-[#202021] h-[22px]">
+        <button
+          onClick={() => onChange(Math.max(min, value - step))}
+          className="px-1.5 h-full text-[#8e8e93] hover:text-[#e1e1e6] hover:bg-[#2b2b2c] transition-colors text-[10px] font-bold"
+        >−</button>
+        <span className="px-1 text-[9px] font-mono font-bold text-[#e1e1e6] min-w-[2.2rem] text-center">
+          {value}{suffix}
+        </span>
+        <button
+          onClick={() => onChange(Math.min(max, value + step))}
+          className="px-1.5 h-full text-[#8e8e93] hover:text-[#e1e1e6] hover:bg-[#2b2b2c] transition-colors text-[10px] font-bold"
+        >+</button>
+      </div>
+    </div>
+  )
+}
+
+// ── Mini Toggle switch for side-by-side rows ──────────────────────────────────
+export function MiniToggle({ active, onClick }: { active: boolean; onClick: () => void }) {
+  return (
+    <button onClick={onClick} className="relative w-7 h-4 rounded-full transition-colors duration-150 cursor-pointer"
+      style={{ backgroundColor: active ? 'var(--ds-primary)' : '#2e2e30' }}>
+      <div className="absolute top-[2px] w-3 h-3 bg-white rounded-full transition-all duration-150"
+        style={{ left: active ? '13px' : '2px' }} />
+    </button>
+  )
+}
+
+// ── Color dot (compact swatch for inline use) ─────────────────────────────────
+export function ColorDot({ color, active, label, onClick }: {
+  color: string; active?: boolean; label?: string; onClick?: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      title={label}
+      className={`relative group rounded-full transition-all duration-150 ${
+        active ? 'ring-1.5 ring-ds-primary ring-offset-1 ring-offset-[#181819] scale-105' : 'hover:scale-105'
+      }`}
+      style={{ width: 14, height: 14, background: color, boxShadow: '0 1px 2px rgba(0,0,0,0.3)' }}
+    >
+      {active && (
+        <span className="absolute inset-0 flex items-center justify-center">
+          <Check size={8} className="text-white drop-shadow" strokeWidth={3.5} />
+        </span>
+      )}
+    </button>
   )
 }
 
 // ── Status badge ──────────────────────────────────────────────────────────────
 export function Badge({ children, color = 'muted' }: { children: React.ReactNode; color?: 'muted' | 'primary' | 'success' | 'alert' }) {
   const cls = {
-    muted:   'bg-ds-surface border-ds-border text-ds-text-muted',
-    primary: 'bg-ds-primary/10 border-ds-primary/30 text-ds-primary',
-    success: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
-    alert:   'bg-ds-alert/10 border-ds-alert/30 text-ds-alert',
+    muted:   'bg-[#202021] border-[#2e2e30] text-[#8e8e93]',
+    primary: 'bg-ds-primary/10 border-ds-primary/20 text-ds-primary',
+    success: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
+    alert:   'bg-ds-alert/10 border-ds-alert/20 text-ds-alert',
   }[color]
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-md border text-[10px] font-semibold ${cls}`}>{children}</span>
+    <span className={`inline-flex items-center px-1.5 py-0.5 rounded border text-[8px] font-bold uppercase tracking-wider ${cls}`}>{children}</span>
   )
 }

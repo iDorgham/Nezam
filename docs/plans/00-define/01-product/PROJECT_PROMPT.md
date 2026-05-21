@@ -1,4 +1,4 @@
-# PROJECT_PROMPT — Nezam Design Server · Ultimate UI Suite
+# Product Requirements Document — Nezam Design Server · Ultimate UI Suite
 
 > **This file is read by every AI agent before touching any code or spec.**
 > It defines the product contract, decision rules, forbidden patterns, and

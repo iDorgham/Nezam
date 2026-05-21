@@ -5,27 +5,28 @@ import {
   useCanvasGraphStore,
   type CanvasNode as CanvasNodeData,
 } from '@/src/store/canvas-graph.store'
-import { lodForScale, screenToCanvas } from '@/src/lib/canvas-math'
+import { screenToCanvas } from '@/src/lib/canvas-math'
 import { nodeTypeColorVar } from '@/src/lib/node-style'
 import HardlockOverlay from './HardlockOverlay'
+import type { LODLevel } from '@/src/hooks/useCanvasLOD'
 
 interface CanvasNodeProps {
   node:        CanvasNodeData
   isSelected:  boolean
   wiringMode:  boolean
+  lodLevel?:   LODLevel
   onPortDown:  (nodeId: string, role: 'source' | 'target', e: PointerEvent<HTMLElement>) => void
 }
 
-// One node on the world layer. Renders one of three LOD branches based on
+// One node on the world layer. Renders one of four LOD branches based on
 // the current viewport scale. Drag-to-move is supported only in the two
 // larger LODs — at dot scale the user can't aim precisely enough.
-function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNodeProps) {
-  const viewport       = useCanvasGraphStore((s) => s.viewport)
+function CanvasNodeImpl({ node, isSelected, wiringMode, lodLevel = 'page', onPortDown }: CanvasNodeProps) {
   const rtlMode        = useCanvasGraphStore((s) => s.rtlMode)
   const updateNode     = useCanvasGraphStore((s) => s.updateNode)
+  const scale          = useCanvasGraphStore((s) => s.viewport.scale)
   const setSelectedIds = useCanvasGraphStore((s) => s.setSelectedNodeIds)
 
-  const lod  = lodForScale(viewport.scale)
   const color = nodeTypeColorVar(node.type)
 
   // Drag state lives in a ref so we don't re-render on every pointermove.
@@ -56,16 +57,15 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
       if (!drag) return
       // World-space delta = screen delta / scale. No RTL flip here: node
       // drag is a direct physical action — dragging right always moves
-      // the node right regardless of reading direction. The RTL flip in
-      // useCanvasViewport applies to viewport pan only.
-      const dx = (e.clientX - drag.screen.x) / viewport.scale
-      const dy = (e.clientY - drag.screen.y) / viewport.scale
+      // the node right regardless of reading direction.
+      const dx = (e.clientX - drag.screen.x) / scale
+      const dy = (e.clientY - drag.screen.y) / scale
       updateNode(node.id, {
         x: drag.nodeStart.x + dx,
         y: drag.nodeStart.y + dy,
       })
     },
-    [node.id, viewport.scale, updateNode],
+    [node.id, scale, updateNode],
   )
 
   const onPointerUp = useCallback((e: PointerEvent<HTMLElement>) => {
@@ -85,27 +85,35 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
     height:   node.height,
   }
 
-  // ── Dot LOD (scale < 0.1) ─────────────────────────────────────────────────
-  if (lod === 'dot') {
+  // ── Sitemap LOD (scale < 0.30) — pill, title only ────────────────────────
+  if (lodLevel === 'sitemap') {
     return (
       <div
         aria-label={node.title}
         style={{
           ...baseStyle,
-          // Re-center the 8px dot on the node's logical center.
-          left:            node.x + node.width / 2 - 4,
-          top:             node.y + node.height / 2 - 4,
-          width:           8,
-          height:          8,
-          borderRadius:    '50%',
-          backgroundColor: color,
+          left:         node.x + node.width / 2 - 32,
+          top:          node.y + node.height / 2 - 12,
+          width:        64,
+          height:       24,
+          borderRadius: 12,
+          background:   `linear-gradient(135deg, ${color}22, ${color}44)`,
+          border:       `1px solid ${color}66`,
+          display:      'flex',
+          alignItems:   'center',
+          justifyContent: 'center',
+          overflow:     'hidden',
         }}
-      />
+      >
+        <span style={{ fontSize: 8, fontWeight: 600, color, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 56, padding: '0 4px' }}>
+          {node.title}
+        </span>
+      </div>
     )
   }
 
-  // ── Simplified LOD (0.1 ≤ scale < 0.4) ────────────────────────────────────
-  if (lod === 'simplified') {
+  // ── Page LOD (0.30 ≤ scale < 0.70) — wireframe skeleton ──────────────────
+  if (lodLevel === 'page') {
     return (
       <div
         role="button"
@@ -121,32 +129,75 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
           borderWidth:     1,
           borderStyle:     'solid',
           borderRadius:    6,
-          padding:         '0 8px',
-          display:         'flex',
-          alignItems:      'center',
-          color:           'var(--ds-text-primary)',
-          fontSize:        12,
           cursor:          'grab',
-          // Stripe of node-type color so simplified nodes are visually
-          // categorizable without the full chrome.
-          boxShadow:       `inset 4px 0 0 0 ${color}`,
+          boxShadow:       `inset 3px 0 0 0 ${color}`,
+          overflow:        'hidden',
+          padding:         6,
         }}
       >
-        <span className="truncate font-medium">{node.title}</span>
+        {/* Wireframe skeleton lines */}
+        <div style={{ height: 6, background: color, opacity: 0.4, borderRadius: 2, marginBottom: 4 }} />
+        <div style={{ height: 4, background: 'var(--ds-border)', borderRadius: 2, marginBottom: 3, width: '80%' }} />
+        <div style={{ height: 4, background: 'var(--ds-border)', borderRadius: 2, marginBottom: 3, width: '60%' }} />
+        <div style={{ height: 4, background: 'var(--ds-border)', borderRadius: 2, width: '40%' }} />
+        <span style={{ position: 'absolute', bottom: 4, left: 6, fontSize: 8, color: 'var(--ds-text-muted)', fontWeight: 500 }}>
+          {node.title}
+        </span>
       </div>
     )
   }
 
-  // ── Full LOD (scale ≥ 0.4) ────────────────────────────────────────────────
+  // ── Section LOD (0.70 ≤ scale < 1.50) — block labels + type ─────────────
+  if (lodLevel === 'section') {
+    return (
+      <div
+        role="button"
+        aria-label={node.title}
+        aria-pressed={isSelected}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        style={{
+          ...baseStyle,
+          backgroundColor: 'var(--dv-node-page)',
+          borderColor:     isSelected ? 'var(--dv-node-border-active)' : 'var(--ds-border)',
+          borderWidth:     isSelected ? 2 : 1,
+          borderStyle:     'solid',
+          borderRadius:    6,
+          cursor:          'grab',
+          padding:         '8px 10px',
+          display:         'flex',
+          flexDirection:   'column',
+          gap:             4,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: color, flexShrink: 0 }} />
+          <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--ds-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {node.title}
+          </span>
+        </div>
+        {node.route && (
+          <span style={{ fontSize: 9, fontFamily: 'monospace', color: 'var(--ds-text-muted)', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {node.route}
+          </span>
+        )}
+        <span style={{ fontSize: 9, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--ds-text-muted)' }}>
+          {node.type}
+        </span>
+        <Port role="source" side={rtlMode ? 'left' : 'right'} color={color} wiringMode={wiringMode} onPointerDown={(e) => onPortDown(node.id, 'source', e)} />
+        <Port role="target" side={rtlMode ? 'right' : 'left'} color="var(--ds-border-strong)" wiringMode={wiringMode} onPointerDown={(e) => onPortDown(node.id, 'target', e)} />
+      </div>
+    )
+  }
+
+  // ── Element LOD (scale ≥ 1.50) — full editing surface ────────────────────
   const hasHardlockFailures = node.hardlockFailures.length > 0
   const borderColor =
     hasHardlockFailures ? 'var(--dv-node-border-hardlock)' :
     isSelected          ? 'var(--dv-node-border-active)' :
                           'var(--ds-border)'
 
-  // F-007 AC-002 — Live preview: apply Property Inspector style edits to the
-  // node card. Logical margins are no-ops on an absolutely-positioned card,
-  // so we map them to padding/typography on the inner surface instead.
   const s = node.style ?? {}
   const fullStyle: CSSProperties = {
     ...baseStyle,
@@ -204,24 +255,11 @@ function CanvasNodeImpl({ node, isSelected, wiringMode, onPortDown }: CanvasNode
         <HardlockOverlay failures={node.hardlockFailures} />
       </div>
 
-      {/* Port handles — only meaningful at full LOD. In RTL the source
-          port is on the leading (left) edge; target on the trailing.
-          Ports are visible always (so user can hover-discover them); the
-          crosshair cursor in wiring mode signals action. */}
-      <Port
-        role="source"
-        side={rtlMode ? 'left' : 'right'}
-        color={color}
-        wiringMode={wiringMode}
-        onPointerDown={(e) => onPortDown(node.id, 'source', e)}
-      />
-      <Port
-        role="target"
-        side={rtlMode ? 'right' : 'left'}
-        color="var(--ds-border-strong)"
-        wiringMode={wiringMode}
-        onPointerDown={(e) => onPortDown(node.id, 'target', e)}
-      />
+      {/* Resize handle indicator at element LOD */}
+      <div className="absolute bottom-0.5 right-0.5 w-2 h-2 opacity-30" style={{ borderRight: `2px solid ${color}`, borderBottom: `2px solid ${color}`, borderBottomRightRadius: 2 }} />
+
+      <Port role="source" side={rtlMode ? 'left' : 'right'} color={color} wiringMode={wiringMode} onPointerDown={(e) => onPortDown(node.id, 'source', e)} />
+      <Port role="target" side={rtlMode ? 'right' : 'left'} color="var(--ds-border-strong)" wiringMode={wiringMode} onPointerDown={(e) => onPortDown(node.id, 'target', e)} />
     </div>
   )
 }

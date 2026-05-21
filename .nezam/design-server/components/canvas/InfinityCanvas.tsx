@@ -4,18 +4,23 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type CSSProperties,
   type PointerEvent,
 } from 'react'
-import { useCanvasGraphStore, type CanvasWire } from '@/src/store/canvas-graph.store'
+import { DndContext, useDroppable, type DragEndEvent } from '@dnd-kit/core'
+import { useCanvasGraphStore, type CanvasWire, type CanvasNode as CanvasNodeData } from '@/src/store/canvas-graph.store'
 import { useCanvasViewport } from '@/src/hooks/useCanvasViewport'
-import { sourcePort, targetPort, type Point } from '@/src/lib/canvas-math'
+import { useCanvasLOD } from '@/src/hooks/useCanvasLOD'
+import { isInFrustum, sourcePort, targetPort, type Point } from '@/src/lib/canvas-math'
+import type { WidgetDef } from '@/lib/widgets/catalog'
 import CanvasEmptyState from './CanvasEmptyState'
 import CanvasNode from './CanvasNode'
 import BezierWire from './BezierWire'
 import DraftWire from './DraftWire'
 import WireInspector from './WireInspector'
+import CanvasDropOverlay from './CanvasDropOverlay'
 
 const GRID_PX = 24
 
@@ -27,6 +32,53 @@ interface WiringSource {
 // SPEC-DS-CANVAS-001 §3 + §4. F-005a delivered the shell; F-005b adds
 // nodes, wires, LOD, and wiring mode on top of the world layer.
 export default function InfinityCanvas() {
+  return (
+    <DndContext onDragEnd={handleWidgetDrop}>
+      <InfinityCanvasInner />
+      <CanvasDropOverlay />
+    </DndContext>
+  )
+}
+
+// Widget drop is handled at the outer DndContext level; the viewport ref
+// is forwarded via a module-level ref so the handler can read it without
+// needing to be inside the component tree.
+let _viewportRef: { x: number; y: number; scale: number } = { x: 0, y: 0, scale: 1 }
+let _addNodeRef:  ((node: CanvasNodeData) => void) | null = null
+let _canvasRectRef: DOMRect | null = null
+
+function handleWidgetDrop(event: DragEndEvent) {
+  const widget = event.active?.data?.current?.widget as WidgetDef | undefined
+  if (!widget || !_addNodeRef) return
+
+  // Drop position: use canvas center if we don't have pointer info.
+  const rect  = _canvasRectRef
+  const vp    = _viewportRef
+  const cx    = rect ? rect.width  / 2 : 400
+  const cy    = rect ? rect.height / 2 : 300
+  const worldX = (cx - vp.x) / vp.scale - widget.defaultSize.width  / 2
+  const worldY = (cy - vp.y) / vp.scale - widget.defaultSize.height / 2
+
+  _addNodeRef({
+    id:                crypto.randomUUID(),
+    type:              'page',
+    title:             widget.name,
+    route:             `/${widget.type.toLowerCase().replace(/_/g, '-')}`,
+    x:                 worldX,
+    y:                 worldY,
+    width:             widget.defaultSize.width,
+    height:            widget.defaultSize.height,
+    rtlCompliant:      false,
+    wcagCompliant:     false,
+    hardlockFailures:  [],
+    locked:            false,
+    attachments:       [],
+    generationStatus:  'idle',
+    style:             {},
+  })
+}
+
+function InfinityCanvasInner() {
   const {
     viewport,
     handlePointerDown: panPointerDown,
@@ -36,16 +88,35 @@ export default function InfinityCanvas() {
     screenToWorld,
   } = useCanvasViewport()
 
+  const lodLevel        = useCanvasLOD()
+  const rootRef         = useRef<HTMLDivElement>(null)
+
+  const { setNodeRef: setDropRef } = useDroppable({ id: 'infinity-canvas' })
+
   const nodes           = useCanvasGraphStore((s) => s.nodes)
   const wires           = useCanvasGraphStore((s) => s.wires)
   const rtlMode         = useCanvasGraphStore((s) => s.rtlMode)
   const selectedNodeIds = useCanvasGraphStore((s) => s.selectedNodeIds)
   const selectedWireId  = useCanvasGraphStore((s) => s.selectedWireId)
   const addWire         = useCanvasGraphStore((s) => s.addWire)
+  const addNode         = useCanvasGraphStore((s) => s.addNode)
   const setSelectedIds  = useCanvasGraphStore((s) => s.setSelectedNodeIds)
+
+  // Expose viewport + addNode to the outer DragEnd handler via module refs.
+  useEffect(() => { _viewportRef  = viewport },  [viewport])
+  useEffect(() => { _addNodeRef   = addNode  },  [addNode])
+  useEffect(() => { _canvasRectRef = rootRef.current?.getBoundingClientRect() ?? null }, [viewport])
 
   const selectedSet = useMemo(() => new Set(selectedNodeIds), [selectedNodeIds])
   const nodeById    = useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes])
+
+  // Frustum-cull nodes: only render those visible in the current viewport + 200px margin.
+  const visibleNodes = useMemo(() => {
+    const el = rootRef.current
+    const w = el?.clientWidth  ?? window.innerWidth
+    const h = el?.clientHeight ?? window.innerHeight
+    return nodes.filter((n) => isInFrustum(n, viewport, w, h, 200))
+  }, [nodes, viewport])
 
   // Wiring mode is a local UI state — the W key toggles it. The source
   // anchor is also local; we only commit a CanvasWire to the store once
@@ -169,8 +240,14 @@ export default function InfinityCanvas() {
       ? 'cursor-crosshair'
       : 'cursor-grab active:cursor-grabbing'
 
+  const combinedRef = useCallback((el: HTMLDivElement | null) => {
+    (rootRef as React.MutableRefObject<HTMLDivElement | null>).current = el
+    setDropRef(el)
+  }, [setDropRef])
+
   return (
     <div
+      ref={combinedRef}
       role="application"
       aria-label="Infinity canvas"
       dir={rtlMode ? 'rtl' : 'ltr'}
@@ -224,12 +301,13 @@ export default function InfinityCanvas() {
           )}
         </svg>
 
-        {nodes.map((node) => (
+        {visibleNodes.map((node) => (
           <CanvasNode
             key={node.id}
             node={node}
             isSelected={selectedSet.has(node.id)}
             wiringMode={wiringMode}
+            lodLevel={lodLevel}
             onPortDown={handlePortDown}
           />
         ))}

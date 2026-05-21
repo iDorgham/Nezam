@@ -2,8 +2,19 @@
 
 import React from 'react'
 import { useSessionStore } from '@/lib/store/session.store'
-import { designAssets } from '@/lib/assets'
-import AssetCard from '@/components/layout/AssetCard'
+import { designAssets, type DesignAsset } from '@/lib/assets'
+
+function AssetCard({ asset }: { asset: DesignAsset }) {
+  return (
+    <div className="flex flex-col gap-1.5 rounded-xl border border-ds-border bg-ds-surface p-3 hover:border-ds-primary/50 transition-colors cursor-pointer">
+      <div className="flex h-14 items-center justify-center rounded-lg bg-ds-background text-ds-text-muted text-xs font-mono uppercase">
+        {asset.type}
+      </div>
+      <p className="truncate text-xs font-medium text-ds-text-primary">{asset.name}</p>
+      <p className="text-[10px] text-ds-text-muted">{asset.size}</p>
+    </div>
+  )
+}
 
 export default function AssetManagerPage() {
   const { lang } = useSessionStore()
@@ -39,7 +50,7 @@ export default function AssetManagerPage() {
       {/* Assets Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
         {designAssets.map((asset) => (
-          <AssetCard key={asset.id} asset={asset} compact />
+          <AssetCard key={asset.id} asset={asset} />
         ))}
       </div>
     </div>

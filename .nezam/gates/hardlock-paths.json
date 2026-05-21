@@ -28,6 +28,7 @@
     "plansRoot": "docs/plans",
     "specGlob": "00-define/specs/F-*.md",
     "specIdPattern": "^F-\\d{3}(?:-[a-z0-9-]+)?\\.md$",
-    "minimumSpecs": 1
+    "minimumSpecs": 1,
+    "taskFileGlob": "**/*/*/TASKS.md"
   }
 }

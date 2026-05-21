@@ -145,3 +145,25 @@ export function lodForScale(scale: number): LOD {
   if (scale < 0.4) return 'simplified'
   return 'full'
 }
+
+// ── Viewport frustum culling ──────────────────────────────────────────────────
+// Returns true when a node rectangle (in canvas/world coords) is visible in
+// the current viewport, expanded by `margin` pixels in screen space.
+export function isInFrustum(
+  node:     NodeBox,
+  vp:       Viewport,
+  screenW:  number,
+  screenH:  number,
+  margin = 200,
+): boolean {
+  // Convert the expanded screen bounds to canvas coords.
+  const topLeft = screenToCanvas({ x: -margin, y: -margin }, vp)
+  const botRight = screenToCanvas({ x: screenW + margin, y: screenH + margin }, vp)
+
+  return (
+    node.x + node.width  >= topLeft.x &&
+    node.x               <= botRight.x &&
+    node.y + node.height >= topLeft.y &&
+    node.y               <= botRight.y
+  )
+}

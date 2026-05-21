@@ -1,8 +1,9 @@
 import { streamText } from 'ai'
+import { anthropic } from '@ai-sdk/anthropic'
 import { NextResponse } from 'next/server'
 import { getAllBlocks } from '@/lib/blocks/registry'
 
-const MODEL = 'anthropic/claude-haiku-4.5' as const
+const MODEL = anthropic('claude-3-5-haiku-latest')
 
 type GenerateBody = {
   prompt:    string

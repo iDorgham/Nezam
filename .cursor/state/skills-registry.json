@@ -1,1163 +1,1163 @@
 {
-  "generated": "2026-05-21T13:01:14.279Z",
+  "generated": "2026-05-21T23:52:51.331Z",
   "skills": [
     {
-      "path": "../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-Advanced Analytics Patterns\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/analytics/nezam-analytics-chart-animations/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-analytics-chart-animations/SKILL.md",
       "id": "\"nezam-\"nezam-Analytics Chart Animations\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/analytics/nezam-analytics-chart-styles/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-analytics-chart-styles/SKILL.md",
       "id": "\"nezam-\"nezam-Analytics Chart Styles\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/analytics/nezam-analytics-chart-types/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-analytics-chart-types/SKILL.md",
       "id": "\"nezam-\"nezam-Analytics Chart Types\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/analytics/nezam-chart-color-systems/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-chart-color-systems/SKILL.md",
       "id": "\"nezam-\"nezam-Chart Color Systems\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/analytics/nezam-dashboard-architecture/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-dashboard-architecture/SKILL.md",
       "id": "\"nezam-\"nezam-Dashboard Architecture\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/analytics/nezam-live-data-streams/SKILL.md",
+      "path": "../../../.cursor/skills/analytics/nezam-live-data-streams/SKILL.md",
       "id": "\"nezam-\"nezam-Live Data Streams\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/automated-report-engine/SKILL.md",
+      "path": "../../../.cursor/skills/backend/automated-report-engine/SKILL.md",
       "id": "\"nezam-\"nezam-automated-report-engine\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/contact-enrichment/SKILL.md",
+      "path": "../../../.cursor/skills/backend/contact-enrichment/SKILL.md",
       "id": "\"nezam-\"nezam-contact-enrichment\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/crm-erp-sync/SKILL.md",
+      "path": "../../../.cursor/skills/backend/crm-erp-sync/SKILL.md",
       "id": "\"nezam-\"nezam-crm-erp-sync\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/data-aggregation-pipelines/SKILL.md",
+      "path": "../../../.cursor/skills/backend/data-aggregation-pipelines/SKILL.md",
       "id": "\"nezam-\"nezam-data-aggregation-pipelines\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/graph-logic-engine/SKILL.md",
+      "path": "../../../.cursor/skills/backend/graph-logic-engine/SKILL.md",
       "id": "\"nezam-\"nezam-graph-logic-engine\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/job-queue-management/SKILL.md",
+      "path": "../../../.cursor/skills/backend/job-queue-management/SKILL.md",
       "id": "\"nezam-\"nezam-job-queue-management\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/lead-scoring-engine/SKILL.md",
+      "path": "../../../.cursor/skills/backend/lead-scoring-engine/SKILL.md",
       "id": "\"nezam-\"nezam-lead-scoring-engine\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-api-contract/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-api-contract/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-api-contract\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-api-design/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-api-design/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-api-design\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-api-gateway/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-api-gateway/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-api-gateway\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-apify-scraper/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-apify-scraper/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-apify-scraper\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-auth-workflows/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-auth-workflows/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-auth-workflows\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-background-jobs/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-background-jobs/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-background-jobs\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-cache-strategies/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-cache-strategies/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-cache-strategies\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-clerk-auth/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-clerk-auth/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-clerk-auth\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-cms-integration/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-cms-integration/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-cms-integration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-container-orchestration/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-container-orchestration/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-container-orchestration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-database-optimization/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-database-optimization/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-database-optimization\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-drizzle-orm/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-drizzle-orm/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-drizzle-orm\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-firebase/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-firebase/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-firebase\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-firebase-security-rules/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-firebase-security-rules/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-firebase-security-rules\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-gemini-integration/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-gemini-integration/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-gemini-integration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-mena-payment-routing/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-mena-payment-routing/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-mena-payment-routing\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-neon-postgres/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-neon-postgres/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-neon-advanced\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-openrouter/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-openrouter/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-openrouter\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-prisma-orm/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-prisma-orm/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-prisma-orm\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-queue-architecture/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-queue-architecture/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-queue-architecture\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-realtime-streaming/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-realtime-streaming/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-realtime-streaming\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-resend-email/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-resend-email/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-resend-email\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-stripe/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-stripe/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-stripe\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-supabase-architect/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-supabase-architect/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-supabase-architect\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-trigger-dev/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-trigger-dev/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-trigger-dev\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-typesense-search/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-typesense-search/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-typesense-search\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-vector-db-qdrant/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-vector-db-qdrant/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-vector-db-qdrant\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-vector-search/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-vector-search/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-vector-search\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/nezam-vercel-ai-sdk/SKILL.md",
+      "path": "../../../.cursor/skills/backend/nezam-vercel-ai-sdk/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-vercel-ai-sdk\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/omnichannel-routing/SKILL.md",
+      "path": "../../../.cursor/skills/backend/omnichannel-routing/SKILL.md",
       "id": "\"nezam-\"nezam-omnichannel-routing\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/realtime-stream-orchestration/SKILL.md",
+      "path": "../../../.cursor/skills/backend/realtime-stream-orchestration/SKILL.md",
       "id": "\"nezam-\"nezam-realtime-stream-orchestration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/resource-optimization/SKILL.md",
+      "path": "../../../.cursor/skills/backend/resource-optimization/SKILL.md",
       "id": "\"nezam-\"nezam-resource-optimization\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/saas-billing-orchestration/SKILL.md",
+      "path": "../../../.cursor/skills/backend/saas-billing-orchestration/SKILL.md",
       "id": "\"nezam-\"nezam-saas-billing-orchestration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/saas-feature-gating/SKILL.md",
+      "path": "../../../.cursor/skills/backend/saas-feature-gating/SKILL.md",
       "id": "\"nezam-\"nezam-saas-feature-gating\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/saas-tenancy-isolation/SKILL.md",
+      "path": "../../../.cursor/skills/backend/saas-tenancy-isolation/SKILL.md",
       "id": "\"nezam-\"nezam-saas-tenancy-isolation\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/task-audit-logging/SKILL.md",
+      "path": "../../../.cursor/skills/backend/task-audit-logging/SKILL.md",
       "id": "\"nezam-\"nezam-task-audit-logging\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/backend/task-workflow-engine/SKILL.md",
+      "path": "../../../.cursor/skills/backend/task-workflow-engine/SKILL.md",
       "id": "\"nezam-\"nezam-task-workflow-engine\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/cms-saas/nezam-wordpress/SKILL.md",
+      "path": "../../../.cursor/skills/cms-saas/nezam-wordpress/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-wordpress\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-arabic-content/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-arabic-content/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-arabic-content-master\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-arabic-typography/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-arabic-typography/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-arabic-typography\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-content-modeling/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-content-modeling/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-content-modeling\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-editorial-workflows/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-editorial-workflows/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-editorial-workflows\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-egyptian-arabic-content/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-egyptian-arabic-content/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-egyptian-arabic-content-master\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-moroccan-darija/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-moroccan-darija/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-moroccan-darija\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/content/nezam-register-detection/SKILL.md",
+      "path": "../../../.cursor/skills/content/nezam-register-detection/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-register-detection\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/dashboard-ia-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/design/dashboard-ia-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-dashboard-ia-patterns\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-accessibility-audit/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-accessibility-audit/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-accessibility-audit\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-brand-visual-direction/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-brand-visual-direction/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-brand-visual-direction\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-component-library-api/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-component-library-api/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-component-library-api\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-css-architecture/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-css-architecture/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-css-architecture-runtime\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-dashboard-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-dashboard-patterns/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-dashboard-patterns\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-context-init/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-context-init/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-context-init\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-iteration-protocol/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-iteration-protocol/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-iteration-protocol\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-md/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-md/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-md\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-selector/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-selector/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-selector\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-server/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-server/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-design-server\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-to-code-handoff/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-to-code-handoff/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-to-code-handoff\"",
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-design-tokens/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-design-tokens/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-token-architecture\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-interaction-choreography/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-interaction-choreography/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-interaction-choreography\"",
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-micro-interaction-designer/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-micro-interaction-designer/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-micro-interaction-designer\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-motion-3d/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-motion-3d/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-motion-3d-progressive\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-ui-ux-design/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-ui-ux-design/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-ui-ux-design\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-user-flow-mapper/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-user-flow-mapper/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-user-flow-mapper\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-ux-research-protocol/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-ux-research-protocol/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-ux-research-protocol\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-wireframe-catalog/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-wireframe-catalog/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-wireframe-catalog\"",
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-wireframe-pipeline/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-wireframe-pipeline/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-wireframe-pipeline\"",
       "version": "4.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/nezam-wireframe-to-spec/SKILL.md",
+      "path": "../../../.cursor/skills/design/nezam-wireframe-to-spec/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-wireframe-to-spec-converter\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/design/visual-canvas-engine/SKILL.md",
+      "path": "../../../.cursor/skills/design/visual-canvas-engine/SKILL.md",
       "id": "\"nezam-\"nezam-visual-canvas-engine\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-api-testing/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-api-testing/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-api-testing\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-deployment-checklist/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-deployment-checklist/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-deployment-checklist\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-external-ai-report/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-external-ai-report/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-external-ai-report\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-git-workflow/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-git-workflow/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-git-workflow\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-guide-instructor-domains/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-guide-instructor-domains/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-guide-instructor-domains\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-handoff-report/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-handoff-report/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-handoff-report\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/external/nezam-plan-full/SKILL.md",
+      "path": "../../../.cursor/skills/external/nezam-plan-full/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-plan-full\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/chart-library-abstraction/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/chart-library-abstraction/SKILL.md",
       "id": "\"nezam-\"nezam-chart-library-abstraction\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/collab-ui-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/collab-ui-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-collab-ui-patterns\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/kanban-pipeline-ui/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/kanban-pipeline-ui/SKILL.md",
       "id": "\"nezam-\"nezam-kanban-pipeline-ui\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-component-testing/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-component-testing/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-component-testing\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-gsap-animations/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-gsap-animations/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-gsap-animations\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-i18n-next-intl/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-i18n-next-intl/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-i18n-next-intl\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-nextjs-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-nextjs-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-nextjs-patterns\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-performance-budget/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-performance-budget/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-performance-budget\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-react-architecture/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-react-architecture/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-react-architecture\"",
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-react18-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-react18-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-react18-patterns\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-rtl-layout/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-rtl-layout/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-rtl-layout\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-shadcn-ui/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-shadcn-ui/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-shadcn-ui\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/frontend/nezam-state-management/SKILL.md",
+      "path": "../../../.cursor/skills/frontend/nezam-state-management/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-state-management\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-aws-infra/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-aws-infra/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-aws-infra\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-browserbase/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-browserbase/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-browserbase\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-cdn-optimization/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-cdn-optimization/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-cdn-optimization\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-cloudflare-edge/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-cloudflare-edge/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-cloudflare-edge\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-devops-pipeline/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-devops-pipeline/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-devops-pipeline\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-error-tracking/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-error-tracking/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-error-tracking\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-firecrawl/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-firecrawl/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-firecrawl\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-llm-observability/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-llm-observability/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-llm-observability\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-monitoring-observability/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-monitoring-observability/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-monitoring-observability\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-product-analytics/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-product-analytics/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-product-analytics\"",
       "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-secret-management/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-secret-management/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-secret-management\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/infrastructure/nezam-vercel-deploy/SKILL.md",
+      "path": "../../../.cursor/skills/infrastructure/nezam-vercel-deploy/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-vercel-deploy\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/mobile-testing/SKILL.md",
+      "path": "../../../.cursor/skills/mobile-testing/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-Mobile Testing\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-a11y-automation/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-a11y-automation/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-a11y-automation\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-github-actions-ci/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-github-actions-ci/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-github-actions-ci\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-performance-optimization/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-performance-optimization/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-performance-optimization\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-privacy-compliance/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-privacy-compliance/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-privacy-compliance\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-regression-detector/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-regression-detector/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-regression-detector\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-scan-fix-loop/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-scan-fix-loop/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-scan-fix-loop\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-security-compliance/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-security-compliance/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-gh-security-compliance\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-security-hardening/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-security-hardening/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-security-hardening\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-testing-automation/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-testing-automation/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-testing-automation\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/quality/nezam-testing-strategy/SKILL.md",
+      "path": "../../../.cursor/skills/quality/nezam-testing-strategy/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-testing-strategy\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-aeo-answer-engines/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-aeo-answer-engines/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-aeo-answer-engines\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-geo-optimization/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-geo-optimization/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-geo-optimization\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-ia-taxonomy/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-ia-taxonomy/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-ia-taxonomy\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-seo-ia-content/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-seo-ia-content/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-seo-ia-content\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-serp-feature-targeting/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-serp-feature-targeting/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-serp-feature-targeting\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-structured-data-schema/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-structured-data-schema/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-structured-data-schema\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/research/nezam-topical-authority/SKILL.md",
+      "path": "../../../.cursor/skills/research/nezam-topical-authority/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-topical-authority\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/s8/nezam-event-schema/SKILL.md",
+      "path": "../../../.cursor/skills/s8/nezam-event-schema/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-S8 Event Schema\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/s8/nezam-funnel/SKILL.md",
+      "path": "../../../.cursor/skills/s8/nezam-funnel/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-S8 Funnel\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/s8/nezam-growth/SKILL.md",
+      "path": "../../../.cursor/skills/s8/nezam-growth/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-S8 Growth\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/s8/nezam-retention/SKILL.md",
+      "path": "../../../.cursor/skills/s8/nezam-retention/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-S8 Retention\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-adr/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-adr/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-adr\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-agent-eval/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-agent-eval/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-agent-eval\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-agents-md/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-agents-md/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-agents-md\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-ai-safety-guardrails/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-ai-safety-guardrails/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-ai-safety-guardrails\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-ai-ux-patterns/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-ai-ux-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-ai-ux-patterns\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-analytics-observability/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-analytics-observability/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-analytics-observability\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-build-modes/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-build-modes/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-build-modes\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-cli-orchestration/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-cli-orchestration/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-cli-orchestration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-context-window-manager/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-context-window-manager/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-context-window-manager\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-cost-monitor/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-cost-monitor/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-cost-monitor\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-decision-journal/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-decision-journal/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-decision-journal\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-docs-context-sync/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-docs-context-sync/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-docs-context-sync\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-founder-onboarding/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-founder-onboarding/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-founder-onboarding\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-gate-orchestrator/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-gate-orchestrator/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-gate-orchestrator\"",
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-health-score/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-health-score/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-health-score\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-llm-integration/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-llm-integration/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-llm-integration\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-multi-agent-handoff/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-multi-agent-handoff/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-multi-agent-handoff\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-phase-gating-roadmap/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-phase-gating-roadmap/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-phase-gating-roadmap\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-progress-narrator/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-progress-narrator/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-progress-narrator\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-prompt-audit/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-prompt-audit/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-prompt-audit\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-reflection-loop-engine/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-reflection-loop-engine/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-reflection-loop-engine\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-repo-file-org/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-repo-file-org/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-repo-file-org\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-risk-mitigation/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-risk-mitigation/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-risk-mitigation\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-skill-composer/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-skill-composer/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-system/skill-composer\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-slash-command-router/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-slash-command-router/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-slash-command-router\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-spec-generator/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-spec-generator/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-spec-generator\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-strategic-planning/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-strategic-planning/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-strategic-planning\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-task-decomposition/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-task-decomposition/SKILL.md",
       "id": "\"nezam-\"nezam- nezam-task-decomposition\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-tavily-research/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-tavily-research/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-tavily-research\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
     },
     {
-      "path": "../../.cursor/skills/system/nezam-token-budget-manager/SKILL.md",
+      "path": "../../../.cursor/skills/system/nezam-token-budget-manager/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-token-budget-manager\"",
       "version": "2.0.0",
       "referenced_by": [],

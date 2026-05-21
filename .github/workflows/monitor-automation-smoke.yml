@@ -9,6 +9,9 @@ jobs:
   check-automation-smoke:
     name: Check automation-smoke on main
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      issues: write
     steps:
       - name: Check latest ci.yml run
         uses: actions/github-script@v9

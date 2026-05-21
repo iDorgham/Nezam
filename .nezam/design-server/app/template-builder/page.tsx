@@ -180,11 +180,10 @@ export default function TemplateBuilderPage() {
       {/* ══════════════════════════════════════════
           TOP HEADER — Logo + Title + Controls
       ══════════════════════════════════════════ */}
-      <header className="h-11 shrink-0 flex items-center px-3 gap-3 border-b border-[#1f1f21] bg-[#121213] z-10">
+      <header className="h-11 shrink-0 flex items-center px-3 gap-2 border-b border-[#1f1f21] bg-[#121213] z-10">
 
         {/* ── Logo + wordmark ── */}
         <div className="flex items-center gap-2.5 shrink-0 select-none">
-          {/* N logo */}
           <div className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-[13px] text-white shadow-sm"
             style={{ background: 'linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%)' }}>
             N
@@ -196,14 +195,29 @@ export default function TemplateBuilderPage() {
         </div>
 
         {/* Separator */}
-        <div className="w-px h-5 bg-[#2a2a2c] shrink-0" />
+        <div className="w-px h-5 bg-[#2a2a2c] shrink-0 mx-1" />
+
+        {/* ── Undo / Redo ── */}
+        <div className="flex items-center gap-0.5 shrink-0">
+          <button onClick={undo} disabled={!canUndo} title={t('Undo ⌘Z', 'تراجع')}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-[#636366] hover:text-[#e8e8ed] hover:bg-[#232324] disabled:opacity-20 disabled:cursor-not-allowed transition-all">
+            <RotateCcw size={12} />
+          </button>
+          <button onClick={redo} disabled={!canRedo} title={t('Redo ⌘⇧Z', 'إعادة')}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-[#636366] hover:text-[#e8e8ed] hover:bg-[#232324] disabled:opacity-20 disabled:cursor-not-allowed transition-all">
+            <RotateCw size={12} />
+          </button>
+        </div>
+
+        {/* Separator */}
+        <div className="w-px h-5 bg-[#2a2a2c] shrink-0 mx-1" />
 
         {/* ── Viewport toggle ── */}
         <div className="flex items-center bg-[#1c1c1e] border border-[#2a2a2c] rounded-lg p-0.5 gap-0.5 shrink-0">
           {([
-            { id: 'desktop', icon: <Monitor   size={11} />, title: 'Desktop (full width)' },
-            { id: 'tablet',  icon: <Tablet    size={11} />, title: 'Tablet (768px)'       },
-            { id: 'mobile',  icon: <Smartphone size={11} />, title: 'Mobile (390px)'      },
+            { id: 'desktop', icon: <Monitor    size={11} />, title: 'Desktop (full width)' },
+            { id: 'tablet',  icon: <Tablet     size={11} />, title: 'Tablet (768px)'       },
+            { id: 'mobile',  icon: <Smartphone size={11} />, title: 'Mobile (390px)'       },
           ] as const).map(v => (
             <button
               key={v.id}
@@ -232,36 +246,21 @@ export default function TemplateBuilderPage() {
             title={t('Edit text inline (E)', 'تعديل النص')}
             className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
             style={{
-              background:  isEditMode ? 'rgba(245,158,11,0.15)' : 'transparent',
-              color:       isEditMode ? '#f59e0b' : '#636366',
-              outline:     isEditMode ? '1px solid rgba(245,158,11,0.3)' : 'none',
+              background: isEditMode ? 'rgba(245,158,11,0.15)' : 'transparent',
+              color:      isEditMode ? '#f59e0b' : '#636366',
+              outline:    isEditMode ? '1px solid rgba(245,158,11,0.3)' : 'none',
             }}
           >
             {isEditMode ? <Pen size={12} /> : <PenOff size={12} />}
           </button>
 
           {/* Separator */}
-          <div className="w-px h-4 bg-[#2a2a2c] mx-0.5 shrink-0" />
+          <div className="w-px h-4 bg-[#2a2a2c] mx-1 shrink-0" />
 
-          {/* Undo */}
-          <button onClick={undo} disabled={!canUndo} title={t('Undo ⌘Z', 'تراجع')}
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-[#636366] hover:text-[#e8e8ed] hover:bg-[#232324] disabled:opacity-20 disabled:cursor-not-allowed transition-all">
-            <RotateCcw size={12} />
-          </button>
-
-          {/* Redo */}
-          <button onClick={redo} disabled={!canRedo} title={t('Redo ⌘⇧Z', 'إعادة')}
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-[#636366] hover:text-[#e8e8ed] hover:bg-[#232324] disabled:opacity-20 disabled:cursor-not-allowed transition-all">
-            <RotateCw size={12} />
-          </button>
-
-          {/* Separator */}
-          <div className="w-px h-4 bg-[#2a2a2c] mx-0.5 shrink-0" />
-
-          {/* Zen / preview */}
+          {/* Zen / full preview */}
           <button
             onClick={() => setZenMode(v => !v)}
-            title={t('Full preview (`) ', 'معاينة كاملة')}
+            title={t('Full preview (`)', 'معاينة كاملة')}
             className="w-8 h-8 flex items-center justify-center rounded-lg transition-all"
             style={{ color: zenMode ? 'var(--ds-primary,#06b6d4)' : '#636366' }}
           >
@@ -284,10 +283,10 @@ export default function TemplateBuilderPage() {
           <button
             onClick={handleSave}
             title={saved ? t('Saved!', 'تم الحفظ!') : t('Save ⌘S', 'حفظ')}
-            className="flex items-center gap-1.5 h-8 px-4 rounded-lg text-[11px] font-bold text-white transition-all ms-1 shadow-sm"
+            className="flex items-center gap-1.5 h-8 px-4 rounded-lg text-[11px] font-bold text-white transition-all ms-2 shadow-sm"
             style={{
               background: saved ? '#16a34a' : 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
-              boxShadow: saved ? '0 4px 12px rgba(22,163,74,0.4)' : '0 4px 12px rgba(6,182,212,0.3)',
+              boxShadow:  saved ? '0 4px 12px rgba(22,163,74,0.4)' : '0 4px 12px rgba(6,182,212,0.3)',
             }}
           >
             {saved ? <Check size={11} /> : <Save size={11} />}

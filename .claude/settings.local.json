@@ -19,7 +19,12 @@
       "Bash(git commit *)",
       "Bash(xargs -I{} sh -c 'echo \"=== {} ===\"; head -20 \"{}\"')",
       "Bash(pnpm ai:check)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\)\")",
+      "Bash(bash -c 'set -e; if grep -r \"#[0-9a-fA-F]\\\\{6\\\\}\" /tmp/nonexistent_dir/ 2>/dev/null; then echo found; fi; echo \"still running after grep no-match\"')",
+      "Bash(bash -c 'set -e; if grep \"pattern\" /dev/null 2>/dev/null; then echo \"matched\"; fi; echo \"survived\"')",
+      "Bash(bash -c 'set -eo pipefail; if grep \"pattern\" /dev/null 2>/dev/null; then echo \"matched\"; fi; echo \"survived\"')",
+      "Bash(bash -c 'set -e; if grep -r \"#[0-9a-fA-F]\\\\{6\\\\}\" /nonexistent_path/ 2>/dev/null; then echo \"found\"; fi; echo \"survived\"')"
     ]
   },
   "enabledMcpjsonServers": [

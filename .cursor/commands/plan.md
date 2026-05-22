@@ -600,3 +600,17 @@ Continue with: /plan [next incomplete phase]
 ```
 
 Do NOT execute any /develop action. Do NOT show partial results. Full stop.
+
+## V3 Subcommands (RICE + Design)
+  /PLAN prioritize --framework=rice   -> Score backlog via RICE -> MASTER_TASKS.md with RICE_SCORE + P0..P3
+  /PLAN design intent <page>          -> Design brief from PRD -> docs/plans/05-design/DESIGN_<page>.md
+  /PLAN design dashboard intent <page> -> Dashboard brief -> docs/plans/05-design/DASHBOARD_<page>.md
+  /PLAN design audit --strict         -> 50+ anti-pattern checks -> design_audit_report.md
+  /PLAN design dashboard audit --strict -> 40+ dashboard checks -> dashboard_audit_report.md
+
+## RICE Execution Flow (/PLAN prioritize)
+1. Load `MASTER_TASKS.md`
+2. For each task without `RICE_SCORE`, invoke `.cursor/skills/pm/prioritize-rice/SKILL.md`
+3. Compute: `(Reach * Impact * Confidence) / Effort`
+4. Sort descending. Assign P0 (top 20%), P1 (30%), P2 (30%), P3 (20%)
+5. Rewrite `MASTER_TASKS.md` + create `docs/plans/prioritized_backlog.md`

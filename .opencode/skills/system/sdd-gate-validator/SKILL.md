@@ -49,7 +49,7 @@ All must be true before evaluating any phase gate:
 
 All must be true:
 
-- [ ] `.nezam/workspace/prd/PRD.md` exists and has >10 non-comment lines
+- [ ] `.nezam/core/prd/PRD.md` exists and has >10 non-comment lines
 - [ ] `DESIGN.md` exists at repo root and is not a blank template
 - [ ] `.cursor/state/onboarding.yaml` → `prd_locked: true`
 - [ ] `.cursor/state/onboarding.yaml` → `design_locked: true`

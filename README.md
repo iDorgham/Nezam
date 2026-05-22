@@ -38,7 +38,7 @@
 
 <br/>
 
-[**Docs**](docs/README.md) · [**PRD**](.nezam/workspace/prd/PRD.md) · [**Quick Start**](#quick-start) · [**Commands**](docs/wiki/Commands.md) · [**Agents**](docs/wiki/Agent-Map.md) · [**Wiki**](https://github.com/iDorgham/Nezam/wiki)
+[**Docs**](.nezam/workspace/README.md) · [**PRD**](.nezam/workspace/prd/PRD.md) · [**Quick Start**](#quick-start) · [**Commands**](.nezam/workspace/wiki/Commands.md) · [**Agents**](.nezam/workspace/wiki/Agent-Map.md) · [**Wiki**](https://github.com/iDorgham/Nezam/wiki)
 
 </div>
 
@@ -170,7 +170,7 @@ executive-director
 
 </details>
 
-Agents are lazy-loaded via `agent-lazy-load.mdc`. Full details in the [Agent Map](docs/wiki/Agent-Map.md).
+Agents are lazy-loaded via `agent-lazy-load.mdc`. Full details in the [Agent Map](.nezam/workspace/wiki/Agent-Map.md).
 
 ---
 
@@ -276,7 +276,7 @@ pnpm run check:tokens
 Design profiles live in `.nezam/design/<brand>/design.md`.  
 4 dedicated agents (`design-server-specialist`, `design-server-wireframe`, `design-server-tokens`, `design-server-sitemap`) operate the server across all synced clients.
 
-Full source audit and improvement plan: [`docs/design-server-audit.md`](docs/design-server-audit.md).
+Full source audit and improvement plan: [`docs/design-server-audit.md`](.nezam/workspace/docs/design-server-audit.md).
 
 </details>
 
@@ -291,7 +291,7 @@ Full source audit and improvement plan: [`docs/design-server-audit.md`](docs/des
 | `wireframe-validation.yml` | Design/plan changes | ASCII wireframe catalog validation, RTL parity, interaction specs |
 | `release.yml` | Push to `main` | Semantic release, CHANGELOG, GitHub Release |
 
-Gate matrix: [`docs/plans/gates/GITHUB_GATE_MATRIX.json`](docs/plans/gates/GITHUB_GATE_MATRIX.json)
+Gate matrix: [`.nezam/gates/GITHUB_GATE_MATRIX.json`](.nezam/gates/GITHUB_GATE_MATRIX.json)
 
 ---
 
@@ -337,16 +337,16 @@ NEZAM ships with dedicated Arabic language and MENA-region support built into th
 
 | Resource | Path | Description |
 |---|---|---|
-| Docs Hub | [`docs/README.md`](docs/README.md) | Master documentation index |
+| Docs Hub | [`.nezam/workspace/README.md`](.nezam/workspace/README.md) | Master documentation index |
 | PRD | [`.nezam/workspace/prd/PRD.md`](.nezam/workspace/prd/PRD.md) | Full product requirements |
-| Wiki | [`docs/wiki/Home.md`](docs/wiki/Home.md) | Architecture, agents, design, CI |
+| Wiki | [`.nezam/workspace/wiki/Home.md`](.nezam/workspace/wiki/Home.md) | Architecture, agents, design, CI |
 | Memory | [`.nezam/memory/`](.nezam/memory/) | All durable memory files |
 | Plans | [`docs/plans/`](docs/plans/) | Phase execution plans |
 | Architecture | [`.nezam/workspace/architecture/`](.nezam/workspace/architecture/) | ADRs + system diagrams |
 | Templates | [`.nezam/templates/`](.nezam/templates/) | Reusable doc templates |
 | Reports | [`docs/reports/`](docs/reports/) | CI-generated reports |
-| **Design Server** | [`docs/design-server.md`](docs/design-server.md) | Design server overview, modules, API |
-| Design Server Audit | [`docs/design-server-audit.md`](docs/design-server-audit.md) | Full design-server source audit + improvement plan |
+| **Design Server** | [`.nezam/workspace/docs/design-server.md`](.nezam/workspace/docs/design-server.md) | Design server overview, modules, API |
+| Design Server Audit | [`.nezam/workspace/docs/design-server-audit.md`](.nezam/workspace/docs/design-server-audit.md) | Full design-server source audit + improvement plan |
 
 ---
 

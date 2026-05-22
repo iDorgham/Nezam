@@ -43,13 +43,13 @@ Own the knowledge base, runbooks, and post-mortem index for the live product. En
 
 ## Specialists (referenced)
 
-- [`agent-docs-hygiene.md`](agent-docs-hygiene.md)
+- [`agent-docs-hygiene.md`](docs-hygiene.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/nezam-docs-context-sync/SKILL.md)
-- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/nezam-multi-agent-handoff/SKILL.md)
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/system/nezam-docs-context-sync/SKILL.md)
+- [`.cursor/skills/nezam-multi-agent-handoff/SKILL.md`](../skills/system/nezam-multi-agent-handoff/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md)
 
 ## When to invoke
 

@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-slash-command-router"
+name: "nezam-"nezam-"nezam-slash-command-router"
 description: Route slash commands to the correct skill chain with hardlock-first execution.
 version: 1.0.0
 updated: 2026-05-08

@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-design-selector"
+name: "nezam-"nezam-"nezam-design-selector"
 description: Orchestrates the full design selection flow. Detects product type, presents wireframe options sequentially using the wireframe-catalog, saves choices to DESIGN_CHOICES.md, then generates DESIGN.md from confirmed selections.
 version: 1.0.0
 updated: 2026-05-10
@@ -15,7 +15,7 @@ The user controls their design. This skill orchestrates the full selection seque
 1. Detect product type from PRD.md
 2. Present the correct wireframe element sequence for that type
 3. User picks one option per element
-4. Choices saved to `.nezam/workspace/plans/04-design/DESIGN_CHOICES.md`
+4. Choices saved to `.nezam/core/plans/04-design/DESIGN_CHOICES.md`
 5. User confirms → DESIGN.md generated from choices
 
 This skill calls `wireframe-catalog` for the actual wireframe ASCII art per element.
@@ -29,7 +29,7 @@ Also triggered by: `/PLAN design wireframes`
 ---
 ## Prerequisites
 
-- `.nezam/workspace/prd/PRD.md` must exist and be locked (check `onboarding.yaml` → `prd_locked: true`)
+- `.nezam/core/prd/PRD.md` must exist and be locked (check `onboarding.yaml` → `prd_locked: true`)
 - Product type must be detectable from PRD
 
 If PRD missing → redirect to `/start` Step 3
@@ -37,7 +37,7 @@ If PRD missing → redirect to `/start` Step 3
 ---
 ## Step 1 — Detect Product Type and Load Element Sequence
 
-Read `.nezam/workspace/prd/PRD.md`. Detect type:
+Read `.nezam/core/prd/PRD.md`. Detect type:
 
 | PRD signals | Type | Element sequence |
 |---|---|---|
@@ -367,7 +367,7 @@ Type CHANGE [element] to revise one (e.g. CHANGE header).
 ---
 ## Step 4 — Write DESIGN_CHOICES.md
 
-On YES, write to `.nezam/workspace/plans/04-design/DESIGN_CHOICES.md`:
+On YES, write to `.nezam/core/plans/04-design/DESIGN_CHOICES.md`:
 
 ```yaml
 # DESIGN_CHOICES.md
@@ -382,75 +382,75 @@ choices:
   # WEBSITE
   header:
     option: [1-5]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   grid: nezam-option: [1-5]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   project_page:
     option: [1-4]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   footer:
     option: [1-4]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   contact:
     option: [1-4]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
 
   # WEBAPP/SAAS
   app_navigation:
     option: [1-4]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   dashboard:
     option: [1-4]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   data_table:
     option: [1-3]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   empty_state:
     option: [1-3]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
 
   # MOBILE
   navigation_pattern:
     option: [1-4]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   home_screen:
     option: [1-3]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   detail_screen:
     option: [1-2]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
   
   onboarding:
     option: [1-3]
-    name: "nezam-[option name]"
+    name: "nezam-"nezam-[option name]"
     description: "[one line]"
 ```
 
 ---
 ## Step 5 — Generate DESIGN.md
 
-After writing DESIGN_CHOICES.md, generate `.nezam/workspace/plans/04-design/DESIGN.md` with:
+After writing DESIGN_CHOICES.md, generate `.nezam/core/plans/04-design/DESIGN.md` with:
 
 ```markdown
 # DESIGN.md — [Product Name]
@@ -539,8 +539,8 @@ Phase 3 — Supporting
 
 | File | When |
 |---|---|
-| `.nezam/workspace/plans/04-design/DESIGN_CHOICES.md` | After YES confirmation |
-| `.nezam/workspace/plans/04-design/DESIGN.md` | After DESIGN_CHOICES.md is written |
+| `.nezam/core/plans/04-design/DESIGN_CHOICES.md` | After YES confirmation |
+| `.nezam/core/plans/04-design/DESIGN.md` | After DESIGN_CHOICES.md is written |
 
 Both files must exist before `/PLAN scaffold` can run.
 

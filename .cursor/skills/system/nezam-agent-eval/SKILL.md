@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-agent-eval"
+name: "nezam-"nezam-"nezam-agent-eval"
 description: Evaluation framework for AI agent output quality — rubrics, scoring, automated tests, and regression detection for NEZAM swarm agents.
 paths:
   - "docs/reports/ai/**"
@@ -54,7 +54,7 @@ cases:
     input: "Check gates with no PRD"
     expected_behavior:
       - "Returns GATE_FAIL for gate-1"
-      - "Lists missing: .nezam/workspace/prd/PRD.md"
+      - "Lists missing: .nezam/core/prd/PRD.md"
     evaluation_type: automated
 ```
 

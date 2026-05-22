@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-founder-onboarding"
+name: "nezam-"nezam- nezam-founder-onboarding"
 description: Convert a plain-language founder idea into complete gate-ready project artifacts without requiring technical ceremony.
 version: 1.0.0
 updated: 2026-05-08
@@ -37,7 +37,7 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - recommend `arabic_content_master`
    - surface `mena_payment_routing`
    - prioritize design profiles with RTL suitability
-4. Generate `.nezam/workspace/prd/PRD.md` with sections:
+4. Generate `.nezam/core/prd/PRD.md` with sections:
    - Executive Summary
    - Problem Statement
    - Target Users
@@ -50,16 +50,16 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
    - Market Context
    - Risk Register (3–5 items)
    - Timeline Estimate
-5. Generate aligned `.nezam/workspace/prd/PROJECT_PROMPT.md` with no conflicting scope framing.
-6. Generate `.nezam/workspace/meta/VERSIONING.md` (if it doesn't already exist) with:
+5. Generate aligned `.nezam/core/prd/PROJECT_PROMPT.md` with no conflicting scope framing.
+6. Generate `.nezam/core/meta/VERSIONING.md` (if it doesn't already exist) with:
    - release numbering rules
    - commit message policy
    - changelog policy
 7. Initialize root `CHANGELOG.md` with `## [Unreleased]`.
 8. Score all `.nezam/design/*/design.md` profiles against product type, geography, revenue model, and audience characteristics; return top 3 with plain-language rationale.
 9. After the user chooses a profile, copy the selected design file to root `DESIGN.md`.
-10. Generate companion-ready `.nezam/workspace/context/CONTEXT.md`.
-11. Generate initial memory summary in `.nezam/workspace/context/MEMORY.md`.
+10. Generate companion-ready `.nezam/core/context/CONTEXT.md`.
+11. Generate initial memory summary in `.nezam/core/context/MEMORY.md`.
 12. Validate readiness using `/START gates` checks and report outcome in plain language only.
 
 # Validation & Metrics

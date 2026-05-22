@@ -1,6 +1,6 @@
 ---
-skill_id: "nezam- nezam-component-testing"
-name: "nezam-"nezam-component-testing"
+skill_id: "nezam-"nezam- nezam-component-testing"
+name: "nezam-"nezam-"nezam-component-testing"
 description: Storybook-first components, Vitest + Testing Library, interactions, snapshots, axe, and RTL layout assertions.
 version: 1.0.0
 updated: 2026-05-12

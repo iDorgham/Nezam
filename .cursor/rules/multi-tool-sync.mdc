@@ -49,10 +49,10 @@ This prevents mirror drift from being committed accidentally.
 
 **Install the hook (run once after cloning):**
 ```bash
-bash scripts/hooks/setup-hooks.sh
+bash .nezam/core/scripts/hooks/setup-hooks.sh
 ```
 
-**Hook source:** `scripts/hooks/pre-commit` (tracked in repo)
+**Hook source:** `.nezam/core/scripts/hooks/pre-commit` (tracked in repo)
 **Hook destination:** `.git/hooks/pre-commit` (not tracked — local only)
 **Skip for one commit:** `git commit --no-verify`
 
@@ -79,10 +79,10 @@ The hook:
 | Tool              | Tier | Root file read      | Start command          | Plan command        | Guide command       | Getting Started |
 |-------------------|------|---------------------|------------------------|---------------------|---------------------|-----------------|
 | Cursor IDE        | 1    | `.cursor/` native   | `/start all`           | `/plan all`         | `/guide status`     | (native)        |
-| Claude Code CLI   | 1    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | [→ CLAUDE_CODE.md](../../.nezam/workspace/tools/CLAUDE_CODE.md) |
-| Antigravity IDE   | 1    | `.antigravity/`     | `/start all`           | `/plan all`         | `/guide status`     | [→ ANTIGRAVITY.md](../../.nezam/workspace/tools/ANTIGRAVITY.md) |
-| Codex CLI         | 1    | `AGENTS.md`         | `codex "/start all"`   | `codex "/plan all"` | `codex "/guide"`    | [→ CODEX.md](../../.nezam/workspace/tools/CODEX.md) |
-| Codex App         | 1    | `.codex/`           | `/start all`           | `/plan all`         | `/guide status`     | [→ CODEX.md](../../.nezam/workspace/tools/CODEX.md) |
+| Claude Code CLI   | 1    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | [→ CLAUDE_CODE.md](../../.nezam/core/tools/CLAUDE_CODE.md) |
+| Antigravity IDE   | 1    | `.antigravity/`     | `/start all`           | `/plan all`         | `/guide status`     | [→ ANTIGRAVITY.md](../../.nezam/core/tools/ANTIGRAVITY.md) |
+| Codex CLI         | 1    | `AGENTS.md`         | `codex "/start all"`   | `codex "/plan all"` | `codex "/guide"`    | [→ CODEX.md](../../.nezam/core/tools/CODEX.md) |
+| Codex App         | 1    | `.codex/`           | `/start all`           | `/plan all`         | `/guide status`     | [→ CODEX.md](../../.nezam/core/tools/CODEX.md) |
 | Windsurf IDE      | 2    | `WINDSURF.md`       | `/start all`           | `/plan all`         | `/guide status`     | (read WINDSURF.md) |
 | Kilo IDE          | 2    | `.kilocode/`        | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
 | OpenCode          | 2    | `.opencode/`        | `/start all`           | `/plan all`         | `/guide status`     | (read CLAUDE.md)   |
@@ -117,7 +117,7 @@ Root-level contract files (CLAUDE.md, AGENTS.md) receive:
 
 ## Drift severity scale
 
-Use **`pnpm ai:status`** (`node scripts/sync/sync-ai-folders.js --status`) for a quick mirror survey. Severity guides whether to block work or only warn:
+Use **`pnpm ai:status`** (`node .nezam/core/scripts/sync/sync-ai-folders.js --status`) for a quick mirror survey. Severity guides whether to block work or only warn:
 
 | Severity | Signal | Handling |
 |----------|--------|----------|
@@ -125,4 +125,4 @@ Use **`pnpm ai:status`** (`node scripts/sync/sync-ai-folders.js --status`) for a
 | **WARNING** | **Agent/command markdown** differs (non-identical synced copies under `.claude/`, `.codex/`, `.opencode/`, etc.) | Surface warning; workflows may proceed for local-only work; **avoid** parallel-tool execution until synced |
 | **INFO** | Whitespace/markdown wrapping only — no semantic change (`pnpm ai:sync` is idempotent noop except formatting) | Run `pnpm ai:sync` on next touch to `.cursor/`; no user-facing blocker |
 
-Canonical definition of drift remains **`pnpm ai:check`** in CI (`scripts/sync/sync-ai-folders.js` drift + integrity scripts).
+Canonical definition of drift remains **`pnpm ai:check`** in CI (`.nezam/core/scripts/sync/sync-ai-folders.js` drift + integrity scripts).

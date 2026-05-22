@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-job-queue-management"
+name: "nezam-"nezam-job-queue-management"
 description: Governs the architecture and monitoring of background jobs and recurring tasks.
 version: 1.0.0
 updated: 2026-05-13

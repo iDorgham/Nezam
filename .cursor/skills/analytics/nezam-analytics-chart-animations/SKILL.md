@@ -1,6 +1,6 @@
 ---
 id: nezam-analytics-chart-animations
-name: "nezam-Analytics Chart Animations"
+name: "nezam-"nezam-Analytics Chart Animations"
 description: Implementing performant and meaningful animations for data transitions.
 tier: 3
 swarm: Swarm 8 (Analytics)

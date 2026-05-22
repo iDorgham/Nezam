@@ -17,7 +17,7 @@ Swarm Manager for the Maintenance & Support swarm. Own bug triage, tech-debt spr
 ## Team Leader Scope
 
 - Lead three Team Managers: `bug-triage-manager`, `tech-debt-manager`, `knowledge-update-manager`.
-- Run the maintenance loop in Phase 6 of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Run the maintenance loop in Phase 6 of [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Coordinate with all swarm managers for fix routing and ownership.
 - Maintain runbooks, on-call rotation, and incident-response playbooks.
 
@@ -31,21 +31,21 @@ Swarm Manager for the Maintenance & Support swarm. Own bug triage, tech-debt spr
 
 ## Specialists (referenced)
 
-- [`agent-docs-hygiene.md`](agent-docs-hygiene.md)
-- [`agent-ci-automation.md`](agent-ci-automation.md)
+- [`agent-docs-hygiene.md`](docs-hygiene.md)
+- [`agent-ci-automation.md`](ci-automation.md)
 - [`code-review-specialist.md`](code-review-specialist.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
-- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/nezam-docs-context-sync/SKILL.md)
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
-- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/git-workflow/SKILL.md`](../skills/git-workflow/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/quality/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-docs-context-sync/SKILL.md`](../skills/system/nezam-docs-context-sync/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
+- [`.cursor/skills/git-workflow/SKILL.md`](../skills/external/nezam-git-workflow/SKILL.md)
 
 ## When to invoke
 
-- Phase 6 (Maintenance & Iteration) of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Phase 6 (Maintenance & Iteration) of [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Inbound bug, regression, or production incident.
 - Periodic tech-debt sprint or dependency-update wave.
 - KB / runbook / post-mortem update.

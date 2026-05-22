@@ -32,7 +32,7 @@ During architecture and data design phases for multi-tenant SaaS features.
 
 ### Input requirements
 - `.cursor/state/plan_progress.yaml`
-- `.nezam/workspace/prd/PRD.md`
+- `.nezam/core/prd/PRD.md`
 
 ### Output deliverables
 - Tenancy isolation specs

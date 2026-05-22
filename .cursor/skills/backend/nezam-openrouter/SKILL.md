@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-openrouter"
+name: "nezam-"nezam-"nezam-openrouter"
 description: Multi-model routing and fallback orchestration using OpenRouter.
 version: 1.0.0
 updated: 2026-05-10

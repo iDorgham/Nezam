@@ -1,10 +1,10 @@
 ---
 tier: 3
-name: "nezam-"nezam-external-ai-report"
+name: "nezam-"nezam-"nezam-external-ai-report"
 description: Generate concise progress reports for browser-based AI companions (Grok/Qwen/Gemini) with upload reminders.
 paths:
-  - ".nezam/workspace/context/**"
-  - ".nezam/workspace/context/CONTEXT.md"
+  - ".nezam/core/context/**"
+  - ".nezam/core/context/CONTEXT.md"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

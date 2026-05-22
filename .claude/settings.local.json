@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(pnpm --version)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm --dir /Users/Dorgham/Documents/Work/Devleopment/NEZAM/.nezam/design-server test)",
+      "Bash(pnpm --dir /Users/Dorgham/Documents/Work/Devleopment/NEZAM/.nezam/design-server type-check)",
+      "Skill(nextjs)",
+      "Skill(vercel-plugin:react-best-practices)",
+      "Bash(pnpm tsc *)",
+      "Bash(pnpm type-check *)",
+      "Bash(awk '{print $5, $9}')"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "insforge",
+    "shadcn"
+  ]
+}

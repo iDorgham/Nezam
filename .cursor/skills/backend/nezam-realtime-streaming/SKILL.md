@@ -1,6 +1,6 @@
 ---
-skill_id: "nezam- nezam-realtime-streaming"
-name: "nezam-"nezam-realtime-streaming"
+skill_id: "nezam-"nezam- nezam-realtime-streaming"
+name: "nezam-"nezam-"nezam-realtime-streaming"
 description: WebSocket vs SSE vs long-poll; Socket.io vs native WS; Redis Pub/Sub; Supabase Realtime; presence; lifecycle; backoff; MENA latency.
 version: 1.0.0
 updated: 2026-05-12

@@ -1,32 +1,22 @@
 ---
-created: 2026-05-10
-version: 1.0.0
-owner: PM-01
----
-# NEZAM Agent State — updated automatically at session end
-# Do not edit manually. Updated by /GUIDE and swarm commands.
-# Source of truth for session resume.
-
-last_updated: "2026-05-12T19:46:00"
-active_swarm: "Swarm 1 — Architecture"
-active_agent: "swarm-leader"
-active_phase: "05-harden"
-active_feature_slice: "hardening-pass"
-active_spec: "docs/plan/NEZAM-HARDENING-PROMPT.md"
-
+created: ""
+version: "1.0.0"
+owner: "PM-01"
+last_updated: ""
+active_swarm: ""
+active_agent: ""
+active_phase: ""
+active_feature_slice: ""
+active_spec: ""
 last_output:
-  type: "report"
-  artifact_path: "docs/reports/progress/PROGRESS_REPORT.latest.md"
-  status: "draft"
-  summary: "Initialized progress report with hardening status."
-
+  type: ""
+  artifact_path: ""
+  status: ""
+  summary: ""
 pending_handoff:
   from_agent: ""
   to_agent: ""
   handoff_packet_path: ""
   status: "none"
-
-open_blockers:
-  - "None"
-
-session_resume_prompt: "Resuming NEZAM hardening pass. Last worked on PROGRESS_REPORT.latest.md."
+open_blockers: []
+session_resume_prompt: ""

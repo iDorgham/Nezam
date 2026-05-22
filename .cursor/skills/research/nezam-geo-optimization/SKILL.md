@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-geo-optimization"
+name: "nezam-"nezam- nezam-geo-optimization"
 description: Generative Engine Optimization — entity mapping, topical depth, and AI-citation readiness for LLM-powered search.
 version: 1.0.0
 updated: 2026-05-08
@@ -25,7 +25,7 @@ Make content reliably discoverable, cite-worthy, and faithfully reproducible by 
 4. Increase topical depth: cover sub-questions LLMs are likely to retrieve (definitions, comparisons, criteria, exceptions, FAQs).
 5. Reinforce factual claims with on-page citations and `<cite>` or footnote-style references LLMs can extract.
 6. Emit JSON-LD `@id` URIs that match canonical URLs; align with `nezam-structured-data-schema`.
-7. Validate against AI overviews tooling and capture appearance evidence in `.nezam/workspace/context/`.
+7. Validate against AI overviews tooling and capture appearance evidence in `.nezam/core/context/`.
 
 # Validation & Metrics
 

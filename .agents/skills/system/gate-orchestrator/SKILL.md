@@ -66,7 +66,7 @@ Use this exact language when refusing a prompt due to a gate violation:
 - [ ] `HANDOFF_QUEUE.yaml` does not contain any items with `status: pending` or `status: in_progress`. (Must be resolved or deferred).
 
 ### Gate 0 → 1: Onboarding → Planning
-- [ ] `.nezam/workspace/prd/PRD.md` exists and >10 non-comment lines.
+- [ ] `.nezam/core/prd/PRD.md` exists and >10 non-comment lines.
 - [ ] `DESIGN.md` exists at repo root and is not a blank template.
 - [ ] `.cursor/state/onboarding.yaml` → `prd_locked: true`
 - [ ] `.cursor/state/onboarding.yaml` → `design_locked: true`
@@ -92,7 +92,7 @@ Return this structure upon execution:
 ```yaml
 gate_status: pass|blocked|replan-required
 blocking_reasons:
-  - "Missing: .nezam/workspace/prd/PRD.md"
+  - "Missing: .nezam/core/prd/PRD.md"
 unlock_steps:
   - "Run /START to generate PRD"
 next_legal_command: "/CHECK or /FIX gates"

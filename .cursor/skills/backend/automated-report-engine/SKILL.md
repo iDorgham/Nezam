@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-automated-report-engine"
+name: "nezam-"nezam-automated-report-engine"
 description: Architecture for scheduled generation and distribution of analytical reports.
 version: 1.0.0
 updated: 2026-05-13

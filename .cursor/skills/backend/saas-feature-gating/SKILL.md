@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-saas-feature-gating"
+name: "nezam-"nezam-saas-feature-gating"
 description: Feature toggle and entitlement logic for tiered SaaS offerings.
 version: 1.0.0
 updated: 2026-05-13

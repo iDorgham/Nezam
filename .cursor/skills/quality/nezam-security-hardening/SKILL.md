@@ -1,6 +1,6 @@
 ---
-skill_id: "nezam-quality/security-hardening"
-name: "nezam-"nezam-security-hardening"
+skill_id: "nezam-"nezam-quality/security-hardening"
+name: "nezam-"nezam-"nezam-security-hardening"
 description: "Layered security hardening protocol: input validation, auth hardening, dependency audit, secret management, container security, and pre-release security gate."
 version: 1.0.0
 updated: 2026-05-12

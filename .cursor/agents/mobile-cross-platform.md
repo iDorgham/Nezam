@@ -83,9 +83,9 @@ Own cross-platform mobile engineering across React Native (Expo), and Flutter wh
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/nezam-react-architecture/SKILL.md)
-- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/nezam-performance-optimization/SKILL.md)
-- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/nezam-error-tracking/SKILL.md)
+- [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/frontend/nezam-react-architecture/SKILL.md)
+- [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
+- [`.cursor/skills/nezam-error-tracking/SKILL.md`](../skills/infrastructure/nezam-error-tracking/SKILL.md)
 
 ## When to invoke
 

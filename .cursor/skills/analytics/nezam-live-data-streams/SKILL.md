@@ -1,6 +1,6 @@
 ---
 id: nezam-live-data-streams
-name: "nezam-Live Data Streams"
+name: "nezam-"nezam-Live Data Streams"
 description: Handling real-time data ingestion and visualization updates.
 tier: 3
 swarm: Swarm 8 (Analytics)

@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam-"nezam-progress-narrator"
+name: "nezam-"nezam-"nezam-progress-narrator"
 description: Human-readable progress summaries for /guide and /check from NEZAM state files; adapts to solo vs team tone.
 version: 1.0.0
 updated: 2026-05-11
@@ -19,7 +19,7 @@ Adapts language based on `user_mode` (`solo` / `team`) from `.cursor/state/onboa
 - `.cursor/state/onboarding.yaml`
 - `.cursor/state/plan_progress.yaml`
 - `.cursor/state/develop_phases.yaml`
-- `.nezam/workspace/prd/PRD.md` (for product name and type; respect `project.prd` in paths yaml)
+- `.nezam/core/prd/PRD.md` (for product name and type; respect `project.prd` in paths yaml)
 
 ## Output Rules
 
@@ -42,7 +42,7 @@ Adapts language based on `user_mode` (`solo` / `team`) from `.cursor/state/onboa
 ### PRD Locked
 
 Solo: "Your product brief is saved. Now let's pick a design direction."  
-Team: "PRD locked at .nezam/workspace/prd/PRD.md. Gate G0 prerequisite satisfied. Proceed to design selection."
+Team: "PRD locked at .nezam/core/prd/PRD.md. Gate G0 prerequisite satisfied. Proceed to design selection."
 
 ### Design Locked
 

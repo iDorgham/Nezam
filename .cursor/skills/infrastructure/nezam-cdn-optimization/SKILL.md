@@ -1,6 +1,6 @@
 ---
 tier: 3
-name: "nezam- nezam-cdn-optimization"
+name: "nezam-"nezam- nezam-cdn-optimization"
 description: Image optimization, prefetch/preload, cache tags, and edge routing for fast global delivery.
 version: 1.0.0
 updated: 2026-05-08

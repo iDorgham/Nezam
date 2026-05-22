@@ -1,0 +1,20 @@
+version: 1.0
+last_updated: 2026-05-22
+baseline_exists: false
+metrics:
+  anti_pattern_score: 0
+  a11y_compliance: 0
+  rtl_parity: 0
+  cultural_alignment: 0
+  token_drift: 0
+  motion_perf_budget: fail
+  design_debt_items: []
+  oklch_usage: 0
+  tinted_neutrals: 0
+thresholds:
+  min_anti_pattern_score: 90
+  min_a11y_compliance: 95
+  min_rtl_parity: 100
+  max_token_drift: 0
+  min_oklch_usage: 80
+  min_tinted_neutrals: 90

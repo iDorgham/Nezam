@@ -1,0 +1,16 @@
+version: 1.0
+last_updated: 2026-05-22
+baseline_exists: false
+metrics:
+  chart_a11y_score: 0
+  animation_perf_compliance: fail
+  rtl_parity: 0
+  data_density_compliance: false
+  token_drift: 0
+  reduced_motion_coverage: 0
+  visual_regression_status: baseline-missing
+thresholds:
+  min_chart_a11y_score: 90
+  max_animation_duration_ms: 600
+  min_rtl_parity: 100
+  max_token_drift: 0

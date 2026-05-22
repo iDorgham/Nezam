@@ -1,0 +1,63 @@
+---
+description: Design excellence gates blocking unsafe phase progression. 50+ anti-pattern checks.
+alwaysApply: false
+created: 2026-05-22
+version: 1.0.0
+owner: design-excellence-lead
+---
+
+# Design Excellence Gates (Impeccable++)
+
+## Anti-Pattern Hard Blocks (27 rules)
+- [ ] No Inter/Arial as default font
+- [ ] No purple-to-blue gradients (use OKLCH tinted neutrals)
+- [ ] No gray text on colored backgrounds (>= 4.5:1 contrast)
+- [ ] No cards nested in cards
+- [ ] No rounded-square icon tiles above every heading
+- [ ] No pure black without tinting
+- [ ] No bounce easing (use cubic-bezier)
+- [ ] No decorative motion without purpose
+- [ ] No arbitrary spacing (use 8px baseline grid)
+- [ ] No default Bootstrap/Tailwind aesthetics without token customization
+- [ ] No missing focus states on interactive elements
+- [ ] No missing reduced-motion fallbacks
+- [ ] No unearned complexity
+- [ ] No inconsistent border radius (tokenize all radii)
+- [ ] No missing empty/loading/error states
+- [ ] No LTR-only layouts (RTL parity required)
+- [ ] No culturally insensitive colors
+- [ ] No missing ARIA labels
+- [ ] No hardcoded hex values (all colors via tokens)
+- [ ] No missing keyboard navigation (tab > arrow > escape)
+- [ ] No JS-driven layout during animations
+- [ ] No animation > 600ms
+- [ ] No missing dark mode tokens
+- [ ] No missing container queries
+- [ ] No missing screen-reader tables for data viz
+- [ ] No token drift (zero literal CSS values)
+- [ ] No missing optical sizing on typography
+
+## Cultural Context Rules
+- [ ] If `PRD.md:target_market=MENA`, cultural validation required
+- [ ] Dialect-specific typography enforced
+- [ ] Calendar-aware components if date inputs present
+- [ ] RTL layout tested with mirror snapshot (CI gate)
+
+## Performance Rules
+- [ ] Motion animations have GPU acceleration hints (will-change, transform)
+- [ ] Token bundle size < 15KB gzipped
+- [ ] No main-thread layout thrashing during chart updates
+
+## Thresholds (checked by sdd-gate-validator)
+- `min_anti_pattern_score`: 90
+- `min_a11y_compliance`: 95
+- `min_rtl_parity`: 100
+- `max_token_drift`: 0
+- `min_oklch_usage`: 80
+- `min_tinted_neutrals`: 90
+
+## Soft Gates (warn, do not block)
+- [ ] Design debt score < 20/100
+- [ ] Visual regression diff < 2px
+- [ ] OKLCH usage >= 80% of palette
+- [ ] Tinted neutrals for all backgrounds

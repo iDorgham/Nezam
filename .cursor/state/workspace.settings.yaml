@@ -1,0 +1,8 @@
+pm_methodology: scrumban
+features:
+  analytics_builder: true
+  data_viz_accessible: true
+  rtl_auto_mirror: true
+  design_excellence: true
+  cultural_validation: true
+  impeccable_integration: true

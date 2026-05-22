@@ -868,3 +868,61 @@ registry:
       tier: 4
       swarm: swarm-18
       summary: Specialist in Vite build pipelines and optimization.
+
+# ─── V3 Design Excellence (added 2026-05-22) ───────────────────────────────
+
+swarm-14:
+  theme: design-excellence
+  agents: [design-excellence-lead, cultural-design-validator, token-architect-pro, motion-performance-specialist, a11y-rtl-integration-engineer, design-debt-analyst, visual-regression-automator]
+
+design-excellence-lead:
+  tier: 1
+  swarm: [swarm-2, swarm-14]
+  responsibilities: "Orchestrate end-to-end design quality. Enforce design-excellence-gates.mdc. Maintain design_health.yaml. Approve handoffs to engineering."
+  lazy_trigger: "design|token|a11y|motion|cultural|impeccable|audit|critique|polish|distill|animate|colorize|typeset|arrange"
+
+dashboard-orchestrator:
+  tier: 1
+  swarm: [swarm-2, swarm-8]
+  responsibilities: "Routes dashboard intents, enforces design/analytic gates, promotes to HANDOFF_QUEUE.yaml"
+  lazy_trigger: "dashboard|analytics|chart|kpi|data-viz|motion|rtl-parity"
+
+hybrid-pm-orchestrator:
+  tier: 1
+  swarm: [swarm-pm]
+  responsibilities: "Scrumban workflow, WIP limits, RICE prioritization, blocked task escalation"
+  lazy_trigger: "plan|develop|backlog|sprint|scrumban|rice|wip"
+
+cultural-design-validator:
+  tier: 2
+  swarm: swarm-14
+  domain: design-excellence
+  responsibilities: "MENA cultural norms per dialect. Color semantics, typography, layout, iconography, calendar awareness"
+
+token-architect-pro:
+  tier: 2
+  swarm: swarm-14
+  domain: design-excellence
+  responsibilities: "W3C DTCG token generation, cross-framework sync, drift detection"
+
+a11y-rtl-integration-engineer:
+  tier: 2
+  swarm: swarm-14
+  domain: design-excellence
+  responsibilities: "WCAG 2.2 AA + MENA screen-reader patterns, RTL focus order, Arabic ARIA labels"
+
+motion-performance-specialist:
+  tier: 2
+  swarm: swarm-14
+  domain: design-excellence
+  responsibilities: "Framer Motion/GSAP code, prefers-reduced-motion, GPU hints, perf budgets"
+
+design-debt-analyst:
+  tier: 3
+  swarm: swarm-14
+  responsibilities: "Track token drift, a11y regressions, RTL gaps. Propose /FIX design actions"
+
+visual-regression-automator:
+  tier: 3
+  swarm: swarm-14
+  responsibilities: "CI visual testing, LTR/RTL screenshot diff, fail on >2px diff"

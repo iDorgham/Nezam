@@ -39,3 +39,10 @@ Load additional agents only when:
 - User explicitly names a task requiring a specialist.
 - A handoff packet names the next agent.
 - An escalation path is triggered.
+
+## V3 Lazy-Load Triggers (keep session <8k tokens)
+- `dashboard|analytics|chart|kpi|data-viz|rtl-parity` → load dashboard-orchestrator, swarm-8 agents
+- `design|token|a11y|motion|cultural|impeccable|audit|critique|polish|distill|animate|colorize|typeset|arrange|delight|bolder|quieter|extract|adapt|onboard|harden|optimize|clarify|normalize|overdrive` → load design-excellence-lead, swarm-14 agents
+- `plan|develop|backlog|sprint|scrumban|rice|wip` → load hybrid-pm-orchestrator
+- Swarm 14 (Design Excellence): `design-excellence-lead`, `cultural-design-validator`, `token-architect-pro`, `a11y-rtl-integration-engineer`, `motion-performance-specialist`
+- Defer non-relevant swarms. Use @ references only when invoked.

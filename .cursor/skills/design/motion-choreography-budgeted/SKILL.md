@@ -1,0 +1,28 @@
+---
+tier: 2
+name: motion-choreography-budgeted
+description: Animation choreography with hard perf budgets, GPU hints, reduced-motion fallbacks
+version: 1.0
+updated: 2026-05-22
+changelog: ["2026-05-22: Initial version"]
+---
+
+## Inputs
+- Design or chart specs
+- Target framework (Framer Motion, GSAP, CSS, Canvas)
+- Perf budget (60fps desktop, 30fps mobile)
+
+## Workflow
+1. Define entrance/update/exit transitions per component type
+2. Assign easing curves (cubic-bezier for data, linear for scrubbing)
+3. Apply GPU compositing hints (transform, will-change, contain: layout)
+4. Generate prefers-reduced-motion fallback (instant snap, opacity crossfade)
+5. Output timeline spec: micro <= 300ms, macro <= 600ms
+
+## Validation
+- No JS-driven layout thrashing during transitions
+- All animations respect prefers-reduced-motion
+- Entrance <= 350ms, update <= 200ms, exit <= 150ms
+
+## Example
+Invoked by: `/DESIGN animate`, `/DESIGN motion --budget=60fps`

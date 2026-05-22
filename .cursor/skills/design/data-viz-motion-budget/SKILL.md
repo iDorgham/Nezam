@@ -1,0 +1,28 @@
+---
+tier: 2
+name: data-viz-motion-budget
+description: Animation choreography for charts/dashboards with hard perf budgets
+version: 1.0
+updated: 2026-05-22
+changelog: ["2026-05-22: Initial version"]
+---
+
+## Inputs
+- Chart specs from chart-spec-generator
+- Target framework (Framer Motion, GSAP, CSS, Canvas)
+- Perf budget (60fps desktop, 30fps mobile)
+
+## Workflow
+1. Define entrance/update/exit transitions per chart type
+2. Assign easing curves (cubic-bezier for data, linear for scrubbing)
+3. Apply GPU compositing hints (transform, will-change, contain: layout)
+4. Generate prefers-reduced-motion fallback
+5. Output timeline: entrance <= 350ms, update <= 200ms, exit <= 150ms
+
+## Validation
+- No JS-driven layout thrashing during transitions
+- LCP/CLS impact <= 0.1 during initial chart render
+- All animations respect prefers-reduced-motion
+
+## Example
+Invoked by: `/DESIGN dashboard motion kpi_dashboard`

@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Check for hardcoded design primitives
-        run: bash scripts/checks/check-design-tokens.sh
+        run: bash .nezam/core/scripts/checks/check-design-tokens.sh
 
   design-server-gate:
     name: Gate 4 - Design Server Wireframe Lock

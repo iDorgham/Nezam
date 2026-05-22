@@ -109,11 +109,11 @@ When conflicts appear, follow:
 - `deputy-swarm-leader.md`
 - `design-debt-analyst.md`
 - `design-excellence-lead.md`
+- `design-hub-sitemap.md`
+- `design-hub-specialist.md`
+- `design-hub-tokens.md`
+- `design-hub-wireframe.md`
 - `design-lead.md`
-- `design-server-sitemap.md`
-- `design-server-specialist.md`
-- `design-server-tokens.md`
-- `design-server-wireframe.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -240,7 +240,7 @@ When conflicts appear, follow:
 - `.cursor/rules/dashboard-design-gates.mdc`
 - `.cursor/rules/design-excellence-gates.mdc`
 - `.cursor/rules/design-gates.mdc`
-- `.cursor/rules/design-server-gates.mdc`
+- `.cursor/rules/design-hub-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`
 - `.cursor/rules/plan-phase-scaffold.mdc`

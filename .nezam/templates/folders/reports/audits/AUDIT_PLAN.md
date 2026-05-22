@@ -2,7 +2,7 @@
 
 > **Auditor**: Antigravity (Strategic Architect & Swarm Director)  
 > **Status**: APPROVED for Execution  
-> **Scope**: Monorepo Architecture & `.nezam/design-server/` Base  
+> **Scope**: Monorepo Architecture & `.nezam/design-hub/` Base  
 > **Target Environment**: Egyptian & Global Web Ecosystem  
 
 ---
@@ -57,9 +57,9 @@ graph TD
 
 ## Dimension 2: Design Server Codebase & Design Token Audit
 
-### 2.1 Design Server Token Completeness
+### 2.1 Design Hub Token Completeness
 - **Objective**: Verify that the design token system is robust enough to prevent code generation drift.
-- **Auditing Locations**: `.nezam/design-server/lib/store/tokens.store.ts` and `DESIGN.md`.
+- **Auditing Locations**: `.nezam/design-hub/lib/store/tokens.store.ts` and `DESIGN.md`.
 - **Checkpoint Criteria**:
   - The token store interface must not be anemic. It should govern:
     - **Colors**: Core brand palette plus a semantic layer (interactive, success, info, warning, destructive).
@@ -69,8 +69,8 @@ graph TD
     - **Motion**: Durations and easing functions (spring, bezier) that fall back to `0ms` when `prefers-reduced-motion` is active.
 
 ### 2.2 Purging of Hardcoded Primitives (Gate 1 Compliance)
-- **Objective**: Eliminate raw styling strings inside Design Server component UI.
-- **Auditing Locations**: `.nezam/design-server/components/` and `.nezam/design-server/app/`.
+- **Objective**: Eliminate raw styling strings inside Design Hub component UI.
+- **Auditing Locations**: `.nezam/design-hub/components/` and `.nezam/design-hub/app/`.
 - **Checkpoint Criteria**:
   - Zero raw hex values (e.g., `#FF5701`, `#8a8f98`) in TSX/JSX classes.
   - Zero hardcoded margins and paddings using directional keywords (`ml-4`, `pr-2`); must map to Tailwind token variables (`margin-inline-start`, `padding-block`).
@@ -141,7 +141,7 @@ To conduct this audit systematically, the following tasks are scheduled:
 [ ] Phase A: Pre-requisites & Local Builds
   [ ] Run onboarding readiness check: pnpm run check:onboarding
   [ ] Run full monorepo sanity checks: pnpm run check:all
-  [ ] Verify Design Server dependencies build: pnpm design-server:install
+  [ ] Verify Design Hub dependencies build: pnpm design-hub:install
 
 [ ] Phase B: Core Codebase Inspection
   [ ] Scan Design Server codebase for hardcoded CSS primitives and hex arrays

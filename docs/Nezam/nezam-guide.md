@@ -29,7 +29,7 @@
 | **Templates** | Scaffolding for plans, specs, SDD, swarm handoffs, AI client root files | `.nezam/templates/` |
 | **Scripts** | Sync, drift checks, hooks, design profile copy, continual learning, audits | `.nezam/core/scripts/` |
 | **Workspace docs** | NEZAM’s own wiki, memory, PRD for the kit | `.nezam/core/` (see `.nezam/core/README.md`) |
-| **User project** | PRD, plans, reports for whatever product uses NEZAM | Default: `.nezam/core/prd/`, `docs/plans/`, `docs/reports/` (see `.nezam/core/gates/workspace.paths.yaml`) |
+| **User project** | PRD, plans, reports for whatever product uses NEZAM | Default: `.nezam/core/prd/`, `.nezam/core/plans/`, `.nezam/core/reports/` (see `.nezam/core/gates/workspace.paths.yaml`) |
 
 The npm package name in `package.json` is `nezam-workspace-kit`—this repo is the **kit**, not necessarily your shipping product.
 
@@ -79,8 +79,8 @@ flowchart TB
 
   subgraph ProjectDocs[User project artifacts]
     PRD[.nezam/core/prd/PRD.md]
-    PLN[docs/plans/]
-    REP[docs/reports/]
+    PLN[.nezam/core/plans/]
+    REP[.nezam/core/reports/]
     DM[DESIGN.md root]
   end
 
@@ -493,7 +493,7 @@ Commands are **Markdown instructions**, not compiled code. Cursor binds them to 
 
 ### Antigravity Interop (Interim)
 
-Antigravity currently does **not** natively discover workspace-local `.antigravity/commands/*.md` files in its `/` slash command palette. To bridge this gap, a global dispatcher skill (`~/.gemini/antigravity/skills/nezam-commands/SKILL.md`) is used. When a user types a command like `/plan`, this global skill activates and dynamically loads the workspace-local `.antigravity/commands/plan.md` file at runtime. A formal feature request (`docs/reports/audits/antigravity-workspace-commands-feature-request.md`) has been filed to bring native workspace-scoped command discovery to Antigravity.
+Antigravity currently does **not** natively discover workspace-local `.antigravity/commands/*.md` files in its `/` slash command palette. To bridge this gap, a global dispatcher skill (`~/.gemini/antigravity/skills/nezam-commands/SKILL.md`) is used. When a user types a command like `/plan`, this global skill activates and dynamically loads the workspace-local `.antigravity/commands/plan.md` file at runtime. A formal feature request (`.nezam/core/reports/audits/antigravity-workspace-commands-feature-request.md`) has been filed to bring native workspace-scoped command discovery to Antigravity.
 
 ### Command vs Skill vs Agent
 
@@ -507,7 +507,7 @@ Antigravity currently does **not** natively discover workspace-local `.antigravi
 ### Examples
 
 - `/start` → updates `onboarding.yaml`, directs to PRD + `DESIGN.md` profile selection.
-- `/plan arch` → should write `docs/plans/04-arch/ARCHITECTURE.md` and flip booleans in `plan_progress.yaml` when complete.
+- `/plan arch` → should write `.nezam/core/plans/04-arch/ARCHITECTURE.md` and flip booleans in `plan_progress.yaml` when complete.
 - `/nezam sync` → instructs `pnpm ai:sync` + `pnpm ai:check`.
 
 ---
@@ -696,7 +696,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 
 ## Best Practices for Grok (and Other AIs)
 
-1. **Treat `.cursor/` as law** for behavior; treat `.nezam/core/` as NEZAM self-docs; treat `.nezam/core/prd` + `docs/plans` as the user’s product unless told otherwise.
+1. **Treat `.cursor/` as law** for behavior; treat `.nezam/core/` as NEZAM self-docs; treat `.nezam/core/prd` + `.nezam/core/plans` as the user’s product unless told otherwise.
 2. **Before proposing architecture changes**, read `multi-tool-sync.mdc`—editing `.claude/` alone will be overwritten.
 3. **When debugging “gates wrong”**, read the three YAML state files and compare to `sdd-gate-validator/SKILL.md`.
 4. **Prefer `@` path references** over pasting large bodies.
@@ -715,7 +715,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 | **Swarm** | Virtual team grouping domains (13 swarms) |
 | **PM-01** | Code name for `swarm-leader` |
 | **Skill** | `.cursor/skills/.../SKILL.md` procedure |
-| **Gate matrix** | `docs/plans/gates/GITHUB_GATE_MATRIX.json` (when present) |
+| **Gate matrix** | `.nezam/core/gates/GITHUB_GATE_MATRIX.json` |
 | **`pnpm ai:sync`** | Regenerate mirrored AI tool folders from `.cursor/` |
 | **`pnpm ai:check`** | Drift + integrity checks |
 | **MENA** | Middle East & North Africa market/localization context |

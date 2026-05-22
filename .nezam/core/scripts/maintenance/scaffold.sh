@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# scaffold.sh — Idempotent project scaffold for Nezam Design Server
+# scaffold.sh — Idempotent project scaffold for Nezam Design Hub
 # Run from NEZAM workspace root: bash .nezam/scripts/maintenance/scaffold.sh
 # Safe to re-run: uses mkdir -p and touch (no overwrites)
 
 set -e
 
-DS=".nezam/design-server"
+DS=".nezam/design-hub"
 
-echo "🏗  Scaffolding Nezam Design Server..."
+echo "🏗  Scaffolding Nezam Design Hub..."
 
 # ── App Router ──────────────────────────────────────────────────────────────
 mkdir -p "$DS/app/settings"

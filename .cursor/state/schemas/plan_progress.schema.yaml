@@ -53,7 +53,7 @@ fields:
     required: true
     artifacts:
       - "docs/plan/scaffold/PROJECT_SCAFFOLD.md"
-      - "scripts/scaffold.sh"
+      - ".nezam/core/scripts/maintenance/scaffold.sh"
     description: "Project scaffold plan and script complete"
 
   planning_complete:

@@ -3,8 +3,15 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
+const { getWorkspacePaths } = require("../utils/workspace-paths.js");
 
 const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
+const planFolder = wsConfig.paths.plan_folder || ".nezam/core/plans";
+const planFolderAbs = path.resolve(repoRoot, planFolder);
+const plansIndexFile = wsConfig.hardlocks.plans_index || ".nezam/core/plans/INDEX.md";
+const plansIndexAbs = path.resolve(repoRoot, plansIndexFile);
+
 const failures = [];
 
 function readUtf8(filePath) {
@@ -22,12 +29,13 @@ function walkFiles(dirPath, acc = []) {
   return acc;
 }
 
+
 function checkLegacyPathRefs() {
   const canonicalRoots = [
-    path.join(repoRoot, ".cursor", "commands"),
-    path.join(repoRoot, ".cursor", "agents"),
-    path.join(repoRoot, ".cursor", "skills"),
-    path.join(repoRoot, ".cursor", "rules"),
+    path.resolve(repoRoot, wsConfig.paths.commands_folder || ".cursor/commands"),
+    path.resolve(repoRoot, wsConfig.paths.agents_folder || ".cursor/agents"),
+    path.resolve(repoRoot, wsConfig.paths.skills_folder || ".cursor/skills"),
+    path.resolve(repoRoot, wsConfig.paths.rules_folder || ".cursor/rules"),
   ];
   // No /g flag — global RegExp.test mutates lastIndex and can miss matches across files.
   // Block deprecated doc roots inside canonical `.cursor/` prose only.
@@ -49,35 +57,16 @@ function checkLegacyPathRefs() {
 }
 
 function checkHandoffPacketFields() {
+  const skillsRoot = wsConfig.paths.skills_folder || ".cursor/skills";
   const candidatePaths = [
-    path.join(
-      repoRoot,
-      ".cursor",
-      "skills",
-      "system",
-      "multi-agent-handoff",
-      "SKILL.md"
-    ),
-    path.join(
-      repoRoot,
-      ".cursor",
-      "skills",
-      "nezam-multi-agent-handoff",
-      "SKILL.md"
-    ),
-    path.join(
-      repoRoot,
-      ".cursor",
-      "skills",
-      "system",
-      "nezam-multi-agent-handoff",
-      "SKILL.md"
-    ),
+    path.join(repoRoot, skillsRoot, "system", "multi-agent-handoff", "SKILL.md"),
+    path.join(repoRoot, skillsRoot, "nezam-multi-agent-handoff", "SKILL.md"),
+    path.join(repoRoot, skillsRoot, "system", "nezam-multi-agent-handoff", "SKILL.md"),
   ];
   const skillPath = candidatePaths.find((p) => fs.existsSync(p));
   if (!skillPath) {
     failures.push(
-      "Missing handoff skill file (expected .cursor/skills/system/multi-agent-handoff/SKILL.md or legacy .cursor/skills/nezam-multi-agent-handoff/SKILL.md)"
+      `Missing handoff skill file (expected ${skillsRoot}/system/multi-agent-handoff/SKILL.md)`
     );
     return;
   }
@@ -104,9 +93,8 @@ function checkHandoffPacketFields() {
 function resolvePlansSubphaseDir(specPath) {
   // Support all known plans root locations (nezam governance + legacy paths).
   const prefixMap = [
-    { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
-    { prefix: ".nezam/core/archive/workspace/plans/", base: path.join(repoRoot, ".nezam", "core", "archive", "workspace", "plans") },
-    { prefix: "docs/plans/",           base: path.join(repoRoot, "docs", "plans") },
+    { prefix: planFolder.endsWith("/") ? planFolder : planFolder + "/", base: planFolderAbs },
+    { prefix: ".nezam/core/plans/", base: planFolderAbs },
   ];
   for (const { prefix, base } of prefixMap) {
     if (specPath.startsWith(prefix)) {
@@ -115,6 +103,13 @@ function resolvePlansSubphaseDir(specPath) {
       if (parts.length >= 2) {
         return path.join(base, parts[0], parts[1]);
       }
+    }
+  }
+  // Also support relative path resolution (e.g. 02-design/01-tokens/SPEC.md)
+  if (!specPath.startsWith("/") && !specPath.startsWith(".")) {
+    const parts = specPath.split("/").filter(Boolean);
+    if (parts.length >= 2) {
+      return path.join(planFolderAbs, parts[0], parts[1]);
     }
   }
   return null;
@@ -128,10 +123,14 @@ function parseActiveSubphaseDirsFromIndex(indexPath) {
     const cols = line.split("|").map((c) => c.trim());
     if (cols.length < 6) continue;
     const specCol = cols[3];
-    const statusCol = cols[4] ? cols[4].toLowerCase() : "";
-    if (!specCol.includes("`docs/") || !specCol.includes("/plans/")) continue;
-    if (statusCol === "not started" || statusCol === "status") continue;
-    const specPath = specCol.replaceAll("`", "");
+    const statusCol = cols[5] ? cols[5].toLowerCase() : "";
+    if (statusCol === "not started" || statusCol === "status" || statusCol === "pending" || statusCol === "⚪️ pending") continue;
+    
+    let specPath = specCol.replaceAll("`", "");
+    const match = specPath.match(/\[.*?\]\((.*?)\)/);
+    if (match) {
+      specPath = match[1];
+    }
     const dir = resolvePlansSubphaseDir(specPath);
     if (dir) dirs.add(dir);
   }
@@ -139,14 +138,11 @@ function parseActiveSubphaseDirsFromIndex(indexPath) {
 }
 
 function checkActiveSubphaseArtifacts() {
-  const indexCandidates = [
-    path.join(repoRoot, "docs", "plans", "INDEX.md"),
-    path.join(repoRoot, ".nezam", "core", "archive", "workspace", "plans", "INDEX.md"),
-  ];
-  const indexPath = indexCandidates.find((p) => fs.existsSync(p));
-  if (!indexPath) {
+  const indexPath = plansIndexAbs;
+  if (!fs.existsSync(indexPath)) {
     // Check if planning is not completed yet per onboarding state
-    const onboardingPath = path.join(repoRoot, ".cursor", "state", "onboarding.yaml");
+    const onboardingFile = wsConfig.hardlocks.onboarding || ".cursor/state/onboarding.yaml";
+    const onboardingPath = path.resolve(repoRoot, onboardingFile);
     let planningComplete = false;
     if (fs.existsSync(onboardingPath)) {
       const content = fs.readFileSync(onboardingPath, "utf8");
@@ -156,12 +152,12 @@ function checkActiveSubphaseArtifacts() {
     }
     
     if (!planningComplete) {
-      console.warn("⚠️ [integrity] Dynamic plans index (docs/plans/INDEX.md) does not exist yet (planning not complete). Skipping subphase check.");
+      console.warn(`⚠️ [integrity] Dynamic plans index (${plansIndexFile}) does not exist yet (planning not complete). Skipping subphase check.`);
       return;
     }
 
     failures.push(
-      "Missing plan index (expected docs/plans/INDEX.md)"
+      `Missing plan index (expected ${plansIndexFile})`
     );
     return;
   }
@@ -176,6 +172,7 @@ function checkActiveSubphaseArtifacts() {
     }
   }
 }
+
 
 checkLegacyPathRefs();
 checkHandoffPacketFields();

@@ -83,11 +83,11 @@ At this stage, your product plan should be clear and actionable.
 Before `/DEVELOP`:
 
 - Architecture doc exists:
-  - `docs/03_architecture/ARCHITECTURE.md` (preferred), or
+  - `.nezam/core/architecture/ARCHITECTURE.md` (preferred), or
   - `.nezam/core/architecture/ARCHITECTURE.md` (legacy)
 - Design doc exists:
   - `DESIGN.md` (preferred), or
-  - `docs/DESIGN.md` (legacy)
+  - `.nezam/core/DESIGN.md` (legacy)
 
 When you run `/DEVELOP start` with a design profile:
 

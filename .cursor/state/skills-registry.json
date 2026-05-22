@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T06:51:48.657Z",
+  "generated": "2026-05-22T15:00:45.197Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -513,6 +513,13 @@
       "orphaned": true
     },
     {
+      "path": "../../../.cursor/skills/design/nezam-design-hub/SKILL.md",
+      "id": "\"nezam-design-hub\"",
+      "version": "1.0.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
       "path": "../../../.cursor/skills/design/nezam-design-iteration-protocol/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-iteration-protocol\"",
       "version": "1.0.0",
@@ -529,13 +536,6 @@
     {
       "path": "../../../.cursor/skills/design/nezam-design-selector/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-design-selector\"",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/nezam-design-server/SKILL.md",
-      "id": "\"nezam-\"nezam- nezam-design-server\"",
       "version": "1.0.0",
       "referenced_by": [],
       "orphaned": true
@@ -1308,10 +1308,10 @@
     "\"nezam-\"nezam-\"nezam-css-architecture-runtime\"",
     "\"nezam-\"nezam- nezam-dashboard-patterns\"",
     "\"nezam-\"nezam-\"nezam-design-context-init\"",
+    "\"nezam-design-hub\"",
     "\"nezam-\"nezam-\"nezam-design-iteration-protocol\"",
     "\"nezam-\"nezam-\"nezam-design-md\"",
     "\"nezam-\"nezam-\"nezam-design-selector\"",
-    "\"nezam-\"nezam- nezam-design-server\"",
     "\"nezam-\"nezam-\"nezam-design-to-code-handoff\"",
     "\"nezam-\"nezam-\"nezam-design-token-architecture\"",
     "\"nezam-\"nezam-\"nezam-interaction-choreography\"",

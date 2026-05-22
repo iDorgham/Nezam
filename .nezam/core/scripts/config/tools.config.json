@@ -20,7 +20,7 @@
       "id": "claude",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "CLAUDE.md", "template": ".nezam/core/templates/ai-client/CLAUDE.md.template.md" },
+        { "kind": "memory-inject", "path": "CLAUDE.md", "template": ".nezam/templates/ai-client/CLAUDE.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands", "path": ".claude/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents", "path": ".claude/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills", "path": ".claude/skills" },
@@ -31,8 +31,8 @@
       "id": "codex",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "AGENTS.md",         "template": ".nezam/core/templates/ai-client/AGENTS.md.template.md" },
-        { "kind": "memory-inject", "path": ".codex/AGENTS.md",  "template": ".nezam/core/templates/ai-client/AGENTS.md.template.md" },
+        { "kind": "memory-inject", "path": "AGENTS.md",         "template": ".nezam/templates/ai-client/AGENTS.md.template.md" },
+        { "kind": "memory-inject", "path": ".codex/AGENTS.md",  "template": ".nezam/templates/ai-client/AGENTS.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands", "path": ".codex/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",   "path": ".codex/agents" },
         { "kind": "rules-copy",    "source": ".cursor/rules",    "path": ".codex/rules" }
@@ -42,14 +42,14 @@
       "id": "copilot",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "AGENTS.md", "template": ".nezam/core/templates/ai-client/AGENTS.md.template.md" }
+        { "kind": "memory-inject", "path": "AGENTS.md", "template": ".nezam/templates/ai-client/AGENTS.md.template.md" }
       ]
     },
     {
       "id": "opencode",
       "tier": 1,
       "targets": [
-        { "kind": "memory-inject", "path": "AGENTS.md",          "template": ".nezam/core/templates/ai-client/AGENTS.md.template.md" },
+        { "kind": "memory-inject", "path": "AGENTS.md",          "template": ".nezam/templates/ai-client/AGENTS.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands",  "path": ".opencode/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",    "path": ".opencode/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills",    "path": ".opencode/skills" },
@@ -70,7 +70,7 @@
       "id": "gemini",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "GEMINI.md", "template": ".nezam/core/templates/ai-client/GEMINI.md.template.md" },
+        { "kind": "memory-inject", "path": "GEMINI.md", "template": ".nezam/templates/ai-client/GEMINI.md.template.md" },
         { "kind": "toml-commands", "source": ".cursor/commands", "path": ".gemini/commands" }
       ]
     },
@@ -78,7 +78,7 @@
       "id": "qwen",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "QWEN.md", "template": ".nezam/core/templates/ai-client/QWEN.md.template.md" },
+        { "kind": "memory-inject", "path": "QWEN.md", "template": ".nezam/templates/ai-client/QWEN.md.template.md" },
         { "kind": "toml-commands", "source": ".cursor/commands", "path": ".qwen/commands" }
       ]
     },
@@ -93,7 +93,7 @@
       "id": "windsurf",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "WINDSURF.md",              "template": ".nezam/core/templates/ai-client/WINDSURF.md.template.md" },
+        { "kind": "memory-inject", "path": "WINDSURF.md",              "template": ".nezam/templates/ai-client/WINDSURF.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands",        "path": ".windsurf/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",          "path": ".windsurf/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills",          "path": ".windsurf/skills" },
@@ -104,7 +104,7 @@
       "id": "vscode",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "VSCODE.md",                "template": ".nezam/core/templates/ai-client/VSCODE.md.template.md" },
+        { "kind": "memory-inject", "path": "VSCODE.md",                "template": ".nezam/templates/ai-client/VSCODE.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands",        "path": ".vscode/nezam/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",          "path": ".vscode/nezam/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills",          "path": ".vscode/nezam/skills" },
@@ -115,7 +115,7 @@
       "id": "kiro",
       "tier": 2,
       "targets": [
-        { "kind": "memory-inject", "path": "KIRO.md",                    "template": ".nezam/core/templates/ai-client/KIRO.md.template.md" },
+        { "kind": "memory-inject", "path": "KIRO.md",                    "template": ".nezam/templates/ai-client/KIRO.md.template.md" },
         { "kind": "markdown-copy", "source": ".cursor/commands",          "path": ".kiro/steering/commands" },
         { "kind": "markdown-copy", "source": ".cursor/agents",            "path": ".kiro/steering/agents" },
         { "kind": "markdown-copy", "source": ".cursor/skills",            "path": ".kiro/steering/skills" },

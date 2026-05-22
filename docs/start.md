@@ -18,15 +18,15 @@ NEZAM requires a design contract at the repository root. Once your PRD is define
 - Run `pnpm run design:apply -- <brand>` to apply a brand design from `.nezam/design/<brand>/design.md` to the root `DESIGN.md`.
 
 ### 4. Scaffold Folders
-Copy the required folder templates (`plan/` and `reports/`) from `.nezam/templates/folders` to your `docs/` directory.
+Copy the required folder templates (`plans/` and `reports/`) from `.nezam/templates/folders` to your `.nezam/core/` directory.
 
 ### 5. Specialize PRD & Create Project Prompt
-The AI agent will rewrite your `PRD.md` to align with NEZAM's structured format and create `PROJECT_PROMPT.md` in `docs/plan/00-define/01-product/`.
+The AI agent will rewrite your `PRD.md` to align with NEZAM's structured format and create `PROJECT_PROMPT.md` in `.nezam/core/plans/00-define/01-product/`.
 
 ### 6. Generate the Execution Plan
-Once your specifications are ready, run the `/plan` command. This will scaffold your execution roadmap under `docs/plan/`:
+Once your specifications are ready, run the `/plan` command. This will scaffold your execution roadmap under `.nezam/core/plans/`:
 - It creates folders for all 7 phases (00-Define to 06-Ship).
-- Generates `INDEX.md` and `MASTER_TASKS.md` in the root of `docs/plan/`.
+- Generates `INDEX.md` and `MASTER_TASKS.md` in the root of `.nezam/core/plans/`.
 
 ### 7. Cleanup
 Finally, the `docs/start.md` file and `docs/start/` directory will be deleted as they are no longer needed.

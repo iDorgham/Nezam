@@ -8,7 +8,12 @@ try {
   process.exit(0);
 }
 
-const filePath = path.resolve(__dirname, '../../../../.cursor/state/agent-bus.yaml');
+const { getWorkspacePaths } = require('../utils/workspace-paths.js');
+
+const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
+const agentBusFile = wsConfig.hardlocks.agent_bus || '.cursor/state/agent-bus.yaml';
+const filePath = path.resolve(repoRoot, agentBusFile);
 
 if (!fs.existsSync(filePath)) {
   console.error(`[agent-bus] ERROR: File not found: ${filePath}`);

@@ -29,7 +29,7 @@ Initializes the workspace for a session. Loads context, checks prerequisites, an
 **What it does:**
 1. Reads `.nezam/memory/CONTEXT.md` and `.nezam/memory/MEMORY.md`
 2. Checks `.nezam/core/prd/PRD.md` exists
-3. Identifies the current SDD phase from `docs/plans/INDEX.md`
+3. Identifies the current SDD phase from `.nezam/core/plans/INDEX.md`
 4. Loads the relevant agents for that phase
 5. Reports current workspace health
 
@@ -43,10 +43,10 @@ Builds or updates the phase execution plan.
 
 **What it does:**
 1. Reviews PRD requirements
-2. Creates or updates `docs/plans/` task files
+2. Creates or updates `.nezam/core/plans/` task files
 3. Maps requirements to PT-IDs
 4. Sets gate prerequisites
-5. Updates `docs/plans/INDEX.md`
+5. Updates `.nezam/core/plans/INDEX.md`
 
 ---
 

@@ -1,11 +1,11 @@
 import path from 'path'
 
 // Get the actual project root (where the user runs the command from)
-// process.cwd() will be the project root when running `cd .nezam/design-server && pnpm dev` from the root package.json
-// Wait, if the command is `cd .nezam/design-server && pnpm dev`, process.cwd() is inside `.nezam/design-server`.
+// process.cwd() will be the project root when running `cd .nezam/design-hub && pnpm dev` from the root package.json
+// Wait, if the command is `cd .nezam/design-hub && pnpm dev`, process.cwd() is inside `.nezam/design-hub`.
 // Let's look at the instruction:
 // "All .nezam/ paths resolved relative to process.cwd() (the repo root), NOT relative to the app's own directory."
-// Wait, if the root package.json runs `cd .nezam/design-server && pnpm dev`, then inside Next.js, process.cwd() will be `/Users/.../.nezam/design-server`.
+// Wait, if the root package.json runs `cd .nezam/design-hub && pnpm dev`, then inside Next.js, process.cwd() will be `/Users/.../.nezam/design-hub`.
 // Let's resolve to `../../` from process.cwd() to get the true repo root.
 // Or we can use `path.join(process.cwd(), '../..')`.
 

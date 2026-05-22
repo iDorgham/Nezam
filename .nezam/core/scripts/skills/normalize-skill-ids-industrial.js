@@ -1,7 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const skillsRoot = path.join(__dirname, '..', '..', '..', '..', '.cursor', 'skills');
+const { getWorkspacePaths } = require('../utils/workspace-paths.js');
+
+const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
+
+const skillsFolder = wsConfig.paths.skills_folder || '.cursor/skills';
+const skillsRoot = path.resolve(repoRoot, skillsFolder);
 
 function walk(dir) {
     const files = fs.readdirSync(dir);

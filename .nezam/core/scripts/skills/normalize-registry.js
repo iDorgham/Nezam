@@ -1,10 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_PATH = '/Users/Dorgham/Documents/Work/Devleopment/NEZAM';
-const AGENT_REGISTRY_PATH = path.join(BASE_PATH, '.cursor/state/AGENT_REGISTRY.yaml');
-const AGENTS_DIR = path.join(BASE_PATH, '.cursor/agents');
-const SKILLS_DIR = path.join(BASE_PATH, '.cursor/skills');
+const { getWorkspacePaths } = require('../utils/workspace-paths.js');
+
+const BASE_PATH = process.cwd();
+const wsConfig = getWorkspacePaths(BASE_PATH);
+
+const AGENT_REGISTRY_PATH = path.resolve(BASE_PATH, wsConfig.hardlocks.agent_registry || '.cursor/state/AGENT_REGISTRY.yaml');
+const AGENTS_DIR = path.resolve(BASE_PATH, wsConfig.paths.agents_folder || '.cursor/agents');
+const SKILLS_DIR = path.resolve(BASE_PATH, wsConfig.paths.skills_folder || '.cursor/skills');
 
 const TIER_MAP = {
   'executive': 1,

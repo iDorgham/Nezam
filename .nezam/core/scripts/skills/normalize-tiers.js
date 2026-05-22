@@ -1,7 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const registryPath = path.join(__dirname, '..', '..', '..', '..', '.cursor', 'state', 'AGENT_REGISTRY.yaml');
+const { getWorkspacePaths } = require('../utils/workspace-paths.js');
+
+const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
+
+const registryFile = wsConfig.hardlocks.agent_registry || '.cursor/state/AGENT_REGISTRY.yaml';
+const registryPath = path.resolve(repoRoot, registryFile);
 
 try {
     let content = fs.readFileSync(registryPath, 'utf8');

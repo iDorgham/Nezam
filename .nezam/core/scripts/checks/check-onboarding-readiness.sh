@@ -5,64 +5,31 @@
 # Portable: uses only grep/find/python3 (no ripgrep) so ubuntu-latest runners pass without extra packages.
 set -euo pipefail
 
-hardlock_paths_file=".nezam/core/gates/hardlock-paths.json"
+workspace_paths_file=".nezam/workspace.paths.yaml"
 
-read_json_string() {
+read_yaml_value() {
   local file="$1"
   local key="$2"
-  python3 - <<'PY' "$file" "$key"
-import json,sys
-path=sys.argv[1]
-key=sys.argv[2]
-obj=json.load(open(path,'r',encoding='utf-8'))
-cur=obj
-for part in key.split('.'):
-  if part not in cur:
-    raise SystemExit(2)
-  cur=cur[part]
-if not isinstance(cur,str):
-  raise SystemExit(3)
-print(cur)
-PY
+  grep -E "^[[:space:]]*${key}:" "$file" | head -n 1 | cut -d':' -f2- | cut -d'#' -f1 | tr -d ' "' | tr -d "'"
 }
 
-read_json_array() {
-  local file="$1"
-  local key="$2"
-  python3 - <<'PY' "$file" "$key"
-import json,sys
-path=sys.argv[1]
-key=sys.argv[2]
-obj=json.load(open(path,'r',encoding='utf-8'))
-cur=obj
-for part in key.split('.'):
-  cur=cur[part]
-if not isinstance(cur,list):
-  raise SystemExit(3)
-for x in cur:
-  if isinstance(x,str):
-    print(x)
-PY
-}
-
-if [[ ! -f "$hardlock_paths_file" ]]; then
-  echo "Missing hardlock path registry: $hardlock_paths_file"
-  echo "Create it first to configure required paths."
+if [[ ! -f "$workspace_paths_file" ]]; then
+  echo "Missing NEZAM Workspace Paths Configuration: $workspace_paths_file"
   exit 1
 fi
 
-prd_path="$(read_json_string "$hardlock_paths_file" "intake.prd" || true)"
-prompt_path="$(read_json_string "$hardlock_paths_file" "intake.projectPrompt" || true)"
-gate_manifest_path="$(read_json_string "$hardlock_paths_file" "planning.gateManifest" || true)"
-changelog_path="$(read_json_string "$hardlock_paths_file" "planning.changelog" || true)"
-versioning_path="$(read_json_string "$hardlock_paths_file" "planning.versioning" || true)"
-plans_root="$(read_json_string "$hardlock_paths_file" "subphasePrompts.plansRoot" || true)"
-task_glob="$(read_json_string "$hardlock_paths_file" "subphasePrompts.taskFileGlob" || true)"
+prd_path="$(read_yaml_value "$workspace_paths_file" "prd" || true)"
+prompt_path="$(read_yaml_value "$workspace_paths_file" "project_prompt" || true)"
+gate_manifest_path="$(read_yaml_value "$workspace_paths_file" "gate_matrix" || true)"
+changelog_path="$(read_yaml_value "$workspace_paths_file" "changelog" || true)"
+versioning_path="$(read_yaml_value "$workspace_paths_file" "versioning" || true)"
+plans_root="$(read_yaml_value "$workspace_paths_file" "plan_folder" || true)"
 
-if [[ -z "$prd_path" || -z "$prompt_path" || -z "$gate_manifest_path" || -z "$changelog_path" || -z "$versioning_path" || -z "$plans_root" || -z "$task_glob" ]]; then
-  echo "Invalid hardlock path registry: missing required keys."
+if [[ -z "$prd_path" || -z "$prompt_path" || -z "$gate_manifest_path" || -z "$changelog_path" || -z "$versioning_path" || -z "$plans_root" ]]; then
+  echo "Invalid NEZAM Workspace Paths Configuration: missing required keys."
   exit 1
 fi
+
 
 missing=0
 changelog_missing=0

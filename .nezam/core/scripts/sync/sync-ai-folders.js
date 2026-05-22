@@ -3,9 +3,27 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
+const { getWorkspacePaths } = require("../utils/workspace-paths.js");
 
 const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
 const configPath = path.join(repoRoot, ".nezam/core/scripts", "config/tools.config.json");
+
+function getDynamicSource(source) {
+  if (source.startsWith(".cursor/commands") || source === ".cursor/commands") {
+    return wsConfig.paths.commands_folder || ".cursor/commands";
+  }
+  if (source.startsWith(".cursor/agents") || source === ".cursor/agents") {
+    return wsConfig.paths.agents_folder || ".cursor/agents";
+  }
+  if (source.startsWith(".cursor/skills") || source === ".cursor/skills") {
+    return wsConfig.paths.skills_folder || ".cursor/skills";
+  }
+  if (source.startsWith(".cursor/rules") || source === ".cursor/rules") {
+    return wsConfig.paths.rules_folder || ".cursor/rules";
+  }
+  return source;
+}
 
 function printHelp() {
   console.log(`core/scripts/sync/sync-ai-folders.js — copy NEZAM .cursor/ governance into generated client trees (per .nezam/core/scripts/config/tools.config.json).
@@ -127,20 +145,26 @@ function rewriteLinks(markdown, targetRoot) {
 
 function buildMemoryContent(templatePath) {
   const template = readUtf8(path.join(repoRoot, templatePath)).trim();
-  const commandFiles = walkFiles(path.join(repoRoot, ".cursor", "commands"))
+  
+  const commandsFolder = wsConfig.paths.commands_folder || ".cursor/commands";
+  const agentsFolder = wsConfig.paths.agents_folder || ".cursor/agents";
+  const skillsFolder = wsConfig.paths.skills_folder || ".cursor/skills";
+  const rulesFolder = wsConfig.paths.rules_folder || ".cursor/rules";
+
+  const commandFiles = walkFiles(path.join(repoRoot, commandsFolder))
     .filter((f) => f.endsWith(".md"))
     .map((f) => path.basename(f))
     .sort();
-  const agentFiles = walkFiles(path.join(repoRoot, ".cursor", "agents"))
+  const agentFiles = walkFiles(path.join(repoRoot, agentsFolder))
     .filter((f) => f.endsWith(".md"))
     .map((f) => path.basename(f))
     .sort();
   const skillDirs = fs
-    .readdirSync(path.join(repoRoot, ".cursor", "skills"), { withFileTypes: true })
+    .readdirSync(path.join(repoRoot, skillsFolder), { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
     .sort();
-  const ruleFiles = walkFiles(path.join(repoRoot, ".cursor", "rules"))
+  const ruleFiles = walkFiles(path.join(repoRoot, rulesFolder))
     .filter((f) => f.endsWith(".mdc"))
     .sort((a, b) => a.localeCompare(b))
     .map((f) => relativeFromRepo(f));
@@ -178,7 +202,8 @@ function computeOutputsForTool(tool) {
       continue;
     }
 
-    const sourceAbs = path.join(repoRoot, target.source);
+    const resolvedSource = getDynamicSource(target.source);
+    const sourceAbs = path.join(repoRoot, resolvedSource);
     const sourceFiles = walkFiles(sourceAbs);
     for (const src of sourceFiles) {
       const rel = path.relative(sourceAbs, src);

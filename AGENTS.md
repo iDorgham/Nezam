@@ -35,7 +35,7 @@ Do not proceed to development unless all exist:
 - `docs/start/PROJECT_PROMPT.md`
 - **`DESIGN.md` at repository root** for UI scopes (from chosen `.nezam/design-hub/design/<brand>/design.md`)
 - `.nezam/core/gates/GITHUB_GATE_MATRIX.json`
-- `docs/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
+- `.nezam/core/plans/<phase>/<subphase>/{prompt.json,PROMPT.md}`
 
 ## Learned User Preferences
 
@@ -44,18 +44,18 @@ Do not proceed to development unless all exist:
 - For high-impact AI releases, default mandatory approvers to CTO or engineering head, legal or compliance, responsible AI or ethics lead, and security or privacy lead unless the user supplies a different sign-off map.
 - When changing agents, commands, rules, or skills, edit `.cursor/` as canonical and run `pnpm ai:sync`; avoid hand-editing generated mirrors for those assets.
 - When expanding swarm-style orchestration in this repo, align leadership with PM-01, ARCH-01, DESIGN-01, FE-01, and BE-01 as the primary authorities over specialist agents.
-- Add or revise learned memory only in `.nezam/core/templates/ai-client/AGENTS.md.template.md`, then run `pnpm ai:sync` so root `AGENTS.md` and `.codex/AGENTS.md` regenerate correctly.
-- **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `.nezam/core/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
+- Add or revise learned memory only in `.nezam/templates/ai-client/AGENTS.md.template.md`, then run `pnpm ai:sync` so root `AGENTS.md` and `.codex/AGENTS.md` regenerate correctly.
+- **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `.nezam/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
 - For NEZAM README work, keep README body copy in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections (for example Mermaid) rather than Arabic wording inside README narrative text.
 - Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
-- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `.nezam/core/templates/ai-client/` and `.nezam/core/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
+- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `.nezam/templates/ai-client/` and `.nezam/core/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
 - **Arabic Language Preference:** When Arabic is chosen or required for content, localization, or communication, default to **Egyptian Arabic** (Masri) to match the project's Cairo/Sahel context, rather than Modern Standard Arabic (MSA).
-- **Planning Team Improvement:** To strengthen the Planning team, ensure all agents respect the SDD hardlocks, maintain strict traceability in `docs/plans/INDEX.md`, and consult the `masri-content-specialist` for regional alignment.
+- **Planning Team Improvement:** To strengthen the Planning team, ensure all agents respect the SDD hardlocks, maintain strict traceability in `.nezam/core/plans/INDEX.md`, and consult the `masri-content-specialist` for regional alignment.
 
 ## Learned Workspace Facts
 
-- Execution plans and SDD tasks live under `docs/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
-- AI ethics audit outputs and companion operational templates belong under `docs/reports/audits/` per the docs reports placement policy.
+- Execution plans and SDD tasks live under `.nezam/core/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
+- AI ethics audit outputs and companion operational templates belong under `.nezam/core/reports/audits/` per the docs reports placement policy.
 - Optional swarm- and skills-oriented Mermaid sources live under `.nezam/core/architecture/mermaids/` when that layout is maintained.
 
 ## Synced command index
@@ -133,11 +133,11 @@ Do not proceed to development unless all exist:
 - `deputy-swarm-leader.md`
 - `design-debt-analyst.md`
 - `design-excellence-lead.md`
+- `design-hub-sitemap.md`
+- `design-hub-specialist.md`
+- `design-hub-tokens.md`
+- `design-hub-wireframe.md`
 - `design-lead.md`
-- `design-server-sitemap.md`
-- `design-server-specialist.md`
-- `design-server-tokens.md`
-- `design-server-wireframe.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -264,7 +264,7 @@ Do not proceed to development unless all exist:
 - `.cursor/rules/dashboard-design-gates.mdc`
 - `.cursor/rules/design-excellence-gates.mdc`
 - `.cursor/rules/design-gates.mdc`
-- `.cursor/rules/design-server-gates.mdc`
+- `.cursor/rules/design-hub-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`
 - `.cursor/rules/plan-phase-scaffold.mdc`

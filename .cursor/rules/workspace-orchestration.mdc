@@ -5,6 +5,14 @@ alwaysApply: true
 
 # Workspace orchestration
 
+## Dynamic Workspace Path Governance (MANDATORY PATH SOURCING)
+
+> [!IMPORTANT]
+> **NO HARDCODED PATHS ALLOWED**: All active AI agents, skills, scripts, and commands in this repository MUST dynamically read and parse `.nezam/workspace.paths.yaml` to resolve paths for all important files and folders (e.g., Docs, Plans, PRD, Memory, Context, Hardlocks, state, agents, skills, commands, etc.).
+> - **DO NOT** store or assume hardcoded folder or file paths in any agent description, skill document, script, or rule.
+> - Always read `.nezam/workspace.paths.yaml` (using the zero-dependency utility `.nezam/core/scripts/utils/workspace-paths.js` in Node.js or simple `grep`/`cut`/`tr` in Bash) at the very start of execution to know where files reside.
+> - Respect user configuration changes to organization and directory layouts seamlessly.
+
 ## Pipeline order (never skip knowingly)
 
 Planning → SEO research & keywords → Information architecture/menus → Content map → UI & design system (including `DESIGN.md` example pages) → Development → Product hardening/release.

@@ -6,7 +6,25 @@ set -euo pipefail
 
 echo "Running SDD State Repair (/FIX gates)..."
 
-STATE_DIR=".cursor/state"
+workspace_paths_file=".nezam/workspace.paths.yaml"
+
+read_yaml_value() {
+  local file="$1"
+  local key="$2"
+  grep -E "^[[:space:]]*${key}:" "$file" | head -n 1 | cut -d':' -f2- | cut -d'#' -f1 | tr -d ' "' | tr -d "'"
+}
+
+if [[ ! -f "$workspace_paths_file" ]]; then
+  echo "Missing NEZAM Workspace Paths Configuration: $workspace_paths_file"
+  exit 1
+fi
+
+state_folder="$(read_yaml_value "$workspace_paths_file" "state_folder" || true)"
+if [[ -z "$state_folder" ]]; then
+  state_folder=".cursor/state"
+fi
+
+STATE_DIR="$state_folder"
 SCHEMA_DIR="$STATE_DIR/schemas"
 
 if [[ ! -d "$SCHEMA_DIR" ]]; then

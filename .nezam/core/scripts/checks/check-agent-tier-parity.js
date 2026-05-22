@@ -3,9 +3,16 @@
 const fs = require("fs");
 const path = require("path");
 
-const repoRoot = path.resolve(__dirname, "../../../..");
-const agentsDir = path.join(repoRoot, ".cursor", "agents");
-const registryPath = path.join(repoRoot, ".cursor", "state", "AGENT_REGISTRY.yaml");
+const { getWorkspacePaths } = require("../utils/workspace-paths.js");
+
+const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
+
+const agentsFolder = wsConfig.paths.agents_folder || ".cursor/agents";
+const registryFile = wsConfig.hardlocks.agent_registry || ".cursor/state/AGENT_REGISTRY.yaml";
+
+const agentsDir = path.resolve(repoRoot, agentsFolder);
+const registryPath = path.resolve(repoRoot, registryFile);
 
 if (!fs.existsSync(registryPath)) {
   console.error("Registry not found at:", registryPath);

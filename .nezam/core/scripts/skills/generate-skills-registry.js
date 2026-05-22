@@ -1,9 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const skillsDir = path.join(__dirname, '../../../../.cursor/skills');
-const agentsDir = path.join(__dirname, '../../../../.cursor/agents');
-const registryPath = path.join(__dirname, '../../../../.cursor/state/skills-registry.json');
+const { getWorkspacePaths } = require('../utils/workspace-paths.js');
+
+const repoRoot = process.cwd();
+const wsConfig = getWorkspacePaths(repoRoot);
+
+const skillsDir = path.resolve(repoRoot, wsConfig.paths.skills_folder || '.cursor/skills');
+const agentsDir = path.resolve(repoRoot, wsConfig.paths.agents_folder || '.cursor/agents');
+const registryPath = path.resolve(repoRoot, wsConfig.paths.state_folder || '.cursor/state', 'skills-registry.json');
 
 function walkDir(dir, callback) {
   const files = fs.readdirSync(dir, { withFileTypes: true });

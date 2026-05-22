@@ -14,7 +14,7 @@
 [![DH](https://img.shields.io/badge/Design%20Hub-.nezam%2Fdesign--hub-1f6feb?style=for-the-badge)](.nezam/design-hub/)
 [![SDD](https://img.shields.io/badge/SDD-spec--driven-1f6feb?style=for-the-badge)](.nezam/core/prd/PRD.md)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=fff&style=for-the-badge)](https://www.conventionalcommits.org/)
-[![Version](https://img.shields.io/badge/version-0.1.0-555555?style=for-the-badge)](docs/core/VERSIONING.md)
+[![Version](https://img.shields.io/badge/version-0.1.0-555555?style=for-the-badge)](.nezam/core/specs/VERSIONING.md)
 [![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=fff&style=for-the-badge)](https://pnpm.io/)
 [![Node](https://img.shields.io/badge/Node-20-339933?logo=nodedotjs&logoColor=fff&style=for-the-badge)](package.json)
 
@@ -319,10 +319,10 @@ pnpm run design:apply -- minimal
 
 #### Dedicated Design Swarm Agents
 Four specialized visual agents operate and synchronize the design workspace:
-* **`design-server-specialist`**: Coordinates profile loading, custom templates, and lock file compilation.
-* **`design-server-wireframe`**: Validates the block schemas inside `wireframes_locked.json`.
-* **`design-server-tokens`**: Audits color contrast, dark mode parity, and custom properties.
-* **`design-server-sitemap`**: Translates sitemap trees to application route indexes.
+* **`design-hub-specialist`**: Coordinates profile loading, custom templates, and lock file compilation.
+* **`design-hub-wireframe`**: Validates the block schemas inside `wireframes_locked.json`.
+* **`design-hub-tokens`**: Audits color contrast, dark mode parity, and custom properties.
+* **`design-hub-sitemap`**: Translates sitemap trees to application route indexes.
 
 #### Validation & Gate Enforcement
 Any design modification triggers local gates:
@@ -392,12 +392,12 @@ NEZAM ships with dedicated Arabic language and MENA-region support built into th
 | PRD | [`.nezam/core/prd/PRD.md`](.nezam/core/prd/PRD.md) | Full product requirements |
 | Wiki | [`.nezam/core/wiki/Home.md`](.nezam/core/wiki/Home.md) | Architecture, agents, design, CI |
 | Memory | [`.nezam/core/memory/`](.nezam/core/memory/) | All durable memory files |
-| Plans | [`docs/plans/`](docs/plans/) | Phase execution plans |
+| Plans | [`.nezam/core/plans/`](.nezam/core/plans/) | Phase execution plans |
 | Architecture | [`.nezam/core/architecture/`](.nezam/core/architecture/) | ADRs + system diagrams |
 | Templates | [`.nezam/templates/`](.nezam/templates/) | Reusable doc templates |
-| Reports | [`docs/reports/`](docs/reports/) | CI-generated reports |
-| **Design Hub Docs** | [`.nezam/core/docs/design-server.md`](.nezam/core/docs/design-server.md) | Design Hub overview, modules, API |
-| Design Hub Audit | [`.nezam/core/docs/design-server-audit.md`](.nezam/core/docs/design-server-audit.md) | Full Design Hub source audit + improvement plan |
+| Reports | [`.nezam/core/reports/`](.nezam/core/reports/) | CI-generated reports |
+| **Design Hub Docs** | [`.nezam/core/docs/design-hub.md`](.nezam/core/docs/design-hub.md) | Design Hub overview, modules, API |
+| Design Hub Audit | [`.nezam/core/docs/design-hub-audit.md`](.nezam/core/docs/design-hub-audit.md) | Full Design Hub source audit + improvement plan |
 
 ---
 
@@ -430,7 +430,7 @@ Check which required file is missing:
 
 - `.nezam/core/gates/GITHUB_GATE_MATRIX.json`
 - `.nezam/core/specs/VERSIONING.md`
-- `docs/plans/INDEX.md`
+- `.nezam/core/plans/INDEX.md`
 - `.cursor/agents/swarm-leader.md`
 
 Create missing files from templates in `.nezam/templates/` or initialize via `/START`.
@@ -443,7 +443,7 @@ Create missing files from templates in `.nezam/templates/` or initialize via `/S
 /FIX agents
 ```
 
-Or review `docs/memory/AGENT_COMM_PROTOCOL.md` for inter-agent communication standards.
+Or review `.nezam/core/memory/AGENT_COMM_PROTOCOL.md` for inter-agent communication standards.
 </details>
 
 <details>

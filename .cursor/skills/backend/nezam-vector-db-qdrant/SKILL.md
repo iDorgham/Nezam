@@ -1,6 +1,6 @@
 ---
-skill_id: nezam-vector-db-qdrant"
-name: "nezam-vector-db-qdrant"
+skill_id: "nezam-"nezam- nezam-vector-db-qdrant"
+name: "nezam-"nezam-"nezam-vector-db-qdrant"
 description: "Architects Qdrant vector database implementations: collection design, HNSW tuning, and payload filtering."
 version: 1.0.0
 updated: 2026-05-12

@@ -1,5 +1,6 @@
 ---
-name: nezam-api-design
+tier: 3
+name: "nezam-"nezam- nezam-api-design"
 description: OpenAPI 3.1 contracts, REST/GraphQL guidelines, versioning, idempotency, and error schemas before implementation.
 version: 1.0.0
 updated: 2026-05-08

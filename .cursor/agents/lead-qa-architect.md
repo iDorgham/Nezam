@@ -32,15 +32,15 @@ Swarm Manager for the QA swarm. Own test strategy: unit, integration, contract, 
 
 ## Specialists (referenced)
 
-- [`agent-qa-test-lead.md`](agent-qa-test-lead.md)
+- [`agent-qa-test-lead.md`](qa-test-lead.md)
 - [`a11y-performance-auditor.md`](a11y-performance-auditor.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-testing-strategy/SKILL.md`](../skills/nezam-testing-strategy/SKILL.md)
-- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
-- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
-- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/nezam-scan-fix-loop/SKILL.md)
+- [`.cursor/skills/nezam-testing-strategy/SKILL.md`](../skills/quality/nezam-testing-strategy/SKILL.md)
+- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/quality/nezam-testing-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/quality/nezam-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-scan-fix-loop/SKILL.md`](../skills/quality/nezam-scan-fix-loop/SKILL.md)
 
 ## When to invoke
 

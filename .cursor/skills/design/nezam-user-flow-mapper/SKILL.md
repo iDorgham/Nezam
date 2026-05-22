@@ -1,5 +1,6 @@
 ---
-name: "nezam-user-flow-mapper"
+tier: 3
+name: "nezam-"nezam-"nezam-user-flow-mapper"
 description: Define user journeys, edge cases, and navigation decisions before UI implementation.
 version: 1.0.0
 updated: 2026-05-08

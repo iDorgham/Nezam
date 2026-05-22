@@ -1,5 +1,6 @@
 ---
-name: kanban-pipeline-ui
+tier: 3
+name: "nezam-"nezam-kanban-pipeline-ui"
 description: UI/UX patterns for drag-and-drop sales pipelines and Kanban boards.
 version: 1.0.0
 updated: 2026-05-13

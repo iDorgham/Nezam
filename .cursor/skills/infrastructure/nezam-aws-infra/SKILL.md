@@ -1,5 +1,6 @@
 ---
-name: nezam-aws-infra
+tier: 3
+name: "nezam-"nezam- nezam-aws-infra"
 description: AWS CDK v2, IAM least-privilege, S3/CloudFront, and Secrets Manager patterns for production AWS deployments.
 version: 1.0.0
 updated: 2026-05-08

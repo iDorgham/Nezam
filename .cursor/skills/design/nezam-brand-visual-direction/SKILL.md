@@ -1,5 +1,6 @@
 ---
-name: "nezam-brand-visual-direction"
+tier: 3
+name: "nezam-"nezam-"nezam-brand-visual-direction"
 version: 1.1.0
 updated: 2026-05-12
 changelog:

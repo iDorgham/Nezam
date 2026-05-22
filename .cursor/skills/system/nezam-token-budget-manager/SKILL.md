@@ -1,5 +1,6 @@
 ---
-name: "nezam-token-budget-manager"
+tier: 3
+name: "nezam-"nezam-"nezam-token-budget-manager"
 description: Minimize token spend across Claude, Cursor, Antigravity, and Codex through caching, compression, and routing.
 version: 2.0.0
 updated: 2026-05-10

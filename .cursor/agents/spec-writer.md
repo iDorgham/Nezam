@@ -41,7 +41,7 @@ when: ["/DEVELOP", "feature slice kickoff", "new SPEC.md needed", "/PLAN build",
 - Acceptance criteria signed by PM-01 before handoff to build agent
 - Write scope list verified against active swarm boundaries
 - [.cursor/skills/system/spec-writing/SKILL.md](../skills/system/spec-writing/SKILL.md) — canonical SDD specs under `docs/specs/<type>/`
-- [.cursor/skills/system/spec-generator/SKILL.md](../skills/system/spec-generator/SKILL.md) — ten-field feature `SPEC.md` slices
+- [.cursor/skills/system/spec-generator/SKILL.md](../skills/system/nezam-spec-generator/SKILL.md) — ten-field feature `SPEC.md` slices
 
 ## Escalation
 

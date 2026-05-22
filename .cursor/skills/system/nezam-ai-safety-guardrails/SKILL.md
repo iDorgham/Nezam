@@ -1,5 +1,6 @@
 ---
-name: "nezam-ai-safety-guardrails"
+tier: 3
+name: "nezam-"nezam-"nezam-ai-safety-guardrails"
 description: Pre/post LLM call safety filters — PII detection, jailbreak resistance, output sanitization, and responsible AI policy enforcement.
 paths:
   - "docs/specs/ai/**"

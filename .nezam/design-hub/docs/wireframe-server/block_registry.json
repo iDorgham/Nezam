@@ -1,0 +1,684 @@
+{
+  "$schemaVersion": "1.0.0",
+  "description": "NEZAM Wireframe Server — Block Registry. Defines all available UI blocks per canvas mode. Each block has a type key, display name, supported props, and which canvas modes it belongs to.",
+
+  "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app", "tui"],
+
+  "blocks": {
+
+    "navigation": [
+      {
+        "type": "Nav_TopBar",
+        "name": "Top Navigation Bar",
+        "canvas_modes": ["web-marketing", "saas-dashboard"],
+        "description": "Horizontal top navigation with logo, links, and CTA button",
+        "props": {
+          "logo_position": { "type": "enum", "values": ["left", "center"], "default": "left" },
+          "sticky": { "type": "boolean", "default": true },
+          "transparent_on_hero": { "type": "boolean", "default": false },
+          "show_cta_button": { "type": "boolean", "default": true },
+          "cta_label": { "type": "string", "default": "Get Started" },
+          "max_nav_items": { "type": "integer", "default": 6 }
+        }
+      },
+      {
+        "type": "Nav_Sidebar",
+        "name": "Sidebar Navigation",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Left-side vertical navigation with sections and icons",
+        "props": {
+          "collapsible": { "type": "boolean", "default": true },
+          "default_state": { "type": "enum", "values": ["expanded", "collapsed", "icon-only"], "default": "expanded" },
+          "show_workspace_switcher": { "type": "boolean", "default": false },
+          "show_user_avatar": { "type": "boolean", "default": true },
+          "section_dividers": { "type": "boolean", "default": true },
+          "width_expanded_px": { "type": "integer", "default": 240 },
+          "width_collapsed_px": { "type": "integer", "default": 64 }
+        }
+      },
+      {
+        "type": "Nav_BottomTab",
+        "name": "Bottom Tab Bar",
+        "canvas_modes": ["mobile-app"],
+        "description": "Mobile bottom navigation with icons and labels",
+        "props": {
+          "max_tabs": { "type": "integer", "default": 5 },
+          "show_labels": { "type": "boolean", "default": true },
+          "show_badge": { "type": "boolean", "default": true },
+          "active_indicator": { "type": "enum", "values": ["dot", "pill", "underline", "none"], "default": "pill" }
+        }
+      },
+      {
+        "type": "Nav_Drawer",
+        "name": "Slide-Out Drawer",
+        "canvas_modes": ["mobile-app", "web-marketing"],
+        "description": "Hamburger-triggered full-height drawer",
+        "props": {
+          "slide_from": { "type": "enum", "values": ["left", "right"], "default": "left" },
+          "overlay_opacity": { "type": "number", "default": 0.5 },
+          "show_close_button": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "headers": [
+      {
+        "type": "Header_PageTitle",
+        "name": "Page Title Header",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Simple page header with title, subtitle, and action buttons",
+        "props": {
+          "show_breadcrumbs": { "type": "boolean", "default": true },
+          "show_actions": { "type": "boolean", "default": true },
+          "show_subtitle": { "type": "boolean", "default": false },
+          "show_badge": { "type": "boolean", "default": false }
+        }
+      },
+      {
+        "type": "Header_AppBar",
+        "name": "Mobile App Bar",
+        "canvas_modes": ["mobile-app"],
+        "description": "iOS/Android-style top app bar with back button and actions",
+        "props": {
+          "show_back_button": { "type": "boolean", "default": true },
+          "large_title": { "type": "boolean", "default": false },
+          "show_search": { "type": "boolean", "default": false }
+        }
+      }
+    ],
+
+    "heroes": [
+      {
+        "type": "Hero_Centered",
+        "name": "Centered Hero",
+        "canvas_modes": ["web-marketing"],
+        "description": "Full-width centered hero with headline, body, and dual CTA",
+        "props": {
+          "background": { "type": "enum", "values": ["solid", "gradient", "image", "video", "mesh"], "default": "gradient" },
+          "show_badge": { "type": "boolean", "default": true },
+          "show_secondary_cta": { "type": "boolean", "default": true },
+          "show_social_proof": { "type": "boolean", "default": true },
+          "show_hero_image": { "type": "boolean", "default": false },
+          "headline_size": { "type": "enum", "values": ["lg", "xl", "2xl"], "default": "2xl" }
+        }
+      },
+      {
+        "type": "Hero_Split",
+        "name": "Split Hero",
+        "canvas_modes": ["web-marketing"],
+        "description": "Two-column hero — text left, image or demo right",
+        "props": {
+          "image_side": { "type": "enum", "values": ["right", "left"], "default": "right" },
+          "image_type": { "type": "enum", "values": ["screenshot", "illustration", "video", "3d"], "default": "screenshot" },
+          "show_badge": { "type": "boolean", "default": true },
+          "show_secondary_cta": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Hero_Dashboard",
+        "name": "SaaS Dashboard Hero",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Greeting header with user name, date, and quick stats",
+        "props": {
+          "show_greeting": { "type": "boolean", "default": true },
+          "show_quick_stats": { "type": "boolean", "default": true },
+          "quick_stat_count": { "type": "integer", "default": 3 },
+          "show_actions": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "sections": [
+      {
+        "type": "Section_Features3Col",
+        "name": "3-Column Features Grid",
+        "canvas_modes": ["web-marketing"],
+        "description": "Three feature cards in a row with icon, title, body",
+        "props": {
+          "icon_style": { "type": "enum", "values": ["filled", "outlined", "emoji", "number"], "default": "filled" },
+          "card_style": { "type": "enum", "values": ["flat", "bordered", "shadow", "gradient"], "default": "flat" },
+          "feature_count": { "type": "integer", "default": 6 }
+        }
+      },
+      {
+        "type": "Section_HowItWorks",
+        "name": "How It Works Steps",
+        "canvas_modes": ["web-marketing"],
+        "description": "Numbered step-by-step section with images",
+        "props": {
+          "layout": { "type": "enum", "values": ["horizontal", "vertical", "alternating"], "default": "alternating" },
+          "step_count": { "type": "integer", "default": 3 },
+          "show_connector_line": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Section_Testimonials",
+        "name": "Testimonials",
+        "canvas_modes": ["web-marketing"],
+        "description": "Social proof with quotes, avatars, and company logos",
+        "props": {
+          "layout": { "type": "enum", "values": ["carousel", "grid", "masonry", "featured"], "default": "grid" },
+          "show_rating": { "type": "boolean", "default": true },
+          "show_company": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Section_Pricing",
+        "name": "Pricing Table",
+        "canvas_modes": ["web-marketing"],
+        "description": "2–4 column pricing plans with feature comparison",
+        "props": {
+          "plan_count": { "type": "integer", "default": 3 },
+          "show_toggle_annual": { "type": "boolean", "default": true },
+          "show_feature_comparison": { "type": "boolean", "default": true },
+          "highlight_plan": { "type": "integer", "default": 1, "description": "0-indexed plan to highlight as recommended" }
+        }
+      },
+      {
+        "type": "Section_CTA",
+        "name": "Call to Action Banner",
+        "canvas_modes": ["web-marketing"],
+        "description": "Full-width CTA with background accent and button",
+        "props": {
+          "background": { "type": "enum", "values": ["primary", "dark", "gradient", "subtle"], "default": "primary" },
+          "layout": { "type": "enum", "values": ["centered", "split"], "default": "centered" }
+        }
+      },
+      {
+        "type": "Section_LogoCloud",
+        "name": "Partner / Customer Logos",
+        "canvas_modes": ["web-marketing"],
+        "description": "Scrolling or static grid of brand logos",
+        "props": {
+          "scroll": { "type": "boolean", "default": true },
+          "label": { "type": "string", "default": "Trusted by teams at" },
+          "logo_count": { "type": "integer", "default": 8 }
+        }
+      },
+      {
+        "type": "Section_FAQ",
+        "name": "FAQ Accordion",
+        "canvas_modes": ["web-marketing"],
+        "description": "Collapsible FAQ questions and answers",
+        "props": {
+          "layout": { "type": "enum", "values": ["single-column", "two-column"], "default": "single-column" },
+          "open_first": { "type": "boolean", "default": true },
+          "allow_multiple_open": { "type": "boolean", "default": false }
+        }
+      }
+    ],
+
+    "cards": [
+      {
+        "type": "Card_StatKPI",
+        "name": "KPI Stat Card",
+        "canvas_modes": ["saas-dashboard", "mobile-app"],
+        "description": "Single metric with label, value, trend indicator, and sparkline",
+        "props": {
+          "show_trend": { "type": "boolean", "default": true },
+          "show_sparkline": { "type": "boolean", "default": true },
+          "show_comparison": { "type": "boolean", "default": true },
+          "icon_position": { "type": "enum", "values": ["top-right", "left", "none"], "default": "top-right" }
+        }
+      },
+      {
+        "type": "Card_Entity",
+        "name": "Entity Card",
+        "canvas_modes": ["saas-dashboard", "web-marketing", "mobile-app"],
+        "description": "General-purpose card for displaying an entity — user, product, project, etc.",
+        "props": {
+          "show_avatar": { "type": "boolean", "default": true },
+          "show_tags": { "type": "boolean", "default": true },
+          "show_actions": { "type": "boolean", "default": true },
+          "show_status_badge": { "type": "boolean", "default": false },
+          "layout": { "type": "enum", "values": ["horizontal", "vertical"], "default": "vertical" }
+        }
+      },
+      {
+        "type": "Card_Activity",
+        "name": "Activity / Timeline Card",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Recent activity feed with timestamps and actor avatars",
+        "props": {
+          "show_avatars": { "type": "boolean", "default": true },
+          "max_items": { "type": "integer", "default": 5 },
+          "show_view_all": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Card_Notification",
+        "name": "Notification / Alert Card",
+        "canvas_modes": ["saas-dashboard", "mobile-app"],
+        "description": "Dismissible alert card with severity level and icon",
+        "props": {
+          "severity": { "type": "enum", "values": ["info", "success", "warning", "error"], "default": "info" },
+          "dismissible": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "grids": [
+      {
+        "type": "Grid_DataList",
+        "name": "List / Data Grid",
+        "canvas_modes": ["saas-dashboard", "mobile-app"],
+        "description": "Filterable, sortable list of items — table or card view toggle",
+        "props": {
+          "view_toggle": { "type": "boolean", "default": true, "description": "Allow switching between table and card view" },
+          "show_search": { "type": "boolean", "default": true },
+          "show_filters": { "type": "boolean", "default": true },
+          "show_bulk_actions": { "type": "boolean", "default": false },
+          "pagination": { "type": "enum", "values": ["cursor", "page-numbers", "load-more", "infinite"], "default": "cursor" },
+          "items_per_page": { "type": "integer", "default": 20 }
+        }
+      },
+      {
+        "type": "Grid_CardMasonry",
+        "name": "Masonry Card Grid",
+        "canvas_modes": ["web-marketing", "saas-dashboard"],
+        "description": "Pinterest-style variable-height card grid",
+        "props": {
+          "columns": { "type": "integer", "default": 3 },
+          "show_load_more": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "tables": [
+      {
+        "type": "Table_Data",
+        "name": "Data Table",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Full-featured sortable, filterable data table with column customization",
+        "props": {
+          "show_checkboxes": { "type": "boolean", "default": false },
+          "show_row_actions": { "type": "boolean", "default": true },
+          "show_column_toggle": { "type": "boolean", "default": true },
+          "show_export": { "type": "boolean", "default": false },
+          "sticky_header": { "type": "boolean", "default": true },
+          "row_hover_highlight": { "type": "boolean", "default": true },
+          "zebra_striping": { "type": "boolean", "default": false }
+        }
+      }
+    ],
+
+    "forms": [
+      {
+        "type": "Form_Auth",
+        "name": "Auth Form",
+        "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app"],
+        "description": "Login / register / reset password form",
+        "props": {
+          "mode": { "type": "enum", "values": ["login", "register", "reset-password", "verify-otp"], "default": "login" },
+          "show_social_login": { "type": "boolean", "default": true },
+          "social_providers": { "type": "array", "default": ["google"] },
+          "layout": { "type": "enum", "values": ["centered-card", "split-panel", "fullscreen"], "default": "centered-card" }
+        }
+      },
+      {
+        "type": "Form_Settings",
+        "name": "Settings / Profile Form",
+        "canvas_modes": ["saas-dashboard", "mobile-app"],
+        "description": "Multi-section settings form with save confirmation",
+        "props": {
+          "layout": { "type": "enum", "values": ["stacked", "two-column", "tabs"], "default": "stacked" },
+          "show_danger_zone": { "type": "boolean", "default": false },
+          "auto_save": { "type": "boolean", "default": false }
+        }
+      },
+      {
+        "type": "Form_Wizard",
+        "name": "Multi-Step Wizard Form",
+        "canvas_modes": ["saas-dashboard", "web-marketing", "mobile-app"],
+        "description": "Stepped form with progress indicator and back/next navigation",
+        "props": {
+          "step_count": { "type": "integer", "default": 3 },
+          "progress_type": { "type": "enum", "values": ["step-dots", "step-numbers", "progress-bar", "breadcrumb"], "default": "step-numbers" },
+          "allow_skip": { "type": "boolean", "default": false },
+          "validate_on_next": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Form_Search",
+        "name": "Search with Filters",
+        "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app"],
+        "description": "Search input with expandable filter panel",
+        "props": {
+          "show_filters_panel": { "type": "boolean", "default": true },
+          "filter_position": { "type": "enum", "values": ["right-drawer", "top-bar", "left-sidebar"], "default": "top-bar" },
+          "show_active_filters": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "dashboards": [
+      {
+        "type": "Dashboard_StatsRow",
+        "name": "KPI Stats Row",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Horizontal row of 3–6 KPI stat cards",
+        "props": {
+          "stat_count": { "type": "integer", "default": 4 },
+          "show_sparklines": { "type": "boolean", "default": true },
+          "show_comparison": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Dashboard_MainChart",
+        "name": "Primary Chart Section",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Main analytics chart with period selector and legend",
+        "props": {
+          "chart_type": { "type": "enum", "values": ["line", "bar", "area", "combo"], "default": "line" },
+          "show_period_selector": { "type": "boolean", "default": true },
+          "show_legend": { "type": "boolean", "default": true },
+          "show_tooltip": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Dashboard_SplitPanel",
+        "name": "Split Dashboard Panel",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Two-column layout — chart left, stats or activity right",
+        "props": {
+          "left_ratio": { "type": "string", "default": "2/3" },
+          "left_content": { "type": "enum", "values": ["chart", "table", "map"], "default": "chart" },
+          "right_content": { "type": "enum", "values": ["stats", "activity", "leaderboard", "list"], "default": "stats" }
+        }
+      }
+    ],
+
+    "charts": [
+      {
+        "type": "Chart_Line",
+        "name": "Line Chart",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Time-series line chart — single or multi-series"
+      },
+      {
+        "type": "Chart_Bar",
+        "name": "Bar Chart",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Vertical or horizontal bar chart"
+      },
+      {
+        "type": "Chart_Area",
+        "name": "Area Chart",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Filled area chart with gradient"
+      },
+      {
+        "type": "Chart_Donut",
+        "name": "Donut / Pie Chart",
+        "canvas_modes": ["saas-dashboard", "mobile-app"],
+        "description": "Donut chart with center label and legend"
+      },
+      {
+        "type": "Chart_Heatmap",
+        "name": "Heatmap",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Calendar or grid heatmap for activity density"
+      },
+      {
+        "type": "Chart_Funnel",
+        "name": "Funnel Chart",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Conversion funnel visualization"
+      },
+      {
+        "type": "Chart_Scatter",
+        "name": "Scatter / Bubble Chart",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "XY scatter plot with optional bubble sizing"
+      }
+    ],
+
+    "modals": [
+      {
+        "type": "Modal_Confirm",
+        "name": "Confirmation Modal",
+        "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app"],
+        "description": "Destructive action confirmation dialog",
+        "props": {
+          "severity": { "type": "enum", "values": ["warning", "danger", "info"], "default": "danger" },
+          "confirm_label": { "type": "string", "default": "Confirm" },
+          "cancel_label": { "type": "string", "default": "Cancel" }
+        }
+      },
+      {
+        "type": "Modal_Form",
+        "name": "Form Modal / Sheet",
+        "canvas_modes": ["saas-dashboard", "mobile-app"],
+        "description": "Side sheet or centered modal containing a form",
+        "props": {
+          "position": { "type": "enum", "values": ["center", "right-sheet", "bottom-sheet"], "default": "right-sheet" },
+          "width": { "type": "enum", "values": ["sm", "md", "lg", "full"], "default": "md" }
+        }
+      },
+      {
+        "type": "Modal_Detail",
+        "name": "Detail / Preview Modal",
+        "canvas_modes": ["saas-dashboard", "web-marketing"],
+        "description": "Expanded detail view of a selected item",
+        "props": {
+          "layout": { "type": "enum", "values": ["tabs", "sections", "split"], "default": "tabs" }
+        }
+      }
+    ],
+
+    "footers": [
+      {
+        "type": "Footer_Marketing",
+        "name": "Marketing Footer",
+        "canvas_modes": ["web-marketing"],
+        "description": "Multi-column footer with links, social icons, and legal",
+        "props": {
+          "column_count": { "type": "integer", "default": 4 },
+          "show_newsletter": { "type": "boolean", "default": false },
+          "show_social_links": { "type": "boolean", "default": true },
+          "show_legal": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Footer_App",
+        "name": "App Footer (Minimal)",
+        "canvas_modes": ["saas-dashboard"],
+        "description": "Minimal footer with version number and legal links",
+        "props": {
+          "show_version": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "mobile_primitives": [
+      {
+        "type": "Mobile_ListItem",
+        "name": "List Item Row",
+        "canvas_modes": ["mobile-app"],
+        "description": "Native-style list row with leading icon/avatar, title, subtitle, trailing action",
+        "props": {
+          "show_chevron": { "type": "boolean", "default": true },
+          "show_avatar": { "type": "boolean", "default": false },
+          "swipe_actions": { "type": "boolean", "default": false }
+        }
+      },
+      {
+        "type": "Mobile_PullRefresh",
+        "name": "Pull-to-Refresh Container",
+        "canvas_modes": ["mobile-app"],
+        "description": "Wraps a scrollable list with pull-to-refresh behavior"
+      },
+      {
+        "type": "Mobile_EmptyState",
+        "name": "Mobile Empty State",
+        "canvas_modes": ["mobile-app"],
+        "description": "Centered illustration + message + CTA for empty lists",
+        "props": {
+          "show_illustration": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Mobile_Onboarding",
+        "name": "Onboarding Carousel",
+        "canvas_modes": ["mobile-app"],
+        "description": "Full-screen onboarding slides with skip and CTA",
+        "props": {
+          "slide_count": { "type": "integer", "default": 3 },
+          "show_skip": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+
+    "forms": [
+      {
+        "type": "Form_Contact",
+        "name": "Contact Form",
+        "canvas_modes": ["web-marketing"],
+        "description": "Standard contact form with name, email, and message"
+      },
+      {
+        "type": "Form_Login",
+        "name": "Login Form",
+        "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app"],
+        "description": "Simple login form with email and password"
+      }
+    ],
+
+    "cards": [
+      {
+        "type": "Card_Feature",
+        "name": "Feature Card",
+        "canvas_modes": ["web-marketing"],
+        "description": "Card with icon, title, and description"
+      },
+      {
+        "type": "Card_Pricing",
+        "name": "Pricing Card",
+        "canvas_modes": ["web-marketing"],
+        "description": "Card with price, features list, and CTA"
+      }
+    ],
+
+    "footers": [
+      {
+        "type": "Footer_Simple",
+        "name": "Simple Footer",
+        "canvas_modes": ["web-marketing", "saas-dashboard"],
+        "description": "Simple footer with copyright and social links"
+      }
+    ],
+
+    "grids": [
+      {
+        "type": "Grid_2Col",
+        "name": "2 Column Grid",
+        "canvas_modes": ["web-marketing", "saas-dashboard"],
+        "description": "Equal width 2-column grid container"
+      },
+      {
+        "type": "Grid_3Col",
+        "name": "3 Column Grid",
+        "canvas_modes": ["web-marketing", "saas-dashboard"],
+        "description": "Equal width 3-column grid container"
+      }
+    ],
+
+    "sections": [
+      {
+        "type": "Section_FAQ",
+        "name": "FAQ Section",
+        "canvas_modes": ["web-marketing"],
+        "description": "Accordion-style frequently asked questions"
+      },
+      {
+        "type": "Section_Team",
+        "name": "Team Section",
+        "canvas_modes": ["web-marketing"],
+        "description": "Grid of team members with photos and roles"
+      }
+    ],
+
+    "ui_elements": [
+      {
+        "type": "Element_Button",
+        "name": "Button",
+        "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app"],
+        "description": "Customizable button element"
+      },
+      {
+        "type": "Element_Input",
+        "name": "Input Field",
+        "canvas_modes": ["web-marketing", "saas-dashboard", "mobile-app"],
+        "description": "Text input field with label"
+      }
+    ],
+
+    "tui_blocks": [
+      {
+        "type": "TUI_BorderBox",
+        "name": "Border Box",
+        "canvas_modes": ["tui"],
+        "description": "Simple box with Unicode borders"
+      },
+      {
+        "type": "TUI_ASCII_Art",
+        "name": "ASCII Art",
+        "canvas_modes": ["tui"],
+        "description": "Placeholder for ASCII art or banner"
+      },
+      {
+        "type": "TUI_Menu",
+        "name": "Terminal Menu",
+        "canvas_modes": ["tui"],
+        "description": "Keyboard-navigable vertical menu list"
+      },
+      {
+        "type": "TUI_DataTable",
+        "name": "Terminal Data Table",
+        "canvas_modes": ["tui"],
+        "description": "ASCII-bordered table with column alignment"
+      },
+      {
+        "type": "TUI_StatusBar",
+        "name": "Status Bar",
+        "canvas_modes": ["tui"],
+        "description": "Bottom status bar with mode, message, and shortcut hints"
+      },
+      {
+        "type": "TUI_InputPrompt",
+        "name": "Input Prompt",
+        "canvas_modes": ["tui"],
+        "description": "Command-line style input with label and inline validation"
+      },
+      {
+        "type": "TUI_ProgressBar",
+        "name": "Terminal Progress Bar",
+        "canvas_modes": ["tui"],
+        "description": "ASCII progress bar with percentage and label"
+      }
+    ]
+  },
+
+  "canvas_mode_defaults": {
+    "web-marketing": {
+      "required_blocks": ["Nav_TopBar", "Hero_Centered", "Footer_Marketing"],
+      "suggested_blocks": ["Section_Features3Col", "Section_HowItWorks", "Section_Testimonials", "Section_Pricing", "Section_CTA"],
+      "excluded_blocks": ["Nav_Sidebar", "Nav_BottomTab", "Dashboard_StatsRow", "TUI_Menu"]
+    },
+    "saas-dashboard": {
+      "required_blocks": ["Nav_Sidebar", "Header_PageTitle"],
+      "suggested_blocks": ["Dashboard_StatsRow", "Dashboard_MainChart", "Table_Data", "Card_Activity"],
+      "excluded_blocks": ["Hero_Centered", "Hero_Split", "Section_Pricing", "Nav_BottomTab", "TUI_Menu", "Footer_Marketing"]
+    },
+    "mobile-app": {
+      "required_blocks": ["Nav_BottomTab", "Header_AppBar"],
+      "suggested_blocks": ["Mobile_ListItem", "Card_StatKPI", "Mobile_EmptyState"],
+      "excluded_blocks": ["Nav_Sidebar", "Nav_TopBar", "Dashboard_SplitPanel", "TUI_Menu", "Footer_Marketing"]
+    },
+    "tui": {
+      "required_blocks": ["TUI_Menu", "TUI_StatusBar"],
+      "suggested_blocks": ["TUI_DataTable", "TUI_InputPrompt", "TUI_ProgressBar"],
+      "excluded_blocks": ["Nav_TopBar", "Nav_Sidebar", "Nav_BottomTab", "Hero_Centered", "Hero_Split", "Chart_Line"]
+    }
+  }
+}

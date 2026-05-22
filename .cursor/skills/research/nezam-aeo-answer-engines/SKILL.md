@@ -1,5 +1,6 @@
 ---
-name: nezam-aeo-answer-engines
+tier: 3
+name: "nezam-"nezam- nezam-aeo-answer-engines"
 description: Answer Engine Optimization — concise Q&A structures and voice/assistant-ready formatting for direct answers.
 version: 1.0.0
 updated: 2026-05-08
@@ -14,7 +15,7 @@ Format content so answer engines (Google PAA, voice assistants, chat search) can
 - Keyword clusters and intent tags from `docs/specs/SEO_RESEARCH.md`.
 - "People Also Ask" / Reddit / community FAQ harvest.
 - Page-level outlines in `docs/specs/IA_CONTENT.md`.
-- Voice/chat persona guidance from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
+- Voice/chat persona guidance from `.nezam/core/prd/PROJECT_PROMPT.md`.
 
 # Step-by-Step Workflow
 

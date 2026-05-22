@@ -1,5 +1,6 @@
 ---
-name: nezam-ui-ux-design
+tier: 3
+name: "nezam-"nezam- nezam-ui-ux-design"
 description: User flows, interaction states, microcopy, and WCAG 2.2 AA mapping for product UX before /DEVELOP.
 version: 1.0.0
 updated: 2026-05-08
@@ -14,7 +15,7 @@ Translate user intent into deterministic flows, interaction states, and copy tha
 - Personas + jobs-to-be-done from `docs/specs/prd/PRD.md`.
 - IA + URL hierarchy from `@.cursor/skills/nezam-ia-taxonomy/SKILL.md`.
 - `docs/DESIGN.md` example pages and interaction states.
-- Brand voice from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
+- Brand voice from `.nezam/core/prd/PROJECT_PROMPT.md`.
 
 # Step-by-Step Workflow
 

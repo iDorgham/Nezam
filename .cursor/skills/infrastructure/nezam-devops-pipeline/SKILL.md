@@ -1,5 +1,6 @@
 ---
-name: nezam-devops-pipeline
+tier: 3
+name: "nezam-"nezam- nezam-devops-pipeline"
 description: GitHub Actions / GitLab CI pipelines with environment promotion, artifact versioning, and rollback.
 version: 1.0.0
 updated: 2026-05-08

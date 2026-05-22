@@ -1,5 +1,6 @@
 ---
-name: "nezam-seo-ia-content"
+tier: 3
+name: "nezam-"nezam-"nezam-seo-ia-content"
 description: SEO fundamentals + keyword research → information architecture & menu labels → on-page content shells (AEO/GEO aware).
 paths:
   - "docs/specs/SEO_RESEARCH.md"
@@ -16,7 +17,7 @@ Run the SEO foundation: keyword clustering, meta optimization, canonicalization,
 
 - Audience + product intent from `docs/specs/prd/PRD.md`.
 - Competitor / reference set (non-plagiarism stance).
-- Brand voice + glossary from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
+- Brand voice + glossary from `.nezam/core/prd/PROJECT_PROMPT.md`.
 - Optional log file / Search Console data for crawl analysis.
 
 # Step-by-Step Workflow

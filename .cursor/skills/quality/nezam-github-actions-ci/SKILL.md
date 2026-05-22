@@ -1,5 +1,6 @@
 ---
-name: nezam-github-actions-ci
+tier: 3
+name: "nezam-"nezam- nezam-github-actions-ci"
 description: Deterministic CI/CD workflow authoring for GitHub Actions with required checks, artifact hygiene, and release safety controls.
 version: 1.0.0
 updated: 2026-05-08

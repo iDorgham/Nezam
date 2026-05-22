@@ -31,7 +31,7 @@ Highest strategic authority for data architecture, persistence strategies, and m
 During core data modeling phases, scaling planning, or multi-tenant architecture design.
 
 ### Input requirements
-- `.nezam/workspace/prd/PRD.md`
+- `.nezam/core/prd/PRD.md`
 - Data volume and scaling projections.
 
 ### Output deliverables

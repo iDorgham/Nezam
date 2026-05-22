@@ -1,5 +1,6 @@
 ---
-name: "nezam-moroccan-darija"
+tier: 3
+name: "nezam-"nezam-"nezam-moroccan-darija"
 version: 1.0.0
 updated: 2026-05-12
 changelog:

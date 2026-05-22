@@ -1,5 +1,6 @@
 ---
-name: nezam-a11y-automation
+tier: 3
+name: "nezam-"nezam- nezam-a11y-automation"
 description: axe-core integration, keyboard-nav testing, screen-reader audits, and contrast checks in CI for WCAG 2.2 AA.
 version: 1.0.0
 updated: 2026-05-08

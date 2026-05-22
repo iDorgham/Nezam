@@ -1,8 +1,8 @@
 ---
 id: nezam-chart-color-systems
-name: Chart Color Systems
+name: "nezam-"nezam-Chart Color Systems"
 description: Defining accessible and semantic color palettes for complex data sets.
-tier: 4
+tier: 3
 swarm: Swarm 8 (Analytics)
 version: 1.0.0
 created: 2026-05-12

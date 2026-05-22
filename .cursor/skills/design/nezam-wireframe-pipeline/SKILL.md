@@ -1,5 +1,6 @@
 ---
-name: "nezam-wireframe-pipeline"
+tier: 3
+name: "nezam-"nezam-"nezam-wireframe-pipeline"
 description: "Unified wireframe generation and spec engine with mandatory pixel-perfect reproduction gate, design-system fidelity enforcement, and 2-variation discipline."
 version: 4.0.0
 updated: 2026-05-12
@@ -89,7 +90,7 @@ layout_intent: "[purpose]"
 iteration_mode: "branch | replace"
 baseline_ref: ".cursor/context/design-init/baseline-[slug].md"
 components:
-  - name: "[Name]"
+  - name: "nezam-"nezam-[Name]"
     variants: ["default", "variant"]
     states: ["default", "loading", "error", "empty"]
     props_contract: ["prop1", "prop2"]

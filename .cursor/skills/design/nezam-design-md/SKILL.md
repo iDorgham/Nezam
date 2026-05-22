@@ -1,5 +1,6 @@
 ---
-name: "nezam-design-md"
+tier: 3
+name: "nezam-"nezam-"nezam-design-md"
 description: Author DESIGN.md textual prototypes — layout archetypes, color systems, typography, motion, accessibility, example pages BEFORE implementation.
 paths:
   - "DESIGN.md"
@@ -28,5 +29,5 @@ Iterate with user until narrative reads buildable **without opening Figma** (Fig
 
 ## Reference library provenance
 
-- Brand palettes and mood boards also live under **`.nezam/design/<brand>/design.md`** (see [`.nezam/design/README.md`](../../design/README.md)). When swapping brands, re-extract tokens into root `docs/DESIGN.md` — do not drift from the chosen brand file.
+- Brand palettes and mood boards also live under **`.nezam/design/<brand>/design.md`** (see [`.nezam/design/README.md`](../../../agents/README.md)). When swapping brands, re-extract tokens into root `docs/DESIGN.md` — do not drift from the chosen brand file.
 - Large third-party design skill packs remain under [`docs/skills/nexu_open_design/`](../../../docs/skills/nexu_open_design/) as a **library only**; promote individual procedures into NEZAM skills via [`docs/INGEST_QUEUE.md`](../../../docs/INGEST_QUEUE.md), not bulk copy.

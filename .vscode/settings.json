@@ -1,0 +1,30 @@
+{
+  "github.copilot.chat.codeGeneration.instructions": [
+    { "file": "VSCODE.md" },
+    { "file": "AGENTS.md" }
+  ],
+  "github.copilot.chat.reviewSelection.instructions": [
+    { "file": "VSCODE.md" }
+  ],
+  "github.copilot.chat.testGeneration.instructions": [
+    { "file": "VSCODE.md" }
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "files.exclude": {
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    ".antigravity/**": true,
+    ".codex/**": true,
+    ".gemini/**": true,
+    ".qwen/**": true,
+    ".opencode/**": true,
+    ".kilocode/**": true,
+    ".windsurf/**": true,
+    ".kiro/**": true,
+    "node_modules/**": true
+  },
+  "specstory.cloudSync.enabled": "always"
+}

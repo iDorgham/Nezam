@@ -1,5 +1,6 @@
 ---
-name: nezam-serp-feature-targeting
+tier: 3
+name: "nezam-"nezam- nezam-serp-feature-targeting"
 description: Target featured snippets, PAA, local pack, and image/video carousels through deliberate content shaping.
 version: 1.0.0
 updated: 2026-05-08
@@ -28,7 +29,7 @@ Engineer pages to win specific SERP features (featured snippet, People Also Ask,
 3. Verify HTML semantics: `<h2>` for question, `<ol>`/`<ul>` for steps, `<table>` for comparison.
 4. Pair with structured data and on-page entity reinforcement.
 5. Track ranking and feature occupancy weekly; iterate copy if the feature shifts owners.
-6. Document feature wins/losses in `.nezam/workspace/context/`.
+6. Document feature wins/losses in `.nezam/core/context/`.
 
 # Validation & Metrics
 

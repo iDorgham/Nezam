@@ -1,5 +1,6 @@
 ---
-name: task-audit-logging
+tier: 3
+name: "nezam-"nezam-task-audit-logging"
 description: Implements comprehensive auditing for all task modifications and state changes.
 version: 1.0.0
 updated: 2026-05-13

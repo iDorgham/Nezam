@@ -1,6 +1,6 @@
 ---
 id: nezam-mobile-testing
-name: "nezam-Mobile Testing"
+name: "nezam-"nezam-"nezam-Mobile Testing"
 tier: 3
 summary: Mobile testing strategies and tools for ensuring app quality across devices.
 owner: unassigned

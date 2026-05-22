@@ -5,13 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with: { version: 8 }
+      - uses: pnpm/action-setup@v6
       - run: pnpm install
       - run: pnpm ai:sync
       - run: pnpm ai:check
       - name: Validate Skill Frontmatter
-        run: node scripts/checks/check-skill-frontmatter.js
+        run: node .nezam/core/scripts/checks/check-skill-frontmatter.js
       - name: Check Path Normalization
         run: |
           grep -r "\.cursor/templates/" .cursor/ .nezam/ docs/ || true

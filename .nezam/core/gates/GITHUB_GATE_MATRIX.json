@@ -1,0 +1,37 @@
+{
+  "manifestVersion": "1.0.0",
+  "$schemaVersion": "1.0.0",
+  "gates": [
+    {
+      "id": "onboarding",
+      "name": "Onboarding Readiness",
+      "description": "Ensures the workspace is correctly initialized with PRD and Project Prompt.",
+      "prerequisites": [
+        "docs/plans/00-define/01-product/PRD.md",
+        "docs/plans/00-define/01-product/PROJECT_PROMPT.md"
+      ],
+      "checkScript": ".nezam/scripts/checks/check-onboarding-readiness.sh"
+    },
+    {
+      "id": "design-tokens",
+      "name": "Design Token Validation",
+      "description": "Verifies that the design system tokens are correctly defined.",
+      "prerequisites": [
+        "DESIGN.md"
+      ],
+      "checkScript": ".nezam/scripts/checks/check-design-tokens.sh"
+    },
+    {
+      "id": "swarm-integrity",
+      "name": "AI Swarm Integrity",
+      "description": "Ensures all AI clients are synced and agent metadata is valid.",
+      "prerequisites": [],
+      "checkScript": "pnpm ai:check"
+    }
+  ],
+  "matrix": {
+    "define": ["onboarding"],
+    "design": ["design-tokens"],
+    "build": ["swarm-integrity"]
+  }
+}

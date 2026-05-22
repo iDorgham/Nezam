@@ -1,5 +1,6 @@
 ---
-name: nezam-api-gateway
+tier: 3
+name: "nezam-"nezam- nezam-api-gateway"
 description: Rate limiting, auth middleware, request transformation, routing policies, and gateway resilience.
 version: 1.0.0
 updated: 2026-05-08

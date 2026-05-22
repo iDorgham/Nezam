@@ -1,5 +1,6 @@
 ---
-name: nezam-editorial-workflows
+tier: 3
+name: "nezam-"nezam- nezam-editorial-workflows"
 description: Draft → review → publish pipelines, role permissions, and version control for content operations.
 version: 1.0.0
 updated: 2026-05-08
@@ -12,7 +13,7 @@ Govern how content moves from draft through review to publish, with explicit rol
 # Inputs
 
 - Content model from `@.cursor/skills/nezam-content-modeling/SKILL.md`.
-- Brand voice + editorial guidelines from `.nezam/workspace/prd/PROJECT_PROMPT.md`.
+- Brand voice + editorial guidelines from `.nezam/core/prd/PROJECT_PROMPT.md`.
 - CMS capabilities from `@.cursor/skills/nezam-cms-integration/SKILL.md`.
 - Compliance requirements from `@.cursor/skills/nezam-privacy-compliance/SKILL.md`.
 

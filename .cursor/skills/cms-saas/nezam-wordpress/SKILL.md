@@ -1,6 +1,6 @@
 ---
-skill_id: nezam-wordpress"
-name: "nezam-wordpress"
+skill_id: "nezam-"nezam- nezam-wordpress"
+name: "nezam-"nezam-"nezam-wordpress"
 description: "Headless WordPress integration — WordPress as CMS, Next.js as frontend. WPGraphQL for content, ISR for performance, preview mode for drafts."
 version: 1.0.0
 updated: 2026-05-12
@@ -143,8 +143,8 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cms.yourdomain.com',
-        pathname: '/wp-content/uploads/**',
+        hostname: "nezam-"nezam-'cms.yourdomain.com',"
+        pathname: "nezam-"nezam-'/wp-content/uploads/**',"
       },
     ],
   },

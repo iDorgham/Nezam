@@ -1,6 +1,6 @@
 ---
-skill_id: nezam-rtl-layout
-name: "nezam-rtl-layout"
+skill_id: "nezam-"nezam- nezam-rtl-layout"
+name: "nezam-"nezam-"nezam-rtl-layout"
 description: Logical CSS, dir propagation, Tailwind RTL, icon mirroring, bilingual typography, numerals, and mixed-direction strings.
 version: 1.0.0
 updated: 2026-05-12

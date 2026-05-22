@@ -33,16 +33,16 @@ Own the test automation framework, CI integration, parallelization, and the visu
 
 ## Specialists (referenced)
 
-- [`agent-qa-test-lead.md`](agent-qa-test-lead.md)
+- [`agent-qa-test-lead.md`](qa-test-lead.md)
 - [`a11y-performance-auditor.md`](a11y-performance-auditor.md)
-- [`agent-ci-automation.md`](agent-ci-automation.md)
+- [`agent-ci-automation.md`](ci-automation.md)
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/nezam-testing-automation/SKILL.md)
-- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/nezam-a11y-automation/SKILL.md)
-- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/nezam-github-actions-ci/SKILL.md)
-- [.cursor/skills/backend/background-jobs/SKILL.md](../skills/backend/background-jobs/SKILL.md)
+- [`.cursor/skills/nezam-testing-automation/SKILL.md`](../skills/quality/nezam-testing-automation/SKILL.md)
+- [`.cursor/skills/nezam-a11y-automation/SKILL.md`](../skills/quality/nezam-a11y-automation/SKILL.md)
+- [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/quality/nezam-github-actions-ci/SKILL.md)
+- [.cursor/skills/backend/background-jobs/SKILL.md](../skills/backend/nezam-background-jobs/SKILL.md)
 
 ## When to invoke
 

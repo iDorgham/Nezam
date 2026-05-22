@@ -18,7 +18,7 @@ Run discovery and analysis at the front of every project and major feature. Conv
 
 ## Team Leader Scope
 
-- Lead intake interviews and discovery synthesis during Phase 1 of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Lead intake interviews and discovery synthesis during Phase 1 of [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Maintain `docs/specs/prd/PRD.md` evidence and traceability matrix.
 - Review user-story slices for INVEST quality before backlog entry.
 - Flag scope conflicts, missing constraints, and unstated NFRs to `lead-solution-architect.md`.
@@ -38,13 +38,13 @@ Run discovery and analysis at the front of every project and major feature. Conv
 
 ## Primary skills / lenses
 
-- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/nezam-strategic-planning/SKILL.md)
-- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/nezam-task-decomposition/SKILL.md)
-- [`.cursor/skills/plan-full/SKILL.md`](../skills/plan-full/SKILL.md)
+- [`.cursor/skills/nezam-strategic-planning/SKILL.md`](../skills/system/nezam-strategic-planning/SKILL.md)
+- [`.cursor/skills/nezam-task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md)
+- [`.cursor/skills/plan-full/SKILL.md`](../skills/external/nezam-plan-full/SKILL.md)
 
 ## When to invoke
 
-- Phase 1 (Intake) of [`SWARM_WORKFLOW.md`](../../.nezam/workspace/context/governance/SWARM_WORKFLOW.md).
+- Phase 1 (Intake) of [`SWARM_WORKFLOW.md`](../../.nezam/core/context/governance/SWARM_WORKFLOW.md).
 - Net-new features, scope changes, or unclear acceptance criteria.
 
 ## Output contract

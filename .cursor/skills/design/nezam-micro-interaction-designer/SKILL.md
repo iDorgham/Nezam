@@ -1,5 +1,6 @@
 ---
-name: "nezam-micro-interaction-designer"
+tier: 3
+name: "nezam-"nezam-"nezam-micro-interaction-designer"
 description: Define professional motion and micro-interactions with performance and accessibility constraints.
 version: 1.0.0
 updated: 2026-05-08
@@ -35,8 +36,8 @@ Define a production-safe motion spec that improves perceived quality without har
 
 Write motion contracts into template/governance artifacts:
 
-- `.nezam/workspace/templates/ui-ux/LAYOUT_RTL_MOTION.md`
-- `.nezam/workspace/templates/ui-ux/UI_FOUNDATION.md`
+- `.nezam/core/templates/ui-ux/LAYOUT_RTL_MOTION.md`
+- `.nezam/core/templates/ui-ux/UI_FOUNDATION.md`
 
 Use a table or YAML entries like:
 

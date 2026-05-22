@@ -1,5 +1,6 @@
 ---
-name: saas-tenancy-isolation
+tier: 3
+name: "nezam-"nezam-saas-tenancy-isolation"
 description: Implementation patterns for multi-tenant data isolation and security.
 version: 1.0.0
 updated: 2026-05-13

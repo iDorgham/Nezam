@@ -32,7 +32,7 @@ During the planning and implementation of Next.js applications, especially those
 
 ### Input requirements
 - `.cursor/state/plan_progress.yaml`
-- `.nezam/workspace/prd/PRD.md`
+- `.nezam/core/prd/PRD.md`
 - Next.js version constraints.
 
 ### Output deliverables

@@ -1,5 +1,6 @@
 ---
-name: nezam-structured-data-schema
+tier: 3
+name: "nezam-"nezam- nezam-structured-data-schema"
 description: JSON-LD implementation, schema.org validation, and rich-snippet targeting aligned to canonical entities.
 version: 1.0.0
 updated: 2026-05-08
@@ -24,7 +25,7 @@ Specify and validate JSON-LD structured data so pages qualify for rich results, 
 4. Cross-link entities via `sameAs` (Wikipedia, Wikidata, social handles) and `mainEntityOfPage`.
 5. Validate with Schema Markup Validator and Rich Results Test before merge.
 6. Inject JSON-LD via SSR (avoid client-only rendering); set `Cache-Control` to honor edge.
-7. Track rich-result eligibility and impression deltas in Search Console; log in `.nezam/workspace/context/`.
+7. Track rich-result eligibility and impression deltas in Search Console; log in `.nezam/core/context/`.
 
 # Validation & Metrics
 

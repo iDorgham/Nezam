@@ -1,5 +1,6 @@
 ---
-name: nezam-dashboard-patterns
+tier: 3
+name: "nezam-"nezam- nezam-dashboard-patterns"
 description: Dense data layouts, filtering/sorting UX, KPI cards, responsive tables, and admin panel composition.
 version: 1.0.0
 updated: 2026-05-08

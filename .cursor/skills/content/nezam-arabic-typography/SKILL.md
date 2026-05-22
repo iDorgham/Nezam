@@ -1,5 +1,6 @@
 ---
-name: "nezam-arabic-typography"
+tier: 3
+name: "nezam-"nezam-"nezam-arabic-typography"
 version: 1.0.0
 updated: 2026-05-12
 changelog:

@@ -1,15 +1,27 @@
----
-user_mode: ""
-user_mode_set_at: ""
-tone: ""
-prd_locked: false
-prd_path: ".nezam/core/prd/PRD.md"
-prd_locked_at: ""
-design_locked: false
-design_profile: ""
-design_locked_at: ""
+# NEZAM Project State — managed by /start and gate checks
+# Do not edit manually. Use /start, /plan, /develop commands.
+
+# User mode — set during /start onboarding (Step 2, before PRD menu)
+user_mode: "solo"           # "solo" | "team"
+user_mode_set_at: "2026-05-17T07:49:00+03:00"
+target_market: "eg"       # "global" | "mena" | "ar" | "en" | "eg"
+
+# Tone preference derived from user_mode
+tone: "friendly"                # "friendly" | "structured"
+
+prd_locked: true
+prd_path: "docs/plans/00-define/01-product/PRD.md"
+prd_locked_at: "2026-05-18T00:00:00+03:00"
+
+design_locked: true
+design_profile: "nezam-obsidian-cyan-orange"
+design_locked_at: "2026-05-18T00:00:00+03:00"
+
 planning_complete: false
 planning_completed_at: ""
+
 current_phase: 0
-build_mode: ""
-build_mode_set_at: ""
+
+build_mode: "sdd"
+build_mode_set_at: "2026-05-17T07:49:00+03:00"
+

@@ -1,0 +1,48 @@
++/etc/zshrc:7> [[+/etc/zshrc:7> locale LC_CTYPE
++/etc/zshrc:7> [[ US-ASCII == UTF-8 ]]
++/etc/zshrc:12> disable log
++/etc/zshrc:15> HISTFILE=/Users/Dorgham/.zsh_history 
++/etc/zshrc:16> HISTSIZE=2000 
++/etc/zshrc:17> SAVEHIST=1000 
++/etc/zshrc:20> setopt BEEP
++/etc/zshrc:24> [[ -r /Users/Dorgham/.zkbd/dumb-apple ]]
++/etc/zshrc:27> typeset -g -A key
++/etc/zshrc:29> [[ -n '' ]]
++/etc/zshrc:30> [[ -n '' ]]
++/etc/zshrc:31> [[ -n '' ]]
++/etc/zshrc:32> [[ -n '' ]]
++/etc/zshrc:33> [[ -n '' ]]
++/etc/zshrc:34> [[ -n '' ]]
++/etc/zshrc:35> [[ -n '' ]]
++/etc/zshrc:36> [[ -n '' ]]
++/etc/zshrc:37> [[ -n '' ]]
++/etc/zshrc:38> [[ -n '' ]]
++/etc/zshrc:39> [[ -n '' ]]
++/etc/zshrc:40> [[ -n '' ]]
++/etc/zshrc:41> [[ -n '' ]]
++/etc/zshrc:42> [[ -n '' ]]
++/etc/zshrc:43> [[ -n '' ]]
++/etc/zshrc:44> [[ -n '' ]]
++/etc/zshrc:45> [[ -n '' ]]
++/etc/zshrc:46> [[ -n '' ]]
++/etc/zshrc:47> [[ -n '' ]]
++/etc/zshrc:48> [[ -n '' ]]
++/etc/zshrc:49> [[ -n '' ]]
++/etc/zshrc:50> [[ -n '' ]]
++/etc/zshrc:51> [[ -n '' ]]
++/etc/zshrc:52> [[ -n '' ]]
++/etc/zshrc:53> [[ -n '' ]]
++/etc/zshrc:54> [[ -n '' ]]
++/etc/zshrc:55> [[ -n '' ]]
++/etc/zshrc:56> [[ -n '' ]]
++/etc/zshrc:57> [[ -n '' ]]
++/etc/zshrc:58> [[ -n '' ]]
++/etc/zshrc:59> [[ -n '' ]]
++/etc/zshrc:63> [[ -n '' ]]
++/etc/zshrc:64> [[ -n '' ]]
++/etc/zshrc:65> [[ -n '' ]]
++/etc/zshrc:66> [[ -n '' ]]
++/etc/zshrc:67> [[ -n '' ]]
++/etc/zshrc:70> PS1='%n@%m %1~ %# ' 
++/etc/zshrc:73> [ -r /etc/zshrc_ ']'
++zsh:1> exit

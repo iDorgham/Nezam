@@ -6,9 +6,9 @@
 import { z } from 'zod';
 
 const MotionBudgetSchema = z.object({
-  entranceMs: z.number().max(600),
-  updateMs: z.number().max(200),
-  exitMs: z.number().max(150).optional(),
+  entranceMs: z.number().nonnegative().max(600),
+  updateMs:   z.number().nonnegative().max(200),
+  exitMs:     z.number().nonnegative().max(150).optional(),
   fallback: z.enum(['instant', 'opacity-crossfade']).default('instant'),
 });
 
@@ -23,26 +23,39 @@ const RtlMirrorSchema = z.object({
   tooltipAnchor: z.enum(['left', 'right']).default('right'),
 });
 
-const EncodingSchema = z.object({
-  x: z.string(),
-  y: z.string(),
-  color: z.string().optional(),
-  size: z.string().optional(),
+// Cartesian charts (bar, line, area, scatter, heatmap) require x and y.
+// Radial charts (pie, donut, funnel) use color as category and size as value.
+const CartesianEncodingSchema = z.object({
+  x: z.string().min(1),
+  y: z.string().min(1),
+  color: z.string().min(1).optional(),
+  size:  z.string().min(1).optional(),
 });
 
-export const ChartWidgetNodeSchema = z.object({
-  id: z.string().uuid(),
-  type: z.literal('chart-widget'),
-  position: z.object({ x: z.number(), y: z.number() }),
-  size: z.object({ width: z.number(), height: z.number() }),
-  dataSourceId: z.string(),
-  chartType: z.enum(['bar', 'line', 'area', 'scatter', 'pie', 'donut', 'heatmap', 'funnel']),
-  encoding: EncodingSchema,
-  tokenPalette: z.enum(['categorical', 'sequential', 'diverging']).default('categorical'),
-  a11y: A11ySchema,
-  rtlMirror: RtlMirrorSchema,
-  motionBudget: MotionBudgetSchema,
+const RadialEncodingSchema = z.object({
+  color: z.string().min(1),  // category dimension
+  size:  z.string().min(1),  // value dimension
 });
+
+const CartesianChartTypes = z.enum(['bar', 'line', 'area', 'scatter', 'heatmap']);
+const RadialChartTypes    = z.enum(['pie', 'donut', 'funnel']);
+
+export const ChartWidgetNodeSchema = z.object({
+  id:           z.string().uuid(),
+  type:         z.literal('chart-widget'),
+  position:     z.object({ x: z.number(), y: z.number() }),
+  size:         z.object({ width: z.number().positive(), height: z.number().positive() }),
+  dataSourceId: z.string().min(1),
+  tokenPalette: z.enum(['categorical', 'sequential', 'diverging']).default('categorical'),
+  a11y:         A11ySchema,
+  rtlMirror:    RtlMirrorSchema,
+  motionBudget: MotionBudgetSchema,
+}).and(
+  z.discriminatedUnion('chartType', [
+    z.object({ chartType: CartesianChartTypes, encoding: CartesianEncodingSchema }),
+    z.object({ chartType: RadialChartTypes,    encoding: RadialEncodingSchema }),
+  ])
+);
 
 export type ChartWidgetNode = z.infer<typeof ChartWidgetNodeSchema>;
 ```
@@ -61,7 +74,8 @@ Allowed data source types: `static-json`, `api-endpoint`, `supabase-query`, `com
   <ChartComponent
     encoding={node.encoding}
     flipAxes={isRtl && node.rtlMirror.flipAxes}
-    legendAnchor={isRtl ? node.rtlMirror.legendAnchor : 'left'}
+    legendAnchor={isRtl ? node.rtlMirror.legendAnchor : 'right'}
+    tooltipAnchor={isRtl ? node.rtlMirror.tooltipAnchor : 'right'}
   />
 </div>
 ```
@@ -73,6 +87,6 @@ Entrance animation must respect `motionBudget.entranceMs` and fall back to `moti
 ## Token Consumption Rules
 
 - **Zero hardcoded hex** — all colors via `--token-chart-*` CSS custom properties
-- RTL axis flip: x-axis labels mirror, legend moves to opposite anchor, tooltips follow cursor
+- RTL axis flip: x-axis labels mirror, legend and tooltip move to opposite anchor
 - Color scale order unchanged for RTL (visual direction only)
 - Dark mode: consumed automatically via `prefers-color-scheme` on CSS custom properties

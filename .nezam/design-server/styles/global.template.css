@@ -16,7 +16,7 @@
   --token-chart-cat-11: oklch(52% 0.12 15);   /* coral */
   --token-chart-cat-12: oklch(42% 0.10 260);  /* slate */
 
-  /* --- Sequential palette (9-step, anchor points) --- */
+  /* --- Sequential palette (9-step, light → dark) --- */
   --token-chart-seq-1: oklch(92% 0.06 230);
   --token-chart-seq-2: oklch(83% 0.08 230);
   --token-chart-seq-3: oklch(75% 0.10 230);
@@ -27,31 +27,31 @@
   --token-chart-seq-8: oklch(42% 0.17 230);
   --token-chart-seq-9: oklch(35% 0.18 230);
 
-  /* --- Diverging palette --- */
-  --token-chart-div-neg-3: oklch(75% 0.15 50);
-  --token-chart-div-neg-2: oklch(80% 0.10 75);
-  --token-chart-div-neg-1: oklch(90% 0.05 90);
-  --token-chart-div-neutral: oklch(98% 0.02 90);
-  --token-chart-div-pos-1: oklch(88% 0.07 145);
-  --token-chart-div-pos-2: oklch(70% 0.13 145);
-  --token-chart-div-pos-3: oklch(50% 0.18 145);
+  /* --- Diverging palette (balanced: outer anchors matched at ~52% L, chroma ~0.18) --- */
+  --token-chart-div-neg-3: oklch(52% 0.18 50);   /* negative high — warm */
+  --token-chart-div-neg-2: oklch(68% 0.12 65);
+  --token-chart-div-neg-1: oklch(84% 0.06 80);
+  --token-chart-div-neutral: oklch(96% 0.02 90);
+  --token-chart-div-pos-1: oklch(82% 0.07 145);
+  --token-chart-div-pos-2: oklch(67% 0.13 145);
+  --token-chart-div-pos-3: oklch(52% 0.18 145);  /* positive high — cool */
 
   /* --- Semantic color tokens --- */
   --token-color-primary: oklch(52% 0.18 260);
   --token-color-success: oklch(52% 0.18 145);
   --token-color-warning: oklch(72% 0.18 75);
-  --token-color-danger: oklch(50% 0.20 25);
+  --token-color-danger:  oklch(50% 0.20 25);
 
   /* --- Tinted neutrals --- */
-  --token-neutral-bg: oklch(98% 0.005 260);
+  --token-neutral-bg:      oklch(98% 0.005 260);
   --token-neutral-surface: oklch(96% 0.008 260);
-  --token-neutral-text: oklch(20% 0.01 260);
-  --token-neutral-subtle: oklch(60% 0.01 260);
+  --token-neutral-text:    oklch(20% 0.01 260);
+  --token-neutral-subtle:  oklch(60% 0.01 260);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Categorical: same hues, lightness +15% for dark bg WCAG AA */
+    /* Categorical: same hues, lightness +15% for WCAG AA on dark bg */
     --token-chart-cat-1: oklch(67% 0.18 230);
     --token-chart-cat-2: oklch(80% 0.20 50);
     --token-chart-cat-3: oklch(67% 0.18 145);
@@ -65,17 +65,37 @@
     --token-chart-cat-11: oklch(67% 0.12 15);
     --token-chart-cat-12: oklch(57% 0.10 260);
 
+    /* Sequential: inverted direction on dark bg (step 1 becomes darkest, step 9 lightest) */
+    --token-chart-seq-1: oklch(35% 0.18 230);
+    --token-chart-seq-2: oklch(42% 0.17 230);
+    --token-chart-seq-3: oklch(49% 0.16 230);
+    --token-chart-seq-4: oklch(57% 0.15 230);
+    --token-chart-seq-5: oklch(65% 0.14 230);
+    --token-chart-seq-6: oklch(70% 0.12 230);
+    --token-chart-seq-7: oklch(75% 0.10 230);
+    --token-chart-seq-8: oklch(83% 0.08 230);
+    --token-chart-seq-9: oklch(92% 0.06 230);
+
+    /* Diverging: raise lightness for dark bg contrast, keep anchors balanced */
+    --token-chart-div-neg-3: oklch(67% 0.18 50);
+    --token-chart-div-neg-2: oklch(76% 0.12 65);
+    --token-chart-div-neg-1: oklch(88% 0.06 80);
+    --token-chart-div-neutral: oklch(30% 0.02 90);
+    --token-chart-div-pos-1: oklch(86% 0.07 145);
+    --token-chart-div-pos-2: oklch(76% 0.13 145);
+    --token-chart-div-pos-3: oklch(67% 0.18 145);
+
     /* Semantic tokens — dark mode */
     --token-color-primary: oklch(67% 0.18 260);
     --token-color-success: oklch(67% 0.18 145);
     --token-color-warning: oklch(85% 0.18 75);
-    --token-color-danger: oklch(65% 0.20 25);
+    --token-color-danger:  oklch(65% 0.20 25);
 
     /* Tinted neutrals — dark mode */
-    --token-neutral-bg: oklch(12% 0.005 260);
+    --token-neutral-bg:      oklch(12% 0.005 260);
     --token-neutral-surface: oklch(16% 0.008 260);
-    --token-neutral-text: oklch(92% 0.01 260);
-    --token-neutral-subtle: oklch(55% 0.01 260);
+    --token-neutral-text:    oklch(92% 0.01 260);
+    --token-neutral-subtle:  oklch(55% 0.01 260);
   }
 }
 
@@ -83,9 +103,10 @@
   *,
   *::before,
   *::after {
-    animation-duration: 50ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 50ms !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }

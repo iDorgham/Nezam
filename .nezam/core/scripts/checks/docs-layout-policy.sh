@@ -44,12 +44,12 @@ if [[ -d docs/reports ]]; then
   done
 fi
 
-# docs/plans/ — must be empty or contain only .gitkeep / sub-phase directories.
+# docs/plans/ — must be empty or contain only .gitkeep / sub-phase directories / INDEX.md / design excellence plan.
 if [[ -d docs/plans ]]; then
   for entry in docs/plans/*; do
     [[ -e "$entry" ]] || continue
     base="$(basename "$entry")"
-    if [[ -f "$entry" && "$base" != ".gitkeep" ]]; then
+    if [[ -f "$entry" && "$base" != ".gitkeep" && "$base" != "INDEX.md" && "$base" != "2026-05-22-nezam-v3-design-excellence.md" ]]; then
       echo "FAIL: docs/plans must not contain loose files (found: $base). Plans are scaffolded by /plan."
       fail=1
     fi

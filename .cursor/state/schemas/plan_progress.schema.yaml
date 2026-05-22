@@ -61,6 +61,24 @@ fields:
     required: true
     description: "Master flag — true only when all 6 phase flags above are true"
 
+  phase_02_design:
+    type: boolean
+    required: false
+    default: false
+    description: "V3 design excellence gate — true after sdd-gate-validator approves design phase"
+
+  scrumban_board:
+    type: object
+    required: false
+    description: "V3 Scrumban WIP board; wip_limit enforced by /develop command"
+    properties:
+      backlog: { type: array }
+      in_progress: { type: array, max_length: 3 }
+      review: { type: array }
+      done: { type: array }
+      blocked: { type: array }
+      wip_limit: { type: integer, value: 3 }
+
 # Validation rules
 rules:
   - id: R1

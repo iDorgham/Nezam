@@ -12,7 +12,7 @@ owner: dashboard-orchestrator
 
 ## Chart & Data Viz
 - [ ] All charts use token references, zero literal colors/sizes
-- [ ] WCAG AA contrast: >= 4.5:1 lines/bars, >= 3:1 text
+- [ ] WCAG AA contrast: >= 3:1 lines/bars/graphical elements, >= 4.5:1 normal text
 - [ ] Screen-reader data table per chart
 - [ ] Keyboard navigation: tab > arrow > escape
 - [ ] RTL/LTR mirroring documented for axes, legends, tooltips

@@ -18,7 +18,8 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(xargs -I{} sh -c 'echo \"=== {} ===\"; head -20 \"{}\"')",
-      "Bash(pnpm ai:check)"
+      "Bash(pnpm ai:check)",
+      "Bash(git rm *)"
     ]
   },
   "enabledMcpjsonServers": [

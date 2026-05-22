@@ -1,5 +1,5 @@
 ---
-description: Design excellence gates blocking unsafe phase progression. 50+ anti-pattern checks.
+description: Design excellence gates blocking unsafe phase progression. 38 anti-pattern checks across 4 categories.
 alwaysApply: false
 created: 2026-05-22
 version: 1.0.0

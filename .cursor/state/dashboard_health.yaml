@@ -3,14 +3,19 @@ last_updated: 2026-05-22
 baseline_exists: false
 metrics:
   chart_a11y_score: 0
-  animation_perf_compliance: fail
+  animation_perf_compliance_pct: 0
+  keyboard_nav_coverage_pct: 0
+  reduced_motion_coverage_pct: 0
   rtl_parity: 0
   data_density_compliance: false
+  above_fold_metrics_count: 0
   token_drift: 0
-  reduced_motion_coverage: 0
   visual_regression_status: baseline-missing
 thresholds:
   min_chart_a11y_score: 90
   max_animation_duration_ms: 600
+  min_keyboard_nav_coverage_pct: 100
+  min_reduced_motion_coverage_pct: 100
   min_rtl_parity: 100
+  max_above_fold_metrics_count: 7
   max_token_drift: 0

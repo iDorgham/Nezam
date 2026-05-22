@@ -26,5 +26,6 @@
     ".kiro/**": true,
     "node_modules/**": true
   },
-  "specstory.cloudSync.enabled": "always"
+  "specstory.cloudSync.enabled": "always",
+  "claudeCodeChat.permissions.yoloMode": true
 }

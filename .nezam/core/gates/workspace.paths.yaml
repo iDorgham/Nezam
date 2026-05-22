@@ -26,27 +26,27 @@ project:
 # ─────────────────────────────────────────────────────────────────────────────
 workspace:
   # Root of all NEZAM governance docs (plans, memory, reports, specs, prd)
-  nezam_root: ".nezam/workspace"
+  nezam_root: ".nezam/core/workspace"
 
   # Canonical template library — edit files here to customise generated artifacts
-  templates_root: ".nezam/templates"
+  templates_root: ".nezam/core/templates"
 
   # Memory & Context
-  memory: ".nezam/memory"
-  context: ".nezam/context"
+  memory: ".nezam/core/memory"
+  context: ".nezam/core/context"
   
   # Design profiles
-  design_profiles: ".nezam/design"
+  design_profiles: ".nezam/core/design"
   
   # Tools, Specs, Scratch
-  tools: ".nezam/tools"
-  specs: ".nezam/specs"
-  scratch: ".nezam/scratch"
+  tools: ".nezam/core/tools"
+  specs: ".nezam/core/specs"
+  scratch: ".nezam/core/scratch"
   
   # Gates & Configuration
-  gates_config: ".nezam/gates"
-  hardlock_paths: ".nezam/gates/hardlock-paths.json"
+  gates_config: ".nezam/core/gates"
+  hardlock_paths: ".nezam/core/gates/hardlock-paths.json"
   
   # Workspace Config Mirrors
-  paths: ".nezam/gates/workspace.paths.yaml"
-  settings: ".nezam/gates/workspace.settings.yaml"
+  paths: ".nezam/core/gates/workspace.paths.yaml"
+  settings: ".nezam/core/gates/workspace.settings.yaml"

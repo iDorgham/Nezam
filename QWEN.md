@@ -26,6 +26,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `check.md`
 - `create.md`
 - `deploy.md`
+- `design.md`
 - `develop.md`
 - `fix.md`
 - `git.md`
@@ -42,6 +43,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `EVAL_FRAMEWORK.md`
 - `README.md`
 - `a11y-performance-auditor.md`
+- `a11y-rtl-integration-engineer.md`
 - `advanced-analytics-architect.md`
 - `aeo-specialist.md`
 - `analytics-chart-designer.md`
@@ -84,6 +86,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `crm-interaction-specialist.md`
 - `crm-lead-architect.md`
 - `crm-pipeline-manager.md`
+- `cultural-design-validator.md`
 - `daily-sync-agent.md`
 - `dashboard-analytics-manager.md`
 - `dashboard-manager.md`
@@ -92,6 +95,8 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `data-visualization.md`
 - `database-design-manager.md`
 - `deputy-swarm-leader.md`
+- `design-debt-analyst.md`
+- `design-excellence-lead.md`
 - `design-lead.md`
 - `design-server-sitemap.md`
 - `design-server-specialist.md`
@@ -146,6 +151,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `masri-content-specialist.md`
 - `mobile-cross-platform.md`
 - `motion-3d-choreographer.md`
+- `motion-performance-specialist.md`
 - `msa-formal-specialist.md`
 - `multi-tenancy-architect.md`
 - `neon-database-architect.md`
@@ -188,12 +194,14 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `tech-debt-manager.md`
 - `technical-feasibility-analyst.md`
 - `testing-manager.md`
+- `token-architect-pro.md`
 - `ui-component-manager.md`
 - `ux-research-strategy-manager.md`
 - `visual-asset-manager.md`
 - `visual-canvas-architect.md`
 - `visual-design-manager.md`
 - `visual-interaction-designer.md`
+- `visual-regression-automator.md`
 - `visual-state-engine.md`
 - `vite-build-specialist.md`
 - `white-label-theming-specialist.md`
@@ -208,6 +216,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `frontend`
 - `infrastructure`
 - `mobile-testing`
+- `pm`
 - `quality`
 - `research`
 - `s8`
@@ -216,6 +225,8 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 ## Synced rule sources
 - `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
+- `.cursor/rules/dashboard-design-gates.mdc`
+- `.cursor/rules/design-excellence-gates.mdc`
 - `.cursor/rules/design-gates.mdc`
 - `.cursor/rules/design-server-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

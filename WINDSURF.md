@@ -65,6 +65,7 @@ pnpm ai:check  # verify no drift
 - `check.md`
 - `create.md`
 - `deploy.md`
+- `design.md`
 - `develop.md`
 - `fix.md`
 - `git.md`
@@ -81,6 +82,7 @@ pnpm ai:check  # verify no drift
 - `EVAL_FRAMEWORK.md`
 - `README.md`
 - `a11y-performance-auditor.md`
+- `a11y-rtl-integration-engineer.md`
 - `advanced-analytics-architect.md`
 - `aeo-specialist.md`
 - `analytics-chart-designer.md`
@@ -123,6 +125,7 @@ pnpm ai:check  # verify no drift
 - `crm-interaction-specialist.md`
 - `crm-lead-architect.md`
 - `crm-pipeline-manager.md`
+- `cultural-design-validator.md`
 - `daily-sync-agent.md`
 - `dashboard-analytics-manager.md`
 - `dashboard-manager.md`
@@ -131,6 +134,8 @@ pnpm ai:check  # verify no drift
 - `data-visualization.md`
 - `database-design-manager.md`
 - `deputy-swarm-leader.md`
+- `design-debt-analyst.md`
+- `design-excellence-lead.md`
 - `design-lead.md`
 - `design-server-sitemap.md`
 - `design-server-specialist.md`
@@ -185,6 +190,7 @@ pnpm ai:check  # verify no drift
 - `masri-content-specialist.md`
 - `mobile-cross-platform.md`
 - `motion-3d-choreographer.md`
+- `motion-performance-specialist.md`
 - `msa-formal-specialist.md`
 - `multi-tenancy-architect.md`
 - `neon-database-architect.md`
@@ -227,12 +233,14 @@ pnpm ai:check  # verify no drift
 - `tech-debt-manager.md`
 - `technical-feasibility-analyst.md`
 - `testing-manager.md`
+- `token-architect-pro.md`
 - `ui-component-manager.md`
 - `ux-research-strategy-manager.md`
 - `visual-asset-manager.md`
 - `visual-canvas-architect.md`
 - `visual-design-manager.md`
 - `visual-interaction-designer.md`
+- `visual-regression-automator.md`
 - `visual-state-engine.md`
 - `vite-build-specialist.md`
 - `white-label-theming-specialist.md`
@@ -247,6 +255,7 @@ pnpm ai:check  # verify no drift
 - `frontend`
 - `infrastructure`
 - `mobile-testing`
+- `pm`
 - `quality`
 - `research`
 - `s8`
@@ -255,6 +264,8 @@ pnpm ai:check  # verify no drift
 ## Synced rule sources
 - `.cursor/rules/agent-lazy-load.mdc`
 - `.cursor/rules/cli-orchestration.mdc`
+- `.cursor/rules/dashboard-design-gates.mdc`
+- `.cursor/rules/design-excellence-gates.mdc`
 - `.cursor/rules/design-gates.mdc`
 - `.cursor/rules/design-server-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

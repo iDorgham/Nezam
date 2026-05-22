@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-22T02:06:34.812Z",
+  "generated": "2026-05-22T06:50:30.700Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -415,9 +415,58 @@
       "orphaned": true
     },
     {
+      "path": "../../../.cursor/skills/design/a11y-rtl-fusion/SKILL.md",
+      "id": "a11y-rtl-fusion",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/chart-spec-generator/SKILL.md",
+      "id": "chart-spec-generator",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/cultural-context-validator/SKILL.md",
+      "id": "cultural-context-validator",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
       "path": "../../../.cursor/skills/design/dashboard-ia-patterns/SKILL.md",
       "id": "\"nezam-\"nezam-dashboard-ia-patterns\"",
       "version": "1.0.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/dashboard-layout-pro/SKILL.md",
+      "id": "dashboard-layout-pro",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/data-viz-motion-budget/SKILL.md",
+      "id": "data-viz-motion-budget",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/design-intent-inference/SKILL.md",
+      "id": "design-intent-inference",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/motion-choreography-budgeted/SKILL.md",
+      "id": "motion-choreography-budgeted",
+      "version": "1.0",
       "referenced_by": [],
       "orphaned": true
     },
@@ -565,6 +614,13 @@
       "path": "../../../.cursor/skills/design/nezam-wireframe-to-spec/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-wireframe-to-spec-converter\"",
       "version": "1.0.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/design/token-synthesis-pro/SKILL.md",
+      "id": "token-synthesis-pro",
+      "version": "1.0",
       "referenced_by": [],
       "orphaned": true
     },
@@ -803,6 +859,13 @@
       "path": "../../../.cursor/skills/mobile-testing/SKILL.md",
       "id": "\"nezam-\"nezam-\"nezam-Mobile Testing\"",
       "version": "1.0.0",
+      "referenced_by": [],
+      "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/pm/prioritize-rice/SKILL.md",
+      "id": "prioritize-rice",
+      "version": "1.0",
       "referenced_by": [],
       "orphaned": true
     },
@@ -1162,6 +1225,13 @@
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
+    },
+    {
+      "path": "../../../.cursor/skills/system/sdd-gate-validator/SKILL.md",
+      "id": "sdd-gate-validator",
+      "version": "1.0",
+      "referenced_by": [],
+      "orphaned": true
     }
   ],
   "orphaned_skills": [
@@ -1224,7 +1294,14 @@
     "\"nezam-\"nezam-\"nezam-egyptian-arabic-content-master\"",
     "\"nezam-\"nezam-\"nezam-moroccan-darija\"",
     "\"nezam-\"nezam-\"nezam-register-detection\"",
+    "a11y-rtl-fusion",
+    "chart-spec-generator",
+    "cultural-context-validator",
     "\"nezam-\"nezam-dashboard-ia-patterns\"",
+    "dashboard-layout-pro",
+    "data-viz-motion-budget",
+    "design-intent-inference",
+    "motion-choreography-budgeted",
     "\"nezam-\"nezam-\"nezam-accessibility-audit\"",
     "\"nezam-\"nezam-\"nezam-brand-visual-direction\"",
     "\"nezam-\"nezam- nezam-component-library-api\"",
@@ -1246,6 +1323,7 @@
     "\"nezam-\"nezam-\"nezam-wireframe-catalog\"",
     "\"nezam-\"nezam-\"nezam-wireframe-pipeline\"",
     "\"nezam-\"nezam-\"nezam-wireframe-to-spec-converter\"",
+    "token-synthesis-pro",
     "\"nezam-\"nezam-visual-canvas-engine\"",
     "\"nezam-\"nezam-\"nezam-api-testing\"",
     "\"nezam-\"nezam-\"nezam-deployment-checklist\"",
@@ -1280,6 +1358,7 @@
     "\"nezam-\"nezam- nezam-secret-management\"",
     "\"nezam-\"nezam- nezam-vercel-deploy\"",
     "\"nezam-\"nezam-\"nezam-Mobile Testing\"",
+    "prioritize-rice",
     "\"nezam-\"nezam- nezam-a11y-automation\"",
     "\"nezam-\"nezam- nezam-github-actions-ci\"",
     "\"nezam-\"nezam- nezam-performance-optimization\"",
@@ -1330,7 +1409,8 @@
     "\"nezam-\"nezam- nezam-strategic-planning\"",
     "\"nezam-\"nezam- nezam-task-decomposition\"",
     "\"nezam-\"nezam-\"nezam-tavily-research\"",
-    "\"nezam-\"nezam-\"nezam-token-budget-manager\""
+    "\"nezam-\"nezam-\"nezam-token-budget-manager\"",
+    "sdd-gate-validator"
   ],
   "unresolved_skill_refs": [
     "nezam-motion-3d-progressive",

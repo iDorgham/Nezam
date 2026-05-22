@@ -10,9 +10,9 @@
     "projectPrompt": "docs/plans/00-define/01-product/PROJECT_PROMPT.md"
   },
   "planning": {
-    "changelog": ".nezam/CHANGELOG.md",
-    "versioning": ".nezam/workspace/meta/VERSIONING.md",
-    "gateManifest": ".nezam/gates/GITHUB_GATE_MATRIX.json"
+    "changelog": "CHANGELOG.md",
+    "versioning": ".nezam/core/specs/VERSIONING.md",
+    "gateManifest": ".nezam/core/gates/GITHUB_GATE_MATRIX.json"
   },
   "design": {
     "designSpec": "DESIGN.md"

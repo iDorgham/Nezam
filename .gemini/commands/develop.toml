@@ -171,4 +171,15 @@ Recommendation footer: required
 4. Bump `spec_version` patch on any amendment (e.g. 0.1.0 → 0.1.1).
 5. Bump `spec_version` minor on acceptance criteria changes (e.g. 0.1.0 → 0.2.0).
 6. Bump `spec_version` major on scope changes that require design rework (e.g. 0.1.0 → 1.0.0).
+
+## WIP Limits (Scrumban V3)
+- Max 3 tasks in `in_progress` globally
+- Max 1 task per agent from `HANDOFF_QUEUE.yaml`
+- Blocked >2h: auto-move to `blocked`, notify `hybrid-pm-orchestrator`
+- P0 blocked >1h: notify `swarm-leader`, flag `#alerts`
+
+## Scrumban Board State
+Maintained in `.cursor/state/plan_progress.yaml:scrumban_board`:
+- backlog, in_progress (max 3), review, done, blocked
+- wip_limit: 3
 """

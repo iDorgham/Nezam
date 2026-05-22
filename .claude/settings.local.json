@@ -24,7 +24,10 @@
       "Bash(bash -c 'set -e; if grep -r \"#[0-9a-fA-F]\\\\{6\\\\}\" /tmp/nonexistent_dir/ 2>/dev/null; then echo found; fi; echo \"still running after grep no-match\"')",
       "Bash(bash -c 'set -e; if grep \"pattern\" /dev/null 2>/dev/null; then echo \"matched\"; fi; echo \"survived\"')",
       "Bash(bash -c 'set -eo pipefail; if grep \"pattern\" /dev/null 2>/dev/null; then echo \"matched\"; fi; echo \"survived\"')",
-      "Bash(bash -c 'set -e; if grep -r \"#[0-9a-fA-F]\\\\{6\\\\}\" /nonexistent_path/ 2>/dev/null; then echo \"found\"; fi; echo \"survived\"')"
+      "Bash(bash -c 'set -e; if grep -r \"#[0-9a-fA-F]\\\\{6\\\\}\" /nonexistent_path/ 2>/dev/null; then echo \"found\"; fi; echo \"survived\"')",
+      "Bash(curl -s -o /tmp/page.html -w \"HTTP %{http_code} · %{size_download} bytes\\\\n\" http://localhost:4000/)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(pkill -f \"next-server\")"
     ]
   },
   "enabledMcpjsonServers": [

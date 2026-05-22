@@ -1,128 +1,90 @@
 import type { Config } from 'tailwindcss'
 
+/**
+ * NEZAM Design Hub v2 — Tailwind config.
+ * The app chrome uses fixed `--app-*` graphite tokens.
+ * The live preview uses `--n-*` design tokens applied per-scope at runtime.
+ */
 const config: Config = {
-  darkMode: ['class', '[data-theme="dark"]'],
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  darkMode: ['class'],
+  content: ['./app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Brand
-        'ds-primary': 'var(--ds-primary)',
-        'ds-primary-hover': 'var(--ds-primary-hover)',
-        'ds-primary-subtle': 'var(--ds-primary-subtle)',
-        'ds-primary-foreground': 'var(--ds-primary-foreground)',
-        'ds-secondary': 'var(--ds-secondary)',
-        'ds-accent': 'var(--ds-accent)',
-
-        // Surfaces
-        'ds-background': 'var(--ds-background)',
-        'ds-surface': 'var(--ds-surface)',
-        'ds-surface-elevated': 'var(--ds-surface-elevated)',
-        'ds-surface-hover': 'var(--ds-surface-hover)',
-        'ds-surface-subtle': 'var(--ds-surface-subtle)',
-        'ds-overlay': 'var(--ds-overlay)',
-
-        // Text
-        'ds-text-primary': 'var(--ds-text-primary)',
-        'ds-text-secondary': 'var(--ds-text-secondary)',
-        'ds-text-muted': 'var(--ds-text-muted)',
-        'ds-text-disabled': 'var(--ds-text-disabled)',
-        'ds-text-inverse': 'var(--ds-text-inverse)',
-
-        // Borders
-        'ds-border': 'var(--ds-border)',
-        'ds-border-strong': 'var(--ds-border-strong)',
-        'ds-border-subtle': 'var(--ds-border-subtle)',
-        'ds-border-hover': 'var(--ds-border-hover)',
-        'ds-border-focus': 'var(--ds-border-focus)',
-
-        // Alert (GateFlow Orange)
-        'ds-alert': 'var(--ds-alert)',
-        'ds-alert-hover': 'var(--ds-alert-hover)',
-        'ds-alert-subtle': 'var(--ds-alert-subtle)',
-
-        // Border muted
-        'ds-border-muted': 'var(--ds-border-muted)',
-
-        // Semantic
-        'ds-interactive': 'var(--ds-interactive)',
-        'ds-destructive': 'var(--ds-destructive)',
-        'ds-success': 'var(--ds-success)',
-        'ds-warning': 'var(--ds-warning)',
-        'ds-error': 'var(--ds-error)',
-        'ds-info': 'var(--ds-info)',
-
-        // Canvas viewer (--dv-* tokens)
-        'dv-wire-navigational': 'var(--dv-wire-navigational)',
-        'dv-wire-data': 'var(--dv-wire-data)',
-        'dv-wire-auth': 'var(--dv-wire-auth)',
-        'dv-wire-conditional': 'var(--dv-wire-conditional)',
-        'dv-node-page': 'var(--dv-node-page)',
-        'dv-node-border-active': 'var(--dv-node-border-active)',
-        'dv-node-border-hardlock': 'var(--dv-node-border-hardlock)',
-        'dv-timeline-header': 'var(--dv-timeline-header)',
-        'dv-keyframe': 'var(--dv-keyframe)',
-        'dv-canvas-grid': 'var(--dv-canvas-grid)',
-      },
-      borderRadius: {
-        'ds-none': 'var(--ds-radius-none)',
-        'ds-sm': 'var(--ds-radius-sm)',
-        'ds-md': 'var(--ds-radius-md)',
-        'ds-lg': 'var(--ds-radius-lg)',
-        'ds-xl': 'var(--ds-radius-xl)',
-        'ds-2xl': 'var(--ds-radius-2xl)',
-        'ds-full': 'var(--ds-radius-full)',
-      },
-      boxShadow: {
-        'ds-sm':         'var(--ds-shadow-sm)',
-        'ds-md':         'var(--ds-shadow-md)',
-        'ds-lg':         'var(--ds-shadow-lg)',
-        'ds-node':       'var(--ds-shadow-node)',
-        'ds-node-active':'var(--ds-shadow-node-active)',
-        // Legacy aliases
-        'ds-xl':  'var(--ds-elevation-xl)',
-        'ds-2xl': 'var(--ds-elevation-2xl)',
-      },
-      transitionTimingFunction: {
-        'ds-default': 'var(--ds-easing-default)',
-        'ds-spring': 'var(--ds-easing-spring)',
-      },
-      transitionDuration: {
-        'ds-fast': '150ms',
-        'ds-normal': '300ms',
-        'ds-slow': '500ms',
+        app: {
+          bg: 'var(--app-bg)',
+          surface: 'var(--app-surface)',
+          elevated: 'var(--app-elevated)',
+          inset: 'var(--app-inset)',
+          border: 'var(--app-border)',
+          'border-strong': 'var(--app-border-strong)',
+          text: 'var(--app-text)',
+          muted: 'var(--app-muted)',
+          subtle: 'var(--app-subtle)',
+          accent: 'var(--app-accent)',
+          'accent-hover': 'var(--app-accent-hover)',
+          'accent-subtle': 'var(--app-accent-subtle)',
+          'on-accent': 'var(--app-on-accent)',
+        },
+        n: {
+          brand: 'var(--n-brand)',
+          'brand-hover': 'var(--n-brand-hover)',
+          'brand-subtle': 'var(--n-brand-subtle)',
+          'on-brand': 'var(--n-on-brand)',
+          accent: 'var(--n-accent)',
+          bg: 'var(--n-bg)',
+          surface: 'var(--n-surface)',
+          elevated: 'var(--n-elevated)',
+          text: 'var(--n-text)',
+          'text-muted': 'var(--n-text-muted)',
+          'text-subtle': 'var(--n-text-subtle)',
+          border: 'var(--n-border)',
+          'border-strong': 'var(--n-border-strong)',
+          success: 'var(--n-success)',
+          warning: 'var(--n-warning)',
+          danger: 'var(--n-danger)',
+          info: 'var(--n-info)',
+        },
       },
       fontFamily: {
-        sans:    ['var(--ds-font-sans)', 'Geist', 'Inter', 'system-ui', 'sans-serif'],
-        mono:    ['var(--ds-font-mono)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
-        heading: ['var(--ds-font-sans)', 'Geist', 'system-ui', 'sans-serif'],
-        body:    ['var(--ds-font-sans)', 'Geist', 'system-ui', 'sans-serif'],
+        sans: ['var(--app-font-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--app-font-mono)', 'ui-monospace', 'monospace'],
       },
-      fontSize: {
-        'ds-xs': 'var(--ds-text-xs)',
-        'ds-sm': 'var(--ds-text-sm)',
-        'ds-base': 'var(--ds-text-base)',
-        'ds-lg': 'var(--ds-text-lg)',
-        'ds-xl': 'var(--ds-text-xl)',
-        'ds-2xl': 'var(--ds-text-2xl)',
-        'ds-3xl': 'var(--ds-text-3xl)',
-        'ds-4xl': 'var(--ds-text-4xl)',
+      borderRadius: {
+        'app-sm': '6px',
+        app: '10px',
+        'app-lg': '14px',
+        'app-xl': '20px',
       },
-      zIndex: {
-        'ds-below': 'var(--ds-z-below)',
-        'ds-base': 'var(--ds-z-base)',
-        'ds-above': 'var(--ds-z-above)',
-        'ds-dropdown': 'var(--ds-z-dropdown)',
-        'ds-sticky': 'var(--ds-z-sticky)',
-        'ds-modal': 'var(--ds-z-modal)',
-        'ds-toast': 'var(--ds-z-toast)',
+      boxShadow: {
+        'app-sm': '0 1px 2px rgba(0,0,0,0.4)',
+        app: '0 4px 16px -2px rgba(0,0,0,0.45)',
+        'app-lg': '0 18px 48px -12px rgba(0,0,0,0.65)',
+        'app-glow': '0 0 0 1px var(--app-accent-subtle), 0 8px 28px -8px var(--app-accent-subtle)',
+      },
+      transitionTimingFunction: {
+        smooth: 'cubic-bezier(0.32, 0.72, 0, 1)',
+        spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+      },
+      keyframes: {
+        'fade-in': { from: { opacity: '0' }, to: { opacity: '1' } },
+        'rise-in': {
+          from: { opacity: '0', transform: 'translateY(6px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 0.3s ease both',
+        'rise-in': 'rise-in 0.4s cubic-bezier(0.32,0.72,0,1) both',
+        shimmer: 'shimmer 2.4s linear infinite',
       },
     },
   },
   plugins: [],
 }
+
 export default config

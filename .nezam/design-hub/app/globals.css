@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================
+   NEZAM Design Hub — Adobe Spectrum-inspired dark workspace
+   Neutral graphite tool chrome. Live design tokens (--n-*) stay
+   scoped to the preview — never leak onto :root.
+   ============================================================= */
+
+:root {
+  /* Adobe Spectrum dark surfaces (slightly tuned). */
+  --app-bg: #1d1d1d;
+  --app-surface: #252526;
+  --app-elevated: #2f2f30;
+  --app-inset: #1a1a1a;
+  --app-deep: #161616;
+  --app-border: #393939;
+  --app-border-strong: #4a4a4a;
+  --app-text: #e8e8e8;
+  --app-muted: #a3a3a3;
+  --app-subtle: #6e6e6e;
+  /* Adobe blue accent. */
+  --app-accent: #2680eb;
+  --app-accent-hover: #378ef0;
+  --app-accent-active: #1473e6;
+  --app-accent-subtle: rgba(38, 128, 235, 0.18);
+  --app-on-accent: #ffffff;
+  /* Status. */
+  --app-danger: #e34850;
+  --app-warning: #e68619;
+  --app-success: #2d9d78;
+
+  --app-font-sans: 'Inter', 'Adobe Clean', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --app-font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
+  --app-font-arabic: 'IBM Plex Sans Arabic', 'Cairo', 'Noto Sans Arabic', system-ui, sans-serif;
+
+  --right-w: 432px;
+
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--app-border);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--app-font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+/* Arabic-aware typography inside RTL scopes */
+[dir='rtl'] {
+  font-family: var(--app-font-arabic);
+}
+
+/* ── Scrollbars (Adobe-thin) ────────────────────────────────── */
+.app-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--app-border-strong) transparent;
+}
+.app-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.app-scroll::-webkit-scrollbar-thumb {
+  background: var(--app-border-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.app-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--app-subtle);
+  background-clip: content-box;
+}
+
+/* ── Preview scope ──────────────────────────────────────────── */
+.n-scope {
+  background: var(--n-bg);
+  color: var(--n-text);
+  font-family: var(--n-font-sans, var(--app-font-sans));
+}
+
+.n-pick {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: box-shadow 0.12s ease;
+}
+.n-pick::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+.n-pick:hover::after {
+  border-color: color-mix(in srgb, var(--app-accent) 55%, transparent);
+}
+.n-pick[data-selected='true']::after {
+  border-color: var(--app-accent);
+  background-color: rgba(38, 128, 235, 0.08);
+}
+
+/* Locked layer — its pickable elements cannot be selected */
+.layer-locked .n-pick {
+  pointer-events: none;
+}
+
+/* Focus ring for app chrome controls */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 1px;
+}
+
+/* Adobe-style gradient accent text */
+.text-gradient {
+  background: linear-gradient(110deg, var(--app-text) 30%, var(--app-accent) 55%, var(--app-text) 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Canvas backdrop — Adobe-style dotted grid */
+.canvas-grid {
+  background-color: var(--app-deep);
+  background-image: radial-gradient(circle at 1px 1px, #2a2a2a 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* Inline-editable text caret tint */
+[contenteditable='true']:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--app-accent);
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

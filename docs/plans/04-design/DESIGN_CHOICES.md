@@ -1,9 +1,14 @@
-# Design Choices — Nezam Design Server · Ultimate UI Suite
+# Design Choices
 
+> **Domain:** Nezam Platform Design + Egypt Nightclub System Spec  
 > **Phase:** 04-Design | **Source:** PRD v2.0.0 · DESIGN.md · IA_CONTENT.md
-> Records all layout and component variant selections for the SPA shell.
+> Records all layout and component variant selections.
 
 ---
+
+# Part 1: Nezam Design Server · Ultimate UI Suite
+
+> Records all layout and component variant selections for the SPA shell.
 
 ## Wireframe Selections
 
@@ -137,8 +142,6 @@ wireframe_selections:
     animation: "slide-in-from-right 150ms ease-out, fade-out 150ms on dismiss"
 ```
 
----
-
 ## Token-to-Component Mapping
 
 | Component | Token used |
@@ -156,8 +159,6 @@ wireframe_selections:
 | Panel backgrounds | `--ds-color-surface-base` |
 | Elevated surfaces | `--ds-color-surface-elevated` |
 
----
-
 ## Responsive Strategy
 
 This is a developer tool — it runs locally and targets a single viewport. Breakpoint targets:
@@ -170,4 +171,32 @@ This is a developer tool — it runs locally and targets a single viewport. Brea
 
 ---
 
-*Generated: 2026-05-18 | Source: PRD v2.0.0 · DESIGN.md · IA_CONTENT.md*
+# Part 2: Nightclub Reservation System Application (Design Choices)
+
+> Records the design and layout selections chosen for the Nightclub Booking & Management application interfaces.
+
+## Wireframe Selections
+
+```yaml
+wireframe_selections:
+  navigation:
+    variant: "C"
+    description: "Collapsible Sidebar (Icons only by default, expands on hover)"
+    components: ["Logo", "NavLinks", "Search", "Notifications", "Avatar"]
+  floor_plan:
+    variant: "B"
+    description: "Full Screen Canvas with Floating Toolbar (Maximizes space for drag & drop)"
+    components: ["Canvas", "FloatingToolbar", "TableObject", "PropertyPanel"]
+  sales_app:
+    variant: "A"
+    description: "Dashboard First (Focuses on stats, leaderboard, and quick actions)"
+    components: ["StatsCard", "LeaderboardBanner", "QuickActions", "RecentReservations"]
+  security_app:
+    variant: "B"
+    description: "Split Screen (Camera on top half, recent scans on bottom half)"
+    components: ["CameraView", "ScanTarget", "CapacityCounter", "RecentScansList"]
+```
+
+---
+
+*Generated: 2026-05-18 | Source: PRD v2.0.0 · DESIGN.md · IA_CONTENT.md · new-planning merge*

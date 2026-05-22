@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scaffold.sh — Idempotent project scaffold for Nezam Design Server
+# scaffold.sh — Idempotent project scaffold for both Nezam Design Server and Nightclub System
 # Run from NEZAM workspace root: bash scripts/scaffold.sh
 # Safe to re-run: uses mkdir -p and touch (no overwrites)
 
@@ -7,9 +7,14 @@ set -e
 
 DS=".nezam/design-server"
 
-echo "🏗  Scaffolding Nezam Design Server..."
+echo "🏗  Scaffolding Nezam Workspace..."
 
-# ── App Router ──────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. NEZAM DESIGN SERVER PLATFORM SCAFFOLD
+# ─────────────────────────────────────────────────────────────────────────────
+echo "👉 Scaffolding Design Server platform UI suite under $DS..."
+
+# App Router directories
 mkdir -p "$DS/app/settings"
 mkdir -p "$DS/app/profiles"
 mkdir -p "$DS/app/sitemap"
@@ -27,7 +32,7 @@ mkdir -p "$DS/app/api/ai/vision-gate"
 mkdir -p "$DS/app/api/ai/generate-node"
 mkdir -p "$DS/app/api/session/save-page"
 
-# ── Source ──────────────────────────────────────────────────────────────────
+# Source directories
 mkdir -p "$DS/src/store"
 mkdir -p "$DS/src/types"
 mkdir -p "$DS/src/config"
@@ -35,7 +40,7 @@ mkdir -p "$DS/src/hooks"
 mkdir -p "$DS/src/lib"
 mkdir -p "$DS/src/styles"
 
-# ── Components ──────────────────────────────────────────────────────────────
+# Components directories
 mkdir -p "$DS/components/layout"
 mkdir -p "$DS/components/tokens"
 mkdir -p "$DS/components/canvas"
@@ -45,25 +50,52 @@ mkdir -p "$DS/components/assets"
 mkdir -p "$DS/components/ui"
 mkdir -p "$DS/components/wireframe"
 
-# ── Tests ───────────────────────────────────────────────────────────────────
+# Tests directories
 mkdir -p "$DS/tests/unit/store"
 mkdir -p "$DS/tests/unit/lib"
 mkdir -p "$DS/tests/integration/api"
 mkdir -p "$DS/tests/integration/components"
 
-# ── Public ──────────────────────────────────────────────────────────────────
+# Public directories
 mkdir -p "$DS/public/fonts"
 mkdir -p "$DS/public/icons"
 
-# ── NEZAM workspace ─────────────────────────────────────────────────────────
+# NEZAM local workspace storage directories
 mkdir -p ".nezam/sessions"
 mkdir -p ".nezam/design/nezam-obsidian-cyan-orange"
 
-# ── Touch stub files (only if they don't exist) ─────────────────────────────
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. NIGHTCLUB RESERVATION SYSTEM SCAFFOLD
+# ─────────────────────────────────────────────────────────────────────────────
+echo "👉 Scaffolding Nightclub Reservation Application..."
+
+# Web Dashboard (Next.js App Router)
+mkdir -p "src/app/(public)/book/[club-slug]"
+mkdir -p "src/app/admin/owner"
+mkdir -p "src/app/admin/manager"
+mkdir -p "src/app/admin/accountant"
+mkdir -p "src/app/admin/tables"
+mkdir -p "src/components/ui"
+mkdir -p "src/components/features"
+mkdir -p "src/lib/supabase"
+mkdir -p "src/lib/utils"
+
+# Mobile Apps (Flutter)
+mkdir -p "mobile/lib/sales"
+mkdir -p "mobile/lib/security"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. TOUCH STUB FILES IDEMPOTENTLY
+# ─────────────────────────────────────────────────────────────────────────────
 touch_if_missing() {
   [ -f "$1" ] || touch "$1"
 }
 
+echo "📝 Touching file stubs..."
+
+# 3.1 Design Server Files
 # App pages
 touch_if_missing "$DS/app/settings/page.tsx"
 touch_if_missing "$DS/app/profiles/page.tsx"
@@ -86,10 +118,10 @@ touch_if_missing "$DS/app/api/ai/vision-gate/route.ts"
 touch_if_missing "$DS/app/api/ai/generate-node/route.ts"
 touch_if_missing "$DS/app/api/session/save-page/route.ts"
 
-# Stores (only stub if not already implemented)
+# Stores
 touch_if_missing "$DS/src/store/session.store.ts"
 touch_if_missing "$DS/src/store/tokens.store.ts"
-# canvas-graph.store.ts already implemented — skip
+# canvas-graph.store.ts is already implemented
 
 # Types
 touch_if_missing "$DS/src/types/tokens.types.ts"
@@ -195,8 +227,25 @@ touch_if_missing "$DS/tests/integration/api/assets.test.ts"
 touch_if_missing "$DS/tests/integration/components/CanvasWorkspace.test.tsx"
 touch_if_missing "$DS/tests/integration/components/PropertyInspector.test.tsx"
 
+
+# 3.2 Nightclub Reservation System Files
+# Web Dashboard
+touch_if_missing "src/app/page.tsx"
+touch_if_missing "src/app/layout.tsx"
+touch_if_missing "src/app/(public)/book/[club-slug]/page.tsx"
+touch_if_missing "src/app/admin/owner/page.tsx"
+touch_if_missing "src/app/admin/manager/page.tsx"
+touch_if_missing "src/app/admin/accountant/page.tsx"
+touch_if_missing "src/app/admin/tables/page.tsx"
+
+# Mobile Apps (Flutter)
+touch_if_missing "mobile/lib/main.dart"
+touch_if_missing "mobile/lib/sales/dashboard.dart"
+touch_if_missing "mobile/lib/sales/reservations.dart"
+touch_if_missing "mobile/lib/security/scanner.dart"
+touch_if_missing "mobile/lib/security/list.dart"
+touch_if_missing "mobile/pubspec.yaml"
+
+
 echo "✅  Scaffold complete."
-echo "    $(find "$DS" -type f | wc -l | tr -d ' ') files — $(find "$DS" -type d | wc -l | tr -d ' ') directories"
-echo ""
-echo "    Next: implement src/store/session.store.ts and src/store/tokens.store.ts"
-echo "    Then: run 'cd $DS && npx tsc --noEmit' to verify type integrity"
+echo "    Design server: $(find "$DS" -type f | wc -l | tr -d ' ') files — $(find "$DS" -type d | wc -l | tr -d ' ') directories"

@@ -1,7 +1,11 @@
 # NEZAM — Project Plans Index
 
 > **Domain:** Enterprise Dashboard & Platform Systems  
-> **Status:** Blank Slate / Reset
+> **Status:** Active Project Merged (Egypt Nightclub System + Nezam UI Suite)
+
+## 📌 Active Project Plans
+- [MASTER_TASKS.md](MASTER_TASKS.md) - Master task list for the project.
+- [AUTOMATION_PLAN.md](AUTOMATION_PLAN.md) - Plan for automation tasks.
 
 ## 📑 Traceability Matrix
 
@@ -38,3 +42,13 @@
 - **Design Gate:** ⚪️ Pending
 - **Build Gate:** ⚪️ Pending
 - **Ship Gate:** ⚪️ Pending
+
+---
+
+## 📂 Active Phase Folders
+- [01-research](01-research/)
+- [02-ia](02-ia/)
+- [03-content](03-content/)
+- [04-arch](04-arch/)
+- [04-design](04-design/)
+- [scaffold](scaffold/)

@@ -1,10 +1,15 @@
-# Project Scaffold — Nezam Design Server · Ultimate UI Suite
+# Project Scaffold
 
+> **Domain:** Nezam Platform Scaffold + Egypt Nightclub System Spec  
 > **Phase:** Scaffold | **Source:** ARCHITECTURE.md · IA_CONTENT.md · PRD v2.0.0
-> Complete directory and file tree for the design-server application.
-> All paths relative to `.nezam/design-server/`.
+> Complete directory and file tree maps for the workspace components.
 
 ---
+
+# Part 1: Nezam Design Server Platform UI Suite
+
+> Complete directory and file tree for the design-server application.
+> All paths relative to `.nezam/design-server/`.
 
 ## Design-Server Root
 
@@ -173,36 +178,6 @@
 └── .env.local                                  [ANTHROPIC_API_KEY]
 ```
 
----
-
-## NEZAM Workspace Root (for reference)
-
-```
-NEZAM/
-├── .nezam/
-│   ├── design-server/              ← Above tree lives here
-│   ├── design/                     ← Brand design profiles
-│   │   └── nezam-obsidian-cyan-orange/
-│   │       └── design.md
-│   └── sessions/                   ← Generated page sessions
-├── docs/
-│   └── plans/
-│       ├── 00-define/
-│       │   ├── 01-product/         ← PRD.md · PROJECT_PROMPT.md
-│       │   └── specs/              ← Feature specs F-001 to F-008
-│       ├── 01-research/            ← SEO_RESEARCH.md
-│       ├── 02-ia/                  ← IA_CONTENT.md
-│       ├── 03-content/             ← CONTENT_MAP.md
-│       ├── 04-arch/                ← ARCHITECTURE.md
-│       ├── 04-design/              ← DESIGN_CHOICES.md · WIREFRAMES.md
-│       ├── 05-design-uiux/         ← SPEC-DS-CANVAS-001.md
-│       └── scaffold/               ← This file
-├── DESIGN.md                       ← Active design contract
-└── CLAUDE.md                       ← Workspace governance
-```
-
----
-
 ## File Creation Priority
 
 | Priority | Files | Phase |
@@ -218,4 +193,58 @@ NEZAM/
 
 ---
 
-*Generated: 2026-05-18 | Source: ARCHITECTURE.md · IA_CONTENT.md · PRD v2.0.0*
+# Part 2: Nightclub Reservation System Application
+
+> Complete directory and file tree for the Web Dashboard and Flutter mobile components.
+> All paths relative to the workspace root `/`.
+
+## Directory Tree
+
+```text
+/
+├── src/                                [Web Dashboard - Next.js]
+│   ├── app/
+│   │   ├── (public)/
+│   │   │   ├── page.tsx                [Landing Page]
+│   │   │   └── book/[club-slug]/page.tsx [Table Booking Page]
+│   │   ├── admin/
+│   │   │   ├── owner/page.tsx          [Owner Dashboard]
+│   │   │   ├── manager/page.tsx        [Manager Dashboard]
+│   │   │   ├── accountant/page.tsx     [Accountant Dashboard]
+│   │   │   └── tables/page.tsx         [Floor Plan Editor]
+│   │   └── layout.tsx                  [Root Layout]
+│   ├── components/
+│   │   ├── ui/                         [Base UI Components]
+│   │   └── features/                   [Feature Components]
+│   └── lib/
+│       ├── supabase/                   [Supabase Client]
+│       └── utils/                      [Helper Functions]
+├── mobile/                             [Mobile Apps - Flutter]
+│   ├── lib/
+│   │   ├── sales/
+│   │   │   ├── dashboard.dart          [Sales Dashboard]
+│   │   │   └── reservations.dart       [Reservations List]
+│   │   ├── security/
+│   │   │   ├── scanner.dart            [QR Scanner]
+│   │   │   └── list.dart               [Guest List]
+│   │   └── main.dart                   [Entry Point]
+│   └── pubspec.yaml                    [Flutter Config]
+├── docs/
+│   ├── plan/                           [Planning Docs]
+│   └── start/                          [PRD]
+└── scripts/
+    └── scaffold.sh                     [Scaffold Script]
+```
+
+## Config File Inventory
+- `src/package.json` (Next.js dependencies)
+- `mobile/pubspec.yaml` (Flutter dependencies)
+- `.gitignore`
+- `README.md`
+
+## Database Schema
+- Managed via Supabase (PostgreSQL). Migrations are placed in `supabase/migrations/` under local development.
+
+---
+
+*Generated: 2026-05-18 | Source: ARCHITECTURE.md · IA_CONTENT.md · PRD v2.0.0 · new-planning merge*

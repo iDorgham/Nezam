@@ -1,16 +1,17 @@
-# Information Architecture — Nezam Design Server · Ultimate UI Suite
+# Information Architecture & Route Maps
 
-> **Phase:** 02-IA | **Source:** PRD v2.0.0 · PROJECT_PROMPT
-> Defines all routes, pages, panels, navigation structure, and URL map.
+> **Domain:** Nezam Platform Shell + Egypt Nightclub Application Spec  
+> **Source:** PRD v2.0.0 · PROJECT_PROMPT
 
 ---
+
+# Part 1: Nezam Design Server Platform UI Suite
+
+> Defines all routes, pages, panels, navigation structure, and URL map for the design server itself.
 
 ## 1. Product Type
-
 **Local Single-Page Application** — runs at `localhost:4000` (or configured port).
 No public routes. No authentication. All navigation is client-side within the SPA.
-
----
 
 ## 2. Top-Level Route Map
 
@@ -24,8 +25,6 @@ No public routes. No authentication. All navigation is client-side within the SP
 | `/wireframe` | Wireframe Editor | Editor | Per-page wireframe builder (tab-based) |
 | `/profiles` | Profile Browser | Browse | List and manage design profiles |
 | `/sitemap` | Sitemap Management | Manage | Page list, metadata editing |
-
----
 
 ## 3. Panel Architecture (SPA Shell)
 
@@ -46,8 +45,6 @@ The main shell uses a panel-based layout. Panels persist across mode changes.
 │ Motion Studio timeline                                                │
 └──────────────────────────────────────────────────────────────────────┘
 ```
-
----
 
 ## 4. Left Dock Navigation (by mode)
 
@@ -75,8 +72,6 @@ The main shell uses a panel-based layout. Panels persist across mode changes.
 | Page Structure | Tree of current page blocks |
 | Export | Export page wireframe |
 
----
-
 ## 5. Right Dock Navigation (context-sensitive)
 
 | Context | Contents |
@@ -85,8 +80,6 @@ The main shell uses a panel-based layout. Panels persist across mode changes.
 | Canvas node selected | Property Inspector (Box Model · CSS · A11y tabs) |
 | Canvas wire selected | Wire Inspector (attachments, directive input, Generate button) |
 | Wireframe block selected | PropsEditorPanel (block-specific prop schema) |
-
----
 
 ## 6. Tab Bar System
 
@@ -105,8 +98,6 @@ Tabs persist in `useSessionStore.tabs`. Tab types and their content:
 - Max concurrent open tabs: unlimited (scrollable tab bar)
 - Closing last tab → navigates to Dashboard tab (never truly empty)
 - Duplicate tab guard: opening an existing `contentId` focuses existing tab
-
----
 
 ## 7. Full URL / Route Map
 
@@ -136,8 +127,6 @@ Tabs persist in `useSessionStore.tabs`. Tab types and their content:
 | `/api/ai/generate-node` | POST | LLM-generate canvas node |
 | `/api/session/save-page` | POST | Persist generated page session |
 
----
-
 ## 8. Empty States Inventory
 
 Every panel and mode must handle the empty state:
@@ -151,8 +140,6 @@ Every panel and mode must handle the empty state:
 | Motion Studio | No keyframes | "Add first keyframe at 0.0s" inline prompt |
 | Property Inspector | No selection | "Select a component to inspect" centered |
 | Wireframe Editor | No blocks | "Drag a block from the library to start" |
-
----
 
 ## 9. Navigation Flow Diagram
 
@@ -175,8 +162,6 @@ App Load
         └─ [Tab: Export]   ──────► Export panel
 ```
 
----
-
 ## 10. Internationalization Architecture
 
 | Setting | Value |
@@ -190,4 +175,59 @@ App Load
 
 ---
 
-*Generated: 2026-05-18*
+# Part 2: Application Spec — Nightclub Reservation System (Egypt Focus)
+
+> **Focus:** Multi-role routing (Mobile + Web) with support for regional seasonality (Cairo & Sahel).
+
+## 11. URL Map & Routes
+
+### 11.1 Guest Facing (Web/Mobile Web)
+| Path | Description | Access |
+|---|---|---|
+| `/` | Landing page / Club discovery | Public |
+| `/cairo` | Clubs and events in Cairo | Public |
+| `/sahel` | Seasonal clubs and events in the North Coast | Public |
+| `/book/[club-slug]` | Interactive table booking (Visual Layout) | Public |
+| `/qr/[pass-id]` | Digital pass with QR code for entry | Guest (via link) |
+
+### 11.2 Sales Mobile App
+| Path | Description | Role |
+|---|---|---|
+| `/sales/dashboard` | Personal stats & leaderboard standing | Sales Rep |
+| `/sales/reservations` | Create and manage bookings | Sales Rep |
+| `/sales/clients` | Client CRM & contact list | Sales Rep |
+
+### 11.3 Security Mobile App
+| Path | Description | Role |
+|---|---|---|
+| `/security/scan` | QR code scanner interface | Security |
+| `/security/list` | Manual guest list lookup | Security |
+| `/security/capacity` | Live venue capacity tracker | Security |
+
+### 11.4 Web Dashboard (Admin/Backoffice)
+| Path | Description | Role |
+|---|---|---|
+| `/admin/owner` | High-level revenue & ROI analytics | Owner |
+| `/admin/manager` | Real-time table monitoring & team live feed | Manager |
+| `/admin/accountant` | Commission calculations & exports | Accountant |
+| `/admin/tables/edit` | Drag-and-drop table layout builder | Manager / Owner |
+| `/admin/crm` | Centralized client database | Manager / Owner |
+
+## 12. Navigation Hierarchy
+
+### 12.1 Sales App (Bottom Nav)
+- **Dashboard:** Leaderboard position, today's sales.
+- **Bookings:** Active reservations, add new.
+- **Clients:** Contact list, history.
+
+### 12.2 Security App (Bottom Nav)
+- **Scanner:** Quick scan camera view.
+- **Guest List:** Searchable list of expected arrivals.
+- **Stats:** Current count inside vs capacity.
+
+### 12.3 Web Dashboard (Sidebar)
+- **Overview:** Role-specific summary (Owner/Manager).
+- **Floor Plan:** Live table status & drag-and-drop editor.
+- **Team:** Sales leaderboard and activity feed.
+- **Finance:** Commissions and data exports (Accountant).
+- **CRM:** Full client list and visit history.

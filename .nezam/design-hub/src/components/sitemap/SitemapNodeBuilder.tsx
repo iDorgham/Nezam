@@ -86,7 +86,23 @@ function sectionColor(name: string): string {
 // ── Canvas constants ──────────────────────────────────────────────────────────
 
 const CARD_W: Record<CardView, number> = { compact: 200, list: 248, visual: 220 }
-const ROOT_GAP = { collapsed: 24, expanded: 56 }
+const BASE_GAP = 40  // minimum gap between card edges
+
+/** Total width occupied by page + its full subtree (symmetric, centered). */
+function calcSubtreeWidth(page: SitemapBuilderPage, cw: number): number {
+  if (!page.children?.length || page.collapsed) return cw
+  const inner = page.children.reduce((sum, child, i) => (
+    sum + calcSubtreeWidth(child, cw) + (i < page.children!.length - 1 ? BASE_GAP : 0)
+  ), 0)
+  return Math.max(cw, inner)
+}
+
+/** Margin-right needed between card l and card r so their subtrees don't overlap. */
+function treeGap(l: SitemapBuilderPage, r: SitemapBuilderPage | undefined, cw: number): number {
+  const lOver = Math.max(0, calcSubtreeWidth(l, cw) - cw) / 2
+  const rOver = r ? Math.max(0, calcSubtreeWidth(r, cw) - cw) / 2 : 0
+  return lOver + BASE_GAP + rOver
+}
 
 // ── Selection context ─────────────────────────────────────────────────────────
 
@@ -357,7 +373,7 @@ function PageNode({ page, depth = 0, isOverlay = false }: {
   }
 
   const isExpanded = !page.collapsed
-  const pageType = hasChildren ? 'Group' : depth === 0 ? 'Page' : 'Sub-page'
+  const pageType = depth === 0 ? 'Page' : 'Sub'
 
   return (
     <div ref={setNodeRef}
@@ -398,7 +414,7 @@ function PageNode({ page, depth = 0, isOverlay = false }: {
           <div className="min-w-0 flex-1">
             {/* Row 1: page type + status */}
             <div className="mb-1 flex items-center gap-1.5">
-              <span className="text-[9px] font-semibold uppercase tracking-widest text-app-subtle">{pageType}</span>
+              <span className="shrink-0 whitespace-nowrap text-[9px] font-semibold uppercase tracking-widest text-app-subtle">{pageType}</span>
               <StatusPicker pageId={page.id} status={page.status} />
             </div>
             {/* Row 2: page name */}
@@ -603,12 +619,6 @@ function ChildRow({ pages, depth }: { pages: SitemapBuilderPage[]; depth: number
 
   const pageIds = pages.map((p) => `pg-${p.id}`)
   const cw = CARD_W[view]
-  const gap = (i: number) => {
-    const l = pages[i], r = pages[i + 1]
-    const le = l && !l.collapsed && (l.sections.length > 0 || (l.children?.length ?? 0) > 0)
-    const re = r && !r.collapsed && (r.sections.length > 0 || (r.children?.length ?? 0) > 0)
-    return (le || re) ? ROOT_GAP.expanded : ROOT_GAP.collapsed
-  }
 
   return (
     <div className="relative flex flex-col items-center">
@@ -619,8 +629,8 @@ function ChildRow({ pages, depth }: { pages: SitemapBuilderPage[]; depth: number
       <SortableContext items={pageIds} strategy={horizontalListSortingStrategy}>
         <div ref={containerRef} className="flex items-start">
           {pages.map((child, i) => (
-            <div key={child.id} className="flex flex-col items-center"
-              style={{ marginRight: i < pages.length - 1 ? gap(i) : 0 }}
+            <div key={child.id} className="flex shrink-0 flex-col items-center"
+              style={{ marginRight: i < pages.length - 1 ? treeGap(child, pages[i + 1], cw) : 0 }}
             >
               <div className="w-px bg-gradient-to-b from-app-border to-transparent" style={{ height: 20 }} />
               <PageNode page={child} depth={depth} />
@@ -638,17 +648,11 @@ function RootRow({ pages, addPage }: { pages: SitemapBuilderPage[]; addPage: () 
   const view = useCardView()
   const cw = CARD_W[view]
   const pageIds = pages.map((p) => `pg-${p.id}`)
-  const gap = (i: number) => {
-    const l = pages[i], r = pages[i + 1]
-    const le = l && !l.collapsed && (l.sections.length > 0 || (l.children?.length ?? 0) > 0)
-    const re = r && !r.collapsed && (r.sections.length > 0 || (r.children?.length ?? 0) > 0)
-    return (le || re) ? ROOT_GAP.expanded : ROOT_GAP.collapsed
-  }
   return (
     <SortableContext items={pageIds} strategy={horizontalListSortingStrategy}>
       <div className="flex items-start">
         {pages.map((page, i) => (
-          <div key={page.id} style={{ marginRight: gap(i) }}>
+          <div key={page.id} style={{ marginRight: treeGap(page, pages[i + 1], cw) }}>
             <PageNode page={page} depth={0} />
           </div>
         ))}

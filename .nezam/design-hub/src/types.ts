@@ -8,34 +8,18 @@ export type ShadowStyle = 'none' | 'soft' | 'crisp' | 'dramatic'
 
 /** Right-rail tabs. */
 export type BuilderMode =
-  | 'inspector'
-  | 'pages'
   | 'sitemap'
-  | 'menus'
-  | 'settings'
+  | 'profiles'
+  | 'brand'
+  | 'styles'
+  | 'layout'
+  | 'inspector'
+  | 'layers'
   | 'comments'
   | 'interactions'
   | 'ai'
   | 'saved'
   | 'history'
-  | 'profiles'
-  | 'brand'
-  | 'styles'
-  | 'layout'
-  | 'layers'
-
-export interface SiteSettings {
-  name: string
-  title: string
-  logo: string
-}
-
-export interface PageTab {
-  id: string
-  name: string
-  blocks: Block[]
-  isUnsaved?: boolean
-}
 
 /** Left toolbar tools (Photoshop-style). */
 export type Tool =

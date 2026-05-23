@@ -23,6 +23,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - Use generated `.gemini/commands/*.toml` command prompts as the command surface (same intent as `.cursor/commands/*.md`, TOML-wrapped).
 
 ## Synced command index
+- `archetype.md`
 - `check.md`
 - `create.md`
 - `deploy.md`

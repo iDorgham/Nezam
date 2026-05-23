@@ -62,6 +62,7 @@ pnpm ai:check  # verify no drift
 ```
 
 ## Synced command index
+- `archetype.md`
 - `check.md`
 - `create.md`
 - `deploy.md`

@@ -153,6 +153,8 @@ interface HubActions {
   setArchetype: (id: ArchetypeKind) => void
   addBlock: (kind: BlockKind) => void
   removeBlock: (id: string) => void
+  moveBlock: (id: string, direction: 'up' | 'down') => void
+  reorderBlocks: (fromIdx: number, toIdx: number) => void
   toggleBlockLock: (id: string) => void
   toggleBlockVisible: (id: string, viewport: 'desktop' | 'mobile') => void
 
@@ -348,6 +350,25 @@ export const useHub = create<Store>()(
           selection: sel?.blockId === id ? null : sel,
           pulse: get().pulse + 1,
         })
+      },
+      moveBlock: (id, direction) => {
+        const blocks = get().blocks
+        const idx = blocks.findIndex((b) => b.id === id)
+        if (idx === -1) return
+        if (direction === 'up' && idx === 0) return
+        if (direction === 'down' && idx === blocks.length - 1) return
+        const next = [...blocks]
+        const swap = direction === 'up' ? idx - 1 : idx + 1
+        ;[next[idx], next[swap]] = [next[swap], next[idx]]
+        set({ blocks: next, pulse: get().pulse + 1 })
+      },
+      reorderBlocks: (fromIdx, toIdx) => {
+        const blocks = get().blocks
+        if (fromIdx === toIdx) return
+        const next = [...blocks]
+        const [moved] = next.splice(fromIdx, 1)
+        next.splice(toIdx, 0, moved)
+        set({ blocks: next, pulse: get().pulse + 1 })
       },
       toggleBlockLock: (id) => {
         const m = get().getBlockMeta(id)

@@ -270,3 +270,18 @@ export interface SitemapNode {
   arabicName: string
   children?: SitemapNode[]
 }
+
+/* ── Sitemap Builder (manual node editor) ───────────────────── */
+
+export interface SitemapBuilderSection {
+  id: string
+  name: string
+  description: string
+}
+
+export interface SitemapBuilderPage {
+  id: string
+  name: string
+  sections: SitemapBuilderSection[]
+  collapsed: boolean
+}

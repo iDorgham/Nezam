@@ -8,6 +8,7 @@ import { ResizeHandle } from './ResizeHandle'
 import { LeftToolbar } from './LeftToolbar'
 import { PreviewCanvas } from '@/components/canvas/PreviewCanvas'
 import { CanvasWorkspace } from '@/components/canvas/CanvasWorkspace'
+import { SitemapNodeBuilder } from '@/components/sitemap/SitemapNodeBuilder'
 import { RightBuilder } from '@/components/builder/RightBuilder'
 import { AnimationTimeline } from '@/components/timeline/AnimationTimeline'
 import type { Tool } from '@/types'
@@ -67,24 +68,28 @@ export function DesignHub() {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-app-bg">
       <TopBar />
-      <PageTabsBar />
 
       <div className="flex min-h-0 flex-1">
-        {/* Left tool rail */}
+        {/* Left tool rail — full height */}
         <LeftToolbar />
 
-        {/* Center */}
-        <main className="flex min-w-0 flex-1 flex-col">
-          <div className="min-h-0 flex-1">
-            {builderMode === 'sitemap' ? <CanvasWorkspace /> : <PreviewCanvas />}
-          </div>
-          <div
-            className="shrink-0 overflow-hidden border-t border-app-border bg-app-surface transition-[height] duration-300 ease-smooth"
-            style={{ height: timelineOpen ? 256 : 0 }}
-          >
-            <AnimationTimeline />
-          </div>
-        </main>
+        {/* Center column: tabs bar + canvas */}
+        <div className="flex min-w-0 flex-1 flex-col">
+          {/* Tabs bar starts here, beside the toolbar */}
+          {builderMode !== 'sitemap' && <PageTabsBar />}
+
+          <main className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1">
+              {builderMode === 'sitemap' ? <SitemapNodeBuilder /> : <PreviewCanvas />}
+            </div>
+            <div
+              className="shrink-0 overflow-hidden border-t border-app-border bg-app-surface transition-[height] duration-300 ease-smooth"
+              style={{ height: timelineOpen ? 256 : 0 }}
+            >
+              <AnimationTimeline />
+            </div>
+          </main>
+        </div>
 
         {/* Right builder */}
         <ResizeHandle edge="right" value={rightW} onChange={setRightW} />

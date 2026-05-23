@@ -59,6 +59,7 @@ Do not proceed to development unless all exist:
 - Optional swarm- and skills-oriented Mermaid sources live under `.nezam/core/architecture/mermaids/` when that layout is maintained.
 
 ## Synced command index
+- `archetype.md`
 - `check.md`
 - `create.md`
 - `deploy.md`

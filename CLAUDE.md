@@ -35,6 +35,7 @@ When conflicts appear, follow:
 - Prefer deterministic docs updates in `.nezam/core/memory/` after substantive changes.
 
 ## Synced command index
+- `archetype.md`
 - `check.md`
 - `create.md`
 - `deploy.md`

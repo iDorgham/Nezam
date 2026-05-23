@@ -5,6 +5,7 @@ import { useHub } from '@/store/hub.store'
 import { TopBar } from './TopBar'
 import { ResizeHandle } from './ResizeHandle'
 import { LeftToolbar } from './LeftToolbar'
+import { PageTabsBar } from './PageTabsBar'
 import { PreviewCanvas } from '@/components/canvas/PreviewCanvas'
 import { RightBuilder } from '@/components/builder/RightBuilder'
 import { AnimationTimeline } from '@/components/timeline/AnimationTimeline'
@@ -57,6 +58,7 @@ export function DesignHub() {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-app-bg">
       <TopBar />
+      <PageTabsBar />
 
       <div className="flex min-h-0 flex-1">
         {/* Left tool rail */}

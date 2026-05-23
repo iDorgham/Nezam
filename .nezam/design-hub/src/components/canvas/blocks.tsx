@@ -117,7 +117,179 @@ const SECTION_PAD = 'padding: var(--n-space-6); display: grid; gap: var(--n-spac
 function NavBlock({ block }: { block: Block }) {
   const dir = useHub((s) => s.dir)
   const rtl = dir === 'rtl'
-  const c = block.content as { brand: string; links: string[]; cta: string }
+  const c = block.content as { brand: string; links: string[]; cta: string; variant?: string; padding?: number }
+  const variant = c.variant || 'minimal'
+  const paddingVal = c.padding != null ? `${c.padding}px` : 'var(--n-space-3)'
+
+  // Render wrapper helper to keep editable nodes matching ID mappings
+  const renderBrand = (size = 30) => (
+    <div className="flex items-center" style={{ gap: 'var(--n-space-2)' }}>
+      <span
+        className="grid place-items-center font-bold transition-transform duration-200 hover:scale-105 active:scale-95"
+        style={{
+          background: 'var(--n-brand)',
+          color: 'var(--n-on-brand)',
+          width: size,
+          height: size,
+          borderRadius: 'var(--n-radius-sm)',
+          fontFamily: 'var(--n-font-display)',
+        }}
+      >
+        {rtl ? 'ن' : 'N'}
+      </span>
+      <Node
+        id={n(block.id, 'brand')}
+        blockId={block.id}
+        label="Brand wordmark"
+        role="text"
+        editable
+        fallback={c.brand}
+        baseFontSize="15px"
+        as="span"
+        style={{
+          color: 'var(--n-text)',
+          fontSize: 15,
+          fontWeight: 700,
+          fontFamily: 'var(--n-font-display)',
+        }}
+      />
+    </div>
+  )
+
+  const renderLinks = (gap = 'var(--n-space-4)', linkStyle?: React.CSSProperties) => (
+    <div className="hidden items-center sm:flex" style={{ gap }}>
+      {c.links.map((link, i) => (
+        <div key={i} className="flex items-center gap-1 group/link">
+          <Node
+            id={n(block.id, `link-${i}`)}
+            blockId={block.id}
+            label={`Nav link · ${link}`}
+            role="text"
+            editable
+            fallback={link}
+            baseFontSize="13px"
+            as="span"
+            className="cursor-pointer transition-colors duration-150 hover:text-app-text active:scale-98"
+            style={{
+              color: i === 0 ? 'var(--n-text)' : 'var(--n-text-muted)',
+              fontSize: 13,
+              fontWeight: i === 0 ? 600 : 500,
+              ...linkStyle,
+            }}
+          />
+          {variant === 'sticky' && i === 1 && (
+            <span className="text-[10px] text-app-subtle group-hover/link:translate-y-0.5 transition-transform duration-200">▼</span>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+
+  const renderCTA = (additionalStyles?: React.CSSProperties) => (
+    <Node
+      id={n(block.id, 'cta')}
+      blockId={block.id}
+      label="Sign in button"
+      role="text"
+      editable
+      fallback={c.cta}
+      baseFontSize="12px"
+      as="span"
+      className="cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
+      style={{
+        background: 'var(--n-brand)',
+        color: 'var(--n-on-brand)',
+        fontSize: 12,
+        fontWeight: 600,
+        padding: '7px 16px',
+        borderRadius: 'var(--n-radius)',
+        ...additionalStyles,
+      }}
+    />
+  )
+
+  if (variant === 'centered') {
+    return (
+      <BlockShell block={block}>
+        <nav
+          className="flex flex-col items-center gap-3"
+          style={{
+            background: 'var(--n-surface)',
+            border: '1px solid var(--n-border)',
+            borderRadius: 'var(--n-radius-lg)',
+            padding: `${paddingVal} var(--n-space-6)`,
+            margin: 'var(--n-space-6) var(--n-space-6) 0',
+            boxShadow: 'var(--n-shadow)',
+          }}
+        >
+          {/* Top row: Brand */}
+          <div className="flex w-full items-center justify-between">
+            <div className="opacity-0 w-[80px]" /> {/* Spacer to balance CTA */}
+            {renderBrand(32)}
+            <div className="flex w-[80px] justify-end">{renderCTA()}</div>
+          </div>
+          <div className="w-full h-px bg-app-border/40" />
+          {/* Bottom row: Links */}
+          {renderLinks('var(--n-space-5)')}
+        </nav>
+      </BlockShell>
+    )
+  }
+
+  if (variant === 'sticky') {
+    return (
+      <BlockShell block={block}>
+        <nav
+          className="flex items-center justify-between backdrop-blur-md transition-all duration-200"
+          style={{
+            background: 'color-mix(in srgb, var(--n-surface) 80%, transparent)',
+            border: '1px solid var(--n-border-strong)',
+            borderRadius: 'var(--n-radius-pill)',
+            padding: `${paddingVal} var(--n-space-5)`,
+            margin: 'var(--n-space-4) var(--n-space-6) 0',
+            boxShadow: '0 8px 30px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,255,255,0.1) inset',
+            position: 'sticky',
+            top: 16,
+            zIndex: 40,
+          }}
+        >
+          {renderBrand(28)}
+          {renderLinks('var(--n-space-4)')}
+          {renderCTA({ borderRadius: 'var(--n-radius-pill)' })}
+        </nav>
+      </BlockShell>
+    )
+  }
+
+  if (variant === 'split') {
+    return (
+      <BlockShell block={block}>
+        <nav
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4"
+          style={{
+            background: 'var(--n-surface)',
+            border: '1px solid var(--n-border)',
+            borderRadius: 'var(--n-radius-xl)',
+            padding: `${paddingVal} var(--n-space-5)`,
+            margin: 'var(--n-space-6) var(--n-space-6) 0',
+            boxShadow: 'var(--n-shadow)',
+          }}
+        >
+          <div className="flex items-center justify-between gap-6">
+            {renderBrand(30)}
+            <div className="hidden sm:block h-6 w-px bg-app-border/40" />
+            {renderLinks('var(--n-space-4)')}
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-semibold text-app-muted cursor-pointer hover:text-app-text hidden sm:inline">Sign up</span>
+            {renderCTA()}
+          </div>
+        </nav>
+      </BlockShell>
+    )
+  }
+
+  // Default: 'minimal'
   return (
     <BlockShell block={block}>
       <nav
@@ -126,80 +298,14 @@ function NavBlock({ block }: { block: Block }) {
           background: 'var(--n-surface)',
           border: '1px solid var(--n-border)',
           borderRadius: 'var(--n-radius-lg)',
-          padding: 'var(--n-space-3) var(--n-space-4)',
+          padding: `${paddingVal} var(--n-space-4)`,
           margin: 'var(--n-space-6) var(--n-space-6) 0',
           boxShadow: 'var(--n-shadow)',
         }}
       >
-        <div className="flex items-center" style={{ gap: 'var(--n-space-2)' }}>
-          <span
-            className="grid place-items-center font-bold"
-            style={{
-              background: 'var(--n-brand)',
-              color: 'var(--n-on-brand)',
-              width: 30,
-              height: 30,
-              borderRadius: 'var(--n-radius-sm)',
-              fontFamily: 'var(--n-font-display)',
-            }}
-          >
-            {rtl ? 'ن' : 'N'}
-          </span>
-          <Node
-            id={n(block.id, 'brand')}
-            blockId={block.id}
-            label="Brand wordmark"
-            role="text"
-            editable
-            fallback={c.brand}
-            baseFontSize="15px"
-            as="span"
-            style={{
-              color: 'var(--n-text)',
-              fontSize: 15,
-              fontWeight: 600,
-              fontFamily: 'var(--n-font-display)',
-            }}
-          />
-        </div>
-        <div className="hidden items-center sm:flex" style={{ gap: 'var(--n-space-4)' }}>
-          {c.links.map((link, i) => (
-            <Node
-              key={i}
-              id={n(block.id, `link-${i}`)}
-              blockId={block.id}
-              label={`Nav link · ${link}`}
-              role="text"
-              editable
-              fallback={link}
-              baseFontSize="13px"
-              as="span"
-              style={{
-                color: i === 0 ? 'var(--n-text)' : 'var(--n-text-muted)',
-                fontSize: 13,
-                fontWeight: i === 0 ? 600 : 500,
-              }}
-            />
-          ))}
-        </div>
-        <Node
-          id={n(block.id, 'cta')}
-          blockId={block.id}
-          label="Sign in button"
-          role="text"
-          editable
-          fallback={c.cta}
-          baseFontSize="12px"
-          as="span"
-          style={{
-            background: 'var(--n-brand)',
-            color: 'var(--n-on-brand)',
-            fontSize: 12,
-            fontWeight: 600,
-            padding: '7px 14px',
-            borderRadius: 'var(--n-radius)',
-          }}
-        />
+        {renderBrand(30)}
+        {renderLinks('var(--n-space-4)')}
+        {renderCTA()}
       </nav>
     </BlockShell>
   )
@@ -210,104 +316,275 @@ function NavBlock({ block }: { block: Block }) {
 function HeroBlock({ block }: { block: Block }) {
   const dir = useHub((s) => s.dir)
   const rtl = dir === 'rtl'
-  const c = block.content as { badge: string; title: string; subtitle: string; primary: string; secondary: string }
+  const c = block.content as { badge: string; title: string; subtitle: string; primary: string; secondary: string; variant?: string; gap?: number }
+  const variant = c.variant || 'saas'
+  const gapVal = c.gap != null ? `${c.gap}px` : 'var(--n-space-3)'
+
+  // Render elements helpers
+  const renderBadge = () => (
+    <Node
+      id={n(block.id, 'badge')}
+      blockId={block.id}
+      label="Hero badge"
+      role="text"
+      editable
+      fallback={c.badge}
+      baseFontSize="11px"
+      as="span"
+      className="inline-flex transition-transform duration-200 hover:scale-105"
+      style={{
+        background: 'var(--n-brand-subtle)',
+        color: 'var(--n-brand)',
+        fontSize: 11,
+        fontWeight: 600,
+        padding: '5px 12px',
+        borderRadius: 'var(--n-radius-pill)',
+      }}
+    />
+  )
+
+  const renderTitle = (alignmentClass = 'text-center') => (
+    <Node
+      id={n(block.id, 'title')}
+      blockId={block.id}
+      label="Hero heading"
+      role="text"
+      editable
+      fallback={c.title}
+      baseFontSize="clamp(26px, 4.4vw, 42px)"
+      as="h1"
+      className={cn("max-w-[34ch]", alignmentClass)}
+      style={{
+        color: variant === 'glassmorphic' ? 'transparent' : 'var(--n-text)',
+        backgroundImage: variant === 'glassmorphic' ? 'linear-gradient(to right, var(--n-text), color-mix(in srgb, var(--n-text) 60%, var(--n-brand)))' : 'none',
+        backgroundClip: variant === 'glassmorphic' ? 'text' : 'unset',
+        fontFamily: 'var(--n-font-display)',
+        fontSize: 'clamp(26px, 4.4vw, 42px)',
+        fontWeight: 800,
+        lineHeight: rtl ? 1.4 : 1.15,
+        letterSpacing: rtl ? 0 : '-0.025em',
+      }}
+    />
+  )
+
+  const renderSubtitle = (alignmentClass = 'text-center') => (
+    <Node
+      id={n(block.id, 'subtitle')}
+      blockId={block.id}
+      label="Hero subtitle"
+      role="text"
+      editable
+      fallback={c.subtitle}
+      baseFontSize="15px"
+      as="p"
+      className={cn("max-w-[46ch]", alignmentClass)}
+      style={{
+        color: 'var(--n-text-muted)',
+        fontSize: 15,
+        lineHeight: rtl ? 1.85 : 1.65,
+      }}
+    />
+  )
+
+  const renderButtons = () => (
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      <Node
+        id={n(block.id, 'primary')}
+        blockId={block.id}
+        label="Primary button"
+        role="text"
+        editable
+        fallback={c.primary}
+        baseFontSize="14px"
+        as="button"
+        className="inline-flex items-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm hover:shadow-app-glow"
+        style={{
+          gap: 8,
+          background: 'var(--n-brand)',
+          color: 'var(--n-on-brand)',
+          fontSize: 14,
+          fontWeight: 600,
+          padding: '11px 22px',
+          borderRadius: 'var(--n-radius)',
+        }}
+      />
+      <Node
+        id={n(block.id, 'secondary')}
+        blockId={block.id}
+        label="Secondary button"
+        role="text"
+        editable
+        fallback={c.secondary}
+        baseFontSize="14px"
+        as="button"
+        className="inline-flex items-center cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 hover:bg-app-inset/30"
+        style={{
+          gap: 8,
+          color: 'var(--n-text)',
+          fontSize: 14,
+          fontWeight: 600,
+          padding: '11px 22px',
+          borderRadius: 'var(--n-radius)',
+          border: '1px solid var(--n-border-strong)',
+        }}
+      />
+    </div>
+  )
+
+  if (variant === 'split') {
+    return (
+      <BlockShell block={block}>
+        <section
+          className={cn(
+            "grid grid-cols-1 md:grid-cols-2 items-center gap-8 px-8 py-16",
+            rtl ? "text-right" : "text-left"
+          )}
+          style={{ gap: gapVal }}
+        >
+          {/* Left / Content column */}
+          <div className={cn("flex flex-col gap-4", rtl ? "items-start md:items-start" : "items-start")}>
+            {renderBadge()}
+            {renderTitle(rtl ? 'text-right' : 'text-left')}
+            {renderSubtitle(rtl ? 'text-right' : 'text-left')}
+            <div className="pt-2">
+              {renderButtons()}
+            </div>
+          </div>
+
+          {/* Right / Visual column */}
+          <div className="relative flex justify-center items-center">
+            {/* Visual background glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(var(--n-brand-rgb),0.1),transparent_70%)] pointer-events-none" />
+            
+            {/* Stack of floating token cards */}
+            <div className="relative w-full max-w-[360px] h-[280px]">
+              {/* Card 1: Layers list */}
+              <div className="absolute top-4 left-4 right-12 bg-app-surface/90 border border-app-border rounded-xl p-4 shadow-lg backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 hover:rotate-1">
+                <div className="flex items-center gap-2 border-b border-app-border pb-2 mb-2">
+                  <div className="h-2 w-2 rounded-full bg-red-400" />
+                  <div className="h-2 w-2 rounded-full bg-yellow-400" />
+                  <div className="h-2 w-2 rounded-full bg-green-400" />
+                  <span className="text-[10px] font-semibold text-app-muted ml-1">Sidebar hierarchy</span>
+                </div>
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between bg-app-accent-subtle/20 border border-app-accent/30 rounded p-1 text-[9px] text-app-text">
+                    <span className="font-semibold">✦ Hero Section</span>
+                    <span className="text-[8px] text-app-accent opacity-80">ACTIVE</span>
+                  </div>
+                  <div className="flex items-center justify-between border border-app-border/40 rounded p-1 text-[9px] text-app-muted">
+                    <span>⚡ Feature Grid</span>
+                    <span className="text-[8px] text-app-subtle">LOCKED</span>
+                  </div>
+                  <div className="flex items-center justify-between border border-app-border/40 rounded p-1 text-[9px] text-app-muted">
+                    <span>💰 Pricing Block</span>
+                    <span className="text-[8px] text-app-subtle">VISIBLE</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: Interactive Token studio pill */}
+              <div className="absolute bottom-8 right-4 w-[220px] bg-app-elevated/95 border border-app-border-strong rounded-xl p-4 shadow-xl backdrop-blur-sm transition-transform duration-300 hover:translate-y-1 hover:-rotate-1">
+                <div className="text-[9px] font-bold text-app-accent uppercase tracking-wider mb-2">Brand palette</div>
+                <div className="grid grid-cols-4 gap-1.5">
+                  <div className="h-6 rounded bg-indigo-500 hover:scale-105 transition-transform" />
+                  <div className="h-6 rounded bg-emerald-500 hover:scale-105 transition-transform" />
+                  <div className="h-6 rounded bg-amber-500 hover:scale-105 transition-transform" />
+                  <div className="h-6 rounded bg-rose-500 hover:scale-105 transition-transform" />
+                </div>
+                <div className="mt-3 flex items-center justify-between text-[8px] text-app-muted">
+                  <span>Accessibility score</span>
+                  <span className="font-mono font-bold text-green-400">98% PASS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </BlockShell>
+    )
+  }
+
+  if (variant === 'glassmorphic') {
+    return (
+      <BlockShell block={block}>
+        <section
+          className="relative px-8 py-20 overflow-hidden"
+          style={{ gap: gapVal }}
+        >
+          {/* Futuristic background elements */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[radial-gradient(ellipse_at_center,color-mix(in srgb,var(--n-brand)_20%,transparent),transparent_60%)] filter blur-3xl pointer-events-none" />
+          
+          {/* Glass Card Wrapper */}
+          <div className="relative max-w-4xl mx-auto backdrop-blur-xl bg-app-surface/30 dark:bg-black/20 border border-app-border/40 rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col items-center text-center gap-5">
+            {/* Elegant glass badge */}
+            <div className="backdrop-blur-md bg-app-inset/40 border border-app-border/40 rounded-full px-1.5 py-0.5 shadow-sm">
+              {renderBadge()}
+            </div>
+
+            {renderTitle('text-center')}
+            {renderSubtitle('text-center')}
+            
+            <div className="pt-4">
+              {renderButtons()}
+            </div>
+
+            {/* Glowing active outline micro-animation */}
+            <div className="absolute -inset-px rounded-3xl border border-app-accent/20 pointer-events-none animate-pulse" />
+          </div>
+        </section>
+      </BlockShell>
+    )
+  }
+
+  // Default: 'saas'
   return (
     <BlockShell block={block}>
       <section
-        className="flex flex-col items-center text-center"
-        style={{ gap: 'var(--n-space-3)', padding: 'var(--n-space-8) var(--n-space-6) var(--n-space-4)' }}
+        className="flex flex-col items-center text-center px-8 py-16"
+        style={{ gap: gapVal }}
       >
-        <Node
-          id={n(block.id, 'badge')}
-          blockId={block.id}
-          label="Hero badge"
-          role="text"
-          editable
-          fallback={c.badge}
-          baseFontSize="11px"
-          as="span"
-          style={{
-            background: 'var(--n-brand-subtle)',
-            color: 'var(--n-brand)',
-            fontSize: 11,
-            fontWeight: 600,
-            padding: '5px 11px',
-            borderRadius: 'var(--n-radius-pill)',
-          }}
-        />
-        <Node
-          id={n(block.id, 'title')}
-          blockId={block.id}
-          label="Hero heading"
-          role="text"
-          editable
-          fallback={c.title}
-          baseFontSize="clamp(26px, 4.4vw, 40px)"
-          as="h1"
-          className="max-w-[34ch]"
-          style={{
-            color: 'var(--n-text)',
-            fontFamily: 'var(--n-font-display)',
-            fontSize: 'clamp(26px, 4.4vw, 40px)',
-            fontWeight: 700,
-            lineHeight: rtl ? 1.5 : 1.12,
-            letterSpacing: rtl ? 0 : '-0.02em',
-          }}
-        />
-        <Node
-          id={n(block.id, 'subtitle')}
-          blockId={block.id}
-          label="Hero subtitle"
-          role="text"
-          editable
-          fallback={c.subtitle}
-          baseFontSize="15px"
-          as="p"
-          className="max-w-[46ch]"
-          style={{ color: 'var(--n-text-muted)', fontSize: 15, lineHeight: rtl ? 1.8 : 1.6 }}
-        />
-        <div className="mt-2 flex flex-wrap items-center justify-center" style={{ gap: 'var(--n-space-2)' }}>
-          <Node
-            id={n(block.id, 'primary')}
-            blockId={block.id}
-            label="Primary button"
-            role="text"
-            editable
-            fallback={c.primary}
-            baseFontSize="14px"
-            as="button"
-            className="inline-flex items-center"
-            style={{
-              gap: 7,
-              background: 'var(--n-brand)',
-              color: 'var(--n-on-brand)',
-              fontSize: 14,
-              fontWeight: 600,
-              padding: '11px 20px',
-              borderRadius: 'var(--n-radius)',
-              boxShadow: 'var(--n-shadow)',
-            }}
-          />
-          <Node
-            id={n(block.id, 'secondary')}
-            blockId={block.id}
-            label="Secondary button"
-            role="text"
-            editable
-            fallback={c.secondary}
-            baseFontSize="14px"
-            as="button"
-            className="inline-flex items-center"
-            style={{
-              gap: 7,
-              color: 'var(--n-text)',
-              fontSize: 14,
-              fontWeight: 600,
-              padding: '11px 20px',
-              borderRadius: 'var(--n-radius)',
-              border: '1px solid var(--n-border-strong)',
-            }}
-          />
+        {renderBadge()}
+        {renderTitle('text-center')}
+        {renderSubtitle('text-center')}
+        <div className="pt-2">
+          {renderButtons()}
+        </div>
+
+        {/* Floating Mockup Browser Preview for SaaS */}
+        <div className="relative mt-8 w-full max-w-[620px] transition-transform duration-300 hover:scale-[1.01] hover:-translate-y-0.5">
+          <div className="w-full bg-app-surface/90 border border-app-border rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm">
+            {/* Browser top chrome */}
+            <div className="flex items-center gap-1.5 border-b border-app-border bg-app-inset/80 px-4 py-2 text-[10px] text-app-muted">
+              <div className="flex gap-1">
+                <span className="h-2 w-2 rounded-full bg-red-400/80" />
+                <span className="h-2 w-2 rounded-full bg-yellow-400/80" />
+                <span className="h-2 w-2 rounded-full bg-green-400/80" />
+              </div>
+              <span className="mx-auto truncate select-none opacity-60">localhost:4000/nezam-studio</span>
+            </div>
+            
+            {/* Browser client space */}
+            <div className="p-4 bg-app-surface/40 flex flex-col gap-3 text-left">
+              {/* Simulated mini analytics metrics */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-app-inset/40 border border-app-border/40 rounded p-2 flex flex-col">
+                  <span className="text-[9px] text-app-muted">Active Sessions</span>
+                  <span className="text-xs font-bold text-app-text mt-0.5">14,248</span>
+                </div>
+                <div className="bg-app-inset/40 border border-app-border/40 rounded p-2 flex flex-col">
+                  <span className="text-[9px] text-app-muted">Conversion Rate</span>
+                  <span className="text-xs font-bold text-app-text mt-0.5">3.8%</span>
+                </div>
+                <div className="bg-app-inset/40 border border-app-border/40 rounded p-2 flex flex-col">
+                  <span className="text-[9px] text-app-muted">Team Members</span>
+                  <span className="text-xs font-bold text-app-text mt-0.5">18 Active</span>
+                </div>
+              </div>
+              <div className="h-[44px] rounded bg-app-accent-subtle/25 border border-app-accent/20 p-2 flex items-center justify-between text-[10px]">
+                <span className="text-app-text font-medium">⚡ Real-time design token sync is active</span>
+                <span className="h-2 w-2 rounded-full bg-green-400 animate-ping" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </BlockShell>
@@ -987,43 +1264,210 @@ function CtaBlock({ block }: { block: Block }) {
 /* ── Footer ─────────────────────────────────────────────────── */
 
 function FooterBlock({ block }: { block: Block }) {
-  const c = block.content as { brand: string; columns: { title: string; links: string[] }[] }
+  const dir = useHub((s) => s.dir)
+  const rtl = dir === 'rtl'
+  const c = block.content as { brand: string; columns: { title: string; links: string[] }[]; variant?: string; padding?: number }
+  const variant = c.variant || 'minimal'
+  const paddingVal = c.padding != null ? `${c.padding}px` : 'var(--n-space-6)'
+
+  // Render elements helpers
+  const renderBrand = () => (
+    <Node
+      id={n(block.id, 'brand')}
+      blockId={block.id}
+      label="Footer brand"
+      role="text"
+      editable
+      fallback={c.brand}
+      baseFontSize="18px"
+      as="div"
+      style={{
+        color: 'var(--n-text)',
+        fontFamily: 'var(--n-font-display)',
+        fontSize: 18,
+        fontWeight: 800,
+        letterSpacing: '-0.02em',
+      }}
+    />
+  )
+
+  const renderColumns = (gridColsClass = "grid-cols-3") => (
+    <div className={cn("grid gap-6", gridColsClass)} style={{ gap: 'var(--n-space-4)' }}>
+      {c.columns.map((col, i) => (
+        <div key={i} className="flex flex-col gap-2">
+          <div style={{ color: 'var(--n-text)', fontSize: 12, fontWeight: 700, letterSpacing: '0.03em' }}>
+            {col.title}
+          </div>
+          <ul style={{ display: 'grid', gap: 6 }}>
+            {col.links.map((l, j) => (
+              <li
+                key={j}
+                className="cursor-pointer transition-colors duration-150 hover:text-app-text text-[11.5px]"
+                style={{ color: 'var(--n-text-muted)', fontSize: 12 }}
+              >
+                {l}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )
+
+  if (variant === 'multicolumn') {
+    return (
+      <BlockShell block={block}>
+        <footer
+          className={cn(
+            "grid grid-cols-1 lg:grid-cols-5 gap-8 border-t border-app-border/40",
+            rtl ? "text-right" : "text-left"
+          )}
+          style={{
+            marginTop: 'var(--n-space-6)',
+            padding: `${paddingVal} var(--n-space-6)`,
+            background: 'var(--n-surface)',
+          }}
+        >
+          {/* Brand & Newsletter col */}
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            {renderBrand()}
+            <p className="text-[11.5px] text-app-muted max-w-[28ch] leading-relaxed">
+              {rtl
+                ? 'ابنِ عقود تصميم لا مفرّ منها، وثّق كلّ التفاصيل وشحن النتيجة بثقة.'
+                : 'Beautifully consistent design contracts. Author tokens, styles, and deploy.'}
+            </p>
+            {/* Subscription Form */}
+            <div className="flex flex-col gap-1.5 max-w-[240px]">
+              <label className="text-[9px] font-bold text-app-subtle uppercase tracking-wider">
+                {rtl ? 'اشترك في النشرة البريدية' : 'Subscribe to our updates'}
+              </label>
+              <div className="flex gap-1.5">
+                <input
+                  type="email"
+                  placeholder={rtl ? 'بريدك الإلكتروني...' : 'you@domain.com'}
+                  className="focus-ring flex-1 h-7.5 bg-app-inset border border-app-border rounded px-2 text-[10.5px] focus:outline-none"
+                />
+                <button className="h-7.5 w-7.5 bg-app-accent text-app-on-accent rounded flex items-center justify-center transition-all hover:scale-105 active:scale-95">
+                  <span className="text-[10px]">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Links columns */}
+          <div className="lg:col-span-3">
+            {renderColumns("grid-cols-2 sm:grid-cols-3")}
+          </div>
+        </footer>
+      </BlockShell>
+    )
+  }
+
+  if (variant === 'centered') {
+    return (
+      <BlockShell block={block}>
+        <footer
+          className="flex flex-col items-center gap-8 border-t border-app-border/40 text-center"
+          style={{
+            marginTop: 'var(--n-space-6)',
+            padding: `${paddingVal} var(--n-space-6)`,
+            background: 'var(--n-surface)',
+          }}
+        >
+          {/* Brand */}
+          <div className="flex flex-col items-center gap-2">
+            <span
+              className="grid place-items-center font-bold text-sm"
+              style={{
+                background: 'var(--n-brand)',
+                color: 'var(--n-on-brand)',
+                width: 32,
+                height: 32,
+                borderRadius: 'var(--n-radius-sm)',
+                fontFamily: 'var(--n-font-display)',
+              }}
+            >
+              {rtl ? 'ن' : 'N'}
+            </span>
+            {renderBrand()}
+          </div>
+
+          {/* Draggable links flattened */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {c.columns.flatMap(col => col.links).map((link, idx) => (
+              <span
+                key={idx}
+                className="cursor-pointer transition-colors duration-150 hover:text-app-text text-[12px] font-medium"
+                style={{ color: 'var(--n-text-muted)' }}
+              >
+                {link}
+              </span>
+            ))}
+          </div>
+
+          {/* Social Icons row */}
+          <div className="flex items-center gap-4 text-app-muted">
+            {['Twitter', 'GitHub', 'LinkedIn'].map((platform, idx) => (
+              <span
+                key={idx}
+                className="text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:text-app-accent transition-colors"
+              >
+                {platform}
+              </span>
+            ))}
+          </div>
+
+          {/* Copyright line */}
+          <div className="w-full border-t border-app-border/30 pt-4 flex flex-col sm:flex-row items-center justify-between text-[10px] text-app-subtle max-w-4xl">
+            <span>© {new Date().getFullYear()} Nezam. All rights reserved.</span>
+            <span>Cairo / Sahel / Heliopolis</span>
+          </div>
+        </footer>
+      </BlockShell>
+    )
+  }
+
+  // Default: 'minimal'
   return (
     <BlockShell block={block}>
       <footer
+        className="flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-app-border/40"
         style={{
           marginTop: 'var(--n-space-6)',
-          padding: 'var(--n-space-6)',
+          padding: `${paddingVal} var(--n-space-6)`,
           background: 'var(--n-surface)',
-          borderTop: '1px solid var(--n-border)',
-          display: 'grid',
-          gridTemplateColumns: '1fr 2fr',
-          gap: 'var(--n-space-6)',
         }}
       >
-        <Node
-          id={n(block.id, 'brand')}
-          blockId={block.id}
-          label="Footer brand"
-          role="text"
-          editable
-          fallback={c.brand}
-          baseFontSize="18px"
-          as="div"
-          style={{ color: 'var(--n-text)', fontFamily: 'var(--n-font-display)', fontSize: 18, fontWeight: 700 }}
-        />
-        <div className="grid grid-cols-3" style={{ gap: 'var(--n-space-4)' }}>
-          {c.columns.map((col, i) => (
-            <div key={i}>
-              <div style={{ color: 'var(--n-text)', fontSize: 12, fontWeight: 600, marginBottom: 6 }}>
-                {col.title}
-              </div>
-              <ul style={{ display: 'grid', gap: 4 }}>
-                {col.links.map((l, j) => (
-                  <li key={j} style={{ color: 'var(--n-text-muted)', fontSize: 12 }}>{l}</li>
-                ))}
-              </ul>
-            </div>
+        <div className="flex items-center gap-3">
+          <span
+            className="grid place-items-center font-bold text-xs"
+            style={{
+              background: 'var(--n-brand)',
+              color: 'var(--n-on-brand)',
+              width: 24,
+              height: 24,
+              borderRadius: 'var(--n-radius-sm)',
+              fontFamily: 'var(--n-font-display)',
+            }}
+          >
+            {rtl ? 'ن' : 'N'}
+          </span>
+          {renderBrand()}
+          <span className="text-[11px] text-app-subtle">
+            © {new Date().getFullYear()}
+          </span>
+        </div>
+        
+        {/* Horizontal inline menu links */}
+        <div className="flex flex-wrap items-center gap-4 text-app-muted">
+          {c.columns.flatMap(col => col.links).slice(0, 5).map((l, j) => (
+            <span
+              key={j}
+              className="cursor-pointer transition-colors duration-150 hover:text-app-text text-[11px]"
+              style={{ color: 'var(--n-text-muted)' }}
+            >
+              {l}
+            </span>
           ))}
         </div>
       </footer>

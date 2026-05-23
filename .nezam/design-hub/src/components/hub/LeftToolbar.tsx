@@ -83,10 +83,6 @@ export function LeftToolbar() {
 
   return (
     <div className="flex h-full w-14 flex-col items-center gap-1 border-r border-app-border bg-app-inset py-3">
-      <div className="mb-1 grid h-7 w-7 place-items-center rounded-app-sm bg-app-surface text-app-subtle">
-        <MousePointer2 size={13} />
-      </div>
-
       {NAV_TOOLS.map((t) => (
         <ToolButton key={t.id} tool={t} />
       ))}

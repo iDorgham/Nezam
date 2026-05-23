@@ -23,13 +23,22 @@ import type {
   ThemeMode,
   TimelineState,
   Tool,
+  PageTab,
+  SiteSettings,
+  SitemapNode,
 } from '@/types'
 import { PROFILES, DEFAULT_PROFILE_ID } from '@/data/profiles'
-import { ARCHETYPES, DEFAULT_ARCHETYPE_ID, buildBlocks, makeBlock } from '@/data/archetypes'
+import { ARCHETYPES, DEFAULT_ARCHETYPE_ID, buildBlocks, makeBlock, defaultContent } from '@/data/archetypes'
 import { resolveTokens } from '@/lib/tokens'
 import { generateProfile } from '@/lib/ai'
 
 const uid = () => Math.random().toString(36).slice(2, 9)
+
+const arrayMove = <T,>(array: T[], from: number, to: number): T[] => {
+  const newArray = array.slice()
+  newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0])
+  return newArray
+}
 
 /** Debounced history commit so a burst of slider drags collapses to one entry. */
 let commitTimer: ReturnType<typeof setTimeout> | undefined
@@ -93,6 +102,13 @@ interface HubState {
   contentOverrides: Record<string, string>
   pageStyle: PageStyle
 
+  /* multi-page, settings and menus */
+  siteSettings: SiteSettings
+  pages: PageTab[]
+  activePageId: string
+  menus: { headerLinks: string[]; footerColumns: { title: string; links: string[] }[] }
+  copiedStyle: NodeStyle | null
+
   /* interaction */
   selection: Selection | null
   builderMode: BuilderMode
@@ -147,6 +163,24 @@ interface HubActions {
   endEdit: () => void
   setPageStyle: (patch: Partial<PageStyle>) => void
 
+  /* pages, site settings, and menus actions */
+  addPage: (name?: string, initialBlocks?: Block[]) => void
+  closePage: (id: string) => void
+  closeOtherPages: (id: string) => void
+  renamePage: (id: string, name: string) => void
+  duplicatePage: (id: string) => void
+  reorderPages: (pages: PageTab[]) => void
+  setActivePage: (id: string) => void
+  updateSiteSettings: (patch: Partial<SiteSettings>) => void
+  updateMenus: (patch: Partial<{ headerLinks: string[]; footerColumns: { title: string; links: string[] }[] }>) => void
+  copyStyle: (nodeId: string) => void
+  pasteStyle: (nodeId: string) => void
+  duplicateBlock: (id: string) => void
+  moveBlock: (id: string, direction: 'up' | 'down') => void
+  updateBlockContent: (kind: BlockKind, patch: Record<string, any>) => void
+  reorderBlocks: (blocks: Block[]) => void
+  renameBlockLabel: (id: string, label: string) => void
+
   /* structure */
   setArchetype: (id: ArchetypeKind) => void
   addBlock: (kind: BlockKind) => void
@@ -197,6 +231,67 @@ function swatchFor(p: Profile, theme: ThemeMode): [string, string, string] {
   return [c.brand, c.accent, c.surface]
 }
 
+function buildDefaultPagesForArchetype(archetypeId: ArchetypeKind): PageTab[] {
+  const defaultPageBlocks: Record<string, BlockKind[]> = {
+    home: ['nav', 'hero', 'stats', 'featureGrid', 'cta', 'footer'],
+    marketing: ['nav', 'hero', 'featureGrid', 'cta', 'footer'],
+    pricing: ['nav', 'pricing', 'cta', 'footer'],
+    dashboard: ['nav', 'dashboard', 'stats', 'footer'],
+    settings: ['nav', 'dashboard', 'footer'],
+    contact: ['nav', 'hero', 'text', 'paragraph', 'footer'],
+    app: ['nav', 'dashboard', 'stats', 'footer'],
+    about: ['nav', 'hero', 'text', 'paragraph', 'footer'],
+    catalog: ['nav', 'hero', 'productGrid', 'footer'],
+    product: ['nav', 'hero', 'productGrid', 'cta', 'footer'],
+    cart: ['nav', 'hero', 'cta', 'footer'],
+    checkout: ['nav', 'hero', 'cta', 'footer'],
+    vendors: ['nav', 'hero', 'vendorGrid', 'footer'],
+    account: ['nav', 'hero', 'cta', 'footer'],
+    posts: ['nav', 'hero', 'articleList', 'footer'],
+    article: ['nav', 'hero', 'articleList', 'footer'],
+    work: ['nav', 'hero', 'featureGrid', 'footer'],
+  }
+
+  const archetype = ARCHETYPES.find((a) => a.id === archetypeId) || ARCHETYPES[0]
+  const flatPages: SitemapNode[] = []
+  const flatten = (nodes: SitemapNode[]) => {
+    for (const node of nodes) {
+      if (node.children) {
+        flatten(node.children)
+      } else {
+        flatPages.push(node)
+      }
+    }
+  }
+  flatten(archetype.pages)
+
+  if (flatPages.length === 0) {
+    flatPages.push({ id: 'home', name: 'Home', arabicName: 'الرئيسية' })
+  }
+
+  return flatPages.map((p) => {
+    const kinds = defaultPageBlocks[p.id.toLowerCase()] || archetype.blocks
+    const seen: Record<string, number> = {}
+    const blocks = kinds.map((kind) => {
+      const n = (seen[kind] = (seen[kind] ?? 0) + 1)
+      const blockId = `${p.id}-${kind}-${n}`
+      return {
+        id: blockId,
+        kind,
+        label: kind[0].toUpperCase() + kind.slice(1),
+        arabicLabel: kind,
+        content: defaultContent(kind),
+      }
+    })
+    return {
+      id: p.id,
+      name: p.name,
+      blocks,
+      isUnsaved: false,
+    }
+  })
+}
+
 export const useHub = create<Store>()(
   persist(
     (set, get) => ({
@@ -208,15 +303,32 @@ export const useHub = create<Store>()(
       device: 'desktop',
       zoom: 1,
 
+      siteSettings: {
+        name: 'Nezam Hub',
+        title: 'Nezam Modern Figma-like Workspace',
+        logo: '',
+      },
+      pages: buildDefaultPagesForArchetype(DEFAULT_ARCHETYPE_ID),
+      activePageId: buildDefaultPagesForArchetype(DEFAULT_ARCHETYPE_ID)[0]?.id ?? 'home',
+      menus: {
+        headerLinks: ['Overview', 'Features', 'Pricing', 'Docs'],
+        footerColumns: [
+          { title: 'Product', links: ['Features', 'Pricing', 'Changelog'] },
+          { title: 'Company', links: ['About', 'Careers', 'Contact'] },
+          { title: 'Legal', links: ['Privacy', 'Terms'] },
+        ],
+      },
+      copiedStyle: null,
+
       archetypeId: DEFAULT_ARCHETYPE_ID,
-      blocks: buildBlocks(DEFAULT_ARCHETYPE_ID),
+      blocks: buildDefaultPagesForArchetype(DEFAULT_ARCHETYPE_ID)[0]?.blocks ?? buildBlocks(DEFAULT_ARCHETYPE_ID),
       blockMeta: {},
       nodeStyles: {},
       contentOverrides: {},
       pageStyle: { width: 1080, padding: 0 },
 
       selection: null,
-      builderMode: 'brand',
+      builderMode: 'inspector',
       activeTool: 'select',
       editingNodeId: null,
       rightW: 432,
@@ -314,12 +426,212 @@ export const useHub = create<Store>()(
       endEdit: () => set({ editingNodeId: null }),
       setPageStyle: (patch) => set({ pageStyle: { ...get().pageStyle, ...patch } }),
 
+      /* ── pages, site settings, and menus actions ───────────── */
+      addPage: (name, initialBlocks) => {
+        const id = `page-${Date.now().toString(36)}`
+        const pageName = name?.trim() || `Page ${get().pages.length + 1}`
+        const blocks = initialBlocks || [
+          makeBlock('nav', 0),
+          makeBlock('hero', 1),
+          makeBlock('footer', 2)
+        ]
+        const newPage: PageTab = { id, name: pageName, blocks, isUnsaved: true }
+        set({
+          pages: [...get().pages, newPage],
+          activePageId: id,
+          blocks,
+          selection: null,
+          pulse: get().pulse + 1,
+        })
+        get().commit(`Added page "${pageName}"`)
+      },
+      closePage: (id) => {
+        const { pages, activePageId } = get()
+        if (pages.length <= 1) return
+        const nextPages = pages.filter((p) => p.id !== id)
+        let nextActiveId = activePageId
+        if (activePageId === id) {
+          const idx = pages.findIndex((p) => p.id === id)
+          const newIdx = Math.max(0, idx - 1)
+          nextActiveId = nextPages[newIdx]?.id ?? 'home'
+        }
+        const nextActiveBlocks = nextPages.find((p) => p.id === nextActiveId)?.blocks ?? []
+        set({
+          pages: nextPages,
+          activePageId: nextActiveId,
+          blocks: nextActiveBlocks,
+          selection: null,
+          pulse: get().pulse + 1,
+        })
+      },
+      closeOtherPages: (id) => {
+        const { pages } = get()
+        const targetPage = pages.find((p) => p.id === id)
+        if (!targetPage) return
+        set({
+          pages: [targetPage],
+          activePageId: id,
+          blocks: targetPage.blocks,
+          selection: null,
+          pulse: get().pulse + 1,
+        })
+      },
+      renamePage: (id, name) => {
+        const nextPages = get().pages.map((p) =>
+          p.id === id ? { ...p, name: name.trim() || p.name, isUnsaved: true } : p
+        )
+        set({ pages: nextPages })
+        get().commit(`Renamed page to "${name}"`)
+      },
+      duplicatePage: (id) => {
+        const { pages } = get()
+        const target = pages.find((p) => p.id === id)
+        if (!target) return
+        const newId = `page-copy-${Date.now().toString(36)}`
+        const newBlocks = target.blocks.map((b, idx) => ({
+          ...b,
+          id: `${b.kind}-${Date.now().toString(36)}-${idx}`,
+        }))
+        const duplicated: PageTab = {
+          id: newId,
+          name: `${target.name} Copy`,
+          blocks: newBlocks,
+          isUnsaved: true,
+        }
+        set({
+          pages: [...pages, duplicated],
+          activePageId: newId,
+          blocks: newBlocks,
+          selection: null,
+          pulse: get().pulse + 1,
+        })
+        get().commit(`Duplicated page "${target.name}"`)
+      },
+      reorderPages: (pages) => {
+        set({ pages })
+      },
+      setActivePage: (id) => {
+        const { pages } = get()
+        const target = pages.find((p) => p.id === id)
+        if (!target) return
+        set({
+          activePageId: id,
+          blocks: target.blocks,
+          selection: null,
+          pulse: get().pulse + 1,
+        })
+      },
+      updateSiteSettings: (patch) => {
+        set({ siteSettings: { ...get().siteSettings, ...patch } })
+      },
+      updateMenus: (patch) => {
+        const nextMenus = { ...get().menus, ...patch }
+        set({ menus: nextMenus })
+        const updatedBlocks = get().blocks.map((block) => {
+          if (block.kind === 'nav') {
+            return {
+              ...block,
+              content: {
+                ...block.content,
+                links: nextMenus.headerLinks,
+              },
+            }
+          }
+          if (block.kind === 'footer' && nextMenus.footerColumns) {
+            return {
+              ...block,
+              content: {
+                ...block.content,
+                columns: nextMenus.footerColumns,
+              },
+            }
+          }
+          return block
+        })
+        const nextPages = get().pages.map((p) =>
+          p.id === get().activePageId ? { ...p, blocks: updatedBlocks } : p
+        )
+        set({ blocks: updatedBlocks, pages: nextPages })
+      },
+      copyStyle: (nodeId) => {
+        set({ copiedStyle: get().nodeStyles[nodeId] ?? null })
+      },
+      pasteStyle: (nodeId) => {
+        const style = get().copiedStyle
+        if (style) {
+          get().setNodeStyle(nodeId, style)
+        }
+      },
+      duplicateBlock: (id) => {
+        const { blocks, activePageId, pages } = get()
+        const idx = blocks.findIndex((b) => b.id === id)
+        if (idx === -1) return
+        const source = blocks[idx]
+        const newBlock = {
+          ...source,
+          id: `${source.kind}-${Date.now().toString(36)}-dup`,
+          label: `${source.label} Copy`,
+        }
+        const nextBlocks = [...blocks]
+        nextBlocks.splice(idx + 1, 0, newBlock)
+        const nextPages = pages.map((p) =>
+          p.id === activePageId ? { ...p, blocks: nextBlocks, isUnsaved: true } : p
+        )
+        set({ blocks: nextBlocks, pages: nextPages, pulse: get().pulse + 1 })
+        get().commit(`Duplicated section "${source.label}"`)
+      },
+      moveBlock: (id, direction) => {
+        const { blocks, activePageId, pages } = get()
+        const idx = blocks.findIndex((b) => b.id === id)
+        if (idx === -1) return
+        const nextIdx = direction === 'up' ? idx - 1 : idx + 1
+        if (nextIdx < 0 || nextIdx >= blocks.length) return
+        const nextBlocks = arrayMove(blocks, idx, nextIdx)
+        const nextPages = pages.map((p) =>
+          p.id === activePageId ? { ...p, blocks: nextBlocks, isUnsaved: true } : p
+        )
+        set({ blocks: nextBlocks, pages: nextPages, pulse: get().pulse + 1 })
+        get().commit(`Moved block ${direction === 'up' ? 'up' : 'down'}`)
+      },
+      updateBlockContent: (kind, patch) => {
+        const { blocks, activePageId, pages } = get()
+        const updatedBlocks = blocks.map((b) =>
+          b.kind === kind ? { ...b, content: { ...b.content, ...patch } } : b
+        )
+        const nextPages = pages.map((p) =>
+          p.id === activePageId ? { ...p, blocks: updatedBlocks, isUnsaved: true } : p
+        )
+        set({ blocks: updatedBlocks, pages: nextPages, pulse: get().pulse + 1 })
+      },
+      reorderBlocks: (blocks) => {
+        const { activePageId, pages } = get()
+        const nextPages = pages.map((p) =>
+          p.id === activePageId ? { ...p, blocks, isUnsaved: true } : p
+        )
+        set({ blocks, pages: nextPages, pulse: get().pulse + 1 })
+        get().commit('Reordered sections')
+      },
+      renameBlockLabel: (id, label) => {
+        const { blocks, activePageId, pages } = get()
+        const nextBlocks = blocks.map((b) =>
+          b.id === id ? { ...b, label: label.trim() || b.label } : b
+        )
+        const nextPages = pages.map((p) =>
+          p.id === activePageId ? { ...p, blocks: nextBlocks, isUnsaved: true } : p
+        )
+        set({ blocks: nextBlocks, pages: nextPages })
+      },
+
       /* ── structure ─────────────────────────────────────────── */
       setArchetype: (id) => {
         if (id === get().archetypeId) return
+        const archetypePages = buildDefaultPagesForArchetype(id)
+        const initialBlocks = archetypePages[0]?.blocks ?? []
         set({
           archetypeId: id,
-          blocks: buildBlocks(id),
+          pages: archetypePages,
+          activePageId: archetypePages[0]?.id ?? 'home',
+          blocks: initialBlocks,
           blockMeta: {},
           selection: null,
           pulse: get().pulse + 1,
@@ -330,8 +642,13 @@ export const useHub = create<Store>()(
       addBlock: (kind) => {
         const blocks = get().blocks
         const block = makeBlock(kind, blocks.length)
+        const nextBlocks = [...blocks, block]
+        const nextPages = get().pages.map((p) =>
+          p.id === get().activePageId ? { ...p, blocks: nextBlocks, isUnsaved: true } : p
+        )
         set({
-          blocks: [...blocks, block],
+          blocks: nextBlocks,
+          pages: nextPages,
           selection: { scope: 'section', blockId: block.id, nodeId: block.id, label: block.label, role: 'box' },
           builderMode: 'inspector',
           pulse: get().pulse + 1,
@@ -339,8 +656,13 @@ export const useHub = create<Store>()(
       },
       removeBlock: (id) => {
         const sel = get().selection
+        const nextBlocks = get().blocks.filter((b) => b.id !== id)
+        const nextPages = get().pages.map((p) =>
+          p.id === get().activePageId ? { ...p, blocks: nextBlocks, isUnsaved: true } : p
+        )
         set({
-          blocks: get().blocks.filter((b) => b.id !== id),
+          blocks: nextBlocks,
+          pages: nextPages,
           selection: sel?.blockId === id ? null : sel,
           pulse: get().pulse + 1,
         })
@@ -577,6 +899,10 @@ export const useHub = create<Store>()(
         comments: s.comments,
         savedDesigns: s.savedDesigns,
         timeline: s.timeline,
+        siteSettings: s.siteSettings,
+        pages: s.pages,
+        activePageId: s.activePageId,
+        menus: s.menus,
       }),
     },
   ),

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   DndContext,
   DragOverlay,
@@ -23,6 +23,25 @@ import { RenderBlock } from './blocks'
 import { cn } from '@/lib/cn'
 import type { Block } from '@/types'
 
+const pageGridStyle = (pageStyle: { width: number; padding: number; bg?: string }) => ({
+  maxWidth: pageStyle.width,
+  padding: pageStyle.padding,
+  background: pageStyle.bg,
+  display: 'grid' as const,
+})
+
+// ── Static block (no DnD) — used for SSR ─────────────────────────────────────
+
+function StaticBlock({ block }: { block: Block }) {
+  return (
+    <div className="group relative">
+      <RenderBlock block={block} />
+    </div>
+  )
+}
+
+// ── Draggable block (DnD) — client-only ──────────────────────────────────────
+
 function DraggableBlock({ block, isOverlay = false }: { block: Block; isOverlay?: boolean }) {
   const meta = useHub((s) => s.getBlockMeta(block.id))
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -36,7 +55,6 @@ function DraggableBlock({ block, isOverlay = false }: { block: Block; isOverlay?
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn('group relative', isDragging && 'opacity-40')}
     >
-      {/* Drag handle — floats top-left on hover */}
       {!meta.locked && (
         <button
           {...attributes}
@@ -55,10 +73,21 @@ function DraggableBlock({ block, isOverlay = false }: { block: Block; isOverlay?
   )
 }
 
-/** The preview composition — renders the active archetype's ordered blocks with viewport drag-and-drop. */
-export function PreviewScene() {
-  const blocks = useHub((s) => s.blocks)
-  const pageStyle = useHub((s) => s.pageStyle)
+// ── Root ──────────────────────────────────────────────────────────────────────
+
+/** Renders blocks during SSR without any DnD context to avoid aria-describedby hydration mismatches. */
+function StaticScene({ blocks, pageStyle }: { blocks: Block[]; pageStyle: { width: number; padding: number; bg?: string } }) {
+  return (
+    <div data-anim-root data-node="page" className="mx-auto w-full" style={pageGridStyle(pageStyle)}>
+      {blocks.map((block) => (
+        <StaticBlock key={block.id} block={block} />
+      ))}
+    </div>
+  )
+}
+
+/** Full DnD-enabled scene — only rendered after client hydration. */
+function DndScene({ blocks, pageStyle }: { blocks: Block[]; pageStyle: { width: number; padding: number; bg?: string } }) {
   const reorderBlocks = useHub((s) => s.reorderBlocks)
   const [activeId, setActiveId] = useState<string | null>(null)
 
@@ -67,7 +96,6 @@ export function PreviewScene() {
   )
 
   const activeBlock = blocks.find((b) => b.id === activeId) ?? null
-
   const onDragStart = (e: DragStartEvent) => setActiveId(String(e.active.id))
   const onDragEnd = (e: DragEndEvent) => {
     setActiveId(null)
@@ -80,32 +108,34 @@ export function PreviewScene() {
 
   return (
     <DndContext
+      id="preview-scene"
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
     >
       <SortableContext items={blocks.map((b) => b.id)} strategy={verticalListSortingStrategy}>
-        <div
-          data-anim-root
-          data-node="page"
-          className="mx-auto w-full"
-          style={{
-            maxWidth: pageStyle.width,
-            padding: pageStyle.padding,
-            background: pageStyle.bg,
-            display: 'grid',
-          }}
-        >
+        <div data-anim-root data-node="page" className="mx-auto w-full" style={pageGridStyle(pageStyle)}>
           {blocks.map((block) => (
             <DraggableBlock key={block.id} block={block} />
           ))}
         </div>
       </SortableContext>
-
       <DragOverlay dropAnimation={{ duration: 150, easing: 'ease' }}>
         {activeBlock && <DraggableBlock block={activeBlock} isOverlay />}
       </DragOverlay>
     </DndContext>
   )
+}
+
+export function PreviewScene() {
+  const blocks = useHub((s) => s.blocks)
+  const pageStyle = useHub((s) => s.pageStyle)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
+
+  return mounted
+    ? <DndScene blocks={blocks} pageStyle={pageStyle} />
+    : <StaticScene blocks={blocks} pageStyle={pageStyle} />
 }

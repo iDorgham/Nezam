@@ -279,9 +279,19 @@ export interface SitemapBuilderSection {
   description: string
 }
 
+export type PageStatus =
+  | 'draft'
+  | 'in-progress'
+  | 'review'
+  | 'done'
+  | 'live'
+  | 'attention'
+
 export interface SitemapBuilderPage {
   id: string
   name: string
+  status?: PageStatus
   sections: SitemapBuilderSection[]
   collapsed: boolean
+  children?: SitemapBuilderPage[]
 }

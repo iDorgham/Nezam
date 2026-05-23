@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { ARCHETYPES } from '@/data/archetypes'
 import { useHub } from '@/store/hub.store'
+import { useSitemapBuilder } from '@/store/sitemap-builder.store'
 import type { Archetype, ArchetypeKind, SitemapNode } from '@/types'
 import { cn } from '@/lib/cn'
 
@@ -40,8 +41,15 @@ export function SitemapPanel() {
   const dir = useHub((s) => s.dir)
   const archetypeId = useHub((s) => s.archetypeId)
   const setArchetype = useHub((s) => s.setArchetype)
+  const loadFromArchetype = useSitemapBuilder((s) => s.loadFromArchetype)
   const rtl = dir === 'rtl'
   const archetype = ARCHETYPES.find((a) => a.id === archetypeId) ?? ARCHETYPES[0]
+
+  const handleSelectArchetype = (id: ArchetypeKind) => {
+    setArchetype(id)
+    const a = ARCHETYPES.find((x) => x.id === id)
+    if (a) loadFromArchetype(a.pages)
+  }
 
   return (
     <div className="app-scroll flex-1 overflow-y-auto px-3 py-3">
@@ -55,7 +63,7 @@ export function SitemapPanel() {
             archetype={a}
             active={a.id === archetypeId}
             rtl={rtl}
-            onClick={() => setArchetype(a.id)}
+            onClick={() => handleSelectArchetype(a.id)}
           />
         ))}
       </div>

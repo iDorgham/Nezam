@@ -20,4 +20,15 @@ scrumban_board:
   done: []
   blocked: []
   wip_limit: 3
-phase_02_design: false
+phase_02_design: in_progress
+phase_02_design_spec: "SPEC-DS-VISUAL-001"
+phase_02_design_date: "2026-05-23"
+phase_02_design_deliverables:
+  - "src/state/canvas.store.ts"          # Zustand+Immer recursive canvas store
+  - "src/editors/VisualCSSEditor.tsx"    # Scrubber-based CSS editor with token enforcement
+  - "src/editors/AssetBrowser.tsx"       # Zero-text shape-only asset browser
+  - "src/builders/HeroBuilder.tsx"       # Hero section configurator
+  - "src/builders/FormBuilder.tsx"       # Form field builder with DnD reorder
+  - "src/builders/PopupBuilder.tsx"      # Popup/modal builder
+  - "src/builders/ProfileBuilder.tsx"    # User profile section builder
+  - "src/builders/PagesBuilder.tsx"      # Multi-page section configurator

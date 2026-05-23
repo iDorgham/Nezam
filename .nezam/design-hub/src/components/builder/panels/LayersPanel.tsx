@@ -379,6 +379,7 @@ export function LayersPanel() {
       />
       <PanelBody>
         <DndContext
+          id="layers-panel"
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragStart={onDragStart}

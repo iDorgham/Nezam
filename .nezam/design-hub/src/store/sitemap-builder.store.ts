@@ -19,7 +19,7 @@ function nodeToPage(node: SitemapNode): SitemapBuilderPage {
   return {
     id: uid(),
     name: node.name,
-    sections: [],
+    sections: (node.sectionNames ?? []).map((name) => ({ id: uid(), name, description: '' })),
     collapsed: false,
     children: node.children?.map(nodeToPage),
   }
@@ -37,7 +37,7 @@ function findPage(pages: SitemapBuilderPage[], id: string): SitemapBuilderPage |
   return null
 }
 
-// Recursively update a page anywhere in the tree
+// Recursively update page PROPERTIES anywhere in the tree (does not add/remove children).
 function mapPages(
   pages: SitemapBuilderPage[],
   fn: (p: SitemapBuilderPage) => SitemapBuilderPage,
@@ -46,6 +46,23 @@ function mapPages(
     ...fn(p),
     children: p.children ? mapPages(p.children, fn) : undefined,
   }))
+}
+
+// Recursively insert newChildren under parentId (handles pages with no prior children).
+function insertChildren(
+  pages: SitemapBuilderPage[],
+  parentId: string,
+  newChildren: SitemapBuilderPage[],
+): SitemapBuilderPage[] {
+  return pages.map((p) => {
+    if (p.id === parentId) {
+      return { ...p, collapsed: false, children: [...(p.children ?? []), ...newChildren] }
+    }
+    if (p.children) {
+      return { ...p, children: insertChildren(p.children, parentId, newChildren) }
+    }
+    return p
+  })
 }
 
 // Remove a page by id from the tree, returning [updated tree, removed page]
@@ -219,13 +236,7 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           set((s) => ({ pages: [...s.pages, newPage] }))
           return
         }
-        set((s) => ({
-          pages: mapPages(s.pages, (p) =>
-            p.id === parentId
-              ? { ...p, collapsed: false, children: [...(p.children ?? []), newPage] }
-              : p,
-          ),
-        }))
+        set((s) => ({ pages: insertChildren(s.pages, parentId, [newPage]) }))
       },
 
       nestPage: (pageId, newParentId) =>
@@ -233,13 +244,7 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           const [withoutPage, page] = removePage(s.pages, pageId)
           if (!page) return s
           if (!newParentId) return { pages: [...withoutPage, page] }
-          return {
-            pages: mapPages(withoutPage, (p) =>
-              p.id === newParentId
-                ? { ...p, collapsed: false, children: [...(p.children ?? []), page] }
-                : p,
-            ),
-          }
+          return { pages: insertChildren(withoutPage, newParentId, [page]) }
         }),
 
       setPageStatus: (pageId, status) =>
@@ -260,13 +265,7 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           }
           if (collected.length === 0) return s
           if (!newParentId) return { pages: [...tree, ...collected] }
-          return {
-            pages: mapPages(tree, (p) =>
-              p.id === newParentId
-                ? { ...p, collapsed: false, children: [...(p.children ?? []), ...collected] }
-                : p,
-            ),
-          }
+          return { pages: insertChildren(tree, newParentId, collected) }
         }),
 
       exportJSON: () => {

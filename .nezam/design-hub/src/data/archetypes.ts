@@ -152,17 +152,16 @@ const ARCHETYPE_BLOCKS: Record<ArchetypeKind, BlockKind[]> = {
   'dashboard-app': ['nav', 'dashboard', 'stats', 'footer'],
 }
 
-function page(id: string, name: string, arabicName: string, children?: SitemapNode[]): SitemapNode {
-  return { id, name, arabicName, children }
+function page(id: string, name: string, arabicName: string, children?: SitemapNode[], sectionNames?: string[]): SitemapNode {
+  return { id, name, arabicName, children, sectionNames }
 }
 
 const ARCHETYPE_PAGES: Record<ArchetypeKind, SitemapNode[]> = {
   landing: [
-    page('home', 'Home', 'الرئيسية'),
-    page('hero', 'Hero', 'الواجهة'),
-    page('features', 'Features', 'المزايا'),
-    page('cta', 'Call to action', 'دعوة'),
-    page('contact', 'Contact', 'تواصل'),
+    page('home', 'Home', 'الرئيسية', undefined,
+      ['Nav', 'Hero', 'Features', 'Stats', 'Call to action', 'Footer']),
+    page('contact', 'Contact', 'تواصل', undefined,
+      ['Contact form', 'Map', 'Footer']),
   ],
   saas: [
     page('marketing', 'Marketing', 'التسويق', [

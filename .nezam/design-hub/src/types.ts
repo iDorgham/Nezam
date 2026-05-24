@@ -269,6 +269,8 @@ export interface SitemapNode {
   name: string
   arabicName: string
   children?: SitemapNode[]
+  /** Section names pre-populated when loading this node from an archetype. */
+  sectionNames?: string[]
 }
 
 /* ── Sitemap Builder (manual node editor) ───────────────────── */

@@ -30,15 +30,27 @@ export function PageTabsBar() {
   const toggleDir   = useHub((s) => s.toggleDir)
 
   const archetype = ARCHETYPES.find((a) => a.id === archetypeId) ?? ARCHETYPES[0]
-  // Flat list of all top-level pages for the tab strip
-  const pages = archetype.pages
+
+  // Flatten root-level pages from all apps / main-nav menus for the tab strip
+  type PageTab = { id: string; name: string; arabicName: string; appName: string; subCount: number }
+  const pages: PageTab[] = archetype.apps.flatMap((app) =>
+    app.navMenus.flatMap((menu) =>
+      menu.pages.map((p) => ({
+        id: p.id,
+        name: p.name,
+        arabicName: p.arabicName,
+        appName: app.name,
+        subCount: p.children?.length ?? 0,
+      }))
+    )
+  )
 
   // Auto-select first page when archetype changes or on first mount
   useEffect(() => {
     if (pages.length > 0 && (activePage === null || !pages.find((p) => p.id === activePage))) {
       setActivePage(pages[0].id)
     }
-  }, [archetypeId, pages, activePage, setActivePage])
+  }, [archetypeId, activePage, setActivePage])
 
   return (
     <div className="flex h-10 shrink-0 items-center border-b border-app-border bg-app-surface">
@@ -59,15 +71,17 @@ export function PageTabsBar() {
                   : 'text-app-subtle hover:bg-app-elevated/50 hover:text-app-muted',
               )}
             >
+              <span className="text-[9px] text-app-subtle/60 font-normal">{page.appName}</span>
+              <span>/</span>
               {label}
               {/* Active indicator — bottom border */}
               {isActive && (
                 <span className="absolute bottom-0 inset-x-0 h-[2px] bg-app-accent" />
               )}
-              {/* Unread child-count badge */}
-              {page.children && page.children.length > 0 && (
+              {/* Sub-page count badge */}
+              {page.subCount > 0 && (
                 <span className="grid h-4 min-w-4 place-items-center rounded-full bg-app-elevated px-1 text-[9px] font-semibold text-app-muted">
-                  {page.children.length}
+                  {page.subCount}
                 </span>
               )}
             </button>

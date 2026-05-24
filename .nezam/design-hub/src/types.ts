@@ -131,7 +131,8 @@ export interface Archetype {
   description: string
   /** Ordered block kinds that make up this archetype. */
   blocks: BlockKind[]
-  pages: SitemapNode[]
+  /** Sitemap: apps with nav menus and pages. */
+  apps: ArchetypeApp[]
 }
 
 /* ── Per-node styling ───────────────────────────────────────── */
@@ -268,18 +269,14 @@ export interface SitemapNode {
   id: string
   name: string
   arabicName: string
+  /** Sub-pages nested under this page. */
   children?: SitemapNode[]
   /** Section names pre-populated when loading this node from an archetype. */
   sectionNames?: string[]
 }
 
-/* ── Sitemap Builder (manual node editor) ───────────────────── */
-
-export interface SitemapBuilderSection {
-  id: string
-  name: string
-  description: string
-}
+/* ── Sitemap Builder — 5-level hierarchy ─────────────────────── */
+/*   App → NavMenu → Page → Sub-page → Section                    */
 
 export type PageStatus =
   | 'draft'
@@ -289,11 +286,62 @@ export type PageStatus =
   | 'live'
   | 'attention'
 
+export interface SitemapBuilderSection {
+  id: string
+  name: string
+  description: string
+}
+
 export interface SitemapBuilderPage {
   id: string
   name: string
   status?: PageStatus
   sections: SitemapBuilderSection[]
   collapsed: boolean
-  children?: SitemapBuilderPage[]
+  /** Sub-pages nested under this page. */
+  subPages?: SitemapBuilderPage[]
+}
+
+export type NavMenuKind = 'main' | 'footer' | 'sidebar' | 'utility' | 'custom'
+
+export interface SitemapBuilderNavMenu {
+  id: string
+  name: string
+  kind: NavMenuKind
+  pages: SitemapBuilderPage[]
+  collapsed: boolean
+}
+
+export type AppKind =
+  | 'marketing'
+  | 'dashboard-client'
+  | 'dashboard-admin'
+  | 'mobile'
+  | 'desktop'
+  | 'api'
+  | 'custom'
+
+export interface SitemapBuilderApp {
+  id: string
+  name: string
+  kind: AppKind
+  navMenus: SitemapBuilderNavMenu[]
+  collapsed: boolean
+}
+
+/* ── Archetype sitemap templates ────────────────────────────── */
+
+export interface ArchetypeNavMenu {
+  name: string
+  arabicName: string
+  kind: NavMenuKind
+  /** Pages (and their optional sub-pages / section names). */
+  pages: SitemapNode[]
+}
+
+export interface ArchetypeApp {
+  name: string
+  arabicName: string
+  kind: AppKind
+  navMenus: ArchetypeNavMenu[]
 }

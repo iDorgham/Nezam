@@ -1,8 +1,9 @@
-import type { Archetype, ArchetypeKind, Block, BlockKind, SitemapNode } from '@/types'
+import type { Archetype, ArchetypeApp, ArchetypeKind, ArchetypeNavMenu, AppKind, Block, BlockKind, NavMenuKind, SitemapNode } from '@/types'
 
 /**
  * Project archetypes. Each defines an ordered set of section blocks and a
- * sitemap. Picking an archetype reshapes the live preview.
+ * 5-level sitemap: App → NavMenu → Page → Sub-page → Section.
+ * Picking an archetype reshapes the live preview and the sitemap builder.
  */
 
 const LABELS: Record<BlockKind, { en: string; ar: string }> = {
@@ -152,93 +153,402 @@ const ARCHETYPE_BLOCKS: Record<ArchetypeKind, BlockKind[]> = {
   'dashboard-app': ['nav', 'dashboard', 'stats', 'footer'],
 }
 
-function page(id: string, name: string, arabicName: string, children?: SitemapNode[], sectionNames?: string[]): SitemapNode {
-  return { id, name, arabicName, children, sectionNames }
+// ── Sitemap builder helpers ───────────────────────────────────────────────────
+
+function page(
+  id: string, name: string, arabicName: string,
+  opts?: { children?: SitemapNode[]; sections?: string[] },
+): SitemapNode {
+  return { id, name, arabicName, children: opts?.children, sectionNames: opts?.sections }
 }
 
-const ARCHETYPE_PAGES: Record<ArchetypeKind, SitemapNode[]> = {
+function menu(
+  name: string, arabicName: string, kind: NavMenuKind, pages: SitemapNode[],
+): ArchetypeNavMenu {
+  return { name, arabicName, kind, pages }
+}
+
+function app(
+  name: string, arabicName: string, kind: AppKind, navMenus: ArchetypeNavMenu[],
+): ArchetypeApp {
+  return { name, arabicName, kind, navMenus }
+}
+
+// ── Archetype app definitions ─────────────────────────────────────────────────
+
+const ARCHETYPE_APPS: Record<ArchetypeKind, ArchetypeApp[]> = {
+
   landing: [
-    page('home', 'Home', 'الرئيسية', undefined,
-      ['Nav', 'Hero', 'Features', 'Stats', 'Call to action', 'Footer']),
-    page('contact', 'Contact', 'تواصل', undefined,
-      ['Contact form', 'Map', 'Footer']),
+    app('Marketing Site', 'الموقع التسويقي', 'marketing', [
+      menu('Main Navigation', 'التنقل الرئيسي', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Features', 'Stats', 'Call to action', 'Footer'],
+        }),
+        page('about', 'About', 'من نحن', {
+          sections: ['About hero', 'Team', 'Values'],
+        }),
+        page('contact', 'Contact', 'تواصل', {
+          sections: ['Contact form', 'Map', 'Footer'],
+        }),
+      ]),
+      menu('Footer Links', 'روابط التذييل', 'footer', [
+        page('legal', 'Legal', 'قانوني'),
+        page('privacy', 'Privacy', 'الخصوصية'),
+        page('help', 'Help', 'المساعدة'),
+        page('support', 'Support', 'الدعم'),
+      ]),
+    ]),
   ],
+
   saas: [
-    page('marketing', 'Marketing', 'التسويق', [
-      page('home', 'Home', 'الرئيسية'),
-      page('pricing', 'Pricing', 'الأسعار'),
+    app('Marketing', 'التسويق', 'marketing', [
+      menu('Main Navigation', 'التنقل الرئيسي', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Features', 'Dashboard preview', 'Pricing', 'CTA'],
+        }),
+        page('pricing', 'Pricing', 'الأسعار', {
+          sections: ['Pricing table', 'FAQ', 'CTA'],
+        }),
+        page('blog', 'Blog', 'المدونة', {
+          sections: ['Article list', 'Featured'],
+        }),
+      ]),
+      menu('Footer', 'التذييل', 'footer', [
+        page('legal', 'Legal', 'قانوني'),
+        page('privacy', 'Privacy', 'الخصوصية'),
+        page('help', 'Help', 'المساعدة'),
+        page('status', 'Status', 'الحالة'),
+      ]),
     ]),
-    page('app', 'Application', 'التطبيق', [
-      page('dashboard', 'Dashboard', 'لوحة التحكم'),
-      page('settings', 'Settings', 'الإعدادات'),
+    app('Client Dashboard', 'لوحة العميل', 'dashboard-client', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('dashboard', 'Dashboard', 'لوحة التحكم', {
+          sections: ['Overview', 'Charts', 'Recent activity'],
+        }),
+        page('projects', 'Projects', 'المشاريع', {
+          sections: ['Project list', 'Filters'],
+          children: [
+            page('project-detail', 'Project Detail', 'تفاصيل المشروع', {
+              sections: ['Project header', 'Tasks', 'Team'],
+            }),
+          ],
+        }),
+        page('reports', 'Reports', 'التقارير', {
+          sections: ['Report list', 'Charts'],
+        }),
+        page('settings', 'Settings', 'الإعدادات', {
+          sections: ['Profile', 'Billing', 'Security', 'Integrations'],
+        }),
+      ]),
+      menu('User Menu', 'قائمة المستخدم', 'utility', [
+        page('profile', 'Profile', 'الملف الشخصي'),
+        page('billing', 'Billing', 'الفواتير'),
+        page('notifications', 'Notifications', 'الإشعارات'),
+      ]),
+    ]),
+    app('Admin Dashboard', 'لوحة الإدارة', 'dashboard-admin', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('users', 'Users', 'المستخدمون', {
+          sections: ['User table', 'Filters', 'Bulk actions'],
+        }),
+        page('analytics', 'Analytics', 'التحليلات', {
+          sections: ['KPIs', 'Charts', 'Export'],
+        }),
+        page('billing', 'Billing', 'الفواتير', {
+          sections: ['Subscriptions', 'Invoices'],
+        }),
+        page('settings', 'Settings', 'الإعدادات'),
+      ]),
     ]),
   ],
+
   'micro-saas': [
-    page('home', 'Home', 'الرئيسية'),
-    page('pricing', 'Pricing', 'الأسعار'),
-    page('app', 'App', 'التطبيق'),
+    app('Product', 'المنتج', 'marketing', [
+      menu('Main Navigation', 'التنقل الرئيسي', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Features', 'Pricing', 'CTA'],
+        }),
+        page('pricing', 'Pricing', 'الأسعار', {
+          sections: ['Pricing table', 'FAQ'],
+        }),
+        page('app', 'App', 'التطبيق', {
+          sections: ['Dashboard', 'Settings'],
+        }),
+      ]),
+    ]),
   ],
+
   'saas-xplatform': [
-    page('web', 'Web app', 'تطبيق الويب'),
-    page('mobile', 'Mobile app', 'تطبيق الجوال'),
-    page('desktop', 'Desktop app', 'تطبيق سطح المكتب'),
+    app('Web App', 'تطبيق الويب', 'marketing', [
+      menu('Main Navigation', 'التنقل', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Dashboard preview', 'Features'],
+        }),
+        page('dashboard', 'Dashboard', 'لوحة التحكم', {
+          sections: ['Overview', 'Charts'],
+        }),
+        page('settings', 'Settings', 'الإعدادات'),
+      ]),
+    ]),
+    app('Mobile App', 'تطبيق الجوال', 'mobile', [
+      menu('Bottom Navigation', 'التنقل السفلي', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Feed', 'Quick actions'],
+        }),
+        page('explore', 'Explore', 'استكشاف', {
+          sections: ['Search', 'Categories'],
+        }),
+        page('profile', 'Profile', 'الملف الشخصي', {
+          sections: ['Profile header', 'Activity', 'Settings'],
+        }),
+      ]),
+    ]),
+    app('Desktop App', 'تطبيق سطح المكتب', 'desktop', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('dashboard', 'Dashboard', 'لوحة التحكم', {
+          sections: ['Overview', 'Charts', 'Activity'],
+        }),
+        page('workspace', 'Workspace', 'مساحة العمل', {
+          sections: ['Canvas', 'Toolbar'],
+        }),
+        page('settings', 'Settings', 'الإعدادات', {
+          sections: ['General', 'Account', 'Shortcuts'],
+        }),
+      ]),
+    ]),
   ],
+
   blog: [
-    page('home', 'Home', 'الرئيسية'),
-    page('posts', 'Posts', 'المقالات', [
-      page('article', 'Article', 'مقال'),
-      page('category', 'Category', 'تصنيف'),
+    app('Blog', 'المدونة', 'marketing', [
+      menu('Main Navigation', 'التنقل الرئيسي', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Featured post', 'Article list'],
+        }),
+        page('posts', 'Posts', 'المقالات', {
+          sections: ['Article list', 'Filters'],
+          children: [
+            page('article', 'Article', 'مقال', {
+              sections: ['Article header', 'Body', 'Author bio', 'Related'],
+            }),
+            page('category', 'Category', 'تصنيف', {
+              sections: ['Category header', 'Article list'],
+            }),
+          ],
+        }),
+        page('about', 'About', 'من نحن', {
+          sections: ['Bio', 'Mission', 'Team'],
+        }),
+      ]),
+      menu('Footer', 'التذييل', 'footer', [
+        page('archive', 'Archive', 'الأرشيف'),
+        page('tags', 'Tags', 'الوسوم'),
+        page('rss', 'RSS', 'RSS'),
+      ]),
     ]),
-    page('about', 'About', 'من نحن'),
   ],
+
   cms: [
-    page('site', 'Site', 'الموقع', [
-      page('home', 'Home', 'الرئيسية'),
-      page('pages', 'Pages', 'الصفحات'),
-      page('articles', 'Articles', 'المقالات'),
+    app('Public Site', 'الموقع العام', 'marketing', [
+      menu('Main Navigation', 'التنقل', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Hero', 'Content blocks', 'CTA'],
+        }),
+        page('pages', 'Pages', 'الصفحات'),
+        page('articles', 'Articles', 'المقالات', {
+          sections: ['Article list'],
+          children: [
+            page('article', 'Article', 'مقال', {
+              sections: ['Article header', 'Body', 'Related'],
+            }),
+          ],
+        }),
+      ]),
     ]),
-    page('admin', 'Admin', 'الإدارة'),
+    app('Admin CMS', 'نظام الإدارة', 'dashboard-admin', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('dashboard', 'Dashboard', 'لوحة التحكم', {
+          sections: ['Activity feed', 'Quick actions'],
+        }),
+        page('pages-editor', 'Pages', 'الصفحات', {
+          sections: ['Page list', 'Editor', 'SEO settings'],
+        }),
+        page('media', 'Media', 'الوسائط', {
+          sections: ['Media library', 'Upload', 'Tags'],
+        }),
+        page('users', 'Users', 'المستخدمون'),
+        page('settings', 'Settings', 'الإعدادات'),
+      ]),
+    ]),
   ],
+
   store: [
-    page('shop', 'Shop', 'المتجر', [
-      page('home', 'Home', 'الرئيسية'),
-      page('catalog', 'Catalog', 'الكتالوج'),
-      page('product', 'Product', 'منتج'),
-      page('cart', 'Cart', 'السلة'),
+    app('Store', 'المتجر', 'marketing', [
+      menu('Main Navigation', 'التنقل', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Featured products', 'Categories', 'CTA'],
+        }),
+        page('catalog', 'Catalog', 'الكتالوج', {
+          sections: ['Filters', 'Product grid', 'Pagination'],
+          children: [
+            page('product', 'Product', 'منتج', {
+              sections: ['Product images', 'Details', 'Add to cart', 'Reviews', 'Related'],
+            }),
+          ],
+        }),
+        page('cart', 'Cart', 'السلة', {
+          sections: ['Cart items', 'Summary', 'Promo code'],
+        }),
+      ]),
+      menu('Footer', 'التذييل', 'footer', [
+        page('help', 'Help Center', 'المساعدة'),
+        page('returns', 'Returns', 'الإرجاع'),
+        page('shipping', 'Shipping Info', 'معلومات الشحن'),
+        page('contact', 'Contact', 'تواصل'),
+      ]),
     ]),
-    page('checkout', 'Checkout', 'الدفع'),
+    app('Checkout', 'الدفع', 'dashboard-client', [
+      menu('Checkout Steps', 'خطوات الدفع', 'main', [
+        page('shipping-step', 'Shipping', 'الشحن', {
+          sections: ['Address form', 'Delivery options'],
+        }),
+        page('payment-step', 'Payment', 'الدفع', {
+          sections: ['Payment form', 'Order summary'],
+        }),
+        page('confirmation', 'Confirmation', 'التأكيد', {
+          sections: ['Order confirmed', 'Order details', 'Next steps'],
+        }),
+      ]),
+    ]),
   ],
+
   multivendor: [
-    page('market', 'Marketplace', 'السوق', [
-      page('home', 'Home', 'الرئيسية'),
-      page('vendors', 'Vendors', 'البائعون'),
-      page('product', 'Product', 'منتج'),
+    app('Marketplace', 'السوق', 'marketing', [
+      menu('Main Navigation', 'التنقل', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Vendor grid', 'Featured products', 'Categories'],
+        }),
+        page('vendors', 'Vendors', 'البائعون', {
+          sections: ['Vendor grid', 'Filters'],
+          children: [
+            page('vendor-profile', 'Vendor Profile', 'ملف البائع', {
+              sections: ['Profile header', 'Products', 'Reviews', 'About'],
+            }),
+          ],
+        }),
+        page('catalog', 'Catalog', 'الكتالوج', {
+          sections: ['Filters', 'Product grid'],
+          children: [
+            page('product', 'Product', 'منتج', {
+              sections: ['Product images', 'Details', 'Vendor info', 'Reviews'],
+            }),
+          ],
+        }),
+      ]),
+      menu('Footer', 'التذييل', 'footer', [
+        page('become-vendor', 'Become a Vendor', 'كن بائعاً'),
+        page('help', 'Help', 'المساعدة'),
+        page('legal', 'Legal', 'قانوني'),
+      ]),
     ]),
-    page('account', 'Account', 'الحساب'),
+    app('Vendor Portal', 'بوابة البائع', 'dashboard-client', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('overview', 'Overview', 'نظرة عامة', {
+          sections: ['Sales stats', 'Recent orders', 'Top products'],
+        }),
+        page('products', 'Products', 'المنتجات', {
+          sections: ['Product list', 'Add product'],
+          children: [
+            page('edit-product', 'Edit Product', 'تعديل المنتج', {
+              sections: ['Product form', 'Images', 'Inventory'],
+            }),
+          ],
+        }),
+        page('orders', 'Orders', 'الطلبات', {
+          sections: ['Order list', 'Filters'],
+        }),
+        page('payouts', 'Payouts', 'المدفوعات', {
+          sections: ['Balance', 'Payout history'],
+        }),
+      ]),
+    ]),
+    app('Admin', 'الإدارة', 'dashboard-admin', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('vendors-admin', 'Vendors', 'البائعون', {
+          sections: ['Vendor list', 'Approvals', 'KPIs'],
+        }),
+        page('products-admin', 'Products', 'المنتجات'),
+        page('orders-admin', 'Orders', 'الطلبات'),
+        page('reports-admin', 'Reports', 'التقارير', {
+          sections: ['Revenue charts', 'Vendor analytics'],
+        }),
+        page('settings-admin', 'Settings', 'الإعدادات'),
+      ]),
+    ]),
   ],
+
   portfolio: [
-    page('home', 'Home', 'الرئيسية'),
-    page('work', 'Work', 'الأعمال'),
-    page('about', 'About', 'نبذة'),
-    page('contact', 'Contact', 'تواصل'),
+    app('Portfolio', 'معرض الأعمال', 'marketing', [
+      menu('Main Navigation', 'التنقل الرئيسي', 'main', [
+        page('home', 'Home', 'الرئيسية', {
+          sections: ['Nav', 'Hero', 'Featured work', 'About teaser', 'Arabic type'],
+        }),
+        page('work', 'Work', 'الأعمال', {
+          sections: ['Project grid', 'Filters'],
+          children: [
+            page('case-study', 'Case Study', 'دراسة حالة', {
+              sections: ['Case header', 'Overview', 'Process', 'Outcome', 'Next project'],
+            }),
+          ],
+        }),
+        page('about', 'About', 'نبذة', {
+          sections: ['Bio', 'Skills', 'Experience', 'Awards'],
+        }),
+        page('contact', 'Contact', 'تواصل', {
+          sections: ['Contact form', 'Social links'],
+        }),
+      ]),
+    ]),
   ],
+
   'dashboard-app': [
-    page('dashboard', 'Dashboard', 'لوحة التحكم'),
-    page('reports', 'Reports', 'التقارير'),
-    page('team', 'Team', 'الفريق'),
-    page('settings', 'Settings', 'الإعدادات'),
+    app('Dashboard', 'لوحة التحكم', 'dashboard-client', [
+      menu('Sidebar', 'الشريط الجانبي', 'sidebar', [
+        page('dashboard', 'Dashboard', 'لوحة التحكم', {
+          sections: ['KPI cards', 'Charts', 'Recent activity'],
+        }),
+        page('reports', 'Reports', 'التقارير', {
+          sections: ['Report list', 'Filters', 'Charts'],
+          children: [
+            page('report-detail', 'Report Detail', 'تقرير مفصّل', {
+              sections: ['Report header', 'Data table', 'Export'],
+            }),
+          ],
+        }),
+        page('team', 'Team', 'الفريق', {
+          sections: ['Team members', 'Roles', 'Invitations'],
+        }),
+        page('settings', 'Settings', 'الإعدادات', {
+          sections: ['General', 'Security', 'Integrations', 'Billing'],
+        }),
+      ]),
+      menu('User Menu', 'قائمة المستخدم', 'utility', [
+        page('profile', 'Profile', 'الملف الشخصي'),
+        page('notifications', 'Notifications', 'الإشعارات'),
+        page('help', 'Help', 'المساعدة'),
+      ]),
+    ]),
   ],
 }
 
 const ARCHETYPE_META: Record<ArchetypeKind, { name: string; arabicName: string; description: string }> = {
   landing: { name: 'Landing Page', arabicName: 'صفحة هبوط', description: 'A single focused marketing page.' },
-  saas: { name: 'SaaS Platform', arabicName: 'منصة SaaS', description: 'Marketing + product dashboard.' },
+  saas: { name: 'SaaS Platform', arabicName: 'منصة SaaS', description: 'Marketing + client + admin.' },
   'micro-saas': { name: 'Micro-SaaS', arabicName: 'مايكرو SaaS', description: 'A lean, single-purpose product.' },
-  'saas-xplatform': { name: 'SaaS Cross-platform', arabicName: 'SaaS متعدد المنصات', description: 'Web, mobile and desktop in one system.' },
+  'saas-xplatform': { name: 'SaaS Cross-platform', arabicName: 'SaaS متعدد المنصات', description: 'Web, mobile and desktop.' },
   blog: { name: 'Blog', arabicName: 'مدونة', description: 'Editorial writing and articles.' },
-  cms: { name: 'CMS', arabicName: 'نظام إدارة محتوى', description: 'Content-managed multi-page site.' },
-  store: { name: 'Store', arabicName: 'متجر', description: 'A focused e-commerce storefront.' },
-  multivendor: { name: 'Multi-vendor Store', arabicName: 'متجر متعدد البائعين', description: 'A marketplace of many sellers.' },
+  cms: { name: 'CMS', arabicName: 'نظام إدارة محتوى', description: 'Public site + admin CMS.' },
+  store: { name: 'Store', arabicName: 'متجر', description: 'Store + checkout flow.' },
+  multivendor: { name: 'Multi-vendor Store', arabicName: 'متجر متعدد البائعين', description: 'Marketplace + vendor + admin.' },
   portfolio: { name: 'Portfolio', arabicName: 'معرض أعمال', description: 'Showcase work with character.' },
   'dashboard-app': { name: 'Dashboard App', arabicName: 'تطبيق لوحة تحكم', description: 'A data-dense internal tool.' },
 }
@@ -248,7 +558,7 @@ export const ARCHETYPES: Archetype[] = (Object.keys(ARCHETYPE_BLOCKS) as Archety
     id,
     ...ARCHETYPE_META[id],
     blocks: ARCHETYPE_BLOCKS[id],
-    pages: ARCHETYPE_PAGES[id],
+    apps: ARCHETYPE_APPS[id],
   }),
 )
 

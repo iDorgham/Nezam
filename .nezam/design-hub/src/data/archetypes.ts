@@ -158,11 +158,10 @@ function page(id: string, name: string, arabicName: string, children?: SitemapNo
 
 const ARCHETYPE_PAGES: Record<ArchetypeKind, SitemapNode[]> = {
   landing: [
-    page('home', 'Home', 'الرئيسية', [
-      page('hero', 'Hero', 'الواجهة'),
-      page('features', 'Features', 'المزايا'),
-      page('cta', 'Call to action', 'دعوة'),
-    ]),
+    page('home', 'Home', 'الرئيسية'),
+    page('hero', 'Hero', 'الواجهة'),
+    page('features', 'Features', 'المزايا'),
+    page('cta', 'Call to action', 'دعوة'),
     page('contact', 'Contact', 'تواصل'),
   ],
   saas: [

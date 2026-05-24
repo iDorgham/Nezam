@@ -6,7 +6,7 @@
  */
 
 import {
-  useState, useCallback, useRef, useEffect,
+  useState, useCallback, useRef, useEffect, useLayoutEffect,
   createContext, useContext,
 } from 'react'
 import {
@@ -26,17 +26,20 @@ import {
   LayoutList, Layers, Eye,
   Globe, LayoutDashboard, Shield, Smartphone, Monitor, Zap, Box,
   Navigation2, PanelBottom, PanelLeft, Settings2, Menu as MenuIcon,
-  ChevronUp, Download, Link, StickyNote, Server,
+  ChevronUp, Download, Link, FileText, CornerDownRight,
+  AlignJustify, AlignLeft,
 } from 'lucide-react'
 import { useSitemapBuilder } from '@/store/sitemap-builder.store'
 import { cn } from '@/lib/cn'
 import { ExportModal } from './ExportModal'
 import { ServicesPanel } from './ServicesPanel'
+import { InfraPanel } from './InfraPanel'
+import { ConnectionWires } from './ConnectionWires'
+import { NotesEditor } from './NotesEditor'
 import type {
-  AppKind, NavMenuKind,
+  AppKind, NavMenuKind, MenuViewMode,
   SitemapBuilderApp, SitemapBuilderNavMenu,
   SitemapBuilderPage, SitemapBuilderSection,
-  PageStatus,
 } from '@/types'
 
 // ── View mode ─────────────────────────────────────────────────────────────────
@@ -44,18 +47,6 @@ import type {
 type CardView = 'compact' | 'list' | 'visual'
 const ViewCtx = createContext<CardView>('list')
 const useCardView = () => useContext(ViewCtx)
-
-// ── Status ────────────────────────────────────────────────────────────────────
-
-const STATUS: Record<PageStatus, { label: string; dot: string; pill: string }> = {
-  draft:        { label: 'DRAFT',       dot: 'bg-app-subtle',   pill: 'bg-app-elevated text-app-subtle border border-app-border' },
-  'in-progress':{ label: 'IN PROGRESS', dot: 'bg-blue-500',     pill: 'bg-blue-500/15 text-blue-400 border border-blue-500/25' },
-  review:       { label: 'REVIEW',      dot: 'bg-violet-500',   pill: 'bg-violet-500/15 text-violet-400 border border-violet-500/25' },
-  done:         { label: 'DONE',        dot: 'bg-emerald-500',  pill: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/25' },
-  live:         { label: 'LIVE',        dot: 'bg-emerald-400',  pill: 'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30' },
-  attention:    { label: 'ATTENTION',   dot: 'bg-red-500',      pill: 'bg-red-500/15 text-red-400 border border-red-500/25' },
-}
-const STATUS_ORDER: PageStatus[] = ['draft', 'in-progress', 'review', 'done', 'live', 'attention']
 
 // ── App kind config ────────────────────────────────────────────────────────────
 
@@ -118,7 +109,7 @@ function sectionColor(name: string): string {
 
 // ── Canvas constants ──────────────────────────────────────────────────────────
 
-const CARD_W: Record<CardView, number> = { compact: 192, list: 236, visual: 216 }
+const CARD_W: Record<CardView, number> = { compact: 192, list: 260, visual: 240 }
 const BASE_GAP = 36
 
 function calcSubtreeWidth(page: SitemapBuilderPage, cw: number): number {
@@ -231,52 +222,6 @@ function InlineEdit({ value, onSave, className, placeholder = 'Untitled' }: {
   )
 }
 
-// ── Status picker ─────────────────────────────────────────────────────────────
-
-function StatusPicker({ pageId, status }: { pageId: string; status?: PageStatus }) {
-  const setPageStatus = useSitemapBuilder((s) => s.setPageStatus)
-  const [open, setOpen] = useState(false)
-  const cfg = status ? STATUS[status] : null
-
-  return (
-    <div className="relative">
-      <button
-        onClick={(e) => { e.stopPropagation(); setOpen((v) => !v) }}
-        className={cn(
-          'flex items-center gap-1 rounded-full px-2 py-0.5 text-[9px] font-bold tracking-wide transition-all',
-          cfg ? cfg.pill : 'border border-dashed border-app-border text-app-subtle hover:border-app-border-strong',
-        )}
-      >
-        {cfg && <span className={cn('h-1.5 w-1.5 rounded-full', cfg.dot)} />}
-        {cfg ? cfg.label : '+ STATUS'}
-      </button>
-      {open && (
-        <div className="absolute left-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-app-border bg-app-surface shadow-app-lg" style={{ minWidth: 140 }}>
-          {status && (
-            <button
-              onClick={(e) => { e.stopPropagation(); setPageStatus(pageId, undefined); setOpen(false) }}
-              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-[11px] text-app-subtle hover:bg-app-elevated"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-app-border" /> Clear
-            </button>
-          )}
-          {STATUS_ORDER.map((s) => {
-            const c = STATUS[s]
-            return (
-              <button key={s}
-                onClick={(e) => { e.stopPropagation(); setPageStatus(pageId, s); setOpen(false) }}
-                className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-[11px] text-app-text hover:bg-app-elevated"
-              >
-                <span className={cn('h-1.5 w-1.5 rounded-full', c.dot)} />{c.label}
-              </button>
-            )
-          })}
-        </div>
-      )}
-    </div>
-  )
-}
-
 // ── Section row ───────────────────────────────────────────────────────────────
 
 function SectionRow({ section, pageId, isOverlay }: {
@@ -319,7 +264,7 @@ function SectionRow({ section, pageId, isOverlay }: {
   )
 }
 
-// ── Section visual block (Octopus mode) ───────────────────────────────────────
+// ── Section visual block ──────────────────────────────────────────────────────
 
 const VISUAL_HEIGHTS: Record<string, number> = {
   nav: 28, navbar: 28, header: 28,
@@ -350,6 +295,74 @@ function SectionBlock({ section }: { section: SitemapBuilderSection }) {
   )
 }
 
+// ── Compact page row (for footer / sidebar / utility menus) ───────────────────
+
+function CompactPageRow({ page, appId, menuId }: {
+  page: SitemapBuilderPage; appId: string; menuId: string
+}) {
+  const renamePage = useSitemapBuilder((s) => s.renamePage)
+  const deletePage = useSitemapBuilder((s) => s.deletePage)
+  const [blocked, setBlocked] = useState(false)
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!deletePage(page.id)) { setBlocked(true); setTimeout(() => setBlocked(false), 2000) }
+  }
+
+  return (
+    <div className={cn(
+      'group flex items-center gap-2 rounded-lg border px-2.5 py-1.5 transition-colors',
+      blocked ? 'border-red-500/40 bg-red-500/5' : 'border-app-border bg-app-elevated/50 hover:border-app-border-strong',
+    )}>
+      <InlineEdit
+        value={page.name}
+        onSave={(v) => renamePage(page.id, v)}
+        className="flex-1 truncate text-[11px] text-app-text"
+        placeholder="Page"
+      />
+      {(page.subPages?.length ?? 0) > 0 && (
+        <span className="shrink-0 text-[9px] text-app-subtle">+{page.subPages!.length}</span>
+      )}
+      {blocked
+        ? <AlertTriangle size={11} className="shrink-0 text-red-400" />
+        : (
+          <button
+            onClick={handleDelete}
+            className="shrink-0 text-app-subtle opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-400"
+          ><Trash2 size={10} /></button>
+        )
+      }
+    </div>
+  )
+}
+
+// ── Footer page pill (horizontal layout) ─────────────────────────────────────
+
+function FooterPagePill({ page, appId, menuId }: {
+  page: SitemapBuilderPage; appId: string; menuId: string
+}) {
+  const renamePage = useSitemapBuilder((s) => s.renamePage)
+  const deletePage = useSitemapBuilder((s) => s.deletePage)
+
+  return (
+    <div className="group flex items-center gap-1.5 rounded-full border border-app-border bg-app-elevated/60 pl-3 pr-1.5 py-1 transition-colors hover:border-app-border-strong">
+      <InlineEdit
+        value={page.name}
+        onSave={(v) => renamePage(page.id, v)}
+        className="text-[11px] text-app-text whitespace-nowrap"
+        placeholder="Page"
+      />
+      {(page.subPages?.length ?? 0) > 0 && (
+        <span className="text-[9px] text-app-subtle">+{page.subPages!.length}</span>
+      )}
+      <button
+        onClick={(e) => { e.stopPropagation(); deletePage(page.id) }}
+        className="shrink-0 text-app-subtle opacity-0 group-hover:opacity-100 hover:text-red-400 transition-all"
+      ><Trash2 size={9} /></button>
+    </div>
+  )
+}
+
 // ── Page card ─────────────────────────────────────────────────────────────────
 
 function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
@@ -366,9 +379,10 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
   const addSubPage          = useSitemapBuilder((s) => s.addSubPage)
   const reorderSections     = useSitemapBuilder((s) => s.reorderSections)
   const setPageUrl          = useSitemapBuilder((s) => s.setPageUrl)
-  const updatePageNotes     = useSitemapBuilder((s) => s.updatePageNotes)
+  const addPageNote         = useSitemapBuilder((s) => s.addPageNote)
+  const updatePageNote      = useSitemapBuilder((s) => s.updatePageNote)
+  const deletePageNote      = useSitemapBuilder((s) => s.deletePageNote)
   const view = useCardView()
-  const [showNotes, setShowNotes] = useState(false)
 
   const [deleteBlocked, setDeleteBlocked] = useState(false)
 
@@ -412,12 +426,14 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
           ><GripVertical size={13} /></button>
 
           <div className="min-w-0 flex-1">
-            <div className="mb-1 flex items-center gap-1.5">
-              <span className="shrink-0 whitespace-nowrap text-[9px] font-semibold uppercase tracking-widest text-app-subtle">{pageType}</span>
-              <StatusPicker pageId={page.id} status={page.status} />
+            <div className="mb-1 flex items-center gap-1">
+              {depth === 0
+                ? <FileText size={10} className="text-app-subtle/50" />
+                : <CornerDownRight size={10} className="text-app-subtle/40" />
+              }
             </div>
             <InlineEdit value={page.name} onSave={(v) => renamePage(page.id, v)}
-              className="block w-full truncate text-[14px] font-semibold text-app-text" placeholder="Page name" />
+              className="block w-full truncate text-[13px] font-semibold text-app-text" placeholder="Page name" />
           </div>
 
           <div className="flex shrink-0 items-center gap-0.5">
@@ -449,32 +465,6 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
               onClick={(e) => e.stopPropagation()}
               className="min-w-0 flex-1 bg-transparent font-mono text-[10px] text-app-muted outline-none placeholder:text-app-subtle/50 focus:text-app-text"
             />
-          </div>
-        )}
-
-        {/* Notes toggle + field */}
-        {isExpanded && view !== 'compact' && (
-          <div className="border-t border-app-border/40">
-            <button
-              onClick={(e) => { e.stopPropagation(); setShowNotes((v) => !v) }}
-              className="flex w-full items-center gap-1.5 px-3 py-1.5 text-[10px] text-app-subtle hover:text-app-muted"
-            >
-              <StickyNote size={9} />
-              <span>{showNotes ? 'Hide notes' : (page.notes ? 'Notes ·' : 'Add notes')}</span>
-              {!showNotes && page.notes && (
-                <span className="truncate text-[9px] italic opacity-60">{page.notes}</span>
-              )}
-            </button>
-            {showNotes && (
-              <textarea
-                value={page.notes ?? ''}
-                onChange={(e) => updatePageNotes(page.id, e.target.value)}
-                onClick={(e) => e.stopPropagation()}
-                placeholder="Notes about this page…"
-                rows={2}
-                className="w-full resize-none bg-app-elevated/50 px-3 pb-2 text-[10px] text-app-text outline-none placeholder:text-app-subtle/60"
-              />
-            )}
           </div>
         )}
 
@@ -524,6 +514,16 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
               className="flex flex-1 items-center justify-center gap-1 rounded-lg border border-dashed border-app-border py-1.5 text-[10px] text-app-subtle transition-colors hover:border-app-accent hover:text-app-accent"
             ><FilePlus size={10} /> Sub-page</button>
           </div>
+        )}
+
+        {/* Notes */}
+        {isExpanded && view !== 'compact' && (
+          <NotesEditor
+            notes={page.notes}
+            onAdd={() => addPageNote(page.id)}
+            onUpdate={(noteId, patch) => updatePageNote(page.id, noteId, patch)}
+            onDelete={(noteId) => deletePageNote(page.id, noteId)}
+          />
         )}
       </div>
 
@@ -579,32 +579,48 @@ function SubPageRow({ pages, depth, appId, menuId }: {
 // ── NavMenu block ─────────────────────────────────────────────────────────────
 
 function NavMenuBlock({ menu, appId }: { menu: SitemapBuilderNavMenu; appId: string }) {
-  const addPage            = useSitemapBuilder((s) => s.addPage)
-  const renameNavMenu      = useSitemapBuilder((s) => s.renameNavMenu)
-  const deleteNavMenu      = useSitemapBuilder((s) => s.deleteNavMenu)
+  const addPage             = useSitemapBuilder((s) => s.addPage)
+  const renameNavMenu       = useSitemapBuilder((s) => s.renameNavMenu)
+  const deleteNavMenu       = useSitemapBuilder((s) => s.deleteNavMenu)
   const toggleMenuCollapsed = useSitemapBuilder((s) => s.toggleMenuCollapsed)
-  const reorderPages       = useSitemapBuilder((s) => s.reorderPages)
-  const updateMenuNotes    = useSitemapBuilder((s) => s.updateMenuNotes)
-  const view = useCardView()
-  const [showNotes, setShowNotes] = useState(false)
+  const setMenuViewMode     = useSitemapBuilder((s) => s.setMenuViewMode)
+  const reorderPages        = useSitemapBuilder((s) => s.reorderPages)
+  const addMenuNote         = useSitemapBuilder((s) => s.addMenuNote)
+  const updateMenuNote      = useSitemapBuilder((s) => s.updateMenuNote)
+  const deleteMenuNote      = useSitemapBuilder((s) => s.deleteMenuNote)
 
+  const view = useCardView()
   const cfg = MENU_CFG[menu.kind]
-  const MenuIcon = cfg.Icon
+  const MenuIconComp = cfg.Icon
   const pageIds = menu.pages.map((p) => `pg-${p.id}`)
   const cw = CARD_W[view]
+  const isCompact = menu.viewMode === 'compact'
 
   return (
     <div className="flex flex-col gap-2">
       {/* Menu label row */}
       <div className="flex items-center gap-2">
         <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-app-elevated text-app-subtle">
-          <MenuIcon size={11} />
+          <MenuIconComp size={11} />
         </div>
         <span className="text-[9px] font-bold tracking-widest text-app-subtle uppercase">{cfg.label}</span>
         <span className="text-app-subtle/40 text-[9px]">·</span>
         <InlineEdit value={menu.name} onSave={(v) => renameNavMenu(appId, menu.id, v)}
           className="text-[11px] font-semibold text-app-text" placeholder="Menu name" />
         <div className="flex-1" />
+        {/* View mode toggle — hidden for footer (always horizontal pills) */}
+        {menu.kind !== 'footer' && (
+          <button
+            onClick={() => setMenuViewMode(appId, menu.id, isCompact ? 'full' : 'compact')}
+            title={isCompact ? 'Expand to full view' : 'Collapse to compact view'}
+            className={cn(
+              'flex h-5 w-5 items-center justify-center rounded-md transition-colors',
+              isCompact
+                ? 'text-app-accent hover:bg-app-accent/10'
+                : 'text-app-subtle hover:bg-app-elevated hover:text-app-text',
+            )}
+          >{isCompact ? <AlignLeft size={11} /> : <AlignJustify size={11} />}</button>
+        )}
         <button
           onClick={() => addPage(appId, menu.id)}
           className="flex h-5 items-center gap-1 rounded-md border border-dashed border-app-border px-1.5 text-[10px] text-app-subtle transition-colors hover:border-app-accent hover:text-app-accent"
@@ -619,51 +635,52 @@ function NavMenuBlock({ menu, appId }: { menu: SitemapBuilderNavMenu; appId: str
         ><Trash2 size={11} /></button>
       </div>
 
-      {/* Pages row */}
+      {/* Pages */}
       {!menu.collapsed && (
         <div className="pl-7">
-          <SortableContext items={pageIds} strategy={horizontalListSortingStrategy}>
-            <div className="flex items-start">
-              {menu.pages.map((page, i) => (
-                <div key={page.id} className="shrink-0"
-                  style={{ marginRight: treeGap(page, menu.pages[i + 1], cw) }}
-                >
-                  <PageNode page={page} depth={0} appId={appId} menuId={menu.id} />
-                </div>
+          {menu.kind === 'footer' ? (
+            /* Footer: horizontal pill chips */
+            <div className="flex flex-wrap items-center gap-2 py-1">
+              {menu.pages.map((page) => (
+                <FooterPagePill key={page.id} page={page} appId={appId} menuId={menu.id} />
               ))}
-              {/* Ghost add page */}
-              <button
-                onClick={() => addPage(appId, menu.id)}
-                className="flex shrink-0 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-app-border/60 text-app-subtle transition-all hover:border-app-accent/60 hover:text-app-accent"
-                style={{ width: cw, height: 72, marginLeft: menu.pages.length > 0 ? BASE_GAP : 0 }}
-              >
-                <FilePlus size={14} />
-                <span className="text-[10px] font-medium">New Page</span>
-              </button>
+              {menu.pages.length === 0 && (
+                <p className="text-[10px] text-app-subtle/60 py-0.5">No pages yet</p>
+              )}
             </div>
-          </SortableContext>
+          ) : isCompact ? (
+            /* Compact: simple name-only rows */
+            <div className="flex flex-col gap-1">
+              {menu.pages.map((page) => (
+                <CompactPageRow key={page.id} page={page} appId={appId} menuId={menu.id} />
+              ))}
+              {menu.pages.length === 0 && (
+                <p className="text-[10px] text-app-subtle py-1">No pages — click <strong>+ Page</strong></p>
+              )}
+            </div>
+          ) : (
+            /* Full: horizontal PageNode tree */
+            <SortableContext items={pageIds} strategy={horizontalListSortingStrategy}>
+              <div className="flex items-start">
+                {menu.pages.map((page, i) => (
+                  <div key={page.id} className="shrink-0"
+                    style={{ marginRight: treeGap(page, menu.pages[i + 1], cw) }}
+                  >
+                    <PageNode page={page} depth={0} appId={appId} menuId={menu.id} />
+                  </div>
+                ))}
+              </div>
+            </SortableContext>
+          )}
 
           {/* Menu notes */}
-          <div className="mt-2 pl-0">
-            <button
-              onClick={() => setShowNotes((v) => !v)}
-              className="flex items-center gap-1 text-[9px] text-app-subtle hover:text-app-muted"
-            >
-              <StickyNote size={9} />
-              {showNotes ? 'Hide notes' : (menu.notes ? 'Notes ·' : 'Add notes')}
-              {!showNotes && menu.notes && (
-                <span className="truncate italic opacity-60">{menu.notes}</span>
-              )}
-            </button>
-            {showNotes && (
-              <textarea
-                value={menu.notes ?? ''}
-                onChange={(e) => updateMenuNotes(appId, menu.id, e.target.value)}
-                placeholder="Notes about this menu…"
-                rows={2}
-                className="mt-1 w-full resize-none rounded-lg border border-app-border/60 bg-app-elevated/50 px-2 py-1.5 text-[10px] text-app-text outline-none placeholder:text-app-subtle/60 focus:border-app-accent"
-              />
-            )}
+          <div className="mt-2">
+            <NotesEditor
+              notes={menu.notes}
+              onAdd={() => addMenuNote(appId, menu.id)}
+              onUpdate={(noteId, patch) => updateMenuNote(appId, menu.id, noteId, patch)}
+              onDelete={(noteId) => deleteMenuNote(appId, menu.id, noteId)}
+            />
           </div>
         </div>
       )}
@@ -674,42 +691,66 @@ function NavMenuBlock({ menu, appId }: { menu: SitemapBuilderNavMenu; appId: str
 // ── App block ─────────────────────────────────────────────────────────────────
 
 const APP_KIND_OPTIONS: { kind: AppKind; label: string }[] = [
-  { kind: 'marketing', label: 'Marketing' },
+  { kind: 'marketing',        label: 'Marketing' },
   { kind: 'dashboard-client', label: 'Client App' },
-  { kind: 'dashboard-admin', label: 'Admin' },
-  { kind: 'mobile', label: 'Mobile' },
-  { kind: 'desktop', label: 'Desktop' },
-  { kind: 'api', label: 'API' },
-  { kind: 'custom', label: 'Custom' },
+  { kind: 'dashboard-admin',  label: 'Admin' },
+  { kind: 'mobile',           label: 'Mobile' },
+  { kind: 'desktop',          label: 'Desktop' },
+  { kind: 'api',              label: 'API' },
+  { kind: 'custom',           label: 'Custom' },
 ]
 const MENU_KIND_OPTIONS: { kind: NavMenuKind; label: string }[] = [
-  { kind: 'main', label: 'Main Nav' },
-  { kind: 'footer', label: 'Footer' },
+  { kind: 'main',    label: 'Main Nav' },
+  { kind: 'footer',  label: 'Footer' },
   { kind: 'sidebar', label: 'Sidebar' },
   { kind: 'utility', label: 'Utility' },
-  { kind: 'custom', label: 'Custom' },
+  { kind: 'custom',  label: 'Custom' },
 ]
 
-function AppBlock({ app }: { app: SitemapBuilderApp }) {
+function AppBlock({ app, isOverlay }: { app: SitemapBuilderApp; isOverlay?: boolean }) {
   const renameApp          = useSitemapBuilder((s) => s.renameApp)
   const deleteApp          = useSitemapBuilder((s) => s.deleteApp)
   const toggleAppCollapsed = useSitemapBuilder((s) => s.toggleAppCollapsed)
   const addNavMenu         = useSitemapBuilder((s) => s.addNavMenu)
-  const updateAppNotes     = useSitemapBuilder((s) => s.updateAppNotes)
+  const addAppNote         = useSitemapBuilder((s) => s.addAppNote)
+  const updateAppNote      = useSitemapBuilder((s) => s.updateAppNote)
+  const deleteAppNote      = useSitemapBuilder((s) => s.deleteAppNote)
 
   const cfg = APP_CFG[app.kind]
   const AppIcon = cfg.Icon
   const [menuPickerOpen, setMenuPickerOpen] = useState(false)
-  const [showNotes, setShowNotes] = useState(false)
   const totalPages = app.navMenus.reduce((n, m) => n + m.pages.length, 0)
 
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({
+      id: `app-${app.id}`,
+      disabled: isOverlay,
+      data: { type: 'app', appId: app.id },
+    })
+
   return (
-    <div className={cn(
-      'flex flex-col rounded-3xl border-2 overflow-visible',
-      cfg.border,
-    )} style={{ minWidth: 360 }}>
+    <div
+      ref={setNodeRef}
+      data-app-block={app.id}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={cn(
+        'flex flex-col rounded-3xl border-2 overflow-visible',
+        cfg.border,
+        isDragging && 'opacity-30',
+        isOverlay && 'shadow-app-xl rotate-1',
+      )}
+    >
       {/* App header */}
       <div className={cn('flex items-center gap-3 rounded-t-[22px] px-4 py-3', cfg.headerBg)}>
+        {/* Drag handle */}
+        <button
+          {...attributes}
+          {...listeners}
+          className="shrink-0 cursor-grab touch-none text-app-subtle opacity-0 hover:opacity-100 active:cursor-grabbing transition-opacity"
+          onClick={(e) => e.stopPropagation()}
+          aria-label="Drag app"
+        ><GripVertical size={14} /></button>
+
         <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-xl', cfg.iconBg)}>
           <AppIcon size={16} className={cfg.color} />
         </div>
@@ -737,7 +778,7 @@ function AppBlock({ app }: { app: SitemapBuilderApp }) {
                     onClick={() => { addNavMenu(app.id, o.kind); setMenuPickerOpen(false) }}
                     className="flex w-full items-center gap-2 px-3 py-2 text-left text-[11px] text-app-text hover:bg-app-elevated"
                   >
-                    {(() => { const MI = MENU_CFG[o.kind].Icon; return MI ? <span className="text-app-subtle"><MI size={11} /></span> : null })()}
+                    {(() => { const MI = MENU_CFG[o.kind].Icon; return <span className="text-app-subtle"><MI size={11} /></span> })()}
                     {o.label}
                   </button>
                 ))}
@@ -772,26 +813,13 @@ function AppBlock({ app }: { app: SitemapBuilderApp }) {
           )}
 
           {/* App notes */}
-          <div className="border-t border-app-border/40 pt-3">
-            <button
-              onClick={() => setShowNotes((v) => !v)}
-              className="flex items-center gap-1.5 text-[10px] text-app-subtle hover:text-app-muted"
-            >
-              <StickyNote size={10} />
-              {showNotes ? 'Hide app notes' : (app.notes ? 'Notes ·' : 'Add app notes')}
-              {!showNotes && app.notes && (
-                <span className="ml-1 truncate italic opacity-60 text-[9px]">{app.notes}</span>
-              )}
-            </button>
-            {showNotes && (
-              <textarea
-                value={app.notes ?? ''}
-                onChange={(e) => updateAppNotes(app.id, e.target.value)}
-                placeholder="Notes about this app…"
-                rows={2}
-                className="mt-1.5 w-full resize-none rounded-xl border border-app-border/60 bg-app-elevated/50 px-3 py-2 text-[11px] text-app-text outline-none placeholder:text-app-subtle/60 focus:border-app-accent"
-              />
-            )}
+          <div className="border-t border-app-border/40 -mx-4 px-4 pt-3">
+            <NotesEditor
+              notes={app.notes}
+              onAdd={() => addAppNote(app.id)}
+              onUpdate={(noteId, patch) => updateAppNote(app.id, noteId, patch)}
+              onDelete={(noteId) => deleteAppNote(app.id, noteId)}
+            />
           </div>
         </div>
       )}
@@ -841,16 +869,23 @@ function findSectionAnywhere(apps: SitemapBuilderApp[], secId: string): { sectio
 export function SitemapNodeBuilder() {
   const apps              = useSitemapBuilder((s) => s.apps)
   const addApp            = useSitemapBuilder((s) => s.addApp)
+  const addService        = useSitemapBuilder((s) => s.addService)
+  const reorderApps       = useSitemapBuilder((s) => s.reorderApps)
   const reorderPages      = useSitemapBuilder((s) => s.reorderPages)
   const reorderSections   = useSitemapBuilder((s) => s.reorderSections)
   const moveSectionToPage = useSitemapBuilder((s) => s.moveSectionToPage)
 
   const [view, setView]             = useState<CardView>('list')
-  const [appPickerOpen, setAppPickerOpen] = useState(false)
+  const [newPickerOpen, setNewPickerOpen] = useState(false)
+  const [newPickerSub, setNewPickerSub]   = useState<'app' | 'service' | null>(null)
   const [showExport, setShowExport] = useState(false)
-  const [showServices, setShowServices] = useState(true)
 
-  const containerRef = useRef<HTMLDivElement>(null)
+  // Wire version increments any time apps or infra changes to remeasure wires
+  const [wireVersion, setWireVersion] = useState(0)
+  useEffect(() => { setWireVersion((v) => v + 1) }, [apps.length])
+
+  const containerRef = useRef<HTMLDivElement>(null)   // viewport
+  const canvasRef    = useRef<HTMLDivElement>(null)   // transform origin — position: relative
   const { pan, reset, zoom } = useCanvasPan(containerRef)
   const [spaceHeld, setSpaceHeld] = useState(false)
 
@@ -872,6 +907,10 @@ export function SitemapNodeBuilder() {
 
   const activeDragItem = useCallback(() => {
     if (!activeId) return null
+    if (activeId.startsWith('app-')) {
+      const app = apps.find((a) => `app-${a.id}` === activeId)
+      return app ? { type: 'app' as const, app } : null
+    }
     if (activeId.startsWith('pg-')) {
       const r = findPageAnywhere(apps, activeId.replace('pg-', ''))
       return r ? { type: 'page' as const, ...r } : null
@@ -891,12 +930,20 @@ export function SitemapNodeBuilder() {
     if (!over || active.id === over.id) return
     const a = String(active.id), o = String(over.id)
 
+    // App reorder
+    if (a.startsWith('app-') && o.startsWith('app-')) {
+      const fi = apps.findIndex((ap) => `app-${ap.id}` === a)
+      const ti = apps.findIndex((ap) => `app-${ap.id}` === o)
+      if (fi !== -1 && ti !== -1) reorderApps(fi, ti)
+      return
+    }
+
     // Page reorder within same menu
     if (a.startsWith('pg-') && o.startsWith('pg-')) {
       const aData = active.data.current as { appId: string; menuId: string; depth: number } | undefined
       const oData = over.data.current as { appId: string; menuId: string; depth: number } | undefined
       if (!aData || !oData) return
-      if (aData.depth > 0 || oData.depth > 0) return // only root-level pages reorder
+      if (aData.depth > 0 || oData.depth > 0) return
       if (aData.appId === oData.appId && aData.menuId === oData.menuId) {
         const menu = apps.find((ap) => ap.id === aData.appId)?.navMenus.find((m) => m.id === aData.menuId)
         if (!menu) return
@@ -918,16 +965,13 @@ export function SitemapNodeBuilder() {
         const oData = over.data.current as { pageId: string; sectionId: string } | undefined
         if (!oData) return
         const toPageId = oData.pageId
-
         if (fromPageId === toPageId) {
-          // Reorder within same page
           const page = findPageAnywhere(apps, fromPageId)?.page
           if (!page) return
           const fi = page.sections.findIndex((s) => s.id === secId)
           const ti = page.sections.findIndex((s) => s.id === oData.sectionId)
           if (fi !== -1 && ti !== -1) reorderSections(fromPageId, fi, ti)
         } else {
-          // Move to different page
           const toPage = findPageAnywhere(apps, toPageId)?.page
           if (!toPage) return
           const atIdx = toPage.sections.findIndex((s) => s.id === oData.sectionId)
@@ -963,6 +1007,8 @@ export function SitemapNodeBuilder() {
     visual:  <Eye size={13} />,
   }
 
+  const appIds = apps.map((a) => `app-${a.id}`)
+
   return (
     <ViewCtx.Provider value={view}>
       {showExport && <ExportModal onClose={() => setShowExport(false)} />}
@@ -971,7 +1017,7 @@ export function SitemapNodeBuilder() {
         {/* ── Toolbar ── */}
         <div className="relative z-10 flex items-center gap-2 border-b border-app-border bg-app-surface/80 px-4 py-2 backdrop-blur">
           <LayoutGrid size={14} className="text-app-subtle" />
-          <span className="text-[12px] font-semibold text-app-text">Sitemap</span>
+          <span className="text-[12px] font-semibold text-app-text">Structure</span>
           <span className="text-[11px] text-app-subtle">
             {totalApps} app{totalApps !== 1 ? 's' : ''} · {totalMenus} menu{totalMenus !== 1 ? 's' : ''} · {totalPages} page{totalPages !== 1 ? 's' : ''} · {totalSections} section{totalSections !== 1 ? 's' : ''}
           </span>
@@ -996,36 +1042,49 @@ export function SitemapNodeBuilder() {
             <button onClick={reset} className="flex h-6 w-6 items-center justify-center text-app-subtle hover:text-app-text"><Maximize2 size={11} /></button>
           </div>
 
-          <button
-            onClick={() => setShowServices((v) => !v)}
-            className={cn(
-              'flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] font-medium transition-colors',
-              showServices
-                ? 'border-app-accent bg-app-accent/10 text-app-accent'
-                : 'border-app-border bg-app-elevated text-app-text hover:border-app-border-strong',
-            )}
-          ><Server size={12} /> Services</button>
-
           <button onClick={() => setShowExport(true)}
             className="flex items-center gap-1.5 rounded-lg border border-app-border bg-app-elevated px-2.5 py-1.5 text-[11px] font-medium text-app-text transition-colors hover:border-app-border-strong"
           ><Download size={12} /> Export</button>
 
-          {/* + New App */}
+          {/* + New (App or Service) */}
           <div className="relative">
-            <button onClick={() => setAppPickerOpen((v) => !v)}
+            <button
+              onClick={() => { setNewPickerOpen((v) => !v); setNewPickerSub(null) }}
               className="flex items-center gap-1.5 rounded-lg bg-app-accent px-2.5 py-1.5 text-[11px] font-semibold text-app-on-accent transition-opacity hover:opacity-90"
-            ><Plus size={12} /> New App</button>
-            {appPickerOpen && (
-              <div className="absolute top-full right-0 mt-1 z-50 overflow-hidden rounded-xl border border-app-border bg-app-surface shadow-app-xl" style={{ minWidth: 160 }}>
+            ><Plus size={12} /> New</button>
+            {newPickerOpen && (
+              <div className="absolute top-full right-0 mt-1 z-50 overflow-hidden rounded-xl border border-app-border bg-app-surface shadow-app-xl" style={{ minWidth: 180 }}>
+                {/* App section */}
+                <div className="border-b border-app-border/60 px-3 py-1.5">
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-app-subtle">App</span>
+                </div>
                 {APP_KIND_OPTIONS.map((o) => {
                   const c = APP_CFG[o.kind]
                   return (
                     <button key={o.kind}
-                      onClick={() => { addApp(o.kind); setAppPickerOpen(false) }}
+                      onClick={() => { addApp(o.kind); setNewPickerOpen(false) }}
                       className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[11px] text-app-text hover:bg-app-elevated"
                     >
                       <c.Icon size={13} className={c.color} />
                       {o.label}
+                    </button>
+                  )
+                })}
+                {/* Service section */}
+                <div className="border-t border-app-border/60 border-b border-app-border/60 px-3 py-1.5">
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-app-subtle">Service</span>
+                </div>
+                {(['api', 'auth', 'payment', 'analytics', 'ai', 'custom'] as const).map((k) => {
+                  const SERVICE_ICONS = {
+                    api: Zap, auth: Shield, payment: null, analytics: null, ai: null, custom: Box,
+                  }
+                  return (
+                    <button key={k}
+                      onClick={() => { addService(k); setNewPickerOpen(false) }}
+                      className="flex w-full items-center gap-2.5 px-3 py-2 text-left text-[11px] text-app-text hover:bg-app-elevated"
+                    >
+                      <Box size={13} className="text-app-muted" />
+                      {k.charAt(0).toUpperCase() + k.slice(1)}
                     </button>
                   )
                 })}
@@ -1042,11 +1101,18 @@ export function SitemapNodeBuilder() {
           <DotGrid {...pan} />
 
           <div data-canvas-pan="true" className="absolute inset-0" style={{ cursor: spaceHeld ? 'grab' : 'default' }}>
-            <div style={{
-              transform: `translate(${pan.x}px,${pan.y}px) scale(${pan.zoom})`,
-              transformOrigin: '0 0',
-              willChange: 'transform',
-            }}>
+            <div
+              ref={canvasRef}
+              style={{
+                position: 'relative',
+                transform: `translate(${pan.x}px,${pan.y}px) scale(${pan.zoom})`,
+                transformOrigin: '0 0',
+                willChange: 'transform',
+              }}
+            >
+              {/* Animated connection wires (SVG) */}
+              <ConnectionWires containerRef={canvasRef} version={wireVersion} />
+
               <DndContext
                 id="sitemap-builder"
                 sensors={sensors}
@@ -1055,32 +1121,36 @@ export function SitemapNodeBuilder() {
                 onDragEnd={onDragEnd}
               >
                 <div className="flex items-start gap-8">
-                  {/* Apps column — stacked vertically */}
-                  <div className="flex flex-col gap-6" style={{ minWidth: 400 }}>
-                    {apps.map((app) => (
-                      <AppBlock key={app.id} app={app} />
-                    ))}
-
-                    {/* Ghost add app */}
-                    <button
-                      onClick={() => setAppPickerOpen((v) => !v)}
-                      className="flex shrink-0 items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-app-border text-app-subtle transition-all hover:border-app-accent/60 hover:text-app-accent"
-                      style={{ height: 72 }}
-                    >
-                      <Plus size={16} />
-                      <span className="text-[11px] font-medium">New App</span>
-                    </button>
+                  {/* ── Left column: Infra + Services ── */}
+                  <div className="flex shrink-0 flex-col gap-4" style={{ width: 300 }}>
+                    <InfraPanel />
+                    <ServicesPanel />
                   </div>
 
-                  {/* Services panel — right column */}
-                  {showServices && (
-                    <div className="shrink-0" style={{ marginTop: 0 }}>
-                      <ServicesPanel />
+                  {/* ── Right column: Apps ── */}
+                  <SortableContext items={appIds} strategy={verticalListSortingStrategy}>
+                    <div className="flex flex-col gap-6">
+                      {apps.map((app) => (
+                        <AppBlock key={app.id} app={app} />
+                      ))}
+
+                      {/* Ghost add app */}
+                      <button
+                        onClick={() => { setNewPickerOpen((v) => !v); setNewPickerSub('app') }}
+                        className="flex shrink-0 items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-app-border text-app-subtle transition-all hover:border-app-accent/60 hover:text-app-accent"
+                        style={{ height: 72 }}
+                      >
+                        <Plus size={16} />
+                        <span className="text-[11px] font-medium">New App</span>
+                      </button>
                     </div>
-                  )}
+                  </SortableContext>
                 </div>
 
                 <DragOverlay dropAnimation={{ duration: 160, easing: 'ease' }}>
+                  {dragItem?.type === 'app' && (
+                    <AppBlock app={dragItem.app} isOverlay />
+                  )}
                   {dragItem?.type === 'section' && (
                     <SectionRow section={dragItem.section} pageId={dragItem.pageId} isOverlay />
                   )}
@@ -1095,7 +1165,7 @@ export function SitemapNodeBuilder() {
           {apps.length === 0 && (
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3">
               <LayoutGrid size={32} className="text-app-subtle/40" />
-              <p className="text-[13px] text-app-subtle">No apps — click New App or pick an archetype →</p>
+              <p className="text-[13px] text-app-subtle">No apps — click New or pick an archetype →</p>
             </div>
           )}
         </div>

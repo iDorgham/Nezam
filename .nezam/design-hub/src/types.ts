@@ -20,6 +20,8 @@ export type BuilderMode =
   | 'ai'
   | 'saved'
   | 'history'
+  | 'design-system'
+  | 'theme'
 
 /** Left toolbar tools (Photoshop-style). */
 export type Tool =
@@ -275,6 +277,14 @@ export interface SitemapNode {
   sectionNames?: string[]
 }
 
+/* ── Notes ──────────────────────────────────────────────────── */
+
+export interface NoteItem {
+  id: string
+  title: string
+  body: string
+}
+
 /* ── Sitemap Builder — 5-level hierarchy ─────────────────────── */
 /*   App → NavMenu → Page → Sub-page → Section                    */
 
@@ -290,7 +300,7 @@ export interface SitemapBuilderSection {
   id: string
   name: string
   description: string
-  notes?: string
+  notes: NoteItem[]
 }
 
 export interface SitemapBuilderPage {
@@ -298,7 +308,7 @@ export interface SitemapBuilderPage {
   name: string
   url?: string
   status?: PageStatus
-  notes?: string
+  notes: NoteItem[]
   sections: SitemapBuilderSection[]
   collapsed: boolean
   /** Sub-pages nested under this page. */
@@ -307,13 +317,17 @@ export interface SitemapBuilderPage {
 
 export type NavMenuKind = 'main' | 'footer' | 'sidebar' | 'utility' | 'custom'
 
+/** 'full' = cards with sections/notes. 'compact' = name-only rows. */
+export type MenuViewMode = 'full' | 'compact'
+
 export interface SitemapBuilderNavMenu {
   id: string
   name: string
   kind: NavMenuKind
   pages: SitemapBuilderPage[]
   collapsed: boolean
-  notes?: string
+  viewMode: MenuViewMode
+  notes: NoteItem[]
 }
 
 export type AppKind =
@@ -331,7 +345,7 @@ export interface SitemapBuilderApp {
   kind: AppKind
   navMenus: SitemapBuilderNavMenu[]
   collapsed: boolean
-  notes?: string
+  notes: NoteItem[]
 }
 
 /* ── Services layer ─────────────────────────────────────────── */
@@ -356,9 +370,39 @@ export interface SitemapBuilderService {
   kind: ServiceKind
   description: string
   endpoint?: string
-  notes?: string
+  notes: NoteItem[]
   /** Page IDs this service is connected to. */
   connectedPageIds: string[]
+}
+
+/* ── Infrastructure ─────────────────────────────────────────── */
+
+export type GitProvider   = 'github' | 'gitlab' | 'bitbucket'
+export type DbProvider    = 'supabase' | 'neon' | 'planetscale' | 'mongodb' | 'firebase' | 'turso' | 'postgres' | 'mysql' | 'custom'
+export type CloudProvider = 'vercel' | 'netlify' | 'railway' | 'flyio' | 'render' | 'aws' | 'gcp' | 'azure' | 'custom'
+
+export interface SitemapBuilderInfra {
+  git: {
+    provider: GitProvider | null
+    repoUrl: string
+    branch: string
+  }
+  database: {
+    provider: DbProvider | null
+    connectionString: string
+    notes: string
+  }
+  platform: {
+    provider: CloudProvider | null
+    deployUrl: string
+    projectName: string
+    notes: string
+  }
+  prd: {
+    title: string
+    url: string
+    description: string
+  }
 }
 
 /* ── Archetype sitemap templates ────────────────────────────── */

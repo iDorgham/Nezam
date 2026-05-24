@@ -2,50 +2,36 @@
 
 import { useState, useRef } from 'react'
 import {
-  ChevronRight,
-  FileText,
-  Folder,
-  Globe,
-  Boxes,
-  PenTool,
-  ShoppingBag,
-  BookOpen,
-  Newspaper,
-  Store,
-  Layers as LayersIcon,
-  LayoutDashboard,
-  Briefcase,
-  Navigation2,
-  PanelBottom,
-  PanelLeft,
-  Settings2,
-  Menu as MenuIcon,
-  Shield,
-  Smartphone,
-  Monitor,
-  Zap,
-  Box,
-  AlertTriangle,
-  Upload,
-  ChevronDown,
+  ChevronRight, ChevronDown,
+  FileText, Folder,
+  Globe, LayoutDashboard, Shield, Smartphone, Monitor, Zap, Box,
+  Navigation2, PanelBottom, PanelLeft, Settings2, Menu as MenuIcon,
+  Plus, Trash2, AlertTriangle, Upload,
+  Boxes, PenTool, Layers as LayersIcon, Newspaper, BookOpen,
+  ShoppingBag, Store, Briefcase,
 } from 'lucide-react'
 import { ARCHETYPES } from '@/data/archetypes'
 import { useHub } from '@/store/hub.store'
 import { useSitemapBuilder } from '@/store/sitemap-builder.store'
-import type { Archetype, ArchetypeApp, ArchetypeKind, AppKind, NavMenuKind, SitemapNode } from '@/types'
+import type {
+  ArchetypeKind, AppKind, NavMenuKind,
+  SitemapBuilderApp, SitemapBuilderNavMenu, SitemapBuilderPage,
+} from '@/types'
 import { cn } from '@/lib/cn'
 
+// ── Icons ─────────────────────────────────────────────────────────────────────
+
 const ARCHETYPE_ICONS: Record<ArchetypeKind, typeof Globe> = {
-  landing: Globe,
-  saas: Boxes,
-  'micro-saas': PenTool,
+  landing:          Globe,
+  saas:             Boxes,
+  'micro-saas':     PenTool,
   'saas-xplatform': LayersIcon,
-  blog: Newspaper,
-  cms: BookOpen,
-  store: ShoppingBag,
-  multivendor: Store,
-  portfolio: Briefcase,
-  'dashboard-app': LayoutDashboard,
+  blog:             Newspaper,
+  cms:              BookOpen,
+  store:            ShoppingBag,
+  multivendor:      Store,
+  portfolio:        Briefcase,
+  'dashboard-app':  LayoutDashboard,
 }
 
 const APP_KIND_COLORS: Record<AppKind, string> = {
@@ -58,31 +44,44 @@ const APP_KIND_COLORS: Record<AppKind, string> = {
   custom:             'text-app-muted',
 }
 const APP_KIND_ICONS: Record<AppKind, typeof Globe> = {
-  marketing: Globe,
+  marketing:          Globe,
   'dashboard-client': LayoutDashboard,
-  'dashboard-admin': Shield,
-  mobile: Smartphone,
-  desktop: Monitor,
-  api: Zap,
-  custom: Box,
+  'dashboard-admin':  Shield,
+  mobile:             Smartphone,
+  desktop:            Monitor,
+  api:                Zap,
+  custom:             Box,
 }
 const MENU_KIND_ICONS: Record<NavMenuKind, typeof Navigation2> = {
-  main: Navigation2,
-  footer: PanelBottom,
+  main:    Navigation2,
+  footer:  PanelBottom,
   sidebar: PanelLeft,
   utility: Settings2,
-  custom: MenuIcon,
+  custom:  MenuIcon,
 }
 
-// ── Reset confirmation dialog ─────────────────────────────────────────────────
+const APP_KIND_OPTIONS: { kind: AppKind; label: string }[] = [
+  { kind: 'marketing',        label: 'Marketing' },
+  { kind: 'dashboard-client', label: 'Client App' },
+  { kind: 'dashboard-admin',  label: 'Admin' },
+  { kind: 'mobile',           label: 'Mobile' },
+  { kind: 'desktop',          label: 'Desktop' },
+  { kind: 'api',              label: 'API' },
+  { kind: 'custom',           label: 'Custom' },
+]
+const MENU_KIND_OPTIONS: { kind: NavMenuKind; label: string }[] = [
+  { kind: 'main',    label: 'Main Nav' },
+  { kind: 'footer',  label: 'Footer' },
+  { kind: 'sidebar', label: 'Sidebar' },
+  { kind: 'utility', label: 'Utility' },
+  { kind: 'custom',  label: 'Custom' },
+]
+
+// ── Reset dialog ──────────────────────────────────────────────────────────────
 
 type ResetAction = 'continue' | 'export-then-continue' | 'cancel'
 
-function ResetDialog({
-  onAction,
-}: {
-  onAction: (action: ResetAction) => void
-}) {
+function ResetDialog({ onAction }: { onAction: (a: ResetAction) => void }) {
   return (
     <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="w-80 overflow-hidden rounded-2xl border border-app-border bg-app-surface shadow-app-xl">
@@ -108,7 +107,7 @@ function ResetDialog({
             onClick={() => onAction('continue')}
             className="w-full rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-left text-[11px] font-semibold text-red-400 hover:bg-red-500/15"
           >
-            Reset — I don't need the current sitemap
+            Reset — I don&apos;t need the current sitemap
           </button>
           <button
             onClick={() => onAction('cancel')}
@@ -122,25 +121,222 @@ function ResetDialog({
   )
 }
 
-/** Archetype picker + the chosen archetype's app/menu/page tree. */
+// ── Inline rename ─────────────────────────────────────────────────────────────
+
+function InlineRename({ value, onSave }: { value: string; onSave: (v: string) => void }) {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState(value)
+  const commit = () => {
+    setEditing(false)
+    const t = draft.trim()
+    if (t && t !== value) onSave(t)
+    else setDraft(value)
+  }
+  if (editing) {
+    return (
+      <input
+        autoFocus
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') commit()
+          if (e.key === 'Escape') { setEditing(false); setDraft(value) }
+        }}
+        className="min-w-0 flex-1 bg-transparent text-[11px] font-medium text-app-text outline-none border-b border-app-accent"
+        onClick={(e) => e.stopPropagation()}
+      />
+    )
+  }
+  return (
+    <span
+      className="flex-1 truncate text-[11px] font-medium text-app-text cursor-text"
+      onDoubleClick={(e) => { e.stopPropagation(); setDraft(value); setEditing(true) }}
+      title="Double-click to rename"
+    >
+      {value}
+    </span>
+  )
+}
+
+// ── Page tree item ─────────────────────────────────────────────────────────────
+
+function PageItem({ page, appId, menuId, depth = 0 }: {
+  page: SitemapBuilderPage; appId: string; menuId: string; depth?: number
+}) {
+  const renamePage  = useSitemapBuilder((s) => s.renamePage)
+  const deletePage  = useSitemapBuilder((s) => s.deletePage)
+  const addSubPage  = useSitemapBuilder((s) => s.addSubPage)
+  const [open, setOpen] = useState(depth === 0)
+  const [blocked, setBlocked] = useState(false)
+  const hasChildren = (page.subPages?.length ?? 0) > 0
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!deletePage(page.id)) { setBlocked(true); setTimeout(() => setBlocked(false), 2000) }
+  }
+
+  return (
+    <div>
+      <div
+        className="group flex items-center gap-1.5 rounded-md py-1 pr-1 transition-colors hover:bg-app-elevated"
+        style={{ paddingLeft: 12 + depth * 12 }}
+      >
+        {hasChildren ? (
+          <button onClick={() => setOpen((o) => !o)} className="shrink-0">
+            <ChevronRight size={11} className={cn('text-app-subtle transition-transform', open && 'rotate-90')} />
+          </button>
+        ) : (
+          <span className="w-[11px] shrink-0" />
+        )}
+        {hasChildren
+          ? <Folder size={11} className="shrink-0 text-app-accent" />
+          : <FileText size={11} className="shrink-0 text-app-subtle/60" />
+        }
+        <InlineRename value={page.name} onSave={(v) => renamePage(page.id, v)} />
+        <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+          <button
+            onClick={(e) => { e.stopPropagation(); addSubPage(page.id) }}
+            className="flex h-4 w-4 items-center justify-center rounded text-app-subtle hover:text-app-accent"
+            title="Add sub-page"
+          ><Plus size={9} /></button>
+          {blocked
+            ? <AlertTriangle size={10} className="text-red-400" />
+            : (
+              <button
+                onClick={handleDelete}
+                className="flex h-4 w-4 items-center justify-center rounded text-app-subtle hover:text-red-400"
+                title="Delete page"
+              ><Trash2 size={9} /></button>
+            )
+          }
+        </div>
+      </div>
+      {open && page.subPages?.map((child) => (
+        <PageItem key={child.id} page={child} appId={appId} menuId={menuId} depth={depth + 1} />
+      ))}
+    </div>
+  )
+}
+
+// ── Menu tree item ─────────────────────────────────────────────────────────────
+
+function MenuItemPanel({ menu, appId }: { menu: SitemapBuilderNavMenu; appId: string }) {
+  const addPage       = useSitemapBuilder((s) => s.addPage)
+  const renameNavMenu = useSitemapBuilder((s) => s.renameNavMenu)
+  const deleteNavMenu = useSitemapBuilder((s) => s.deleteNavMenu)
+  const [open, setOpen] = useState(true)
+  const MenuIconComp = MENU_KIND_ICONS[menu.kind]
+
+  return (
+    <div className="border-t border-app-border/40">
+      <div className="group flex items-center gap-1.5 px-3 py-1.5 transition-colors hover:bg-app-elevated/60">
+        <button onClick={() => setOpen((o) => !o)} className="shrink-0">
+          <ChevronRight size={10} className={cn('text-app-subtle transition-transform', open && 'rotate-90')} />
+        </button>
+        <MenuIconComp size={10} className="shrink-0 text-app-subtle" />
+        <InlineRename value={menu.name} onSave={(v) => renameNavMenu(appId, menu.id, v)} />
+        <span className="shrink-0 text-[9px] text-app-subtle">{menu.pages.length}</span>
+        <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+          <button
+            onClick={(e) => { e.stopPropagation(); addPage(appId, menu.id) }}
+            className="flex h-4 w-4 items-center justify-center rounded text-app-subtle hover:text-app-accent"
+            title="Add page"
+          ><Plus size={9} /></button>
+          <button
+            onClick={(e) => { e.stopPropagation(); deleteNavMenu(appId, menu.id) }}
+            className="flex h-4 w-4 items-center justify-center rounded text-app-subtle hover:text-red-400"
+            title="Delete menu"
+          ><Trash2 size={9} /></button>
+        </div>
+      </div>
+      {open && menu.pages.map((page) => (
+        <PageItem key={page.id} page={page} appId={appId} menuId={menu.id} depth={0} />
+      ))}
+    </div>
+  )
+}
+
+// ── App tree item ──────────────────────────────────────────────────────────────
+
+function AppItemPanel({ app }: { app: SitemapBuilderApp }) {
+  const renameApp  = useSitemapBuilder((s) => s.renameApp)
+  const deleteApp  = useSitemapBuilder((s) => s.deleteApp)
+  const addNavMenu = useSitemapBuilder((s) => s.addNavMenu)
+  const [open, setOpen] = useState(true)
+  const [menuPickerOpen, setMenuPickerOpen] = useState(false)
+  const AppIcon = APP_KIND_ICONS[app.kind]
+  const color   = APP_KIND_COLORS[app.kind]
+
+  return (
+    <div className="overflow-hidden rounded-lg border border-app-border/60">
+      {/* App header */}
+      <div className="group flex items-center gap-2 bg-app-elevated/50 px-2.5 py-2 transition-colors hover:bg-app-elevated">
+        <button onClick={() => setOpen((o) => !o)} className="shrink-0">
+          <ChevronRight size={12} className={cn('text-app-subtle transition-transform', open && 'rotate-90')} />
+        </button>
+        <AppIcon size={12} className={cn('shrink-0', color)} />
+        <InlineRename value={app.name} onSave={(v) => renameApp(app.id, v)} />
+        <span className="shrink-0 text-[9px] text-app-subtle">
+          {app.navMenus.length}m
+        </span>
+        <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+          {/* + Menu picker */}
+          <div className="relative">
+            <button
+              onClick={(e) => { e.stopPropagation(); setMenuPickerOpen((v) => !v) }}
+              className="flex h-5 w-5 items-center justify-center rounded text-app-subtle hover:text-app-accent"
+              title="Add menu"
+            ><Plus size={10} /></button>
+            {menuPickerOpen && (
+              <div className="absolute left-0 top-full z-50 mt-0.5 overflow-hidden rounded-lg border border-app-border bg-app-surface shadow-app-lg" style={{ minWidth: 120 }}>
+                {MENU_KIND_OPTIONS.map((o) => (
+                  <button
+                    key={o.kind}
+                    onClick={(e) => { e.stopPropagation(); addNavMenu(app.id, o.kind); setMenuPickerOpen(false) }}
+                    className="flex w-full items-center gap-1.5 px-2.5 py-1.5 text-left text-[11px] text-app-text hover:bg-app-elevated"
+                  >
+                    {(() => { const MI = MENU_KIND_ICONS[o.kind]; return <MI size={10} className="text-app-subtle" /> })()}
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            onClick={(e) => { e.stopPropagation(); deleteApp(app.id) }}
+            className="flex h-5 w-5 items-center justify-center rounded text-app-subtle hover:text-red-400"
+            title="Delete app"
+          ><Trash2 size={10} /></button>
+        </div>
+      </div>
+
+      {/* Menus */}
+      {open && app.navMenus.map((menu) => (
+        <MenuItemPanel key={menu.id} menu={menu} appId={app.id} />
+      ))}
+    </div>
+  )
+}
+
+// ── SitemapPanel ───────────────────────────────────────────────────────────────
+
 export function SitemapPanel() {
-  const dir = useHub((s) => s.dir)
+  const dir          = useHub((s) => s.dir)
   const archetypeId  = useHub((s) => s.archetypeId)
   const setArchetype = useHub((s) => s.setArchetype)
+  const apps         = useSitemapBuilder((s) => s.apps)
+  const addApp       = useSitemapBuilder((s) => s.addApp)
   const loadFromArchetype = useSitemapBuilder((s) => s.loadFromArchetype)
   const exportJSON   = useSitemapBuilder((s) => s.exportJSON)
   const rtl          = dir === 'rtl'
-  const archetype    = ARCHETYPES.find((a) => a.id === archetypeId) ?? ARCHETYPES[0]
 
-  // Pending selection state — chosen but not yet applied
-  const [pending, setPending] = useState<ArchetypeKind>(archetypeId)
-  const [showReset, setShowReset] = useState(false)
+  const [pending, setPending]       = useState<ArchetypeKind>(archetypeId)
+  const [showReset, setShowReset]   = useState(false)
+  const [appPickerOpen, setAppPickerOpen] = useState(false)
   const importRef = useRef<HTMLInputElement>(null)
 
-  const handleApply = () => {
-    if (pending === archetypeId) return
-    setShowReset(true)
-  }
+  const handleApply = () => { if (pending !== archetypeId) setShowReset(true) }
 
   const doApply = (newId: ArchetypeKind) => {
     setArchetype(newId)
@@ -170,37 +366,86 @@ export function SitemapPanel() {
       try {
         const data = JSON.parse(ev.target?.result as string)
         if (data?.apps && Array.isArray(data.apps)) {
-          // Load raw builder format directly
           useSitemapBuilder.setState({ apps: data.apps, services: data.services ?? [] })
         } else {
-          alert('Invalid sitemap file. Expected a file exported from NEZAM Design Hub.')
+          alert('Invalid sitemap file.')
         }
-      } catch {
-        alert('Could not parse the file. Make sure it is a valid JSON sitemap export.')
-      }
+      } catch { alert('Could not parse the file.') }
     }
     reader.readAsText(file)
-    // Reset input so same file can be re-imported
     e.target.value = ''
   }
 
-  // Count total pages across all apps
-  const totalApps  = archetype.apps.length
-  const totalPages = archetype.apps.reduce((n, a) =>
-    n + a.navMenus.reduce((m, menu) =>
-      m + menu.pages.reduce((p, pg) => p + 1 + (pg.children?.length ?? 0), 0), 0), 0)
-
   const hasPendingChange = pending !== archetypeId
+  const totalMenus  = apps.reduce((n, a) => n + a.navMenus.length, 0)
+  const totalPages  = apps.reduce((n, a) =>
+    a.navMenus.reduce((m, menu) => m + menu.pages.reduce((p, pg) => p + 1 + (pg.subPages?.length ?? 0), 0), n), 0)
 
   return (
     <>
       {showReset && <ResetDialog onAction={handleResetAction} />}
 
-      <div className="app-scroll flex-1 overflow-y-auto px-3 py-3">
+      <div className="app-scroll flex-1 overflow-y-auto px-3 py-3 flex flex-col gap-0">
 
-        {/* ── Archetype dropdown ─────────────────────────────────────────── */}
+        {/* ══ STRUCTURE (live, top) ════════════════════════════════════════ */}
+        <div className="mb-1 flex items-center justify-between px-1">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
+            Structure
+          </span>
+          <span className="text-[9px] text-app-subtle">
+            {apps.length}a · {totalMenus}m · {totalPages}p
+          </span>
+        </div>
+
+        {/* App list */}
+        <div className="space-y-1 mb-3">
+          {apps.length === 0 ? (
+            <p className="px-1 py-2 text-[11px] text-app-subtle">
+              No apps yet. Add one below or apply an archetype.
+            </p>
+          ) : (
+            apps.map((a) => <AppItemPanel key={a.id} app={a} />)
+          )}
+        </div>
+
+        {/* Add app button */}
+        <div className="relative mb-5">
+          <button
+            onClick={() => setAppPickerOpen((v) => !v)}
+            className="flex w-full items-center gap-1.5 rounded-lg border border-dashed border-app-border px-3 py-2 text-[11px] text-app-subtle transition-colors hover:border-app-accent hover:text-app-accent"
+          >
+            <Plus size={11} /> Add App
+          </button>
+          {appPickerOpen && (
+            <div className="absolute left-0 top-full z-50 mt-1 w-full overflow-hidden rounded-xl border border-app-border bg-app-surface shadow-app-xl">
+              {APP_KIND_OPTIONS.map((o) => {
+                const c = APP_KIND_ICONS[o.kind]
+                const Icon = c
+                return (
+                  <button
+                    key={o.kind}
+                    onClick={() => { addApp(o.kind); setAppPickerOpen(false) }}
+                    className="flex w-full items-center gap-2 px-3 py-2 text-left text-[11px] text-app-text hover:bg-app-elevated"
+                  >
+                    <Icon size={12} className={APP_KIND_COLORS[o.kind]} />
+                    {o.label}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* ══ DIVIDER ═══════════════════════════════════════════════════════ */}
+        <div className="mb-4 flex items-center gap-2">
+          <div className="flex-1 h-px bg-app-border/60" />
+          <span className="text-[9px] font-semibold uppercase tracking-widest text-app-subtle/60">Archetype</span>
+          <div className="flex-1 h-px bg-app-border/60" />
+        </div>
+
+        {/* ══ ARCHETYPE PICKER (bottom) ═════════════════════════════════════ */}
         <div className="mb-2 px-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
-          Project archetype
+          Project template
         </div>
 
         <div className="space-y-2">
@@ -220,9 +465,9 @@ export function SitemapPanel() {
             <ChevronDown size={13} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-app-subtle" />
           </div>
 
-          {/* Apply + description */}
+          {/* Description + apply */}
           {(() => {
-            const sel = ARCHETYPES.find((a) => a.id === pending)!
+            const sel  = ARCHETYPES.find((a) => a.id === pending)!
             const Icon = ARCHETYPE_ICONS[pending]
             return (
               <div className={cn(
@@ -263,109 +508,7 @@ export function SitemapPanel() {
             className="hidden"
           />
         </div>
-
-        {/* ── Structure tree ─────────────────────────────────────────────── */}
-        <div className="mt-5 mb-2 flex items-center justify-between px-1">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
-            Structure
-          </span>
-          <span className="text-[10px] text-app-subtle">
-            {totalApps} app{totalApps !== 1 ? 's' : ''} · {totalPages} pages
-          </span>
-        </div>
-        <div className="space-y-1">
-          {archetype.apps.map((a) => (
-            <AppNode key={a.name} app={a} rtl={rtl} />
-          ))}
-        </div>
       </div>
     </>
-  )
-}
-
-function AppNode({ app, rtl }: { app: ArchetypeApp; rtl: boolean }) {
-  const [open, setOpen] = useState(true)
-  const AppIcon = APP_KIND_ICONS[app.kind]
-  const color   = APP_KIND_COLORS[app.kind]
-  const label   = rtl ? app.arabicName : app.name
-  const totalMenus = app.navMenus.length
-
-  return (
-    <div className="overflow-hidden rounded-lg border border-app-border/60">
-      {/* App header */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-2 px-2.5 py-2 text-left bg-app-elevated/50 hover:bg-app-elevated"
-      >
-        <AppIcon size={12} className={cn('shrink-0', color)} />
-        <span className="flex-1 truncate text-[11px] font-semibold text-app-text">{label}</span>
-        <span className="text-[9px] text-app-subtle">{totalMenus} menu{totalMenus !== 1 ? 's' : ''}</span>
-        <ChevronRight size={12} className={cn('text-app-subtle transition-transform', open && 'rotate-90')} />
-      </button>
-
-      {/* Nav menus */}
-      {open && app.navMenus.map((menu) => (
-        <MenuNode key={menu.name} menu={menu} rtl={rtl} />
-      ))}
-    </div>
-  )
-}
-
-function MenuNode({ menu, rtl }: { menu: ArchetypeApp['navMenus'][number]; rtl: boolean }) {
-  const [open, setOpen] = useState(true)
-  const MenuIcon = MENU_KIND_ICONS[menu.kind]
-  const label    = rtl ? menu.arabicName : menu.name
-
-  return (
-    <div className="border-t border-app-border/40">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-app-elevated/60"
-      >
-        <MenuIcon size={10} className="shrink-0 text-app-subtle" />
-        <span className="flex-1 truncate text-[10px] font-medium text-app-text/80">{label}</span>
-        <ChevronRight size={10} className={cn('text-app-subtle transition-transform', open && 'rotate-90')} />
-      </button>
-      {open && menu.pages.map((page) => (
-        <TreeNode key={page.id} node={page} depth={0} rtl={rtl} />
-      ))}
-    </div>
-  )
-}
-
-function TreeNode({ node, depth, rtl }: { node: SitemapNode; depth: number; rtl: boolean }) {
-  const [open, setOpen] = useState(depth === 0)
-  const hasChildren = !!node.children?.length
-  const label = rtl ? node.arabicName : node.name
-  const hasSections = !!node.sectionNames?.length
-
-  return (
-    <div>
-      <button
-        onClick={() => hasChildren && setOpen((o) => !o)}
-        className="flex w-full items-center gap-1.5 py-1.5 pr-2 text-left transition-colors hover:bg-app-elevated"
-        style={{ paddingLeft: 20 + depth * 12 }}
-      >
-        {hasChildren ? (
-          <ChevronRight size={11} className={cn('shrink-0 text-app-subtle transition-transform', open && 'rotate-90')} />
-        ) : (
-          <span className="w-[11px] shrink-0" />
-        )}
-        {hasChildren ? (
-          <Folder size={11} className="shrink-0 text-app-accent" />
-        ) : (
-          <FileText size={11} className="shrink-0 text-app-subtle" />
-        )}
-        <span className="truncate text-[11px] font-medium text-app-text">{label}</span>
-        {hasSections && (
-          <span className="ml-auto shrink-0 text-[9px] text-app-subtle/60">
-            {node.sectionNames!.length}§
-          </span>
-        )}
-      </button>
-      {open && node.children?.map((child) => (
-        <TreeNode key={child.id} node={child} depth={depth + 1} rtl={rtl} />
-      ))}
-    </div>
   )
 }

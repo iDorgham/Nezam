@@ -5,8 +5,8 @@ import { persist } from 'zustand/middleware'
 import { arrayMove } from '@dnd-kit/sortable'
 import type {
   AppKind, ArchetypeApp, ArchetypeNavMenu,
-  NavMenuKind, PageStatus, ServiceKind,
-  SitemapBuilderApp, SitemapBuilderNavMenu,
+  MenuViewMode, NavMenuKind, NoteItem, PageStatus, ServiceKind,
+  SitemapBuilderApp, SitemapBuilderInfra, SitemapBuilderNavMenu,
   SitemapBuilderPage, SitemapBuilderSection,
   SitemapBuilderService, SitemapNode,
 } from '@/types'
@@ -15,24 +15,38 @@ const uid = () => Math.random().toString(36).slice(2, 9)
 
 // ── Factory helpers ────────────────────────────────────────────────────────────
 
+function makeNote(title = 'Note'): NoteItem {
+  return { id: uid(), title, body: '' }
+}
+
 function makeSection(name = 'New Section'): SitemapBuilderSection {
-  return { id: uid(), name, description: '', notes: '' }
+  return { id: uid(), name, description: '', notes: [] }
 }
 
 function makeService(kind: ServiceKind = 'custom'): SitemapBuilderService {
-  return { id: uid(), name: 'New Service', kind, description: '', notes: '', connectedPageIds: [] }
+  return { id: uid(), name: 'New Service', kind, description: '', notes: [], connectedPageIds: [] }
 }
 
 function makePage(name = 'New Page'): SitemapBuilderPage {
-  return { id: uid(), name, sections: [], collapsed: false }
+  return { id: uid(), name, sections: [], notes: [], collapsed: false }
 }
 
 function makeNavMenu(name = 'New Menu', kind: NavMenuKind = 'custom'): SitemapBuilderNavMenu {
-  return { id: uid(), name, kind, pages: [], collapsed: false }
+  return {
+    id: uid(), name, kind, pages: [], collapsed: false, notes: [],
+    viewMode: kind === 'main' ? 'full' : 'compact',
+  }
 }
 
 function makeApp(name = 'New App', kind: AppKind = 'custom'): SitemapBuilderApp {
-  return { id: uid(), name, kind, navMenus: [], collapsed: false }
+  return { id: uid(), name, kind, navMenus: [], collapsed: false, notes: [] }
+}
+
+const INITIAL_INFRA: SitemapBuilderInfra = {
+  git:      { provider: null, repoUrl: '', branch: 'main' },
+  database: { provider: null, connectionString: '', notes: '' },
+  platform: { provider: null, deployUrl: '', projectName: '', notes: '' },
+  prd:      { title: '', url: '', description: '' },
 }
 
 // ── Archetype → builder converters ────────────────────────────────────────────
@@ -42,22 +56,31 @@ function nodeToPage(node: SitemapNode): SitemapBuilderPage {
     id: uid(),
     name: node.name,
     sections: (node.sectionNames ?? []).map((n) => makeSection(n)),
+    notes: [],
     collapsed: false,
     subPages: node.children?.map(nodeToPage),
   }
 }
 
 function archetypeMenuToMenu(m: ArchetypeNavMenu): SitemapBuilderNavMenu {
-  return { id: uid(), name: m.name, kind: m.kind, pages: m.pages.map(nodeToPage), collapsed: false }
+  return {
+    id: uid(), name: m.name, kind: m.kind,
+    pages: m.pages.map(nodeToPage),
+    collapsed: false, notes: [],
+    viewMode: m.kind === 'main' ? 'full' : 'compact',
+  }
 }
 
 function archetypeAppToApp(a: ArchetypeApp): SitemapBuilderApp {
-  return { id: uid(), name: a.name, kind: a.kind, navMenus: a.navMenus.map(archetypeMenuToMenu), collapsed: false }
+  return {
+    id: uid(), name: a.name, kind: a.kind,
+    navMenus: a.navMenus.map(archetypeMenuToMenu),
+    collapsed: false, notes: [],
+  }
 }
 
 // ── Tree helpers ───────────────────────────────────────────────────────────────
 
-/** Map a specific app. */
 function mapApp(
   apps: SitemapBuilderApp[], appId: string,
   fn: (a: SitemapBuilderApp) => SitemapBuilderApp,
@@ -65,7 +88,6 @@ function mapApp(
   return apps.map((a) => a.id === appId ? fn(a) : a)
 }
 
-/** Map a specific navMenu inside a specific app. */
 function mapMenu(
   apps: SitemapBuilderApp[], appId: string, menuId: string,
   fn: (m: SitemapBuilderNavMenu) => SitemapBuilderNavMenu,
@@ -76,7 +98,6 @@ function mapMenu(
   }))
 }
 
-/** Recursively map a page by id anywhere in a page array (including subPages). */
 function mapPageInList(
   pages: SitemapBuilderPage[], pageId: string,
   fn: (p: SitemapBuilderPage) => SitemapBuilderPage,
@@ -88,7 +109,6 @@ function mapPageInList(
   })
 }
 
-/** Apply mapPageInList across ALL apps → menus. */
 function mapPageGlobal(
   apps: SitemapBuilderApp[], pageId: string,
   fn: (p: SitemapBuilderPage) => SitemapBuilderPage,
@@ -102,7 +122,6 @@ function mapPageGlobal(
   }))
 }
 
-/** Find a page by id anywhere in the tree. */
 function findPageInList(pages: SitemapBuilderPage[], pageId: string): SitemapBuilderPage | null {
   for (const p of pages) {
     if (p.id === pageId) return p
@@ -120,7 +139,6 @@ function findPageGlobal(apps: SitemapBuilderApp[], pageId: string): SitemapBuild
   return null
 }
 
-/** Insert a new subPage under parentPageId. */
 function insertSubPage(
   pages: SitemapBuilderPage[], parentId: string, newPage: SitemapBuilderPage,
 ): SitemapBuilderPage[] {
@@ -131,7 +149,6 @@ function insertSubPage(
   })
 }
 
-/** Remove a page (and its whole sub-tree) by id. */
 function removePageFromList(
   pages: SitemapBuilderPage[], pageId: string,
 ): [SitemapBuilderPage[], SitemapBuilderPage | null] {
@@ -151,17 +168,17 @@ function removePageFromList(
 
 const INITIAL_APPS: SitemapBuilderApp[] = [
   {
-    id: uid(), name: 'Marketing', kind: 'marketing', collapsed: false,
+    id: uid(), name: 'Marketing', kind: 'marketing', collapsed: false, notes: [],
     navMenus: [
       {
-        id: uid(), name: 'Main Navigation', kind: 'main', collapsed: false,
+        id: uid(), name: 'Main Navigation', kind: 'main', collapsed: false, notes: [], viewMode: 'full',
         pages: [
           {
-            id: uid(), name: 'Home', collapsed: false,
+            id: uid(), name: 'Home', collapsed: false, notes: [],
             sections: [
-              { id: uid(), name: 'Hero', description: 'Primary value proposition' },
-              { id: uid(), name: 'Features', description: 'Key product capabilities' },
-              { id: uid(), name: 'CTA', description: 'Primary call to action' },
+              { id: uid(), name: 'Hero',     description: 'Primary value proposition', notes: [] },
+              { id: uid(), name: 'Features', description: 'Key product capabilities',  notes: [] },
+              { id: uid(), name: 'CTA',      description: 'Primary call to action',    notes: [] },
             ],
           },
         ],
@@ -175,39 +192,49 @@ const INITIAL_APPS: SitemapBuilderApp[] = [
 interface SitemapBuilderStore {
   apps: SitemapBuilderApp[]
   services: SitemapBuilderService[]
+  infra: SitemapBuilderInfra
 
   /* App -------------------------------------------------------------------- */
   addApp: (kind?: AppKind) => void
   deleteApp: (appId: string) => void
   renameApp: (appId: string, name: string) => void
   toggleAppCollapsed: (appId: string) => void
-  updateAppNotes: (appId: string, notes: string) => void
+  reorderApps: (fromIdx: number, toIdx: number) => void
+  addAppNote: (appId: string) => void
+  updateAppNote: (appId: string, noteId: string, patch: Partial<Omit<NoteItem, 'id'>>) => void
+  deleteAppNote: (appId: string, noteId: string) => void
 
   /* NavMenu ---------------------------------------------------------------- */
   addNavMenu: (appId: string, kind?: NavMenuKind) => void
   deleteNavMenu: (appId: string, menuId: string) => void
   renameNavMenu: (appId: string, menuId: string, name: string) => void
   toggleMenuCollapsed: (appId: string, menuId: string) => void
+  setMenuViewMode: (appId: string, menuId: string, mode: MenuViewMode) => void
   reorderNavMenus: (appId: string, fromIdx: number, toIdx: number) => void
-  updateMenuNotes: (appId: string, menuId: string, notes: string) => void
 
   /* Page (globally scoped by pageId) --------------------------------------- */
   addPage: (appId: string, menuId: string) => void
-  deletePage: (pageId: string) => boolean   // false if has sections or subPages
+  deletePage: (pageId: string) => boolean
   renamePage: (pageId: string, name: string) => void
   togglePageCollapsed: (pageId: string) => void
   addSubPage: (parentPageId: string) => void
   setPageStatus: (pageId: string, status: PageStatus | undefined) => void
   setPageUrl: (pageId: string, url: string) => void
-  updatePageNotes: (pageId: string, notes: string) => void
+  addPageNote: (pageId: string) => void
+  updatePageNote: (pageId: string, noteId: string, patch: Partial<Omit<NoteItem, 'id'>>) => void
+  deletePageNote: (pageId: string, noteId: string) => void
   reorderPages: (appId: string, menuId: string, fromIdx: number, toIdx: number) => void
+
+  /* NavMenu notes ---------------------------------------------------------- */
+  addMenuNote: (appId: string, menuId: string) => void
+  updateMenuNote: (appId: string, menuId: string, noteId: string, patch: Partial<Omit<NoteItem, 'id'>>) => void
+  deleteMenuNote: (appId: string, menuId: string, noteId: string) => void
 
   /* Section (scoped by pageId) --------------------------------------------- */
   addSection: (pageId: string) => void
   deleteSection: (pageId: string, sectionId: string) => void
   renameSection: (pageId: string, sectionId: string, name: string) => void
   updateDescription: (pageId: string, sectionId: string, desc: string) => void
-  updateSectionNotes: (pageId: string, sectionId: string, notes: string) => void
   reorderSections: (pageId: string, fromIdx: number, toIdx: number) => void
   moveSectionToPage: (sectionId: string, fromPageId: string, toPageId: string, atIdx: number) => void
 
@@ -216,6 +243,12 @@ interface SitemapBuilderStore {
   deleteService: (serviceId: string) => void
   updateService: (serviceId: string, patch: Partial<Omit<SitemapBuilderService, 'id'>>) => void
   toggleServiceConnection: (serviceId: string, pageId: string) => void
+  addServiceNote: (serviceId: string) => void
+  updateServiceNote: (serviceId: string, noteId: string, patch: Partial<Omit<NoteItem, 'id'>>) => void
+  deleteServiceNote: (serviceId: string, noteId: string) => void
+
+  /* Infrastructure --------------------------------------------------------- */
+  updateInfra: (patch: Partial<SitemapBuilderInfra>) => void
 
   /* Archetype -------------------------------------------------------------- */
   loadFromArchetype: (apps: ArchetypeApp[]) => void
@@ -231,6 +264,7 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
     (set, get) => ({
       apps: INITIAL_APPS,
       services: [],
+      infra: INITIAL_INFRA,
 
       /* ── App ────────────────────────────────────────────────────────────── */
 
@@ -246,8 +280,28 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
       toggleAppCollapsed: (appId) =>
         set((s) => ({ apps: mapApp(s.apps, appId, (a) => ({ ...a, collapsed: !a.collapsed })) })),
 
-      updateAppNotes: (appId, notes) =>
-        set((s) => ({ apps: mapApp(s.apps, appId, (a) => ({ ...a, notes })) })),
+      reorderApps: (fromIdx, toIdx) =>
+        set((s) => ({ apps: arrayMove(s.apps, fromIdx, toIdx) })),
+
+      addAppNote: (appId) =>
+        set((s) => ({
+          apps: mapApp(s.apps, appId, (a) => ({ ...a, notes: [...a.notes, makeNote()] })),
+        })),
+
+      updateAppNote: (appId, noteId, patch) =>
+        set((s) => ({
+          apps: mapApp(s.apps, appId, (a) => ({
+            ...a,
+            notes: a.notes.map((n) => n.id === noteId ? { ...n, ...patch } : n),
+          })),
+        })),
+
+      deleteAppNote: (appId, noteId) =>
+        set((s) => ({
+          apps: mapApp(s.apps, appId, (a) => ({
+            ...a, notes: a.notes.filter((n) => n.id !== noteId),
+          })),
+        })),
 
       /* ── NavMenu ────────────────────────────────────────────────────────── */
 
@@ -273,15 +327,17 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           apps: mapMenu(s.apps, appId, menuId, (m) => ({ ...m, collapsed: !m.collapsed })),
         })),
 
+      setMenuViewMode: (appId, menuId, mode) =>
+        set((s) => ({
+          apps: mapMenu(s.apps, appId, menuId, (m) => ({ ...m, viewMode: mode })),
+        })),
+
       reorderNavMenus: (appId, fromIdx, toIdx) =>
         set((s) => ({
           apps: mapApp(s.apps, appId, (a) => ({
             ...a, navMenus: arrayMove(a.navMenus, fromIdx, toIdx),
           })),
         })),
-
-      updateMenuNotes: (appId, menuId, notes) =>
-        set((s) => ({ apps: mapMenu(s.apps, appId, menuId, (m) => ({ ...m, notes })) })),
 
       /* ── Page ───────────────────────────────────────────────────────────── */
 
@@ -322,8 +378,7 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           apps: s.apps.map((a) => ({
             ...a,
             navMenus: a.navMenus.map((m) => ({
-              ...m,
-              pages: insertSubPage(m.pages, parentPageId, newPage),
+              ...m, pages: insertSubPage(m.pages, parentPageId, newPage),
             })),
           })),
         }))
@@ -335,13 +390,53 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
       setPageUrl: (pageId, url) =>
         set((s) => ({ apps: mapPageGlobal(s.apps, pageId, (p) => ({ ...p, url })) })),
 
-      updatePageNotes: (pageId, notes) =>
-        set((s) => ({ apps: mapPageGlobal(s.apps, pageId, (p) => ({ ...p, notes })) })),
+      addPageNote: (pageId) =>
+        set((s) => ({
+          apps: mapPageGlobal(s.apps, pageId, (p) => ({
+            ...p, notes: [...p.notes, makeNote()],
+          })),
+        })),
+
+      updatePageNote: (pageId, noteId, patch) =>
+        set((s) => ({
+          apps: mapPageGlobal(s.apps, pageId, (p) => ({
+            ...p,
+            notes: p.notes.map((n) => n.id === noteId ? { ...n, ...patch } : n),
+          })),
+        })),
+
+      deletePageNote: (pageId, noteId) =>
+        set((s) => ({
+          apps: mapPageGlobal(s.apps, pageId, (p) => ({
+            ...p, notes: p.notes.filter((n) => n.id !== noteId),
+          })),
+        })),
 
       reorderPages: (appId, menuId, fromIdx, toIdx) =>
         set((s) => ({
           apps: mapMenu(s.apps, appId, menuId, (m) => ({
             ...m, pages: arrayMove(m.pages, fromIdx, toIdx),
+          })),
+        })),
+
+      /* ── NavMenu notes ──────────────────────────────────────────────────── */
+
+      addMenuNote: (appId, menuId) =>
+        set((s) => ({
+          apps: mapMenu(s.apps, appId, menuId, (m) => ({ ...m, notes: [...m.notes, makeNote()] })),
+        })),
+
+      updateMenuNote: (appId, menuId, noteId, patch) =>
+        set((s) => ({
+          apps: mapMenu(s.apps, appId, menuId, (m) => ({
+            ...m, notes: m.notes.map((n) => n.id === noteId ? { ...n, ...patch } : n),
+          })),
+        })),
+
+      deleteMenuNote: (appId, menuId, noteId) =>
+        set((s) => ({
+          apps: mapMenu(s.apps, appId, menuId, (m) => ({
+            ...m, notes: m.notes.filter((n) => n.id !== noteId),
           })),
         })),
 
@@ -374,14 +469,6 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           apps: mapPageGlobal(s.apps, pageId, (p) => ({
             ...p,
             sections: p.sections.map((sec) => sec.id === sectionId ? { ...sec, description } : sec),
-          })),
-        })),
-
-      updateSectionNotes: (pageId, sectionId, notes) =>
-        set((s) => ({
-          apps: mapPageGlobal(s.apps, pageId, (p) => ({
-            ...p,
-            sections: p.sections.map((sec) => sec.id === sectionId ? { ...sec, notes } : sec),
           })),
         })),
 
@@ -440,10 +527,40 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           }),
         })),
 
+      addServiceNote: (serviceId) =>
+        set((s) => ({
+          services: s.services.map((sv) =>
+            sv.id === serviceId ? { ...sv, notes: [...sv.notes, makeNote()] } : sv,
+          ),
+        })),
+
+      updateServiceNote: (serviceId, noteId, patch) =>
+        set((s) => ({
+          services: s.services.map((sv) =>
+            sv.id === serviceId
+              ? { ...sv, notes: sv.notes.map((n) => n.id === noteId ? { ...n, ...patch } : n) }
+              : sv,
+          ),
+        })),
+
+      deleteServiceNote: (serviceId, noteId) =>
+        set((s) => ({
+          services: s.services.map((sv) =>
+            sv.id === serviceId
+              ? { ...sv, notes: sv.notes.filter((n) => n.id !== noteId) }
+              : sv,
+          ),
+        })),
+
+      /* ── Infrastructure ─────────────────────────────────────────────────── */
+
+      updateInfra: (patch) =>
+        set((s) => ({ infra: { ...s.infra, ...patch } })),
+
       /* ── Archetype ──────────────────────────────────────────────────────── */
 
       loadFromArchetype: (apps) =>
-        set({ apps: apps.map(archetypeAppToApp), services: [] }),
+        set({ apps: apps.map(archetypeAppToApp), services: [], infra: INITIAL_INFRA }),
 
       /* ── Export ─────────────────────────────────────────────────────────── */
 
@@ -452,30 +569,29 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
           return {
             id: p.id, name: p.name, url: p.url,
             status: p.status, notes: p.notes,
-            sections: p.sections.map((s) => ({ id: s.id, name: s.name, description: s.description, notes: s.notes })),
+            sections: p.sections.map((s) => ({ id: s.id, name: s.name, description: s.description })),
             subPages: p.subPages?.map(serializePage),
           }
         }
-        const { apps, services } = get()
-        const payload = {
+        const { apps, services, infra } = get()
+        return JSON.stringify({
           $schema: 'https://nezam.design/schema/sitemap-v3.json',
           exportedAt: new Date().toISOString(),
+          infra,
           apps: apps.map((a) => ({
             id: a.id, name: a.name, kind: a.kind, notes: a.notes,
             navMenus: a.navMenus.map((m) => ({
-              id: m.id, name: m.name, kind: m.kind, notes: m.notes,
+              id: m.id, name: m.name, kind: m.kind,
               pages: m.pages.map(serializePage),
             })),
           })),
           services: services.map((sv) => ({
             id: sv.id, name: sv.name, kind: sv.kind,
-            description: sv.description, endpoint: sv.endpoint,
-            notes: sv.notes, connectedPageIds: sv.connectedPageIds,
+            description: sv.description, endpoint: sv.endpoint, connectedPageIds: sv.connectedPageIds,
           })),
-        }
-        return JSON.stringify(payload, null, 2)
+        }, null, 2)
       },
     }),
-    { name: 'nezam-sitemap-builder-v2' },
+    { name: 'nezam-sitemap-builder-v3' },
   ),
 )

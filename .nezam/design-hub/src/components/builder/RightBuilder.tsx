@@ -1,6 +1,6 @@
 'use client'
 
-import { Network, LayoutGrid, History, Bookmark } from 'lucide-react'
+import { Network, LayoutGrid, Shapes, Wand2 } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { IconTabBar } from './IconTabBar'
 import { BrandPanel } from './panels/BrandPanel'
@@ -11,11 +11,11 @@ import { AIPanel } from './panels/AIPanel'
 import { InspectorPanel } from './panels/InspectorPanel'
 import { LayersPanel } from './panels/LayersPanel'
 import { CommentsPanel } from './panels/CommentsPanel'
+import { DesignSystemPanel } from './panels/DesignSystemPanel'
+import { ThemePanel } from './panels/ThemePanel'
 import { PanelHeader } from '@/components/ui/Panel'
 import { ProfileGallery } from '@/components/sidebar/ProfileGallery'
 import { SitemapPanel } from '@/components/sidebar/SitemapPanel'
-import { SavedDesigns } from '@/components/sidebar/SavedDesigns'
-import { HistoryPanel } from '@/components/sidebar/HistoryPanel'
 
 /** The right adaptive builder — vertical icon rail + the active mode panel. */
 export function RightBuilder() {
@@ -26,7 +26,7 @@ export function RightBuilder() {
       <IconTabBar />
       <div className="flex min-w-0 flex-1 flex-col">
         {builderMode === 'sitemap' && (
-          <Wrapped icon={<Network size={15} />} title="Sitemap" subtitle="Project page structure">
+          <Wrapped icon={<Network size={15} />} title="Structure" subtitle="Apps, pages, menus & services">
             <SitemapPanel />
           </Wrapped>
         )}
@@ -47,18 +47,14 @@ export function RightBuilder() {
         {builderMode === 'comments' && <CommentsPanel />}
         {builderMode === 'interactions' && <InteractionsPanel />}
         {builderMode === 'ai' && <AIPanel />}
-        {builderMode === 'saved' && (
-          <Wrapped icon={<Bookmark size={15} />} title="Saved" subtitle="Your design snapshots">
-            <SavedDesigns />
+        {builderMode === 'design-system' && (
+          <Wrapped icon={<Shapes size={15} />} title="Design System" subtitle="Colors, type, spacing & components">
+            <DesignSystemPanel />
           </Wrapped>
         )}
-        {builderMode === 'history' && (
-          <Wrapped
-            icon={<History size={15} />}
-            title="History"
-            subtitle="Travel to any prior state"
-          >
-            <HistoryPanel />
+        {builderMode === 'theme' && (
+          <Wrapped icon={<Wand2 size={15} />} title="Theme" subtitle="Layout styles & page templates">
+            <ThemePanel />
           </Wrapped>
         )}
       </div>

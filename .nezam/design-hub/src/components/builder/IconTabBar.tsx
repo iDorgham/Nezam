@@ -9,10 +9,10 @@ import {
   Focus,
   Layers,
   MessageCircle,
+  Shapes,
+  Wand2,
   Film,
   Sparkles,
-  Bookmark,
-  History,
 } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { Tooltip } from '@/components/ui/Tooltip'
@@ -25,39 +25,39 @@ interface ModeDef {
   icon: typeof Palette
 }
 
-// Sitemap first; Profiles sits directly above Brand.
+// Primary design tools — top of the rail.
 const TOP_MODES: ModeDef[] = [
-  { id: 'sitemap', label: 'Sitemap', icon: Network },
-  { id: 'profiles', label: 'Profiles', icon: LayoutGrid },
-  { id: 'brand', label: 'Brand', icon: Palette },
-  { id: 'styles', label: 'Styles', icon: SlidersHorizontal },
-  { id: 'layout', label: 'Layout', icon: LayoutDashboard },
-  { id: 'inspector', label: 'Inspector', icon: Focus },
-  { id: 'layers', label: 'Layers', icon: Layers },
-  { id: 'comments', label: 'Comments', icon: MessageCircle },
-  { id: 'interactions', label: 'Interactions', icon: Film },
-  { id: 'ai', label: 'AI Co-Pilot', icon: Sparkles },
+  { id: 'sitemap',        label: 'Structure',     icon: Network },
+  { id: 'profiles',       label: 'Profiles',      icon: LayoutGrid },
+  { id: 'brand',          label: 'Brand',         icon: Palette },
+  { id: 'styles',         label: 'Styles',        icon: SlidersHorizontal },
+  { id: 'layout',         label: 'Layout',        icon: LayoutDashboard },
+  { id: 'inspector',      label: 'Inspector',     icon: Focus },
+  { id: 'layers',         label: 'Layers',        icon: Layers },
+  { id: 'comments',       label: 'Comments',      icon: MessageCircle },
+  { id: 'design-system',  label: 'Design System', icon: Shapes },
+  { id: 'theme',          label: 'Theme',         icon: Wand2 },
 ]
 
-// Library tabs live at the bottom of the rail.
+// Utility / AI tools — always visible at the bottom of the rail.
 const BOTTOM_MODES: ModeDef[] = [
-  { id: 'saved', label: 'Saved', icon: Bookmark },
-  { id: 'history', label: 'History', icon: History },
+  { id: 'interactions', label: 'Interactions', icon: Film },
+  { id: 'ai',           label: 'AI Co-Pilot',  icon: Sparkles },
 ]
 
 /** Vertical icon rail on the builder's leading edge (Webflow / Elementor style). */
 export function IconTabBar() {
-  const builderMode = useHub((s) => s.builderMode)
+  const builderMode    = useHub((s) => s.builderMode)
   const setBuilderMode = useHub((s) => s.setBuilderMode)
-  const hasSelection = useHub((s) => !!s.selection)
-  const openComments = useHub((s) => s.comments.filter((c) => !c.resolved).length)
+  const hasSelection   = useHub((s) => !!s.selection)
+  const openComments   = useHub((s) => s.comments.filter((c) => !c.resolved).length)
 
   const RailButton = ({ mode }: { mode: ModeDef }) => {
-    const Icon = mode.icon
+    const Icon   = mode.icon
     const active = mode.id === builderMode
-    const isAi = mode.id === 'ai'
+    const isAi   = mode.id === 'ai'
     const liveDot = mode.id === 'inspector' && hasSelection && !active
-    const badge = mode.id === 'comments' && openComments > 0 ? openComments : null
+    const badge   = mode.id === 'comments' && openComments > 0 ? openComments : null
     return (
       <Tooltip label={mode.label} side="left">
         <button

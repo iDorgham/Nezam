@@ -21,15 +21,17 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import {
   Plus, GripVertical, ChevronDown, ChevronRight,
-  Trash2, AlertTriangle, FileJson, LayoutGrid, FilePlus,
-  ZoomIn, ZoomOut, Maximize2, X,
+  Trash2, AlertTriangle, LayoutGrid, FilePlus,
+  ZoomIn, ZoomOut, Maximize2,
   LayoutList, Layers, Eye,
   Globe, LayoutDashboard, Shield, Smartphone, Monitor, Zap, Box,
   Navigation2, PanelBottom, PanelLeft, Settings2, Menu as MenuIcon,
-  ChevronUp,
+  ChevronUp, Download, Link, StickyNote, Server,
 } from 'lucide-react'
 import { useSitemapBuilder } from '@/store/sitemap-builder.store'
 import { cn } from '@/lib/cn'
+import { ExportModal } from './ExportModal'
+import { ServicesPanel } from './ServicesPanel'
 import type {
   AppKind, NavMenuKind,
   SitemapBuilderApp, SitemapBuilderNavMenu,
@@ -357,13 +359,16 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
   appId: string
   menuId: string
 }) {
-  const renamePage        = useSitemapBuilder((s) => s.renamePage)
-  const deletePage        = useSitemapBuilder((s) => s.deletePage)
+  const renamePage          = useSitemapBuilder((s) => s.renamePage)
+  const deletePage          = useSitemapBuilder((s) => s.deletePage)
   const togglePageCollapsed = useSitemapBuilder((s) => s.togglePageCollapsed)
-  const addSection        = useSitemapBuilder((s) => s.addSection)
-  const addSubPage        = useSitemapBuilder((s) => s.addSubPage)
-  const reorderSections   = useSitemapBuilder((s) => s.reorderSections)
+  const addSection          = useSitemapBuilder((s) => s.addSection)
+  const addSubPage          = useSitemapBuilder((s) => s.addSubPage)
+  const reorderSections     = useSitemapBuilder((s) => s.reorderSections)
+  const setPageUrl          = useSitemapBuilder((s) => s.setPageUrl)
+  const updatePageNotes     = useSitemapBuilder((s) => s.updatePageNotes)
   const view = useCardView()
+  const [showNotes, setShowNotes] = useState(false)
 
   const [deleteBlocked, setDeleteBlocked] = useState(false)
 
@@ -431,6 +436,46 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
           <p className="border-t border-red-500/20 px-3 pb-2.5 text-[10px] text-red-400 leading-snug">
             Remove sections and sub-pages first.
           </p>
+        )}
+
+        {/* URL field */}
+        {isExpanded && view !== 'compact' && (
+          <div className="border-t border-app-border/40 px-3 py-2 flex items-center gap-1.5">
+            <Link size={9} className="shrink-0 text-app-subtle" />
+            <input
+              value={page.url ?? ''}
+              onChange={(e) => setPageUrl(page.id, e.target.value)}
+              placeholder="/path/to/page"
+              onClick={(e) => e.stopPropagation()}
+              className="min-w-0 flex-1 bg-transparent font-mono text-[10px] text-app-muted outline-none placeholder:text-app-subtle/50 focus:text-app-text"
+            />
+          </div>
+        )}
+
+        {/* Notes toggle + field */}
+        {isExpanded && view !== 'compact' && (
+          <div className="border-t border-app-border/40">
+            <button
+              onClick={(e) => { e.stopPropagation(); setShowNotes((v) => !v) }}
+              className="flex w-full items-center gap-1.5 px-3 py-1.5 text-[10px] text-app-subtle hover:text-app-muted"
+            >
+              <StickyNote size={9} />
+              <span>{showNotes ? 'Hide notes' : (page.notes ? 'Notes ·' : 'Add notes')}</span>
+              {!showNotes && page.notes && (
+                <span className="truncate text-[9px] italic opacity-60">{page.notes}</span>
+              )}
+            </button>
+            {showNotes && (
+              <textarea
+                value={page.notes ?? ''}
+                onChange={(e) => updatePageNotes(page.id, e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                placeholder="Notes about this page…"
+                rows={2}
+                className="w-full resize-none bg-app-elevated/50 px-3 pb-2 text-[10px] text-app-text outline-none placeholder:text-app-subtle/60"
+              />
+            )}
+          </div>
         )}
 
         {/* Collapsed summary */}
@@ -534,12 +579,14 @@ function SubPageRow({ pages, depth, appId, menuId }: {
 // ── NavMenu block ─────────────────────────────────────────────────────────────
 
 function NavMenuBlock({ menu, appId }: { menu: SitemapBuilderNavMenu; appId: string }) {
-  const addPage           = useSitemapBuilder((s) => s.addPage)
-  const renameNavMenu     = useSitemapBuilder((s) => s.renameNavMenu)
-  const deleteNavMenu     = useSitemapBuilder((s) => s.deleteNavMenu)
+  const addPage            = useSitemapBuilder((s) => s.addPage)
+  const renameNavMenu      = useSitemapBuilder((s) => s.renameNavMenu)
+  const deleteNavMenu      = useSitemapBuilder((s) => s.deleteNavMenu)
   const toggleMenuCollapsed = useSitemapBuilder((s) => s.toggleMenuCollapsed)
-  const reorderPages      = useSitemapBuilder((s) => s.reorderPages)
+  const reorderPages       = useSitemapBuilder((s) => s.reorderPages)
+  const updateMenuNotes    = useSitemapBuilder((s) => s.updateMenuNotes)
   const view = useCardView()
+  const [showNotes, setShowNotes] = useState(false)
 
   const cfg = MENU_CFG[menu.kind]
   const MenuIcon = cfg.Icon
@@ -595,6 +642,29 @@ function NavMenuBlock({ menu, appId }: { menu: SitemapBuilderNavMenu; appId: str
               </button>
             </div>
           </SortableContext>
+
+          {/* Menu notes */}
+          <div className="mt-2 pl-0">
+            <button
+              onClick={() => setShowNotes((v) => !v)}
+              className="flex items-center gap-1 text-[9px] text-app-subtle hover:text-app-muted"
+            >
+              <StickyNote size={9} />
+              {showNotes ? 'Hide notes' : (menu.notes ? 'Notes ·' : 'Add notes')}
+              {!showNotes && menu.notes && (
+                <span className="truncate italic opacity-60">{menu.notes}</span>
+              )}
+            </button>
+            {showNotes && (
+              <textarea
+                value={menu.notes ?? ''}
+                onChange={(e) => updateMenuNotes(appId, menu.id, e.target.value)}
+                placeholder="Notes about this menu…"
+                rows={2}
+                className="mt-1 w-full resize-none rounded-lg border border-app-border/60 bg-app-elevated/50 px-2 py-1.5 text-[10px] text-app-text outline-none placeholder:text-app-subtle/60 focus:border-app-accent"
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -621,14 +691,16 @@ const MENU_KIND_OPTIONS: { kind: NavMenuKind; label: string }[] = [
 ]
 
 function AppBlock({ app }: { app: SitemapBuilderApp }) {
-  const renameApp         = useSitemapBuilder((s) => s.renameApp)
-  const deleteApp         = useSitemapBuilder((s) => s.deleteApp)
+  const renameApp          = useSitemapBuilder((s) => s.renameApp)
+  const deleteApp          = useSitemapBuilder((s) => s.deleteApp)
   const toggleAppCollapsed = useSitemapBuilder((s) => s.toggleAppCollapsed)
-  const addNavMenu        = useSitemapBuilder((s) => s.addNavMenu)
+  const addNavMenu         = useSitemapBuilder((s) => s.addNavMenu)
+  const updateAppNotes     = useSitemapBuilder((s) => s.updateAppNotes)
 
   const cfg = APP_CFG[app.kind]
   const AppIcon = cfg.Icon
   const [menuPickerOpen, setMenuPickerOpen] = useState(false)
+  const [showNotes, setShowNotes] = useState(false)
   const totalPages = app.navMenus.reduce((n, m) => n + m.pages.length, 0)
 
   return (
@@ -698,6 +770,29 @@ function AppBlock({ app }: { app: SitemapBuilderApp }) {
               </div>
             ))
           )}
+
+          {/* App notes */}
+          <div className="border-t border-app-border/40 pt-3">
+            <button
+              onClick={() => setShowNotes((v) => !v)}
+              className="flex items-center gap-1.5 text-[10px] text-app-subtle hover:text-app-muted"
+            >
+              <StickyNote size={10} />
+              {showNotes ? 'Hide app notes' : (app.notes ? 'Notes ·' : 'Add app notes')}
+              {!showNotes && app.notes && (
+                <span className="ml-1 truncate italic opacity-60 text-[9px]">{app.notes}</span>
+              )}
+            </button>
+            {showNotes && (
+              <textarea
+                value={app.notes ?? ''}
+                onChange={(e) => updateAppNotes(app.id, e.target.value)}
+                placeholder="Notes about this app…"
+                rows={2}
+                className="mt-1.5 w-full resize-none rounded-xl border border-app-border/60 bg-app-elevated/50 px-3 py-2 text-[11px] text-app-text outline-none placeholder:text-app-subtle/60 focus:border-app-accent"
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -749,10 +844,11 @@ export function SitemapNodeBuilder() {
   const reorderPages      = useSitemapBuilder((s) => s.reorderPages)
   const reorderSections   = useSitemapBuilder((s) => s.reorderSections)
   const moveSectionToPage = useSitemapBuilder((s) => s.moveSectionToPage)
-  const exportJSON        = useSitemapBuilder((s) => s.exportJSON)
 
-  const [view, setView] = useState<CardView>('list')
+  const [view, setView]             = useState<CardView>('list')
   const [appPickerOpen, setAppPickerOpen] = useState(false)
+  const [showExport, setShowExport] = useState(false)
+  const [showServices, setShowServices] = useState(true)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { pan, reset, zoom } = useCanvasPan(containerRef)
@@ -844,13 +940,6 @@ export function SitemapNodeBuilder() {
     }
   }
 
-  const handleExport = () => {
-    const blob = new Blob([exportJSON()], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const el = document.createElement('a'); el.href = url; el.download = 'sitemap.json'; el.click()
-    URL.revokeObjectURL(url)
-  }
-
   const dragItem = activeDragItem()
 
   // Stats
@@ -876,6 +965,7 @@ export function SitemapNodeBuilder() {
 
   return (
     <ViewCtx.Provider value={view}>
+      {showExport && <ExportModal onClose={() => setShowExport(false)} />}
       <div className="relative flex h-full w-full flex-col overflow-hidden bg-app-deep">
 
         {/* ── Toolbar ── */}
@@ -906,9 +996,19 @@ export function SitemapNodeBuilder() {
             <button onClick={reset} className="flex h-6 w-6 items-center justify-center text-app-subtle hover:text-app-text"><Maximize2 size={11} /></button>
           </div>
 
-          <button onClick={handleExport}
+          <button
+            onClick={() => setShowServices((v) => !v)}
+            className={cn(
+              'flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] font-medium transition-colors',
+              showServices
+                ? 'border-app-accent bg-app-accent/10 text-app-accent'
+                : 'border-app-border bg-app-elevated text-app-text hover:border-app-border-strong',
+            )}
+          ><Server size={12} /> Services</button>
+
+          <button onClick={() => setShowExport(true)}
             className="flex items-center gap-1.5 rounded-lg border border-app-border bg-app-elevated px-2.5 py-1.5 text-[11px] font-medium text-app-text transition-colors hover:border-app-border-strong"
-          ><FileJson size={12} /> Export JSON</button>
+          ><Download size={12} /> Export</button>
 
           {/* + New App */}
           <div className="relative">
@@ -954,23 +1054,30 @@ export function SitemapNodeBuilder() {
                 onDragStart={onDragStart}
                 onDragEnd={onDragEnd}
               >
-                {/* Apps row */}
                 <div className="flex items-start gap-8">
-                  {apps.map((app) => (
-                    <AppBlock key={app.id} app={app} />
-                  ))}
+                  {/* Apps column — stacked vertically */}
+                  <div className="flex flex-col gap-6" style={{ minWidth: 400 }}>
+                    {apps.map((app) => (
+                      <AppBlock key={app.id} app={app} />
+                    ))}
 
-                  {/* Ghost add app */}
-                  <div className="relative">
+                    {/* Ghost add app */}
                     <button
                       onClick={() => setAppPickerOpen((v) => !v)}
-                      className="flex shrink-0 flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-app-border text-app-subtle transition-all hover:border-app-accent/60 hover:text-app-accent"
-                      style={{ width: 200, height: 120 }}
+                      className="flex shrink-0 items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-app-border text-app-subtle transition-all hover:border-app-accent/60 hover:text-app-accent"
+                      style={{ height: 72 }}
                     >
-                      <Plus size={18} />
+                      <Plus size={16} />
                       <span className="text-[11px] font-medium">New App</span>
                     </button>
                   </div>
+
+                  {/* Services panel — right column */}
+                  {showServices && (
+                    <div className="shrink-0" style={{ marginTop: 0 }}>
+                      <ServicesPanel />
+                    </div>
+                  )}
                 </div>
 
                 <DragOverlay dropAnimation={{ duration: 160, easing: 'ease' }}>

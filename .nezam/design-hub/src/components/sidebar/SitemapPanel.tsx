@@ -1,11 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import {
   ChevronRight,
   FileText,
   Folder,
-  Check,
   Globe,
   Boxes,
   PenTool,
@@ -26,6 +25,9 @@ import {
   Monitor,
   Zap,
   Box,
+  AlertTriangle,
+  Upload,
+  ChevronDown,
 } from 'lucide-react'
 import { ARCHETYPES } from '@/data/archetypes'
 import { useHub } from '@/store/hub.store'
@@ -72,102 +74,220 @@ const MENU_KIND_ICONS: Record<NavMenuKind, typeof Navigation2> = {
   custom: MenuIcon,
 }
 
-/** Archetype picker + the chosen archetype's app/menu/page tree. */
-export function SitemapPanel() {
-  const dir = useHub((s) => s.dir)
-  const archetypeId = useHub((s) => s.archetypeId)
-  const setArchetype = useHub((s) => s.setArchetype)
-  const loadFromArchetype = useSitemapBuilder((s) => s.loadFromArchetype)
-  const rtl = dir === 'rtl'
-  const archetype = ARCHETYPES.find((a) => a.id === archetypeId) ?? ARCHETYPES[0]
+// ── Reset confirmation dialog ─────────────────────────────────────────────────
 
-  const handleSelectArchetype = (id: ArchetypeKind) => {
-    setArchetype(id)
-    const a = ARCHETYPES.find((x) => x.id === id)
-    if (a) loadFromArchetype(a.apps)
-  }
+type ResetAction = 'continue' | 'export-then-continue' | 'cancel'
 
-  // Count total pages across all apps
-  const totalApps = archetype.apps.length
-  const totalPages = archetype.apps.reduce((n, a) =>
-    n + a.navMenus.reduce((m, menu) =>
-      m + menu.pages.reduce((p, pg) => p + 1 + (pg.children?.length ?? 0), 0), 0), 0)
-
+function ResetDialog({
+  onAction,
+}: {
+  onAction: (action: ResetAction) => void
+}) {
   return (
-    <div className="app-scroll flex-1 overflow-y-auto px-3 py-3">
-      <div className="mb-2 px-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
-        Project archetype
-      </div>
-      <div className="space-y-1.5">
-        {ARCHETYPES.map((a) => (
-          <ArchetypeCard
-            key={a.id}
-            archetype={a}
-            active={a.id === archetypeId}
-            rtl={rtl}
-            onClick={() => handleSelectArchetype(a.id)}
-          />
-        ))}
-      </div>
-
-      <div className="mt-5 mb-2 flex items-center justify-between px-1">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
-          Structure
-        </span>
-        <span className="text-[10px] text-app-subtle">
-          {totalApps} app{totalApps !== 1 ? 's' : ''} · {totalPages} pages
-        </span>
-      </div>
-      <div className="space-y-1">
-        {archetype.apps.map((a) => (
-          <AppNode key={a.name} app={a} rtl={rtl} />
-        ))}
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="w-80 overflow-hidden rounded-2xl border border-app-border bg-app-surface shadow-app-xl">
+        <div className="flex items-start gap-3 p-4">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/15">
+            <AlertTriangle size={16} className="text-amber-400" />
+          </div>
+          <div>
+            <div className="text-[13px] font-semibold text-app-text">Reset sitemap?</div>
+            <p className="mt-1 text-[11px] text-app-subtle leading-relaxed">
+              Switching archetype will replace the current sitemap. This cannot be undone.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 border-t border-app-border p-4">
+          <button
+            onClick={() => onAction('export-then-continue')}
+            className="w-full rounded-xl border border-app-border bg-app-elevated px-3 py-2 text-left text-[11px] font-medium text-app-text hover:border-app-border-strong"
+          >
+            Export current, then reset
+          </button>
+          <button
+            onClick={() => onAction('continue')}
+            className="w-full rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-left text-[11px] font-semibold text-red-400 hover:bg-red-500/15"
+          >
+            Reset — I don't need the current sitemap
+          </button>
+          <button
+            onClick={() => onAction('cancel')}
+            className="w-full rounded-xl px-3 py-2 text-left text-[11px] text-app-subtle hover:bg-app-elevated"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   )
 }
 
-function ArchetypeCard({
-  archetype, active, rtl, onClick,
-}: {
-  archetype: Archetype; active: boolean; rtl: boolean; onClick: () => void
-}) {
-  const Icon = ARCHETYPE_ICONS[archetype.id]
+/** Archetype picker + the chosen archetype's app/menu/page tree. */
+export function SitemapPanel() {
+  const dir = useHub((s) => s.dir)
+  const archetypeId  = useHub((s) => s.archetypeId)
+  const setArchetype = useHub((s) => s.setArchetype)
+  const loadFromArchetype = useSitemapBuilder((s) => s.loadFromArchetype)
+  const exportJSON   = useSitemapBuilder((s) => s.exportJSON)
+  const rtl          = dir === 'rtl'
+  const archetype    = ARCHETYPES.find((a) => a.id === archetypeId) ?? ARCHETYPES[0]
+
+  // Pending selection state — chosen but not yet applied
+  const [pending, setPending] = useState<ArchetypeKind>(archetypeId)
+  const [showReset, setShowReset] = useState(false)
+  const importRef = useRef<HTMLInputElement>(null)
+
+  const handleApply = () => {
+    if (pending === archetypeId) return
+    setShowReset(true)
+  }
+
+  const doApply = (newId: ArchetypeKind) => {
+    setArchetype(newId)
+    const a = ARCHETYPES.find((x) => x.id === newId)
+    if (a) loadFromArchetype(a.apps)
+  }
+
+  const handleResetAction = (action: ResetAction) => {
+    setShowReset(false)
+    if (action === 'cancel') { setPending(archetypeId); return }
+    if (action === 'export-then-continue') {
+      const json = exportJSON()
+      const blob = new Blob([json], { type: 'application/json' })
+      const url  = URL.createObjectURL(blob)
+      const el   = document.createElement('a')
+      el.href = url; el.download = 'sitemap-backup.json'; el.click()
+      URL.revokeObjectURL(url)
+    }
+    doApply(pending)
+  }
+
+  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target?.result as string)
+        if (data?.apps && Array.isArray(data.apps)) {
+          // Load raw builder format directly
+          useSitemapBuilder.setState({ apps: data.apps, services: data.services ?? [] })
+        } else {
+          alert('Invalid sitemap file. Expected a file exported from NEZAM Design Hub.')
+        }
+      } catch {
+        alert('Could not parse the file. Make sure it is a valid JSON sitemap export.')
+      }
+    }
+    reader.readAsText(file)
+    // Reset input so same file can be re-imported
+    e.target.value = ''
+  }
+
+  // Count total pages across all apps
+  const totalApps  = archetype.apps.length
+  const totalPages = archetype.apps.reduce((n, a) =>
+    n + a.navMenus.reduce((m, menu) =>
+      m + menu.pages.reduce((p, pg) => p + 1 + (pg.children?.length ?? 0), 0), 0), 0)
+
+  const hasPendingChange = pending !== archetypeId
+
   return (
-    <button
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        'focus-ring group flex w-full items-center gap-2.5 rounded-app border px-2.5 py-2 text-left transition-all duration-150',
-        active
-          ? 'border-app-accent bg-app-accent-subtle'
-          : 'border-app-border bg-app-inset/60 hover:border-app-border-strong hover:-translate-y-px',
-      )}
-    >
-      <span className={cn(
-        'grid h-8 w-8 shrink-0 place-items-center rounded-app-sm transition-colors',
-        active ? 'bg-app-accent text-app-on-accent' : 'bg-app-elevated text-app-muted group-hover:text-app-text',
-      )}>
-        <Icon size={15} />
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1">
-          <span className="truncate text-xs font-semibold text-app-text">
-            {rtl ? archetype.arabicName : archetype.name}
-          </span>
-          {active && <Check size={11} className="text-app-accent" />}
+    <>
+      {showReset && <ResetDialog onAction={handleResetAction} />}
+
+      <div className="app-scroll flex-1 overflow-y-auto px-3 py-3">
+
+        {/* ── Archetype dropdown ─────────────────────────────────────────── */}
+        <div className="mb-2 px-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
+          Project archetype
         </div>
-        <div className="truncate text-[10px] text-app-subtle">{archetype.description}</div>
+
+        <div className="space-y-2">
+          {/* Dropdown selector */}
+          <div className="relative">
+            <select
+              value={pending}
+              onChange={(e) => setPending(e.target.value as ArchetypeKind)}
+              className="w-full appearance-none rounded-app border border-app-border bg-app-inset py-2 pl-3 pr-8 text-[12px] font-medium text-app-text outline-none focus:border-app-accent"
+            >
+              {ARCHETYPES.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {rtl ? a.arabicName : a.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown size={13} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-app-subtle" />
+          </div>
+
+          {/* Apply + description */}
+          {(() => {
+            const sel = ARCHETYPES.find((a) => a.id === pending)!
+            const Icon = ARCHETYPE_ICONS[pending]
+            return (
+              <div className={cn(
+                'rounded-app border px-2.5 py-2 transition-all',
+                hasPendingChange
+                  ? 'border-app-accent/40 bg-app-accent-subtle'
+                  : 'border-app-border/50 bg-app-inset/40',
+              )}>
+                <div className="flex items-center gap-2">
+                  <Icon size={13} className={hasPendingChange ? 'text-app-accent' : 'text-app-muted'} />
+                  <span className="flex-1 text-[11px] font-medium text-app-text">{sel.description}</span>
+                </div>
+                {hasPendingChange && (
+                  <button
+                    onClick={handleApply}
+                    className="mt-2 w-full rounded-lg bg-app-accent py-1.5 text-[11px] font-semibold text-app-on-accent transition-opacity hover:opacity-90"
+                  >
+                    Apply archetype
+                  </button>
+                )}
+              </div>
+            )
+          })()}
+
+          {/* Import button */}
+          <button
+            onClick={() => importRef.current?.click()}
+            className="flex w-full items-center gap-2 rounded-app border border-dashed border-app-border px-3 py-2 text-[11px] text-app-subtle transition-colors hover:border-app-border-strong hover:text-app-muted"
+          >
+            <Upload size={11} />
+            Import saved project (.json)
+          </button>
+          <input
+            ref={importRef}
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            className="hidden"
+          />
+        </div>
+
+        {/* ── Structure tree ─────────────────────────────────────────────── */}
+        <div className="mt-5 mb-2 flex items-center justify-between px-1">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-app-subtle">
+            Structure
+          </span>
+          <span className="text-[10px] text-app-subtle">
+            {totalApps} app{totalApps !== 1 ? 's' : ''} · {totalPages} pages
+          </span>
+        </div>
+        <div className="space-y-1">
+          {archetype.apps.map((a) => (
+            <AppNode key={a.name} app={a} rtl={rtl} />
+          ))}
+        </div>
       </div>
-    </button>
+    </>
   )
 }
 
 function AppNode({ app, rtl }: { app: ArchetypeApp; rtl: boolean }) {
   const [open, setOpen] = useState(true)
   const AppIcon = APP_KIND_ICONS[app.kind]
-  const color = APP_KIND_COLORS[app.kind]
-  const label = rtl ? app.arabicName : app.name
+  const color   = APP_KIND_COLORS[app.kind]
+  const label   = rtl ? app.arabicName : app.name
   const totalMenus = app.navMenus.length
 
   return (
@@ -184,12 +304,9 @@ function AppNode({ app, rtl }: { app: ArchetypeApp; rtl: boolean }) {
       </button>
 
       {/* Nav menus */}
-      {open && app.navMenus.map((menu) => {
-        const MenuIcon = MENU_KIND_ICONS[menu.kind]
-        return (
-          <MenuNode key={menu.name} menu={menu} rtl={rtl} />
-        )
-      })}
+      {open && app.navMenus.map((menu) => (
+        <MenuNode key={menu.name} menu={menu} rtl={rtl} />
+      ))}
     </div>
   )
 }
@@ -197,7 +314,7 @@ function AppNode({ app, rtl }: { app: ArchetypeApp; rtl: boolean }) {
 function MenuNode({ menu, rtl }: { menu: ArchetypeApp['navMenus'][number]; rtl: boolean }) {
   const [open, setOpen] = useState(true)
   const MenuIcon = MENU_KIND_ICONS[menu.kind]
-  const label = rtl ? menu.arabicName : menu.name
+  const label    = rtl ? menu.arabicName : menu.name
 
   return (
     <div className="border-t border-app-border/40">

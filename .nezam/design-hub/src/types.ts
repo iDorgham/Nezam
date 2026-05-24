@@ -290,12 +290,15 @@ export interface SitemapBuilderSection {
   id: string
   name: string
   description: string
+  notes?: string
 }
 
 export interface SitemapBuilderPage {
   id: string
   name: string
+  url?: string
   status?: PageStatus
+  notes?: string
   sections: SitemapBuilderSection[]
   collapsed: boolean
   /** Sub-pages nested under this page. */
@@ -310,6 +313,7 @@ export interface SitemapBuilderNavMenu {
   kind: NavMenuKind
   pages: SitemapBuilderPage[]
   collapsed: boolean
+  notes?: string
 }
 
 export type AppKind =
@@ -327,6 +331,34 @@ export interface SitemapBuilderApp {
   kind: AppKind
   navMenus: SitemapBuilderNavMenu[]
   collapsed: boolean
+  notes?: string
+}
+
+/* ── Services layer ─────────────────────────────────────────── */
+
+export type ServiceKind =
+  | 'api'
+  | 'auth'
+  | 'payment'
+  | 'database'
+  | 'storage'
+  | 'email'
+  | 'analytics'
+  | 'search'
+  | 'cache'
+  | 'cdn'
+  | 'ai'
+  | 'custom'
+
+export interface SitemapBuilderService {
+  id: string
+  name: string
+  kind: ServiceKind
+  description: string
+  endpoint?: string
+  notes?: string
+  /** Page IDs this service is connected to. */
+  connectedPageIds: string[]
 }
 
 /* ── Archetype sitemap templates ────────────────────────────── */

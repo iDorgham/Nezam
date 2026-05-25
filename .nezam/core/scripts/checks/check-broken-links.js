@@ -26,7 +26,11 @@ const IGNORED_DIRS = new Set([
   'workspace',
   'templates',
   'design',
-  'archive'
+  'archive',
+  'plans',
+  'reports',
+  'wiki',
+  'prd'
 ]);
 
 const EXTENSIONS = new Set(['.md', '.mdc']);

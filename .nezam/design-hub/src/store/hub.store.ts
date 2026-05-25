@@ -9,6 +9,7 @@ import type {
   BlockKind,
   BuilderMode,
   Comment,
+  DesignHubMode,
   Device,
   Direction,
   HistoryEntry,
@@ -94,6 +95,7 @@ interface HubState {
   pageStyle: PageStyle
 
   /* interaction */
+  hubMode: DesignHubMode
   selection: Selection | null
   builderMode: BuilderMode
   activeTool: Tool
@@ -132,6 +134,7 @@ interface HubActions {
   setDevice: (d: Device) => void
   setZoom: (z: number) => void
 
+  setHubMode: (m: DesignHubMode) => void
   select: (sel: Selection | null) => void
   selectScope: (scope: SelectionScope) => void
   setBuilderMode: (m: BuilderMode) => void
@@ -219,6 +222,7 @@ export const useHub = create<Store>()(
       contentOverrides: {},
       pageStyle: { width: 1080, padding: 0 },
 
+      hubMode: 'DESIGN_SYSTEM',
       selection: null,
       builderMode: 'brand',
       activeTool: 'select',
@@ -293,6 +297,7 @@ export const useHub = create<Store>()(
         }
         set({ selection: { ...sel, scope } })
       },
+      setHubMode: (m) => set({ hubMode: m }),
       setBuilderMode: (m) => set({ builderMode: m }),
       setActivePage: (id) => set({ activePage: id }),
       setTool: (t) => set({ activeTool: t }),
@@ -589,6 +594,7 @@ export const useHub = create<Store>()(
       // DesignHub calls rehydrate() in useEffect so localStorage loads after mount.
       skipHydration: true,
       partialize: (s) => ({
+        hubMode: s.hubMode,
         profileId: s.profileId,
         overrides: s.overrides,
         generated: s.generated,

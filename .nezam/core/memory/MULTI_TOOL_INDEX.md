@@ -50,7 +50,7 @@ Orchestration treats **repository root `DESIGN.md`** as the primary design artif
 
 | Step | What to do (any tool / terminal) |
 |------|-----------------------------------|
-| Browse profiles | Folders under `.nezam/design-hub/design/<brand>/` each contain `design.md` (see [`.nezam/design-hub/design/README.md`](../../.nezam/design-hub/design/README.md)). |
+| Browse profiles | Folders under `.nezam/design-hub/design/<brand>/` each contain `design.md` (see [`.nezam/design-hub/_archive/v1/design/README.md`](../../design-hub/_archive/v1/design/README.md)). |
 | Lock the contract | `pnpm run design:apply -- <brand>` copies the chosen file to **`DESIGN.md`** at repo root. |
 | Cursor shortcut | `/START design` mirrors the same intent (see `.cursor/commands/start.md`). |
 | After changing commands/agents/skills/rules | `pnpm ai:sync` then `pnpm ai:check` so Claude, Codex, Antigravity, Gemini, Qwen, Opencode, Kilo, Kiro, Windsurf, VS Code, and Copilot stay aligned. |
@@ -60,7 +60,7 @@ Orchestration treats **repository root `DESIGN.md`** as the primary design artif
 **Antigravity** and **Kilo** do not receive a generated `CLAUDE.md`-style bundle at repo root. Use:
 
 - Mirrored **commands** (`.antigravity/commands/`, or rules under `.kilocode/rules/`)
-- Human-readable onboarding: **[`docs/START.md`](../../docs/START.md)**, **[`.nezam/memory/CONTEXT.md`](CONTEXT.md)**, and this file
+- Human-readable onboarding: **[`docs/start.md`](../../../docs/start.md)**, **[`.nezam/memory/CONTEXT.md`](CONTEXT.md)**, and this file
 
 So design selection and `pnpm run design:apply` work the same from any terminal; only the *slash command* UX is Cursor-native.
 
@@ -79,6 +79,6 @@ hand-editing mirrored client surfaces for settings behavior.
 
 ## Canonical specifications (SDD)
 
-- **Procedure:** [`.cursor/skills/system/nezam-spec-generator/SKILL.md`](../../.cursor/skills/system/nezam-spec-generator/SKILL.md)
+- **Procedure:** [`.cursor/skills/system/nezam-spec-generator/SKILL.md`](../../../.cursor/skills/system/nezam-spec-generator/SKILL.md)
 - **Output tree:** `docs/specs/<type>/<slug>.md` (see [`.nezam/specs/README.md`](../specs/README.md))
-- **Design template:** [`.nezam/templates/research-design/DESIGN.template.md`](../templates/research-design/DESIGN.template.md)
+- **Design template:** [`.nezam/templates/research-design/DESIGN.template.md`](../../templates/research-design/DESIGN.template.md)

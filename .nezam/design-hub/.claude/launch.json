@@ -5,7 +5,7 @@
       "name": "design-hub",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "port": 4000
     }
   ]
 }

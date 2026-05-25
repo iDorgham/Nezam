@@ -1,6 +1,9 @@
 /** NEZAM Design Hub — shared types. */
 
 export type ThemeMode = 'light' | 'dark'
+
+/** Top-level workspace mode — controls left sub-nav + center viewport. */
+export type DesignHubMode = 'STRUCTURE' | 'DESIGN_SYSTEM' | 'BUILDER'
 export type Direction = 'ltr' | 'rtl'
 export type Device = 'mobile' | 'tablet' | 'desktop'
 export type Density = 'compact' | 'cozy' | 'spacious'

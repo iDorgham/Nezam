@@ -51,6 +51,10 @@ Do not proceed to development unless all exist:
 - When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `.nezam/templates/ai-client/` and `.nezam/core/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
 - **Arabic Language Preference:** When Arabic is chosen or required for content, localization, or communication, default to **Egyptian Arabic** (Masri) to match the project's Cairo/Sahel context, rather than Modern Standard Arabic (MSA).
 - **Planning Team Improvement:** To strengthen the Planning team, ensure all agents respect the SDD hardlocks, maintain strict traceability in `.nezam/core/plans/INDEX.md`, and consult the `masri-content-specialist` for regional alignment.
+- **Claude Token Optimization & Prompt Caching:** Always structure prompts to place core static reference documents (`AGENTS.md`, `CLAUDE.md`, `DESIGN.md`) at the very beginning of the context boundary to trigger automatic Anthropic Prompt Caching (saving up to 90% in token costs).
+- **Reference Over Repetition:** Avoid pasting full file contents or repeating rules. Use concise file paths, line-range links (e.g., `path.js#L12-L24`), and directory structure maps to keep the context window compact and prevent context window bloat.
+- **Handoff Compression:** Prioritize high-signal summaries over prose-heavy narration during agent handoffs. Log compact schema-compliant YAML records to `.cursor/state/agent-bus.yaml` to maintain a zero-redundancy active communications bus.
+- **Search and Index Hygiene:** Keep all synced client directories (`.claude/**`, `.gemini/**`, `.antigravity/**`, etc.) completely ignored in the workspace `search.exclude` and `files.exclude` configurations to eliminate double-search indexing and redundant file-system scans.
 
 ## Learned Workspace Facts
 

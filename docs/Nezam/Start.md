@@ -85,15 +85,14 @@ Before `/DEVELOP`:
 - Architecture doc exists:
   - `.nezam/core/architecture/ARCHITECTURE.md` (preferred), or
   - `.nezam/core/architecture/ARCHITECTURE.md` (legacy)
-- Design doc exists:
-  - `DESIGN.md` (preferred), or
-  - `.nezam/core/DESIGN.md` (legacy)
-
-When you run `/DEVELOP start` with a design profile:
-
-1. Select a profile from `.nezam/design-hub/design/*/design.md`
-2. Copy that profile to root `DESIGN.md`
-3. Continue only after copy is complete
+- Design contracts locked:
+  - Run `/DESIGN` or `/START design` to launch the **NEZAM Design Hub** on port `4000`.
+  - Map your project's Information Architecture with the **5-Level Sitemap Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`) and define backend API service bindings.
+  - Tune typography, layout scales, and color semantical custom properties in the `ThemePanel` and `DesignSystemPanel`.
+  - Click **"Lock & Sync"** in the Design Hub to compile and write:
+    - **`DESIGN.md`** at the repository root.
+    - **`wireframes_locked.json`** at the repository root.
+  - Alternately, you can apply a pre-made design profile from the catalog via terminal: `pnpm run design:apply -- <brand-name>`
 
 ## Quick commands
 

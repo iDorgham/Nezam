@@ -293,11 +293,11 @@ The Design Hub outputs two highly structured, machine-readable contracts that ga
 2. **`wireframes_locked.json`**: Schema-validated layout contract specifying the exact order and type of visual sections per page.
 
 ### 5 Core Hub Modules
-1. **Sitemap Builder**: Interactive visual editor for sitemaps and route hierarchies, pre-populated by AI from the PRD.
-2. **Wireframe Editor**: Layout engine to assemble block layouts (Hero, CTA, Features, Grid) per page.
-3. **Token Studio**: Live customizer with preview for CSS variable variables (`--ds-*`) across layout parameters.
+1. **Sitemap Builder (v2 Premium Upgraded)**: Featuring an enterprise-ready **5-Level Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`) with a vertical app canvas layout to prevent overlap. Integrates node-specific url routing, notes, and rich color-coded **Microservices & API Bindings** (`ServiceKind`). It draws active visual SVG connection lines (`ConnectionWires`) between pages and services, backed by an **Infrastructure Panel** (`InfraPanel`) for Git, Database, and Cloud integrations.
+2. **Wireframe Editor**: Interactive block layout canvas (Hero, CTA, Cards, Features) per page.
+3. **Theme & Design System Studio (v2 Premium Upgraded)**: Expanded into two highly customisable panels — `ThemePanel` (active custom styling, real-time Light/Dark mode token preview, shape presets) and `DesignSystemPanel` (custom CSS property mappings, responsive grid structures, typography hierarchy scales, fluid typography scales, and spacing multipliers).
 4. **Profile Browser**: Browse and apply **100+ beautifully curated brand profiles** from `.nezam/design/` (e.g., *Stripe*, *Linear*, *Vercel*, *Bento*).
-5. **State Review**: Section state audits (Loading, Empty, Error, Populated) to guarantee visual completeness.
+5. **Multi-Format Export Hub (v2 Premium New)**: Integrates an interactive `ExportModal` supporting live markdown/text previews and one-click copy/download of **12 distinct export formats** (including JSON v3 Schema, Folder Structure, URL Structure, Nav Menus, App Pages, RBAC Matrix, Roles & Permissions, Next.js Router, Routes list, Services List, Mermaid diagrams, and Full Context briefing).
 
 <details>
 <summary><strong>🎨 View Design Hub commands & agents</strong></summary>

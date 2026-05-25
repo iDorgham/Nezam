@@ -140,6 +140,52 @@ Do **not** conflate Cursor’s built-in subagent types with files in `.cursor/ag
 
 ---
 
+## Design Hub & System Architecture (v2 Premium)
+
+Token-first design governance backed by a **human-in-the-loop Design Hub** — a local Next.js 15 application (`.nezam/design-hub/`) running on port 4000. It bridges planning (PRD) and implementation, forcing the design contract to be visually verified and locked before any frontend code can be written.
+
+### The Design Contract
+The Design Hub outputs two highly structured, machine-readable contracts that gate the `/DEVELOP` build command:
+1. **`DESIGN.md` (root)**: The complete styling contract — color primitives, typography scale, responsive breakpoints, borders, and motion custom properties.
+2. **`wireframes_locked.json`**: Schema-validated layout contract specifying the exact order and type of visual sections per page.
+
+### Core Architecture & Premium Upgrades
+The Design Hub has been upgraded to a premium v2 design and orchestration studio with the following capabilities:
+
+#### 1. 5-Level Sitemap Hierarchy
+- **Architecture**: Transitions from a flat page list to a dense **5-Level Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`) modeling multi-app architectures.
+- **Node Attributes**: Supports optional notes, detailed descriptions, custom URL routing mapping, and interactive service bindings.
+- **Node Blocks**: App blocks are color-coded based on `AppKind` (marketing, dashboard-client, dashboard-admin, mobile, API, custom). Navigation menus are categorized by `NavMenuKind` (main, footer, sidebar, utility, custom).
+- **Infinite Canvas**: Multi-app views stack vertically (`flex-col gap-6`) on an infinite canvas equipped with smooth pan and zoom hooks to handle enterprise maps.
+- **Page Reordering & Drag-and-Drop**: Interactive DnD allows reordering pages within Nav Menus and sections within pages.
+
+#### 2. Services & Infrastructure Integration
+- **Backend Service Bindings**: Direct integration of color-coded backend services (`SitemapBuilderService`) such as `api`, `auth`, `payment`, `database`, `storage`, `email`, `analytics`, `search`, `cache`, and `ai`.
+- **Active Connection Wires**: Visual custom SVG connection lines (`ConnectionWires`) are rendered to connect Page nodes to backend microservices, mapping orchestration flows.
+- **Infrastructure Panel (`InfraPanel`)**: Centralized panel to configure Git providers, Database endpoints (`neon`, `supabase`, `planetscale`, etc.), cloud platforms (`vercel`, `railway`, `aws`, etc.), and PRD source documents.
+
+#### 3. Advanced Style & Theme Studio
+- **Theme Panel (`ThemePanel`)**: Real-time Light/Dark parity customizer and token preview workspace.
+- **Design System Panel (`DesignSystemPanel`)**: Interactive builder to define typography scales, fluid sizing scales (`clamp()`), spacing multipliers, and CSS custom property mappings.
+
+#### 4. 12-Format Multi-Export Hub
+- **Interactive Export Modal**: Features a side-by-side live markdown preview and one-click clipboard copying and file downloads.
+- **Export Formats**: Supports **12 distinct structures**:
+  1. *JSON Schema (v3)*: Authoritative data tree.
+  2. *Folder Structure*: Directory trees mapping routes to disk directories.
+  3. *URL Structure*: Complete sitemap site URLs.
+  4. *Nav Menus*: List of menus by kind and ordering.
+  5. *App Pages*: Hierarchy of page routing maps.
+  6. *RBAC Matrix*: Role-Based Access Control matrix.
+  7. *Roles & Permissions*: Security roles mapping.
+  8. *Next.js Router*: Next.js 15 app routing maps.
+  9. *Routes*: Simplified route listings.
+  10. *Services List*: Registered backend microservices.
+  11. *Mermaid Diagram*: visual flow diagrams of sitemaps.
+  12. *Full Context*: Complete comprehensive briefing context for external AIs.
+
+---
+
 ## Agents & Subagents
 
 ### Definition and differences

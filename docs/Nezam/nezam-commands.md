@@ -8,6 +8,7 @@ NEZAM uses slash commands to trigger governed workflows. Commands are defined in
 |---|---|---|
 | `/START` | `start.md` | Initialize or resume the workspace |
 | `/PLAN` | `plan.md` | Build and populate phase plans |
+| `/DESIGN` | `design.md` | Open the Design Hub dashboard for wireframing and design locking |
 | `/DEVELOP` | `develop.md` | Start a feature development slice |
 | `/CHECK` | `check.md` | Run workspace readiness checks |
 | `/FIX` | `fix.md` | Diagnose and repair issues |
@@ -47,6 +48,22 @@ Builds or updates the phase execution plan.
 3. Maps requirements to PT-IDs
 4. Sets gate prerequisites
 5. Updates `.nezam/core/plans/INDEX.md`
+
+---
+
+## `/DESIGN`
+
+Launches or directs the user to the local **NEZAM Design Hub** (running on port `4000`) to visually design, edit, and lock the application sitemaps, layouts, and styles.
+
+**What it does:**
+1. Directs the user to the Next.js 15 local design server.
+2. Supports `/START design` to initialize the design environment dependencies and server.
+3. Provides visual tools to construct the enterprise **5-Level Sitemap Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`) with node-specific notes, URLs, and color-coded service connections (`ServiceKind`) rendered via interactive SVG connection wires.
+4. Integrates the **Infrastructure Panel** (`InfraPanel`) for Git, Database, and Cloud platform mappings.
+5. Manages custom styling tokens through `ThemePanel` (light/dark previews) and `DesignSystemPanel` (fluid scale, spacing multipliers, and CSS custom property maps).
+6. Generates and locks the critical design system contracts (`DESIGN.md` and `wireframes_locked.json`) to satisfy Phase 02 gates.
+
+**Usage:** Type `/DESIGN` or `/START design` to open the visual Design Hub dashboard.
 
 ---
 

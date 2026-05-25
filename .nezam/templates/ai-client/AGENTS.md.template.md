@@ -55,3 +55,7 @@ Do not proceed to development unless all exist:
 - Execution plans and SDD tasks live under `.nezam/core/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
 - AI ethics audit outputs and companion operational templates belong under `.nezam/core/reports/audits/` per the docs reports placement policy.
 - Optional swarm- and skills-oriented Mermaid sources live under `.nezam/core/architecture/mermaids/` when that layout is maintained.
+- **Design Hub (v2) Sitemap Hierarchy:** The visual sitemap represents an enterprise-grade **5-Level Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`) rather than a simple flat page list.
+- **Design Hub Service Connections:** Page nodes support direct backend microservice bindings (`ServiceKind` like `api`, `auth`, `payment`, `database`) that draw interactive SVG connection wires.
+- **Design Hub Theme & Layout Panels:** Right-rail builders include `ThemePanel` (light/dark token preview) and `DesignSystemPanel` (spacing, fluid typography scales, custom CSS properties mapping).
+- **Design Hub 12-Format Export Engine:** Supports 12 distinct export schemas (Folder structures, RBAC metrics, Next.js Router files, Mermaid charts, etc.) stored within the sitemap export library.

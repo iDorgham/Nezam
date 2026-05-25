@@ -55,6 +55,8 @@ Optional fourth file:
 ## Working Notes
 
 - Active design brand is managed under `.nezam/design/`.
+- **Design Hub v2 Sitemap & Hierarchy:** The visual sitemap features an enterprise-grade **5-Level Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`). Nodes support direct URLs, detailed notes, and color-coded service integrations (`ServiceKind`) visually mapped using SVG connection lines.
+- **Design Hub Styling & Multi-Format Export:** Manage design tokens via `ThemePanel` (light/dark preview) and `DesignSystemPanel` (fluid scale, spacing, responsive grid, custom property mapping). Sitemaps can be exported into **12 formats** (JSON v3, Folder Structure, Mermaid diagram, RBAC matrix, Next.js Router, etc.).
 - Keep durable decisions in `.nezam/memory/MEMORY.md`.
 - **Drift recovery:** after local edits to mirrored AI client folders outside `.cursor/`, run `pnpm ai:sync` then `pnpm ai:check` before commit.
 - Keep generated outputs in `docs/reports/<category>/` only.

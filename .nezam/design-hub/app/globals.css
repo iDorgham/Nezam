@@ -141,6 +141,23 @@ body {
   background-size: 22px 22px;
 }
 
+/* ── Design System component preview — light/dark surface context ── */
+.preview-surface-light {
+  background: #ffffff;
+  color: #111111;
+}
+.preview-surface-dark {
+  background: #111112;
+  color: #f0f0f0;
+}
+
+/* ── Thin focus ring for interactive preview elements ── */
+.preview-focus:focus-visible {
+  outline: 2px solid var(--p-brand, var(--app-accent));
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
 /* Inline-editable text caret tint */
 [contenteditable='true']:focus {
   outline: none;

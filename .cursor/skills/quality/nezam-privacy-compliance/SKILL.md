@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-privacy-compliance
+name: "Privacy Compliance"
 tier: 3
-name: "nezam-"nezam- nezam-privacy-compliance"
 description: GDPR / CCPA patterns — consent gating, audit logging, right-to-delete, and data residency.
 version: 1.0.0
 updated: 2026-05-08

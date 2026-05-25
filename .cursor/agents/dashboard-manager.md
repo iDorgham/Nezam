@@ -40,7 +40,7 @@ Own the dashboard surface for product, growth, ops, and executive consumers. Dec
 
 - [`.cursor/skills/nezam-dashboard-patterns/SKILL.md`](../skills/design/nezam-dashboard-patterns/SKILL.md)
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
-- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-design-tokens`, includes Frontend Integration Mode)
 
 ## When to invoke
 

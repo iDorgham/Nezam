@@ -1,13 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-stripe"
-name: "nezam-"nezam-"nezam-stripe"
+skill_id: nezam-stripe
+name: "Stripe"
 description: "Implements Stripe payment processing, Checkout, subscriptions, Connect, and secure webhooks."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial Wave 2 implementation."
+date: 2026-05-12
+notes: "Initial Wave 2 implementation."
 owner: "payments-lead"
 tier: 1
 sdd_phase: "Release"

@@ -232,7 +232,7 @@ Full details are maintained in the [Agent Map](.nezam/core/wiki/Agent-Map.md).
 
 ## Skills & Tech Stack
 
-NEZAM features **84+ active modular skills** categorized across 9 core architectural vectors. Each skill is defined as a standalone, self-documenting package under `.cursor/skills/` with strict input/output rules, step-by-step procedures, validation suites, and anti-patterns.
+NEZAM features **175+ active modular skills** categorized across 9 core architectural vectors. Each skill is defined as a standalone, self-documenting package under `.cursor/skills/` with strict input/output rules, step-by-step procedures, validation suites, and anti-patterns.
 
 ### Skill Categories
 

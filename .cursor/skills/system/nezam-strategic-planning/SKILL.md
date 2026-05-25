@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-strategic-planning
+name: "Strategic Planning"
 tier: 3
-name: "nezam-"nezam- nezam-strategic-planning"
 description: Anchor product roadmap, milestone gating, scope control, and resource mapping before any SDD phase begins.
 version: 1.0.0
 updated: 2026-05-08

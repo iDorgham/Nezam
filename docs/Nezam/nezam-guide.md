@@ -279,7 +279,7 @@ Path convention: `.cursor/agents/<name>.md` except `EVAL_FRAMEWORK.md`.
 | frontend-lead | manager | frontend | Frontend implementation quality and slicing. |
 | frontend-performance-manager | manager | frontend | Core Web Vitals and runtime performance owner. |
 | gitops-engineer | specialist | devops | GitOps and deployment workflow automation. |
-| headless-cms-specialist | specialist | cms-saas | Headless CMS implementation specialist. |
+| cms-headless-architect | specialist | cms-saas | Headless CMS architecture, schemas, preview, and API routing. |
 | i18n-engineer | specialist | content | Internationalization and locale behavior specialist. |
 | infra-security-manager | manager | security | Infrastructure threat controls and hardening. |
 | infrastructure-manager | manager | devops | Platform reliability and environment ownership. |
@@ -312,7 +312,7 @@ Path convention: `.cursor/agents/<name>.md` except `EVAL_FRAMEWORK.md`.
 | mobile-push-notifications-specialist | specialist | mobile | Notification delivery and platform policy specialist. |
 | motion-3d-choreographer | specialist | design | Motion systems and progressive 3D choreography. |
 | msa-formal-specialist | specialist | content | Modern Standard Arabic content specialist. |
-| multi-tenancy-architect | specialist | cms-saas | Tenant isolation and SaaS tenancy architecture. |
+| saas-tenancy-architect | specialist | cms-saas | Multi-tenant isolation separation, data partitioning, and database RLS. |
 | nosql-expert | specialist | data-db | NoSQL design and query optimization specialist. |
 | observability-specialist | specialist | devops | Monitoring, tracing, and alerting specialist. |
 | payments-lead | manager | payments | Payment system implementation and quality owner. |

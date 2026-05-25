@@ -1,18 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-gemini-integration"
-name: "nezam-"nezam-"nezam-gemini-integration"
+skill_id: nezam-gemini-integration
+name: "Gemini Integration"
 description: "Google Gemini API integration using the correct google-genai SDK. Covers multimodal input, streaming, function calling, search grounding, and file API for large documents."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release.
 owner: "backend-lead"
 tier: 2
 sdd_phase: "Development"
 rtl_aware: false
 certified: false
 dependencies:
-  - "backend/vercel-ai-sdk"
 ---
 # Gemini Integration
 

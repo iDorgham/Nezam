@@ -35,9 +35,9 @@ when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN p
 - Maintain prototype → token → component decision trail in DESIGN.md.
 
 # @skill nezam-Dependencies
-- `@nezam-pro-design-tokens`
+- `@nezam-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-motion-3d-progressive`
+- `@nezam-motion-3d`
 
 # Anti-Patterns
 - Token duplication or semantic alias collisions.

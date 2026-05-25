@@ -1,11 +1,9 @@
 ---
+skill_id: nezam-handoff-report
+name: "Handoff Report"
 tier: 3
-name: "nezam-"nezam-"nezam-handoff-report"
 description: Structured handoff report generator — session state capture, decision log, next-action brief, and context package for human-to-human or agent-to-agent transitions.
 paths:
-  - ".nezam/core/memory/**"
-  - "docs/reports/progress/**"
-  - ".cursor/state/**"
 version: 1.0.0
 updated: 2026-05-12
 changelog: []

@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-serp-feature-targeting
+name: "Serp Feature Targeting"
 tier: 3
-name: "nezam-"nezam- nezam-serp-feature-targeting"
 description: Target featured snippets, PAA, local pack, and image/video carousels through deliberate content shaping.
 version: 1.0.0
 updated: 2026-05-08

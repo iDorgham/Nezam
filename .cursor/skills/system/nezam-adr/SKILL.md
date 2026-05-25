@@ -1,18 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-adr"
-name: "nezam-"nezam-"nezam-adr"
+skill_id: nezam-adr
+name: "Adr"
 description: "Creates Architecture Decision Records as executable specs for coding agents — not just documentation. Triggered whenever a technology choice, architectural pattern, or infrastructure decision is introduced."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release — Vercel ADR skill methodology adapted for NEZAM agent-executable format.
 owner: "project-architect"
 tier: 1
 sdd_phase: "Planning"
 rtl_aware: false
 certified: false
 dependencies:
-  - "system/spec-writing"
 ---
 # Architecture Decision Record (ADR)
 

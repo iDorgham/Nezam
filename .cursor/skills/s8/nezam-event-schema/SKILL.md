@@ -1,6 +1,6 @@
 ---
-id: nezam-s8-event-schema
-name: "nezam-"nezam-"nezam-S8 Event Schema"
+skill_id: nezam-event-schema
+name: "S8 Event Schema"
 tier: 3
 summary: Event schema definitions for S8 analytics, ensuring consistent tracking across the application.
 owner: unassigned
@@ -8,11 +8,9 @@ version: 1.0.0
 updated: 2026-05-12
 changelog: "Initial skill creation for NEZAM hardening Phase 3."
 usage: |
-  Use this skill to define and validate event schemas for tracking.
 tests: |
-  Placeholder: Validate schemas against test events.
+Placeholder: Validate schemas against test events.
 example: |
-  Define a schema for a "page_view" event.
 ---
 # S8 Event Schema
 

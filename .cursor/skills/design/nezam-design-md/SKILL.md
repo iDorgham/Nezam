@@ -1,10 +1,9 @@
 ---
+skill_id: nezam-design-md
+name: "Design Md"
 tier: 3
-name: "nezam-"nezam-"nezam-design-md"
 description: Author DESIGN.md textual prototypes — layout archetypes, color systems, typography, motion, accessibility, example pages BEFORE implementation.
 paths:
-  - "DESIGN.md"
-  - "DESIGN_PAGES/**"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

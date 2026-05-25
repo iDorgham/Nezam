@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-css-architecture
+name: "Css Architecture Runtime"
 tier: 3
-name: "nezam-"nezam-"nezam-css-architecture-runtime"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

@@ -25,6 +25,10 @@ Optimize for answer engines and geographic relevance: concise definitional block
 
 ## Primary skills / lenses
 
+- `@nezam-ia-taxonomy`
+- `@nezam-seo-ia-content`
+- `@nezam-serp-feature-targeting`
+- `@nezam-structured-data-schema`
 - `/SCAN seo`, structured data stubs, `SEO_RESEARCH.md` intent rows
 
 ## When to invoke

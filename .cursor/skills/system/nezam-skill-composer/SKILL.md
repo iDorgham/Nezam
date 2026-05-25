@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-skill-composer
+name: "System/skill Composer"
 tier: 3
-name: "nezam-"nezam-"nezam-system/skill-composer"
 description: Resolve natural-language feature requests into an ordered NEZAM skill stack with MENA-aware routing.
 version: 1.0.0
 updated: 2026-05-08

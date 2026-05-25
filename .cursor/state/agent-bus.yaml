@@ -1,5 +1,31 @@
 ---
-created: ""
-version: "1.0.0"
-owner: "PM-01"
-messages: []
+created: ''
+version: 1.0.0
+owner: PM-01
+messages:
+  - id: MSG-1779719097717
+    from: swarm-leader
+    to: deputy-swarm-leader
+    type: handoff
+    phase: 00-Define
+    mode: sdd
+    timestamp: '2026-05-25T14:24:57.717Z'
+    status: pending
+    payload:
+      subject: Workspace Bootstrap Handshake
+      artifact_path: .cursor/state/onboarding.yaml
+      summary: All 162 specialized agents certified.
+      action_required: Resume active standup monitoring.
+  - id: MSG-1779719195413
+    from: deputy-swarm-leader
+    to: subagent-controller
+    type: task_delegation
+    phase: planning
+    mode: lean
+    timestamp: '2026-05-25T14:26:35.413Z'
+    status: pending
+    payload:
+      subject: Test run execution
+      artifact_path: ''
+      summary: ''
+      action_required: ''

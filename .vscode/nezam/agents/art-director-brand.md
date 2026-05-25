@@ -27,9 +27,9 @@ when: ["/PLAN design", "brand direction review", "component review", "pre-releas
 - Visual anti-drift checklist for handoff to implementation personas.
 
 # @skill nezam-Dependencies
-- `@nezam-pro-design-tokens`
+- `@nezam-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-motion-3d-progressive`
+- `@nezam-motion-3d`
 
 # Anti-Patterns
 - Hardcoded visual primitives outside token source.

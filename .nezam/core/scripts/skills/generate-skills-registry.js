@@ -33,17 +33,27 @@ walkDir(skillsDir, (filePath) => {
     const match = content.match(/^---([\s\S]*?)---/);
     if (match) {
       try {
+        const skillIdMatch = match[1].match(/^skill_id:\s*(.+)$/m);
+        const idMatch = match[1].match(/^id:\s*(.+)$/m);
         const skillMatch = match[1].match(/^skill:\s*(.+)$/m);
         const nameMatch = match[1].match(/^name:\s*(.+)$/m);
-        const id = skillMatch ? skillMatch[1].trim() : (nameMatch ? nameMatch[1].trim() : null);
         
-        const versionMatch = match[1].match(/^version:\s*(.+)$/m);
-        const version = versionMatch ? versionMatch[1].trim() : '0.0.0';
+        let rawId = null;
+        if (skillIdMatch) rawId = skillIdMatch[1].trim();
+        else if (idMatch) rawId = idMatch[1].trim();
+        else if (skillMatch) rawId = skillMatch[1].trim();
+        else if (nameMatch) rawId = nameMatch[1].trim();
         
-        if (id) {
+        if (rawId) {
+          // Robust sanitization: strip quotes, duplicate prefixes, and normalize spaces
+          const cleanId = rawId.replace(/['"]/g, '').replace(/(nezam-)+/g, 'nezam-').trim();
+          
+          const versionMatch = match[1].match(/^version:\s*(.+)$/m);
+          const version = versionMatch ? versionMatch[1].trim() : '0.0.0';
+          
           skills.push({
             path: path.relative(path.join(__dirname, '..'), filePath),
-            id: id,
+            id: cleanId,
             version: version,
             referenced_by: [],
             orphaned: true // Assume orphaned until found

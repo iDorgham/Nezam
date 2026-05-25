@@ -1,6 +1,6 @@
 ---
-id: nezam-analytics-chart-styles
-name: "nezam-"nezam-Analytics Chart Styles"
+skill_id: nezam-analytics-chart-styles
+name: "Analytics Chart Styles"
 description: Defining visual styles for charts, including grids, tooltips, and markers.
 tier: 3
 swarm: Swarm 8 (Analytics)
@@ -9,7 +9,6 @@ created: 2026-05-12
 updated: 2026-05-12
 owner: PM-01
 changelog:
-  - 1.0.0: Initial release
 ---
 # Skill: Analytics Chart Styles
 ## Purpose

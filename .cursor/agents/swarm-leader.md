@@ -159,3 +159,35 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 - Orchestration controller: [.cursor/agents/subagent-controller.md](subagent-controller.md)
 - [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
 - [`.cursor/skills/system/cli-orchestration/SKILL.md`](../skills/system/nezam-cli-orchestration/SKILL.md)
+
+
+## Related Skills
+- `@nezam-adr`
+- `@nezam-agent-eval`
+- `@nezam-agents-md`
+- `@nezam-ai-safety-guardrails`
+- `@nezam-ai-ux-patterns`
+- `@nezam-build-modes`
+- `@nezam-context-window-manager`
+- `@nezam-cost-monitor`
+- `@nezam-decision-journal`
+- `@nezam-docs-context-sync`
+- `@nezam-founder-onboarding`
+- `@nezam-health-score`
+- `@nezam-llm-integration`
+- `@nezam-phase-gating-roadmap`
+- `@nezam-progress-narrator`
+- `@nezam-prompt-audit`
+- `@nezam-reflection-loop-engine`
+- `@nezam-repo-file-org`
+- `@nezam-sdd-gate-validator`
+- `@nezam-skill-composer`
+- `@nezam-slash-command-router`
+- `@nezam-spec-generator`
+- `@nezam-tavily-research`
+- `@nezam-token-budget-manager`
+- `@nezam-event-schema`
+- `@nezam-funnel`
+- `@nezam-growth`
+- `@nezam-retention`
+- `@nezam-prioritize-rice`

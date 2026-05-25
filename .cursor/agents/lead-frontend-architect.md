@@ -39,11 +39,23 @@ Swarm Manager for the Frontend swarm. Own the web frontend implementation: frame
 
 ## Primary skills / lenses
 
+- `@nezam-chart-library-abstraction`
+- `@nezam-collab-ui-patterns`
+- `@nezam-component-testing`
+- `@nezam-gsap-animations`
+- `@nezam-i18n-next-intl`
+- `@nezam-kanban-pipeline-ui`
+- `@nezam-nextjs-patterns`
+- `@nezam-performance-budget`
+- `@nezam-react18-patterns`
+- `@nezam-rtl-layout`
+- `@nezam-shadcn-ui`
+- `@nezam-state-management`
 - [`.cursor/skills/nezam-react-architecture/SKILL.md`](../skills/frontend/nezam-react-architecture/SKILL.md)
 - [`.cursor/skills/nezam-component-library-api/SKILL.md`](../skills/design/nezam-component-library-api/SKILL.md)
-- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-design-tokens`, includes Frontend Integration Mode)
 - [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
-- [`.cursor/skills/nezam-motion-3d-progressive/SKILL.md`](../skills/nezam-motion-3d-progressive/SKILL.md)
+- [`.cursor/skills/nezam-motion-3d/SKILL.md`](../skills/nezam-motion-3d/SKILL.md)
 - SSR vs CSR trade log; design tokens.
 
 ## When to invoke

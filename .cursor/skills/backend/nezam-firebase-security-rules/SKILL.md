@@ -1,19 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-firebase-security-rules"
-name: "nezam-"nezam-"nezam-firebase-security-rules"
+skill_id: nezam-firebase-security-rules
+name: "Firebase Security Rules"
 description: "Red-team audit of Firebase Security Rules before every deploy. Scores rules 1–5 on 5 critical checks. Deploy blocked if score <4."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release.
 owner: "lead-security-officer"
 tier: 1
 sdd_phase: "Quality"
 rtl_aware: false
 certified: false
 dependencies:
-  - "backend/firebase"
-  - "quality/security-hardening"
 ---
 # Firebase Security Rules Audit
 

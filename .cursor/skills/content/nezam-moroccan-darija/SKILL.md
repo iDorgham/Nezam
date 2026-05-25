@@ -1,10 +1,10 @@
 ---
+skill_id: nezam-moroccan-darija
+name: "Moroccan Darija"
 tier: 3
-name: "nezam-"nezam-"nezam-moroccan-darija"
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - "v1.0.0: Initial release for hardening pass."
 ---
 ```json
 {

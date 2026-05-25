@@ -1,19 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-design-context-init"
-name: "nezam-"nezam-"nezam-design-context-init"
+skill_id: nezam-design-context-init
+name: "Design Context Init"
 description: "Run before any design work on an unfamiliar codebase — extracts full UI context (components, layouts, routes, tokens, pages, extractable components) into 6 structured files in .cursor/context/design-init/."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release — superdesign INIT methodology adapted for NEZAM.
 owner: "design-lead"
 tier: 1
 sdd_phase: "Design"
 rtl_aware: true
 certified: false
 dependencies:
-  - "design/design-tokens"
-  - "design/css-architecture"
 ---
 # Design Context Init
 

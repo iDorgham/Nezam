@@ -1,19 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-design-iteration-protocol"
-name: "nezam-"nezam-"nezam-design-iteration-protocol"
+skill_id: nezam-design-iteration-protocol
+name: "Design Iteration Protocol"
 description: "Enforces the two-step design discipline: Step A pixel-perfect ground-truth reproduction → Step B exactly 2 branch variations. Applies to all design work in NEZAM."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release — adapted from superdesign two-step SOP for NEZAM.
 owner: "design-lead"
 tier: 1
 sdd_phase: "Design"
 rtl_aware: true
 certified: false
 dependencies:
-  - "design/design-context-init"
-  - "design/wireframe-pipeline"
 ---
 # Design Iteration Protocol
 

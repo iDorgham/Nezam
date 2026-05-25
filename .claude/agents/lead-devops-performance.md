@@ -42,6 +42,12 @@ Swarm Manager for the Performance & DevOps swarm. Own CI / CD pipelines, infrast
 
 ## Primary skills / lenses
 
+- `@nezam-browserbase`
+- `@nezam-cloudflare-edge`
+- `@nezam-devops-pipeline`
+- `@nezam-firecrawl`
+- `@nezam-llm-observability`
+- `@nezam-product-analytics`
 - `.github/workflows/**`, `/DEPLOY ship`, `@git-workflow`.
 - [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/infrastructure/nezam-devops-pipeline/SKILL.md)
 - [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/quality/nezam-github-actions-ci/SKILL.md)

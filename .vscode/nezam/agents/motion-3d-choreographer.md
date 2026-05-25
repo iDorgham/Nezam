@@ -27,8 +27,8 @@ when: ["/PLAN design", "motion spec validation", "3d fallback review", "/SCAN pe
 - Reduced-motion parity checklist and test notes.
 
 # @skill nezam-Dependencies
-- `@nezam-motion-3d-progressive`
-- `@nezam-pro-design-tokens`
+- `@nezam-motion-3d`
+- `@nezam-design-tokens`
 - `@nezam-component-library-api`
 
 # Anti-Patterns

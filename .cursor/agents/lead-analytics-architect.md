@@ -41,6 +41,10 @@ Swarm Manager for the Analytics & Dashboard swarm. Own the end-to-end analytics 
 
 ## Primary skills / lenses
 
+- `@nezam-advanced-analytics-patterns`
+- `@nezam-analytics-chart-animations`
+- `@nezam-dashboard-architecture`
+- `@nezam-live-data-streams`
 - [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/backend/nezam-database-optimization/SKILL.md) for warehouse query plans and indexing.
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md) for pipeline SLOs and alerting.
 - [`.cursor/skills/nezam-privacy-compliance/SKILL.md`](../skills/quality/nezam-privacy-compliance/SKILL.md) for PII handling and retention.

@@ -1,11 +1,9 @@
 ---
+skill_id: nezam-prompt-audit
+name: "Prompt Audit"
 tier: 3
-name: "nezam-"nezam-"nezam-prompt-audit"
 description: Systematic audit of LLM prompts — quality scoring, drift detection, jailbreak pattern review, and improvement recommendations for all NEZAM agent instructions and product prompts.
 paths:
-  - ".cursor/agents/**"
-  - "docs/specs/ai/**"
-  - "docs/reports/ai/**"
 version: 1.0.0
 updated: 2026-05-12
 changelog: []

@@ -1,6 +1,6 @@
 ---
-skill_id: "nezam-"nezam- nezam-component-testing"
-name: "nezam-"nezam-"nezam-component-testing"
+skill_id: nezam-component-testing
+name: "Component Testing"
 description: Storybook-first components, Vitest + Testing Library, interactions, snapshots, axe, and RTL layout assertions.
 version: 1.0.0
 updated: 2026-05-12
@@ -12,7 +12,6 @@ rtl_aware: false
 certified: false
 dependencies: []
 co_owners:
-  - lead-qa-architect
 ---
 # Component testing (frontend/component-testing)
 

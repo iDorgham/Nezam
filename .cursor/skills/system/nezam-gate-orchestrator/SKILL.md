@@ -1,11 +1,11 @@
 ---
+skill_id: nezam-gate-orchestrator
+name: "Gate Orchestrator"
 tier: 3
-name: "nezam-gate-orchestrator"
 description: Unified Gate Orchestrator for NEZAM. Validates SDD phase gates, checks hardlocks, and blocks unsafe progression with aggressive refusal templates. Replaces sdd-gate-validator and sdd-hardlock-manager.
 version: 2.0.0
 updated: 2026-05-12
 changelog:
-  - 2.0.0: Merged sdd-gate-validator and sdd-hardlock-manager. Added aggressive refusal blocks.
 ---
 # Gate Orchestrator Skill
 

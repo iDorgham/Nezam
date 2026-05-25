@@ -1,12 +1,11 @@
 ---
+skill_id: nezam-design-to-code-handoff
+name: "Design To Code Handoff"
 tier: 3
-name: "nezam-"nezam-"nezam-design-to-code-handoff"
 description: "Transfers finalized design specs to development with full context: ground-truth component references, recursive import trees, token maps, and RTL verification."
 version: 2.0.0
 updated: 2026-05-12
 changelog:
-  - 2.0.0: Major upgrade — added ground-truth-first discipline, recursive import tracing, context file selection rules, large-file handling, and superdesign-informed handoff checklist.
-  - 1.0.0: Initial release.
 ---
 # Design to Code Handoff
 

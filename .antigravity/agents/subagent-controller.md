@@ -38,6 +38,8 @@ Before assigning any task to a swarm:
    - Update `develop_phases.yaml` for that phase: `status` → `complete`
    - Set next phase: `status` → `unlocked`
    - Announce unlock to the swarm
+   - **Active Agent Bus Logging Mandate:** You MUST execute the active bus-logger CLI utility to append a compliant YAML message to `.cursor/state/agent-bus.yaml` on every phase completion or task assignment handoff:
+     `node .nezam/core/scripts/bus/log-message.js --from subagent-controller --to <target_lead> --type <handoff/escalation/blocker/decision-request> --phase <phase> --mode <mode> --subject "<brief_subject>" --artifact "<artifact_path>" --summary "<action_summary>" --action "<required_response_action>"`
 
 ## Task Assignment Format
 
@@ -254,9 +256,9 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - `@nezam-analytics-observability`
 - `@nezam-multi-agent-handoff`
 - `@nezam-cli-orchestration`
-- `@nezam-pro-design-tokens`
+- `@nezam-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-motion-3d-progressive`
+- `@nezam-motion-3d`
 
 # References
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](./README.md).
@@ -294,3 +296,37 @@ Before routing ANY task involving the items below to any implementation swarm, *
 ```
 
 This rule cannot be bypassed by MODE A/B/C classification. Ethics review is a prerequisite gate, not a swarm assignment.
+
+
+## Related Skills
+- `@nezam-adr`
+- `@nezam-agent-eval`
+- `@nezam-agents-md`
+- `@nezam-ai-safety-guardrails`
+- `@nezam-ai-ux-patterns`
+- `@nezam-build-modes`
+- `@nezam-context-window-manager`
+- `@nezam-cost-monitor`
+- `@nezam-decision-journal`
+- `@nezam-docs-context-sync`
+- `@nezam-founder-onboarding`
+- `@nezam-health-score`
+- `@nezam-llm-integration`
+- `@nezam-phase-gating-roadmap`
+- `@nezam-progress-narrator`
+- `@nezam-prompt-audit`
+- `@nezam-reflection-loop-engine`
+- `@nezam-repo-file-org`
+- `@nezam-sdd-gate-validator`
+- `@nezam-skill-composer`
+- `@nezam-slash-command-router`
+- `@nezam-spec-generator`
+- `@nezam-tavily-research`
+- `@nezam-token-budget-manager`
+- `@nezam-api-testing`
+- `@nezam-deployment-checklist`
+- `@nezam-external-ai-report`
+- `@nezam-git-workflow`
+- `@nezam-guide-instructor-domains`
+- `@nezam-handoff-report`
+- `@nezam-plan-full`

@@ -37,6 +37,12 @@ Own infrastructure-as-code, cloud platform topology (AWS / GCP / Azure / Vercel 
 
 ## Primary skills / lenses
 
+- `@nezam-browserbase`
+- `@nezam-cloudflare-edge`
+- `@nezam-devops-pipeline`
+- `@nezam-firecrawl`
+- `@nezam-llm-observability`
+- `@nezam-product-analytics`
 - [`.cursor/skills/nezam-aws-infra/SKILL.md`](../skills/infrastructure/nezam-aws-infra/SKILL.md)
 - [`.cursor/skills/nezam-vercel-deploy/SKILL.md`](../skills/infrastructure/nezam-vercel-deploy/SKILL.md)
 - [`.cursor/skills/nezam-cloudflare-edge/SKILL.md`](../skills/infrastructure/nezam-cloudflare-edge/SKILL.md)

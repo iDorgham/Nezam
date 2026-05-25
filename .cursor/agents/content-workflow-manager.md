@@ -40,6 +40,11 @@ Own the editorial workflow surface inside the CMS / SaaS: roles (author / editor
 
 ## Primary skills / lenses
 
+- `@nezam-arabic-content`
+- `@nezam-arabic-typography`
+- `@nezam-egyptian-arabic-content`
+- `@nezam-moroccan-darija`
+- `@nezam-register-detection`
 - [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/content/nezam-editorial-workflows/SKILL.md)
 - [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/content/nezam-content-modeling/SKILL.md)
 - [`.cursor/skills/nezam-ia-taxonomy/SKILL.md`](../skills/research/nezam-ia-taxonomy/SKILL.md)

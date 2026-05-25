@@ -72,6 +72,26 @@ const developPhases = parseSimpleYaml(developPhasesYaml);
 const handoffQueueYaml = readFile(path.join(repoRoot, 'HANDOFF_QUEUE.yaml')) || readFile(path.join(repoRoot, '.cursor/state/HANDOFF_QUEUE.yaml'));
 const handoffQueue = parseSimpleYaml(handoffQueueYaml);
 
+let certifiedCount = 0;
+const agentRegistryYaml = readFile(path.join(repoRoot, '.cursor/state/AGENT_REGISTRY.yaml'));
+if (agentRegistryYaml) {
+  const lines = agentRegistryYaml.split(/\r?\n/);
+  let inCertifiedSection = false;
+  for (const line of lines) {
+    if (line.trim().startsWith('certified_agents:')) {
+      inCertifiedSection = true;
+      continue;
+    }
+    if (inCertifiedSection) {
+      if (line.trim().startsWith('-')) {
+        certifiedCount++;
+      } else if (line.trim() !== '' && !line.trim().startsWith('-') && line.includes(':')) {
+        inCertifiedSection = false;
+      }
+    }
+  }
+}
+
 // 3. Count Agents & Skills
 let agentCount = 0;
 let skillCount = 0;
@@ -133,10 +153,11 @@ console.log(`${C_BOLD}${C_GOLD}║                            Workspace Monitori
 console.log(`${C_BOLD}${C_GOLD}╚═══════════════════════════════════════════════════════════════════════════════════════════════╝${C_RESET}`);
 
 console.log(`\n${C_BOLD}${C_TEAL}■ SYSTEM ENVIRONMENT${C_RESET}`);
-console.log(`  ├─ ${C_BOLD}Git Branch:${C_RESET}      ${gitBranch}`);
-console.log(`  ├─ ${C_BOLD}Last Commit:${C_RESET}     ${gitLastCommit}`);
+console.log(`  ├─ ${C_BOLD}Git Branch:${C_RESET}       ${gitBranch}`);
+console.log(`  ├─ ${C_BOLD}Last Commit:${C_RESET}      ${gitLastCommit}`);
 console.log(`  ├─ ${C_BOLD}Active Persona:${C_RESET}   ${agentCount} Agents loaded`);
-console.log(`  └─ ${C_BOLD}Active Skills:${C_RESET}    ${skillCount} Playbook Skills available`);
+console.log(`  ├─ ${C_BOLD}Certified Agents:${C_RESET} ${certifiedCount} / ${agentCount} (Elite & Certified)`);
+console.log(`  └─ ${C_BOLD}Active Skills:${C_RESET}     ${skillCount} Playbook Skills available`);
 
 console.log(`\n${C_BOLD}${C_TEAL}■ SDD GATE PIPELINE STATUS${C_RESET}`);
 console.log(`  ├─ ${C_BOLD}PRD Contract:${C_RESET}    ${onboarding.prd_locked ? C_GREEN + '🔒 LOCKED' : C_RED + '🔓 UNLOCKED'} ${C_RESET}`);

@@ -34,6 +34,8 @@ Before executing a handoff update or modifying `HANDOFF_QUEUE.yaml` or `PHASE_HA
 2. There are zero unresolved `pending` or `in_progress` blockers in the active stream.
 3. Every task has been evaluated using the mathematical Confidence Scoring matrix, scoring ≥75% (Certified) or ≥90% (Elite). Refuse transitions on lower scores.
 4. Verify that zero legacy paths (such as `.nezam/core/context/` or `docs/plans/`) are introduced. Only use `.nezam/core/memory/` and `.nezam/core/plans/`.
+5. **Active Agent Bus Logging Mandate:** You MUST execute the active bus-logger CLI utility to append a schema-compliant YAML log message to `.cursor/state/agent-bus.yaml` on every handoff transition, status update, or escalation:
+   `node .nezam/core/scripts/bus/log-message.js --from deputy-orchestrator --to <target_agent> --type <handoff/escalation/blocker/decision-request> --phase <phase> --mode <mode> --subject "<brief_subject>" --artifact "<artifact_path>" --summary "<action_summary>" --action "<required_response_action>"`
 
 ## Subagents (mental model)
 
@@ -46,6 +48,30 @@ Before executing a handoff update or modifying `HANDOFF_QUEUE.yaml` or `PHASE_HA
 
 ## Primary skills / lenses
 
+- `@nezam-adr`
+- `@nezam-agent-eval`
+- `@nezam-agents-md`
+- `@nezam-ai-safety-guardrails`
+- `@nezam-ai-ux-patterns`
+- `@nezam-build-modes`
+- `@nezam-context-window-manager`
+- `@nezam-cost-monitor`
+- `@nezam-decision-journal`
+- `@nezam-docs-context-sync`
+- `@nezam-founder-onboarding`
+- `@nezam-health-score`
+- `@nezam-llm-integration`
+- `@nezam-phase-gating-roadmap`
+- `@nezam-progress-narrator`
+- `@nezam-prompt-audit`
+- `@nezam-reflection-loop-engine`
+- `@nezam-repo-file-org`
+- `@nezam-sdd-gate-validator`
+- `@nezam-skill-composer`
+- `@nezam-slash-command-router`
+- `@nezam-spec-generator`
+- `@nezam-tavily-research`
+- `@nezam-token-budget-manager`
 - [`.cursor/skills/system/multi-agent-handoff/SKILL.md`](../skills/system/nezam-multi-agent-handoff/SKILL.md) for handoff packets.
 - [`.cursor/skills/system/progress-narrator/SKILL.md`](../skills/system/nezam-progress-narrator/SKILL.md) for gate evidence and sprint narratives.
 - [`.cursor/skills/system/task-decomposition/SKILL.md`](../skills/system/nezam-task-decomposition/SKILL.md) for sprint slicing.

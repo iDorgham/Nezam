@@ -1,10 +1,10 @@
 ---
+skill_id: nezam-arabic-typography
+name: "Arabic Typography"
 tier: 3
-name: "nezam-"nezam-"nezam-arabic-typography"
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - "v1.0.0: Initial release for hardening pass."
 ---
 ```json
 {

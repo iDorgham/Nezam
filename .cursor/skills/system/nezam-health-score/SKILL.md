@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-health-score
+name: "Health Score"
 tier: 3
-name: "nezam-"nezam- nezam-health-score"
 description: Generate and refresh root HEALTH.md with a plain-language 0-100 project health score across six dimensions.
 version: 1.0.0
 updated: 2026-05-08

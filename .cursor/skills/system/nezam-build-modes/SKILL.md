@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-build-modes
+name: "Build Modes"
 tier: 3
-name: "nezam-"nezam-"nezam-build-modes"
 description: Development method overlays for NEZAM. Modifies phase execution and gate thresholds without changing the SDD pipeline structure.
 version: 1.0.0
 certified: false

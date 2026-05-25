@@ -23,6 +23,10 @@ Keyword clusters, intents, slugs, metadata, internal linking—before menus and 
 
 ## Primary skills / lenses
 
+- `@nezam-ia-taxonomy`
+- `@nezam-seo-ia-content`
+- `@nezam-serp-feature-targeting`
+- `@nezam-structured-data-schema`
 - `docs/specs/SEO_RESEARCH.md`, `/PLAN seo`, `/SCAN seo`
 
 ## When to invoke

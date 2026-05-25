@@ -2,15 +2,16 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-"nezam-agent-eval"
+name: "nezam-agent-eval"
 description: Evaluation framework for AI agent output quality — rubrics, scoring, automated tests, and regression detection for NEZAM swarm agents.
 paths:
   - "docs/reports/ai/**"
   - ".cursor/agents/**"
   - ".cursor/state/**"
-version: 1.0.0
-updated: 2026-05-12
-changelog: []
+version: 1.1.0
+updated: 2026-05-25
+changelog:
+  - 1.1.0: Integrated mathematical Confidence Scoring model aligned to EVAL_FRAMEWORK.md.
 ---
 # Agent Evaluation Skill
 
@@ -18,22 +19,22 @@ changelog: []
 
 Provide a repeatable framework to measure whether NEZAM agents (and custom product agents) produce high-quality, consistent, safe, and on-policy outputs. Covers manual rubrics, automated checks, regression tests, and periodic health reporting. Ensures agents improve over time rather than drift.
 
-## Evaluation Dimensions
+## Evaluation Dimensions & Confidence Scoring
 
-Each agent output is scored across five dimensions (0–10 each, max 50):
+Each agent task execution is scored across the core evaluation dimensions. To ensure high determinism and verify evidence gates, the **Confidence Score (0% - 100%)** is calculated mathematically:
 
-| # | Dimension | What it measures |
-|---|-----------|-----------------|
-| 1 | **Task Accuracy** | Did the agent complete the assigned task correctly? |
-| 2 | **Policy Compliance** | Did the output follow NEZAM rules, SDD gates, and safety policy? |
-| 3 | **Response Quality** | Is the output clear, structured, and actionable? |
-| 4 | **Tone Consistency** | Does the tone match the configured mode (friendly/structured)? |
-| 5 | **Hallucination Rate** | Are all file paths, commands, and facts verifiable? |
+$$ \text{Confidence Score} = (0.35 \times \text{Accuracy}) + (0.25 \times \text{Determinism}) + (0.20 \times \text{Scope Compliance}) + (0.20 \times \text{Gate Evidence}) $$
 
-**Score bands:**
-- 45–50: ✅ Excellent
-- 35–44: ⚠️ Acceptable (review recommended)
-- < 35: ❌ Failing (agent needs retraining or prompt fix)
+Where each dimension is scored as:
+- **pass (100 pts)**: meets or exceeds all criteria.
+- **warn (50 pts)**: functional but with technical debt or documentation gaps.
+- **fail (0 pts)**: fails to meet the criteria (strictly blocks the phase gate).
+
+### Certification Levels:
+- **Elite (🏆): 90% - 100%** (Safe, zero material findings, exceptionally deterministic)
+- **Certified (✅): 75% - 89%** (Approved for swarm tasks, minimal warnings)
+- **Provisional (⚠️): 50% - 74%** (Requires close human review and fast revisions)
+- **Uncertified (❌): <50%** (Unsafe, gate strictly blocked)
 
 ## Step-by-Step Workflow
 

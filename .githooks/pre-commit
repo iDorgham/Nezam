@@ -19,6 +19,7 @@ for f in "${staged[@]}"; do
 done
 
 if [[ "$needs_sync" == true ]]; then
+  echo "🔄 Auto-synchronizing AI client mirrors..."
   if command -v pnpm >/dev/null 2>&1; then
     pnpm run ai:sync
   else
@@ -27,7 +28,23 @@ if [[ "$needs_sync" == true ]]; then
   for root in AGENTS.md CLAUDE.md GEMINI.md QWEN.md; do
     [[ -e "$root" ]] && git add -- "$root"
   done
-  for dir in .claude .codex .opencode .antigravity .gemini .qwen .kilocode; do
+  for dir in .claude .codex .opencode .antigravity .gemini .qwen .kilocode .windsurf; do
     [[ -d "$dir" ]] && git add -- "$dir"
   done
 fi
+
+echo "🔍 Validating AI mirror synchronization..."
+if command -v pnpm >/dev/null 2>&1; then
+  if ! pnpm run ai:check; then
+    echo "❌ ERROR: Sync drift detected between .cursor/ and client mirrors."
+    echo "💡 Please run 'pnpm run ai:sync' locally to reconcile mirrors before committing."
+    exit 1
+  fi
+else
+  if ! npm run ai:check; then
+    echo "❌ ERROR: Sync drift detected between .cursor/ and client mirrors."
+    echo "💡 Please run 'npm run ai:sync' locally to reconcile mirrors before committing."
+    exit 1
+  fi
+fi
+echo "✅ AI mirrors synchronized perfectly."

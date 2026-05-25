@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-25T13:43:07.530Z",
+  "generated": "2026-05-25T13:51:04.701Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -1025,8 +1025,8 @@
     },
     {
       "path": "../../../.cursor/skills/system/nezam-agent-eval/SKILL.md",
-      "id": "\"nezam-\"nezam-\"nezam-agent-eval\"",
-      "version": "1.0.0",
+      "id": "\"nezam-agent-eval\"",
+      "version": "1.1.0",
       "referenced_by": [],
       "orphaned": true
     },
@@ -1381,7 +1381,7 @@
     "\"nezam-\"nezam-\"nezam-S8 Growth\"",
     "\"nezam-\"nezam-\"nezam-S8 Retention\"",
     "\"nezam-\"nezam-\"nezam-adr\"",
-    "\"nezam-\"nezam-\"nezam-agent-eval\"",
+    "\"nezam-agent-eval\"",
     "\"nezam-\"nezam-\"nezam-agents-md\"",
     "\"nezam-\"nezam-\"nezam-ai-safety-guardrails\"",
     "\"nezam-\"nezam-\"nezam-ai-ux-patterns\"",

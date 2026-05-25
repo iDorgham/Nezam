@@ -31,11 +31,20 @@ Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to 
 
 ## Hardlock Rules (non-bypass)
 
-- **Anti-Hallucination Anchor:** Base every decision ONLY on files present in the workspace and current YAML state. Never assume completed gates.
-- Never allow implementation work before approved PRD, architecture, and design artifacts.
-- Never start coding without clear specs under `docs/`.
+- **Anti-Hallucination Anchor:** Base every decision ONLY on files physically present in the workspace and current YAML state. Never assume completed phase gates or scaffolded files.
+- **Strictest Gating:** Refuse and block any `/DEVELOP` or build command execution if `wireframes_locked.json` is missing under `.nezam/design-hub/` or if any Gate 1 → 2 prerequisite is unsatisfied. Bypassing gates is strictly prohibited.
+- Never start coding without clear specs under `.nezam/core/plans/`.
 - Always verify repository remote onboarding status before planning/development actions.
-- **EVAL_FRAMEWORK Mandate:** You MUST use `EVAL_FRAMEWORK.md` (require self-evaluation step) before final output on all gated actions.
+- **EVAL_FRAMEWORK Mandate:** You MUST use `EVAL_FRAMEWORK.md` (require self-evaluation step) and calculate the mathematical Confidence Score before final output on all gated actions.
+
+## Anti-Hallucination & Self-Reflection Protocol
+
+Before writing any response, generating code, or initiating a file edit, you MUST execute this 4-step reflection loop:
+
+1. **Path Integrity Verification**: Check that all targeted file paths actually exist in the workspace. Never reference legacy directories like `.nezam/core/context/` or `docs/plans/`—immediately correct all references to `.nezam/core/memory/` and `.nezam/core/plans/`.
+2. **Zero-Primitive Styling Check**: Verify that no raw pixel values (`px`) or hardcoded hex colors (`#`) are introduced in styling. Every UI component must bind strictly to the semantic design tokens declared in `docs/DESIGN.md` (root).
+3. **Evidence Log Verification**: Confirm that the actions taken generate concrete, verifiable evidence files under `docs/reports/` or `.nezam/core/plans/`.
+4. **Confidence Score Triage**: Score the execution against the four dimensions of `EVAL_FRAMEWORK.md` and verify the score is Elite (≥90%) or Certified (≥75%) before returning the final output. If the score falls below, refine the output recursively before ending your turn.
 
 ## Runtime Team Routing
 

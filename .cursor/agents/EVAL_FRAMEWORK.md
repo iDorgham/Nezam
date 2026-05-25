@@ -24,11 +24,23 @@ Any agent completing a **TIER 1** (core pipeline) task — SDD phase lead work, 
 
 ## Scoring (per dimension)
 
-- **pass** — meets bar; no material gap  
-- **warn** — usable but needs follow-up (document in Notes)  
-- **fail** — does not meet bar; gate **cannot** close until fixed or explicitly replanned  
+- **pass** (100 points) — meets bar; no material gap  
+- **warn** (50 points) — usable but needs follow-up (document in Notes)  
+- **fail** (0 points) — does not meet bar; gate **cannot** close until fixed or explicitly replanned  
 
-**Overall gate status:** `open` if any dimension is `fail`; `at_risk` if any `warn` and no `fail`; `closed` if all `pass`.
+**Overall gate status:** `open` if any dimension is `fail` (or Confidence Score < 50%); `at_risk` if any `warn` and no `fail` (Confidence Score 50%-89%); `closed` if all `pass` (Confidence Score ≥ 90%).
+
+## Confidence Scoring Model
+
+To provide a precise quality metric, each Tier 1 task run receives a **Confidence Score (0% - 100%)** calculated mathematically based on the weights of the four core evaluation dimensions:
+
+$$ \text{Confidence Score} = (0.35 \times \text{Accuracy}) + (0.25 \times \text{Determinism}) + (0.20 \times \text{Scope Compliance}) + (0.20 \times \text{Gate Evidence}) $$
+
+### Scoring Thresholds
+- **Elite (🏆): 90% - 100%** (All dimension pass, or at most one minor warn on non-accuracy/non-determinism dimensions)
+- **Certified (✅): 75% - 89%** (Safe to deploy, minimal warnings)
+- **Provisional (⚠️): 50% - 74%** (Usable but requires manual overrides and near-term remediations)
+- **Uncertified (❌): <50%** (Fails gate checks, progression strictly blocked)
 
 ## Agent scorecard (append to `.nezam/core/memory/MEMORY.md`)
 

@@ -618,4 +618,11 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 3. Compute: `(Reach * Impact * Confidence) / Effort`
 4. Sort descending. Assign P0 (top 20%), P1 (30%), P2 (30%), P3 (20%)
 5. Rewrite `MASTER_TASKS.md` + create `.nezam/core/plans/prioritized_backlog.md`
+
+## Anti-Hallucination & Self-Reflection Check
+
+Before rendering any `/PLAN` output or scaffolding files:
+- Verify that every output path targeted is physically situated under the correct consolidated directory: `.nezam/core/plans/` (not legacy `docs/plans/` or `.nezam/core/context/`).
+- Perform a strict evaluation loop to calculate the Confidence Score (0%-100%) against accuracy, determinism, scope, and evidence metrics. Ensure score ≥75% (Certified) before finalized output.
+- Check that zero placeholders or generic `{{PLACEHOLDER}}` are generated in output files. Every generated plan or spec must contain real, contextual descriptions.
 """

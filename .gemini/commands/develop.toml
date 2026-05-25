@@ -182,4 +182,12 @@ Recommendation footer: required
 Maintained in `.cursor/state/plan_progress.yaml:scrumban_board`:
 - backlog, in_progress (max 3), review, done, blocked
 - wip_limit: 3
+
+## Anti-Hallucination & Self-Reflection Check
+
+Before rendering any `/DEVELOP` output or implementing feature code:
+- **Prerequisite Validation:** Ensure that planning is 100% complete and `wireframes_locked.json` exists under `.nezam/design-hub/` before starting any development transitions. Refuse with the standard HARDLOCK VIOLATION message on any missing artifact.
+- **Zero-Primitive Check:** Ensure that zero raw hex codes (`#`) or pixel literal margins/paddings (`px`) are introduced in frontend code. Every UI element must reference CSS variables defined in root `DESIGN.md`.
+- **EVAL_FRAMEWORK Compliance:** Perform a self-evaluation loop calculating the Confidence Score. Ensure the score ≥75% (Certified) or ≥90% (Elite) before finalizing.
+- **Memory Integrity:** Confirm that no references are made to legacy `.nezam/core/context/` paths. All memory is located under `.nezam/core/memory/`.
 """

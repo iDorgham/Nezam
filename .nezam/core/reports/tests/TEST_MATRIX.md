@@ -120,6 +120,36 @@ Each row lists the ten required fields as numbered bullets.
 
 ---
 
+## RTL & MENA Arabic Localization Scenarios
+
+### TM-LOC-001 — RTL Bidirectional Flow & Layout Parity
+
+1. **Source:** `docs/DESIGN.md`; rule [`.cursor/rules/design-gates.mdc`](.cursor/rules/design-gates.mdc) (RTL parity section).
+2. **Test type:** Visual E2E / component audit (Playwright snapshot testing).
+3. **Acceptance:** Full layout mirroring executes cleanly when `<html dir="rtl">` is set (padding/margin mappings, logical properties `inline-start/inline-end`, and horizontal icons mirror correctly).
+4. **Mocking:** Visual snapshots in sandboxed Egyptian context.
+5. **SEO:** Proper metadata locale tag `<meta property="og:locale" content="ar_EG">` matches the Egyptian regional configuration.
+6. **A11y:** Font sizing scales adjust dynamically to prevent Arabic diacritic (Tashkeel) overlaps; WCAG AA contrast remains strictly compliant.
+7. **Perf:** Dialect bundles load asynchronously using lazy React/Next translation loaders.
+8. **Design token fidelity:** Component layout strictly uses CSS logical variables mapping spacing primitives.
+9. **Pass/fail:** Pass when zero visual overlap or unmirrored assets are detected in RTL snapshots.
+10. **Plan alignment:** Swarm-2 (Design) & Swarm-3 (Frontend) gate requirement for Arabic localization.
+
+### TM-LOC-002 — Egyptian Masri & Dialect String Verification
+
+1. **Source:** `.nezam/core/memory/CONTEXT.md`; `arabic-content-master` agent.
+2. **Test type:** Static content analysis / dictionary audit.
+3. **Acceptance:** Dynamic copywriting logs and exports verify Egyptian Masri dialect registers, ensuring zero Modern Standard Arabic (MSA) bleed or rigid phrasing in consumer UX surfaces.
+4. **Mocking:** Local localized string dictionary mappings.
+5. **SEO:** Target colloquial keyword clustering matches local MENA organic search intent.
+6. **A11y:** Text reading speed (readability score) matches Cairo/Sahel locale comprehension guidelines.
+7. **Perf:** N/A.
+8. **Design token fidelity:** N/A.
+9. **Pass/fail:** Pass when content contains zero rigid MSA bleeding, maintaining a natural Masri tone.
+10. **Plan alignment:** Swarm-13 (Ethics) & Swarm-7 (CMS-SaaS) content gate checks.
+
+---
+
 ## Status legend
 
 | Status | Meaning |

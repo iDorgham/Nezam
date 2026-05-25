@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "../../../..");
-const memoryPath = path.join(repoRoot, ".nezam", "core", "context", "MEMORY.md");
+const memoryPath = path.join(repoRoot, ".nezam", "core", "memory", "MEMORY.md");
 
 if (!fs.existsSync(memoryPath)) {
   console.error("MEMORY.md not found.");

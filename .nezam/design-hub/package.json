@@ -4,9 +4,9 @@
   "private": true,
   "description": "NEZAM Design Hub — Human-in-the-Loop design decision engine and profiles repository. Bridges planning and development.",
   "scripts": {
-    "dev": "next dev --port ${NEZAM_DESIGN_PORT:-4000}",
+    "dev": "next dev --port ${PORT:-${NEZAM_DESIGN_PORT:-4000}}",
     "build": "next build",
-    "start": "next start --port ${NEZAM_DESIGN_PORT:-4000}",
+    "start": "next start --port ${PORT:-${NEZAM_DESIGN_PORT:-4000}}",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test": "vitest run",

@@ -2,7 +2,7 @@
 
 ---
 tier: 3
-name: "nezam-"nezam-"nezam-gate-orchestrator"
+name: "nezam-gate-orchestrator"
 description: Unified Gate Orchestrator for NEZAM. Validates SDD phase gates, checks hardlocks, and blocks unsafe progression with aggressive refusal templates. Replaces sdd-gate-validator and sdd-hardlock-manager.
 version: 2.0.0
 updated: 2026-05-12
@@ -74,6 +74,7 @@ Use this exact language when refusing a prompt due to a gate violation:
 ### Gate 1 → 2: Planning → Development
 - [ ] `.cursor/state/plan_progress.yaml` → `planning_complete: true`
 - [ ] All 6 plan artifacts exist (SEO, IA, Content, Arch, Design Choices/Wireframes, Scaffold).
+- [ ] `wireframes_locked.json` exists under `.nezam/design-hub/` (or designated project relative paths) with valid non-empty wireframe definitions and hash evidence before `/DEVELOP` is unlocked.
 
 ### Gate N → N+1: Development Phase Transitions
 - [ ] All tasks in `MASTER_TASKS.md` tagged `[phase_N]` have status: done.

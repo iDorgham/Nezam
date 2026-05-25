@@ -98,7 +98,7 @@ export function PageTabsBar() {
           const label    = dir === 'rtl' ? page.arabicName : page.name
           return (
             <button
-              key={page.id}
+              key={`${page.appName}__${page.id}`}
               onClick={() => setActivePage(page.id)}
               className={cn(
                 'relative flex shrink-0 items-center gap-1.5 px-4 text-[12px] font-medium transition-colors duration-100',

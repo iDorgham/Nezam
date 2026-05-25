@@ -23,7 +23,7 @@ When creating a task entry in `docs/plan/MASTER_TASKS.md`, include routing field
 
 1. Determine task `type` (for example: `documentation`, `scan`, `boilerplate`, `architecture-decision`).
 2. Read active tool state from `.cursor/workspace.settings.yaml`.
-3. Read routing matrix from `.nezam/memory/CLI_TOOLS_CONTEXT.md`.
+3. Read routing matrix from `.nezam/core/memory/CLI_TOOLS_CONTEXT.md`.
 4. Assign:
    - `assigned_tool` from the matching task-type lane.
    - `fallback_tool` from deactivation chain.

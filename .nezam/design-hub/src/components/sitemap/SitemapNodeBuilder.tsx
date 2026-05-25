@@ -27,7 +27,7 @@ import {
   Globe, LayoutDashboard, Shield, Smartphone, Monitor, Zap, Box,
   Navigation2, PanelBottom, PanelLeft, Settings2, Menu as MenuIcon,
   ChevronUp, Download, Link, FileText, CornerDownRight,
-  AlignJustify, AlignLeft,
+  AlignJustify, AlignLeft, Search,
 } from 'lucide-react'
 import { useSitemapBuilder } from '@/store/sitemap-builder.store'
 import { cn } from '@/lib/cn'
@@ -379,12 +379,15 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
   const addSubPage          = useSitemapBuilder((s) => s.addSubPage)
   const reorderSections     = useSitemapBuilder((s) => s.reorderSections)
   const setPageUrl          = useSitemapBuilder((s) => s.setPageUrl)
+  const updatePageMeta      = useSitemapBuilder((s) => s.updatePageMeta)
+  const deployUrl           = useSitemapBuilder((s) => s.infra.platform.deployUrl)
   const addPageNote         = useSitemapBuilder((s) => s.addPageNote)
   const updatePageNote      = useSitemapBuilder((s) => s.updatePageNote)
   const deletePageNote      = useSitemapBuilder((s) => s.deletePageNote)
   const view = useCardView()
 
   const [deleteBlocked, setDeleteBlocked] = useState(false)
+  const [showSerp, setShowSerp] = useState(false)
 
   const hasSubPages  = (page.subPages?.length ?? 0) > 0
   const hasSections  = page.sections.length > 0
@@ -454,7 +457,7 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
           </p>
         )}
 
-        {/* URL field */}
+        {/* URL field + SERP toggle */}
         {isExpanded && view !== 'compact' && (
           <div className="border-t border-app-border/40 px-3 py-2 flex items-center gap-1.5">
             <Link size={9} className="shrink-0 text-app-subtle" />
@@ -465,6 +468,55 @@ function PageNode({ page, depth = 0, isOverlay = false, appId, menuId }: {
               onClick={(e) => e.stopPropagation()}
               className="min-w-0 flex-1 bg-transparent font-mono text-[10px] text-app-muted outline-none placeholder:text-app-subtle/50 focus:text-app-text"
             />
+            {page.url && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowSerp((v) => !v) }}
+                title="Toggle SERP preview"
+                className={cn(
+                  'shrink-0 rounded p-0.5 transition-colors',
+                  showSerp ? 'text-app-accent' : 'text-app-subtle hover:text-app-muted',
+                )}
+              >
+                <Search size={10} />
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* SERP preview */}
+        {isExpanded && showSerp && page.url && (
+          <div
+            className="mx-3 mb-3 rounded-lg border border-app-border/50 bg-app-inset p-2.5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Domain breadcrumb */}
+            <div className="mb-0.5 flex items-center gap-1 text-[9px] text-green-400/80">
+              <span className="h-2 w-2 rounded-full bg-green-500/40" />
+              <span className="font-mono">
+                {(deployUrl || 'example.com').replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                {page.url}
+              </span>
+            </div>
+            {/* Title */}
+            <input
+              value={page.metaTitle ?? ''}
+              onChange={(e) => updatePageMeta(page.id, { metaTitle: e.target.value })}
+              placeholder={`${page.name} — Page title`}
+              className="w-full bg-transparent text-[12px] font-medium leading-tight text-blue-400 outline-none placeholder:text-blue-400/30 hover:underline"
+            />
+            {/* Description */}
+            <textarea
+              value={page.metaDescription ?? ''}
+              onChange={(e) => updatePageMeta(page.id, { metaDescription: e.target.value })}
+              placeholder="Meta description — 150 chars max…"
+              rows={2}
+              maxLength={160}
+              className="mt-0.5 w-full resize-none bg-transparent text-[10px] leading-snug text-app-muted outline-none placeholder:text-app-subtle/40"
+            />
+            {/* Char count */}
+            <div className="mt-0.5 text-right font-mono text-[8px] text-app-subtle">
+              {(page.metaDescription ?? '').length}/160
+            </div>
           </div>
         )}
 
@@ -866,7 +918,20 @@ function findSectionAnywhere(apps: SitemapBuilderApp[], secId: string): { sectio
 
 // ── Root ──────────────────────────────────────────────────────────────────────
 
-export function SitemapNodeBuilder() {
+interface SitemapNodeBuilderProps {
+  /**
+   * Optional section focus coming from the left sub-nav.
+   * 'pages'    → show apps & pages (hide services/infra panel)
+   * 'menus'    → show apps focused on nav menus
+   * 'services' → show services panel only
+   * 'urls'     → show apps with SEO/URL preview highlighted
+   * 'sitemap'  → default — show everything
+   * undefined  → default
+   */
+  focusSection?: string
+}
+
+export function SitemapNodeBuilder({ focusSection = 'sitemap' }: SitemapNodeBuilderProps) {
   const apps              = useSitemapBuilder((s) => s.apps)
   const addApp            = useSitemapBuilder((s) => s.addApp)
   const addService        = useSitemapBuilder((s) => s.addService)
@@ -1017,7 +1082,13 @@ export function SitemapNodeBuilder() {
         {/* ── Toolbar ── */}
         <div className="relative z-10 flex items-center gap-2 border-b border-app-border bg-app-surface/80 px-4 py-2 backdrop-blur">
           <LayoutGrid size={14} className="text-app-subtle" />
-          <span className="text-[12px] font-semibold text-app-text">Structure</span>
+          <span className="text-[12px] font-semibold text-app-text">
+            {focusSection === 'pages'    ? 'Pages & Routes'    :
+             focusSection === 'menus'    ? 'Navigation Menus'  :
+             focusSection === 'services' ? 'Backend Services'  :
+             focusSection === 'urls'     ? 'URL & SEO Preview' :
+             'Structure'}
+          </span>
           <span className="text-[11px] text-app-subtle">
             {totalApps} app{totalApps !== 1 ? 's' : ''} · {totalMenus} menu{totalMenus !== 1 ? 's' : ''} · {totalPages} page{totalPages !== 1 ? 's' : ''} · {totalSections} section{totalSections !== 1 ? 's' : ''}
           </span>
@@ -1121,13 +1192,16 @@ export function SitemapNodeBuilder() {
                 onDragEnd={onDragEnd}
               >
                 <div className="flex items-start gap-8">
-                  {/* ── Left column: Infra + Services ── */}
-                  <div className="flex shrink-0 flex-col gap-4" style={{ width: 300 }}>
-                    <InfraPanel />
-                    <ServicesPanel />
-                  </div>
+                  {/* ── Left column: Infra + Services — hidden when focusing pages/menus/urls ── */}
+                  {(focusSection === 'sitemap' || focusSection === 'services') && (
+                    <div className="flex shrink-0 flex-col gap-4" style={{ width: 300 }}>
+                      <InfraPanel />
+                      <ServicesPanel />
+                    </div>
+                  )}
 
-                  {/* ── Right column: Apps ── */}
+                  {/* ── Right column: Apps — hidden when focusing services only ── */}
+                  {focusSection !== 'services' && (
                   <SortableContext items={appIds} strategy={verticalListSortingStrategy}>
                     <div className="flex flex-col gap-6">
                       {apps.map((app) => (
@@ -1145,6 +1219,7 @@ export function SitemapNodeBuilder() {
                       </button>
                     </div>
                   </SortableContext>
+                  )}
                 </div>
 
                 <DragOverlay dropAnimation={{ duration: 160, easing: 'ease' }}>

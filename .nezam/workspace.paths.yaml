@@ -95,7 +95,7 @@ paths:
   # F. FIXING PHASE PATHS
   # ────────────────────────────────────────────────────────────────────────────
   # Swarm architecture decisions and telemetry repair logs
-  decisions_log: ".nezam/core/context/DECISIONS_LOG.md"
+  decisions_log: ".nezam/core/memory/DECISIONS_LOG.md"
   # Diagnostic health checks scripts directory
   checks_folder: ".nezam/core/scripts/checks"
   # Workspace diagnostic health check entrypoint
@@ -222,7 +222,7 @@ hardlocks:
   # F. FIXING HARDLOCKS
   # ────────────────────────────────────────────────────────────────────────────
   # Swarm architecture decisions and telemetry repair logs
-  decisions_log: ".nezam/core/context/DECISIONS_LOG.md"
+  decisions_log: ".nezam/core/memory/DECISIONS_LOG.md"
 
   # ────────────────────────────────────────────────────────────────────────────
   # G. VERSIONING HARDLOCKS

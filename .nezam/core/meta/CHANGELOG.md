@@ -60,9 +60,9 @@ Format: `## [version] - YYYY-MM-DD`
 
 ### Fixed
 - **CRITICAL:** PRD path conflict — replaced `.nezam/workspace/prd/PRD.md` with `.nezam/workspace/prd/PRD.md` everywhere
-- WIREFRAMES path: `.nezam/workspace/prd/sdd/WIREFRAMES.md` → `docs/plans/04-design/WIREFRAMES.md`
+- WIREFRAMES path: `.nezam/workspace/prd/sdd/WIREFRAMES.md` → `.nezam/core/plans/04-design/WIREFRAMES.md`
 - health-score SKILL.md: replaced `.nezam/workspace/prd/` inputs with state-file-based inputs
-- Memory layers reference: updated to `.nezam/workspace/prd/`, `docs/plans/`, `docs/reports/`
+- Memory layers reference: updated to `.nezam/workspace/prd/`, `.nezam/core/plans/`, `docs/reports/`
 
 ### Changed
 - `workspace-orchestration.mdc`: legacy Planning hardlock section preserved as comment, superseded by state-file-aware section

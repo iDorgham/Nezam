@@ -19,4 +19,4 @@ The NEZAM swarm operates on a specification-driven, multi-agent coordination mod
 ## 4. Runbook pointers
 - For deployment issues, see `docs/wiki/Deployment-Runbook.md`.
 - For environment setup, see `docs/wiki/Setup-Guide.md`.
-- For agent communication protocols, see `.nezam/memory/AGENT_COMM_PROTOCOL.md`.
+- For agent communication protocols, see `.nezam/core/memory/AGENT_COMM_PROTOCOL.md`.

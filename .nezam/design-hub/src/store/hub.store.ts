@@ -104,6 +104,11 @@ interface HubState {
   rightW: number
   pulse: number
 
+  /* design system editor */
+  dsActiveSection: string
+  /* structure viewport */
+  structureSection: string
+
   /* comments */
   comments: Comment[]
 
@@ -135,6 +140,8 @@ interface HubActions {
   setZoom: (z: number) => void
 
   setHubMode: (m: DesignHubMode) => void
+  setDsActiveSection: (id: string) => void
+  setStructureSection: (id: string) => void
   select: (sel: Selection | null) => void
   selectScope: (scope: SelectionScope) => void
   setBuilderMode: (m: BuilderMode) => void
@@ -231,6 +238,9 @@ export const useHub = create<Store>()(
       rightW: 432,
       pulse: 0,
 
+      dsActiveSection: 'colors',
+      structureSection: 'sitemap',
+
       comments: [],
 
       savedDesigns: [],
@@ -297,7 +307,16 @@ export const useHub = create<Store>()(
         }
         set({ selection: { ...sel, scope } })
       },
-      setHubMode: (m) => set({ hubMode: m }),
+      setHubMode: (m) => {
+        const update: Partial<HubState> = { hubMode: m }
+        if (m === 'DESIGN_SYSTEM') {
+          update.dsActiveSection = 'colors'
+          update.builderMode = 'brand'
+        }
+        set(update)
+      },
+      setDsActiveSection: (id) => set({ dsActiveSection: id }),
+      setStructureSection: (id) => set({ structureSection: id }),
       setBuilderMode: (m) => set({ builderMode: m }),
       setActivePage: (id) => set({ activePage: id }),
       setTool: (t) => set({ activeTool: t }),
@@ -595,6 +614,8 @@ export const useHub = create<Store>()(
       skipHydration: true,
       partialize: (s) => ({
         hubMode: s.hubMode,
+        dsActiveSection: s.dsActiveSection,
+        structureSection: s.structureSection,
         profileId: s.profileId,
         overrides: s.overrides,
         generated: s.generated,

@@ -5,6 +5,8 @@ import { useHub } from '@/store/hub.store'
 import { IconTabBar } from './IconTabBar'
 import { BrandPanel } from './panels/BrandPanel'
 import { StylesPanel } from './panels/StylesPanel'
+import { TypographyPanel } from './panels/TypographyPanel'
+import { StylesSections } from './panels/StylesSections'
 import { LayoutPanel } from './panels/LayoutPanel'
 import { InteractionsPanel } from './panels/InteractionsPanel'
 import { AIPanel } from './panels/AIPanel'
@@ -40,7 +42,9 @@ export function RightBuilder() {
           </Wrapped>
         )}
         {builderMode === 'brand' && <BrandPanel />}
+        {builderMode === 'typography' && <TypographyPanel />}
         {builderMode === 'styles' && <StylesPanel />}
+        {builderMode === 'spacing' && <StylesSections focusSection="spacing" />}
         {builderMode === 'layout' && <LayoutPanel />}
         {builderMode === 'inspector' && <InspectorPanel />}
         {builderMode === 'layers' && <LayersPanel />}

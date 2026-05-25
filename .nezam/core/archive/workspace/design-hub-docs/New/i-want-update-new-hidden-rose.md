@@ -5,7 +5,7 @@
 The user wants 4 structural improvements to the NEZAM workspace:
 
 1. **All templates → `.cursor/templates/`** — consolidate governance in `.cursor/`
-2. **Lean project-facing docs** — `docs/prd/` keeps a minimal PRD.md placeholder; `docs/plans/` becomes empty (no README); `docs/reports/` gets category subfolders, no README
+2. **Lean project-facing docs** — `docs/prd/` keeps a minimal PRD.md placeholder; `.nezam/core/plans/` becomes empty (no README); `docs/reports/` gets category subfolders, no README
 3. **Configurable paths file** — users can redirect where their PRD file and plans folder live
 4. **`/nezam` command** — the only authorized way to adjust NEZAM internals (agents, skills, rules, templates, scripts); all other commands stay project-scoped
 
@@ -72,9 +72,9 @@ Replace the current verbose template with a minimal ~15-line placeholder:
 > Once complete → run `/plan` to generate your execution roadmap.
 ```
 
-### `docs/plans/` — empty folder, no README
-- Delete `docs/plans/README.md`
-- Add `docs/plans/.gitkeep` so Git tracks the empty folder
+### `.nezam/core/plans/` — empty folder, no README
+- Delete `.nezam/core/plans/README.md`
+- Add `.nezam/core/plans/.gitkeep` so Git tracks the empty folder
 - The `/start docs` command already creates this folder; `.gitkeep` just ensures it's committed
 
 ### `docs/reports/` — category folders, no README
@@ -129,8 +129,8 @@ workspace:
 ```
 
 **Commands that must read this file** (grep for hardcoded paths + update):
-- `.cursor/commands/start.md` — `docs/prd/PRD.md`, `docs/plans/`, `docs/reports/`
-- `.cursor/commands/plan.md` — `docs/core/required/PRD.md` (old path), `docs/plans/`
+- `.cursor/commands/start.md` — `docs/prd/PRD.md`, `.nezam/core/plans/`, `docs/reports/`
+- `.cursor/commands/plan.md` — `docs/core/required/PRD.md` (old path), `.nezam/core/plans/`
 - `.cursor/commands/check.md` — gate paths for PRD, plans
 
 **Rule added to commands**: Before resolving any project path, read `.cursor/workspace.paths.yaml` → `project.*`. Fall back to the default values above if the file is missing.
@@ -225,12 +225,12 @@ hardlock_paths_file="docs/nezam/core/hardlock-paths.json"
 Changes to `.cursor/commands/start.md`:
 1. Add: "Read project paths from `.cursor/workspace.paths.yaml` before resolving any doc path."
 2. Change scaffold behavior for `docs/reports/`: create category folders with `.gitkeep` instead of a `README.md`
-3. Change scaffold behavior for `docs/plans/`: create empty folder (or `.gitkeep`), no `README.md`
+3. Change scaffold behavior for `.nezam/core/plans/`: create empty folder (or `.gitkeep`), no `README.md`
 4. Update gate check table to reflect new paths structure
 5. Update status display after scaffolding:
    ```
    ✅ docs/prd/PRD.md          → ready (fill in your requirements)
-   ✅ docs/plans/              → ready (waiting for PRD)
+   ✅ .nezam/core/plans/              → ready (waiting for PRD)
    ✅ docs/reports/progress/   → ready
    ✅ docs/reports/tests/      → ready
    ✅ docs/reports/audits/     → ready
@@ -265,7 +265,7 @@ Execute in this exact order to avoid broken states:
 3. **Create `.cursor/templates/README.md`**
 4. **Delete old template locations** — `docs/nezam/templates/`, `docs/nezam/workspace/templates/` (after verifying copy is complete)
 5. **Update `docs/prd/PRD.md`** — replace with minimal placeholder
-6. **Delete `docs/plans/README.md`** → create `docs/plans/.gitkeep`
+6. **Delete `.nezam/core/plans/README.md`** → create `.nezam/core/plans/.gitkeep`
 7. **Delete `docs/reports/README.md`** → create 7 category `.gitkeep` files
 8. **Fix `docs/nezam/core/hardlock-paths.json`** and `docs/nezam/specs/hardlock-paths.json`
 9. **Fix `scripts/checks/check-onboarding-readiness.sh`** — update hardlock_paths_file path
@@ -288,7 +288,7 @@ Execute in this exact order to avoid broken states:
 | CREATE | `.cursor/templates/README.md` |
 | CREATE | `.cursor/workspace.paths.yaml` |
 | CREATE | `.cursor/commands/nezam.md` |
-| CREATE | `docs/plans/.gitkeep` |
+| CREATE | `.nezam/core/plans/.gitkeep` |
 | CREATE | `docs/reports/progress/.gitkeep` |
 | CREATE | `docs/reports/tests/.gitkeep` |
 | CREATE | `docs/reports/audits/.gitkeep` |
@@ -304,7 +304,7 @@ Execute in this exact order to avoid broken states:
 | MODIFY | `.cursor/commands/start.md` — paths config + reports scaffold |
 | MODIFY | `.cursor/commands/plan.md` — paths config reference |
 | MODIFY | `.cursor/commands/check.md` — paths config reference |
-| DELETE | `docs/plans/README.md` |
+| DELETE | `.nezam/core/plans/README.md` |
 | DELETE | `docs/reports/README.md` |
 | DELETE | `docs/nezam/templates/` (entire tree — 50+ files) |
 | DELETE | `docs/nezam/workspace/templates/` (entire tree) |
@@ -325,7 +325,7 @@ ls docs/nezam/templates/ 2>&1   # should: "No such file or directory"
 
 # 3. Project docs structure is correct
 ls docs/prd/      # PRD.md only
-ls docs/plans/    # .gitkeep only
+ls .nezam/core/plans/    # .gitkeep only
 ls docs/reports/  # 7 category folders, no README.md
 
 # 4. Paths config exists

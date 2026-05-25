@@ -44,18 +44,20 @@ export function PanelHeader({
 
 /** A labeled group inside a panel. */
 export function Section({
+  id,
   label,
   children,
   hint,
   action,
 }: {
+  id?: string
   label: ReactNode
   children: ReactNode
   hint?: ReactNode
   action?: ReactNode
 }) {
   return (
-    <section className="mb-6 last:mb-0">
+    <section id={id} className="mb-6 last:mb-0">
       <div className="mb-2.5 flex items-center justify-between">
         <h3 className="text-[10px] font-semibold uppercase tracking-[0.09em] text-app-subtle">
           {label}

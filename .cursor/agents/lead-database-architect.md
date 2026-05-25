@@ -43,7 +43,7 @@ Swarm Manager for the Data & Database swarm. Own schema design, migration safety
 - [`.cursor/skills/nezam-supabase-architect/SKILL.md`](../skills/backend/nezam-supabase-architect/SKILL.md)
 - [`.cursor/skills/nezam-database-optimization/SKILL.md`](../skills/backend/nezam-database-optimization/SKILL.md)
 - [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
-- [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP-first data service operations
+- [`.nezam/core/memory/MCP_REGISTRY.md`](../../.nezam/core/memory/MCP_REGISTRY.md) for MCP-first data service operations
 - [.cursor/skills/backend/drizzle-orm/SKILL.md](../skills/backend/nezam-drizzle-orm/SKILL.md)
 - [.cursor/skills/backend/neon-postgres/SKILL.md](../skills/backend/nezam-neon-postgres/SKILL.md)
 

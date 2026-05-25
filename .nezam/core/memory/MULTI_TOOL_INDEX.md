@@ -60,7 +60,7 @@ Orchestration treats **repository root `DESIGN.md`** as the primary design artif
 **Antigravity** and **Kilo** do not receive a generated `CLAUDE.md`-style bundle at repo root. Use:
 
 - Mirrored **commands** (`.antigravity/commands/`, or rules under `.kilocode/rules/`)
-- Human-readable onboarding: **[`docs/start.md`](../../../docs/start.md)**, **[`.nezam/memory/CONTEXT.md`](CONTEXT.md)**, and this file
+- Human-readable onboarding: **[`docs/start.md`](../../../docs/start.md)**, **[`.nezam/core/memory/CONTEXT.md`](CONTEXT.md)**, and this file
 
 So design selection and `pnpm run design:apply` work the same from any terminal; only the *slash command* UX is Cursor-native.
 

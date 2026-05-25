@@ -23,7 +23,7 @@ Maintain a clean, navigable repository structure while preventing broken imports
    - Lint
    - Type-check/build
    - Focused tests for impacted modules
-6. Update related docs and references (`.nezam/core/context/*`, plan files, index files) when structure changes.
+6. Update related docs and references (`.nezam/core/memory/*`, plan files, index files) when structure changes.
 7. Run `/SCAN docs` and `/SCAN code` to detect stale references and broken module boundaries.
 8. Use `/FIX` to remediate any path, import, or documentation regressions.
 9. Persist final structure updates using `/SAVE log`.

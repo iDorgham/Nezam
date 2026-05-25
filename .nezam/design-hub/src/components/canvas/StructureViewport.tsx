@@ -1,10 +1,12 @@
+import { useHub } from '@/store/hub.store'
 import { SitemapNodeBuilder } from '@/components/sitemap/SitemapNodeBuilder'
 
 /**
- * Thin wrapper around SitemapNodeBuilder for STRUCTURE mode.
- * Exists so DesignHub.tsx has a uniform import pattern and future
- * structure-canvas additions are isolated here.
+ * STRUCTURE mode canvas. Reads `structureSection` from the hub store and
+ * passes it to SitemapNodeBuilder so only the matching accordion section
+ * is expanded/visible.
  */
 export function StructureViewport() {
-  return <SitemapNodeBuilder />
+  const structureSection = useHub((s) => s.structureSection)
+  return <SitemapNodeBuilder focusSection={structureSection} />
 }

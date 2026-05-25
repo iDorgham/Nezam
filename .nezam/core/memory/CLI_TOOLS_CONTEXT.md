@@ -1,7 +1,7 @@
 # NEZAM — AI Tools & CLI Context Reference
 > **Source of truth for tool routing decisions.**
 > All planning agents and the subagent-controller read this file before assigning any task.
-> Loaded from: `.nezam/memory/CLI_TOOLS_CONTEXT.md`
+> Loaded from: `.nezam/core/memory/CLI_TOOLS_CONTEXT.md`
 > Active tool registry: `.cursor/workspace.settings.yaml` → `tools.active[]`
 
 ---

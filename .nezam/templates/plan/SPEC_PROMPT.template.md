@@ -3,7 +3,7 @@
 ## Context
 - Spec ID: `PT-XX-YY-001`
 - Phase/Sub-phase: `phase/subphase`
-- Source docs: `docs/plans/...`
+- Source docs: `.nezam/core/plans/...`
 
 ## Objective
 Describe the intended outcome and why it is needed.

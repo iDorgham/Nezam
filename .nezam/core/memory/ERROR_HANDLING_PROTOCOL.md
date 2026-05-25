@@ -53,5 +53,5 @@ This protocol defines shared error reporting, escalation, and recovery behavior 
 After resolution:
 
 1. Capture root cause and prevention note.
-2. Update durable memory artifact (`.nezam/memory/MEMORY.md` or equivalent governed memory file).
+2. Update durable memory artifact (`.nezam/core/memory/MEMORY.md` or equivalent governed memory file).
 3. Propose new guardrail/rule when recurrence risk is high.

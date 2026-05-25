@@ -696,7 +696,7 @@ Before `/DEVELOP` on any app, confirm:
 To ensure planning quality far exceeds standard AI spec generators (like Kiro or Spec Kit), every feature SPEC MUST undergo a 3-stage Swarm Cross-Examination before a single line of code is written:
 
 1. **Drafting (The Architect Phase):**
-   - Spec created at: `docs/plans/0N-build/<feature-slug>/SPEC.md`
+   - Spec created at: `.nezam/core/plans/0N-build/<feature-slug>/SPEC.md`
    - Must contain: Data model delta, API contract (shapes/payloads), exact UI state matrix (Empty, Loading, Error, Success), and hard edge cases.
 
 2. **Swarm Red-Teaming (The Cross-Examination Phase):**

@@ -132,7 +132,7 @@ Integration tests for every route → T-Q-004 (Phase 3).
 
 - Canvas server-side persistence: out of scope for v1; revisit before multi-user
 - Asset Vision Gate fallback when AI Gateway is unreachable: fail-open vs fail-closed → land in F-008 spec
-- Export pipeline output format (HTML/JSX/Figma JSON) → covered in `docs/plans/05-design-uiux/SPEC-DS-CANVAS-001.md`
+- Export pipeline output format (HTML/JSX/Figma JSON) → covered in `.nezam/core/plans/05-design-uiux/SPEC-DS-CANVAS-001.md`
 
 ---
 

@@ -77,7 +77,7 @@ When audit passes all thresholds, append to `HANDOFF_QUEUE.yaml`:
 - status: approved
 - type: design
 - agent: design-excellence-lead
-- artifact: docs/plans/05-design/DESIGN_BRIEF_{{page}}.md
+- artifact: .nezam/core/plans/05-design/DESIGN_BRIEF_{{page}}.md
 ```
 
 **Step 2: Create `.cursor/agents/cultural-design-validator.md`**
@@ -419,7 +419,7 @@ changelog: ["2026-05-22: Initial version"]
 2. For each task without `RICE_SCORE`: compute `(Reach * Impact * Confidence) / Effort`
 3. Append `(RICE_SCORE: <score>, PRIORITY: P?)`
 4. Sort descending. Assign P0 (top 20%), P1 (30%), P2 (30%), P3 (20%)
-5. Rewrite `MASTER_TASKS.md` + create `docs/plans/prioritized_backlog.md`
+5. Rewrite `MASTER_TASKS.md` + create `.nezam/core/plans/prioritized_backlog.md`
 
 ## Validation
 - All tasks have RICE_SCORE and PRIORITY
@@ -450,7 +450,7 @@ changelog: ["2026-05-22: Initial version"]
 1. Extract user goals, success metrics, constraints from PRD
 2. Map to design dimensions: layout, typography, color, motion, a11y, RTL
 3. Generate testable acceptance criteria per dimension
-4. Output brief to `docs/plans/05-design/DESIGN_BRIEF_<page>.md`
+4. Output brief to `.nezam/core/plans/05-design/DESIGN_BRIEF_<page>.md`
 
 ## Validation
 - All PRD requirements mapped to >= 1 design dimension
@@ -915,8 +915,8 @@ In `.cursor/commands/plan.md`, append after the existing subcommand list:
 
 ```markdown
   /PLAN prioritize --framework=rice   -> Score backlog via RICE -> MASTER_TASKS.md with RICE_SCORE + P0..P3
-  /PLAN design intent <page>          -> Design brief from PRD -> docs/plans/05-design/DESIGN_<page>.md
-  /PLAN design dashboard intent <page> -> Dashboard brief -> docs/plans/05-design/DASHBOARD_<page>.md
+  /PLAN design intent <page>          -> Design brief from PRD -> .nezam/core/plans/05-design/DESIGN_<page>.md
+  /PLAN design dashboard intent <page> -> Dashboard brief -> .nezam/core/plans/05-design/DASHBOARD_<page>.md
   /PLAN design audit --strict         -> 50+ anti-pattern checks -> design_audit_report.md
   /PLAN design dashboard audit --strict -> 40+ dashboard checks -> dashboard_audit_report.md
 ```
@@ -929,7 +929,7 @@ And append this section:
 2. For each task without `RICE_SCORE`, invoke `.cursor/skills/pm/prioritize-rice/SKILL.md`
 3. Compute: `(Reach * Impact * Confidence) / Effort`
 4. Sort descending. Assign P0 (top 20%), P1 (30%), P2 (30%), P3 (20%)
-5. Rewrite `MASTER_TASKS.md` + create `docs/plans/prioritized_backlog.md`
+5. Rewrite `MASTER_TASKS.md` + create `.nezam/core/plans/prioritized_backlog.md`
 ```
 
 **Step 2: Add Scrumban WIP rules to develop.md**
@@ -1359,7 +1359,7 @@ if [ ! -f ".cursor/state/design_health.yaml" ]; then
   exit 1
 fi
 
-if grep -r "#[0-9a-fA-F]\{6\}" docs/plans/05-design/ 2>/dev/null; then
+if grep -r "#[0-9a-fA-F]\{6\}" .nezam/core/plans/05-design/ 2>/dev/null; then
   echo "FAIL: Hardcoded hex values found in design specs"
   exit 1
 fi
@@ -1391,7 +1391,7 @@ if [ ! -f ".cursor/state/dashboard_health.yaml" ]; then
   exit 1
 fi
 
-if grep -r "#[0-9a-fA-F]\{6\}" docs/plans/05-design/DASHBOARD_* 2>/dev/null; then
+if grep -r "#[0-9a-fA-F]\{6\}" .nezam/core/plans/05-design/DASHBOARD_* 2>/dev/null; then
   echo "FAIL: Hardcoded hex values in dashboard specs"
   exit 1
 fi

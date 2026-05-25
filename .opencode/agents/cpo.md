@@ -42,7 +42,7 @@ Impact if no decision: [what stalls]
 ```
 
 CPO returns one of: `GO` / `NO-GO` / `SCOPE-CHANGE` / `DEFER`.
-Decision logged to `.nezam/core/context/MEMORY.md` under Key Decisions.
+Decision logged to `.nezam/core/memory/MEMORY.md` under Key Decisions.
 
 ## Delegation Back to PM-01
 

@@ -25,7 +25,7 @@ Sub-phases are intentionally flexible and should be derived from:
 
 ## Mandatory Prompt Artifacts Per Sub-Phase
 
-Each `docs/plans/<phase>/<sub-phase>/` directory must include:
+Each `.nezam/core/plans/<phase>/<sub-phase>/` directory must include:
 
 1. `prompt.json` (structured artifact using `PROMPT_SCHEMA.template.json`)
 2. `PROMPT.md` (copy-ready prompt using `SUBPHASE_PROMPT.template.md`)

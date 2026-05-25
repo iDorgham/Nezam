@@ -18,7 +18,7 @@ changelog: ["2026-05-22: Initial version"]
 1. Extract user goals, success metrics, constraints from PRD
 2. Map to design dimensions: layout, typography, color, motion, a11y, RTL
 3. Generate testable acceptance criteria per dimension
-4. Output brief to `docs/plans/05-design/DESIGN_BRIEF_<page>.md`
+4. Output brief to `.nezam/core/plans/05-design/DESIGN_BRIEF_<page>.md`
 
 ## Validation
 - All PRD requirements mapped to >= 1 design dimension

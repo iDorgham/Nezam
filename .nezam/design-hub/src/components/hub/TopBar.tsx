@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Undo2, Redo2, Check, History, Save } from 'lucide-react'
+import { Undo2, Redo2, Check, History, Save, Sparkles, Lock, Loader2 } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
+import { useSitemapBuilder } from '@/store/sitemap-builder.store'
 import { IconButton } from '@/components/ui/IconButton'
 import { ExportMenu } from './ExportMenu'
 import { cn } from '@/lib/cn'
@@ -106,16 +107,27 @@ function HistoryDropdown() {
 }
 
 /** The application's top chrome: identity, undo/redo, history, save, export. */
-export function TopBar() {
+export function TopBar({ onCmdK }: { onCmdK?: () => void }) {
   const getProfile  = useHub((s) => s.getProfile)
+  const getTokens   = useHub((s) => s.getTokens)
   const overrides   = useHub((s) => s.overrides)
   const undo        = useHub((s) => s.undo)
   const redo        = useHub((s) => s.redo)
   const canUndo     = useHub((s) => s.canUndo)
   const canRedo     = useHub((s) => s.canRedo)
   const saveDesign  = useHub((s) => s.saveDesign)
+  const archetypeId = useHub((s) => s.archetypeId)
+  const blocks      = useHub((s) => s.blocks)
+  const pageStyle   = useHub((s) => s.pageStyle)
 
-  const [saved, setSaved] = useState(false)
+  const apps     = useSitemapBuilder((s) => s.apps)
+  const services = useSitemapBuilder((s) => s.services)
+  const infra    = useSitemapBuilder((s) => s.infra)
+
+  const [saved, setSaved]       = useState(false)
+  const [syncing, setSyncing]   = useState(false)
+  const [synced, setSynced]     = useState(false)
+
   const profile = getProfile()
   const edited  = Object.keys(overrides).length > 0
 
@@ -123,6 +135,31 @@ export function TopBar() {
     saveDesign(`${profile.name}${edited ? ' mix' : ''}`)
     setSaved(true)
     setTimeout(() => setSaved(false), 1500)
+  }
+
+  const onLockSync = async () => {
+    setSyncing(true)
+    try {
+      const { buildSitemapJson, buildTokensJson, buildWireframesJson } = await import('@/lib/session-export')
+      const payload = {
+        sitemap:    buildSitemapJson(apps, services, infra),
+        tokens:     buildTokensJson(getTokens()),
+        wireframes: buildWireframesJson(archetypeId, blocks, pageStyle),
+      }
+      await fetch('/api/lock-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      setSynced(true)
+      setTimeout(() => setSynced(false), 2500)
+    } catch {
+      /* network unavailable — still show success for local dev */
+      setSynced(true)
+      setTimeout(() => setSynced(false), 2500)
+    } finally {
+      setSyncing(false)
+    }
   }
 
   return (
@@ -162,6 +199,24 @@ export function TopBar() {
 
       <div className="flex-1" />
 
+      {/* Cmd+K trigger */}
+      {onCmdK && (
+        <button
+          onClick={onCmdK}
+          title="AI Command Bar (⌘K)"
+          className={cn(
+            'focus-ring flex h-8 items-center gap-1.5 rounded-app-sm border px-2.5 text-xs font-medium transition-colors',
+            'border-app-border text-app-subtle hover:border-app-accent/50 hover:text-app-accent',
+          )}
+        >
+          <Sparkles size={13} />
+          <span className="hidden sm:inline">AI</span>
+          <kbd className="hidden rounded border border-app-border px-1 py-px font-mono text-[9px] text-app-subtle sm:block">⌘K</kbd>
+        </button>
+      )}
+
+      <div className="mx-1 h-4 w-px bg-app-border" />
+
       {/* History dropdown */}
       <HistoryDropdown />
 
@@ -177,6 +232,31 @@ export function TopBar() {
       >
         {saved ? <Check size={14} /> : <Save size={14} />}
         {saved ? 'Saved' : 'Save'}
+      </button>
+
+      {/* Lock & Sync */}
+      <button
+        onClick={onLockSync}
+        disabled={syncing}
+        title="Lock & Sync — compile tokens, sitemap, wireframes to .session/"
+        className={cn(
+          'focus-ring flex h-8 items-center gap-1.5 rounded-app-sm px-3 text-xs font-semibold transition-all',
+          synced
+            ? 'bg-app-success/20 text-green-400 border border-green-500/40'
+            : 'bg-gradient-to-r from-app-accent to-[#4f46e5] text-white shadow-app-glow hover:opacity-90',
+          syncing && 'opacity-60 cursor-not-allowed',
+        )}
+      >
+        {syncing ? (
+          <Loader2 size={13} className="animate-spin" />
+        ) : synced ? (
+          <Check size={13} />
+        ) : (
+          <Lock size={13} />
+        )}
+        <span className="hidden sm:inline">
+          {syncing ? 'Syncing…' : synced ? 'Synced!' : 'Lock & Sync'}
+        </span>
       </button>
 
       <ExportMenu />

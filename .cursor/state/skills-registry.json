@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-25T03:18:46.757Z",
+  "generated": "2026-05-25T13:43:07.530Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -1109,7 +1109,7 @@
     },
     {
       "path": "../../../.cursor/skills/system/nezam-gate-orchestrator/SKILL.md",
-      "id": "\"nezam-\"nezam-\"nezam-gate-orchestrator\"",
+      "id": "\"nezam-gate-orchestrator\"",
       "version": "2.0.0",
       "referenced_by": [],
       "orphaned": true
@@ -1393,7 +1393,7 @@
     "\"nezam-\"nezam- nezam-decision-journal\"",
     "\"nezam-\"nezam- nezam-docs-context-sync\"",
     "\"nezam-\"nezam- nezam-founder-onboarding\"",
-    "\"nezam-\"nezam-\"nezam-gate-orchestrator\"",
+    "\"nezam-gate-orchestrator\"",
     "\"nezam-\"nezam- nezam-health-score\"",
     "\"nezam-\"nezam-\"nezam-llm-integration\"",
     "\"nezam-\"nezam- nezam-multi-agent-handoff\"",

@@ -220,6 +220,7 @@ interface SitemapBuilderStore {
   addSubPage: (parentPageId: string) => void
   setPageStatus: (pageId: string, status: PageStatus | undefined) => void
   setPageUrl: (pageId: string, url: string) => void
+  updatePageMeta: (pageId: string, patch: { metaTitle?: string; metaDescription?: string }) => void
   addPageNote: (pageId: string) => void
   updatePageNote: (pageId: string, noteId: string, patch: Partial<Omit<NoteItem, 'id'>>) => void
   deletePageNote: (pageId: string, noteId: string) => void
@@ -389,6 +390,9 @@ export const useSitemapBuilder = create<SitemapBuilderStore>()(
 
       setPageUrl: (pageId, url) =>
         set((s) => ({ apps: mapPageGlobal(s.apps, pageId, (p) => ({ ...p, url })) })),
+
+      updatePageMeta: (pageId, patch) =>
+        set((s) => ({ apps: mapPageGlobal(s.apps, pageId, (p) => ({ ...p, ...patch })) })),
 
       addPageNote: (pageId) =>
         set((s) => ({

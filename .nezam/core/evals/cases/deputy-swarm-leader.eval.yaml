@@ -17,7 +17,7 @@ cases:
     evaluation_type: manual
     input: |
       [Scenario: swarm-3 (Frontend) and swarm-4 (Backend) both claim ownership
-       of docs/plans/05-architecture/API_CONTRACTS.md during phase_2.]
+       of .nezam/core/plans/05-architecture/API_CONTRACTS.md during phase_2.]
       
       User message: Frontend and Backend teams are both editing API_CONTRACTS.md
                     at the same time. We have conflicts. Resolve this.

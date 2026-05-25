@@ -287,7 +287,7 @@ JSON{
   "groups": [...]
 }
 
-Persisted in project state (NEZAM-compatible JSON + sync to docs/plans/).
+Persisted in project state (NEZAM-compatible JSON + sync to .nezam/core/plans/).
 Exportable as:
 Visual PNG/SVG
 JSON graph (for codegen)

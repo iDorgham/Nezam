@@ -60,8 +60,8 @@ Convert a plain-language product idea into a complete, gate-passing artifact set
 7. Initialize root `CHANGELOG.md` with `## [Unreleased]`.
 8. Score all `.nezam/design/*/design.md` profiles against product type, geography, revenue model, and audience characteristics; return top 3 with plain-language rationale.
 9. After the user chooses a profile, copy the selected design file to root `DESIGN.md`.
-10. Generate companion-ready `.nezam/core/context/CONTEXT.md`.
-11. Generate initial memory summary in `.nezam/core/context/MEMORY.md`.
+10. Generate companion-ready `.nezam/core/memory/CONTEXT.md`.
+11. Generate initial memory summary in `.nezam/core/memory/MEMORY.md`.
 12. Validate readiness using `/START gates` checks and report outcome in plain language only.
 
 # Validation & Metrics

@@ -40,7 +40,7 @@ import {
 import { useHub } from '@/store/hub.store'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { cn } from '@/lib/cn'
-import type { DesignHubMode, Tool } from '@/types'
+import type { BuilderMode, DesignHubMode, Tool } from '@/types'
 
 /* ── Mode definitions ─────────────────────────────────────────── */
 
@@ -141,17 +141,40 @@ const TOOL_MAP: Record<string, Tool> = {
 
 /* ── Sub-nav panel ────────────────────────────────────────────── */
 
+/** BUILDER Content items → builderMode */
+const BUILDER_CONTENT_MAP: Record<string, BuilderMode> = {
+  'layout-blocks': 'layers',
+  'templates':     'profiles',
+  'themes':        'theme',
+}
+
 function SubNavPanel({ hubMode }: { hubMode: DesignHubMode }) {
-  const activeTool    = useHub((s) => s.activeTool)
-  const setTool       = useHub((s) => s.setTool)
+  const activeTool        = useHub((s) => s.activeTool)
+  const setTool           = useHub((s) => s.setTool)
+  const setBuilderMode    = useHub((s) => s.setBuilderMode)
+  const setStructureSection = useHub((s) => s.setStructureSection)
   const [activeItem, setActiveItem] = useState<string>('')
 
   const sections = NAV_BY_MODE[hubMode]
 
   const handleItem = (id: string) => {
     setActiveItem(id)
+
+    // BUILDER tools (keyboard shortcuts shown in tooltips)
     const tool = TOOL_MAP[id]
-    if (tool) setTool(tool)
+    if (tool) { setTool(tool); return }
+
+    // BUILDER content items → switch right panel
+    if (hubMode === 'BUILDER') {
+      const bm = BUILDER_CONTENT_MAP[id]
+      if (bm) { setBuilderMode(bm); return }
+    }
+
+    // STRUCTURE sub-nav → filter the StructureViewport
+    if (hubMode === 'STRUCTURE') {
+      setStructureSection(id)
+      return
+    }
   }
 
   const isItemActive = (id: string) => {
@@ -226,7 +249,11 @@ function ModeRail({ hubMode, setHubMode }: { hubMode: DesignHubMode; setHubMode:
 
 /* ── Public component ─────────────────────────────────────────── */
 
-/** Left sidebar: 3 top-level mode icons + mode-specific sub-navigation. */
+/**
+ * Left sidebar: 3 top-level mode icons + mode-specific sub-navigation.
+ * Sub-nav is hidden in DESIGN_SYSTEM mode — navigation there is via the
+ * right panel's 5-tab strip.
+ */
 export function ModeSwitcher() {
   const hubMode    = useHub((s) => s.hubMode)
   const setHubMode = useHub((s) => s.setHubMode)
@@ -234,7 +261,7 @@ export function ModeSwitcher() {
   return (
     <div className="flex h-full shrink-0">
       <ModeRail hubMode={hubMode} setHubMode={setHubMode} />
-      <SubNavPanel hubMode={hubMode} />
+      {hubMode !== 'DESIGN_SYSTEM' && <SubNavPanel hubMode={hubMode} />}
     </div>
   )
 }

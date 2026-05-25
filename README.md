@@ -275,8 +275,8 @@ Decisions, ADRs, scorecards, and session context survive resets through a robust
 #### Active Memory Indexes:
 * **Current Priorities**: [`.nezam/core/memory/CONTEXT.md`](.nezam/core/memory/CONTEXT.md) – Tracks active phase, milestones, and blockers.
 * **Persistent Decision Log**: [`.nezam/core/memory/DECISIONS.md`](.nezam/core/memory/DECISIONS.md) – Plain-language audit of all design, database, and logic choices.
-* **Handoff Briefing**: [`.nezam/core/context/PHASE_HANDOFF.md`](.nezam/core/context/PHASE_HANDOFF.md) – Automated transfer brief for subsequent agent loops.
-* **System Scorecard**: [`.nezam/core/context/MEMORY.md`](.nezam/core/context/MEMORY.md) – Technical decisions, ADR hashes, and gate results.
+* **Handoff Briefing**: [`.nezam/core/memory/PHASE_HANDOFF.md`](.nezam/core/memory/PHASE_HANDOFF.md) – Automated transfer brief for subsequent agent loops.
+* **System Scorecard**: [`.nezam/core/memory/MEMORY.md`](.nezam/core/memory/MEMORY.md) – Technical decisions, ADR hashes, and gate results.
 * **Cross-Tool Capability Map**: [`.nezam/core/memory/MULTI_TOOL_INDEX.md`](.nezam/core/memory/MULTI_TOOL_INDEX.md) – Synchronized index of tool functions across clients.
 
 </details>

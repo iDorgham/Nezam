@@ -1,7 +1,7 @@
 # DESIGN.md v2 (Impeccable++)
 
 ## Intent
-*Brief generated via /DESIGN intent — source: docs/plans/05-design/DESIGN_BRIEF_<page>.md*
+*Brief generated via /DESIGN intent — source: .nezam/core/plans/05-design/DESIGN_BRIEF_<page>.md*
 
 ## Tokens
 *W3C DTCG format + framework bindings*

@@ -53,11 +53,11 @@ git push -u origin HEAD
 
 For significant changes:
 1. Write or update the spec in `docs/specs/`
-2. Update `docs/plans/INDEX.md`
+2. Update `.nezam/core/plans/INDEX.md`
 3. Get design approval if UI is involved
 4. Implement
 5. Add/update tests
-6. Update `.nezam/memory/MEMORY.md` with any decisions
+6. Update `.nezam/core/memory/MEMORY.md` with any decisions
 
 ### 5. Commit Convention
 
@@ -126,14 +126,14 @@ For routine work, open a PR from a **`feature/…`** branch and merge after **`p
 2. Follow the agent format (see [Agent Map](./Agent-Map))
 3. Run `pnpm ai:sync` to distribute to all clients
 4. Add the agent to `CLAUDE.md`, `AGENTS.md`, and `GEMINI.md` indexes
-5. Update `.nezam/memory/WORKSPACE_INDEX.md`
+5. Update `.nezam/core/memory/WORKSPACE_INDEX.md`
 
 ## Adding a New Skill
 
 1. Create a folder in `.cursor/skills/<domain>/`
 2. Add `SKILL.md` as the entry point
 3. Run `pnpm ai:sync`
-4. Update `.nezam/memory/SKILL_CHANGELOG.md`
+4. Update `.nezam/core/memory/SKILL_CHANGELOG.md`
 
 ## Adding a New Command
 
@@ -146,7 +146,7 @@ For routine work, open a PR from a **`feature/…`** branch and merge after **`p
 1. Edit the relevant profile in `.nezam/design/<brand>/design.md`
 2. Re-apply: `pnpm run design:apply -- <brand>`
 3. Run `pnpm run check:tokens`
-4. Update `.nezam/memory/MEMORY.md` under Locked Design Decisions
+4. Update `.nezam/core/memory/MEMORY.md` under Locked Design Decisions
 
 ---
 

@@ -16,7 +16,7 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 - Architectural decisions in `docs/specs/`.
 - `docs/DESIGN.md` motion/3D/perf-sensitive surfaces.
 - Security baseline from `@.cursor/skills/nezam-security-hardening/SKILL.md`.
-- Past incident notes under `.nezam/core/context/`.
+- Past incident notes under `.nezam/core/memory/`.
 
 # Step-by-Step Workflow
 

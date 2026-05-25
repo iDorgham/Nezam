@@ -34,4 +34,4 @@ When audit passes all thresholds, append a new entry to `HANDOFF_QUEUE.yaml` wit
 - status: approved
 - type: design
 - agent: design-excellence-lead
-- artifact: docs/plans/05-design/DESIGN_BRIEF_<page-name>.md (e.g., DESIGN_BRIEF_dashboard.md)
+- artifact: .nezam/core/plans/05-design/DESIGN_BRIEF_<page-name>.md (e.g., DESIGN_BRIEF_dashboard.md)

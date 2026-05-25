@@ -8,16 +8,7 @@ import { PanelHeader, PanelBody, Section, ControlCard } from '@/components/ui/Pa
 import { ColorField } from '@/components/ui/ColorField'
 import type { ColorTokenKey } from '@/types'
 
-const FONT_OPTIONS = [
-  { label: 'Geist', value: "'Geist', 'Inter', system-ui, sans-serif" },
-  { label: 'Inter', value: "'Inter', system-ui, sans-serif" },
-  { label: 'Sora', value: "'Sora', 'Inter', sans-serif" },
-  { label: 'Manrope', value: "'Manrope', 'Inter', sans-serif" },
-  { label: 'IBM Plex', value: "'IBM Plex Sans', system-ui, sans-serif" },
-  { label: 'Cairo', value: "'Cairo', 'IBM Plex Sans Arabic', sans-serif" },
-]
-
-/** Brand mode — the identity layer: brand color, accents, semantics, type. */
+/** Brand / Colors mode — identity layer: brand, accents, semantics, text. */
 export function BrandPanel() {
   const tokens = useTokens()
   const setToken = useHub((s) => s.setToken)
@@ -36,11 +27,11 @@ export function BrandPanel() {
   const textContrast = contrastRatio(tokens.text, tokens.bg)
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col" id="ds-section-colors">
       <PanelHeader
         icon={<Palette size={15} />}
-        title="Brand"
-        subtitle="Identity, accents, and voice"
+        title="Colors"
+        subtitle="Brand, accents, semantics & text"
       />
       <PanelBody>
         {selection && (
@@ -77,18 +68,6 @@ export function BrandPanel() {
           </ControlCard>
         </Section>
 
-        <Section label="Typeface" hint="Display font drives headings; UI font drives the rest.">
-          <FontRow
-            label="Display"
-            value={tokens.fontDisplay}
-            onChange={(v) => setToken('fontDisplay', v)}
-          />
-          <FontRow
-            label="UI / Body"
-            value={tokens.fontSans}
-            onChange={(v) => setToken('fontSans', v)}
-          />
-        </Section>
       </PanelBody>
     </div>
   )
@@ -115,38 +94,3 @@ function ContrastRow({ label, ratio, target }: { label: string; ratio: number; t
   )
 }
 
-function FontRow({
-  label,
-  value,
-  onChange,
-}: {
-  label: string
-  value: string
-  onChange: (v: string) => void
-}) {
-  return (
-    <div>
-      <div className="mb-1.5 text-[11px] font-medium text-app-muted">{label}</div>
-      <div className="flex flex-wrap gap-1.5">
-        {FONT_OPTIONS.map((f) => {
-          const active = f.value === value
-          return (
-            <button
-              key={f.label}
-              onClick={() => onChange(f.value)}
-              style={{ fontFamily: f.value }}
-              className={
-                'focus-ring rounded-app-sm border px-2.5 py-1.5 text-[12px] transition-colors ' +
-                (active
-                  ? 'border-app-accent bg-app-accent-subtle text-app-text'
-                  : 'border-app-border text-app-muted hover:border-app-border-strong hover:text-app-text')
-              }
-            >
-              {f.label}
-            </button>
-          )
-        })}
-      </div>
-    </div>
-  )
-}

@@ -16,7 +16,7 @@ changelog: ["2026-05-22: Initial version"]
 2. For each task without `RICE_SCORE`: compute `(Reach * Impact * Confidence) / Effort`
 3. Append `(RICE_SCORE: <score>, PRIORITY: P?)`
 4. Sort descending. Assign P0 (top 20%), P1 (30%), P2 (30%), P3 (20%)
-5. Rewrite `MASTER_TASKS.md` + create `docs/plans/prioritized_backlog.md`
+5. Rewrite `MASTER_TASKS.md` + create `.nezam/core/plans/prioritized_backlog.md`
 
 ## Validation
 - All tasks have RICE_SCORE and PRIORITY

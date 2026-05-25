@@ -520,7 +520,7 @@ When generating `docs/plan/MASTER_TASKS.md`, apply routing metadata when
 
 Before writing tasks:
 1. Read `.cursor/workspace.settings.yaml` (`tools` activation state + routing toggles).
-2. Read `.nezam/memory/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
+2. Read `.nezam/core/memory/CLI_TOOLS_CONTEXT.md` (task-to-tool routing matrix + deactivation chains).
 3. For each task, compute:
    - `type`
    - `assigned_tool` (primary route if active)
@@ -603,8 +603,8 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 
 ## V3 Subcommands (RICE + Design)
   /PLAN prioritize --framework=rice   -> Score backlog via RICE -> MASTER_TASKS.md with RICE_SCORE + P0..P3
-  /PLAN design intent <page>          -> Design brief from PRD -> docs/plans/05-design/DESIGN_<page>.md
-  /PLAN design dashboard intent <page> -> Dashboard brief -> docs/plans/05-design/DASHBOARD_<page>.md
+  /PLAN design intent <page>          -> Design brief from PRD -> .nezam/core/plans/05-design/DESIGN_<page>.md
+  /PLAN design dashboard intent <page> -> Dashboard brief -> .nezam/core/plans/05-design/DASHBOARD_<page>.md
   /PLAN design audit --strict         -> 50+ anti-pattern checks -> design_audit_report.md
   /PLAN design dashboard audit --strict -> 40+ dashboard checks -> dashboard_audit_report.md
 
@@ -613,4 +613,4 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 2. For each task without `RICE_SCORE`, invoke `.cursor/skills/pm/prioritize-rice/SKILL.md`
 3. Compute: `(Reach * Impact * Confidence) / Effort`
 4. Sort descending. Assign P0 (top 20%), P1 (30%), P2 (30%), P3 (20%)
-5. Rewrite `MASTER_TASKS.md` + create `docs/plans/prioritized_backlog.md`
+5. Rewrite `MASTER_TASKS.md` + create `.nezam/core/plans/prioritized_backlog.md`

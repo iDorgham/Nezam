@@ -145,8 +145,8 @@ Reference existing files instead of duplicating content; refresh `TASKS.md` and 
 
 ## Protocol References
 
-- Communication contract: `.nezam/memory/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `.nezam/memory/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `.nezam/core/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `.nezam/core/memory/ERROR_HANDLING_PROTOCOL.md`
 - Orchestration controller: [.cursor/agents/subagent-controller.md](subagent-controller.md)
 - [`.cursor/skills/system/nezam-analytics-observability/SKILL.md`](../skills/system/nezam-analytics-observability/SKILL.md) for gate-crossing telemetry.
 - [`.cursor/skills/system/cli-orchestration/SKILL.md`](../skills/system/nezam-cli-orchestration/SKILL.md)

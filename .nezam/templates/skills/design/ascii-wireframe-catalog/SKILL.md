@@ -37,7 +37,7 @@ Generates precise, high-fidelity ASCII wireframes as implementation contracts du
 4. Flip `plan_progress.yaml.wireframes_approved: true`
 
 ### Phase 4: Handoff & Memory Archive
-1. Output to `docs/plans/design/wireframes/`
+1. Output to `.nezam/core/plans/design/wireframes/`
 2. Update `HANDOFF_QUEUE.yaml` → status: `ready_for_develop`
 3. Archive spec + interaction logs to `@.nezam/core/memory/design-wireframes/<session-id>/`
 
@@ -49,7 +49,7 @@ Generates precise, high-fidelity ASCII wireframes as implementation contracts du
 
 ## Output Format
 ```tree
-docs/plans/design/wireframes/
+.nezam/core/plans/design/wireframes/
 ├── builder-canvas.md
 ├── node-graph-editor.md
 ├── crm-pipeline-board.md

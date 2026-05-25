@@ -1,15 +1,17 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useHub } from '@/store/hub.store'
 import { TopBar } from './TopBar'
 import { PageTabsBar } from './PageTabsBar'
 import { ResizeHandle } from './ResizeHandle'
 import { ModeSwitcher } from './ModeSwitcher'
+import { CmdKBar } from './CmdKBar'
 import { StructureViewport } from '@/components/canvas/StructureViewport'
 import { PreviewCanvas } from '@/components/canvas/PreviewCanvas'
 import { RightBuilder } from '@/components/builder/RightBuilder'
+import { DesignSystemEditorPanel } from '@/components/ds/DesignSystemEditorPanel'
 import { AnimationTimeline } from '@/components/timeline/AnimationTimeline'
 import type { Tool } from '@/types'
 
@@ -42,20 +44,33 @@ export function DesignHub() {
   const redo        = useHub((s) => s.redo)
   const setTool     = useHub((s) => s.setTool)
 
-  const isBuilder     = hubMode === 'BUILDER'
-  const timelineOpen  = isBuilder && builderMode === 'interactions'
+  const [cmdKOpen, setCmdKOpen] = useState(false)
+
+  const isBuilder      = hubMode === 'BUILDER'
+  const isDesignSystem = hubMode === 'DESIGN_SYSTEM'
+  const showRight      = isBuilder || isDesignSystem
+  const timelineOpen   = isBuilder && builderMode === 'interactions'
 
   // Rehydrate persisted state from localStorage after mount.
   useEffect(() => {
     useHub.persist.rehydrate()
   }, [])
 
-  // Global keyboard shortcuts — history + tool selection (only in BUILDER mode).
+  // Global keyboard shortcuts — Cmd+K, history, tool selection.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement
-      if (target.closest('input, textarea, [contenteditable="true"]')) return
       const mod = e.metaKey || e.ctrlKey
+
+      // Cmd+K — open AI command bar (allowed from anywhere)
+      if (mod && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setCmdKOpen((v) => !v)
+        return
+      }
+
+      if (target.closest('input, textarea, [contenteditable="true"]')) return
+
       if (mod && e.key.toLowerCase() === 'z') {
         e.preventDefault()
         e.shiftKey ? redo() : undo()
@@ -75,7 +90,8 @@ export function DesignHub() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-app-bg">
-      <TopBar />
+      <TopBar onCmdK={() => setCmdKOpen(true)} />
+      <CmdKBar open={cmdKOpen} onClose={() => setCmdKOpen(false)} />
 
       <div className="flex min-h-0 flex-1">
         {/* Left: mode switcher (always) */}
@@ -105,15 +121,15 @@ export function DesignHub() {
           </main>
         </div>
 
-        {/* Right builder — BUILDER mode only */}
-        {isBuilder && (
+        {/* Right panel — BUILDER + DESIGN_SYSTEM modes */}
+        {showRight && (
           <>
             <ResizeHandle edge="right" value={rightW} onChange={setRightW} />
             <aside
               style={{ width: rightW }}
               className="shrink-0 overflow-hidden border-l border-app-border bg-app-surface"
             >
-              <RightBuilder />
+              {isDesignSystem ? <DesignSystemEditorPanel /> : <RightBuilder />}
             </aside>
           </>
         )}

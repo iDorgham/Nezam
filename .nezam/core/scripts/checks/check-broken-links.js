@@ -116,10 +116,14 @@ function validateLink(url, sourceFile, lineNum, originalText) {
     return;
   }
 
-  // Ignore dynamic onboarding directories (docs/plans/ and docs/reports/)
+  // Ignore dynamic onboarding directories (docs/plans/, docs/reports/, core/plans/, and core/reports/)
   if (
     url.includes('docs/plans/') ||
     url.includes('docs/reports/') ||
+    url.includes('core/plans/') ||
+    url.includes('core/reports/') ||
+    url.includes('../plans/') ||
+    url.includes('../reports/') ||
     url === 'docs/plans' ||
     url === 'docs/reports' ||
     url === 'docs/plans/' ||

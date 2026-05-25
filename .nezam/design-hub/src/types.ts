@@ -25,6 +25,8 @@ export type BuilderMode =
   | 'history'
   | 'design-system'
   | 'theme'
+  | 'typography'
+  | 'spacing'
 
 /** Left toolbar tools (Photoshop-style). */
 export type Tool =
@@ -311,6 +313,9 @@ export interface SitemapBuilderPage {
   name: string
   url?: string
   status?: PageStatus
+  /** SEO / SERP fields */
+  metaTitle?: string
+  metaDescription?: string
   notes: NoteItem[]
   sections: SitemapBuilderSection[]
   collapsed: boolean

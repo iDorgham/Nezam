@@ -95,7 +95,7 @@ If trade-offs conflict, apply the order above and log the decision in the final 
 - `/PLAN all` for staged orchestration.
 - `/SCAN` and `/FIX` loops before hardening closure.
 - CI checks for gate-state consistency.
-- `@ decision-journal` appends `plain_language_summary` outcomes into `.nezam/core/context/DECISIONS_PLAIN.md`.
+- `@ decision-journal` appends `plain_language_summary` outcomes into `.nezam/core/memory/DECISIONS_PLAIN.md`.
 
 ## CLI Delegation Protocol
 Before assigning a task to a Claude/Cursor agent, check the CLI Routing Matrix in `@nezam-cli-orchestration`.

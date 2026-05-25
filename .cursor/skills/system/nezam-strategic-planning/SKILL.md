@@ -16,7 +16,7 @@ Convert business intent and PRD signals into a deterministic, phase-gated roadma
 - `.nezam/core/prd/PROJECT_PROMPT.md` (north-star + guardrails).
 - `docs/CONSTITUTION.md` if present.
 - Stakeholder list, capacity model, time horizon, regulatory constraints.
-- External market signals (browser companion progress reports under `.nezam/core/context/`).
+- External market signals (browser companion progress reports under `.nezam/core/memory/`).
 
 # Step-by-Step Workflow
 

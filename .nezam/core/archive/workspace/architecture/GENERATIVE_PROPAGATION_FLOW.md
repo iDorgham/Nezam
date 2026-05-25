@@ -228,7 +228,7 @@ flowchart TD
 
 | File | Role |
 |------|------|
-| `docs/plans/05-design-uiux/SPEC-DS-CANVAS-001.md` | Full SDD — source of truth for this architecture |
+| `.nezam/core/plans/05-design-uiux/SPEC-DS-CANVAS-001.md` | Full SDD — source of truth for this architecture |
 | `.nezam/design-server/src/store/canvas-graph.store.ts` | Zustand + Zod implementation of all schemas in §3–5 |
 | `.nezam/design-server/components/canvas/CanvasWorkspace.tsx` | React canvas component — consumes canvas-graph.store |
 | `.nezam/design-server/app/api/ai/vision-gate/route.ts` | Vision Gate API endpoint (Phase 2 implementation) |

@@ -242,6 +242,7 @@ export const useHub = create<HubStore>()(
         completed: false,
         step: 0,
       },
+      },
 
       arch: {
         pages: {},

@@ -10,6 +10,7 @@ Subcommands:
   /SCAN content     → Content quality: readability, tone consistency, missing copy, broken links
   /SCAN design      → Design token compliance: check for hardcoded px/hex/rem outside tokens
   /SCAN agents      → List active agents, their tier, and last eval date in a session
+  /SCAN cost        → Swarm cost reporting: compute token expenditures and API usage costs
   /SCAN all         → Run all scans in sequence, produce unified report
 
 All scan reports write to docs/reports/<category>/<timestamp>.md
@@ -31,3 +32,15 @@ Flags:
 - 🔴 agents with status: archived still referenced in active rules
 - 🟡 Tier 1 agents with last_eval_date older than 30 days
 - 🟠 Tier 2 agents with no eval date and MODE C activations in the last sprint
+
+## /scan cost
+
+Runs `node .nezam/core/scripts/reports/swarm-cost-report.js` and outputs a dense summary of routed tasks and high-impact MODE C swarms:
+
+| Swarm | Tasks | Mode A | Mode B | Mode C | Notes |
+|---|---|---|---|---|---|
+| ... | ... | ... | ... | ... | |
+
+Flags:
+- 🔴 Swarms with high task concentration (e.g. >10 tasks in active bus)
+- 🟡 Heavy swarms with >5 MODE C task executions, which consume high token volumes

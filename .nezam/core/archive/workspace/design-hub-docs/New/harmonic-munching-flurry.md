@@ -6,7 +6,7 @@ The user submitted SPEC-DS-CANVAS-001: a "Context-Aware Infinity Canvas" where b
 The design-server's `src/` scaffold exists but is empty. The existing `CanvasWorkspace.tsx` (pan/zoom/nodes/connections) and `lib/store/` are the operational foundation. The new store, spec, and architecture docs slot into the `src/` tree and the parent workspace `docs/` directory.
 
 **Deliverables** (4 files created/updated):
-1. `docs/plans/05-design-uiux/SPEC-DS-CANVAS-001.md` — 10-section SDD
+1. `.nezam/core/plans/05-design-uiux/SPEC-DS-CANVAS-001.md` — 10-section SDD
 2. `.nezam/design-server/src/store/canvas-graph.store.ts` — Zustand + Zod graph store
 3. `docs/architecture/GENERATIVE_PROPAGATION_FLOW.md` — Mermaid sequence diagram
 4. `.cursor/state/plan_progress.yaml` + `HANDOFF_QUEUE.yaml` — state updates
@@ -15,9 +15,9 @@ All paths are relative to `/Users/Dorgham/Documents/Work/Devleopment/NEZAM/`.
 
 ---
 
-## Deliverable 1 — `docs/plans/05-design-uiux/SPEC-DS-CANVAS-001.md`
+## Deliverable 1 — `.nezam/core/plans/05-design-uiux/SPEC-DS-CANVAS-001.md`
 
-10-section SDD following the same schema as `docs/plans/00-define/01-product/PRD.md`.
+10-section SDD following the same schema as `.nezam/core/plans/00-define/01-product/PRD.md`.
 
 ### Section 0: Feature Identity
 | Field | Value |
@@ -275,7 +275,7 @@ Add to `queue[]`:
   timestamp: "2026-05-18T00:00:00Z"
   payload:
     subject: "SPEC-DS-CANVAS-001 architecture complete — begin canvas-graph store integration"
-    artifact_path: "docs/plans/05-design-uiux/SPEC-DS-CANVAS-001.md"
+    artifact_path: ".nezam/core/plans/05-design-uiux/SPEC-DS-CANVAS-001.md"
     summary: "Context-Aware Infinity Canvas spec, Zod store, and propagation flow diagram ready. Next: wire canvas-graph.store into CanvasWorkspace.tsx, implement Vision Gate API route, and build GenerativeEdge UI."
     action_required: "integrate canvas-graph.store.ts into CanvasWorkspace, add Vision Gate route at /api/ai/vision-gate, add GenerateButton to wire selection panel"
   status: "pending"
@@ -285,7 +285,7 @@ Add to `queue[]`:
 
 ## Execution Order
 
-1. Create `docs/plans/05-design-uiux/` directory + write `SPEC-DS-CANVAS-001.md` (full 10 sections)
+1. Create `.nezam/core/plans/05-design-uiux/` directory + write `SPEC-DS-CANVAS-001.md` (full 10 sections)
 2. Create `docs/architecture/` directory + write `GENERATIVE_PROPAGATION_FLOW.md`
 3. Create `.nezam/design-server/src/store/` + write `canvas-graph.store.ts`
 4. Update `.cursor/state/plan_progress.yaml` (append 3 lines)
@@ -296,7 +296,7 @@ Add to `queue[]`:
 
 | File | Action | Location |
 |------|---------|---------|
-| `docs/plans/05-design-uiux/SPEC-DS-CANVAS-001.md` | Create | NEZAM workspace root |
+| `.nezam/core/plans/05-design-uiux/SPEC-DS-CANVAS-001.md` | Create | NEZAM workspace root |
 | `docs/architecture/GENERATIVE_PROPAGATION_FLOW.md` | Create | NEZAM workspace root |
 | `.nezam/design-server/src/store/canvas-graph.store.ts` | Create | design-server src |
 | `.cursor/state/plan_progress.yaml` | Edit (append) | NEZAM workspace root |

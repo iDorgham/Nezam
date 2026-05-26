@@ -30,14 +30,14 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | Path | Role |
 |---|---|
 | `.nezam/workspace/prd/PRD.md` | Product Requirements Document |
-| `docs/plans/**` | Phase and task execution state |
+| `.nezam/core/plans/**` | Phase and task execution state |
 | `docs/specs/**` | Feature specs and SDD artifacts |
 | `.nezam/design/<brand>/design.md` | Active design profile |
-| `.nezam/memory/CONTEXT.md` | Current project context and active priorities |
-| `.nezam/memory/WORKSPACE_INDEX.md` | Static workspace map and capability index |
-| `.nezam/memory/MEMORY.md` | Durable project facts, decisions, scorecards |
-| `.nezam/memory/PHASE_HANDOFF.md` | Cross-agent brief at phase boundaries |
-| `.nezam/memory/DECISIONS.md` | Plain-language decision log |
+| `.nezam/core/memory/CONTEXT.md` | Current project context and active priorities |
+| `.nezam/core/memory/WORKSPACE_INDEX.md` | Static workspace map and capability index |
+| `.nezam/core/memory/MEMORY.md` | Durable project facts, decisions, scorecards |
+| `.nezam/core/memory/PHASE_HANDOFF.md` | Cross-agent brief at phase boundaries |
+| `.nezam/core/memory/DECISIONS.md` | Plain-language decision log |
 | `.nezam/workspace/reports/progress/PROGRESS_REPORT.latest.md` | Progress snapshot |
 
 ---
@@ -49,9 +49,9 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | `.cursor/agents/**` | Team and persona charters, routing lenses |
 | `.cursor/skills/**/SKILL.md` | Deterministic workflows and procedure contracts |
 | `.cursor/rules/*.mdc` | Guardrails, hardlocks, and precedence policy |
-| `.nezam/memory/AGENT_COMM_PROTOCOL.md` | Inter-agent communication standards |
-| `.nezam/memory/ORCHESTRATION_ALIASES.md` | Command and alias routing governance |
-| `.nezam/memory/ERROR_HANDLING_PROTOCOL.md` | Error classification and response |
+| `.nezam/core/memory/AGENT_COMM_PROTOCOL.md` | Inter-agent communication standards |
+| `.nezam/core/memory/ORCHESTRATION_ALIASES.md` | Command and alias routing governance |
+| `.nezam/core/memory/ERROR_HANDLING_PROTOCOL.md` | Error classification and response |
 | `.nezam/templates/**` | Reusable scaffolds for generated artifacts |
 
 ---
@@ -65,9 +65,9 @@ When any of these events occur in chat, assistants must persist outcomes into do
 | `GEMINI.md` | Gemini workspace contract |
 | `QWEN.md` | Qwen workspace contract |
 | `.nezam/workspace/meta/VERSIONING.md` | Versioning, tag, and release policy |
-| `.nezam/memory/MCP_REGISTRY.md` | MCP tool registry |
-| `.nezam/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
-| `.nezam/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
+| `.nezam/core/memory/MCP_REGISTRY.md` | MCP tool registry |
+| `.nezam/core/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
+| `.nezam/core/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
 | `.claude/**`, `.gemini/**`, `.opencode/**`, `.codex/**` | Generated client mirrors synced from `.cursor/` |
 
 ---
@@ -79,8 +79,8 @@ Session Runtime (L0)
       │ captured via capture protocol
       ▼
 Project SDD Truth (L1)  ←── git committed, source of truth
-  .nezam/memory/MEMORY.md
-  docs/plans/
+  .nezam/core/memory/MEMORY.md
+  .nezam/core/plans/
   .nezam/workspace/prd/PRD.md
       │ governs behavior via
       ▼
@@ -101,14 +101,14 @@ Workspace Governance (L3)
 
 | Old Path | New Path |
 |---|---|
-| `.nezam/memory/MEMORY.md` | `.nezam/memory/MEMORY.md` |
-| `.nezam/memory/CONTEXT.md` | `.nezam/memory/CONTEXT.md` |
-| `.nezam/memory/PHASE_HANDOFF.md` | `.nezam/memory/PHASE_HANDOFF.md` |
-| `.nezam/memory/WORKSPACE_INDEX.md` | `.nezam/memory/WORKSPACE_INDEX.md` |
-| `.nezam/memory/DECISIONS_PLAIN.md` | `.nezam/memory/DECISIONS.md` |
-| `.nezam/memory/MULTI_TOOL_INDEX.md` | `.nezam/memory/MULTI_TOOL_INDEX.md` |
-| `.nezam/memory/MCP_REGISTRY.md` | `.nezam/memory/MCP_REGISTRY.md` |
-| `.nezam/memory/SKILL_CHANGELOG.md` | `.nezam/memory/SKILL_CHANGELOG.md` |
+| `.nezam/core/memory/MEMORY.md` | `.nezam/core/memory/MEMORY.md` |
+| `.nezam/core/memory/CONTEXT.md` | `.nezam/core/memory/CONTEXT.md` |
+| `.nezam/core/memory/PHASE_HANDOFF.md` | `.nezam/core/memory/PHASE_HANDOFF.md` |
+| `.nezam/core/memory/WORKSPACE_INDEX.md` | `.nezam/core/memory/WORKSPACE_INDEX.md` |
+| `.nezam/core/memory/DECISIONS_PLAIN.md` | `.nezam/core/memory/DECISIONS.md` |
+| `.nezam/core/memory/MULTI_TOOL_INDEX.md` | `.nezam/core/memory/MULTI_TOOL_INDEX.md` |
+| `.nezam/core/memory/MCP_REGISTRY.md` | `.nezam/core/memory/MCP_REGISTRY.md` |
+| `.nezam/core/memory/SKILL_CHANGELOG.md` | `.nezam/core/memory/SKILL_CHANGELOG.md` |
 | `.nezam/workspace/prd/PRD.md` | `.nezam/workspace/prd/PRD.md` |
-| `docs/plans/` | `docs/plans/` |
+| `.nezam/core/plans/` | `.nezam/core/plans/` |
 | `.nezam/workspace/templates/` | `.nezam/templates/` |

@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-wireframe-to-spec
+name: "Wireframe To Spec Converter"
 tier: 3
-name: "nezam-"nezam-"nezam-wireframe-to-spec-converter"
 description: Convert low-fidelity wireframes into implementation-ready component specifications.
 version: 1.0.0
 updated: 2026-05-08

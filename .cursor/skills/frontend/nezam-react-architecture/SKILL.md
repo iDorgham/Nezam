@@ -1,18 +1,15 @@
 ---
+skill_id: nezam-react-architecture
+name: "React Architecture"
 tier: 3
-name: "nezam-"nezam- nezam-react-architecture"
 description: React 19 / Next.js 15 patterns — Server Components, Suspense, Server Actions, state strategy, and rendering modes.
 version: 2.0.0
 updated: 2026-05-08
 breaking_changes: true
 changelog:
-  - version: 2.0.0
-    date: 2026-05-08
-    notes: "React 19 and Next.js 15 architecture defaults with RSC-first guidance."
+date: 2026-05-08
+notes: "React 19 and Next.js 15 architecture defaults with RSC-first guidance."
 compatible_with:
-  - react: ">=19"
-  - next: ">=15"
-  - node: ">=20"
 ---
 # Purpose
 

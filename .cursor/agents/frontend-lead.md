@@ -34,5 +34,20 @@ Coordinate API contracts with BE-01 early and keep frontend assumptions synchron
 
 ## Protocol References
 
-- Communication contract: `.nezam/memory/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `.nezam/memory/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `.nezam/core/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `.nezam/core/memory/ERROR_HANDLING_PROTOCOL.md`
+
+
+## Related Skills
+- `@nezam-chart-library-abstraction`
+- `@nezam-collab-ui-patterns`
+- `@nezam-component-testing`
+- `@nezam-gsap-animations`
+- `@nezam-i18n-next-intl`
+- `@nezam-kanban-pipeline-ui`
+- `@nezam-nextjs-patterns`
+- `@nezam-performance-budget`
+- `@nezam-react18-patterns`
+- `@nezam-rtl-layout`
+- `@nezam-shadcn-ui`
+- `@nezam-state-management`

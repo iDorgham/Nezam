@@ -20,7 +20,7 @@ NEZAM is a **workspace orchestration layer** — not an application. It sits bet
            │                          │
 ┌──────────▼──────────┐  ┌────────────▼───────────────┐
 │   SWARM SYSTEM       │  │   MEMORY SYSTEM             │
-│  swarm-leader        │  │  .nezam/memory/               │
+│  swarm-leader        │  │  .nezam/core/memory/               │
 │  subagent-controller │  │  Layer 0: ephemeral         │
 │  100+ agents         │  │  Layer 1: durable (git)     │
 │  lazy-loaded         │  │  Layer 2: team contracts    │
@@ -48,9 +48,9 @@ NEZAM is a **workspace orchestration layer** — not an application. It sits bet
 | `.cursor/skills/` | Domain skill packs (10 domains) |
 | `.cursor/rules/` | Governance rules (hardlock, SDD, design gates) |
 | `.nezam/design/` | Brand/design profiles |
-| `.nezam/memory/` | Durable AI memory (decisions, context, protocols) |
+| `.nezam/core/memory/` | Durable AI memory (decisions, context, protocols) |
 | `.nezam/workspace/prd/` | Product Requirements Document |
-| `docs/plans/` | Phase execution plans + gate matrix |
+| `.nezam/core/plans/` | Phase execution plans + gate matrix |
 | `docs/specs/` | Feature specs + SDD artifacts |
 | `.nezam/workspace/architecture/` | ADRs + diagrams |
 | `.nezam/scripts/` | Automation scripts (checks, sync, design, release) |

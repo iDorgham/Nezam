@@ -42,7 +42,7 @@ This strict separation ensures that users (and the AI Swarm) focus on **Architec
 ### Right Panel (Inspector)
 - **Page Properties**: Granular control over the selected node's Title, URL Slug, Meta Tags, OpenGraph images, and active deployment status (Draft/Published).
 - **Content Model Bindings**: When a node is selected, this panel exposes the exact data requirements. If an authentication guard is applied, the panel exposes role-based access control (RBAC) toggles.
-- **Nezam Fit (Handoff Output)**: Feeds directly into `wireframes_locked.json` and updates the canonical `docs/plans/sitemap` file. This prevents the Swarm from ever hallucinating routes that do not exist in the visual blueprint.
+- **Nezam Fit (Handoff Output)**: Feeds directly into `wireframes_locked.json` and updates the canonical `.nezam/core/plans/sitemap` file. This prevents the Swarm from ever hallucinating routes that do not exist in the visual blueprint.
 
 ---
 
@@ -119,7 +119,7 @@ To elevate the NEZAM Design Hub from a standard internal tool to an enterprise-g
 
 The NEZAM visual builder is not just a drawing tool; it is a strict governance gate. When the user completes their session and clicks the glowing **"Lock & Sync"** button in the top right corner, a deterministic compilation sequence is triggered:
 
-1. **Structure Mode Extraction**: Writes the node-graph topology to `.nezam/design-hub/.session/sitemap.json` and updates the human-readable `docs/plans/` directory.
+1. **Structure Mode Extraction**: Writes the node-graph topology to `.nezam/design-hub/.session/sitemap.json` and updates the human-readable `.nezam/core/plans/` directory.
 2. **Design System Compilation**: Translates the visual token choices into ultra-advanced JSON (`.nezam/design-hub/.session/tokens.json`). It dynamically writes CSS custom properties to `globals.css` and regenerates the root `DESIGN.md` Markdown contract for AI consumption.
 3. **Builder Mode Serialization**: Serializes the dragged-and-dropped DOM compositions into `wireframes_locked.json`.
 4. **Swarm Trigger**: Appends a new payload to `.cursor/state/HANDOFF_QUEUE.yaml`. This acts as the starting gun for the NEZAM Agent Swarm (specifically the `ui-depth-architect`, `motion-performance-specialist`, and `frontend-lead` agents) to wake up, read the locked contracts, and begin generating pixel-perfect React/Next.js code matching the exact live previews.

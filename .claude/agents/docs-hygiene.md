@@ -21,7 +21,7 @@ Keep repository organization and contextual documentation accurate, navigable, a
 | Subagent        | Responsibility |
 | --------------- | -------------- |
 | structure-keeper| Directory conventions and file placement integrity |
-| context-sync    | `.nezam/core/context/*` and index synchronization |
+| context-sync    | `.nezam/core/memory/*` and index synchronization |
 | spec-freshness  | Detect stale specs, plans, and decision artifacts |
 
 ## Primary skills / lenses
@@ -47,7 +47,7 @@ Typical slash commands and subcommands:
 ## Output contract
 
 - Changed-doc inventory with reason and affected pipeline stage.
-- Freshness verdict for `.nezam/core/context/`, specs, and `docs/plan/`.
+- Freshness verdict for `.nezam/core/memory/`, specs, and `docs/plan/`.
 - Follow-up queue for unresolved documentation debt.
 
 ## Escalation

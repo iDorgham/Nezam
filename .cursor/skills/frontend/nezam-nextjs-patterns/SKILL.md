@@ -1,16 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-nextjs-patterns"
-name: "nezam-"nezam-"nezam-nextjs-patterns"
+skill_id: nezam-nextjs-patterns
+name: "Nextjs Patterns"
 description: "App Router composition, View Transitions API, partial prerendering, streaming, parallel/intercepting routes, and runtime constraints."
 version: 1.1.0
 updated: 2026-05-12
 changelog:
-  - version: 1.1.0
-    date: 2026-05-12
-    notes: "Wave 2 Upgrade: Added Vercel-specific React composition, View Transitions API, and Partial Prerendering patterns."
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial version metadata added."
+date: 2026-05-12
+notes: "Wave 2 Upgrade: Added Vercel-specific React composition, View Transitions API, and Partial Prerendering patterns."
 owner: "frontend-framework-manager"
 tier: 1
 sdd_phase: "Development"

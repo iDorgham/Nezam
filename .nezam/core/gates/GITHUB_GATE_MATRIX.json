@@ -7,8 +7,8 @@
       "name": "Onboarding Readiness",
       "description": "Ensures the workspace is correctly initialized with PRD and Project Prompt.",
       "prerequisites": [
-        "docs/plans/00-define/01-product/PRD.md",
-        "docs/plans/00-define/01-product/PROJECT_PROMPT.md"
+        ".nezam/core/plans/00-define/01-product/PRD.md",
+        ".nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md"
       ],
       "checkScript": ".nezam/scripts/checks/check-onboarding-readiness.sh"
     },

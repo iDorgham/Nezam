@@ -1,25 +1,26 @@
 ---
+skill_id: nezam-docs-context-sync
+name: "Docs Context Sync"
 tier: 3
-name: "nezam-"nezam- nezam-docs-context-sync"
 description: Deterministic documentation lifecycle workflow for syncing context docs, workspace index, and plan artifacts after repository changes.
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
 ---
 # Purpose
-Keep `.nezam/core/context/`, `WORKSPACE_INDEX.md`, and `.nezam/core/plans/` artifacts synchronized so project memory and navigation remain current across SDD phases.
+Keep `.nezam/core/memory/`, `WORKSPACE_INDEX.md`, and `.nezam/core/plans/` artifacts synchronized so project memory and navigation remain current across SDD phases.
 
 # Inputs
 - Changed file list from current branch.
-- `.nezam/core/context/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
+- `.nezam/core/memory/` files (`CONTEXT.md`, `MEMORY.md`, `WORKSPACE_INDEX.md`, `MEMORY_ARCHITECTURE.md`).
 - Plan artifacts (`.nezam/core/plans/INDEX.md`, phase `TASKS.md` files).
 - Maintenance script: `.nezam/core/scripts/context/update-context-docs.py`.
 
 # Step-by-Step Workflow
 1. Identify docs-impacting changes (new commands, skills, agents, workflows, scripts, structural moves).
-2. Update `.nezam/core/context/WORKSPACE_INDEX.md` tables and references for added/removed capabilities.
-3. Refresh `.nezam/core/context/CONTEXT.md` and `.nezam/core/context/MEMORY_ARCHITECTURE.md` summaries for current scope and state.
-4. Log durable decisions and milestones in `.nezam/core/context/MEMORY.md`.
+2. Update `.nezam/core/memory/WORKSPACE_INDEX.md` tables and references for added/removed capabilities.
+3. Refresh `.nezam/core/memory/CONTEXT.md` and `.nezam/core/memory/MEMORY_ARCHITECTURE.md` summaries for current scope and state.
+4. Log durable decisions and milestones in `.nezam/core/memory/MEMORY.md`.
 5. Sync active execution metadata in `.nezam/core/plans/INDEX.md` and related phase task boards.
 6. Run context maintenance script if available:
    - `python .nezam/core/scripts/context/update-context-docs.py`
@@ -34,7 +35,7 @@ Keep `.nezam/core/context/`, `WORKSPACE_INDEX.md`, and `.nezam/core/plans/` arti
 - Memory update completeness (major decisions logged).
 
 # Output Format
-- Updated `.nezam/core/context/*` files and `.nezam/core/plans/INDEX.md` changes.
+- Updated `.nezam/core/memory/*` files and `.nezam/core/plans/INDEX.md` changes.
 - Doc sync report: changed files, reason, verification results.
 - Outstanding documentation debt list with owner.
 

@@ -67,7 +67,7 @@ executive-director
             ├── PRODUCT & CONTENT
             │   ├── product-manager · product-officer · business-analyst
             │   ├── content-strategist · content-workflow-manager
-            │   ├── cms-manager · headless-cms-specialist
+            │   ├── cms-manager · cms-headless-architect
             │   └── seo-specialist · aeo-specialist
             │
             ├── QUALITY & TESTING
@@ -112,7 +112,7 @@ executive-director
 | `kpi-reporting-manager` | Metrics and reporting |
 | `localization-lead` | Multi-language strategy |
 | `mena-payments-specialist` | MENA-specific payment providers |
-| `multi-tenancy-architect` | SaaS multi-tenant patterns |
+| `saas-tenancy-architect` | SaaS multi-tenant separation, data partitioning, and RLS policies |
 | `payments-lead` | Payment system architecture |
 | `privacy-data-ethics-specialist` | GDPR, data governance |
 | `project-architect` | Per-project architecture decisions |

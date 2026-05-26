@@ -1,11 +1,9 @@
 ---
+skill_id: nezam-api-testing
+name: "Api Testing"
 tier: 3
-name: "nezam-"nezam-"nezam-api-testing"
 description: External API testing skill — contract testing, integration test scaffolding, Postman/Bruno collections, mock server setup, and API health checks for third-party and internal APIs.
 paths:
-  - "docs/specs/api/**"
-  - ".github/workflows/**"
-  - "tests/**"
 version: 1.0.0
 updated: 2026-05-12
 changelog: []

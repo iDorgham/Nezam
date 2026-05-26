@@ -25,9 +25,9 @@ when: ["pre-/DEVELOP gate", "/SCAN a11y", "/SCAN perf", "motion audit", "release
 - Prioritized remediation plan aligned to `/FIX`.
 
 # @skill nezam-Dependencies
-- `@nezam-motion-3d-progressive`
+- `@nezam-motion-3d`
 - `@nezam-component-library-api`
-- `@nezam-pro-design-tokens`
+- `@nezam-design-tokens`
 - `@nezam-multi-agent-handoff`
 
 # Anti-Patterns

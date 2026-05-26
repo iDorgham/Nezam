@@ -1,18 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-agents-md"
-name: "nezam-"nezam-"nezam-agents-md"
+skill_id: nezam-agents-md
+name: "Agents Md"
 description: "Governs the creation, maintenance, and quality of NEZAM agent definitions in .cursor/agents/. Ensures every agent has a trigger contract, I/O contract, handoff target, and eval framework."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release.
 owner: "swarm-leader"
 tier: 1
 sdd_phase: "Planning"
 rtl_aware: false
 certified: false
 dependencies:
-  - "system/multi-agent-handoff"
 ---
 # Agents MD Governance
 

@@ -1,6 +1,6 @@
 ---
-id: nezam-s8-funnel
-name: "nezam-"nezam-"nezam-S8 Funnel"
+skill_id: nezam-funnel
+name: "S8 Funnel"
 tier: 3
 summary: Funnel analysis for S8 analytics, tracking user progression through key flows.
 owner: unassigned
@@ -8,11 +8,9 @@ version: 1.0.0
 updated: 2026-05-12
 changelog: "Initial skill creation for NEZAM hardening Phase 3."
 usage: |
-  Use this skill to build and analyze funnels for conversion tracking.
 tests: |
-  Placeholder: Verify funnel calculations with mock data.
+Placeholder: Verify funnel calculations with mock data.
 example: |
-  Analyze the signup funnel conversion rate.
 ---
 # S8 Funnel
 

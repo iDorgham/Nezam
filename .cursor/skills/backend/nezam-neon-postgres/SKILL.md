@@ -1,13 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-neon-advanced"
-name: "nezam-"nezam-"nezam-neon-advanced"
+skill_id: nezam-neon-postgres
+name: "Neon Advanced"
 description: "Advanced Neon Postgres patterns: database branching, serverless pooling, egress optimization, and ephemeral environments."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial Wave 2 implementation."
+date: 2026-05-12
+notes: "Initial Wave 2 implementation."
 owner: "database-design-manager"
 tier: 1
 sdd_phase: "Architecture"

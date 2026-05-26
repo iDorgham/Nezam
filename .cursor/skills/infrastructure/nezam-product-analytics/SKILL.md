@@ -1,16 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-product-analytics"
-name: "nezam-"nezam-"nezam-product-analytics"
+skill_id: nezam-product-analytics
+name: "Product Analytics"
 description: "Product analytics instrumentation and governance using PostHog patterns, feature flags, and session recording."
 version: 1.1.0
 updated: 2026-05-12
 changelog:
-  - version: 1.1.0
-    date: 2026-05-12
-    notes: "Wave 2 Upgrade: Added PostHog-specific SDK usage, feature flags, session recording, and A/B testing."
-  - version: 1.0.0
-    date: 2026-05-10
-    notes: "Initial version metadata added."
+date: 2026-05-12
+notes: "Wave 2 Upgrade: Added PostHog-specific SDK usage, feature flags, session recording, and A/B testing."
 owner: "lead-analytics-architect"
 tier: 1
 sdd_phase: "Development"

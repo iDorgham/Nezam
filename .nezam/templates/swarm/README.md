@@ -5,7 +5,7 @@ status: active
 
 # Plan Templates
 
-This directory contains plan-scoped templates used by the `docs/plans/` workflow.
+This directory contains plan-scoped templates used by the `.nezam/core/plans/` workflow.
 
 ## Policy
 

@@ -38,6 +38,7 @@ Swarm Manager for the CMS & SaaS swarm. Own headless / hybrid CMS topology, cont
 
 ## Primary skills / lenses
 
+- `@nezam-wordpress`
 - [`.cursor/skills/nezam-cms-integration/SKILL.md`](../skills/backend/nezam-cms-integration/SKILL.md)
 - [`.cursor/skills/nezam-content-modeling/SKILL.md`](../skills/content/nezam-content-modeling/SKILL.md)
 - [`.cursor/skills/nezam-editorial-workflows/SKILL.md`](../skills/content/nezam-editorial-workflows/SKILL.md)

@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-aeo-answer-engines
+name: "Aeo Answer Engines"
 tier: 3
-name: "nezam-"nezam- nezam-aeo-answer-engines"
 description: Answer Engine Optimization — concise Q&A structures and voice/assistant-ready formatting for direct answers.
 version: 1.0.0
 updated: 2026-05-08

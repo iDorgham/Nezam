@@ -6,9 +6,9 @@ This is the primary upload/briefing document for AI assistants when file-count l
 
 ## Token Cache Hint
 > These files are re-read every session and are prime candidates for prompt caching:
-> 1. `.nezam/memory/CONTEXT.md` (this file)
-> 2. `.nezam/memory/MEMORY.md`
-> 3. `.nezam/memory/PHASE_HANDOFF.md`
+> 1. `.nezam/core/memory/CONTEXT.md` (this file)
+> 2. `.nezam/core/memory/MEMORY.md`
+> 3. `.nezam/core/memory/PHASE_HANDOFF.md`
 > 4. Active SPEC.md for current feature
 > Load via path reference, not content paste.
 
@@ -26,17 +26,17 @@ Use Specification-Driven Development with repository docs as source of truth.
 - Feature specs: `.nezam/workspace/prd/features/`
 - Design catalog: `.nezam/design/<brand>/design.md` — **project design system:** root `DESIGN.md` (copy chosen profile with `/START design` or `pnpm run design:apply -- <brand>`)
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — BaaS, AI, auth, payments, media, infra, observability catalog with CLI/MCP availability
-- AI tools context: `.nezam/memory/CLI_TOOLS_CONTEXT.md` — routing matrix, profiles, fallback chains
+- AI tools context: `.nezam/core/memory/CLI_TOOLS_CONTEXT.md` — routing matrix, profiles, fallback chains
 - Workspace settings: `.cursor/workspace.settings.yaml` — active tools, routing switches, onboarding state
 - Test matrix: `docs/reports/tests/TEST_MATRIX.md`
 - Progress report: `docs/reports/progress/PROGRESS_REPORT.latest.md`
-- Prompt docs: `.nezam/workspace/prd/` (or active planning package under `docs/plans/`)
+- Prompt docs: `.nezam/workspace/prd/` (or active planning package under `.nezam/core/plans/`)
 
 ## AI Upload Bundle (1-4 Files)
 
 Default minimal pack:
 
-1. `.nezam/memory/CONTEXT.md`
+1. `.nezam/core/memory/CONTEXT.md`
 2. `.nezam/workspace/prd/prd/PRD.md`
 3. `docs/reports/progress/PROGRESS_REPORT.latest.md`
 
@@ -57,7 +57,7 @@ Optional fourth file:
 - Active design brand is managed under `.nezam/design/`.
 - **Design Hub v2 Sitemap & Hierarchy:** The visual sitemap features an enterprise-grade **5-Level Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`). Nodes support direct URLs, detailed notes, and color-coded service integrations (`ServiceKind`) visually mapped using SVG connection lines.
 - **Design Hub Styling & Multi-Format Export:** Manage design tokens via `ThemePanel` (light/dark preview) and `DesignSystemPanel` (fluid scale, spacing, responsive grid, custom property mapping). Sitemaps can be exported into **12 formats** (JSON v3, Folder Structure, Mermaid diagram, RBAC matrix, Next.js Router, etc.).
-- Keep durable decisions in `.nezam/memory/MEMORY.md`.
+- Keep durable decisions in `.nezam/core/memory/MEMORY.md`.
 - **Drift recovery:** after local edits to mirrored AI client folders outside `.cursor/`, run `pnpm ai:sync` then `pnpm ai:check` before commit.
 - Keep generated outputs in `docs/reports/<category>/` only.
 

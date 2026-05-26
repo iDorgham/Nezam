@@ -11,12 +11,12 @@ Specification-Driven Development (SDD) is the core delivery methodology in NEZAM
 Each phase has:
 - A `TASKS.md` listing all tasks for that phase
 - Gate prerequisites that must be met before the next phase starts
-- An entry in `docs/plans/gates/GITHUB_GATE_MATRIX.json`
+- An entry in `.nezam/core/plans/gates/GITHUB_GATE_MATRIX.json`
 
 ## Phases in Detail
 
 ### 00 — Define
-**Output:** `.nezam/workspace/prd/PRD.md` · `.nezam/memory/CONTEXT.md`
+**Output:** `.nezam/workspace/prd/PRD.md` · `.nezam/core/memory/CONTEXT.md`
 
 - Write or update the PRD
 - Define success metrics and KPIs
@@ -24,7 +24,7 @@ Each phase has:
 - **Gate:** PRD exists + passes `check-onboarding-readiness.sh`
 
 ### 01 — Research / SEO
-**Output:** `docs/plans/01-research/01-seo/keywords.md`
+**Output:** `.nezam/core/plans/01-research/01-seo/keywords.md`
 
 - Keyword research and competitive analysis
 - Information architecture planning
@@ -40,7 +40,7 @@ Each phase has:
 - **Gate:** `check-design-tokens.sh` passes; DESIGN.md approved
 
 ### 03 — Content
-**Output:** Copy files in `docs/plans/03-content/`
+**Output:** Copy files in `.nezam/core/plans/03-content/`
 
 - Write all copy for pages, UI strings, meta
 - Legal/compliance review

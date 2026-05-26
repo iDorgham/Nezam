@@ -1,18 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-browserbase"
-name: "nezam-"nezam-"nezam-browserbase"
+skill_id: nezam-browserbase
+name: "Browserbase"
 description: "Cloud browser automation for adversarial UI testing, scraping requiring auth sessions, and regression testing. Uses 3-round adversarial testing protocol."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release.
 owner: "lead-qa-architect"
 tier: 3
 sdd_phase: "Quality"
 rtl_aware: false
 certified: false
 dependencies:
-  - "quality/security-hardening"
 ---
 # Browserbase — Cloud Browser Automation
 

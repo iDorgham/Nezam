@@ -3,5 +3,28 @@
     "orchestrate": {
       "enabled": true
     }
+  },
+  "search.exclude": {
+    ".antigravity/**": true,
+    ".codex/**": true,
+    ".gemini/**": true,
+    ".qwen/**": true,
+    ".opencode/**": true,
+    ".kilocode/**": true,
+    ".windsurf/**": true,
+    ".kiro/**": true,
+    ".claude/**": true,
+    "node_modules/**": true
+  },
+  "files.exclude": {
+    ".antigravity/**": true,
+    ".codex/**": true,
+    ".gemini/**": true,
+    ".qwen/**": true,
+    ".opencode/**": true,
+    ".kilocode/**": true,
+    ".windsurf/**": true,
+    ".kiro/**": true,
+    ".claude/**": true
   }
 }

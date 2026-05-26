@@ -1,13 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-gsap-animations"
-name: "nezam-"nezam-"nezam-gsap-animations"
+skill_id: nezam-gsap-animations
+name: "Gsap Animations"
 description: "Implements high-performance, scroll-triggered animations and timeline composition using GSAP and Framer Motion."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial Wave 2 implementation."
+date: 2026-05-12
+notes: "Initial Wave 2 implementation."
 owner: "frontend-lead"
 tier: 1
 sdd_phase: "Development"

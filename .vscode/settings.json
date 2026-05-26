@@ -24,6 +24,7 @@
     ".kilocode/**": true,
     ".windsurf/**": true,
     ".kiro/**": true,
+    ".claude/**": true,
     "node_modules/**": true
   },
   "specstory.cloudSync.enabled": "always",

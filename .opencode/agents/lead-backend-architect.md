@@ -40,12 +40,47 @@ Swarm Manager for the Backend swarm. Own server-side architecture, API contracts
 
 ## Primary skills / lenses
 
+- `@nezam-api-contract`
+- `@nezam-apify-scraper`
+- `@nezam-automated-report-engine`
+- `@nezam-background-jobs`
+- `@nezam-clerk-auth`
+- `@nezam-contact-enrichment`
+- `@nezam-container-orchestration`
+- `@nezam-crm-erp-sync`
+- `@nezam-data-aggregation-pipelines`
+- `@nezam-drizzle-orm`
+- `@nezam-firebase`
+- `@nezam-firebase-security-rules`
+- `@nezam-gemini-integration`
+- `@nezam-graph-logic-engine`
+- `@nezam-job-queue-management`
+- `@nezam-lead-scoring-engine`
+- `@nezam-mena-payment-routing`
+- `@nezam-neon-postgres`
+- `@nezam-omnichannel-routing`
+- `@nezam-openrouter`
+- `@nezam-queue-architecture`
+- `@nezam-realtime-stream-orchestration`
+- `@nezam-realtime-streaming`
+- `@nezam-resend-email`
+- `@nezam-resource-optimization`
+- `@nezam-saas-billing-orchestration`
+- `@nezam-saas-feature-gating`
+- `@nezam-stripe`
+- `@nezam-task-audit-logging`
+- `@nezam-task-workflow-engine`
+- `@nezam-trigger-dev`
+- `@nezam-typesense-search`
+- `@nezam-vector-db-qdrant`
+- `@nezam-vector-search`
+- `@nezam-vercel-ai-sdk`
 - [`.cursor/skills/nezam-api-design/SKILL.md`](../skills/backend/nezam-api-design/SKILL.md)
 - [`.cursor/skills/nezam-api-gateway/SKILL.md`](../skills/backend/nezam-api-gateway/SKILL.md)
 - [`.cursor/skills/nezam-auth-workflows/SKILL.md`](../skills/backend/nezam-auth-workflows/SKILL.md)
 - [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
-- [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP availability and ownership
+- [`.nezam/core/memory/MCP_REGISTRY.md`](../../.nezam/core/memory/MCP_REGISTRY.md) for MCP availability and ownership
 - Tech stack reference: `docs/reference/developer-tech-stack-2026.md` — consult before recommending any third-party service
 - [.cursor/skills/backend/vercel-ai-sdk/SKILL.md](../skills/backend/nezam-vercel-ai-sdk/SKILL.md)
 

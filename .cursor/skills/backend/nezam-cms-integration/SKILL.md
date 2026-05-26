@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-cms-integration
+name: "Cms Integration"
 tier: 3
-name: "nezam-"nezam- nezam-cms-integration"
 description: Headless CMS integration patterns — Contentful/Sanity/Strapi/Payload — with webhooks, ISR, and fallback rendering.
 version: 1.0.0
 updated: 2026-05-08

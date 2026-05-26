@@ -1,13 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-i18n-next-intl"
-name: "nezam-"nezam-"nezam-i18n-next-intl"
+skill_id: nezam-i18n-next-intl
+name: "I18n Next Intl"
 description: "Implements locale routing, translations, middleware, and RTL config using next-intl."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial Wave 2 implementation."
+date: 2026-05-12
+notes: "Initial Wave 2 implementation."
 owner: "i18n-engineer"
 tier: 3
 sdd_phase: "Development"

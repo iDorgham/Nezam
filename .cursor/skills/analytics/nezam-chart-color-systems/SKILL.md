@@ -1,6 +1,6 @@
 ---
-id: nezam-chart-color-systems
-name: "nezam-"nezam-Chart Color Systems"
+skill_id: nezam-chart-color-systems
+name: "Chart Color Systems"
 description: Defining accessible and semantic color palettes for complex data sets.
 tier: 3
 swarm: Swarm 8 (Analytics)
@@ -9,7 +9,6 @@ created: 2026-05-12
 updated: 2026-05-12
 owner: PM-01
 changelog:
-  - 1.0.0: Initial release
 ---
 # Skill: Chart Color Systems
 ## Purpose

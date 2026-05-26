@@ -41,12 +41,39 @@ Swarm Manager for the UI/UX Design swarm. Own coherent product UX (information a
 
 ## Primary skills / lenses
 
+- `@nezam-a11y-rtl-fusion`
+- `@nezam-accessibility-audit`
+- `@nezam-brand-visual-direction`
+- `@nezam-chart-spec-generator`
+- `@nezam-css-architecture`
+- `@nezam-cultural-context-validator`
+- `@nezam-dashboard-layout-pro`
+- `@nezam-data-viz-motion-budget`
+- `@nezam-design-context-init`
+- `@nezam-design-hub`
+- `@nezam-design-intent-inference`
+- `@nezam-design-iteration-protocol`
+- `@nezam-design-md`
+- `@nezam-design-selector`
+- `@nezam-design-to-code-handoff`
+- `@nezam-interaction-choreography`
+- `@nezam-micro-interaction-designer`
+- `@nezam-motion-choreography-budgeted`
+- `@nezam-pencil-design`
+- `@nezam-token-synthesis-pro`
+- `@nezam-ui-ux-design`
+- `@nezam-user-flow-mapper`
+- `@nezam-ux-research-protocol`
+- `@nezam-visual-canvas-engine`
+- `@nezam-wireframe-catalog`
+- `@nezam-wireframe-pipeline`
+- `@nezam-wireframe-to-spec`
 - [`@design-md`](../skills/design/nezam-design-md/SKILL.md)
 - [`.cursor/skills/nezam-ui-ux-design/SKILL.md`](../skills/design/nezam-ui-ux-design/SKILL.md)
 - [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/design/nezam-brand-visual-direction/SKILL.md)
-- [`.cursor/skills/nezam-pro-design-tokens/SKILL.md`](../skills/nezam-pro-design-tokens/SKILL.md)
+- [`.cursor/skills/nezam-design-tokens/SKILL.md`](../skills/nezam-design-tokens/SKILL.md)
 - [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
-- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-pro-design-tokens`, includes Frontend Integration Mode)
+- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-design-tokens`, includes Frontend Integration Mode)
 - Alignment with SEO-driven labels from `docs/specs/seo/SEO_RESEARCH.md`.
 
 ## When to invoke

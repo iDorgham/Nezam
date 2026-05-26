@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-typesense-search
+name: "Typesense Search"
 tier: 3
-name: "nezam-"nezam-"nezam-typesense-search"
 description: Typo-tolerant and vector-aware search implementation using Typesense.
 version: 1.0.0
 updated: 2026-05-10

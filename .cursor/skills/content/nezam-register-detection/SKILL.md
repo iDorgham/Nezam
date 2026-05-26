@@ -1,10 +1,10 @@
 ---
+skill_id: nezam-register-detection
+name: "Register Detection"
 tier: 3
-name: "nezam-"nezam-"nezam-register-detection"
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - "v1.0.0: Initial release for hardening pass."
 ---
 ```json
 {

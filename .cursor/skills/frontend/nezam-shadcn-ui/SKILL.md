@@ -1,20 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-shadcn-ui"
-name: "nezam-"nezam-"nezam-shadcn-ui"
+skill_id: nezam-shadcn-ui
+name: "Shadcn Ui"
 description: "Correct shadcn/ui installation, token mapping, component extension, and RTL support patterns for the NEZAM stack (Next.js + Tailwind + NEZAM design tokens)."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release.
 owner: "frontend-lead"
 tier: 2
 sdd_phase: "Development"
 rtl_aware: true
 certified: false
 dependencies:
-  - "design/design-tokens"
-  - "design/css-architecture"
-  - "design/design-context-init"
 ---
 # shadcn/ui Integration
 

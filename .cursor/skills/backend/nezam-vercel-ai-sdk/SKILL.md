@@ -1,11 +1,11 @@
 ---
+skill_id: nezam-vercel-ai-sdk
+name: "Vercel Ai Sdk"
 tier: 3
-name: "nezam-"nezam-"nezam-vercel-ai-sdk"
 description: Build streaming, tool-calling AI features with provider-agnostic SDK patterns.
 version: 1.1.0
 updated: 2026-05-12
 changelog:
-  - 1.1.0: Added LangChain vs Vercel AI SDK guidance and Gemini warning.
 ---
 # Vercel AI SDK
 

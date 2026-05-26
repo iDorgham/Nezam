@@ -1,18 +1,16 @@
 ---
-skill_id: "nezam-"nezam- nezam-firecrawl"
-name: "nezam-"nezam-"nezam-firecrawl"
+skill_id: nezam-firecrawl
+name: "Firecrawl"
 description: "Web content extraction for AI pipelines using Firecrawl — converts URLs to clean markdown or structured data for RAG ingestion, competitive research, and content pipelines."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - 1.0.0: Initial release.
 owner: "data-pipeline-manager"
 tier: 3
 sdd_phase: "Development"
 rtl_aware: false
 certified: false
 dependencies:
-  - "infrastructure/vector-search"
 ---
 # Firecrawl — Web Content Extraction
 

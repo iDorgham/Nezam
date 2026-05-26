@@ -1,18 +1,15 @@
 ---
+skill_id: nezam-vercel-deploy
+name: "Vercel Deploy"
 tier: 3
-name: "nezam-"nezam- nezam-vercel-deploy"
 description: Vercel CLI, vercel.json, Edge Config, ISR/SSR, and deployment hooks for Next.js and framework-aware projects.
 version: 1.0.0
 updated: 2026-05-08
 breaking_changes: false
 changelog:
-  - version: 1.0.0
-    date: 2026-05-08
-    notes: "Initial version metadata added."
+date: 2026-05-08
+notes: "Initial version metadata added."
 compatible_with:
-  - react: ">=18"
-  - next: ">=14"
-  - node: ">=20"
 ---
 # Purpose
 

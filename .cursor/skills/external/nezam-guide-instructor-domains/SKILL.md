@@ -1,14 +1,9 @@
 ---
+skill_id: nezam-guide-instructor-domains
+name: "Guide Instructor Domains"
 tier: 3
-name: "nezam-"nezam-"nezam-guide-instructor-domains"
 description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:
-  - ".nezam/core/context/CONTEXT.md"
-  - ".nezam/core/context/CONTEXT.md"
-  - ".cursor/rules/"
-  - ".cursor/skills/"
-  - ".nezam/design/"
-  - ".nezam/core/plans/"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []
@@ -27,12 +22,12 @@ Adapted from [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/ski
 | SEO / IA / content | [`seo-ia-content`](../../research/nezam-seo-ia-content/SKILL.md), `docs/specs/SEO_RESEARCH.md` (when present) |
 | GitHub / CI | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`git-workflow`](../nezam-git-workflow/SKILL.md), [`nezam-github-actions-ci`](../../quality/nezam-github-actions-ci/SKILL.md) |
 | Deploy | [`nezam-vercel-deploy`](../../infrastructure/nezam-vercel-deploy/SKILL.md), [`nezam-devops-pipeline`](../../infrastructure/nezam-devops-pipeline/SKILL.md) |
-| Agents / skills | [`.cursor/agents/README.md`](../../../agents/README.md), [`.nezam/core/context/governance/ORCHESTRATION_ALIASES.md`](../../../.nezam/core/context/governance/ORCHESTRATION_ALIASES.md) |
+| Agents / skills | [`.cursor/agents/README.md`](../../../agents/README.md), [`.nezam/core/memory/governance/ORCHESTRATION_ALIASES.md`](../../../.nezam/core/memory/governance/ORCHESTRATION_ALIASES.md) |
 
 ## Anti-patterns
 
 - Pointing at `factory/`, `.ai/docs/plan/`, or Antigravity-only paths unless this repo adds them.
-- Storing durable teaching state only in chat — persist in `.nezam/core/context/MEMORY.md` or specs when decisions stick.
+- Storing durable teaching state only in chat — persist in `.nezam/core/memory/MEMORY.md` or specs when decisions stick.
 
 ## Reference provenance
 

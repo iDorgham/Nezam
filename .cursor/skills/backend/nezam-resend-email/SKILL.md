@@ -1,11 +1,11 @@
 ---
+skill_id: nezam-resend-email
+name: "Resend Email"
 tier: 3
-name: "nezam-"nezam-"nezam-resend-email"
 description: Transactional email delivery patterns using Resend with reliability safeguards.
 version: 1.1.0
 updated: 2026-05-12
 changelog:
-  - 1.1.0: Added React Email integration patterns.
 ---
 # Resend Email
 ## Purpose

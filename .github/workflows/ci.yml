@@ -26,7 +26,7 @@ jobs:
             exit 1
           fi
 
-          if [[ "$BRANCH_NAME" =~ ^(feature|release|hotfix)\/[a-z0-9._-]+$ ]]; then
+          if [[ "$BRANCH_NAME" =~ ^(feature|release|hotfix)\/[a-z0-9._-]+$ || "$BRANCH_NAME" =~ ^dependabot\/[a-z0-9._/-]+$ ]]; then
             echo "Branch naming check passed: $BRANCH_NAME"
             exit 0
           fi

@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-risk-mitigation
+name: "Risk Mitigation"
 tier: 3
-name: "nezam-"nezam- nezam-risk-mitigation"
 description: Track technical debt, run failure-mode analysis, and define fallback plans for high-risk slices before /DEVELOP.
 version: 1.0.0
 updated: 2026-05-08
@@ -16,7 +17,7 @@ Surface, classify, and mitigate technical risk across SDD phases. Owns the techn
 - Architectural decisions in `docs/specs/`.
 - `docs/DESIGN.md` motion/3D/perf-sensitive surfaces.
 - Security baseline from `@.cursor/skills/nezam-security-hardening/SKILL.md`.
-- Past incident notes under `.nezam/core/context/`.
+- Past incident notes under `.nezam/core/memory/`.
 
 # Step-by-Step Workflow
 

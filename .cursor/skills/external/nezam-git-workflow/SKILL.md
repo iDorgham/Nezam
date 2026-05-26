@@ -1,11 +1,9 @@
 ---
+skill_id: nezam-git-workflow
+name: "Git Workflow"
 tier: 3
-name: "nezam-"nezam-"nezam-git-workflow"
 description: Git workflow + GitHub workflows — branching, conventional commits, annotated tags, PR checks, branch protection, Dependabot.
 paths:
-  - ".github/**"
-  - ".nezam/core/scripts/**"
-  - "docs/specs/VERSIONING.md"
 version: 1.0.0
 updated: 2026-05-08
 changelog: []

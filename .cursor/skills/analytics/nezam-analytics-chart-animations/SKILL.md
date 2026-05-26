@@ -1,6 +1,6 @@
 ---
-id: nezam-analytics-chart-animations
-name: "nezam-"nezam-Analytics Chart Animations"
+skill_id: nezam-analytics-chart-animations
+name: "Analytics Chart Animations"
 description: Implementing performant and meaningful animations for data transitions.
 tier: 3
 swarm: Swarm 8 (Analytics)
@@ -9,7 +9,6 @@ created: 2026-05-12
 updated: 2026-05-12
 owner: PM-01
 changelog:
-  - 1.0.0: Initial release
 ---
 # Skill: Analytics Chart Animations
 ## Purpose

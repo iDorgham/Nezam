@@ -30,13 +30,13 @@ The primary source of truth for all project-level facts.
 
 | File | Purpose |
 |---|---|
-| `.nezam/memory/MEMORY.md` | Durable project facts, decisions, scorecards |
-| `.nezam/memory/CONTEXT.md` | Current project context and active priorities |
-| `.nezam/memory/WORKSPACE_INDEX.md` | Static workspace capability map |
-| `.nezam/memory/PHASE_HANDOFF.md` | Agent briefing at phase boundaries |
-| `.nezam/memory/DECISIONS.md` | Plain-language decision log |
-| `.nezam/memory/SKILL_CHANGELOG.md` | History of skill additions/changes |
-| `docs/plans/INDEX.md` | Current phase, task status, gate state |
+| `.nezam/core/memory/MEMORY.md` | Durable project facts, decisions, scorecards |
+| `.nezam/core/memory/CONTEXT.md` | Current project context and active priorities |
+| `.nezam/core/memory/WORKSPACE_INDEX.md` | Static workspace capability map |
+| `.nezam/core/memory/PHASE_HANDOFF.md` | Agent briefing at phase boundaries |
+| `.nezam/core/memory/DECISIONS.md` | Plain-language decision log |
+| `.nezam/core/memory/SKILL_CHANGELOG.md` | History of skill additions/changes |
+| `.nezam/core/plans/INDEX.md` | Current phase, task status, gate state |
 | `docs/reports/progress/PROGRESS_REPORT.latest.md` | Latest progress snapshot |
 
 **Capture protocol:** Agents must persist to this layer before ending any phase gate reply.
@@ -61,9 +61,9 @@ Defines how agents behave, interact, and route tasks.
 | `.cursor/agents/*.md` | Individual agent role definitions |
 | `.cursor/rules/*.mdc` | Governance rules (hardlock, SDD, design gates) |
 | `.cursor/skills/` | Skill packs for each domain |
-| `.nezam/memory/AGENT_COMM_PROTOCOL.md` | Inter-agent communication standards |
-| `.nezam/memory/ORCHESTRATION_ALIASES.md` | Command shorthand aliases |
-| `.nezam/memory/ERROR_HANDLING_PROTOCOL.md` | Error classification and response |
+| `.nezam/core/memory/AGENT_COMM_PROTOCOL.md` | Inter-agent communication standards |
+| `.nezam/core/memory/ORCHESTRATION_ALIASES.md` | Command shorthand aliases |
+| `.nezam/core/memory/ERROR_HANDLING_PROTOCOL.md` | Error classification and response |
 
 ---
 
@@ -77,16 +77,16 @@ The outermost layer: what every AI reads when it opens this repo.
 | `AGENTS.md` | Codex/AGENTS workspace contract |
 | `GEMINI.md` | Gemini workspace contract |
 | `QWEN.md` | Qwen workspace contract |
-| `.nezam/memory/MEMORY_ARCHITECTURE.md` | This document's source |
-| `.nezam/memory/MCP_REGISTRY.md` | MCP tool registry and usage |
-| `.nezam/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
-| `.nezam/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
+| `.nezam/core/memory/MEMORY_ARCHITECTURE.md` | This document's source |
+| `.nezam/core/memory/MCP_REGISTRY.md` | MCP tool registry and usage |
+| `.nezam/core/memory/CLI_TOOLS_CONTEXT.md` | CLI tool reference |
+| `.nezam/core/memory/MULTI_TOOL_INDEX.md` | Cross-tool capability map |
 
 ---
 
 ## Memory Files Reference
 
-### `.nezam/memory/MEMORY.md`
+### `.nezam/core/memory/MEMORY.md`
 
 The most critical memory file. Contains:
 - Session state (active swarm, active agent)
@@ -99,7 +99,7 @@ The most critical memory file. Contains:
 
 **Update this file** after every phase gate or major decision.
 
-### `.nezam/memory/CONTEXT.md`
+### `.nezam/core/memory/CONTEXT.md`
 
 The current project context. Includes:
 - What phase the project is in
@@ -108,7 +108,7 @@ The current project context. Includes:
 - What's blocked and why
 - Next priorities
 
-### `.nezam/memory/PHASE_HANDOFF.md`
+### `.nezam/core/memory/PHASE_HANDOFF.md`
 
 Written at the end of each phase. Provides the next agent/session with:
 - What was completed in this phase
@@ -121,7 +121,7 @@ Written at the end of each phase. Provides the next agent/session with:
 
 ## Best Practices
 
-1. **Always read `.nezam/memory/MEMORY.md` at session start** (the `/START` command does this automatically)
+1. **Always read `.nezam/core/memory/MEMORY.md` at session start** (the `/START` command does this automatically)
 2. **Update `MEMORY.md` before ending any phase gate** — don't let decisions live only in chat
 3. **Use `CONTEXT.md` for current state** — what's happening right now, not the full history
 4. **Write `PHASE_HANDOFF.md` at every phase boundary** — this is your handoff note to future-you

@@ -34,4 +34,4 @@ Frontend development agents cannot proceed unless `wireframes_locked.json` is ge
 
 ## Protocol References
 
-- Communication contract: `.nezam/memory/AGENT_COMM_PROTOCOL.md`
+- Communication contract: `.nezam/core/memory/AGENT_COMM_PROTOCOL.md`

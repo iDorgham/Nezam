@@ -1,10 +1,10 @@
 ---
+skill_id: nezam-brand-visual-direction
+name: "Brand Visual Direction"
 tier: 3
-name: "nezam-"nezam-"nezam-brand-visual-direction"
 version: 1.1.0
 updated: 2026-05-12
 changelog:
-  - 1.1.0: Added UI/UX Swarm integration details.
 ---
 # Purpose
 Translate brand strategy into concrete visual direction rules that remain consistent from planning through component implementation.

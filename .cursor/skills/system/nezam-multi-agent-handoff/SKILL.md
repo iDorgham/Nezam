@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-multi-agent-handoff
+name: "Multi Agent Handoff"
 tier: 3
-name: "nezam-"nezam- nezam-multi-agent-handoff"
 description: Coordinate deterministic subagent handoffs across NEZAM SDD phases with explicit context packets and validation gates.
 version: 1.0.0
 updated: 2026-05-08
@@ -95,7 +96,7 @@ If trade-offs conflict, apply the order above and log the decision in the final 
 - `/PLAN all` for staged orchestration.
 - `/SCAN` and `/FIX` loops before hardening closure.
 - CI checks for gate-state consistency.
-- `@ decision-journal` appends `plain_language_summary` outcomes into `.nezam/core/context/DECISIONS_PLAIN.md`.
+- `@ decision-journal` appends `plain_language_summary` outcomes into `.nezam/core/memory/DECISIONS_PLAIN.md`.
 
 ## CLI Delegation Protocol
 Before assigning a task to a Claude/Cursor agent, check the CLI Routing Matrix in `@nezam-cli-orchestration`.

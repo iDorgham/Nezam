@@ -1,13 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-react18-patterns"
-name: "nezam-"nezam-"nezam-react18-patterns"
+skill_id: nezam-react18-patterns
+name: "React18 Patterns"
 description: "Implements React 18+ concurrent features, automatic batching, and modern rendering patterns."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial Wave 2 implementation."
+date: 2026-05-12
+notes: "Initial Wave 2 implementation."
 owner: "frontend-framework-manager"
 tier: 2
 sdd_phase: "Development"

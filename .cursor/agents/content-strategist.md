@@ -23,6 +23,11 @@ Voice, tone, page inventories, hero and section copy aligned with SEO tables—n
 
 ## Primary skills / lenses
 
+- `@nezam-arabic-content`
+- `@nezam-arabic-typography`
+- `@nezam-egyptian-arabic-content`
+- `@nezam-moroccan-darija`
+- `@nezam-register-detection`
 - `/PLAN content`, `SEO_RESEARCH.md`, `docs/DESIGN.md` example screens
 
 ## When to invoke

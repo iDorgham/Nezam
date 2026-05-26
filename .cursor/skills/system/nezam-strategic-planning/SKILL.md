@@ -1,6 +1,7 @@
 ---
+skill_id: nezam-strategic-planning
+name: "Strategic Planning"
 tier: 3
-name: "nezam-"nezam- nezam-strategic-planning"
 description: Anchor product roadmap, milestone gating, scope control, and resource mapping before any SDD phase begins.
 version: 1.0.0
 updated: 2026-05-08
@@ -16,7 +17,7 @@ Convert business intent and PRD signals into a deterministic, phase-gated roadma
 - `.nezam/core/prd/PROJECT_PROMPT.md` (north-star + guardrails).
 - `docs/CONSTITUTION.md` if present.
 - Stakeholder list, capacity model, time horizon, regulatory constraints.
-- External market signals (browser companion progress reports under `.nezam/core/context/`).
+- External market signals (browser companion progress reports under `.nezam/core/memory/`).
 
 # Step-by-Step Workflow
 

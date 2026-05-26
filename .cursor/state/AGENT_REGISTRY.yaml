@@ -4,7 +4,14 @@ version: 1.0.0
 nezam_version: "3.0.0"
 owner: PM-01
 last_sync: "2026-05-12"
-certified_agents: []
+certified_agents:
+  - swarm-leader
+  - deputy-swarm-leader
+  - subagent-controller
+  - lead-analytics-architect
+  - lead-task-management-architect
+  - lead-crm-platform-architect
+  - analytics-ui-ux-architect
 certification_program:
   version: "1.0.0"
   established: 2026-05-12
@@ -12,6 +19,12 @@ certification_program:
   eval_cases_dir: .nezam/evals/cases/
   results_log: .nezam/evals/results/EVAL_RESULTS.md
   cert_log: .nezam/evals/certification/CERT_LOG.md
+  criteria:
+    accuracy: "Minimum score of 8/10 on domain-specific compliance evaluation tests."
+    determinism: "Strict adherence to standardized structural outputs (no random formatting deviations)."
+    scope_compliance: "Zero off-scope or drive-by modifications outside the allowed workspace paths."
+    evidence_verifiability: "All execution steps must produce traceable evidence logs under docs/reports/."
+    dialect_parity: "Full RTL capability and Egyptian Arabic Masri optimization for localized personas."
   levels:
     uncertified: { score_range: "0–34", badge: "❌" }
     provisional: { score_range: "35–39", badge: "⚠️", review_cycle: "90d" }
@@ -71,10 +84,10 @@ registry:
       agents: [lead-mobile-architect, mobile-cross-platform]
     swarm-7:
       name: CMS-SaaS
-      agents: [lead-cms-saas-architect, saas-platform-manager, saas-tenancy-architect, saas-billing-architect, saas-feature-flags-specialist, saas-onboarding-specialist, saas-compliance-manager, cms-headless-architect, cms-content-modeling-specialist, cms-workflow-manager, cms-localization-architect, cms-seo-metadata-specialist, cms-manager, headless-cms-specialist, multi-tenancy-architect]
+      agents: [lead-cms-saas-architect, saas-platform-manager, saas-tenancy-architect, saas-billing-architect, saas-feature-flags-specialist, saas-onboarding-specialist, saas-compliance-manager, cms-headless-architect, cms-content-modeling-specialist, cms-workflow-manager, cms-localization-architect, cms-seo-metadata-specialist, cms-manager]
     swarm-8:
       name: Analytics
-      agents: [lead-analytics-architect, analytics-engineer, analytics-ui-ux-specialist, analytics-charts-architect, dashboard-analytics-manager, live-analytics-engineer, advanced-analytics-architect, time-series-specialist]
+      agents: [lead-analytics-architect, analytics-engineer, analytics-charts-architect, dashboard-analytics-manager, live-analytics-engineer, advanced-analytics-architect, time-series-specialist]
     swarm-9:
       name: Security
       agents: [lead-security-officer, app-security-manager, compliance-manager, encryption-privacy-specialist, infra-security-manager, security-auditor, threat-modeling-specialist]
@@ -83,7 +96,7 @@ registry:
       agents: [lead-devops-performance, devops-manager, ci-automation, cost-optimization-analyst, docker-k8s-specialist, gitops-engineer, infrastructure-manager, observability-specialist, performance-engineer, sre-incident-specialist]
     swarm-11:
       name: QA
-      agents: [lead-qa-architect, testing-manager, a11y-performance-auditor, automation-manager, code-review-specialist, qa-test-lead]
+      agents: [lead-qa-architect, a11y-performance-auditor, automation-manager, code-review-specialist, qa-test-lead]
     swarm-12:
       name: Maintenance
       agents: [lead-maintenance-agent, tech-debt-manager, bug-triage-manager, dependency-update-specialist, knowledge-update-manager, refactoring-specialist]
@@ -309,6 +322,7 @@ registry:
       swarm: devops
       summary: GitOps and deployment workflow automation.
     - name: headless-cms-specialist
+      status: archived
       tier: 4
       swarm: cms-saas
       summary: Headless CMS implementation specialist.
@@ -459,6 +473,7 @@ registry:
       summary: Modern Standard Arabic authority; enforces pan-Arab neutrality and reduces dialect bleed in formal/marketing contexts.
       backing_skill: nezam-register-detection
     - name: multi-tenancy-architect
+      status: archived
       tier: 4
       swarm: cms-saas
       summary: Tenant isolation and SaaS tenancy architecture.
@@ -606,6 +621,7 @@ registry:
       swarm: architecture
       summary: Technology option assessment and recommendation.
     - name: testing-manager
+      status: archived
       tier: 3
       swarm: qa
       summary: Testing operations and coverage management.
@@ -642,6 +658,7 @@ registry:
       swarm: swarm-19
       summary: Multi-theme and white-label design implementation.
     - name: analytics-ui-ux-specialist
+      status: archived
       tier: 4
       swarm: analytics
       summary: Specialist in designing intuitive and accessible analytics interfaces and charting components.

@@ -1,12 +1,12 @@
 ---
+skill_id: nezam-design-hub
+name: "Design Hub"
 tier: 3
-name: "nezam-design-hub"
 description: Operate the NEZAM Design Hub to create wireframes and tokens.
 category: design
 version: 1.0.0
 updated: 2026-05-22
 changelog:
-  - 1.0.0: Initial release of Design Hub skill.
 ---
 
 # Skill: NEZAM Design Hub

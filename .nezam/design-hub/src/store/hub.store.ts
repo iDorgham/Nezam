@@ -2,672 +2,551 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type {
-  AnimProperty,
-  ArchetypeKind,
-  Block,
-  BlockKind,
-  BuilderMode,
-  Comment,
-  DesignHubMode,
-  Device,
-  Direction,
-  HistoryEntry,
-  Keyframe,
-  NodeStyle,
-  PageStyle,
-  Profile,
-  ResolvedTokens,
-  SavedDesign,
-  Selection,
-  SelectionScope,
-  ThemeMode,
-  TimelineState,
-  Tool,
-} from '@/types'
-import { PROFILES, DEFAULT_PROFILE_ID } from '@/data/profiles'
-import { ARCHETYPES, DEFAULT_ARCHETYPE_ID, buildBlocks, makeBlock } from '@/data/archetypes'
-import { resolveTokens } from '@/lib/tokens'
-import { generateProfile } from '@/lib/ai'
+import { immer } from 'zustand/middleware/immer'
+import { uid, setByPath } from '@/lib/utils'
+import type { ArchPage, ArchProfileId } from '@/types/arch'
+import type { DesignTokens, TokenCategory, DesignProfileId } from '@/types/design'
+import type { ComponentGroup } from '@/data/components-library'
+import { ARCH_PROFILES_MAP } from '@/data/arch-profiles'
+import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
+import { hexToHsl, hslToHex } from '@/components/theming/color-utils'
 
-const uid = () => Math.random().toString(36).slice(2, 9)
+// ─── Version ─────────────────────────────────────────────────────────────────
 
-/** Debounced history commit so a burst of slider drags collapses to one entry. */
-let commitTimer: ReturnType<typeof setTimeout> | undefined
-function scheduleCommit(commit: (label: string) => void, label: string) {
-  clearTimeout(commitTimer)
-  commitTimer = setTimeout(() => commit(label), 700)
+/** Single source of truth for the hub version badge. */
+export const HUB_VERSION = 'v7'
+
+// ─── Hub section ─────────────────────────────────────────────────────────────
+
+export type HubSection = 'architecture' | 'design' | 'preview'
+
+/** Sub-tabs nested under the Design System section. */
+export type DesignSubTab = 'tokens' | 'components' | 'sections' | 'theming'
+
+/** CSS variable snapshot applied to the live Preview from the Theme editor. */
+export interface ThemePreviewOverride {
+  /** shadcn-format light-mode CSS vars (--background, --foreground, etc.) */
+  light:    Record<string, string>
+  /** shadcn-format dark-mode CSS vars */
+  dark:     Record<string, string>
+  mode:     'light' | 'dark'
+  fontSans: string
+  fontMono: string
+  radius:   string
+  presetName: string
 }
 
-export interface BlockMeta {
-  locked: boolean
-  desktop: boolean
-  mobile: boolean
+export interface SavedColorProfile {
+  id:       string
+  name:     string
+  override: ThemePreviewOverride
+  createdAt: number
 }
-const DEFAULT_META: BlockMeta = { locked: false, desktop: true, mobile: true }
 
-function defaultTimeline(): TimelineState {
-  return {
-    duration: 2.4,
-    playhead: 0,
-    playing: false,
-    stagger: 0.08,
-    scrollTrigger: false,
-    tracks: [
-      {
-        id: uid(),
-        target: 'hero',
-        label: 'Hero',
-        keyframes: [
-          { id: uid(), at: 0, property: 'opacity', from: 0, to: 1 },
-          { id: uid(), at: 0.15, property: 'y', from: 24, to: 0 },
-        ],
-      },
-      {
-        id: uid(),
-        target: 'card',
-        label: 'Cards',
-        keyframes: [
-          { id: uid(), at: 0.3, property: 'opacity', from: 0, to: 1 },
-          { id: uid(), at: 0.35, property: 'scale', from: 0.92, to: 1 },
-        ],
-      },
-    ],
+// ─── Architecture state ───────────────────────────────────────────────────────
+
+interface ArchState {
+  pages: Record<string, ArchPage>
+  selectedPageId: string | null
+  activeProfileId: ArchProfileId | null
+}
+
+// ─── Design state ─────────────────────────────────────────────────────────────
+
+interface DesignState {
+  tokens: DesignTokens
+  selectedCategory: TokenCategory
+  activeProfileId: DesignProfileId | null
+  showPreviewStrip: boolean
+  /** Active sub-tab under the Design System section. */
+  subTab: DesignSubTab
+}
+
+// ─── Theme state ─────────────────────────────────────────────────────────────
+
+interface ThemeState {
+  previewOverride: ThemePreviewOverride | null
+  savedProfiles:   SavedColorProfile[]
+}
+
+// ─── Preview state ────────────────────────────────────────────────────────────
+
+export type PreviewDevice = 'desktop' | 'tablet' | 'mobile'
+
+interface PreviewState {
+  selectedPageId: string | null
+  device: PreviewDevice
+}
+
+// ─── Components state ─────────────────────────────────────────────────────────
+
+interface CompState {
+  /** Currently selected component group filter, null = show all. */
+  selectedGroup: ComponentGroup | null
+  /** Search query string. */
+  query: string
+}
+
+// ─── Onboarding state ─────────────────────────────────────────────────────────
+
+interface OnboardingState {
+  completed: boolean
+  /** 0 = welcome, 1 = architecture, 2 = design */
+  step: number
+}
+
+// ─── Root store ───────────────────────────────────────────────────────────────
+
+interface HubStore {
+  section: HubSection
+  arch: ArchState
+  design: DesignState
+  theme: ThemeState
+  preview: PreviewState
+  comp: CompState
+  onboarding: OnboardingState
+  /** Sections the user has visited at least once — drives progress bar. */
+  visitedSections: HubSection[]
+
+  // ── Section ──
+  setSection(s: HubSection): void
+
+  // ── Architecture actions ──
+  archAddPage(parentId: string | null): void
+  archDeletePage(id: string): void
+  archUpdatePage(id: string, patch: Partial<ArchPage>): void
+  archSelectPage(id: string | null): void
+  archApplyProfile(profileId: ArchProfileId): void
+  /** Append pages from a template under an optional parent. Returns the new IDs. */
+  archAppendPages(pages: Array<{ name: string; route: string; icon?: string }>, parentId?: string | null): void
+
+  // ── Design actions ──
+  designSetToken(path: string, value: string | number): void
+  designSetCategory(cat: TokenCategory): void
+  designApplyProfile(profileId: DesignProfileId): void
+  designTogglePreviewStrip(): void
+  designSetSubTab(tab: DesignSubTab): void
+
+  // ── Theme actions ──
+  themeApplyToPreview(override: ThemePreviewOverride): void
+  themeClearPreview(): void
+  themeSaveProfile(name: string, override: ThemePreviewOverride): void
+  themeDeleteProfile(id: string): void
+
+  // ── Preview actions ──
+  previewSelectPage(id: string | null): void
+  previewSetDevice(device: PreviewDevice): void
+
+  // ── Components actions ──
+  compSetGroup(group: ComponentGroup | null): void
+  compSetQuery(query: string): void
+
+  // ── Onboarding actions ──
+  onboardingSetStep(step: number): void
+  onboardingComplete(): void
+  onboardingReset(): void
+
+  // ── Undo/Redo ──
+  archPast: Record<string, ArchPage>[]
+  archFuture: Record<string, ArchPage>[]
+  archUndo(): void
+  archRedo(): void
+
+  // ── Hub UI Theme ──
+  hubTheme: 'light' | 'dark'
+  setHubTheme(theme: 'light' | 'dark'): void
+
+  // ── Export modal ──
+  exportModalOpen: boolean
+  setExportModalOpen(open: boolean): void
+
+  // ── Sections filter ──
+  sectionsCategory: string | null
+  sectionsQuery: string
+  setSectionsCategory(cat: string | null): void
+  setSectionsQuery(q: string): void
+}
+
+// ─── Helper: derive next order among siblings ──────────────────────────────
+
+function nextOrder(pages: Record<string, ArchPage>, parentId: string | null): number {
+  return Object.values(pages).filter((p) => p.parentId === parentId).length
+}
+
+// ─── Helper: collect ID + all descendants ────────────────────────────────────
+
+function collectDescendants(pages: Record<string, ArchPage>, id: string): string[] {
+  const result: string[] = []
+  const stack = [id]
+  while (stack.length > 0) {
+    const cur = stack.pop()!
+    result.push(cur)
+    Object.values(pages)
+      .filter((p) => p.parentId === cur)
+      .forEach((p) => stack.push(p.id))
+  }
+  return result
+}
+
+// ─── Undo/Redo & Theming-Token Bridge Helpers ───────────────────────────────
+
+function recordHistory(state: any) {
+  state.archPast.push(JSON.parse(JSON.stringify(state.arch.pages)))
+  state.archFuture = []
+  if (state.archPast.length > 50) {
+    state.archPast.shift()
   }
 }
 
-interface HubState {
-  /* design */
-  profileId: string
-  overrides: Partial<ResolvedTokens>
-  generated: Profile[]
-  theme: ThemeMode
-  dir: Direction
-  device: Device
-  zoom: number
+function generateScaleFromHex(hex: string): any {
+  const hsl = hexToHsl(hex)
+  if (!hsl) {
+    return {
+      '50': hex, '100': hex, '200': hex, '300': hex, '400': hex,
+      '500': hex, '600': hex, '700': hex, '800': hex, '950': hex,
+    }
+  }
 
-  /* structure */
-  archetypeId: ArchetypeKind
-  blocks: Block[]
-  blockMeta: Record<string, BlockMeta>
-  nodeStyles: Record<string, NodeStyle>
-  contentOverrides: Record<string, string>
-  pageStyle: PageStyle
+  const make = (l: number) => hslToHex({ h: hsl.h, s: hsl.s, l: Math.max(0, Math.min(1, l)) })
 
-  /* interaction */
-  hubMode: DesignHubMode
-  selection: Selection | null
-  builderMode: BuilderMode
-  activeTool: Tool
-  editingNodeId: string | null
-  activePage: string | null
-  rightW: number
-  pulse: number
-
-  /* comments */
-  comments: Comment[]
-
-  /* persistence */
-  savedDesigns: SavedDesign[]
-  history: HistoryEntry[]
-  historyIndex: number
-
-  timeline: TimelineState
-  aiBusy: boolean
+  return {
+    '50':  make(0.97),
+    '100': make(0.92),
+    '200': make(0.84),
+    '300': make(0.74),
+    '400': make(0.62),
+    '500': hex,
+    '600': make(hsl.l * 0.85),
+    '700': make(hsl.l * 0.70),
+    '800': make(hsl.l * 0.55),
+    '900': make(hsl.l * 0.40),
+    '950': make(hsl.l * 0.25),
+  }
 }
 
-interface HubActions {
-  getProfile: () => Profile
-  getAllProfiles: () => Profile[]
-  getTokens: () => ResolvedTokens
-  getBlockMeta: (id: string) => BlockMeta
-  getContent: (nodeId: string, fallback: string) => string
+// ─── Store definition ─────────────────────────────────────────────────────────
 
-  setProfile: (id: string) => void
-  setToken: <K extends keyof ResolvedTokens>(key: K, value: ResolvedTokens[K]) => void
-  resetOverrides: () => void
-
-  setTheme: (t: ThemeMode) => void
-  toggleTheme: () => void
-  setDir: (d: Direction) => void
-  toggleDir: () => void
-  setDevice: (d: Device) => void
-  setZoom: (z: number) => void
-
-  setHubMode: (m: DesignHubMode) => void
-  select: (sel: Selection | null) => void
-  selectScope: (scope: SelectionScope) => void
-  setBuilderMode: (m: BuilderMode) => void
-  setActivePage: (id: string | null) => void
-  setTool: (t: Tool) => void
-  setRightW: (w: number) => void
-  firePulse: () => void
-
-  /* node styling */
-  setNodeStyle: (nodeId: string, patch: Partial<NodeStyle>) => void
-  resetNodeStyle: (nodeId: string) => void
-  setRawCss: (nodeId: string, css: Record<string, string>) => void
-  setContent: (nodeId: string, text: string) => void
-  beginEdit: (nodeId: string) => void
-  endEdit: () => void
-  setPageStyle: (patch: Partial<PageStyle>) => void
-
-  /* structure */
-  setArchetype: (id: ArchetypeKind) => void
-  addBlock: (kind: BlockKind) => void
-  removeBlock: (id: string) => void
-  moveBlock: (id: string, direction: 'up' | 'down') => void
-  reorderBlocks: (fromIdx: number, toIdx: number) => void
-  toggleBlockLock: (id: string) => void
-  toggleBlockVisible: (id: string, viewport: 'desktop' | 'mobile') => void
-
-  /* comments */
-  addComment: (nodeId: string, blockId: string, label: string) => string
-  updateComment: (id: string, text: string) => void
-  toggleResolveComment: (id: string) => void
-  removeComment: (id: string) => void
-  exportCommentsForAI: () => string
-
-  /* saved + history */
-  saveDesign: (name: string) => void
-  loadSaved: (id: string) => void
-  deleteSaved: (id: string) => void
-  commit: (label: string) => void
-  undo: () => void
-  redo: () => void
-  jumpHistory: (index: number) => void
-  canUndo: () => boolean
-  canRedo: () => boolean
-
-  surpriseMe: () => void
-  applyProfile: (p: Profile) => void
-  setAiBusy: (b: boolean) => void
-
-  /* timeline */
-  addTrack: (target: string) => void
-  removeTrack: (id: string) => void
-  addKeyframe: (trackId: string, at: number) => void
-  updateKeyframe: (trackId: string, kfId: string, patch: Partial<Keyframe>) => void
-  removeKeyframe: (trackId: string, kfId: string) => void
-  setPlayhead: (t: number) => void
-  setPlaying: (p: boolean) => void
-  setDuration: (d: number) => void
-  setStagger: (s: number) => void
-  toggleScrollTrigger: () => void
-  applyTimelinePreset: (preset: string) => void
-}
-
-type Store = HubState & HubActions
-
-function swatchFor(p: Profile, theme: ThemeMode): [string, string, string] {
-  const c = theme === 'dark' ? p.dark : p.light
-  return [c.brand, c.accent, c.surface]
-}
-
-export const useHub = create<Store>()(
+export const useHub = create<HubStore>()(
   persist(
-    (set, get) => ({
-      profileId: DEFAULT_PROFILE_ID,
-      overrides: {},
-      generated: [],
-      theme: 'light',
-      dir: 'ltr',
-      device: 'desktop',
-      zoom: 1,
+    immer((set) => ({
+      section: 'architecture' as HubSection,
+      visitedSections: ['architecture'] as HubSection[],
+      hubTheme: 'dark' as 'light' | 'dark',
+      archPast: [] as Record<string, ArchPage>[],
+      archFuture: [] as Record<string, ArchPage>[],
+      exportModalOpen: false,
+      sectionsCategory: null as string | null,
+      sectionsQuery: '',
 
-      archetypeId: DEFAULT_ARCHETYPE_ID,
-      blocks: buildBlocks(DEFAULT_ARCHETYPE_ID),
-      blockMeta: {},
-      nodeStyles: {},
-      contentOverrides: {},
-      pageStyle: { width: 1080, padding: 0 },
-
-      hubMode: 'DESIGN_SYSTEM',
-      selection: null,
-      builderMode: 'brand',
-      activeTool: 'select',
-      editingNodeId: null,
-      activePage: null,
-      rightW: 432,
-      pulse: 0,
-
-      comments: [],
-
-      savedDesigns: [],
-      history: [
-        { id: uid(), label: 'Initial', at: Date.now(), profileId: DEFAULT_PROFILE_ID, overrides: {} },
-      ],
-      historyIndex: 0,
-
-      timeline: defaultTimeline(),
-      aiBusy: false,
-
-      /* ── selectors ─────────────────────────────────────────── */
-      getProfile: () => {
-        const { profileId, generated } = get()
-        return (
-          PROFILES.find((p) => p.id === profileId) ||
-          generated.find((p) => p.id === profileId) ||
-          PROFILES[0]
-        )
+      onboarding: {
+        completed: false,
+        step: 0,
       },
-      getAllProfiles: () => [...get().generated, ...PROFILES],
-      getTokens: () => resolveTokens(get().getProfile(), get().theme, get().overrides),
-      getBlockMeta: (id) => get().blockMeta[id] ?? DEFAULT_META,
-      getContent: (nodeId, fallback) => get().contentOverrides[nodeId] ?? fallback,
-
-      /* ── tokens ────────────────────────────────────────────── */
-      setProfile: (id) => {
-        if (id === get().profileId && Object.keys(get().overrides).length === 0) return
-        const p = PROFILES.find((x) => x.id === id) || get().generated.find((x) => x.id === id)
-        set({ profileId: id, overrides: {}, pulse: get().pulse + 1 })
-        get().commit(`Profile → ${p?.name ?? id}`)
-      },
-      setToken: (key, value) => {
-        // No pulse — token tweaks must feel instant, not re-animate the scene.
-        set({ overrides: { ...get().overrides, [key]: value } })
-        scheduleCommit(get().commit, `Adjusted ${String(key)}`)
-      },
-      resetOverrides: () => {
-        if (Object.keys(get().overrides).length === 0) return
-        set({ overrides: {}, pulse: get().pulse + 1 })
-        get().commit('Reset to profile defaults')
       },
 
-      setTheme: (t) => set({ theme: t, pulse: get().pulse + 1 }),
-      toggleTheme: () =>
-        set({ theme: get().theme === 'light' ? 'dark' : 'light', pulse: get().pulse + 1 }),
-      setDir: (d) => set({ dir: d }),
-      toggleDir: () => set({ dir: get().dir === 'ltr' ? 'rtl' : 'ltr' }),
-      setDevice: (d) => set({ device: d }),
-      setZoom: (z) => set({ zoom: Math.max(0.3, Math.min(1.6, z)) }),
-
-      /* ── selection ─────────────────────────────────────────── */
-      select: (sel) => {
-        if (!sel) return set({ selection: null })
-        set({ selection: sel, builderMode: 'inspector' })
+      arch: {
+        pages: {},
+        selectedPageId: null,
+        activeProfileId: null,
       },
-      selectScope: (scope) => {
-        const sel = get().selection
-        if (!sel) {
-          if (scope === 'page') {
-            set({ selection: { scope: 'page', label: 'Page', role: 'box' }, builderMode: 'inspector' })
+
+      design: {
+        tokens: DESIGN_PROFILES_MAP['minimal'].tokens,
+        selectedCategory: 'colors',
+        activeProfileId: 'minimal',
+        showPreviewStrip: true,
+        subTab: 'tokens' as DesignSubTab,
+      },
+
+      theme: {
+        previewOverride: null,
+        savedProfiles:   [],
+      },
+
+      preview: {
+        selectedPageId: null,
+        device: 'desktop',
+      },
+
+      comp: {
+        selectedGroup: null,
+        query: '',
+      },
+
+      // ── Section ──────────────────────────────────────────────────────────────
+      setSection: (s) =>
+        set((state) => {
+          state.section = s
+          if (!state.visitedSections.includes(s)) {
+            state.visitedSections.push(s)
           }
-          return
-        }
-        set({ selection: { ...sel, scope } })
-      },
-      setHubMode: (m) => set({ hubMode: m }),
-      setBuilderMode: (m) => set({ builderMode: m }),
-      setActivePage: (id) => set({ activePage: id }),
-      setTool: (t) => set({ activeTool: t }),
-      setRightW: (w) => set({ rightW: Math.max(360, Math.min(640, w)) }),
-      firePulse: () => set({ pulse: get().pulse + 1 }),
-
-      /* ── node styling (instant — no pulse) ─────────────────── */
-      setNodeStyle: (nodeId, patch) => {
-        const prev = get().nodeStyles[nodeId] ?? {}
-        set({ nodeStyles: { ...get().nodeStyles, [nodeId]: { ...prev, ...patch } } })
-        scheduleCommit(get().commit, 'Styled element')
-      },
-      resetNodeStyle: (nodeId) => {
-        const next = { ...get().nodeStyles }
-        delete next[nodeId]
-        set({ nodeStyles: next })
-      },
-      setRawCss: (nodeId, css) => {
-        const prev = get().nodeStyles[nodeId] ?? {}
-        set({ nodeStyles: { ...get().nodeStyles, [nodeId]: { ...prev, css } } })
-      },
-      setContent: (nodeId, text) =>
-        set({ contentOverrides: { ...get().contentOverrides, [nodeId]: text } }),
-      beginEdit: (nodeId) => set({ editingNodeId: nodeId }),
-      endEdit: () => set({ editingNodeId: null }),
-      setPageStyle: (patch) => set({ pageStyle: { ...get().pageStyle, ...patch } }),
-
-      /* ── structure ─────────────────────────────────────────── */
-      setArchetype: (id) => {
-        if (id === get().archetypeId) return
-        set({
-          archetypeId: id,
-          blocks: buildBlocks(id),
-          blockMeta: {},
-          selection: null,
-          pulse: get().pulse + 1,
-        })
-        const a = ARCHETYPES.find((x) => x.id === id)
-        get().commit(`Archetype → ${a?.name ?? id}`)
-      },
-      addBlock: (kind) => {
-        const blocks = get().blocks
-        const block = makeBlock(kind, blocks.length)
-        set({
-          blocks: [...blocks, block],
-          selection: { scope: 'section', blockId: block.id, nodeId: block.id, label: block.label, role: 'box' },
-          builderMode: 'inspector',
-          pulse: get().pulse + 1,
-        })
-      },
-      removeBlock: (id) => {
-        const sel = get().selection
-        set({
-          blocks: get().blocks.filter((b) => b.id !== id),
-          selection: sel?.blockId === id ? null : sel,
-          pulse: get().pulse + 1,
-        })
-      },
-      moveBlock: (id, direction) => {
-        const blocks = get().blocks
-        const idx = blocks.findIndex((b) => b.id === id)
-        if (idx === -1) return
-        if (direction === 'up' && idx === 0) return
-        if (direction === 'down' && idx === blocks.length - 1) return
-        const next = [...blocks]
-        const swap = direction === 'up' ? idx - 1 : idx + 1
-        ;[next[idx], next[swap]] = [next[swap], next[idx]]
-        set({ blocks: next, pulse: get().pulse + 1 })
-      },
-      reorderBlocks: (fromIdx, toIdx) => {
-        const blocks = get().blocks
-        if (fromIdx === toIdx) return
-        const next = [...blocks]
-        const [moved] = next.splice(fromIdx, 1)
-        next.splice(toIdx, 0, moved)
-        set({ blocks: next, pulse: get().pulse + 1 })
-      },
-      toggleBlockLock: (id) => {
-        const m = get().getBlockMeta(id)
-        set({ blockMeta: { ...get().blockMeta, [id]: { ...m, locked: !m.locked } } })
-      },
-      toggleBlockVisible: (id, viewport) => {
-        const m = get().getBlockMeta(id)
-        set({ blockMeta: { ...get().blockMeta, [id]: { ...m, [viewport]: !m[viewport] } } })
-      },
-
-      /* ── comments ──────────────────────────────────────────── */
-      addComment: (nodeId, blockId, label) => {
-        const c: Comment = {
-          id: uid(),
-          nodeId,
-          blockId,
-          label,
-          text: '',
-          resolved: false,
-          createdAt: Date.now(),
-        }
-        set({ comments: [...get().comments, c] })
-        return c.id
-      },
-      updateComment: (id, text) =>
-        set({ comments: get().comments.map((c) => (c.id === id ? { ...c, text } : c)) }),
-      toggleResolveComment: (id) =>
-        set({
-          comments: get().comments.map((c) =>
-            c.id === id ? { ...c, resolved: !c.resolved } : c,
-          ),
         }),
-      removeComment: (id) => set({ comments: get().comments.filter((c) => c.id !== id) }),
-      exportCommentsForAI: () => {
-        const { comments, nodeStyles, archetypeId } = get()
-        const payload = {
-          $schema: 'https://nezam.design/schema/ai-comments-v1.json',
-          archetype: archetypeId,
-          generatedAt: new Date().toISOString(),
-          tasks: comments.map((c) => ({
-            id: c.id,
-            target: { nodeId: c.nodeId, blockId: c.blockId, label: c.label },
-            instruction: c.text,
-            status: c.resolved ? 'resolved' : 'open',
-            currentStyle: nodeStyles[c.nodeId] ?? {},
-          })),
-        }
-        return JSON.stringify(payload, null, 2)
-      },
 
-      /* ── saved designs ─────────────────────────────────────── */
-      saveDesign: (name) => {
-        const { profileId, overrides, theme, savedDesigns, archetypeId } = get()
-        const p = get().getProfile()
-        const design: SavedDesign = {
-          id: uid(),
-          name: name.trim() || `${p.name} mix`,
-          profileId,
-          overrides,
-          archetypeId,
-          theme,
-          createdAt: Date.now(),
-          swatch: swatchFor(p, theme),
-        }
-        set({ savedDesigns: [design, ...savedDesigns] })
-      },
-      loadSaved: (id) => {
-        const d = get().savedDesigns.find((x) => x.id === id)
-        if (!d) return
-        set({
-          profileId: d.profileId,
-          overrides: d.overrides,
-          theme: d.theme,
-          archetypeId: d.archetypeId,
-          blocks: buildBlocks(d.archetypeId),
-          blockMeta: {},
-          selection: null,
-          pulse: get().pulse + 1,
-        })
-        get().commit(`Loaded "${d.name}"`)
-      },
-      deleteSaved: (id) =>
-        set({ savedDesigns: get().savedDesigns.filter((x) => x.id !== id) }),
+      // ── Architecture ─────────────────────────────────────────────────────────
+      archAddPage: (parentId) =>
+        set((state) => {
+          recordHistory(state)
+          const id = uid('pg')
+          const order = nextOrder(state.arch.pages, parentId)
+          state.arch.pages[id] = {
+            id,
+            name: 'New Page',
+            route: '/new-page',
+            parentId,
+            order,
+            type: 'page',
+            navSlot: parentId ? 'sidebar' : 'topnav',
+            icon: 'FileText',
+            description: '',
+          }
+          state.arch.selectedPageId = id
+        }),
 
-      /* ── history ───────────────────────────────────────────── */
-      commit: (label) => {
-        const { history, historyIndex, profileId, overrides } = get()
-        const entry: HistoryEntry = {
-          id: uid(),
-          label,
-          at: Date.now(),
-          profileId,
-          overrides: { ...overrides },
-        }
-        const trimmed = history.slice(0, historyIndex + 1)
-        const next = [...trimmed, entry].slice(-60)
-        set({ history: next, historyIndex: next.length - 1 })
-      },
-      undo: () => {
-        const { history, historyIndex } = get()
-        if (historyIndex <= 0) return
-        const e = history[historyIndex - 1]
-        set({
-          historyIndex: historyIndex - 1,
-          profileId: e.profileId,
-          overrides: { ...e.overrides },
-          pulse: get().pulse + 1,
-        })
-      },
-      redo: () => {
-        const { history, historyIndex } = get()
-        if (historyIndex >= history.length - 1) return
-        const e = history[historyIndex + 1]
-        set({
-          historyIndex: historyIndex + 1,
-          profileId: e.profileId,
-          overrides: { ...e.overrides },
-          pulse: get().pulse + 1,
-        })
-      },
-      jumpHistory: (index) => {
-        const e = get().history[index]
-        if (!e) return
-        set({
-          historyIndex: index,
-          profileId: e.profileId,
-          overrides: { ...e.overrides },
-          pulse: get().pulse + 1,
-        })
-      },
-      canUndo: () => get().historyIndex > 0,
-      canRedo: () => get().historyIndex < get().history.length - 1,
+      archDeletePage: (id) =>
+        set((state) => {
+          recordHistory(state)
+          const parentId = state.arch.pages[id]?.parentId ?? null
+          const toDelete = collectDescendants(state.arch.pages, id)
+          toDelete.forEach((pid) => delete state.arch.pages[pid])
+          if (state.arch.selectedPageId && toDelete.includes(state.arch.selectedPageId)) {
+            state.arch.selectedPageId = null
+          }
+          // Re-index sibling orders
+          const siblings = Object.values(state.arch.pages)
+            .filter((p) => p.parentId === parentId)
+            .sort((a, b) => a.order - b.order)
+          siblings.forEach((p, idx) => {
+            p.order = idx
+          })
+        }),
 
-      /* ── ai ────────────────────────────────────────────────── */
-      surpriseMe: () => get().applyProfile(generateProfile()),
-      applyProfile: (p) => {
-        set({
-          generated: [p, ...get().generated.filter((x) => x.id !== p.id)].slice(0, 12),
-          profileId: p.id,
-          overrides: {},
-          pulse: get().pulse + 1,
-        })
-        get().commit(`Generated "${p.name}"`)
-      },
-      setAiBusy: (b) => set({ aiBusy: b }),
+      archUpdatePage: (id, patch) =>
+        set((state) => {
+          recordHistory(state)
+          if (state.arch.pages[id]) {
+            Object.assign(state.arch.pages[id], patch)
+          }
+        }),
 
-      /* ── timeline ──────────────────────────────────────────── */
-      addTrack: (target) => {
-        const t = get().timeline
-        set({
-          timeline: {
-            ...t,
-            tracks: [
-              ...t.tracks,
-              {
-                id: uid(),
-                target,
-                label: target === 'all' ? 'All elements' : target[0].toUpperCase() + target.slice(1),
-                keyframes: [{ id: uid(), at: 0.2, property: 'opacity', from: 0, to: 1 }],
-              },
-            ],
-          },
-        })
-      },
-      removeTrack: (id) =>
-        set({ timeline: { ...get().timeline, tracks: get().timeline.tracks.filter((x) => x.id !== id) } }),
-      addKeyframe: (trackId, at) => {
-        const t = get().timeline
-        set({
-          timeline: {
-            ...t,
-            tracks: t.tracks.map((tr) =>
-              tr.id === trackId
-                ? { ...tr, keyframes: [...tr.keyframes, { id: uid(), at, property: 'opacity' as AnimProperty, from: 0, to: 1 }] }
-                : tr,
-            ),
-          },
-        })
-      },
-      updateKeyframe: (trackId, kfId, patch) => {
-        const t = get().timeline
-        set({
-          timeline: {
-            ...t,
-            tracks: t.tracks.map((tr) =>
-              tr.id === trackId
-                ? { ...tr, keyframes: tr.keyframes.map((k) => (k.id === kfId ? { ...k, ...patch } : k)) }
-                : tr,
-            ),
-          },
-        })
-      },
-      removeKeyframe: (trackId, kfId) => {
-        const t = get().timeline
-        set({
-          timeline: {
-            ...t,
-            tracks: t.tracks.map((tr) =>
-              tr.id === trackId ? { ...tr, keyframes: tr.keyframes.filter((k) => k.id !== kfId) } : tr,
-            ),
-          },
-        })
-      },
-      setPlayhead: (v) => set({ timeline: { ...get().timeline, playhead: Math.max(0, Math.min(1, v)) } }),
-      setPlaying: (p) => set({ timeline: { ...get().timeline, playing: p } }),
-      setDuration: (d) => set({ timeline: { ...get().timeline, duration: Math.max(0.4, Math.min(8, d)) } }),
-      setStagger: (s) => set({ timeline: { ...get().timeline, stagger: Math.max(0, Math.min(0.5, s)) } }),
-      toggleScrollTrigger: () =>
-        set({ timeline: { ...get().timeline, scrollTrigger: !get().timeline.scrollTrigger } }),
-      applyTimelinePreset: (preset) => {
-        set({ timeline: { ...buildPreset(preset), playhead: 0, playing: false } })
-      },
-    }),
+      archSelectPage: (id) =>
+        set((state) => {
+          state.arch.selectedPageId = id
+        }),
+
+      archApplyProfile: (profileId) =>
+        set((state) => {
+          recordHistory(state)
+          const profile = ARCH_PROFILES_MAP[profileId]
+          if (!profile) return
+          state.arch.pages = {}
+          profile.pages.forEach((pg) => {
+            state.arch.pages[pg.id] = { ...pg }
+          })
+          state.arch.activeProfileId = profileId
+          state.arch.selectedPageId = null
+        }),
+
+      archAppendPages: (pages, parentId = null) =>
+        set((state) => {
+          recordHistory(state)
+          let base = nextOrder(state.arch.pages, parentId)
+          pages.forEach((pg, i) => {
+            const id = uid('pg')
+            state.arch.pages[id] = {
+              id,
+              name: pg.name,
+              route: pg.route,
+              parentId,
+              order: base + i,
+              type: 'page',
+              navSlot: parentId ? 'sidebar' : 'topnav',
+              icon: pg.icon ?? 'FileText',
+              description: '',
+            }
+          })
+        }),
+
+      // ── Undo/Redo actions ──
+      archUndo: () =>
+        set((state) => {
+          if (state.archPast.length === 0) return
+          const current = JSON.parse(JSON.stringify(state.arch.pages))
+          const prev = state.archPast.pop()!
+          state.archFuture.push(current)
+          state.arch.pages = prev
+          state.arch.selectedPageId = null
+        }),
+
+      archRedo: () =>
+        set((state) => {
+          if (state.archFuture.length === 0) return
+          const current = JSON.parse(JSON.stringify(state.arch.pages))
+          const next = state.archFuture.pop()!
+          state.archPast.push(current)
+          state.arch.pages = next
+          state.arch.selectedPageId = null
+        }),
+
+      // ── Hub UI Theme actions ──
+      setHubTheme: (theme) =>
+        set((state) => {
+          state.hubTheme = theme
+        }),
+
+      // ── Design ───────────────────────────────────────────────────────────────
+      designSetToken: (path, value) =>
+        set((state) => {
+          setByPath(state.design.tokens as unknown as Record<string, unknown>, path, value)
+          state.design.activeProfileId = null
+        }),
+
+      designSetCategory: (cat) =>
+        set((state) => {
+          state.design.selectedCategory = cat
+        }),
+
+      designApplyProfile: (profileId) =>
+        set((state) => {
+          const profile = DESIGN_PROFILES_MAP[profileId]
+          if (!profile) return
+          state.design.tokens = profile.tokens
+          state.design.activeProfileId = profileId
+        }),
+
+      designTogglePreviewStrip: () =>
+        set((state) => {
+          state.design.showPreviewStrip = !state.design.showPreviewStrip
+        }),
+
+      designSetSubTab: (tab) =>
+        set((state) => {
+          state.design.subTab = tab
+        }),
+
+      // ── Theme ─────────────────────────────────────────────────────────────────
+      themeApplyToPreview: (override) =>
+        set((state) => {
+          state.theme.previewOverride = override
+
+          // BRIDGE: map HSL theme preset properties back to Design Tokens colors!
+          const mode = override.mode
+          const vars = override[mode]
+          if (vars) {
+            const colors = state.design.tokens.colors
+            colors.mode = mode
+
+            if (vars.background) {
+              colors.surface.bg = vars.background
+            }
+            if (vars.foreground) {
+              colors.text.primary = vars.foreground
+            }
+            if (vars.primary) {
+              colors.brand = generateScaleFromHex(vars.primary)
+            }
+            if (vars.accent) {
+              colors.accent = generateScaleFromHex(vars.accent)
+            }
+            if (vars.card) {
+              colors.surface.panel = vars.card
+            }
+            if (vars.border) {
+              colors.surface.border = vars.border
+            }
+            if (vars.muted) {
+              colors.text.muted = vars.muted
+            }
+            if (vars['accent-foreground']) {
+              colors.text.secondary = vars['accent-foreground']
+            }
+          }
+        }),
+
+      themeClearPreview: () =>
+        set((state) => {
+          state.theme.previewOverride = null
+        }),
+
+      themeSaveProfile: (name, override) =>
+        set((state) => {
+          const id = uid('profile')
+          state.theme.savedProfiles.push({ id, name, override, createdAt: Date.now() })
+        }),
+
+      themeDeleteProfile: (id) =>
+        set((state) => {
+          state.theme.savedProfiles = state.theme.savedProfiles.filter((p) => p.id !== id)
+        }),
+
+      // ── Preview ──────────────────────────────────────────────────────────────
+      previewSelectPage: (id) =>
+        set((state) => {
+          state.preview.selectedPageId = id
+        }),
+
+      previewSetDevice: (device) =>
+        set((state) => {
+          state.preview.device = device
+        }),
+
+      // ── Components ───────────────────────────────────────────────────────────
+      compSetGroup: (group) =>
+        set((state) => {
+          state.comp.selectedGroup = group
+        }),
+
+      compSetQuery: (query) =>
+        set((state) => {
+          state.comp.query = query
+        }),
+
+      // ── Onboarding ───────────────────────────────────────────────────────────
+      onboardingSetStep: (step) =>
+        set((state) => {
+          state.onboarding.step = step
+        }),
+
+      onboardingComplete: () =>
+        set((state) => {
+          state.onboarding.completed = true
+        }),
+
+      onboardingReset: () =>
+        set((state) => {
+          state.onboarding.completed = false
+          state.onboarding.step = 0
+        }),
+
+      // ── Export modal ─────────────────────────────────────────────────────────
+      setExportModalOpen: (open) =>
+        set((state) => {
+          state.exportModalOpen = open
+        }),
+
+      // ── Sections ─────────────────────────────────────────────────────────────
+      setSectionsCategory: (cat) =>
+        set((state) => {
+          state.sectionsCategory = cat
+        }),
+
+      setSectionsQuery: (q) =>
+        set((state) => {
+          state.sectionsQuery = q
+        }),
+    })),
     {
-      name: 'nezam-design-hub-v2',
-      version: 3,
-      // Prevent SSR/client mismatch: server always renders initial state;
-      // DesignHub calls rehydrate() in useEffect so localStorage loads after mount.
-      skipHydration: true,
+      name: 'nezam-design-hub-v7',
       partialize: (s) => ({
-        hubMode: s.hubMode,
-        profileId: s.profileId,
-        overrides: s.overrides,
-        generated: s.generated,
+        section: s.section,
+        arch: s.arch,
+        design: s.design,
         theme: s.theme,
-        dir: s.dir,
-        device: s.device,
-        rightW: s.rightW,
-        archetypeId: s.archetypeId,
-        blocks: s.blocks,
-        blockMeta: s.blockMeta,
-        nodeStyles: s.nodeStyles,
-        contentOverrides: s.contentOverrides,
-        pageStyle: s.pageStyle,
-        comments: s.comments,
-        savedDesigns: s.savedDesigns,
-        timeline: s.timeline,
+        preview: s.preview,
+        onboarding: s.onboarding,
+        visitedSections: s.visitedSections,
+        hubTheme: s.hubTheme,
+        // comp state & past/future stacks are intentionally not persisted
       }),
     },
   ),
 )
-
-/* ── Timeline presets ──────────────────────────────────────────── */
-
-function buildPreset(preset: string): TimelineState {
-  const base = defaultTimeline()
-  const t = (target: string, label: string, kfs: Omit<Keyframe, 'id'>[]) => ({
-    id: uid(),
-    target,
-    label,
-    keyframes: kfs.map((k) => ({ ...k, id: uid() })),
-  })
-  switch (preset) {
-    case 'fade':
-      return { ...base, duration: 1.4, scrollTrigger: false, tracks: [
-        t('all', 'All elements', [{ at: 0, property: 'opacity', from: 0, to: 1 }]),
-      ] }
-    case 'slide':
-      return { ...base, duration: 1.8, scrollTrigger: false, tracks: [
-        t('all', 'All elements', [
-          { at: 0, property: 'opacity', from: 0, to: 1 },
-          { at: 0.1, property: 'y', from: 40, to: 0 },
-        ]),
-      ] }
-    case 'pop':
-      return { ...base, duration: 1.6, scrollTrigger: false, tracks: [
-        t('all', 'All elements', [
-          { at: 0, property: 'opacity', from: 0, to: 1 },
-          { at: 0.1, property: 'scale', from: 0.8, to: 1 },
-        ]),
-      ] }
-    case 'stagger':
-      return { ...base, duration: 2.6, stagger: 0.12, scrollTrigger: false, tracks: [
-        t('card', 'Cards', [
-          { at: 0.1, property: 'opacity', from: 0, to: 1 },
-          { at: 0.15, property: 'y', from: 30, to: 0 },
-        ]),
-        t('text', 'Text', [
-          { at: 0.3, property: 'opacity', from: 0, to: 1 },
-          { at: 0.35, property: 'scale', from: 0.85, to: 1 },
-        ]),
-      ] }
-    case 'scroll':
-      return { ...base, duration: 2.4, scrollTrigger: true, tracks: [
-        t('hero', 'Hero', [
-          { at: 0, property: 'opacity', from: 0, to: 1 },
-          { at: 0.2, property: 'y', from: 50, to: 0 },
-        ]),
-        t('card', 'Cards', [
-          { at: 0.4, property: 'opacity', from: 0, to: 1 },
-          { at: 0.5, property: 'blur', from: 8, to: 0 },
-        ]),
-      ] }
-    default:
-      return base
-  }
-}

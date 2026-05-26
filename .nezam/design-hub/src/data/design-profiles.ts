@@ -1,0 +1,952 @@
+import type { DesignProfile, DesignTokens } from '@/types/design'
+
+const BASE_SCALE = {
+  xs:    { size: '0.75rem',  lineHeight: '1rem' },
+  sm:    { size: '0.875rem', lineHeight: '1.25rem' },
+  base:  { size: '1rem',     lineHeight: '1.5rem' },
+  lg:    { size: '1.125rem', lineHeight: '1.75rem' },
+  xl:    { size: '1.25rem',  lineHeight: '1.75rem' },
+  '2xl': { size: '1.5rem',   lineHeight: '2rem' },
+  '3xl': { size: '1.875rem', lineHeight: '2.25rem' },
+  '4xl': { size: '2.25rem',  lineHeight: '2.5rem' },
+}
+
+const BASE_WEIGHTS = { normal: 400, medium: 500, semibold: 600, bold: 700 }
+
+const BASE_MOTION = {
+  duration: { fast: '100ms', base: '200ms', slow: '350ms' },
+  easing: {
+    default: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    bounce:  'cubic-bezier(0.34, 1.56, 0.64, 1)',
+    smooth:  'cubic-bezier(0.32, 0.72, 0, 1)',
+  },
+}
+
+const BASE_HEADING = {
+  xxl: { size: '3rem',    lineHeight: '3.5rem',  letterSpacing: '-0.02em' },
+  xl:  { size: '2.25rem', lineHeight: '2.75rem', letterSpacing: '-0.02em' },
+  lg:  { size: '1.875rem',lineHeight: '2.25rem', letterSpacing: '-0.01em' },
+  md:  { size: '1.5rem',  lineHeight: '2rem',    letterSpacing: '-0.01em' },
+  sm:  { size: '1.25rem', lineHeight: '1.75rem', letterSpacing: '0' },
+  xs:  { size: '1.125rem',lineHeight: '1.5rem',  letterSpacing: '0' },
+}
+
+const BASE_BODY = {
+  lg: { size: '1.125rem', lineHeight: '1.75rem' },
+  md: { size: '1rem',     lineHeight: '1.625rem' },
+  sm: { size: '0.875rem', lineHeight: '1.5rem' },
+}
+
+const BASE_METRIC = {
+  xl: { size: '3rem',    lineHeight: '3.5rem',  letterSpacing: '-0.03em' },
+  lg: { size: '2rem',    lineHeight: '2.5rem',  letterSpacing: '-0.02em' },
+  md: { size: '1.5rem',  lineHeight: '2rem',    letterSpacing: '-0.01em' },
+}
+
+const BASE_CODE = {
+  lg: { size: '1rem',     lineHeight: '1.75rem' },
+  md: { size: '0.875rem', lineHeight: '1.5rem' },
+  sm: { size: '0.75rem',  lineHeight: '1.25rem' },
+}
+
+const BASE_FONT_WEIGHT = { regular: 400, medium: 500, semibold: 600, bold: 700 }
+
+// ─── Minimal ─────────────────────────────────────────────────────────────────
+const MINIMAL: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand: {
+      '50': '#eff6ff', '100': '#dbeafe', '200': '#bfdbfe', '300': '#93c5fd',
+      '400': '#60a5fa', '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8',
+      '800': '#1e40af', '900': '#1e3a8a', '950': '#172554',
+    },
+    accent: {
+      '50': '#f0f9ff', '100': '#e0f2fe', '200': '#bae6fd', '300': '#7dd3fc',
+      '400': '#38bdf8', '500': '#0ea5e9', '600': '#0284c7', '700': '#0369a1',
+      '800': '#075985', '900': '#0c4a6e', '950': '#082f49',
+    },
+    neutral: {
+      '50': '#fafafa', '100': '#f4f4f5', '200': '#e4e4e7', '300': '#d4d4d8',
+      '400': '#a1a1aa', '500': '#71717a', '600': '#52525b', '700': '#3f3f46',
+      '800': '#27272a', '900': '#18181b', '950': '#09090b',
+    },
+    semantic: { success: '#16a34a', warning: '#d97706', error: '#dc2626', info: '#0284c7' },
+    surface: { bg: '#ffffff', panel: '#f9fafb', overlay: 'rgba(0,0,0,0.5)', border: '#e4e4e7' },
+    text: { primary: '#18181b', secondary: '#3f3f46', muted: '#71717a', disabled: '#a1a1aa' },
+  },
+  typography: {
+    sans: 'Inter, system-ui, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, monospace',
+    display: 'Inter, system-ui, sans-serif',
+    scale: BASE_SCALE,
+    weights: BASE_WEIGHTS,
+  },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '4px', md: '8px', lg: '12px', xl: '16px', full: '9999px' },
+  shadows: {
+    none: 'none',
+    sm:  '0 1px 2px rgba(0,0,0,0.06)',
+    md:  '0 4px 12px rgba(0,0,0,0.08)',
+    lg:  '0 8px 24px rgba(0,0,0,0.10)',
+    xl:  '0 20px 48px rgba(0,0,0,0.12)',
+  },
+  motion: BASE_MOTION,
+  borders: { width: '1px', style: 'solid' },
+  iconography: { library: 'lucide', style: 'outline', size: 20, strokeWidth: 1.5 },
+  elevation: {
+    surface: { base: '#ffffff', raised: '#f9fafb', overlay: '#ffffff', sunken: '#f4f4f5' },
+    shadow: {
+      card:    '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+      modal:   '0 20px 60px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.10)',
+      tooltip: '0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06)',
+      sticky:  '0 2px 8px rgba(0,0,0,0.08)',
+    },
+  },
+  font: {
+    heading: BASE_HEADING,
+    body: BASE_BODY,
+    metric: BASE_METRIC,
+    code: BASE_CODE,
+    weight: BASE_FONT_WEIGHT,
+    family: {
+      heading: 'Inter, system-ui, sans-serif',
+      body:    'Inter, system-ui, sans-serif',
+      mono:    'JetBrains Mono, ui-monospace, monospace',
+      display: 'Inter, system-ui, sans-serif',
+    },
+  },
+  interaction: {
+    focusRing: '#3b82f6',
+    hover:     'rgba(0, 0, 0, 0.04)',
+    pressed:   'rgba(0, 0, 0, 0.08)',
+    selected:  'rgba(59, 130, 246, 0.08)',
+    disabled:  '0.4',
+  },
+  utility: {
+    blanket: 'rgba(0, 0, 0, 0.5)',
+    skeleton: { base: '#f4f4f5', shimmer: '#e4e4e7' },
+    chart: {
+      primary:    '#3b82f6',
+      secondary:  '#8b5cf6',
+      tertiary:   '#10b981',
+      quaternary: '#f59e0b',
+      divergent:  { low: '#dbeafe', high: '#1d4ed8' },
+    },
+  },
+}
+
+// ─── Vibrant ──────────────────────────────────────────────────────────────────
+const VIBRANT: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand: {
+      '50': '#faf5ff', '100': '#f3e8ff', '200': '#e9d5ff', '300': '#d8b4fe',
+      '400': '#c084fc', '500': '#a855f7', '600': '#9333ea', '700': '#7e22ce',
+      '800': '#6b21a8', '900': '#581c87', '950': '#3b0764',
+    },
+    accent: {
+      '50': '#fff0f7', '100': '#ffe0ef', '200': '#ffc0df', '300': '#ff8fc0',
+      '400': '#ff5fa0', '500': '#f43f8e', '600': '#e11d70', '700': '#c0155a',
+      '800': '#9c1249', '900': '#7f1138', '950': '#4f0420',
+    },
+    neutral: {
+      '50': '#f8fafc', '100': '#f1f5f9', '200': '#e2e8f0', '300': '#cbd5e1',
+      '400': '#94a3b8', '500': '#64748b', '600': '#475569', '700': '#334155',
+      '800': '#1e293b', '900': '#0f172a', '950': '#020617',
+    },
+    semantic: { success: '#059669', warning: '#d97706', error: '#e11d48', info: '#9333ea' },
+    surface: { bg: '#ffffff', panel: '#faf5ff', overlay: 'rgba(67,0,114,0.4)', border: '#e9d5ff' },
+    text: { primary: '#0f172a', secondary: '#334155', muted: '#64748b', disabled: '#94a3b8' },
+  },
+  typography: {
+    sans: 'Sora, system-ui, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, monospace',
+    display: 'Sora, system-ui, sans-serif',
+    scale: BASE_SCALE,
+    weights: BASE_WEIGHTS,
+  },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '6px', md: '12px', lg: '18px', xl: '24px', full: '9999px' },
+  shadows: {
+    none: 'none',
+    sm:  '0 1px 3px rgba(168,85,247,0.12)',
+    md:  '0 4px 16px rgba(168,85,247,0.18)',
+    lg:  '0 8px 32px rgba(168,85,247,0.22)',
+    xl:  '0 20px 56px rgba(168,85,247,0.28)',
+  },
+  motion: { ...BASE_MOTION, duration: { fast: '120ms', base: '250ms', slow: '400ms' } },
+  borders: { width: '1px', style: 'solid' },
+  iconography: { library: 'phosphor', style: 'duotone', size: 22, strokeWidth: 1.5 },
+  elevation: {
+    surface: { base: '#ffffff', raised: '#faf5ff', overlay: '#ffffff', sunken: '#f3e8ff' },
+    shadow: {
+      card:    '0 2px 8px rgba(168,85,247,0.14)',
+      modal:   '0 24px 64px rgba(168,85,247,0.24), 0 8px 24px rgba(168,85,247,0.14)',
+      tooltip: '0 4px 14px rgba(168,85,247,0.20)',
+      sticky:  '0 2px 10px rgba(168,85,247,0.16)',
+    },
+  },
+  font: {
+    heading: BASE_HEADING,
+    body: BASE_BODY,
+    metric: BASE_METRIC,
+    code: BASE_CODE,
+    weight: BASE_FONT_WEIGHT,
+    family: {
+      heading: 'Sora, system-ui, sans-serif',
+      body:    'Sora, system-ui, sans-serif',
+      mono:    'JetBrains Mono, ui-monospace, monospace',
+      display: 'Sora, system-ui, sans-serif',
+    },
+  },
+  interaction: {
+    focusRing: '#a855f7',
+    hover:     'rgba(168, 85, 247, 0.06)',
+    pressed:   'rgba(168, 85, 247, 0.12)',
+    selected:  'rgba(168, 85, 247, 0.10)',
+    disabled:  '0.4',
+  },
+  utility: {
+    blanket: 'rgba(67, 0, 114, 0.45)',
+    skeleton: { base: '#f3e8ff', shimmer: '#e9d5ff' },
+    chart: {
+      primary:    '#a855f7',
+      secondary:  '#f43f8e',
+      tertiary:   '#3b82f6',
+      quaternary: '#10b981',
+      divergent:  { low: '#f3e8ff', high: '#7e22ce' },
+    },
+  },
+}
+
+// ─── Corporate ───────────────────────────────────────────────────────────────
+const CORPORATE: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand: {
+      '50': '#f0f4f8', '100': '#d9e2ec', '200': '#bcccdc', '300': '#9fb3c8',
+      '400': '#829ab1', '500': '#627d98', '600': '#486581', '700': '#334e68',
+      '800': '#243b53', '900': '#102a43', '950': '#0a1929',
+    },
+    accent: {
+      '50': '#e8f5e9', '100': '#c8e6c9', '200': '#a5d6a7', '300': '#81c784',
+      '400': '#66bb6a', '500': '#4caf50', '600': '#43a047', '700': '#388e3c',
+      '800': '#2e7d32', '900': '#1b5e20', '950': '#0d3b12',
+    },
+    neutral: {
+      '50': '#f5f7fa', '100': '#e4e7eb', '200': '#cbd2d9', '300': '#9aa5b4',
+      '400': '#7b8794', '500': '#616e7c', '600': '#52606d', '700': '#3e4c59',
+      '800': '#323f4b', '900': '#1f2933', '950': '#0d1117',
+    },
+    semantic: { success: '#43a047', warning: '#fb8c00', error: '#e53935', info: '#1976d2' },
+    surface: { bg: '#ffffff', panel: '#f5f7fa', overlay: 'rgba(0,0,0,0.55)', border: '#cbd2d9' },
+    text: { primary: '#1f2933', secondary: '#3e4c59', muted: '#7b8794', disabled: '#9aa5b4' },
+  },
+  typography: {
+    sans: 'IBM Plex Sans, system-ui, sans-serif',
+    mono: 'IBM Plex Mono, ui-monospace, monospace',
+    display: 'IBM Plex Sans, system-ui, sans-serif',
+    scale: BASE_SCALE,
+    weights: BASE_WEIGHTS,
+  },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '2px', md: '4px', lg: '6px', xl: '8px', full: '9999px' },
+  shadows: {
+    none: 'none',
+    sm:  '0 1px 2px rgba(0,0,0,0.08)',
+    md:  '0 2px 8px rgba(0,0,0,0.10)',
+    lg:  '0 4px 16px rgba(0,0,0,0.12)',
+    xl:  '0 8px 32px rgba(0,0,0,0.15)',
+  },
+  motion: { ...BASE_MOTION, duration: { fast: '80ms', base: '150ms', slow: '250ms' } },
+  borders: { width: '1px', style: 'solid' },
+  iconography: { library: 'heroicons', style: 'outline', size: 20, strokeWidth: 1.5 },
+  elevation: {
+    surface: { base: '#ffffff', raised: '#f5f7fa', overlay: '#ffffff', sunken: '#e4e7eb' },
+    shadow: {
+      card:    '0 1px 3px rgba(0,0,0,0.10)',
+      modal:   '0 16px 48px rgba(0,0,0,0.18)',
+      tooltip: '0 3px 10px rgba(0,0,0,0.12)',
+      sticky:  '0 2px 6px rgba(0,0,0,0.10)',
+    },
+  },
+  font: {
+    heading: BASE_HEADING,
+    body: BASE_BODY,
+    metric: BASE_METRIC,
+    code: BASE_CODE,
+    weight: BASE_FONT_WEIGHT,
+    family: {
+      heading: 'IBM Plex Sans, system-ui, sans-serif',
+      body:    'IBM Plex Sans, system-ui, sans-serif',
+      mono:    'IBM Plex Mono, ui-monospace, monospace',
+      display: 'IBM Plex Sans, system-ui, sans-serif',
+    },
+  },
+  interaction: {
+    focusRing: '#1976d2',
+    hover:     'rgba(0, 0, 0, 0.04)',
+    pressed:   'rgba(0, 0, 0, 0.08)',
+    selected:  'rgba(98, 125, 152, 0.10)',
+    disabled:  '0.38',
+  },
+  utility: {
+    blanket: 'rgba(0, 0, 0, 0.55)',
+    skeleton: { base: '#e4e7eb', shimmer: '#f5f7fa' },
+    chart: {
+      primary:    '#627d98',
+      secondary:  '#43a047',
+      tertiary:   '#1976d2',
+      quaternary: '#fb8c00',
+      divergent:  { low: '#d9e2ec', high: '#102a43' },
+    },
+  },
+}
+
+// ─── Dark Studio ──────────────────────────────────────────────────────────────
+const DARK_STUDIO: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand: {
+      '50': '#ecfeff', '100': '#cffafe', '200': '#a5f3fc', '300': '#67e8f9',
+      '400': '#22d3ee', '500': '#06b6d4', '600': '#0891b2', '700': '#0e7490',
+      '800': '#155e75', '900': '#164e63', '950': '#083344',
+    },
+    accent: {
+      '50': '#f0fdf4', '100': '#dcfce7', '200': '#bbf7d0', '300': '#86efac',
+      '400': '#4ade80', '500': '#22c55e', '600': '#16a34a', '700': '#15803d',
+      '800': '#166534', '900': '#14532d', '950': '#052e16',
+    },
+    neutral: {
+      '50': '#fafafa', '100': '#f4f4f5', '200': '#e4e4e7', '300': '#d4d4d8',
+      '400': '#a1a1aa', '500': '#71717a', '600': '#52525b', '700': '#3f3f46',
+      '800': '#27272a', '900': '#18181b', '950': '#09090b',
+    },
+    semantic: { success: '#22c55e', warning: '#f59e0b', error: '#ef4444', info: '#06b6d4' },
+    surface: { bg: '#09090b', panel: '#111113', overlay: 'rgba(0,0,0,0.75)', border: '#27272a' },
+    text: { primary: '#fafafa', secondary: '#d4d4d8', muted: '#71717a', disabled: '#52525b' },
+  },
+  typography: {
+    sans: 'Inter, system-ui, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, monospace',
+    display: 'Manrope, system-ui, sans-serif',
+    scale: BASE_SCALE,
+    weights: BASE_WEIGHTS,
+  },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '4px', md: '8px', lg: '12px', xl: '16px', full: '9999px' },
+  shadows: {
+    none: 'none',
+    sm:  '0 1px 3px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)',
+    md:  '0 4px 16px rgba(0,0,0,0.6)',
+    lg:  '0 8px 32px rgba(0,0,0,0.7), 0 0 20px rgba(6,182,212,0.08)',
+    xl:  '0 20px 56px rgba(0,0,0,0.8), 0 0 40px rgba(6,182,212,0.12)',
+  },
+  motion: BASE_MOTION,
+  borders: { width: '1px', style: 'solid' },
+  iconography: { library: 'lucide', style: 'outline', size: 20, strokeWidth: 1.5 },
+  elevation: {
+    surface: { base: '#09090b', raised: '#111113', overlay: '#1a1a1f', sunken: '#050507' },
+    shadow: {
+      card:    '0 2px 8px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)',
+      modal:   '0 24px 64px rgba(0,0,0,0.8), 0 0 40px rgba(6,182,212,0.12)',
+      tooltip: '0 4px 16px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)',
+      sticky:  '0 2px 12px rgba(0,0,0,0.6)',
+    },
+  },
+  font: {
+    heading: BASE_HEADING,
+    body: BASE_BODY,
+    metric: BASE_METRIC,
+    code: BASE_CODE,
+    weight: BASE_FONT_WEIGHT,
+    family: {
+      heading: 'Manrope, system-ui, sans-serif',
+      body:    'Inter, system-ui, sans-serif',
+      mono:    'JetBrains Mono, ui-monospace, monospace',
+      display: 'Manrope, system-ui, sans-serif',
+    },
+  },
+  interaction: {
+    focusRing: '#06b6d4',
+    hover:     'rgba(255, 255, 255, 0.05)',
+    pressed:   'rgba(255, 255, 255, 0.10)',
+    selected:  'rgba(6, 182, 212, 0.12)',
+    disabled:  '0.35',
+  },
+  utility: {
+    blanket: 'rgba(0, 0, 0, 0.75)',
+    skeleton: { base: '#27272a', shimmer: '#3f3f46' },
+    chart: {
+      primary:    '#06b6d4',
+      secondary:  '#22c55e',
+      tertiary:   '#a855f7',
+      quaternary: '#f59e0b',
+      divergent:  { low: '#083344', high: '#22d3ee' },
+    },
+  },
+}
+
+// ─── Warm Earth ───────────────────────────────────────────────────────────────
+const WARM_EARTH: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand: {
+      '50': '#fdf6f0', '100': '#fae8d8', '200': '#f5cdb0', '300': '#eca87e',
+      '400': '#e07e4a', '500': '#c9612a', '600': '#b04d22', '700': '#923d1c',
+      '800': '#763119', '900': '#5c2713', '950': '#331309',
+    },
+    accent: {
+      '50': '#f4f9f1', '100': '#e4f1da', '200': '#c6e0b3', '300': '#9fc882',
+      '400': '#78b055', '500': '#5a9438', '600': '#467830', '700': '#365e25',
+      '800': '#294a1c', '900': '#1f3914', '950': '#0e200a',
+    },
+    neutral: {
+      '50': '#faf8f5', '100': '#f2ede7', '200': '#e5dbd1', '300': '#cfc0b0',
+      '400': '#b4998a', '500': '#9a7a6c', '600': '#7e6258', '700': '#634e47',
+      '800': '#4a3a35', '900': '#332824', '950': '#1a1310',
+    },
+    semantic: { success: '#5a9438', warning: '#c27c16', error: '#c0392b', info: '#2e7fb8' },
+    surface: { bg: '#fdfaf7', panel: '#f8f2eb', overlay: 'rgba(51,19,9,0.45)', border: '#e5dbd1' },
+    text: { primary: '#332824', secondary: '#4a3a35', muted: '#9a7a6c', disabled: '#b4998a' },
+  },
+  typography: {
+    sans: 'Lato, system-ui, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, monospace',
+    display: 'Playfair Display, Georgia, serif',
+    scale: BASE_SCALE,
+    weights: BASE_WEIGHTS,
+  },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '4px', md: '10px', lg: '16px', xl: '24px', full: '9999px' },
+  shadows: {
+    none: 'none',
+    sm:  '0 1px 3px rgba(88,45,20,0.08)',
+    md:  '0 4px 14px rgba(88,45,20,0.12)',
+    lg:  '0 8px 28px rgba(88,45,20,0.15)',
+    xl:  '0 20px 52px rgba(88,45,20,0.18)',
+  },
+  motion: BASE_MOTION,
+  borders: { width: '1px', style: 'solid' },
+  iconography: { library: 'lucide', style: 'outline', size: 20, strokeWidth: 1.5 },
+  elevation: {
+    surface: { base: '#fdfaf7', raised: '#f8f2eb', overlay: '#ffffff', sunken: '#f2ede7' },
+    shadow: {
+      card:    '0 1px 4px rgba(88,45,20,0.10)',
+      modal:   '0 20px 56px rgba(88,45,20,0.20)',
+      tooltip: '0 4px 12px rgba(88,45,20,0.14)',
+      sticky:  '0 2px 8px rgba(88,45,20,0.10)',
+    },
+  },
+  font: {
+    heading: BASE_HEADING,
+    body: BASE_BODY,
+    metric: BASE_METRIC,
+    code: BASE_CODE,
+    weight: BASE_FONT_WEIGHT,
+    family: {
+      heading: 'Playfair Display, Georgia, serif',
+      body:    'Lato, system-ui, sans-serif',
+      mono:    'JetBrains Mono, ui-monospace, monospace',
+      display: 'Playfair Display, Georgia, serif',
+    },
+  },
+  interaction: {
+    focusRing: '#c9612a',
+    hover:     'rgba(201, 97, 42, 0.06)',
+    pressed:   'rgba(201, 97, 42, 0.12)',
+    selected:  'rgba(201, 97, 42, 0.08)',
+    disabled:  '0.4',
+  },
+  utility: {
+    blanket: 'rgba(51, 19, 9, 0.45)',
+    skeleton: { base: '#f2ede7', shimmer: '#e5dbd1' },
+    chart: {
+      primary:    '#c9612a',
+      secondary:  '#5a9438',
+      tertiary:   '#2e7fb8',
+      quaternary: '#c27c16',
+      divergent:  { low: '#fae8d8', high: '#923d1c' },
+    },
+  },
+}
+
+// ─── Glass ────────────────────────────────────────────────────────────────────
+const GLASS: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand: {
+      '50': '#f0f7ff', '100': '#ddeeff', '200': '#bbdeff', '300': '#88c4fe',
+      '400': '#4da3fb', '500': '#1a7ef8', '600': '#0a60dd', '700': '#0a4cb5',
+      '800': '#0c3e8f', '900': '#0d3370', '950': '#081e44',
+    },
+    accent: {
+      '50': '#f5f3ff', '100': '#ede9fe', '200': '#ddd6fe', '300': '#c4b5fd',
+      '400': '#a78bfa', '500': '#8b5cf6', '600': '#7c3aed', '700': '#6d28d9',
+      '800': '#5b21b6', '900': '#4c1d95', '950': '#2e1065',
+    },
+    neutral: {
+      '50': '#f8fafc', '100': '#f1f5f9', '200': '#e2e8f0', '300': '#cbd5e1',
+      '400': '#94a3b8', '500': '#64748b', '600': '#475569', '700': '#334155',
+      '800': '#1e293b', '900': '#0f172a', '950': '#020617',
+    },
+    semantic: { success: '#10b981', warning: '#f59e0b', error: '#ef4444', info: '#1a7ef8' },
+    surface: { bg: 'rgba(255,255,255,0.75)', panel: 'rgba(248,250,252,0.70)', overlay: 'rgba(15,23,42,0.45)', border: 'rgba(203,213,225,0.60)' },
+    text: { primary: '#0f172a', secondary: '#334155', muted: '#64748b', disabled: '#94a3b8' },
+  },
+  typography: {
+    sans: 'Inter, system-ui, sans-serif',
+    mono: 'JetBrains Mono, ui-monospace, monospace',
+    display: 'Inter, system-ui, sans-serif',
+    scale: BASE_SCALE,
+    weights: BASE_WEIGHTS,
+  },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '8px', md: '14px', lg: '20px', xl: '28px', full: '9999px' },
+  shadows: {
+    none: 'none',
+    sm:  '0 2px 8px rgba(30,64,175,0.06), 0 0 0 1px rgba(255,255,255,0.50)',
+    md:  '0 8px 24px rgba(30,64,175,0.10), 0 0 0 1px rgba(255,255,255,0.40)',
+    lg:  '0 16px 40px rgba(30,64,175,0.14), 0 0 0 1px rgba(255,255,255,0.30)',
+    xl:  '0 32px 64px rgba(30,64,175,0.18), 0 0 0 1px rgba(255,255,255,0.20)',
+  },
+  motion: BASE_MOTION,
+  borders: { width: '1px', style: 'solid' },
+  iconography: { library: 'lucide', style: 'outline', size: 20, strokeWidth: 1.5 },
+  elevation: {
+    surface: {
+      base:    'rgba(255,255,255,0.75)',
+      raised:  'rgba(255,255,255,0.88)',
+      overlay: 'rgba(255,255,255,0.95)',
+      sunken:  'rgba(241,245,249,0.70)',
+    },
+    shadow: {
+      card:    '0 4px 16px rgba(30,64,175,0.08), 0 0 0 1px rgba(255,255,255,0.60)',
+      modal:   '0 24px 64px rgba(15,23,42,0.20), 0 0 0 1px rgba(255,255,255,0.50)',
+      tooltip: '0 6px 20px rgba(30,64,175,0.12), 0 0 0 1px rgba(255,255,255,0.50)',
+      sticky:  '0 4px 16px rgba(30,64,175,0.08)',
+    },
+  },
+  font: {
+    heading: BASE_HEADING,
+    body: BASE_BODY,
+    metric: BASE_METRIC,
+    code: BASE_CODE,
+    weight: BASE_FONT_WEIGHT,
+    family: {
+      heading: 'Inter, system-ui, sans-serif',
+      body:    'Inter, system-ui, sans-serif',
+      mono:    'JetBrains Mono, ui-monospace, monospace',
+      display: 'Inter, system-ui, sans-serif',
+    },
+  },
+  interaction: {
+    focusRing: '#1a7ef8',
+    hover:     'rgba(26, 126, 248, 0.06)',
+    pressed:   'rgba(26, 126, 248, 0.12)',
+    selected:  'rgba(26, 126, 248, 0.10)',
+    disabled:  '0.4',
+  },
+  utility: {
+    blanket: 'rgba(15, 23, 42, 0.45)',
+    skeleton: { base: 'rgba(226,232,240,0.60)', shimmer: 'rgba(255,255,255,0.80)' },
+    chart: {
+      primary:    '#1a7ef8',
+      secondary:  '#8b5cf6',
+      tertiary:   '#10b981',
+      quaternary: '#f59e0b',
+      divergent:  { low: '#ddeeff', high: '#0a4cb5' },
+    },
+  },
+}
+
+// ─── Aurora ───────────────────────────────────────────────────────────────────
+const AURORA: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    accent:  { '50':'#fdf4ff','100':'#fae8ff','200':'#f5d0fe','300':'#f0abfc','400':'#e879f9','500':'#d946ef','600':'#c026d3','700':'#a21caf','800':'#86198f','900':'#701a75','950':'#4a044e' },
+    neutral: { '50':'#f8fafc','100':'#f1f5f9','200':'#e2e8f0','300':'#cbd5e1','400':'#94a3b8','500':'#64748b','600':'#475569','700':'#334155','800':'#1e293b','900':'#0f172a','950':'#020617' },
+    semantic: { success: '#22c55e', warning: '#f59e0b', error: '#ef4444', info: '#38bdf8' },
+    surface: { bg: '#060d0a', panel: '#0d1a14', overlay: 'rgba(0,0,0,0.75)', border: '#1a3326' },
+    text: { primary: '#e2ffe8', secondary: '#a7f3c0', muted: '#4ade80', disabled: '#166534' },
+  },
+  typography: { sans: 'Inter, system-ui, sans-serif', mono: 'JetBrains Mono, ui-monospace, monospace', display: 'Inter, system-ui, sans-serif', scale: BASE_SCALE, weights: BASE_WEIGHTS },
+  spacing: { base: 4 },
+  radius: { none: '0px', sm: '6px', md: '12px', lg: '18px', xl: '24px', full: '9999px' },
+  shadows: { none:'none', sm:'0 1px 4px rgba(0,0,0,0.6)', md:'0 4px 16px rgba(0,0,0,0.7)', lg:'0 8px 32px rgba(0,0,0,0.8), 0 0 20px rgba(34,197,94,0.1)', xl:'0 20px 56px rgba(0,0,0,0.9), 0 0 48px rgba(34,197,94,0.15)' },
+  motion: BASE_MOTION, borders: { width:'1px', style:'solid' }, iconography: { library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation: { surface:{ base:'#060d0a', raised:'#0d1a14', overlay:'#152410', sunken:'#030806' }, shadow:{ card:'0 2px 8px rgba(0,0,0,0.6)', modal:'0 24px 64px rgba(0,0,0,0.9)', tooltip:'0 4px 16px rgba(0,0,0,0.7)', sticky:'0 2px 12px rgba(0,0,0,0.6)' } },
+  font: { heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:'Inter, system-ui, sans-serif', body:'Inter, system-ui, sans-serif', mono:'JetBrains Mono, ui-monospace, monospace', display:'Inter, system-ui, sans-serif' } },
+  interaction: { focusRing:'#22c55e', hover:'rgba(34,197,94,0.08)', pressed:'rgba(34,197,94,0.15)', selected:'rgba(34,197,94,0.12)', disabled:'0.35' },
+  utility: { blanket:'rgba(0,0,0,0.80)', skeleton:{ base:'#0d1a14', shimmer:'#1a3326' }, chart:{ primary:'#22c55e', secondary:'#d946ef', tertiary:'#38bdf8', quaternary:'#f59e0b', divergent:{ low:'#052e16', high:'#4ade80' } } },
+}
+
+// ─── Midnight ─────────────────────────────────────────────────────────────────
+const MIDNIGHT: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#eef2ff','100':'#e0e7ff','200':'#c7d2fe','300':'#a5b4fc','400':'#818cf8','500':'#6366f1','600':'#4f46e5','700':'#4338ca','800':'#3730a3','900':'#312e81','950':'#1e1b4b' },
+    accent:  { '50':'#fdf2f8','100':'#fce7f3','200':'#fbcfe8','300':'#f9a8d4','400':'#f472b6','500':'#ec4899','600':'#db2777','700':'#be185d','800':'#9d174d','900':'#831843','950':'#500724' },
+    neutral: { '50':'#f8f8fc','100':'#f0f0f8','200':'#e0e0f0','300':'#c8c8e8','400':'#9090c8','500':'#6060a0','600':'#484880','700':'#383870','800':'#202060','900':'#10104a','950':'#080832' },
+    semantic: { success: '#34d399', warning: '#fbbf24', error: '#f87171', info: '#60a5fa' },
+    surface: { bg: '#08081a', panel: '#0f0f28', overlay: 'rgba(0,0,0,0.80)', border: '#1e1e48' },
+    text: { primary: '#e8e8ff', secondary: '#b8b8e8', muted: '#8080c0', disabled: '#3a3a70' },
+  },
+  typography: { sans:'Inter, system-ui, sans-serif', mono:'JetBrains Mono, ui-monospace, monospace', display:'Inter, system-ui, sans-serif', scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing: { base:4 }, radius: { none:'0px', sm:'6px', md:'10px', lg:'16px', xl:'22px', full:'9999px' },
+  shadows: { none:'none', sm:'0 1px 4px rgba(0,0,0,0.7)', md:'0 4px 20px rgba(0,0,0,0.8)', lg:'0 8px 36px rgba(0,0,0,0.9), 0 0 20px rgba(99,102,241,0.12)', xl:'0 20px 60px rgba(0,0,0,0.95), 0 0 56px rgba(99,102,241,0.18)' },
+  motion: BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#08081a', raised:'#0f0f28', overlay:'#151535', sunken:'#040412' }, shadow:{ card:'0 2px 8px rgba(0,0,0,0.7)', modal:'0 24px 64px rgba(0,0,0,0.95)', tooltip:'0 4px 16px rgba(0,0,0,0.8)', sticky:'0 2px 12px rgba(0,0,0,0.7)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:'Inter, system-ui, sans-serif', body:'Inter, system-ui, sans-serif', mono:'JetBrains Mono, ui-monospace, monospace', display:'Inter, system-ui, sans-serif' } },
+  interaction:{ focusRing:'#6366f1', hover:'rgba(99,102,241,0.08)', pressed:'rgba(99,102,241,0.15)', selected:'rgba(99,102,241,0.12)', disabled:'0.35' },
+  utility:{ blanket:'rgba(0,0,0,0.85)', skeleton:{ base:'#0f0f28', shimmer:'#1e1e48' }, chart:{ primary:'#6366f1', secondary:'#ec4899', tertiary:'#34d399', quaternary:'#fbbf24', divergent:{ low:'#1e1b4b', high:'#818cf8' } } },
+}
+
+// ─── Sand ─────────────────────────────────────────────────────────────────────
+const SAND: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#fffbeb','100':'#fef3c7','200':'#fde68a','300':'#fcd34d','400':'#fbbf24','500':'#f59e0b','600':'#d97706','700':'#b45309','800':'#92400e','900':'#78350f','950':'#451a03' },
+    accent:  { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    neutral: { '50':'#fafaf5','100':'#f5f3e8','200':'#ede9d5','300':'#ddd8bd','400':'#c5bd9a','500':'#a89e78','600':'#8a8060','700':'#6e664c','800':'#544e3a','900':'#3c3828','950':'#201e12' },
+    semantic: { success:'#16a34a', warning:'#d97706', error:'#dc2626', info:'#0284c7' },
+    surface: { bg:'#fdfcf5', panel:'#f8f5e8', overlay:'rgba(54,42,10,0.45)', border:'#ede9d5' },
+    text: { primary:'#3c3828', secondary:'#544e3a', muted:'#a89e78', disabled:'#c5bd9a' },
+  },
+  typography: { sans:"'Nunito', system-ui, sans-serif", mono:'JetBrains Mono, ui-monospace, monospace', display:"'Nunito', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'6px', md:'12px', lg:'20px', xl:'28px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 3px rgba(54,42,10,0.08)', md:'0 4px 14px rgba(54,42,10,0.12)', lg:'0 8px 28px rgba(54,42,10,0.15)', xl:'0 20px 52px rgba(54,42,10,0.18)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#fdfcf5', raised:'#f8f5e8', overlay:'#ffffff', sunken:'#f5f3e8' }, shadow:{ card:'0 1px 4px rgba(54,42,10,0.09)', modal:'0 20px 56px rgba(54,42,10,0.20)', tooltip:'0 4px 12px rgba(54,42,10,0.13)', sticky:'0 2px 8px rgba(54,42,10,0.10)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Nunito', system-ui, sans-serif", body:"'Nunito', system-ui, sans-serif", mono:'JetBrains Mono, ui-monospace, monospace', display:"'Nunito', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#f59e0b', hover:'rgba(245,158,11,0.06)', pressed:'rgba(245,158,11,0.12)', selected:'rgba(245,158,11,0.10)', disabled:'0.4' },
+  utility:{ blanket:'rgba(54,42,10,0.50)', skeleton:{ base:'#f5f3e8', shimmer:'#ede9d5' }, chart:{ primary:'#f59e0b', secondary:'#22c55e', tertiary:'#e07e4a', quaternary:'#64748b', divergent:{ low:'#fef3c7', high:'#92400e' } } },
+}
+
+// ─── Nordic ───────────────────────────────────────────────────────────────────
+const NORDIC: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#eff6ff','100':'#dbeafe','200':'#bfdbfe','300':'#93c5fd','400':'#60a5fa','500':'#3b82f6','600':'#2563eb','700':'#1d4ed8','800':'#1e40af','900':'#1e3a8a','950':'#172554' },
+    accent:  { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    neutral: { '50':'#f8fafb','100':'#f0f4f7','200':'#e1e8ef','300':'#c8d5e0','400':'#9aafbe','500':'#6e8a9c','600':'#536e7e','700':'#3f5464','800':'#2c3d4c','900':'#1c2830','950':'#0e141a' },
+    semantic: { success:'#16a34a', warning:'#d97706', error:'#dc2626', info:'#2563eb' },
+    surface: { bg:'#f8fafb', panel:'#ffffff', overlay:'rgba(28,40,48,0.45)', border:'#e1e8ef' },
+    text: { primary:'#1c2830', secondary:'#2c3d4c', muted:'#6e8a9c', disabled:'#9aafbe' },
+  },
+  typography: { sans:"'-apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif'", mono:'JetBrains Mono, ui-monospace, monospace', display:"'Inter', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'8px', lg:'12px', xl:'16px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 2px rgba(28,40,48,0.06)', md:'0 4px 12px rgba(28,40,48,0.09)', lg:'0 8px 24px rgba(28,40,48,0.12)', xl:'0 20px 48px rgba(28,40,48,0.14)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#f8fafb', raised:'#ffffff', overlay:'#ffffff', sunken:'#f0f4f7' }, shadow:{ card:'0 1px 3px rgba(28,40,48,0.07)', modal:'0 20px 60px rgba(28,40,48,0.18)', tooltip:'0 4px 12px rgba(28,40,48,0.10)', sticky:'0 2px 8px rgba(28,40,48,0.08)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:'Inter, system-ui, sans-serif', body:'Inter, system-ui, sans-serif', mono:'JetBrains Mono, ui-monospace, monospace', display:'Inter, system-ui, sans-serif' } },
+  interaction:{ focusRing:'#3b82f6', hover:'rgba(0,0,0,0.04)', pressed:'rgba(0,0,0,0.08)', selected:'rgba(59,130,246,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(28,40,48,0.50)', skeleton:{ base:'#f0f4f7', shimmer:'#e1e8ef' }, chart:{ primary:'#3b82f6', secondary:'#22c55e', tertiary:'#f59e0b', quaternary:'#a855f7', divergent:{ low:'#dbeafe', high:'#1d4ed8' } } },
+}
+
+// ─── Neon ─────────────────────────────────────────────────────────────────────
+const NEON: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#f7fee7','100':'#ecfccb','200':'#d9f99d','300':'#bef264','400':'#a3e635','500':'#84cc16','600':'#65a30d','700':'#4d7c0f','800':'#3f6212','900':'#365314','950':'#1a2e05' },
+    accent:  { '50':'#fff7ed','100':'#ffedd5','200':'#fed7aa','300':'#fdba74','400':'#fb923c','500':'#f97316','600':'#ea580c','700':'#c2410c','800':'#9a3412','900':'#7c2d12','950':'#431407' },
+    neutral: { '50':'#f8f8f8','100':'#e8e8e8','200':'#d0d0d0','300':'#b0b0b0','400':'#808080','500':'#585858','600':'#404040','700':'#303030','800':'#202020','900':'#141414','950':'#080808' },
+    semantic: { success:'#a3e635', warning:'#fbbf24', error:'#f43f5e', info:'#22d3ee' },
+    surface: { bg:'#0a0a0a', panel:'#111111', overlay:'rgba(0,0,0,0.85)', border:'#2a2a2a' },
+    text: { primary:'#f0f0f0', secondary:'#c0c0c0', muted:'#808080', disabled:'#404040' },
+  },
+  typography: { sans:"'Share Tech Mono', 'JetBrains Mono', ui-monospace, monospace", mono:'JetBrains Mono, ui-monospace, monospace', display:"'Share Tech Mono', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'2px', md:'4px', lg:'8px', xl:'12px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 0 8px rgba(163,230,53,0.2)', md:'0 0 20px rgba(163,230,53,0.3)', lg:'0 0 40px rgba(163,230,53,0.4)', xl:'0 0 80px rgba(163,230,53,0.5)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#0a0a0a', raised:'#111111', overlay:'#181818', sunken:'#050505' }, shadow:{ card:'0 0 12px rgba(163,230,53,0.15)', modal:'0 0 60px rgba(163,230,53,0.25)', tooltip:'0 0 20px rgba(163,230,53,0.20)', sticky:'0 0 16px rgba(163,230,53,0.10)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'JetBrains Mono', ui-monospace, monospace", body:"'JetBrains Mono', ui-monospace, monospace", mono:'JetBrains Mono, ui-monospace, monospace', display:"'JetBrains Mono', ui-monospace, monospace" } },
+  interaction:{ focusRing:'#a3e635', hover:'rgba(163,230,53,0.08)', pressed:'rgba(163,230,53,0.15)', selected:'rgba(163,230,53,0.12)', disabled:'0.3' },
+  utility:{ blanket:'rgba(0,0,0,0.90)', skeleton:{ base:'#1a1a1a', shimmer:'#2a2a2a' }, chart:{ primary:'#a3e635', secondary:'#f97316', tertiary:'#22d3ee', quaternary:'#a855f7', divergent:{ low:'#1a2e05', high:'#bef264' } } },
+}
+
+// ─── Ocean ────────────────────────────────────────────────────────────────────
+const OCEAN: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#ecfeff','100':'#cffafe','200':'#a5f3fc','300':'#67e8f9','400':'#22d3ee','500':'#06b6d4','600':'#0891b2','700':'#0e7490','800':'#155e75','900':'#164e63','950':'#083344' },
+    accent:  { '50':'#f0f9ff','100':'#e0f2fe','200':'#bae6fd','300':'#7dd3fc','400':'#38bdf8','500':'#0ea5e9','600':'#0284c7','700':'#0369a1','800':'#075985','900':'#0c4a6e','950':'#082f49' },
+    neutral: { '50':'#f0fdfe','100':'#e0fafc','200':'#c0f2f8','300':'#90e4f0','400':'#4acde0','500':'#0ea5c4','600':'#0886a0','700':'#06697e','800':'#05515f','900':'#043b46','950':'#021f28' },
+    semantic: { success:'#059669', warning:'#d97706', error:'#dc2626', info:'#0891b2' },
+    surface: { bg:'#f0fdfe', panel:'#ffffff', overlay:'rgba(8,51,68,0.50)', border:'#a5f3fc' },
+    text: { primary:'#0c3040', secondary:'#155e75', muted:'#0891b2', disabled:'#67e8f9' },
+  },
+  typography: { sans:'Inter, system-ui, sans-serif', mono:'JetBrains Mono, ui-monospace, monospace', display:'Inter, system-ui, sans-serif', scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'6px', md:'12px', lg:'18px', xl:'24px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 4px rgba(8,51,68,0.10)', md:'0 4px 16px rgba(8,51,68,0.14)', lg:'0 8px 32px rgba(8,51,68,0.18)', xl:'0 20px 56px rgba(8,51,68,0.22)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#f0fdfe', raised:'#ffffff', overlay:'#ffffff', sunken:'#e0fafc' }, shadow:{ card:'0 1px 4px rgba(8,51,68,0.08)', modal:'0 20px 56px rgba(8,51,68,0.22)', tooltip:'0 4px 12px rgba(8,51,68,0.12)', sticky:'0 2px 8px rgba(8,51,68,0.10)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:'Inter, system-ui, sans-serif', body:'Inter, system-ui, sans-serif', mono:'JetBrains Mono, ui-monospace, monospace', display:'Inter, system-ui, sans-serif' } },
+  interaction:{ focusRing:'#06b6d4', hover:'rgba(6,182,212,0.06)', pressed:'rgba(6,182,212,0.12)', selected:'rgba(6,182,212,0.10)', disabled:'0.4' },
+  utility:{ blanket:'rgba(8,51,68,0.55)', skeleton:{ base:'#e0fafc', shimmer:'#c0f2f8' }, chart:{ primary:'#06b6d4', secondary:'#0ea5e9', tertiary:'#22d3ee', quaternary:'#38bdf8', divergent:{ low:'#e0fafc', high:'#0e7490' } } },
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// BRAND PROFILES
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ─── Apple ────────────────────────────────────────────────────────────────────
+const APPLE: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#e8f4ff','100':'#c0e0ff','200':'#93caff','300':'#5bb0ff','400':'#3a9eff','500':'#007AFF','600':'#006de6','700':'#0057b8','800':'#00408a','900':'#002f65','950':'#001a38' },
+    accent:  { '50':'#f0fff4','100':'#d1fae5','200':'#a7f3d0','300':'#6ee7b7','400':'#34d399','500':'#10b981','600':'#059669','700':'#047857','800':'#065f46','900':'#064e3b','950':'#022c22' },
+    neutral: { '50':'#f9f9f9','100':'#f2f2f7','200':'#e5e5ea','300':'#d1d1d6','400':'#aeaeb2','500':'#8e8e93','600':'#636366','700':'#48484a','800':'#3a3a3c','900':'#2c2c2e','950':'#1c1c1e' },
+    semantic: { success:'#34c759', warning:'#ff9500', error:'#ff3b30', info:'#007AFF' },
+    surface: { bg:'#ffffff', panel:'#f2f2f7', overlay:'rgba(0,0,0,0.40)', border:'#e5e5ea' },
+    text: { primary:'#000000', secondary:'#3a3a3c', muted:'#8e8e93', disabled:'#aeaeb2' },
+  },
+  typography: { sans:"-apple-system, 'SF Pro Text', BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif", mono:"'SF Mono', SFMono-Regular, ui-monospace, monospace", display:"-apple-system, 'SF Pro Display', BlinkMacSystemFont, system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'6px', md:'10px', lg:'14px', xl:'20px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 3px rgba(0,0,0,0.08)', md:'0 4px 16px rgba(0,0,0,0.12)', lg:'0 8px 32px rgba(0,0,0,0.16)', xl:'0 20px 60px rgba(0,0,0,0.20)' },
+  motion:{ duration:{ fast:'100ms', base:'250ms', slow:'400ms' }, easing:{ default:'cubic-bezier(0.4,0,0.2,1)', bounce:'cubic-bezier(0.34,1.56,0.64,1)', smooth:'cubic-bezier(0.32,0.72,0,1)' } },
+  borders:{ width:'0.5px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f2f2f7', overlay:'#ffffff', sunken:'#e5e5ea' }, shadow:{ card:'0 1px 4px rgba(0,0,0,0.08)', modal:'0 24px 64px rgba(0,0,0,0.22)', tooltip:'0 4px 12px rgba(0,0,0,0.12)', sticky:'0 2px 8px rgba(0,0,0,0.08)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"-apple-system, 'SF Pro Display', BlinkMacSystemFont, system-ui, sans-serif", body:"-apple-system, 'SF Pro Text', BlinkMacSystemFont, system-ui, sans-serif", mono:"'SF Mono', SFMono-Regular, ui-monospace, monospace", display:"-apple-system, 'SF Pro Display', BlinkMacSystemFont, system-ui, sans-serif" } },
+  interaction:{ focusRing:'#007AFF', hover:'rgba(0,0,0,0.04)', pressed:'rgba(0,0,0,0.08)', selected:'rgba(0,122,255,0.08)', disabled:'0.3' },
+  utility:{ blanket:'rgba(0,0,0,0.45)', skeleton:{ base:'#f2f2f7', shimmer:'#e5e5ea' }, chart:{ primary:'#007AFF', secondary:'#34c759', tertiary:'#ff9500', quaternary:'#af52de', divergent:{ low:'#e8f4ff', high:'#0057b8' } } },
+}
+
+// ─── Google ────────────────────────────────────────────────────────────────────
+const GOOGLE: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#e8f0fe','100':'#d2e3fc','200':'#a8c7fa','300':'#74a7f6','400':'#4a84f3','500':'#1a73e8','600':'#1557b0','700':'#104394','800':'#0b3079','950':'#061c4e','900':'#071f5e' },
+    accent:  { '50':'#fce8e6','100':'#fad2cf','200':'#f6a8a3','300':'#f07270','400':'#ea4335','500':'#d93025','600':'#c5221f','700':'#a50e0e','800':'#820000','900':'#600000','950':'#3d0000' },
+    neutral: { '50':'#f8f9fa','100':'#f1f3f4','200':'#e8eaed','300':'#dadce0','400':'#bdc1c6','500':'#9aa0a6','600':'#80868b','700':'#5f6368','800':'#3c4043','900':'#202124','950':'#111113' },
+    semantic: { success:'#137333', warning:'#f29900', error:'#c5221f', info:'#1a73e8' },
+    surface: { bg:'#ffffff', panel:'#f8f9fa', overlay:'rgba(32,33,36,0.45)', border:'#e8eaed' },
+    text: { primary:'#202124', secondary:'#3c4043', muted:'#5f6368', disabled:'#9aa0a6' },
+  },
+  typography: { sans:"'Google Sans', 'Roboto', system-ui, sans-serif", mono:"'Roboto Mono', ui-monospace, monospace", display:"'Google Sans Display', 'Google Sans', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'8px', md:'16px', lg:'24px', xl:'28px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 2px rgba(60,64,67,0.3), 0 1px 3px rgba(60,64,67,0.15)', md:'0 2px 6px rgba(60,64,67,0.3), 0 1px 4px rgba(60,64,67,0.15)', lg:'0 4px 12px rgba(60,64,67,0.3), 0 2px 6px rgba(60,64,67,0.15)', xl:'0 8px 24px rgba(60,64,67,0.3), 0 4px 12px rgba(60,64,67,0.15)' },
+  motion:{ duration:{ fast:'100ms', base:'200ms', slow:'300ms' }, easing:{ default:'cubic-bezier(0.2,0,0,1)', bounce:'cubic-bezier(0.34,1.56,0.64,1)', smooth:'cubic-bezier(0.2,0,0,1)' } },
+  borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:24, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f8f9fa', overlay:'#ffffff', sunken:'#f1f3f4' }, shadow:{ card:'0 1px 2px rgba(60,64,67,0.3), 0 1px 3px rgba(60,64,67,0.15)', modal:'0 8px 24px rgba(60,64,67,0.3), 0 4px 12px rgba(60,64,67,0.15)', tooltip:'0 4px 8px rgba(60,64,67,0.3)', sticky:'0 2px 6px rgba(60,64,67,0.3)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Google Sans Display', 'Google Sans', system-ui, sans-serif", body:"'Google Sans', 'Roboto', system-ui, sans-serif", mono:"'Roboto Mono', ui-monospace, monospace", display:"'Google Sans Display', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#1a73e8', hover:'rgba(32,33,36,0.05)', pressed:'rgba(32,33,36,0.10)', selected:'rgba(26,115,232,0.08)', disabled:'0.38' },
+  utility:{ blanket:'rgba(32,33,36,0.50)', skeleton:{ base:'#f1f3f4', shimmer:'#e8eaed' }, chart:{ primary:'#1a73e8', secondary:'#ea4335', tertiary:'#34a853', quaternary:'#fbbc05', divergent:{ low:'#e8f0fe', high:'#104394' } } },
+}
+
+// ─── Spotify ───────────────────────────────────────────────────────────────────
+const SPOTIFY: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#e8fdf0','100':'#b8f7d4','200':'#7ef0b2','300':'#3ee68a','400':'#1ed760','500':'#1DB954','600':'#19a349','700':'#158c3e','800':'#117533','900':'#0c5c28','950':'#073d1a' },
+    accent:  { '50':'#ffffff','100':'#f5f5f5','200':'#e0e0e0','300':'#cccccc','400':'#b3b3b3','500':'#999999','600':'#808080','700':'#666666','800':'#4d4d4d','900':'#333333','950':'#1a1a1a' },
+    neutral: { '50':'#f7f7f7','100':'#e0e0e0','200':'#c0c0c0','300':'#9a9a9a','400':'#727272','500':'#535353','600':'#3d3d3d','700':'#282828','800':'#1a1a1a','900':'#121212','950':'#090909' },
+    semantic: { success:'#1DB954', warning:'#f5a623', error:'#e02020', info:'#509bf5' },
+    surface: { bg:'#121212', panel:'#181818', overlay:'rgba(0,0,0,0.70)', border:'#282828' },
+    text: { primary:'#ffffff', secondary:'#b3b3b3', muted:'#727272', disabled:'#535353' },
+  },
+  typography: { sans:"'Circular Std', 'Circular', system-ui, sans-serif", mono:'ui-monospace, monospace', display:"'Circular Std', 'Circular', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'8px', lg:'500px', xl:'500px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 2px 4px rgba(0,0,0,0.5)', md:'0 8px 24px rgba(0,0,0,0.6)', lg:'0 16px 48px rgba(0,0,0,0.7)', xl:'0 32px 80px rgba(0,0,0,0.8)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'filled', size:24, strokeWidth:0 },
+  elevation:{ surface:{ base:'#121212', raised:'#181818', overlay:'#242424', sunken:'#0d0d0d' }, shadow:{ card:'0 4px 12px rgba(0,0,0,0.6)', modal:'0 24px 64px rgba(0,0,0,0.80)', tooltip:'0 4px 16px rgba(0,0,0,0.70)', sticky:'0 4px 12px rgba(0,0,0,0.60)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Circular Std', system-ui, sans-serif", body:"'Circular Std', system-ui, sans-serif", mono:'ui-monospace, monospace', display:"'Circular Std', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#1DB954', hover:'rgba(255,255,255,0.07)', pressed:'rgba(255,255,255,0.14)', selected:'rgba(29,185,84,0.15)', disabled:'0.3' },
+  utility:{ blanket:'rgba(0,0,0,0.80)', skeleton:{ base:'#1a1a1a', shimmer:'#282828' }, chart:{ primary:'#1DB954', secondary:'#509bf5', tertiary:'#f5a623', quaternary:'#e02020', divergent:{ low:'#073d1a', high:'#3ee68a' } } },
+}
+
+// ─── GitHub ────────────────────────────────────────────────────────────────────
+const GITHUB: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#ddf4ff','100':'#b6e3ff','200':'#80ccff','300':'#54aeff','400':'#218bff','500':'#0969da','600':'#0550ae','700':'#033d8b','800':'#0a3069','900':'#002155','950':'#001235' },
+    accent:  { '50':'#fff8c5','100':'#fae17d','200':'#eac54f','300':'#d4a72c','400':'#bf8700','500':'#9a6700','600':'#7d4e00','700':'#633c01','800':'#4d2d00','900':'#3b2300','950':'#241700' },
+    neutral: { '50':'#f6f8fa','100':'#eaeef2','200':'#d0d7de','300':'#afb8c1','400':'#8c959f','500':'#6e7781','600':'#57606a','700':'#424a53','800':'#32383f','900':'#24292f','950':'#151b23' },
+    semantic: { success:'#1a7f37', warning:'#9a6700', error:'#cf222e', info:'#0969da' },
+    surface: { bg:'#ffffff', panel:'#f6f8fa', overlay:'rgba(36,41,47,0.40)', border:'#d0d7de' },
+    text: { primary:'#24292f', secondary:'#32383f', muted:'#6e7781', disabled:'#8c959f' },
+  },
+  typography: { sans:"-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif", mono:"'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, ui-monospace, monospace", display:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'3px', md:'6px', lg:'6px', xl:'6px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 0 rgba(31,35,40,0.04)', md:'0 3px 6px rgba(140,149,159,0.15)', lg:'0 8px 24px rgba(140,149,159,0.20)', xl:'0 16px 40px rgba(140,149,159,0.25)' },
+  motion:{ duration:{ fast:'80ms', base:'160ms', slow:'240ms' }, easing:{ default:'cubic-bezier(0.4,0,0.2,1)', bounce:'cubic-bezier(0.34,1.56,0.64,1)', smooth:'cubic-bezier(0.32,0.72,0,1)' } },
+  borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:16, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f6f8fa', overlay:'#ffffff', sunken:'#eaeef2' }, shadow:{ card:'0 1px 3px rgba(31,35,40,0.12)', modal:'0 8px 32px rgba(31,35,40,0.20)', tooltip:'0 4px 12px rgba(31,35,40,0.15)', sticky:'0 2px 4px rgba(31,35,40,0.10)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif", body:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif", mono:"'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, ui-monospace, monospace", display:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#0969da', hover:'rgba(208,215,222,0.32)', pressed:'rgba(208,215,222,0.60)', selected:'rgba(9,105,218,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(36,41,47,0.50)', skeleton:{ base:'#eaeef2', shimmer:'#d0d7de' }, chart:{ primary:'#0969da', secondary:'#1a7f37', tertiary:'#9a6700', quaternary:'#cf222e', divergent:{ low:'#ddf4ff', high:'#033d8b' } } },
+}
+
+// ─── Stripe ────────────────────────────────────────────────────────────────────
+const STRIPE: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#f0f0ff','100':'#e0e0ff','200':'#c8c8ff','300':'#a5a4ff','400':'#8280ff','500':'#635BFF','600':'#4f44e0','700':'#3d33c0','800':'#2d24a0','900':'#1e1880','950':'#100e5a' },
+    accent:  { '50':'#f0fdff','100':'#ccf7fe','200':'#99effe','300':'#55e3fe','400':'#06caf4','500':'#00aed4','600':'#008cb4','700':'#006f90','800':'#005770','900':'#004358','950':'#002535' },
+    neutral: { '50':'#f6f9fc','100':'#e9eef4','200':'#d0d9e5','300':'#b0bfd0','400':'#8898aa','500':'#697386','600':'#5c6b7e','700':'#4f566b','800':'#3c4257','900':'#2a2f45','950':'#1a1f36' },
+    semantic: { success:'#0db577', warning:'#cc8b00', error:'#df1b41', info:'#635BFF' },
+    surface: { bg:'#ffffff', panel:'#f6f9fc', overlay:'rgba(26,31,54,0.45)', border:'#e6ebf1' },
+    text: { primary:'#0a2540', secondary:'#425466', muted:'#697386', disabled:'#8898aa' },
+  },
+  typography: { sans:"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif", mono:"'Fira Code', 'Fira Mono', Menlo, ui-monospace, monospace", display:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'8px', lg:'12px', xl:'16px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)', md:'0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1)', lg:'0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)', xl:'0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f6f9fc', overlay:'#ffffff', sunken:'#f0f4f8' }, shadow:{ card:'0 2px 5px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)', modal:'0 16px 48px rgba(0,0,0,0.16)', tooltip:'0 4px 12px rgba(0,0,0,0.12)', sticky:'0 2px 8px rgba(0,0,0,0.08)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif", body:"-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif", mono:"'Fira Code', 'Fira Mono', Menlo, ui-monospace, monospace", display:"-apple-system, BlinkMacSystemFont, system-ui, sans-serif" } },
+  interaction:{ focusRing:'#635BFF', hover:'rgba(10,37,64,0.04)', pressed:'rgba(10,37,64,0.08)', selected:'rgba(99,91,255,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(26,31,54,0.50)', skeleton:{ base:'#f0f4f8', shimmer:'#e6ebf1' }, chart:{ primary:'#635BFF', secondary:'#0db577', tertiary:'#00aed4', quaternary:'#ff6b6b', divergent:{ low:'#f0f0ff', high:'#3d33c0' } } },
+}
+
+// ─── Linear ────────────────────────────────────────────────────────────────────
+const LINEAR: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#eef0ff','100':'#dde2ff','200':'#c3c9fe','300':'#9da5fd','400':'#7880fa','500':'#5E6AD2','600':'#4a56c8','700':'#3b44ad','800':'#303890','900':'#252c76','950':'#151960' },
+    accent:  { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    neutral: { '50':'#f8f8fc','100':'#f0f0f8','200':'#d8d8ea','300':'#b0b0cc','400':'#8080aa','500':'#5a5a88','600':'#444468','700':'#303050','800':'#1e1e38','900':'#141428','950':'#0a0a18' },
+    semantic: { success:'#4ade80', warning:'#fbbf24', error:'#f87171', info:'#7880fa' },
+    surface: { bg:'#131316', panel:'#1c1c1f', overlay:'rgba(0,0,0,0.70)', border:'#2c2c3a' },
+    text: { primary:'#e8e8f0', secondary:'#b8b8d0', muted:'#6868a0', disabled:'#3838608' },
+  },
+  typography: { sans:"'Inter', system-ui, sans-serif", mono:"'JetBrains Mono', ui-monospace, monospace", display:"'Inter', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'8px', lg:'10px', xl:'14px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 4px rgba(0,0,0,0.6)', md:'0 4px 16px rgba(0,0,0,0.7)', lg:'0 8px 32px rgba(0,0,0,0.8)', xl:'0 20px 56px rgba(0,0,0,0.9)' },
+  motion:{ duration:{ fast:'100ms', base:'180ms', slow:'280ms' }, easing:{ default:'cubic-bezier(0.4,0,0.2,1)', bounce:'cubic-bezier(0.34,1.56,0.64,1)', smooth:'cubic-bezier(0.32,0.72,0,1)' } },
+  borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:16, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#131316', raised:'#1c1c1f', overlay:'#252528', sunken:'#0d0d10' }, shadow:{ card:'0 2px 8px rgba(0,0,0,0.6)', modal:'0 24px 64px rgba(0,0,0,0.85)', tooltip:'0 4px 16px rgba(0,0,0,0.7)', sticky:'0 2px 12px rgba(0,0,0,0.6)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Inter', system-ui, sans-serif", body:"'Inter', system-ui, sans-serif", mono:"'JetBrains Mono', ui-monospace, monospace", display:"'Inter', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#5E6AD2', hover:'rgba(255,255,255,0.05)', pressed:'rgba(255,255,255,0.10)', selected:'rgba(94,106,210,0.15)', disabled:'0.35' },
+  utility:{ blanket:'rgba(0,0,0,0.75)', skeleton:{ base:'#1c1c1f', shimmer:'#2c2c3a' }, chart:{ primary:'#5E6AD2', secondary:'#4ade80', tertiary:'#f87171', quaternary:'#fbbf24', divergent:{ low:'#151960', high:'#7880fa' } } },
+}
+
+// ─── Notion ────────────────────────────────────────────────────────────────────
+const NOTION: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#f0f8ff','100':'#d8edff','200':'#b0daff','300':'#78bfff','400':'#409eff','500':'#2383e2','600':'#1a6fc8','700':'#1459a8','800':'#104488','900':'#0c3268','950':'#061e44' },
+    accent:  { '50':'#fdf4ff','100':'#f9e8ff','200':'#f2d0ff','300':'#e6aaff','400':'#d580ff','500':'#c256ff','600':'#a838e6','700':'#8a22c8','800':'#6e1aa0','950':'#3a0060','900':'#531480' },
+    neutral: { '50':'#ffffff','100':'#f7f7f5','200':'#efeeeb','300':'#e4e3df','400':'#c7c5c0','500':'#9b9a97','600':'#787774','700':'#5c5b5a','800':'#3d3c3c','900':'#2f2e2b','950':'#1a1918' },
+    semantic: { success:'#0f7b6c', warning:'#dfab01', error:'#e03e3e', info:'#2383e2' },
+    surface: { bg:'#ffffff', panel:'#f7f7f5', overlay:'rgba(47,46,43,0.35)', border:'#e4e3df' },
+    text: { primary:'#2f2e2b', secondary:'#3d3c3c', muted:'#9b9a97', disabled:'#c7c5c0' },
+  },
+  typography: { sans:"ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif", mono:"'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', ui-monospace, monospace", display:"ui-sans-serif, system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'3px', md:'4px', lg:'6px', xl:'8px', full:'9999px' },
+  shadows:{ none:'none', sm:'rgba(15,15,15,0.05) 0 0 0 1px, rgba(15,15,15,0.1) 0 3px 6px', md:'rgba(15,15,15,0.05) 0 0 0 1px, rgba(15,15,15,0.1) 0 4px 12px', lg:'rgba(15,15,15,0.05) 0 0 0 1px, rgba(15,15,15,0.1) 0 8px 24px', xl:'rgba(15,15,15,0.05) 0 0 0 1px, rgba(15,15,15,0.1) 0 16px 48px' },
+  motion:{ duration:{ fast:'80ms', base:'160ms', slow:'240ms' }, easing:{ default:'cubic-bezier(0.4,0,0.2,1)', bounce:'cubic-bezier(0.34,1.56,0.64,1)', smooth:'cubic-bezier(0.32,0.72,0,1)' } },
+  borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:18, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f7f7f5', overlay:'#ffffff', sunken:'#efeeeb' }, shadow:{ card:'rgba(15,15,15,0.05) 0 0 0 1px, rgba(15,15,15,0.08) 0 2px 8px', modal:'rgba(15,15,15,0.08) 0 0 0 1px, rgba(15,15,15,0.16) 0 16px 48px', tooltip:'rgba(15,15,15,0.06) 0 0 0 1px, rgba(15,15,15,0.12) 0 4px 12px', sticky:'rgba(15,15,15,0.04) 0 0 0 1px, rgba(15,15,15,0.08) 0 2px 6px' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"ui-sans-serif, system-ui, sans-serif", body:"ui-sans-serif, -apple-system, BlinkMacSystemFont, system-ui, sans-serif", mono:"'SFMono-Regular', Menlo, Consolas, ui-monospace, monospace", display:"ui-sans-serif, system-ui, sans-serif" } },
+  interaction:{ focusRing:'#2383e2', hover:'rgba(55,53,47,0.06)', pressed:'rgba(55,53,47,0.12)', selected:'rgba(35,131,226,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(47,46,43,0.40)', skeleton:{ base:'#efeeeb', shimmer:'#e4e3df' }, chart:{ primary:'#2383e2', secondary:'#0f7b6c', tertiary:'#dfab01', quaternary:'#e03e3e', divergent:{ low:'#f0f8ff', high:'#1459a8' } } },
+}
+
+// ─── Netflix ───────────────────────────────────────────────────────────────────
+const NETFLIX: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#fff0f0','100':'#ffd5d5','200':'#ffacac','300':'#ff7070','400':'#ff3f3f','500':'#E50914','600':'#cc0812','700':'#a80610','800':'#88040d','900':'#65030a','950':'#3d0106' },
+    accent:  { '50':'#fffbf0','100':'#fff3d5','200':'#ffe9ac','300':'#ffd870','400':'#ffc53f','500':'#E5B109','600':'#cc9e08','700':'#a87f06','800':'#886204','900':'#654803','950':'#3d2a01' },
+    neutral: { '50':'#f5f5f5','100':'#e6e6e6','200':'#cccccc','300':'#b3b3b3','400':'#808080','500':'#545454','600':'#3d3d3d','700':'#2a2a2a','800':'#1a1a1a','900':'#141414','950':'#0a0a0a' },
+    semantic: { success:'#46d369', warning:'#f5a623', error:'#E50914', info:'#0094bc' },
+    surface: { bg:'#141414', panel:'#1f1f1f', overlay:'rgba(0,0,0,0.75)', border:'#2a2a2a' },
+    text: { primary:'#ffffff', secondary:'#b3b3b3', muted:'#808080', disabled:'#545454' },
+  },
+  typography: { sans:"'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif", mono:"'Roboto Mono', ui-monospace, monospace", display:"'Netflix Sans', 'Helvetica Neue', Helvetica, system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'6px', lg:'8px', xl:'10px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 2px 4px rgba(0,0,0,0.6)', md:'0 8px 24px rgba(0,0,0,0.7)', lg:'0 16px 48px rgba(0,0,0,0.8)', xl:'0 32px 80px rgba(0,0,0,0.9)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'filled', size:24, strokeWidth:0 },
+  elevation:{ surface:{ base:'#141414', raised:'#1f1f1f', overlay:'#2a2a2a', sunken:'#0a0a0a' }, shadow:{ card:'0 4px 12px rgba(0,0,0,0.6)', modal:'0 24px 64px rgba(0,0,0,0.85)', tooltip:'0 4px 16px rgba(0,0,0,0.70)', sticky:'0 4px 12px rgba(0,0,0,0.60)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Netflix Sans', 'Helvetica Neue', system-ui, sans-serif", body:"'Netflix Sans', 'Helvetica Neue', system-ui, sans-serif", mono:"'Roboto Mono', ui-monospace, monospace", display:"'Netflix Sans', 'Helvetica Neue', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#E50914', hover:'rgba(255,255,255,0.08)', pressed:'rgba(255,255,255,0.15)', selected:'rgba(229,9,20,0.20)', disabled:'0.3' },
+  utility:{ blanket:'rgba(0,0,0,0.82)', skeleton:{ base:'#1f1f1f', shimmer:'#2a2a2a' }, chart:{ primary:'#E50914', secondary:'#46d369', tertiary:'#f5a623', quaternary:'#0094bc', divergent:{ low:'#3d0106', high:'#ff3f3f' } } },
+}
+
+// ─── Airbnb ────────────────────────────────────────────────────────────────────
+const AIRBNB: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#fff1f2','100':'#ffe0e3','200':'#ffc5cb','300':'#ff9ba5','400':'#ff6577','500':'#FF385C','600':'#eb1a3e','700':'#c7102e','800':'#a61228','900':'#8a0f24','950':'#520413' },
+    accent:  { '50':'#fff8f1','100':'#ffedd0','200':'#ffd6a0','300':'#ffb75a','400':'#ff9826','500':'#ff7a00','600':'#e05800','700':'#ba3d00','800':'#952f00','900':'#7a2800','950':'#481200' },
+    neutral: { '50':'#f7f7f7','100':'#f0f0f0','200':'#dedede','300':'#c8c8c8','400':'#adadad','500':'#8a8a8a','600':'#6e6e6e','700':'#545454','800':'#3d3d3d','900':'#282828','950':'#161616' },
+    semantic: { success:'#008489', warning:'#ff8000', error:'#FF385C', info:'#008489' },
+    surface: { bg:'#ffffff', panel:'#f7f7f7', overlay:'rgba(34,34,34,0.45)', border:'#dddddd' },
+    text: { primary:'#222222', secondary:'#484848', muted:'#717171', disabled:'#adadad' },
+  },
+  typography: { sans:"'Cereal', 'Circular', system-ui, -apple-system, BlinkMacSystemFont, sans-serif", mono:"'Roboto Mono', ui-monospace, monospace", display:"'Cereal', 'Circular', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'8px', md:'12px', lg:'16px', xl:'24px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)', md:'0 6px 16px rgba(0,0,0,0.12)', lg:'0 16px 32px rgba(0,0,0,0.16)', xl:'0 32px 56px rgba(0,0,0,0.20)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f7f7f7', overlay:'#ffffff', sunken:'#f0f0f0' }, shadow:{ card:'0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)', modal:'0 16px 40px rgba(0,0,0,0.22)', tooltip:'0 4px 12px rgba(0,0,0,0.12)', sticky:'0 2px 8px rgba(0,0,0,0.08)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Cereal', 'Circular', system-ui, sans-serif", body:"'Cereal', 'Circular', system-ui, -apple-system, sans-serif", mono:"'Roboto Mono', ui-monospace, monospace", display:"'Cereal', 'Circular', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#FF385C', hover:'rgba(34,34,34,0.04)', pressed:'rgba(34,34,34,0.08)', selected:'rgba(255,56,92,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(34,34,34,0.50)', skeleton:{ base:'#f0f0f0', shimmer:'#e0e0e0' }, chart:{ primary:'#FF385C', secondary:'#008489', tertiary:'#ff8000', quaternary:'#5a5a5a', divergent:{ low:'#fff1f2', high:'#c7102e' } } },
+}
+
+// ─── Vercel ────────────────────────────────────────────────────────────────────
+const VERCEL: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#fafafa','100':'#f4f4f5','200':'#e4e4e7','300':'#d1d1d6','400':'#a1a1aa','500':'#000000','600':'#000000','700':'#000000','800':'#000000','900':'#000000','950':'#000000' },
+    accent:  { '50':'#f0f0ff','100':'#e0e0ff','200':'#c0c0ff','300':'#9090ff','400':'#5060f0','500':'#0070f3','600':'#005fcc','700':'#004eaa','800':'#003d88','900':'#002c66','950':'#001b44' },
+    neutral: { '50':'#fafafa','100':'#f4f4f5','200':'#e4e4e7','300':'#d4d4d8','400':'#a1a1aa','500':'#71717a','600':'#52525b','700':'#3f3f46','800':'#27272a','900':'#18181b','950':'#09090b' },
+    semantic: { success:'#21a452', warning:'#f5a623', error:'#e00', info:'#0070f3' },
+    surface: { bg:'#ffffff', panel:'#fafafa', overlay:'rgba(0,0,0,0.45)', border:'#eaeaea' },
+    text: { primary:'#000000', secondary:'#111111', muted:'#666666', disabled:'#999999' },
+  },
+  typography: { sans:"'Geist', 'Inter', system-ui, sans-serif", mono:"'Geist Mono', 'JetBrains Mono', ui-monospace, monospace", display:"'Geist', 'Inter', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'5px', md:'8px', lg:'12px', xl:'16px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 2px rgba(0,0,0,0.04)', md:'0 4px 8px rgba(0,0,0,0.06)', lg:'0 8px 16px rgba(0,0,0,0.08)', xl:'0 16px 40px rgba(0,0,0,0.12)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid' }, iconography:{ library:'lucide', style:'outline', size:16, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#fafafa', overlay:'#ffffff', sunken:'#f4f4f5' }, shadow:{ card:'0 2px 4px rgba(0,0,0,0.06)', modal:'0 16px 48px rgba(0,0,0,0.18)', tooltip:'0 4px 12px rgba(0,0,0,0.08)', sticky:'0 2px 8px rgba(0,0,0,0.06)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Geist', 'Inter', system-ui, sans-serif", body:"'Geist', 'Inter', system-ui, sans-serif", mono:"'Geist Mono', 'JetBrains Mono', ui-monospace, monospace", display:"'Geist', 'Inter', system-ui, sans-serif" } },
+  interaction:{ focusRing:'#0070f3', hover:'rgba(0,0,0,0.04)', pressed:'rgba(0,0,0,0.08)', selected:'rgba(0,112,243,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(0,0,0,0.50)', skeleton:{ base:'#f4f4f5', shimmer:'#e4e4e7' }, chart:{ primary:'#000000', secondary:'#0070f3', tertiary:'#21a452', quaternary:'#f5a623', divergent:{ low:'#fafafa', high:'#000000' } } },
+}
+
+// ─── Profile groups for UI ────────────────────────────────────────────────────
+
+export const DESIGN_PROFILE_GROUPS: Array<{ label: string; ids: DesignProfile['id'][] }> = [
+  {
+    label: 'Aesthetic Styles',
+    ids: ['minimal', 'vibrant', 'corporate', 'dark-studio', 'warm-earth', 'glass', 'aurora', 'midnight', 'sand', 'nordic', 'neon', 'ocean'],
+  },
+  {
+    label: 'Brand Profiles',
+    ids: ['apple', 'google', 'spotify', 'github', 'stripe', 'linear', 'notion', 'netflix', 'airbnb', 'vercel'],
+  },
+]
+
+// ─── Export ───────────────────────────────────────────────────────────────────
+
+export const DESIGN_PROFILES: DesignProfile[] = [
+  { id: 'minimal',     name: 'Minimal',      emoji: '◻', description: 'Clean blue + sharp edges. Professional default.',          tokens: MINIMAL },
+  { id: 'vibrant',     name: 'Vibrant',       emoji: '✦', description: 'Purple + pink. Bold, expressive, modern.',                 tokens: VIBRANT },
+  { id: 'corporate',   name: 'Corporate',     emoji: '▣', description: 'Navy + green. Formal, trusted, conservative.',             tokens: CORPORATE },
+  { id: 'dark-studio', name: 'Dark Studio',   emoji: '◈', description: 'Cyan on dark. Developer tools, creative apps.',            tokens: DARK_STUDIO },
+  { id: 'warm-earth',  name: 'Warm Earth',    emoji: '◉', description: 'Terracotta + sage. Organic, welcoming, sustainable.',      tokens: WARM_EARTH },
+  { id: 'glass',       name: 'Glass',         emoji: '◯', description: 'Frosted glass surfaces. Cool blue tints, modern overlay.',  tokens: GLASS },
+  { id: 'aurora',      name: 'Aurora',        emoji: '✺', description: 'Neon green aurora on deep black. Futuristic + organic.',   tokens: AURORA },
+  { id: 'midnight',    name: 'Midnight',      emoji: '☽', description: 'Indigo + pink on deep navy. Dreamy dark-mode aesthetic.',   tokens: MIDNIGHT },
+  { id: 'sand',        name: 'Sand',          emoji: '◌', description: 'Amber + sage on warm beige. Natural, friendly, rounded.',   tokens: SAND },
+  { id: 'nordic',      name: 'Nordic',        emoji: '❄', description: 'Cool blue-grey on light. Scandinavian minimal clarity.',    tokens: NORDIC },
+  { id: 'neon',        name: 'Neon',          emoji: '⚡', description: 'Lime green on black. Cyberpunk, retro terminal energy.',    tokens: NEON },
+  { id: 'ocean',       name: 'Ocean',         emoji: '〰', description: 'Cyan teal on pale aqua. Crisp, coastal, energetic.',        tokens: OCEAN },
+  // Brand profiles
+  { id: 'apple',       name: 'Apple',         emoji: '⬡', description: 'SF system design. iOS/macOS native clarity + precision.',   tokens: APPLE },
+  { id: 'google',      name: 'Google',        emoji: '◎', description: 'Material 3. Adaptive, colorful, expressive & accessible.',  tokens: GOOGLE },
+  { id: 'spotify',     name: 'Spotify',       emoji: '♪', description: 'Circular + signature green on black. Music-first energy.',  tokens: SPOTIFY },
+  { id: 'github',      name: 'GitHub',        emoji: '◈', description: 'System UI on neutral grey. Developer-first, precise.',      tokens: GITHUB },
+  { id: 'stripe',      name: 'Stripe',        emoji: '△', description: 'Indigo violet. Fintech premium clarity + trustworthiness.', tokens: STRIPE },
+  { id: 'linear',      name: 'Linear',        emoji: '▸', description: 'Inter on deep dark. Craft-focused, minimal, fast.',         tokens: LINEAR },
+  { id: 'notion',      name: 'Notion',        emoji: '□', description: 'Neutral canvas. Document-first, quiet, highly readable.',   tokens: NOTION },
+  { id: 'netflix',     name: 'Netflix',       emoji: '▶', description: 'Netflix red on black. Bold, cinematic, entertainment.',     tokens: NETFLIX },
+  { id: 'airbnb',      name: 'Airbnb',        emoji: '◈', description: 'Rausch coral on white. Warm, welcoming, community.',        tokens: AIRBNB },
+  { id: 'vercel',      name: 'Vercel',        emoji: '▲', description: 'Pure black & white. Geist typeface. Razor-sharp minimal.',  tokens: VERCEL },
+]
+
+export const DESIGN_PROFILES_MAP = Object.fromEntries(
+  DESIGN_PROFILES.map((p) => [p.id, p]),
+) as Record<string, DesignProfile>

@@ -1,6 +1,6 @@
 ---
-id: nezam-cli-orchestration
-name: "nezam-"nezam- nezam-cli-orchestration"
+skill_id: nezam-cli-orchestration
+name: "Cli Orchestration"
 description: Managing multi-tool CLI execution and output routing across the workspace.
 tier: 2
 swarm: Swarm 1 (Architecture)
@@ -9,7 +9,6 @@ created: 2026-05-12
 updated: 2026-05-12
 owner: PM-01
 changelog:
-  - 1.0.0: Initial release
 ---
 # Skill: CLI Orchestration
 

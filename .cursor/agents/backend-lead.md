@@ -34,7 +34,45 @@ Run in parallel with FE-01 when possible, but keep API docs and schema contracts
 
 ## Protocol References
 
-- Communication contract: `.nezam/memory/AGENT_COMM_PROTOCOL.md`
-- Error and recovery protocol: `.nezam/memory/ERROR_HANDLING_PROTOCOL.md`
+- Communication contract: `.nezam/core/memory/AGENT_COMM_PROTOCOL.md`
+- Error and recovery protocol: `.nezam/core/memory/ERROR_HANDLING_PROTOCOL.md`
 - [.cursor/skills/backend/background-jobs/SKILL.md](../skills/backend/nezam-background-jobs/SKILL.md)
 - [.cursor/skills/backend/resend-email/SKILL.md](../skills/backend/nezam-resend-email/SKILL.md)
+
+
+## Related Skills
+- `@nezam-api-contract`
+- `@nezam-apify-scraper`
+- `@nezam-automated-report-engine`
+- `@nezam-background-jobs`
+- `@nezam-clerk-auth`
+- `@nezam-contact-enrichment`
+- `@nezam-container-orchestration`
+- `@nezam-crm-erp-sync`
+- `@nezam-data-aggregation-pipelines`
+- `@nezam-drizzle-orm`
+- `@nezam-firebase`
+- `@nezam-firebase-security-rules`
+- `@nezam-gemini-integration`
+- `@nezam-graph-logic-engine`
+- `@nezam-job-queue-management`
+- `@nezam-lead-scoring-engine`
+- `@nezam-mena-payment-routing`
+- `@nezam-neon-postgres`
+- `@nezam-omnichannel-routing`
+- `@nezam-openrouter`
+- `@nezam-queue-architecture`
+- `@nezam-realtime-stream-orchestration`
+- `@nezam-realtime-streaming`
+- `@nezam-resend-email`
+- `@nezam-resource-optimization`
+- `@nezam-saas-billing-orchestration`
+- `@nezam-saas-feature-gating`
+- `@nezam-stripe`
+- `@nezam-task-audit-logging`
+- `@nezam-task-workflow-engine`
+- `@nezam-trigger-dev`
+- `@nezam-typesense-search`
+- `@nezam-vector-db-qdrant`
+- `@nezam-vector-search`
+- `@nezam-vercel-ai-sdk`

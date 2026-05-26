@@ -36,14 +36,14 @@ graph TD
 
 ### 1.1 Phase Plan Structure Audit
 - **Objective**: Ensure all 7 SDD phases are structurally sound and enforce prerequisites.
-- **Auditing Locations**: `docs/plans/` and `.nezam/workspace/plans/`.
+- **Auditing Locations**: `.nezam/core/plans/` and `.nezam/workspace/plans/`.
 - **Checkpoint Criteria**:
-  - `docs/plans/INDEX.md` is populated and correctly maps all phase statuses.
-  - Every active subphase folder (e.g. `docs/plans/00-define/01-product/`) contains:
+  - `.nezam/core/plans/INDEX.md` is populated and correctly maps all phase statuses.
+  - Every active subphase folder (e.g. `.nezam/core/plans/00-define/01-product/`) contains:
     - `prompt.json` (Structured metadata for client context injection).
     - `PROMPT.md` (Detailed phase-specific LLM instructions).
     - `TASKS.md` (Checklist following formatting rules).
-  - Verify that no duplicate or legacy phase plans remain under `docs/plans/legacy/` that could cause AI confusion.
+  - Verify that no duplicate or legacy phase plans remain under `.nezam/core/plans/legacy/` that could cause AI confusion.
 
 ### 1.2 Gate Matrix & Hardlock Enforcement
 - **Objective**: Verify that phase transitions are blocked when upstream conditions are unmet.
@@ -86,7 +86,7 @@ graph TD
 - **Checkpoint Criteria**:
   - `agent-lazy-load.mdc` contains up-to-date regex patterns matching the correct role names.
   - Check `swarm-leader.md` and `subagent-controller.md` to ensure they have the proper executive guidance to distribute tasks securely.
-  - Verify that agent logs and decision outputs are logged in `.nezam/memory/SWARM_DECISION_LOG.md`.
+  - Verify that agent logs and decision outputs are logged in `.nezam/core/memory/SWARM_DECISION_LOG.md`.
 
 ### 3.2 Skill Pack Frontmatter & Normalization
 - **Objective**: Confirm that reusable skills registries contain accurate descriptions and IDs.

@@ -57,7 +57,7 @@ Long procedures invoked by commands or `@` references:
 | `[git-workflow](../../../.cursor/skills/external/nezam-git-workflow/SKILL.md))`             | Branching, conventional commits, tags/releases.                                  |
 | `[external-ai-report](../../../.cursor/skills/external/nezam-external-ai-report/SKILL.md)` | Progress reports for browser companions.                                         |
 | `[nezam-testing-automation](../../../.cursor/skills/quality/nezam-testing-automation/SKILL.md)` | Deterministic unit/E2E/visual test setup and `/SCAN tests` integration.          |
-| `[nezam-scan-fix-loop](../../../.cursor/skills/quality/nezam-scan-fix-loop/SKILL.md)` | Structured `/SCAN` → `/FIX` remediation loop with `docs/plans/INDEX.md` tracking.      |
+| `[nezam-scan-fix-loop](../../../.cursor/skills/quality/nezam-scan-fix-loop/SKILL.md)` | Structured `/SCAN` → `/FIX` remediation loop with `.nezam/core/plans/INDEX.md` tracking.      |
 | `[nezam-github-actions-ci](../../../.cursor/skills/quality/nezam-github-actions-ci/SKILL.md)` | GitHub Actions CI/CD hardening, checks, artifacts, release gates.                |
 | `[nezam-gh-security-compliance](../../../.cursor/skills/quality/nezam-security-compliance/SKILL.md)` | Security compliance workflow for Dependabot, CodeQL, and secret scanning.         |
 | `[nezam-repo-file-org](../../../.cursor/skills/system/nezam-repo-file-org/SKILL.md)` | Repository organization workflow with safe file moves and import updates.         |
@@ -234,10 +234,10 @@ See `README.md` and `[CONTEXT.md](CONTEXT.md)`.
 
 | Area                                                            | Role                                                                                                                                                                                                      |
 | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `[specs/prd/](../../docs/plans/00-define/01-product/)`                                   | Product requirements (`PRD.md`).                                                                                                                                                                          |
-| `[specs/sdd/](../../docs/plans/00-define/02-architecture/)`                                   | SDD spine: roadmap, phases, SEO, versioning, architecture, data model.                                                                                                                                    |
-| `[specs/features/](../../docs/plans/04-build/03-features/)`                         | Feature specs (`SPEC.md`, tests, APIs).                                                                                                                                                                   |
-| `**context/`**                                                  | **This folder** — canonical assistant context (`instructions`, `workspace`, `project`, `MEMORY`, architecture, **this index**).                                                                           |
+| `[specs/prd/](../plans/00-define/01-product/)`                                   | Product requirements (`PRD.md`).                                                                                                                                                                          |
+| `[specs/sdd/](../plans/00-define/02-architecture/)`                                   | SDD spine: roadmap, phases, SEO, versioning, architecture, data model.                                                                                                                                    |
+| `[specs/features/](../plans/04-build/03-features/)`                         | Feature specs (`SPEC.md`, tests, APIs).                                                                                                                                                                   |
+| `**memory/**`                                                  | **This folder** — canonical assistant context (`instructions`, `workspace`, `project`, `MEMORY`, architecture, **this index**).                                                                           |
 | `external-ai/`                               | Browser `GROK_INSTRUCTIONS.md` + `GROK_INSTRUCTIONS_BRIEF.md`; Claude `CLAUDE_CLI_AND_CODE.md`. |
 | `REFERENCES_EXTERNAL_KITS.md` | Curated external references.                                                                                                                                                                              |
 
@@ -246,17 +246,17 @@ Optional: `CONSTITUTION.md` (`/CREATE constitution`).
 
 ---
 
-## Root planning scaffold (`docs/plans/`)
+## Root planning scaffold (`.nezam/core/plans/`)
 
 Structured execution board for phased delivery with explicit task IDs and gate controls:
 
-- `docs/plans/MASTER_TASKS.md`: Master outcomes, metrics, and risk summary.
-- `docs/plans/INDEX.md`: MT/PT traceability matrix and phase gate map.
-- `docs/plans/commit-conventions.md`: Commit prefixes aligned to phase ownership.
-- `docs/plans/tag-version-plan.md`: SemVer policy and release tag trigger points.
-- `docs/plans/01-content/` through `docs/plans/05-ship/`: phase task boards and placeholder spec notes.
+- `.nezam/core/plans/MASTER_TASKS.md`: Master outcomes, metrics, and risk summary.
+- `.nezam/core/plans/INDEX.md`: MT/PT traceability matrix and phase gate map.
+- `.nezam/core/plans/commit-conventions.md`: Commit prefixes aligned to phase ownership.
+- `.nezam/core/plans/tag-version-plan.md`: SemVer policy and release tag trigger points.
+- `.nezam/core/plans/01-content/` through `.nezam/core/plans/05-ship/`: phase task boards and placeholder spec notes.
 
-Use `docs/plans/*/TASKS.md` as the operational tracker when running phased work.
+Use `.nezam/core/plans/*/TASKS.md` as the operational tracker when running phased work.
 
 ---
 

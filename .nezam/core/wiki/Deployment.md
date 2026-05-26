@@ -51,7 +51,7 @@ Configured via `release.config.cjs`.
 
 ## Gate Matrix
 
-The GitHub Gate Matrix at `docs/plans/gates/GITHUB_GATE_MATRIX.json` defines what must pass before each phase transition. Structure:
+The GitHub Gate Matrix at `.nezam/core/plans/gates/GITHUB_GATE_MATRIX.json` defines what must pass before each phase transition. Structure:
 
 ```json
 {
@@ -72,8 +72,8 @@ The GitHub Gate Matrix at `docs/plans/gates/GITHUB_GATE_MATRIX.json` defines wha
 
 The `check-onboarding-readiness.sh` script verifies:
 - [ ] `.nezam/workspace/prd/PRD.md` exists
-- [ ] `.nezam/memory/CONTEXT.md` exists
-- [ ] `docs/plans/INDEX.md` exists
+- [ ] `.nezam/core/memory/CONTEXT.md` exists
+- [ ] `.nezam/core/plans/INDEX.md` exists
 - [ ] `.cursor/agents/swarm-leader.md` exists
 - [ ] `DESIGN.md` exists (if phase ≥ 02)
 - [ ] `docs/reports/tests/TEST_MATRIX.md` exists (if phase ≥ 04)

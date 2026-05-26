@@ -1,13 +1,12 @@
 ---
-skill_id: "nezam-"nezam- nezam-tavily-research"
-name: "nezam-"nezam-"nezam-tavily-research"
+skill_id: nezam-tavily-research
+name: "Tavily Research"
 description: "Implements agentic search, extraction, and RAG optimization using Tavily."
 version: 1.0.0
 updated: 2026-05-12
 changelog:
-  - version: 1.0.0
-    date: 2026-05-12
-    notes: "Initial Wave 2 implementation."
+date: 2026-05-12
+notes: "Initial Wave 2 implementation."
 owner: "research-agent"
 tier: 1
 sdd_phase: "Research"

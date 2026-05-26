@@ -65,7 +65,6 @@ When conflicts appear, follow:
 - `analytics-real-time-manager.md`
 - `analytics-report-automation-agent.md`
 - `analytics-ui-ux-architect.md`
-- `analytics-ui-ux-specialist.md`
 - `animation-motion-specialist.md`
 - `api-logic-manager.md`
 - `app-security-manager.md`
@@ -128,7 +127,6 @@ When conflicts appear, follow:
 - `frontend-performance-manager.md`
 - `frontend-rendering-strategist.md`
 - `gitops-engineer.md`
-- `headless-cms-specialist.md`
 - `i18n-engineer.md`
 - `infra-security-manager.md`
 - `infrastructure-manager.md`
@@ -166,7 +164,6 @@ When conflicts appear, follow:
 - `motion-3d-choreographer.md`
 - `motion-performance-specialist.md`
 - `msa-formal-specialist.md`
-- `multi-tenancy-architect.md`
 - `neon-database-architect.md`
 - `nextjs-app-architect.md`
 - `node-logic-specialist.md`
@@ -206,7 +203,6 @@ When conflicts appear, follow:
 - `task-workflow-architect.md`
 - `tech-debt-manager.md`
 - `technical-feasibility-analyst.md`
-- `testing-manager.md`
 - `token-architect-pro.md`
 - `ui-component-manager.md`
 - `ux-research-strategy-manager.md`

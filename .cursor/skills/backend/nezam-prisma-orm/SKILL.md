@@ -1,21 +1,15 @@
 ---
+skill_id: nezam-prisma-orm
+name: "Prisma Orm"
 tier: 3
-name: "nezam-"nezam- nezam-prisma-orm"
 description: Prisma 6 schema, migrations, type-safe client, seeding, and relations for typed database access.
 version: 1.1.0
 updated: 2026-05-12
 breaking_changes: false
 changelog:
-  - version: 1.1.0
-    date: 2026-05-12
-    notes: "Added Drizzle ORM specific guidelines."
-  - version: 1.0.0
-    date: 2026-05-08
-    notes: "Initial version metadata added with Prisma 6 note."
+date: 2026-05-12
+notes: "Added Drizzle ORM specific guidelines."
 compatible_with:
-  - react: ">=18"
-  - next: ">=14"
-  - node: ">=20"
 ---
 # Purpose
 

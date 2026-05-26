@@ -234,10 +234,10 @@ Hardlocks block **starting** dependent forward work until prerequisites are sati
 
 1. **Source of truth**: repository files (`.nezam/core/prd/PRD.md`, `docs/plan/**`, `docs/reports/**`, `.nezam/core/**`, tracked decisions).
 2. **Working/session**: Cursor chat/thread and open files — treat as ephemeral; persist outcomes into docs.
-3. **Durable project memory**: `.nezam/memory/MEMORY.md` plus phase logs under `.nezam/memory/` (maintain via `/SAVE log`).
-4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `.nezam/memory/CONTEXT.md`.
+3. **Durable project memory**: `.nezam/core/memory/MEMORY.md` plus phase logs under `.nezam/core/memory/` (maintain via `/SAVE log`).
+4. **External companion** (browser): user pastes summarized progress into Grok/Qwen/Gemini/etc.; keep `docs/reports/progress/PROGRESS_REPORT.latest.md` current for uploads. Companion briefing: `.nezam/core/memory/CONTEXT.md`.
 
-Formal mapping: `.nezam/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
+Formal mapping: `.nezam/core/memory/MEMORY_ARCHITECTURE.md`. Role personas (optional lenses): `.cursor/agents/README.md`.
 
 Do not contradict committed specs without an explicit decision record note.
 
@@ -247,14 +247,14 @@ When assistants lock decisions in chat, persist them before finishing the reply 
 
 | Trigger | Persist to |
 |---------|------------|
-| Stack choice | `.nezam/memory/MEMORY.md` → **Active Stack Decisions** |
+| Stack choice | `.nezam/core/memory/MEMORY.md` → **Active Stack Decisions** |
 | Architecture ADR summary | **Locked Architecture Decisions** |
 | Design lock (tokens/grid/motion) | **Locked Design Decisions** |
 | Tradeoff with expiry | **Accepted Tradeoffs** |
 | Tier-1 agent eval | **Agent Scorecards** |
-| Phase transition | `.nezam/memory/PHASE_HANDOFF.md` |
+| Phase transition | `.nezam/core/memory/PHASE_HANDOFF.md` |
 | Session end | Write to `.cursor/state/agent-status.yaml`: last agent, last output, pending handoff, one-sentence resume prompt |
-| Go/no-go decision | Append to `.nezam/memory/SWARM_DECISION_LOG.md` using `docs/plan/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
+| Go/no-go decision | Append to `.nezam/core/memory/SWARM_DECISION_LOG.md` using `docs/plan/templates/SWARM_DECISION_RECORD.template.md` format. Include: objective, status, rationale, blockers, next_legal_command, approved_by. |
 
 ## Session Start Checklist
 
@@ -267,25 +267,25 @@ At session open:
 6. Read `.cursor/state/agent-status.yaml` — if `pending_handoff.status: pending`, deliver the handoff before any new work begins.
 7. If `active_spec` is set, confirm with user: "Last session left off at [spec]. Resume? Y/N"
 8. Print `session_resume_prompt` from `agent-status.yaml` as the first message.
-9. Check `.nezam/memory/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
+9. Check `.nezam/core/memory/SWARM_DECISION_LOG.md` for pending decisions with `status: replan` and surface them before new work.
 
 ## MCP Usage Policy
 
-- When a registered MCP server exists for a service (see `.nezam/memory/MCP_REGISTRY.md`), use it.
+- When a registered MCP server exists for a service (see `.nezam/core/memory/MCP_REGISTRY.md`), use it.
 - MCP-first saves tokens: structured results < prose descriptions of API calls.
 - Never write raw HTTP fetch code for a service that has an MCP.
 - Exception: when MCP is unavailable in current tool context — fall back to CLI (see CLI orchestration rules).
 
 ### Wireframe MCP Policy (Interactive Local Server)
 When `/PLAN design wireframes` is invoked:
-1. Check `.nezam/memory/MCP_REGISTRY.md` for active Figma MCP.
+1. Check `.nezam/core/memory/MCP_REGISTRY.md` for active Figma MCP.
 2. If active, use Mode A (Figma MCP) automatically.
 3. If inactive, check for uploaded Excalidraw/Penpot file and use Mode B.
 4. **If neither is available, use Mode C (Interactive Local Wireframe Server):**
-   - The agent MUST generate a structured `docs/plans/04-design/wireframes_draft.json` file containing the proposed screen layouts, components, and data bindings.
+   - The agent MUST generate a structured `.nezam/core/plans/04-design/wireframes_draft.json` file containing the proposed screen layouts, components, and data bindings.
    - The agent MUST instruct the user to run the local Wireframe Server (e.g., `pnpm run wireframe:server`).
    - The user opens `localhost`, visually previews, drag-and-drops edits, and approves the layout in the browser.
-   - Upon user approval, the server writes back `docs/plans/04-design/wireframes_locked.json`.
+   - Upon user approval, the server writes back `.nezam/core/plans/04-design/wireframes_locked.json`.
    - The agent MUST read `wireframes_locked.json` to generate the final UI code, entirely replacing the old text-interview fallback.
 5. Always write source mode to `WIREFRAMES.md` front-matter: `wireframe_source: figma|excalidraw|json_server`.
 
@@ -320,7 +320,7 @@ Violation: If a MODE B or MODE C handoff has no agent-bus.yaml entry, it is trea
 During the SDD Planning process (Phases 1-6):
 1. Agents MUST use the `agent-bus.yaml` to notify the `project-architect` of any structural or schema changes.
 2. If the project involves Arabic content or localization, the planning agent MUST tag the `masri-content-specialist` in the `agent-bus.yaml` for a cultural and dialect review (defaulting to Egyptian Arabic per user preference).
-3. All planning decisions that deviate from the PRD MUST be logged to `.nezam/memory/SWARM_DECISION_LOG.md` using the `decision-request` type on the bus before proceeding.
+3. All planning decisions that deviate from the PRD MUST be logged to `.nezam/core/memory/SWARM_DECISION_LOG.md` using the `decision-request` type on the bus before proceeding.
 
 ## Token Economy Rules
 - Load files by path reference (@filename) not content paste
@@ -335,7 +335,7 @@ During the SDD Planning process (Phases 1-6):
 
 Before any task assignment, agents MUST:
 1. Read `.cursor/workspace.settings.yaml` and check `tools.<name>.active` for each tool.
-2. Read `.nezam/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
+2. Read `.nezam/core/memory/CLI_TOOLS_CONTEXT.md` and use its routing matrix.
 3. Route tasks only to tools marked active in settings.
 4. If the preferred tool is inactive, apply the deactivation chain from CLI tools context.
 5. Keep `security: true` tasks on primary reasoning lanes only (never free CLI lanes).
@@ -348,7 +348,7 @@ Tool activation state in workspace settings is the source of truth; never assume
 When `/Settings ai-tools off <tool>` is used:
 1. Persist `tools.<tool>.active: false` in workspace settings.
 2. Re-route tasks in `docs/plan/MASTER_TASKS.md` using deactivation chains from
-   `.nezam/memory/CLI_TOOLS_CONTEXT.md`.
+   `.nezam/core/memory/CLI_TOOLS_CONTEXT.md`.
 3. Keep an audit trail via `original_tool` where reassignment occurred.
 4. If no fallback exists, mark task blocked with `NO_ACTIVE_TOOL`.
 5. Keep `security: true` tasks on primary reasoning lanes only; otherwise block with

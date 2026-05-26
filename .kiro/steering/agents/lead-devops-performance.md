@@ -42,6 +42,12 @@ Swarm Manager for the Performance & DevOps swarm. Own CI / CD pipelines, infrast
 
 ## Primary skills / lenses
 
+- `@nezam-browserbase`
+- `@nezam-cloudflare-edge`
+- `@nezam-devops-pipeline`
+- `@nezam-firecrawl`
+- `@nezam-llm-observability`
+- `@nezam-product-analytics`
 - `.github/workflows/**`, `/DEPLOY ship`, `@git-workflow`.
 - [`.cursor/skills/nezam-devops-pipeline/SKILL.md`](../skills/infrastructure/nezam-devops-pipeline/SKILL.md)
 - [`.cursor/skills/nezam-github-actions-ci/SKILL.md`](../skills/quality/nezam-github-actions-ci/SKILL.md)
@@ -51,7 +57,7 @@ Swarm Manager for the Performance & DevOps swarm. Own CI / CD pipelines, infrast
 - [`.cursor/skills/nezam-monitoring-observability/SKILL.md`](../skills/infrastructure/nezam-monitoring-observability/SKILL.md)
 - [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/infrastructure/nezam-cdn-optimization/SKILL.md)
 - [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
-- [`.nezam/memory/MCP_REGISTRY.md`](../../.nezam/memory/MCP_REGISTRY.md) for MCP-backed infra and observability integrations
+- [`.nezam/core/memory/MCP_REGISTRY.md`](../../.nezam/core/memory/MCP_REGISTRY.md) for MCP-backed infra and observability integrations
 
 ## When to invoke
 

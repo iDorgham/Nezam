@@ -43,10 +43,10 @@ export function Onboarding() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-50 overflow-y-auto app-scroll">
+      {/* Backdrop — fixed so it covers viewport while content scrolls */}
       <div
-        className="absolute inset-0"
+        className="fixed inset-0"
         style={{
           background: 'radial-gradient(ellipse 120% 80% at 50% 0%, #1e2d4a 0%, #0d0d0f 55%, #0a0a0b 100%)',
         }}
@@ -54,15 +54,16 @@ export function Onboarding() {
 
       {/* Noise texture overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="fixed inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
           backgroundSize: '200px',
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 flex w-full max-w-2xl flex-col px-6 gap-8">
+      {/* Scrollable centered container — min-h-full + py for breathing room on tall screens, scroll on short ones */}
+      <div className="relative z-10 flex min-h-full w-full items-center justify-center py-8">
+      <div className="flex w-full max-w-2xl flex-col px-6 gap-8">
 
         {/* Brand */}
         <div className="flex items-center justify-center gap-3">
@@ -73,7 +74,7 @@ export function Onboarding() {
             <Layers size={18} className="text-white" />
           </div>
           <span className="text-[15px] font-bold text-white tracking-tight">NEZAM Design Hub</span>
-          <span className="text-[10px] font-semibold text-white/40 bg-white/10 border border-white/10 px-2 py-0.5 rounded-full tracking-wide">v5</span>
+          <span className="text-[10px] font-semibold text-white/40 bg-white/10 border border-white/10 px-2 py-0.5 rounded-full tracking-wide">v6</span>
         </div>
 
         {/* Progress stepper */}
@@ -111,6 +112,7 @@ export function Onboarding() {
             />
           )}
         </div>
+      </div>
       </div>
     </div>
   )

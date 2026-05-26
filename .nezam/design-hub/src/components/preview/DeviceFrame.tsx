@@ -1949,7 +1949,7 @@ function NotificationsPage({ isMobile }: { isMobile: boolean }) {
 
 // ─── Master dispatcher ─────────────────────────────────────────────────────────
 
-function PageRenderer({ page, tokens, device }: { page: ArchPage; tokens: DesignTokens; device: PreviewDevice }) {
+export function PageRenderer({ page, tokens, device }: { page: ArchPage; tokens: DesignTokens; device: PreviewDevice }) {
   const vars = useMemo(() => buildVars(tokens), [tokens])
   const isMobile = device === 'mobile'
   const isTablet  = device === 'tablet'

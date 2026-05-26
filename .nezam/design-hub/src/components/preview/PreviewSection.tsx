@@ -1,22 +1,13 @@
 'use client'
 
-import { Monitor, Tablet, Smartphone, Eye, Layers, FileText, ChevronRight, ChevronDown } from 'lucide-react'
+import { Eye, Layers, FileText, ChevronRight, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
-import { DeviceFrame } from './DeviceFrame'
+import { BrowserPreview } from './BrowserPreview'
 import { ExportPanel } from './ExportPanel'
 import { cn } from '@/lib/utils'
-import type { PreviewDevice } from '@/store/hub.store'
 import type { ArchPage } from '@/types/arch'
-
-// ─── Device toolbar items ──────────────────────────────────────────────────────
-
-const DEVICES: { id: PreviewDevice; label: string; Icon: React.FC<{ size?: number }> }[] = [
-  { id: 'desktop', label: 'Desktop', Icon: Monitor },
-  { id: 'tablet',  label: 'Tablet',  Icon: Tablet },
-  { id: 'mobile',  label: 'Mobile',  Icon: Smartphone },
-]
 
 // ─── Template detection (mirrors DeviceFrame logic, lightweight) ───────────────
 
@@ -307,9 +298,7 @@ function PagesLayersPanel({
 export function PreviewSection() {
   const pages          = useHub((s) => s.arch.pages)
   const selectedPageId = useHub((s) => s.preview.selectedPageId)
-  const device         = useHub((s) => s.preview.device)
   const selectPage     = useHub((s) => s.previewSelectPage)
-  const setDevice      = useHub((s) => s.previewSetDevice)
 
   const sortedPages = Object.values(pages).sort((a, b) => a.order - b.order)
   const selectedPage = (selectedPageId && pages[selectedPageId])
@@ -326,60 +315,19 @@ export function PreviewSection() {
         onSelectPage={selectPage}
       />
 
-      {/* Main: device frame */}
-      <div className="flex min-w-0 flex-1 flex-col canvas-grid overflow-hidden">
-
-        {/* Device toolbar */}
-        <div className="flex items-center justify-center gap-1 border-b border-app-border bg-app-surface/80 backdrop-blur-sm py-2 shrink-0">
-          {DEVICES.map(({ id, label, Icon }) => (
-            <button
-              key={id}
-              onClick={() => setDevice(id)}
-              className={cn(
-                'flex items-center gap-1.5 h-7 px-3 rounded-app-sm text-xs transition-all',
-                device === id
-                  ? 'bg-app-elevated text-app-text font-medium'
-                  : 'text-app-muted hover:text-app-text',
-              )}
-            >
-              <Icon size={13} />
-              {label}
-            </button>
-          ))}
-
-          {/* Page info chip */}
-          {selectedPage && (() => {
-            const t = detectTemplate(selectedPage!)
-            const info = TEMPLATE_INFO[t]
-            return (
-              <span
-                className="ml-4 flex items-center gap-1 text-[10px] font-medium px-2 py-1 rounded"
-                style={{ backgroundColor: info.color + '18', color: info.color }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full shrink-0"
-                  style={{ backgroundColor: info.color }}
-                />
-                {info.label}
-              </span>
-            )
-          })()}
-        </div>
-
-        {/* Device frame */}
-        <div className="flex flex-1 items-start justify-center overflow-auto app-scroll p-10">
-          {selectedPage ? (
-            <DeviceFrame device={device} page={selectedPage} />
-          ) : (
-            <div className="flex flex-col items-center gap-3 text-center mt-20">
-              <Eye size={40} className="text-app-border" />
-              <p className="text-sm font-medium text-app-text">Select a page to preview</p>
-              <p className="text-xs text-app-subtle">
-                Add pages in the Architecture section first.
-              </p>
-            </div>
-          )}
-        </div>
+      {/* Main: browser-window preview (chrome + viewport at 100%) */}
+      <div className="flex min-w-0 flex-1 overflow-hidden">
+        {selectedPage ? (
+          <BrowserPreview page={selectedPage} />
+        ) : (
+          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
+            <Eye size={40} className="text-app-border" />
+            <p className="text-sm font-medium text-app-text">Select a page to preview</p>
+            <p className="text-xs text-app-subtle">
+              Add pages in the Architecture section first.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )

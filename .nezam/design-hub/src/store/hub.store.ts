@@ -12,7 +12,30 @@ import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
 
 // ─── Hub section ─────────────────────────────────────────────────────────────
 
-export type HubSection = 'architecture' | 'design' | 'preview' | 'components'
+export type HubSection = 'architecture' | 'design' | 'preview'
+
+/** Sub-tabs nested under the Design System section. */
+export type DesignSubTab = 'tokens' | 'components' | 'theming'
+
+/** CSS variable snapshot applied to the live Preview from the Theme editor. */
+export interface ThemePreviewOverride {
+  /** shadcn-format light-mode CSS vars (--background, --foreground, etc.) */
+  light:    Record<string, string>
+  /** shadcn-format dark-mode CSS vars */
+  dark:     Record<string, string>
+  mode:     'light' | 'dark'
+  fontSans: string
+  fontMono: string
+  radius:   string
+  presetName: string
+}
+
+export interface SavedColorProfile {
+  id:       string
+  name:     string
+  override: ThemePreviewOverride
+  createdAt: number
+}
 
 // ─── Architecture state ───────────────────────────────────────────────────────
 
@@ -29,6 +52,15 @@ interface DesignState {
   selectedCategory: TokenCategory
   activeProfileId: DesignProfileId | null
   showPreviewStrip: boolean
+  /** Active sub-tab under the Design System section. */
+  subTab: DesignSubTab
+}
+
+// ─── Theme state ─────────────────────────────────────────────────────────────
+
+interface ThemeState {
+  previewOverride: ThemePreviewOverride | null
+  savedProfiles:   SavedColorProfile[]
 }
 
 // ─── Preview state ────────────────────────────────────────────────────────────
@@ -63,6 +95,7 @@ interface HubStore {
   section: HubSection
   arch: ArchState
   design: DesignState
+  theme: ThemeState
   preview: PreviewState
   comp: CompState
   onboarding: OnboardingState
@@ -78,12 +111,21 @@ interface HubStore {
   archUpdatePage(id: string, patch: Partial<ArchPage>): void
   archSelectPage(id: string | null): void
   archApplyProfile(profileId: ArchProfileId): void
+  /** Append pages from a template under an optional parent. Returns the new IDs. */
+  archAppendPages(pages: Array<{ name: string; route: string; icon?: string }>, parentId?: string | null): void
 
   // ── Design actions ──
   designSetToken(path: string, value: string | number): void
   designSetCategory(cat: TokenCategory): void
   designApplyProfile(profileId: DesignProfileId): void
   designTogglePreviewStrip(): void
+  designSetSubTab(tab: DesignSubTab): void
+
+  // ── Theme actions ──
+  themeApplyToPreview(override: ThemePreviewOverride): void
+  themeClearPreview(): void
+  themeSaveProfile(name: string, override: ThemePreviewOverride): void
+  themeDeleteProfile(id: string): void
 
   // ── Preview actions ──
   previewSelectPage(id: string | null): void
@@ -144,6 +186,12 @@ export const useHub = create<HubStore>()(
         selectedCategory: 'colors',
         activeProfileId: 'minimal',
         showPreviewStrip: true,
+        subTab: 'tokens' as DesignSubTab,
+      },
+
+      theme: {
+        previewOverride: null,
+        savedProfiles:   [],
       },
 
       preview: {
@@ -217,6 +265,25 @@ export const useHub = create<HubStore>()(
           state.arch.selectedPageId = null
         }),
 
+      archAppendPages: (pages, parentId = null) =>
+        set((state) => {
+          let base = nextOrder(state.arch.pages, parentId)
+          pages.forEach((pg, i) => {
+            const id = uid('pg')
+            state.arch.pages[id] = {
+              id,
+              name: pg.name,
+              route: pg.route,
+              parentId,
+              order: base + i,
+              type: 'page',
+              navSlot: parentId ? 'sidebar' : 'topnav',
+              icon: pg.icon ?? 'FileText',
+              description: '',
+            }
+          })
+        }),
+
       // ── Design ───────────────────────────────────────────────────────────────
       designSetToken: (path, value) =>
         set((state) => {
@@ -240,6 +307,33 @@ export const useHub = create<HubStore>()(
       designTogglePreviewStrip: () =>
         set((state) => {
           state.design.showPreviewStrip = !state.design.showPreviewStrip
+        }),
+
+      designSetSubTab: (tab) =>
+        set((state) => {
+          state.design.subTab = tab
+        }),
+
+      // ── Theme ─────────────────────────────────────────────────────────────────
+      themeApplyToPreview: (override) =>
+        set((state) => {
+          state.theme.previewOverride = override
+        }),
+
+      themeClearPreview: () =>
+        set((state) => {
+          state.theme.previewOverride = null
+        }),
+
+      themeSaveProfile: (name, override) =>
+        set((state) => {
+          const id = `profile-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
+          state.theme.savedProfiles.push({ id, name, override, createdAt: Date.now() })
+        }),
+
+      themeDeleteProfile: (id) =>
+        set((state) => {
+          state.theme.savedProfiles = state.theme.savedProfiles.filter((p) => p.id !== id)
         }),
 
       // ── Preview ──────────────────────────────────────────────────────────────
@@ -282,11 +376,12 @@ export const useHub = create<HubStore>()(
         }),
     })),
     {
-      name: 'nezam-design-hub-v5',
+      name: 'nezam-design-hub-v7',
       partialize: (s) => ({
         section: s.section,
         arch: s.arch,
         design: s.design,
+        theme: s.theme,
         preview: s.preview,
         onboarding: s.onboarding,
         visitedSections: s.visitedSections,

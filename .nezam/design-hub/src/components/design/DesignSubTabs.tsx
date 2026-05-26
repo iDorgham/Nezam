@@ -1,13 +1,14 @@
 'use client'
 
-import { Layers, Puzzle, Palette } from 'lucide-react'
+import { Layers, Puzzle, Palette, LayoutTemplate } from 'lucide-react'
 import { useHub, type DesignSubTab } from '@/store/hub.store'
 import { cn } from '@/lib/utils'
 
 const SUB_TABS: { id: DesignSubTab; label: string; Icon: React.FC<{ size?: number; className?: string }>; desc: string }[] = [
-  { id: 'tokens',     label: 'Tokens',     Icon: Layers,  desc: 'Foundational design tokens' },
-  { id: 'components', label: 'Components', Icon: Puzzle,  desc: 'Live UI component library' },
-  { id: 'theming',    label: 'Theming',    Icon: Palette, desc: 'Adjust colors, fonts & CSS export' },
+  { id: 'tokens',     label: 'Tokens',     Icon: Layers,         desc: 'Foundational design tokens' },
+  { id: 'components', label: 'Components', Icon: Puzzle,         desc: 'Live UI component library' },
+  { id: 'sections',   label: 'Sections',   Icon: LayoutTemplate, desc: 'Page section library with live previews' },
+  { id: 'theming',    label: 'Theming',    Icon: Palette,        desc: 'Adjust colors, fonts & CSS export' },
 ]
 
 export function DesignSubTabs() {

@@ -273,7 +273,7 @@ export interface DesignProfile {
 
 export const TOKEN_CATEGORY_LABELS: Record<TokenCategory, string> = {
   colors:       'Colors',
-  typography:   'Typography',
+  typography:   'Typography Scale',
   spacing:      'Spacing',
   radius:       'Border Radius',
   shadows:      'Shadows',
@@ -281,7 +281,7 @@ export const TOKEN_CATEGORY_LABELS: Record<TokenCategory, string> = {
   borders:      'Borders',
   iconography:  'Iconography',
   elevation:    'Elevation',
-  font:         'Font',
+  font:         'Semantic Typography',
   interaction:  'Interaction',
   utility:      'Utility',
 }

@@ -22,6 +22,10 @@ export type ArchProfileId =
   | 'ecommerce'
   | 'marketplace'
   | 'booking'
+  // ── AI / Platform ──
+  | 'ai-assistant'
+  | 'developer-console'
+  | 'events-platform'
 
 export interface ArchPage {
   id: string

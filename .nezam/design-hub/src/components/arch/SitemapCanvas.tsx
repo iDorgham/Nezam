@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
-import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid } from 'lucide-react'
+import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
+import { useEffect } from 'react'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
@@ -185,12 +186,20 @@ function CanvasToolbar({
   onZoomIn,
   onZoomOut,
   onFit,
+  canUndo,
+  canRedo,
+  onUndo,
+  onRedo,
 }: {
   zoom: number
   pageCount: number
   onZoomIn(): void
   onZoomOut(): void
   onFit(): void
+  canUndo: boolean
+  canRedo: boolean
+  onUndo(): void
+  onRedo(): void
 }) {
   return (
     <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 rounded-xl border border-app-border bg-app-surface/90 px-2 py-1.5 shadow-lg backdrop-blur-md">
@@ -211,6 +220,18 @@ function CanvasToolbar({
       {/* Zoom in */}
       <ToolBtn onClick={onZoomIn} disabled={zoom >= ZOOM_MAX} title="Zoom in">
         <ZoomIn size={12} />
+      </ToolBtn>
+
+      <div className="w-px h-4 bg-app-border mx-1" />
+
+      {/* Undo */}
+      <ToolBtn onClick={onUndo} disabled={!canUndo} title="Undo (⌘Z)">
+        <Undo size={12} />
+      </ToolBtn>
+
+      {/* Redo */}
+      <ToolBtn onClick={onRedo} disabled={!canRedo} title="Redo (⌘Y)">
+        <Redo size={12} />
       </ToolBtn>
 
       <div className="w-px h-4 bg-app-border mx-1" />
@@ -335,6 +356,69 @@ export function SitemapCanvas({ onSelectPage }: Props) {
     else zoomOut()
   }
 
+  const selectedPageId = useHub((s) => s.arch.selectedPageId)
+  const canUndo        = useHub((s) => s.archPast.length > 0)
+  const canRedo        = useHub((s) => s.archFuture.length > 0)
+  const undo           = useHub((s) => s.archUndo)
+  const redo           = useHub((s) => s.archRedo)
+  const archDeletePage = useHub((s) => s.archDeletePage)
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      const activeEl = document.activeElement
+      if (
+        activeEl &&
+        (activeEl.tagName === 'INPUT' ||
+          activeEl.tagName === 'TEXTAREA' ||
+          activeEl.tagName === 'SELECT' ||
+          activeEl.getAttribute('contenteditable') === 'true')
+      ) {
+        return
+      }
+
+      // Undo / Redo
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault()
+        if (e.shiftKey) {
+          if (canRedo) redo()
+        } else {
+          if (canUndo) undo()
+        }
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'y') {
+        e.preventDefault()
+        if (canRedo) redo()
+      }
+
+      // N: Add child page under selected (or root if none)
+      if (e.key.toLowerCase() === 'n' && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        archAddPage(selectedPageId)
+        if (onSelectPage) onSelectPage()
+      }
+
+      // Del / Backspace: Delete selected page
+      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedPageId) {
+        e.preventDefault()
+        archDeletePage(selectedPageId)
+      }
+
+      // /: Focus search
+      if (e.key === '/') {
+        e.preventDefault()
+        const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement
+        if (searchInput) {
+          searchInput.focus()
+          searchInput.select()
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedPageId, canUndo, canRedo, undo, redo, archAddPage, archDeletePage, onSelectPage])
+
   return (
     <div className="canvas-grid flex-1 overflow-hidden relative" onWheel={handleWheel}>
       {/* Toolbar */}
@@ -345,6 +429,10 @@ export function SitemapCanvas({ onSelectPage }: Props) {
           onZoomIn={zoomIn}
           onZoomOut={zoomOut}
           onFit={fitZoom}
+          canUndo={canUndo}
+          canRedo={canRedo}
+          onUndo={undo}
+          onRedo={redo}
         />
       )}
 

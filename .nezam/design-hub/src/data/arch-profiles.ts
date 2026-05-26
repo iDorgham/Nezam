@@ -417,6 +417,89 @@ function buildBookingProfile(): ArchProfile {
   }
 }
 
+// ─── AI Assistant ────────────────────────────────────────────────────────────
+
+function buildAiAssistantProfile(): ArchProfile {
+  const home    = p('Home',      '/',               null,     0, 'topnav',  'page',  'Home',         'Marketing landing page')
+  const pricing = p('Pricing',   '/pricing',        null,     1, 'topnav',  'page',  'DollarSign',   'Plans & credits')
+  const login   = p('Sign In',   '/sign-in',        null,     2, 'hidden',  'page',  'LogIn',        'Authentication')
+  const signup  = p('Sign Up',   '/sign-up',        null,     3, 'hidden',  'page',  'UserPlus',     'Create account')
+  const chat    = p('Chat',      '/app/chat',       null,     4, 'sidebar', 'page',  'MessageSquare','Main chat interface')
+  const history = p('History',   '/app/history',    null,     5, 'sidebar', 'page',  'Clock',        'Conversation history')
+  const prompts = p('Prompts',   '/app/prompts',    null,     6, 'sidebar', 'page',  'Sparkles',     'Prompt library')
+  const tools   = p('Tools',     '/app/tools',      null,     7, 'sidebar', 'group', 'Wrench',       'AI tool catalog')
+  const imgGen  = p('Image Gen', '/app/tools/image',tools.id, 0, 'sidebar', 'page',  'Image',        'Image generation')
+  const codeGen = p('Code',      '/app/tools/code', tools.id, 1, 'sidebar', 'page',  'Code2',        'Code assistant')
+  const usage   = p('Usage',     '/app/usage',      null,     8, 'sidebar', 'page',  'BarChart2',    'Token & credit usage')
+  const settings= p('Settings',  '/app/settings',   null,     9, 'sidebar', 'page',  'Settings',     'API keys, model prefs')
+  const docs    = p('Docs',      '/docs',           null,     10,'topnav',  'page',  'BookOpen',     'Developer documentation')
+
+  return {
+    id: 'ai-assistant',
+    name: 'AI Assistant',
+    description: 'AI chat + tools product with marketing site, model selector, usage dashboard, and billing',
+    icon: 'Bot',
+    pages: [home, pricing, login, signup, chat, history, prompts, tools, imgGen, codeGen, usage, settings, docs],
+  }
+}
+
+// ─── Developer Console ───────────────────────────────────────────────────────
+
+function buildDevConsoleProfile(): ArchProfile {
+  const home    = p('Home',        '/',                  null,       0, 'topnav',  'page',  'Home',         'Product landing')
+  const pricing = p('Pricing',     '/pricing',           null,       1, 'topnav',  'page',  'DollarSign',   'Plans')
+  const login   = p('Sign In',     '/sign-in',           null,       2, 'hidden',  'page',  'LogIn',        'Auth')
+  const signup  = p('Sign Up',     '/sign-up',           null,       3, 'hidden',  'page',  'UserPlus',     'Register')
+  const dash    = p('Overview',    '/console',           null,       4, 'sidebar', 'page',  'LayoutDashboard','Console home')
+  const projects= p('Projects',    '/console/projects',  null,       5, 'sidebar', 'group', 'FolderOpen',   'Projects')
+  const project = p('Project',     '/console/projects/[id]', projects.id, 0, 'sidebar', 'page', 'FolderOpen', 'Project detail')
+  const apis    = p('API Keys',    '/console/keys',      null,       6, 'sidebar', 'page',  'Key',          'Manage API keys')
+  const logs    = p('Logs',        '/console/logs',      null,       7, 'sidebar', 'page',  'ScrollText',   'Request logs')
+  const usage   = p('Usage',       '/console/usage',     null,       8, 'sidebar', 'page',  'BarChart3',    'Usage & billing')
+  const team    = p('Team',        '/console/team',      null,       9, 'sidebar', 'page',  'Users',        'Members & roles')
+  const webhooks= p('Webhooks',    '/console/webhooks',  null,       10,'sidebar', 'page',  'Zap',          'Webhook endpoints')
+  const docs    = p('Docs',        '/docs',              null,       11,'topnav',  'page',  'BookOpen',     'Documentation')
+  const apiref  = p('API Ref',     '/docs/api',          docs.id,    0, 'sidebar', 'page',  'Code2',        'API reference')
+  const sdk     = p('SDK',         '/docs/sdk',          docs.id,    1, 'sidebar', 'page',  'Package',      'SDK guides')
+  const changelog = p('Changelog', '/changelog',         null,       12,'topnav',  'page',  'Clock',        'Release notes')
+
+  return {
+    id: 'developer-console',
+    name: 'Developer Console',
+    description: 'API platform console with project management, keys, logs, usage, webhooks, and docs',
+    icon: 'Terminal',
+    pages: [home, pricing, login, signup, dash, projects, project, apis, logs, usage, team, webhooks, docs, apiref, sdk, changelog],
+  }
+}
+
+// ─── Events Platform ─────────────────────────────────────────────────────────
+
+function buildEventsPlatformProfile(): ArchProfile {
+  const home     = p('Home',       '/',              null,       0, 'topnav',  'page',  'Home',         'Platform landing')
+  const discover = p('Discover',   '/discover',      null,       1, 'topnav',  'page',  'Compass',      'Browse events')
+  const login    = p('Sign In',    '/sign-in',       null,       2, 'hidden',  'page',  'LogIn',        'Auth')
+  const signup   = p('Sign Up',    '/sign-up',       null,       3, 'hidden',  'page',  'UserPlus',     'Create account')
+  const event    = p('Event',      '/events/[id]',   null,       4, 'hidden',  'page',  'Calendar',     'Event detail page')
+  const ticket   = p('Tickets',    '/tickets',       null,       5, 'topnav',  'page',  'Ticket',       'My tickets')
+  const checkout = p('Checkout',   '/checkout',      null,       6, 'hidden',  'page',  'CreditCard',   'Purchase flow')
+  const confirm  = p('Confirmed',  '/confirmed/[id]',null,       7, 'hidden',  'page',  'CheckCircle',  'Ticket confirmation')
+  const organizer= p('Organize',   '/organize',      null,       8, 'topnav',  'group', 'CalendarPlus', 'Organizer portal')
+  const create   = p('Create Event','/organize/new', organizer.id,0,'sidebar', 'page',  'Plus',         'New event wizard')
+  const myEvents = p('My Events',  '/organize/events',organizer.id,1,'sidebar','page',  'Calendar',     'Event management')
+  const attendees= p('Attendees',  '/organize/attendees',organizer.id,2,'sidebar','page','Users',       'Attendee list')
+  const analytics= p('Analytics',  '/organize/analytics',organizer.id,3,'sidebar','page','BarChart3',   'Event analytics')
+  const speakers = p('Speakers',   '/speakers',      null,       9, 'topnav',  'page',  'Mic',          'Speaker directory')
+  const profile  = p('Profile',    '/profile/[id]',  null,       10,'hidden',  'page',  'User',         'User profile')
+
+  return {
+    id: 'events-platform',
+    name: 'Events Platform',
+    description: 'Event ticketing and discovery platform with organizer portal, attendee management, and analytics',
+    icon: 'CalendarDays',
+    pages: [home, discover, login, signup, event, ticket, checkout, confirm, organizer, create, myEvents, attendees, analytics, speakers, profile],
+  }
+}
+
 // ─── Profile groups for UI ────────────────────────────────────────────────────
 
 export const ARCH_PROFILE_GROUPS: Array<{ label: string; ids: ArchProfile['id'][] }> = [
@@ -426,11 +509,11 @@ export const ARCH_PROFILE_GROUPS: Array<{ label: string; ids: ArchProfile['id'][
   },
   {
     label: 'Application',
-    ids: ['task-manager', 'analytics', 'mobile-app', 'fintech', 'enterprise', 'social-network'],
+    ids: ['task-manager', 'analytics', 'mobile-app', 'fintech', 'enterprise', 'social-network', 'ai-assistant', 'developer-console'],
   },
   {
     label: 'Commerce',
-    ids: ['ecommerce', 'marketplace', 'booking'],
+    ids: ['ecommerce', 'marketplace', 'booking', 'events-platform'],
   },
 ]
 
@@ -453,6 +536,9 @@ export const ARCH_PROFILES: ArchProfile[] = [
   buildSocialNetworkProfile(),
   buildMarketplaceProfile(),
   buildBookingProfile(),
+  buildAiAssistantProfile(),
+  buildDevConsoleProfile(),
+  buildEventsPlatformProfile(),
 ]
 
 export const ARCH_PROFILES_MAP = Object.fromEntries(

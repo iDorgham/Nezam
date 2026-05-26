@@ -5,6 +5,7 @@ import { Eye, EyeOff, ChevronDown, Layers, AlertTriangle, Check } from 'lucide-r
 import { useHub } from '@/store/hub.store'
 import { DESIGN_PROFILES_MAP, DESIGN_PROFILE_GROUPS } from '@/data/design-profiles'
 import { TOKEN_CATEGORY_LABELS, TOKEN_CATEGORY_ICONS, TOKEN_CATEGORY_GROUPS } from '@/types/design'
+import { ExportPanel } from './ExportPanel'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { TokenCategory, DesignProfileId } from '@/types/design'
@@ -240,6 +241,9 @@ export function TokenNav() {
           </div>
         )}
       </div>
+
+      {/* ── Export panel at bottom ── */}
+      <ExportPanel />
     </aside>
   )
 }

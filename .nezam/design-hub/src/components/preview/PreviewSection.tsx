@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { BrowserPreview } from './BrowserPreview'
-import { ExportPanel } from './ExportPanel'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
 
@@ -287,8 +286,6 @@ function PagesLayersPanel({
         </div>
       )}
 
-      {/* ── Export at bottom ── */}
-      <ExportPanel />
     </aside>
   )
 }

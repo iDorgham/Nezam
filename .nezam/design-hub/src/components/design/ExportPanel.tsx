@@ -139,10 +139,15 @@ export function ExportPanel() {
     : format === 'json'   ? buildTokensJson(tokens)
     : buildTailwindConfig(tokens)
 
+  const setExportModalOpen = useHub((s) => s.setExportModalOpen)
+
   async function copy() {
     await navigator.clipboard.writeText(content)
     setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+    setTimeout(() => {
+      setCopied(false)
+      setExportModalOpen(true)
+    }, 1000)
   }
 
   const pageCount = Object.keys(arch.pages).length

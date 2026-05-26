@@ -158,17 +158,17 @@ function buildOverride(config: ThemeConfig, mode: Mode, presetName: string): The
     input:              t.input,
     ring:               t.ring,
     radius:             `${config.radius}rem`,
-    // Map to NEZAM page-renderer vars
-    '--bg':             t.background,
-    '--tx':             t.foreground,
-    '--pn':             t.card,
-    '--br':             t.border,
-    '--b':              t.primary,
-    '--ac':             t.accent,
-    '--t2':             t.mutedForeground,
-    '--er':             t.destructive,
-    '--ff':             config.fontSans,
-    '--fm':             config.fontMono,
+    // Map to NEZAM page-renderer readable vars (aligned with DeviceFrame)
+    '--bg-surface':     t.background,
+    '--text':           t.foreground,
+    '--panel':          t.card,
+    '--border':         t.border,
+    '--brand':          t.primary,
+    '--accent':         t.accent,
+    '--text-secondary': t.mutedForeground,
+    '--error':          t.destructive,
+    '--font-sans':      config.fontSans,
+    '--font-mono':      config.fontMono,
   })
 
   return {

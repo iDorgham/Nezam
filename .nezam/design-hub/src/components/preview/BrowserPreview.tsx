@@ -35,7 +35,7 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
   // Build shadcn CSS vars for the page container if an override is active
   const overrideStyle: React.CSSProperties | undefined = override
     ? Object.fromEntries(
-        Object.entries(override[override.mode]).map(([k, v]) => [`--${k}`, v])
+        Object.entries(override[override.mode]).map(([k, v]) => [k.startsWith('--') ? k : `--${k}`, v])
       ) as React.CSSProperties
     : undefined
 

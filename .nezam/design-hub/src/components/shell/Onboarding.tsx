@@ -5,7 +5,7 @@ import {
   Network, Palette, Eye, Puzzle, ArrowRight, Check,
   Sparkles, Layers, Globe, Zap, ChevronLeft,
 } from 'lucide-react'
-import { useHub } from '@/store/hub.store'
+import { useHub, HUB_VERSION } from '@/store/hub.store'
 import { ARCH_PROFILES } from '@/data/arch-profiles'
 import { DESIGN_PROFILES } from '@/data/design-profiles'
 import { IconRenderer } from '@/lib/icons'
@@ -74,7 +74,7 @@ export function Onboarding() {
             <Layers size={18} className="text-white" />
           </div>
           <span className="text-[15px] font-bold text-white tracking-tight">NEZAM Design Hub</span>
-          <span className="text-[10px] font-semibold text-white/40 bg-white/10 border border-white/10 px-2 py-0.5 rounded-full tracking-wide">v6</span>
+          <span className="text-[10px] font-semibold text-white/40 bg-white/10 border border-white/10 px-2 py-0.5 rounded-full tracking-wide">{HUB_VERSION}</span>
         </div>
 
         {/* Progress stepper */}
@@ -163,28 +163,48 @@ function WelcomeStep({ onNext, onSkip }: { onNext(): void; onSkip(): void }) {
       color: '#3b82f6',
       bg: 'rgba(59,130,246,0.12)',
       title: 'Architecture',
-      desc: 'Visual sitemap builder. Plan pages, routes, and navigation flows.',
+      badge: 'Sitemap',
+      desc: 'Visual sitemap builder. Plan pages, routes, and information architecture before writing a line of code.',
     },
     {
       icon: Palette,
       color: '#8b5cf6',
       bg: 'rgba(139,92,246,0.12)',
-      title: 'Design System',
-      desc: 'Live design tokens — colors, typography, spacing, and more.',
+      title: 'Design Tokens',
+      badge: '9 categories',
+      desc: 'Live token editor for colors, typography, spacing, radius, shadows, motion, and more.',
     },
     {
       icon: Eye,
       color: '#10b981',
       bg: 'rgba(16,185,129,0.12)',
       title: 'Preview',
-      desc: 'Device-accurate previews of every page template in real time.',
+      badge: 'Real-time',
+      desc: 'Pixel-accurate device previews with your actual tokens applied. Mobile, tablet, desktop.',
     },
     {
       icon: Puzzle,
       color: '#f59e0b',
       bg: 'rgba(245,158,11,0.12)',
       title: 'Components',
-      desc: 'Browse the full component library with live, token-aware previews.',
+      badge: '80+ components',
+      desc: 'Full Atlaskit-style component library with live, token-aware renders and copy-ready code.',
+    },
+    {
+      icon: Globe,
+      color: '#06b6d4',
+      bg: 'rgba(6,182,212,0.12)',
+      title: 'Sections',
+      badge: '55+ templates',
+      desc: 'Production-ready page sections: heroes, pricing, features, dashboards, auth flows, and more.',
+    },
+    {
+      icon: Zap,
+      color: '#f43f5e',
+      bg: 'rgba(244,63,94,0.12)',
+      title: 'Agent-ready',
+      badge: 'NEZAM native',
+      desc: 'Export your design to DESIGN.md, lock wireframes, and activate NEZAM agents in one click.',
     },
   ]
 
@@ -196,31 +216,39 @@ function WelcomeStep({ onNext, onSkip }: { onNext(): void; onSkip(): void }) {
           style={{ background: 'rgba(38,128,235,0.15)', color: '#60a5fa', border: '1px solid rgba(38,128,235,0.25)' }}
         >
           <Sparkles size={11} />
-          Your complete design workspace
+          Your complete design-to-code workspace
         </div>
-        <h1 className="text-[28px] font-bold text-white tracking-tight leading-tight">
-          Build beautiful products,<br />faster than ever.
+        <h1 className="text-[30px] font-bold text-white tracking-tight leading-tight">
+          From idea to production,<br />
+          <span style={{ background: 'linear-gradient(90deg, #60a5fa 0%, #a78bfa 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            without leaving your terminal.
+          </span>
         </h1>
-        <p className="text-sm text-white/50 max-w-sm mx-auto leading-relaxed">
-          Design Hub gives you a visual architecture planner, a live design token editor,
-          and pixel-perfect page previews — all in one tool.
+        <p className="text-sm text-white/50 max-w-md mx-auto leading-relaxed">
+          Design Hub bridges the gap between design intent and code reality.
+          Set your architecture, define your tokens, and hand off to NEZAM agents with one export.
         </p>
       </div>
 
-      {/* Feature grid */}
-      <div className="grid grid-cols-2 gap-3">
-        {FEATURES.map(({ icon: Icon, color, bg, title, desc }) => (
+      {/* Feature grid — 3 cols */}
+      <div className="grid grid-cols-3 gap-2.5">
+        {FEATURES.map(({ icon: Icon, color, bg, title, badge, desc }) => (
           <div
             key={title}
-            className="flex items-start gap-3 rounded-xl p-4"
+            className="flex flex-col gap-2.5 rounded-xl p-4"
             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
           >
-            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: bg }}>
-              <Icon size={15} style={{ color }} />
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: bg }}>
+                <Icon size={15} style={{ color }} />
+              </div>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: bg, color }}>
+                {badge}
+              </span>
             </div>
             <div>
-              <p className="text-[12px] font-semibold text-white/90">{title}</p>
-              <p className="text-[11px] text-white/40 leading-relaxed mt-0.5">{desc}</p>
+              <p className="text-[12px] font-semibold text-white/90 mb-0.5">{title}</p>
+              <p className="text-[10px] text-white/38 leading-relaxed">{desc}</p>
             </div>
           </div>
         ))}
@@ -239,7 +267,7 @@ function WelcomeStep({ onNext, onSkip }: { onNext(): void; onSkip(): void }) {
           className="flex items-center gap-2 px-6 py-2.5 rounded-full text-[13px] font-semibold text-white transition-all duration-150 hover:scale-[1.02] active:scale-[0.98]"
           style={{ background: 'linear-gradient(135deg, #2680eb 0%, #7c3aed 100%)', boxShadow: '0 0 24px rgba(38,128,235,0.35)' }}
         >
-          Get started
+          Set up my workspace
           <ArrowRight size={14} />
         </button>
       </div>

@@ -9,13 +9,19 @@ import type { DesignTokens, TokenCategory, DesignProfileId } from '@/types/desig
 import type { ComponentGroup } from '@/data/components-library'
 import { ARCH_PROFILES_MAP } from '@/data/arch-profiles'
 import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
+import { hexToHsl, hslToHex } from '@/components/theming/color-utils'
+
+// ─── Version ─────────────────────────────────────────────────────────────────
+
+/** Single source of truth for the hub version badge. */
+export const HUB_VERSION = 'v7'
 
 // ─── Hub section ─────────────────────────────────────────────────────────────
 
 export type HubSection = 'architecture' | 'design' | 'preview'
 
 /** Sub-tabs nested under the Design System section. */
-export type DesignSubTab = 'tokens' | 'components' | 'theming'
+export type DesignSubTab = 'tokens' | 'components' | 'sections' | 'theming'
 
 /** CSS variable snapshot applied to the live Preview from the Theme editor. */
 export interface ThemePreviewOverride {
@@ -139,6 +145,26 @@ interface HubStore {
   onboardingSetStep(step: number): void
   onboardingComplete(): void
   onboardingReset(): void
+
+  // ── Undo/Redo ──
+  archPast: Record<string, ArchPage>[]
+  archFuture: Record<string, ArchPage>[]
+  archUndo(): void
+  archRedo(): void
+
+  // ── Hub UI Theme ──
+  hubTheme: 'light' | 'dark'
+  setHubTheme(theme: 'light' | 'dark'): void
+
+  // ── Export modal ──
+  exportModalOpen: boolean
+  setExportModalOpen(open: boolean): void
+
+  // ── Sections filter ──
+  sectionsCategory: string | null
+  sectionsQuery: string
+  setSectionsCategory(cat: string | null): void
+  setSectionsQuery(q: string): void
 }
 
 // ─── Helper: derive next order among siblings ──────────────────────────────
@@ -162,6 +188,42 @@ function collectDescendants(pages: Record<string, ArchPage>, id: string): string
   return result
 }
 
+// ─── Undo/Redo & Theming-Token Bridge Helpers ───────────────────────────────
+
+function recordHistory(state: any) {
+  state.archPast.push(JSON.parse(JSON.stringify(state.arch.pages)))
+  state.archFuture = []
+  if (state.archPast.length > 50) {
+    state.archPast.shift()
+  }
+}
+
+function generateScaleFromHex(hex: string): any {
+  const hsl = hexToHsl(hex)
+  if (!hsl) {
+    return {
+      '50': hex, '100': hex, '200': hex, '300': hex, '400': hex,
+      '500': hex, '600': hex, '700': hex, '800': hex, '950': hex,
+    }
+  }
+
+  const make = (l: number) => hslToHex({ h: hsl.h, s: hsl.s, l: Math.max(0, Math.min(1, l)) })
+
+  return {
+    '50':  make(0.97),
+    '100': make(0.92),
+    '200': make(0.84),
+    '300': make(0.74),
+    '400': make(0.62),
+    '500': hex,
+    '600': make(hsl.l * 0.85),
+    '700': make(hsl.l * 0.70),
+    '800': make(hsl.l * 0.55),
+    '900': make(hsl.l * 0.40),
+    '950': make(hsl.l * 0.25),
+  }
+}
+
 // ─── Store definition ─────────────────────────────────────────────────────────
 
 export const useHub = create<HubStore>()(
@@ -169,6 +231,12 @@ export const useHub = create<HubStore>()(
     immer((set) => ({
       section: 'architecture' as HubSection,
       visitedSections: ['architecture'] as HubSection[],
+      hubTheme: 'dark' as 'light' | 'dark',
+      archPast: [] as Record<string, ArchPage>[],
+      archFuture: [] as Record<string, ArchPage>[],
+      exportModalOpen: false,
+      sectionsCategory: null as string | null,
+      sectionsQuery: '',
 
       onboarding: {
         completed: false,
@@ -216,6 +284,7 @@ export const useHub = create<HubStore>()(
       // ── Architecture ─────────────────────────────────────────────────────────
       archAddPage: (parentId) =>
         set((state) => {
+          recordHistory(state)
           const id = uid('pg')
           const order = nextOrder(state.arch.pages, parentId)
           state.arch.pages[id] = {
@@ -234,15 +303,25 @@ export const useHub = create<HubStore>()(
 
       archDeletePage: (id) =>
         set((state) => {
+          recordHistory(state)
+          const parentId = state.arch.pages[id]?.parentId ?? null
           const toDelete = collectDescendants(state.arch.pages, id)
           toDelete.forEach((pid) => delete state.arch.pages[pid])
           if (state.arch.selectedPageId && toDelete.includes(state.arch.selectedPageId)) {
             state.arch.selectedPageId = null
           }
+          // Re-index sibling orders
+          const siblings = Object.values(state.arch.pages)
+            .filter((p) => p.parentId === parentId)
+            .sort((a, b) => a.order - b.order)
+          siblings.forEach((p, idx) => {
+            p.order = idx
+          })
         }),
 
       archUpdatePage: (id, patch) =>
         set((state) => {
+          recordHistory(state)
           if (state.arch.pages[id]) {
             Object.assign(state.arch.pages[id], patch)
           }
@@ -255,6 +334,7 @@ export const useHub = create<HubStore>()(
 
       archApplyProfile: (profileId) =>
         set((state) => {
+          recordHistory(state)
           const profile = ARCH_PROFILES_MAP[profileId]
           if (!profile) return
           state.arch.pages = {}
@@ -267,6 +347,7 @@ export const useHub = create<HubStore>()(
 
       archAppendPages: (pages, parentId = null) =>
         set((state) => {
+          recordHistory(state)
           let base = nextOrder(state.arch.pages, parentId)
           pages.forEach((pg, i) => {
             const id = uid('pg')
@@ -282,6 +363,33 @@ export const useHub = create<HubStore>()(
               description: '',
             }
           })
+        }),
+
+      // ── Undo/Redo actions ──
+      archUndo: () =>
+        set((state) => {
+          if (state.archPast.length === 0) return
+          const current = JSON.parse(JSON.stringify(state.arch.pages))
+          const prev = state.archPast.pop()!
+          state.archFuture.push(current)
+          state.arch.pages = prev
+          state.arch.selectedPageId = null
+        }),
+
+      archRedo: () =>
+        set((state) => {
+          if (state.archFuture.length === 0) return
+          const current = JSON.parse(JSON.stringify(state.arch.pages))
+          const next = state.archFuture.pop()!
+          state.archPast.push(current)
+          state.arch.pages = next
+          state.arch.selectedPageId = null
+        }),
+
+      // ── Hub UI Theme actions ──
+      setHubTheme: (theme) =>
+        set((state) => {
+          state.hubTheme = theme
         }),
 
       // ── Design ───────────────────────────────────────────────────────────────
@@ -318,6 +426,39 @@ export const useHub = create<HubStore>()(
       themeApplyToPreview: (override) =>
         set((state) => {
           state.theme.previewOverride = override
+
+          // BRIDGE: map HSL theme preset properties back to Design Tokens colors!
+          const mode = override.mode
+          const vars = override[mode]
+          if (vars) {
+            const colors = state.design.tokens.colors
+            colors.mode = mode
+
+            if (vars.background) {
+              colors.surface.bg = vars.background
+            }
+            if (vars.foreground) {
+              colors.text.primary = vars.foreground
+            }
+            if (vars.primary) {
+              colors.brand = generateScaleFromHex(vars.primary)
+            }
+            if (vars.accent) {
+              colors.accent = generateScaleFromHex(vars.accent)
+            }
+            if (vars.card) {
+              colors.surface.panel = vars.card
+            }
+            if (vars.border) {
+              colors.surface.border = vars.border
+            }
+            if (vars.muted) {
+              colors.text.muted = vars.muted
+            }
+            if (vars['accent-foreground']) {
+              colors.text.secondary = vars['accent-foreground']
+            }
+          }
         }),
 
       themeClearPreview: () =>
@@ -327,7 +468,7 @@ export const useHub = create<HubStore>()(
 
       themeSaveProfile: (name, override) =>
         set((state) => {
-          const id = `profile-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
+          const id = uid('profile')
           state.theme.savedProfiles.push({ id, name, override, createdAt: Date.now() })
         }),
 
@@ -374,6 +515,23 @@ export const useHub = create<HubStore>()(
           state.onboarding.completed = false
           state.onboarding.step = 0
         }),
+
+      // ── Export modal ─────────────────────────────────────────────────────────
+      setExportModalOpen: (open) =>
+        set((state) => {
+          state.exportModalOpen = open
+        }),
+
+      // ── Sections ─────────────────────────────────────────────────────────────
+      setSectionsCategory: (cat) =>
+        set((state) => {
+          state.sectionsCategory = cat
+        }),
+
+      setSectionsQuery: (q) =>
+        set((state) => {
+          state.sectionsQuery = q
+        }),
     })),
     {
       name: 'nezam-design-hub-v7',
@@ -385,7 +543,8 @@ export const useHub = create<HubStore>()(
         preview: s.preview,
         onboarding: s.onboarding,
         visitedSections: s.visitedSections,
-        // comp state is intentionally not persisted (ephemeral UI state)
+        hubTheme: s.hubTheme,
+        // comp state & past/future stacks are intentionally not persisted
       }),
     },
   ),

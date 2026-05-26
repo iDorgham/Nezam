@@ -11,9 +11,19 @@ interface Props {
   page: ArchPage
   allPages: Record<string, ArchPage>
   depth: number
+  searchQuery?: string
 }
 
-export function PageTreeItem({ page, allPages, depth }: Props) {
+function matchesSearch(page: ArchPage, pages: Record<string, ArchPage>, query: string): boolean {
+  const q = query.toLowerCase()
+  if (page.name.toLowerCase().includes(q) || page.route.toLowerCase().includes(q)) {
+    return true
+  }
+  const children = Object.values(pages).filter((p) => p.parentId === page.id)
+  return children.some((child) => matchesSearch(child, pages, query))
+}
+
+export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props) {
   const selectedId     = useHub((s) => s.arch.selectedPageId)
   const archSelectPage = useHub((s) => s.archSelectPage)
   const archAddPage    = useHub((s) => s.archAddPage)
@@ -24,6 +34,10 @@ export function PageTreeItem({ page, allPages, depth }: Props) {
 
   const children = Object.values(allPages)
     .filter((p) => p.parentId === page.id)
+    .filter((p) => {
+      if (!searchQuery) return true
+      return matchesSearch(p, allPages, searchQuery)
+    })
     .sort((a, b) => a.order - b.order)
 
   const hasChildren = children.length > 0
@@ -108,7 +122,7 @@ export function PageTreeItem({ page, allPages, depth }: Props) {
       {hasChildren && expanded && (
         <div>
           {children.map((child) => (
-            <PageTreeItem key={child.id} page={child} allPages={allPages} depth={depth + 1} />
+            <PageTreeItem key={child.id} page={child} allPages={allPages} depth={depth + 1} searchQuery={searchQuery} />
           ))}
         </div>
       )}

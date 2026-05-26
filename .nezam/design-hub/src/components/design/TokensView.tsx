@@ -15,6 +15,7 @@ import { FontEditor }        from './editors/FontEditor'
 import { InteractionEditor } from './editors/InteractionEditor'
 import { UtilityEditor }     from './editors/UtilityEditor'
 import { ComponentStrip }    from './ComponentStrip'
+import { ExportPanel }       from './ExportPanel'
 
 /** Original token-editor experience — now the "Tokens" sub-tab. */
 export function TokensView() {
@@ -40,6 +41,8 @@ export function TokensView() {
           {category === 'interaction' && <InteractionEditor />}
           {category === 'utility'     && <UtilityEditor />}
         </div>
+        {/* Export panel anchored below the token editor */}
+        <ExportPanel />
       </main>
 
       {showStrip && <ComponentStrip />}

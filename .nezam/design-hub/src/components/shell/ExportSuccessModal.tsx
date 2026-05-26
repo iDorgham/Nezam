@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   X, CheckCircle2, ArrowRight, Terminal, FileCode2,
-  Layers, Sparkles, Copy, ExternalLink,
+  Layers, Sparkles, Copy, ExternalLink, Download,
 } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { cn } from '@/lib/utils'
+import { buildCssVars, buildTokensJson, buildTailwindConfig } from '@/components/design/ExportPanel'
 
 // ─── NEZAM next-step commands ─────────────────────────────────────────────────
 
@@ -65,6 +66,25 @@ export function ExportSuccessModal() {
   const setOpen = useHub((s) => s.setExportModalOpen)
   const overlayRef = useRef<HTMLDivElement>(null)
 
+  const tokens = useHub((s) => s.design.tokens)
+  const arch = useHub((s) => s.arch)
+  const [format, setFormat] = useState<'css' | 'json' | 'tailwind'>('css')
+  const [copied, setCopied] = useState(false)
+
+  const content =
+    format === 'css'      ? buildCssVars(tokens)
+    : format === 'json'   ? buildTokensJson(tokens)
+    : buildTailwindConfig(tokens)
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(content)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const pageCount = Object.keys(arch.pages).length
+  const colorsCount = Object.keys(tokens.colors.brand).length * 3
+
   // Close on backdrop click
   function handleBackdrop(e: React.MouseEvent) {
     if (e.target === overlayRef.current) setOpen(false)
@@ -110,19 +130,60 @@ export function ExportSuccessModal() {
         </button>
 
         {/* Header */}
-        <div className="px-8 pt-8 pb-6 flex flex-col items-center gap-3 text-center">
+        <div className="px-8 pt-8 pb-5 flex flex-col items-center gap-3 text-center">
           <div
             className="flex h-12 w-12 items-center justify-center rounded-2xl"
-            style={{ background: 'linear-gradient(135deg, #22c55e22 0%, #16a34a22 100%)', border: '1px solid rgba(34,197,94,0.2)' }}
+            style={{ background: 'linear-gradient(135deg, #0065ff22 0%, #0052cc22 100%)', border: '1px solid rgba(0,101,255,0.2)' }}
           >
-            <CheckCircle2 size={22} className="text-green-400" />
+            <CheckCircle2 size={22} className="text-blue-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white tracking-tight">Design exported! 🎉</h2>
+            <h2 className="text-xl font-bold text-white tracking-tight">Export Design & Architecture</h2>
             <p className="text-sm text-white/45 mt-1 leading-relaxed">
-              Your tokens and architecture are ready. Here's what to do next.
+              Copy your styling tokens and sitemap configuration code formats below.
             </p>
           </div>
+        </div>
+
+        {/* Quick Format & Copy Card */}
+        <div className="mx-8 mb-6 p-4 rounded-xl flex flex-col gap-3.5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+          {/* Format Tabs & Metrics */}
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex gap-0.5 rounded-lg border border-white/10 p-0.5 bg-black/20 w-44">
+              {(['css','json','tailwind'] as const).map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFormat(f)}
+                  className={cn(
+                    'flex-1 h-5 rounded text-[10px] font-semibold transition-all duration-100',
+                    format === f ? 'bg-white/10 text-white border border-white/10 shadow-sm' : 'text-white/40 hover:text-white/70'
+                  )}
+                >
+                  {f === 'css' ? 'CSS' : f === 'json' ? 'JSON' : 'TW'}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex gap-3 text-[10px] font-mono text-white/45 select-none">
+              <span>{pageCount} pages</span>
+              <span>•</span>
+              <span>{colorsCount} colors</span>
+            </div>
+          </div>
+
+          {/* Copy Action button */}
+          <button
+            onClick={handleCopy}
+            className={cn(
+              'w-full h-8 rounded-lg text-xs font-semibold transition-all duration-150 active:scale-[0.99] border flex items-center justify-center gap-1.5',
+              copied
+                ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                : 'bg-app-accent text-white border-transparent hover:bg-app-accent-hover'
+            )}
+          >
+            <Copy size={11} />
+            {copied ? '✓ Export Copied to Clipboard!' : `Copy ${format.toUpperCase()} Tokens`}
+          </button>
         </div>
 
         {/* Divider */}

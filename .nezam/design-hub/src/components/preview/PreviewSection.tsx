@@ -1,12 +1,24 @@
 'use client'
 
-import { Eye, Layers, FileText, ChevronRight, ChevronDown } from 'lucide-react'
-import { useState } from 'react'
-import { useHub } from '@/store/hub.store'
+import { Eye, Layers, FileText, ChevronRight, ChevronDown, Search, MessageSquare, Plus, Trash, Sparkles } from 'lucide-react'
+import { useState, useMemo } from 'react'
+import { useHub, type CommentPin } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { BrowserPreview } from './BrowserPreview'
 import { cn } from '@/lib/utils'
+import { useSidebarResize } from '@/lib/useSidebarResize'
 import type { ArchPage } from '@/types/arch'
+import dynamic from 'next/dynamic'
+import { PreviewSubTabs } from './PreviewSubTabs'
+
+const ComponentsSection = dynamic(
+  () => import('@/components/comp/ComponentsSection').then(m => ({ default: m.ComponentsSection })),
+  { ssr: false },
+)
+const SectionsSection = dynamic(
+  () => import('@/components/design/SectionsSection').then(m => ({ default: m.SectionsSection })),
+  { ssr: false },
+)
 
 // ─── Template detection (mirrors DeviceFrame logic, lightweight) ───────────────
 
@@ -121,8 +133,27 @@ function PageRow({
   isSelected: boolean
   onSelect: () => void
 }) {
+  const isGroup = page.type === 'group'
   const template = detectTemplate(page)
   const info = TEMPLATE_INFO[template]
+
+  if (isGroup) {
+    return (
+      <div
+        className="relative flex w-full items-center gap-2 h-7 pr-2 text-[10px] text-app-subtle font-semibold uppercase tracking-wider select-none mb-0.5 mt-2"
+        style={{ paddingLeft: `${10 + depth * 14}px` }}
+      >
+        {depth > 0 && (
+          <span
+            className="absolute left-0 top-0 bottom-0 pointer-events-none"
+            style={{ left: `${(depth - 1) * 14 + 14}px`, width: '1px', background: 'var(--app-border)', opacity: 0.5 }}
+          />
+        )}
+        <IconRenderer name="FolderOpen" size={10} className="shrink-0 text-app-accent opacity-80" />
+        <span className="truncate flex-1 text-left leading-none">{page.name}</span>
+      </div>
+    )
+  }
 
   return (
     <button
@@ -189,6 +220,8 @@ function flattenPages(pages: Record<string, ArchPage>): FlatPage[] {
   return result
 }
 
+const EMPTY_COMMENTS: CommentPin[] = []
+
 // ─── Left panel: Pages + Layers (Figma-style) ─────────────────────────────────
 
 function PagesLayersPanel({
@@ -200,132 +233,239 @@ function PagesLayersPanel({
   selectedPageId: string | null
   onSelectPage: (id: string) => void
 }) {
-  const [layersOpen, setLayersOpen] = useState(true)
+  const { width, startResize } = useSidebarResize()
+  const [activeTab, setActiveTab] = useState<'pages' | 'comments'>('pages')
+  const [search, setSearch] = useState('')
+  
+  const comments        = useHub((s) => s.preview.comments) || EMPTY_COMMENTS
+  const isAddingComment = useHub((s) => s.preview.isAddingComment)
+  const deleteComment   = useHub((s) => s.previewDeleteComment)
+  const setIsAdding     = useHub((s) => s.previewSetIsAddingComment)
+
   const flat = flattenPages(pages)
   const count = flat.length
 
-  const resolvedSelectedId = (selectedPageId && pages[selectedPageId])
-    ? selectedPageId
-    : flat[0]?.page.id ?? null
+  const filteredFlat = useMemo(() => {
+    if (!search) return flat
+    const q = search.toLowerCase()
+    return flat.filter(({ page }) => page.name.toLowerCase().includes(q) || (page.route ?? '').toLowerCase().includes(q))
+  }, [flat, search])
 
-  const selectedPage = resolvedSelectedId ? pages[resolvedSelectedId] : null
-  const template = selectedPage ? detectTemplate(selectedPage) : null
-  const templateInfo = template ? TEMPLATE_INFO[template] : null
+  const resolvedSelectedId = (selectedPageId && pages[selectedPageId] && pages[selectedPageId].type === 'page')
+    ? selectedPageId
+    : flat.find(({ page }) => page.type === 'page')?.page.id ?? null
+
+  const pageComments = useMemo(() => {
+    return comments.filter((c) => c.pageId === resolvedSelectedId)
+  }, [comments, resolvedSelectedId])
+
+  const filteredComments = useMemo(() => {
+    const q = search.toLowerCase()
+    if (!q) return pageComments
+    return pageComments.filter((c) => c.text.toLowerCase().includes(q) || c.author.toLowerCase().includes(q))
+  }, [pageComments, search])
 
   return (
-    <aside className="flex w-56 shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden">
+    <aside 
+      style={{ width }}
+      className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
+    >
 
-      {/* ── PAGES header ── */}
-      <div className="flex items-center gap-2 px-3 py-2 border-b border-app-border shrink-0">
-        <FileText size={11} className="text-app-subtle shrink-0" />
-        <span className="text-[11px] font-semibold text-app-text uppercase tracking-wider flex-1">Pages</span>
-        <span className="text-[10px] font-mono text-app-subtle bg-app-elevated px-1.5 py-0.5 rounded">
-          {count}
-        </span>
+      {/* Tab bar */}
+      <div className="shrink-0 flex items-center gap-0.5 px-2 py-1.5 border-b border-app-border bg-app-bg">
+        <PanelTabBtn
+          label="Pages"
+          Icon={FileText}
+          active={activeTab === 'pages'}
+          onClick={() => {
+            setActiveTab('pages')
+            setSearch('')
+          }}
+        />
+        <PanelTabBtn
+          label="Comments"
+          Icon={MessageSquare}
+          active={activeTab === 'comments'}
+          onClick={() => {
+            setActiveTab('comments')
+            setSearch('')
+          }}
+        />
+      </div>
+
+      {/* Search Input */}
+      <div className="px-2 pb-2 pt-1 border-b border-app-border shrink-0">
+        <div className="relative flex items-center h-7 bg-app-elevated border border-app-border rounded px-2">
+          <Search size={11} className="text-app-subtle mr-1.5 shrink-0" />
+          <input
+            type="text"
+            placeholder={activeTab === 'pages' ? "Search preview pages..." : "Search comments..."}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full bg-transparent text-[11px] text-app-text outline-none placeholder:text-app-subtle"
+          />
+        </div>
       </div>
 
       {/* ── Pages list ── */}
-      <div
-        className="overflow-y-auto app-scroll py-1 shrink-0"
-        style={{ maxHeight: layersOpen ? '50%' : 'calc(100% - 88px)' }}
-      >
-        {flat.length === 0 ? (
-          <div className="px-3 py-4 text-center">
-            <p className="text-[11px] text-app-subtle">No pages yet.</p>
-            <p className="text-[10px] text-app-subtle mt-0.5 opacity-70">Add pages in Architecture.</p>
-          </div>
-        ) : (
-          flat.map(({ page, depth }) => (
-            <PageRow
-              key={page.id}
-              page={page}
-              depth={depth}
-              isSelected={resolvedSelectedId === page.id}
-              onSelect={() => onSelectPage(page.id)}
-            />
-          ))
-        )}
-      </div>
-
-      {/* ── LAYERS header ── */}
-      <button
-        onClick={() => setLayersOpen((v) => !v)}
-        className="flex items-center gap-2 px-3 py-2 border-t border-b border-app-border shrink-0 hover:bg-app-elevated/30 transition-colors"
-      >
-        <Layers size={11} className="text-app-subtle shrink-0" />
-        <span className="text-[11px] font-semibold text-app-text uppercase tracking-wider flex-1 text-left">Layers</span>
-        {templateInfo && (
-          <span
-            className="text-[9px] font-medium px-1.5 py-0.5 rounded"
-            style={{
-              backgroundColor: templateInfo.color + '22',
-              color: templateInfo.color,
-            }}
-          >
-            {templateInfo.label}
-          </span>
-        )}
-        {layersOpen
-          ? <ChevronDown size={10} className="text-app-subtle shrink-0" />
-          : <ChevronRight size={10} className="text-app-subtle shrink-0" />
-        }
-      </button>
-
-      {/* ── Layers list ── */}
-      {layersOpen && (
+      {activeTab === 'pages' && (
         <div className="flex-1 overflow-y-auto app-scroll py-1">
-          {templateInfo ? (
-            templateInfo.layers.map((layer, i) => (
-              <LayerRow key={i} label={layer} depth={0} />
-            ))
-          ) : (
-            <div className="px-3 py-3 text-center">
-              <p className="text-[10px] text-app-subtle">Select a page to see layers.</p>
+          {filteredFlat.length === 0 ? (
+            <div className="px-3 py-4 text-center">
+              <p className="text-[11px] text-app-subtle">No pages found.</p>
             </div>
+          ) : (
+            filteredFlat.map(({ page, depth }) => (
+              <PageRow
+                key={page.id}
+                page={page}
+                depth={depth}
+                isSelected={resolvedSelectedId === page.id}
+                onSelect={() => onSelectPage(page.id)}
+              />
+            ))
           )}
         </div>
       )}
 
+      {/* ── Comments panel ── */}
+      {activeTab === 'comments' && (
+        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+          {/* Add pin toggle */}
+          <div className="p-2 border-b border-app-border shrink-0 bg-app-surface/50">
+            <button
+              onClick={() => setIsAdding(!isAddingComment)}
+              className={cn(
+                'w-full flex items-center justify-center gap-1.5 h-7 rounded-app-sm text-[11px] font-semibold transition-all duration-100',
+                isAddingComment
+                  ? 'bg-amber-500 text-black hover:bg-amber-400'
+                  : 'bg-app-accent text-white hover:bg-app-accent-hover active:scale-[0.98]'
+              )}
+            >
+              <Plus size={12} />
+              {isAddingComment ? 'Click canvas to drop pin...' : 'Add Pin Comment'}
+            </button>
+          </div>
+
+          {/* List of comments */}
+          <div className="flex-1 overflow-y-auto app-scroll p-2.5 flex flex-col gap-2 min-h-0">
+            {filteredComments.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-10 px-3 text-center gap-2 animate-in fade-in duration-200">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-app-accent/8 border border-app-accent/15 opacity-50">
+                  <MessageSquare size={16} className="text-app-accent" />
+                </div>
+                <p className="text-[11px] text-app-subtle font-semibold">No comments yet</p>
+                <p className="text-[10px] text-app-subtle leading-relaxed opacity-80 max-w-[180px]">
+                  Click "Add Pin Comment" and click anywhere on the viewport to leave feedback.
+                </p>
+              </div>
+            ) : (
+              filteredComments.map((comment) => (
+                <div
+                  key={comment.id}
+                  className="group/comment p-2.5 rounded-app-sm border border-app-border bg-app-elevated/40 hover:bg-app-elevated/80 transition-colors flex flex-col gap-1.5 relative select-text animate-in fade-in duration-150"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-app-accent text-white text-[10px] font-bold">
+                      {pageComments.indexOf(comment) + 1}
+                    </span>
+                    <span className="text-[11px] font-bold text-app-text truncate">{comment.author}</span>
+                    <span className="text-[9px] text-app-subtle ml-auto font-mono shrink-0">
+                      {new Date(comment.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                  <p className="text-[10.5px] text-app-muted leading-relaxed whitespace-pre-wrap">{comment.text}</p>
+                  
+                  <button
+                    onClick={() => deleteComment(comment.id)}
+                    className="absolute top-2.5 right-2 h-5 w-5 rounded items-center justify-center hidden group-hover/comment:flex hover:bg-red-500/15 text-app-subtle hover:text-red-400 transition-colors"
+                    title="Delete comment"
+                  >
+                    <Trash size={10} />
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Resizer Handle */}
+      <div
+        onMouseDown={startResize}
+        className="absolute top-0 right-0 w-1.5 h-full cursor-col-resize hover:bg-app-accent/30 active:bg-app-accent transition-colors z-50 select-none"
+      />
     </aside>
   )
 }
-
-// ─── Main component ────────────────────────────────────────────────────────────
 
 export function PreviewSection() {
   const pages          = useHub((s) => s.arch.pages)
   const selectedPageId = useHub((s) => s.preview.selectedPageId)
   const selectPage     = useHub((s) => s.previewSelectPage)
+  const subTab         = useHub((s) => s.preview.subTab)
 
   const sortedPages = Object.values(pages).sort((a, b) => a.order - b.order)
-  const selectedPage = (selectedPageId && pages[selectedPageId])
+  const selectedPage = (selectedPageId && pages[selectedPageId] && pages[selectedPageId].type === 'page')
     ? pages[selectedPageId]
-    : sortedPages[0] ?? null
+    : sortedPages.find((p) => p.type === 'page') ?? null
 
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
+      {/* Left panel: Pages + Layers (only shown in preview/pages subtab) */}
+      {subTab === 'preview' && (
+        <PagesLayersPanel
+          pages={pages}
+          selectedPageId={selectedPageId}
+          onSelectPage={selectPage}
+        />
+      )}
 
-      {/* Left panel: Pages + Layers */}
-      <PagesLayersPanel
-        pages={pages}
-        selectedPageId={selectedPageId}
-        onSelectPage={selectPage}
-      />
-
-      {/* Main: browser-window preview (chrome + viewport at 100%) */}
-      <div className="flex min-w-0 flex-1 overflow-hidden">
-        {selectedPage ? (
-          <BrowserPreview page={selectedPage} />
-        ) : (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-            <Eye size={40} className="text-app-border" />
-            <p className="text-sm font-medium text-app-text">Select a page to preview</p>
-            <p className="text-xs text-app-subtle">
-              Add pages in the Architecture section first.
-            </p>
-          </div>
-        )}
-      </div>
+      {/* Main panel with persistent PreviewSubTabs at the top and subtab content below */}
+      <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <div className="flex-1 overflow-hidden flex flex-col">
+          {subTab === 'preview' && (
+            <>
+              <PreviewSubTabs />
+              {selectedPage ? (
+                <BrowserPreview page={selectedPage} />
+              ) : (
+                <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center h-full">
+                  <Eye size={40} className="text-app-border" />
+                  <p className="text-sm font-medium text-app-text">Select a page to preview</p>
+                  <p className="text-xs text-app-subtle">
+                    Add pages in the Architecture section first.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+          {subTab === 'components' && <ComponentsSection />}
+          {subTab === 'sections'   && <SectionsSection />}
+        </div>
+      </main>
     </div>
+  )
+}
+
+function PanelTabBtn({ label, Icon, active, onClick }: {
+  label: string
+  Icon: React.FC<{ size?: number; className?: string }>
+  active: boolean
+  onClick: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        'flex-1 flex items-center justify-center gap-1 h-7 rounded-app-sm text-[11px] font-medium transition-colors duration-100',
+        active
+          ? 'bg-app-surface text-app-text border border-app-border'
+          : 'text-app-subtle hover:text-app-muted hover:bg-app-elevated/40',
+      )}
+    >
+      <Icon size={11} className={active ? 'text-app-accent' : ''} />
+      {label}
+    </button>
   )
 }

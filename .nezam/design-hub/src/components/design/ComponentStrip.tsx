@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback, useRef } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import type { DesignTokens } from '@/types/design'
@@ -70,21 +70,51 @@ export function ComponentStrip() {
   const tokens = useHub((s) => s.design.tokens)
   const [dark, setDark] = useState(tokens.colors.mode === 'dark')
   const vars = useMemo(() => buildVars(tokens, dark), [tokens, dark])
+  const [panelWidth, setPanelWidth] = useState(420)
+  const dragRef = useRef<{ startX: number; startW: number } | null>(null)
 
   const bg     = dark ? DARK['--p-bg']!    : tokens.colors.surface.bg
   const panel  = dark ? DARK['--p-panel']! : tokens.colors.surface.panel
   const border = dark ? DARK['--p-border']!: tokens.colors.surface.border
 
+  const startDrag = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    dragRef.current = { startX: e.clientX, startW: panelWidth }
+    const onMove = (ev: MouseEvent) => {
+      if (!dragRef.current) return
+      const delta = dragRef.current.startX - ev.clientX // drag left = wider
+      const next = Math.min(800, Math.max(280, dragRef.current.startW + delta))
+      setPanelWidth(next)
+    }
+    const onUp = () => {
+      dragRef.current = null
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }, [panelWidth])
+
   return (
     <aside
-      className="w-80 shrink-0 flex flex-col overflow-hidden"
       style={{
+        width: `${panelWidth}px`,
+        minWidth: '280px',
+        maxWidth: '800px',
         ...vars,
         borderLeft: `1px solid ${border}`,
         backgroundColor: bg,
         fontFamily: tokens.typography.sans,
+        position: 'relative',
       }}
+      className="shrink-0 flex flex-col overflow-hidden"
     >
+      {/* ── Drag resize handle (left edge) ──── */}
+      <div
+        onMouseDown={startDrag}
+        className="absolute left-0 top-0 w-1.5 h-full cursor-col-resize hover:bg-app-accent/30 active:bg-app-accent z-50 transition-colors"
+        title="Drag to resize component preview"
+      />
       {/* ── Sticky header ─────────────────────────────────────── */}
       <div
         className="sticky top-0 z-10 flex shrink-0 items-center gap-3 px-4 py-2.5"

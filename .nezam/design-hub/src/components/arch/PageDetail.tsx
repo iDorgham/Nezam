@@ -12,6 +12,19 @@ interface Props {
   onClose: () => void
 }
 
+function getDescendantIds(pages: Record<string, ArchPage>, id: string): string[] {
+  const result: string[] = []
+  const stack = [id]
+  while (stack.length > 0) {
+    const cur = stack.pop()!
+    result.push(cur)
+    Object.values(pages)
+      .filter((p) => p.parentId === cur)
+      .forEach((p) => stack.push(p.id))
+  }
+  return result
+}
+
 export function PageDetail({ onClose }: Props) {
   const selectedId     = useHub((s) => s.arch.selectedPageId)
   const pages          = useHub((s) => s.arch.pages)
@@ -21,7 +34,15 @@ export function PageDetail({ onClose }: Props) {
   const page = selectedId ? pages[selectedId] : null
   if (!page) return null
 
-  const parentPage = page.parentId ? pages[page.parentId] : null
+  const descendants = getDescendantIds(pages, page.id)
+  const possibleParents = Object.values(pages).filter((p) => !descendants.includes(p.id))
+  const parentOptions = [
+    { value: 'none', label: 'None (Root Page)' },
+    ...possibleParents.map((p) => ({
+      value: p.id,
+      label: `${p.name} (${p.route})`,
+    })),
+  ]
 
   function update(patch: Parameters<typeof archUpdatePage>[1]) {
     if (selectedId) archUpdatePage(selectedId, patch)
@@ -84,17 +105,16 @@ export function PageDetail({ onClose }: Props) {
           className="font-mono"
         />
 
-        {/* Parent */}
-        {parentPage && (
-          <div>
-            <p className="text-[11px] text-app-muted font-medium uppercase tracking-wide mb-1">Parent</p>
-            <div className="flex items-center gap-1.5 h-7 px-2.5 rounded-app-sm bg-app-inset border border-app-border text-xs text-app-muted">
-              <IconRenderer name={parentPage.icon} size={12} />
-              <span>{parentPage.name}</span>
-              <span className="ml-1 font-mono text-[10px]">{parentPage.route}</span>
-            </div>
-          </div>
-        )}
+        {/* Parent Selector */}
+        <Select
+          label="Parent Page"
+          value={page.parentId ?? 'none'}
+          onChange={(e) => {
+            const val = e.target.value
+            update({ parentId: val === 'none' ? null : val })
+          }}
+          options={parentOptions}
+        />
 
         {/* Type */}
         <Select

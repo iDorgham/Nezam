@@ -18,10 +18,12 @@ export const HUB_VERSION = 'v7'
 
 // ─── Hub section ─────────────────────────────────────────────────────────────
 
-export type HubSection = 'architecture' | 'design' | 'preview'
+export type HubSection = 'architecture' | 'design' | 'theming' | 'preview'
 
 /** Sub-tabs nested under the Design System section. */
-export type DesignSubTab = 'tokens' | 'components' | 'sections' | 'theming'
+export type DesignSubTab = 'tokens'
+
+export type PreviewSubTab = 'preview' | 'components' | 'sections'
 
 /** CSS variable snapshot applied to the live Preview from the Theme editor. */
 export interface ThemePreviewOverride {
@@ -73,9 +75,22 @@ interface ThemeState {
 
 export type PreviewDevice = 'desktop' | 'tablet' | 'mobile'
 
+export interface CommentPin {
+  id: string
+  pageId: string
+  x: number // percentage
+  y: number // percentage
+  author: string
+  text: string
+  createdAt: number
+}
+
 interface PreviewState {
   selectedPageId: string | null
   device: PreviewDevice
+  comments: CommentPin[]
+  isAddingComment: boolean
+  subTab: PreviewSubTab
 }
 
 // ─── Components state ─────────────────────────────────────────────────────────
@@ -116,7 +131,7 @@ interface HubStore {
   archDeletePage(id: string): void
   archUpdatePage(id: string, patch: Partial<ArchPage>): void
   archSelectPage(id: string | null): void
-  archApplyProfile(profileId: ArchProfileId): void
+  archApplyProfile(profileId: ArchProfileId, selectedPageIds?: string[]): void
   /** Append pages from a template under an optional parent. Returns the new IDs. */
   archAppendPages(pages: Array<{ name: string; route: string; icon?: string }>, parentId?: string | null): void
 
@@ -136,6 +151,10 @@ interface HubStore {
   // ── Preview actions ──
   previewSelectPage(id: string | null): void
   previewSetDevice(device: PreviewDevice): void
+  previewAddComment(pageId: string, x: number, y: number, text: string, author: string): void
+  previewDeleteComment(id: string): void
+  previewSetIsAddingComment(isAdding: boolean): void
+  previewSetSubTab(tab: PreviewSubTab): void
 
   // ── Components actions ──
   compSetGroup(group: ComponentGroup | null): void
@@ -165,6 +184,10 @@ interface HubStore {
   sectionsQuery: string
   setSectionsCategory(cat: string | null): void
   setSectionsQuery(q: string): void
+
+  // ── Resizable Sidebar ──
+  sidebarWidth?: number
+  setSidebarWidth(width: number): void
 }
 
 // ─── Helper: derive next order among siblings ──────────────────────────────
@@ -236,12 +259,12 @@ export const useHub = create<HubStore>()(
       archFuture: [] as Record<string, ArchPage>[],
       exportModalOpen: false,
       sectionsCategory: null as string | null,
+      sidebarWidth: 240,
       sectionsQuery: '',
 
       onboarding: {
         completed: false,
         step: 0,
-      },
       },
 
       arch: {
@@ -266,6 +289,9 @@ export const useHub = create<HubStore>()(
       preview: {
         selectedPageId: null,
         device: 'desktop',
+        comments: [] as CommentPin[],
+        isAddingComment: false,
+        subTab: 'preview' as PreviewSubTab,
       },
 
       comp: {
@@ -279,6 +305,9 @@ export const useHub = create<HubStore>()(
           state.section = s
           if (!state.visitedSections.includes(s)) {
             state.visitedSections.push(s)
+          }
+          if (s === 'preview') {
+            state.preview.subTab = 'preview'
           }
         }),
 
@@ -333,14 +362,16 @@ export const useHub = create<HubStore>()(
           state.arch.selectedPageId = id
         }),
 
-      archApplyProfile: (profileId) =>
+      archApplyProfile: (profileId, selectedPageIds) =>
         set((state) => {
           recordHistory(state)
           const profile = ARCH_PROFILES_MAP[profileId]
           if (!profile) return
           state.arch.pages = {}
           profile.pages.forEach((pg) => {
-            state.arch.pages[pg.id] = { ...pg }
+            if (!selectedPageIds || selectedPageIds.includes(pg.id)) {
+              state.arch.pages[pg.id] = { ...pg }
+            }
           })
           state.arch.activeProfileId = profileId
           state.arch.selectedPageId = null
@@ -489,6 +520,41 @@ export const useHub = create<HubStore>()(
           state.preview.device = device
         }),
 
+      previewAddComment: (pageId, x, y, text, author) =>
+        set((state) => {
+          const id = uid('comment')
+          if (!state.preview.comments) {
+            state.preview.comments = []
+          }
+          state.preview.comments.push({
+            id,
+            pageId,
+            x,
+            y,
+            text,
+            author: author.trim() || 'Anonymous',
+            createdAt: Date.now(),
+          })
+          state.preview.isAddingComment = false
+        }),
+
+      previewDeleteComment: (id) =>
+        set((state) => {
+          if (state.preview.comments) {
+            state.preview.comments = state.preview.comments.filter((c) => c.id !== id)
+          }
+        }),
+
+      previewSetIsAddingComment: (isAdding) =>
+        set((state) => {
+          state.preview.isAddingComment = isAdding
+        }),
+
+      previewSetSubTab: (tab) =>
+        set((state) => {
+          state.preview.subTab = tab
+        }),
+
       // ── Components ───────────────────────────────────────────────────────────
       compSetGroup: (group) =>
         set((state) => {
@@ -533,6 +599,12 @@ export const useHub = create<HubStore>()(
         set((state) => {
           state.sectionsQuery = q
         }),
+
+      // ── Resizable Sidebar ──
+      setSidebarWidth: (width) =>
+        set((state) => {
+          state.sidebarWidth = width
+        }),
     })),
     {
       name: 'nezam-design-hub-v7',
@@ -545,6 +617,7 @@ export const useHub = create<HubStore>()(
         onboarding: s.onboarding,
         visitedSections: s.visitedSections,
         hubTheme: s.hubTheme,
+        sidebarWidth: s.sidebarWidth,
         // comp state & past/future stacks are intentionally not persisted
       }),
     },

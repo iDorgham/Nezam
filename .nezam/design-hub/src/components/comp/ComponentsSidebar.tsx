@@ -2,6 +2,7 @@
 
 import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
+import { useSidebarResize } from '@/lib/useSidebarResize'
 import {
   GROUP_LABELS,
   GROUP_ICONS,
@@ -13,13 +14,17 @@ import {
 const COUNTS = getGroupCounts()
 
 export function ComponentsSidebar() {
+  const { width, startResize } = useSidebarResize()
   const selectedGroup = useHub((s) => s.comp.selectedGroup)
   const query         = useHub((s) => s.comp.query)
   const setGroup      = useHub((s) => s.compSetGroup)
   const setQuery      = useHub((s) => s.compSetQuery)
 
   return (
-    <aside className="flex w-52 shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden">
+    <aside
+      style={{ width }}
+      className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
+    >
       {/* Search */}
       <div className="p-3 border-b border-app-border">
         <input
@@ -86,6 +91,12 @@ export function ComponentsSidebar() {
           {GROUP_ORDER.length} groups
         </p>
       </div>
+
+      {/* Resizer Handle */}
+      <div
+        onMouseDown={startResize}
+        className="absolute top-0 right-0 w-1.5 h-full cursor-col-resize hover:bg-app-accent/30 active:bg-app-accent transition-colors z-50 select-none"
+      />
     </aside>
   )
 }

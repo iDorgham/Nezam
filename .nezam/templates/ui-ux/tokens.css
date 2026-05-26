@@ -8,13 +8,13 @@
 
   /* Color tokens - light */
   --color-bg-canvas: #f7f8fb;
-  --color-bg-surface: #ffffff;
-  --color-bg-elevated: #ffffff;
+  --color-bg-surface: #fbfdff;
+  --color-bg-elevated: #fbfdff;
   --color-text-primary: #111827;
   --color-text-secondary: #4b5563;
   --color-border-muted: #d1d5db;
   --color-accent-primary: #2563eb;
-  --color-accent-primary-contrast: #ffffff;
+  --color-accent-primary-contrast: #fbfdff;
   --color-success: #16a34a;
   --color-warning: #ca8a04;
   --color-danger: #dc2626;

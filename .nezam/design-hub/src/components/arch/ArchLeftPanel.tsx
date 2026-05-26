@@ -9,6 +9,7 @@ import { ArchTemplatesPanel } from './ArchTemplatesPanel'
 import { IconRenderer } from '@/lib/icons'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useSidebarResize } from '@/lib/useSidebarResize'
 import type { ArchPage, ArchProfileId } from '@/types/arch'
 
 type PanelTab = 'pages' | 'profiles' | 'templates'
@@ -251,10 +252,14 @@ function ProfilesPanel() {
 // ─── Root panel with tab switcher ─────────────────────────────────────────────
 
 export function ArchLeftPanel() {
+  const { width, startResize } = useSidebarResize()
   const [activeTab, setActiveTab] = useState<PanelTab>('pages')
 
   return (
-    <aside className="flex w-60 shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden">
+    <aside
+      style={{ width }}
+      className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
+    >
       {/* Tab bar */}
       <div className="shrink-0 flex items-center gap-0.5 px-2 py-1.5 border-b border-app-border bg-app-bg">
         <PanelTabBtn
@@ -283,6 +288,12 @@ export function ArchLeftPanel() {
         {activeTab === 'profiles'  && <ProfilesPanel />}
         {activeTab === 'templates' && <ArchTemplatesPanel />}
       </div>
+
+      {/* Resizer Handle */}
+      <div
+        onMouseDown={startResize}
+        className="absolute top-0 right-0 w-1.5 h-full cursor-col-resize hover:bg-app-accent/30 active:bg-app-accent transition-colors z-50 select-none"
+      />
     </aside>
   )
 }

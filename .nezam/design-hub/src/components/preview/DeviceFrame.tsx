@@ -6,6 +6,32 @@ import type { PreviewDevice } from '@/store/hub.store'
 import type { ArchPage } from '@/types/arch'
 import type { DesignTokens } from '@/types/design'
 
+// ─── Build override CSS vars from a previewOverride record ────────────────────
+// Maps shadcn token names → DeviceFrame CSS var names so the applied theme
+// palette is actually visible in the Preview tab.
+function buildOverrideVars(override: NonNullable<ReturnType<typeof useHub.getState>['theme']['previewOverride']>): React.CSSProperties {
+  const v = override[override.mode]
+  if (!v) return {}
+  return {
+    '--bg-surface':     v.background   ?? undefined,
+    '--panel':          v.card         ?? undefined,
+    '--border':         v.border       ?? undefined,
+    '--text':           v.foreground   ?? undefined,
+    '--text-secondary': v['card-foreground'] ?? v['muted-foreground'] ?? undefined,
+    '--text-muted':     v['muted-foreground'] ?? undefined,
+    '--brand':          v.primary      ?? undefined,
+    '--brand-hover':    v.primary      ?? undefined,  // approximation
+    '--brand-subtle':   v.secondary    ?? undefined,
+    '--brand-deep':     v.primary      ?? undefined,  // approximation
+    '--accent':         v.accent       ?? undefined,
+    '--neutral-100':    v.secondary    ?? undefined,
+    '--neutral-200':    v.muted        ?? undefined,
+    '--error':          v.destructive  ?? undefined,
+    '--radius-md':      v.radius       ?? undefined,
+    '--radius-lg':      v.radius       ?? undefined,
+  } as React.CSSProperties
+}
+
 // ─── Device sizes ─────────────────────────────────────────────────────────────
 
 interface Props { device: PreviewDevice; page: ArchPage }
@@ -1950,12 +1976,18 @@ function NotificationsPage({ isMobile }: { isMobile: boolean }) {
 // ─── Master dispatcher ─────────────────────────────────────────────────────────
 
 export function PageRenderer({ page, tokens, device }: { page: ArchPage; tokens: DesignTokens; device: PreviewDevice }) {
-  const vars = useMemo(() => buildVars(tokens), [tokens])
+  const vars           = useMemo(() => buildVars(tokens), [tokens])
+  const previewOverride = useHub((s) => s.theme.previewOverride)
+  const overrideVars   = useMemo(
+    () => previewOverride ? buildOverrideVars(previewOverride) : {},
+    [previewOverride],
+  )
   const isMobile = device === 'mobile'
   const isTablet  = device === 'tablet'
   const template  = detectTemplate(page)
 
-  const wrapStyle: React.CSSProperties = { ...vars, minHeight: '100%' }
+  // Override vars come LAST so applied theme colors win over token defaults
+  const wrapStyle: React.CSSProperties = { ...vars, ...overrideVars, minHeight: '100%' }
 
   const content = (() => {
     switch (template) {
@@ -1993,7 +2025,13 @@ export function PageRenderer({ page, tokens, device }: { page: ArchPage; tokens:
 // ─── Device frame ─────────────────────────────────────────────────────────────
 
 export function DeviceFrame({ device, page }: Props) {
-  const tokens = useHub((s) => s.design.tokens)
+  const tokens          = useHub((s) => s.design.tokens)
+  const previewOverride = useHub((s) => s.theme.previewOverride)
+  // Resolve live surface/panel colors respecting any active theme override
+  const bgColor  = previewOverride ? previewOverride[previewOverride.mode]?.background  ?? tokens.colors.surface.bg    : tokens.colors.surface.bg
+  const panelColor = previewOverride ? previewOverride[previewOverride.mode]?.card ?? tokens.colors.surface.panel : tokens.colors.surface.panel
+  const textSecondary = previewOverride ? previewOverride[previewOverride.mode]?.['muted-foreground'] ?? tokens.colors.text.secondary : tokens.colors.text.secondary
+  const textMuted = previewOverride ? previewOverride[previewOverride.mode]?.['muted-foreground'] ?? tokens.colors.text.muted : tokens.colors.text.muted
   const { width, label } = DEVICE_SIZES[device]
   const displayW = DISPLAY_WIDTHS[device]
   const scale    = SCALE[device]
@@ -2014,7 +2052,7 @@ export function DeviceFrame({ device, page }: Props) {
           border: `${device === 'mobile' ? '6px' : device === 'tablet' ? '5px' : '2px'} solid var(--app-border, #2a2a2a)`,
           overflow: 'hidden',
           boxShadow: '0 24px 64px rgba(0,0,0,0.35)',
-          backgroundColor: tokens.colors.surface.bg,
+          backgroundColor: bgColor,
         }}
       >
         {/* Desktop menu bar */}
@@ -2029,11 +2067,11 @@ export function DeviceFrame({ device, page }: Props) {
 
         {/* Mobile status bar */}
         {device === 'mobile' && (
-          <div style={{ height: '30px', backgroundColor: tokens.colors.surface.panel, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 18px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: tokens.colors.text.secondary, fontFamily: tokens.typography.sans }}>9:41</span>
+          <div style={{ height: '30px', backgroundColor: panelColor, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 18px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: textSecondary, fontFamily: tokens.typography.sans }}>9:41</span>
             <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              <div style={{ width: 12, height: 7, borderRadius: '1px', border: `1.5px solid ${tokens.colors.text.muted}`, position: 'relative' }}>
-                <div style={{ position: 'absolute', inset: '1px', right: '2px', backgroundColor: tokens.colors.text.muted, borderRadius: '1px' }} />
+              <div style={{ width: 12, height: 7, borderRadius: '1px', border: `1.5px solid ${textMuted}`, position: 'relative' }}>
+                <div style={{ position: 'absolute', inset: '1px', right: '2px', backgroundColor: textMuted, borderRadius: '1px' }} />
               </div>
             </div>
           </div>
@@ -2041,9 +2079,9 @@ export function DeviceFrame({ device, page }: Props) {
 
         {/* Tablet status bar */}
         {device === 'tablet' && (
-          <div style={{ height: '24px', backgroundColor: tokens.colors.surface.panel, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 14px' }}>
-            <span style={{ fontSize: '10px', fontWeight: 700, color: tokens.colors.text.secondary }}>9:41</span>
-            <span style={{ fontSize: '10px', color: tokens.colors.text.muted }}>● ● ●</span>
+          <div style={{ height: '24px', backgroundColor: panelColor, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 14px' }}>
+            <span style={{ fontSize: '10px', fontWeight: 700, color: textSecondary }}>9:41</span>
+            <span style={{ fontSize: '10px', color: textMuted }}>● ● ●</span>
           </div>
         )}
 

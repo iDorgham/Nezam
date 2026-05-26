@@ -1,16 +1,18 @@
 'use client'
 
-import { Layers, Puzzle, LayoutTemplate, Palette } from 'lucide-react'
-import { useHub, type DesignSubTab } from '@/store/hub.store'
+import { Eye, Puzzle, LayoutTemplate } from 'lucide-react'
+import { useHub, type PreviewSubTab } from '@/store/hub.store'
 import { cn } from '@/lib/utils'
 
-const TABS: { id: DesignSubTab; label: string; Icon: React.ComponentType<any> }[] = [
-  { id: 'tokens',     label: 'Tokens',     Icon: Layers },
+const TABS: { id: PreviewSubTab; label: string; Icon: React.ComponentType<any> }[] = [
+  { id: 'preview',    label: 'Pages',      Icon: Eye },
+  { id: 'components', label: 'Components', Icon: Puzzle },
+  { id: 'sections',   label: 'Sections',   Icon: LayoutTemplate },
 ]
 
-export function DesignSubTabs() {
-  const active = useHub((s) => s.design.subTab)
-  const setTab = useHub((s) => s.designSetSubTab)
+export function PreviewSubTabs() {
+  const active = useHub((s) => s.preview.subTab)
+  const setTab = useHub((s) => s.previewSetSubTab)
 
   return (
     <div className="shrink-0 flex items-center h-10 px-6 border-b border-app-border bg-app-surface select-none">

@@ -61,7 +61,7 @@ export function mixHex(a: string, b: string, t: number): string {
 
 /** Generate a 11-step color scale from a single brand hex (50→950). */
 export function generateColorScale(brandHex: string): Record<string, string> {
-  const white = '#ffffff'
+  const white = '#fbfdff'
   const black = '#090909'
   return {
     '50':  mixHex(white, brandHex, 0.08),

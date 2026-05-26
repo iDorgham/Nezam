@@ -6,7 +6,7 @@ import type { DesignTokens } from '@/types/design'
 
 type ExportFormat = 'css' | 'json' | 'tailwind'
 
-function buildCssVars(tokens: DesignTokens): string {
+export function buildCssVars(tokens: DesignTokens): string {
   const t = tokens
   const lines: string[] = [':root {']
 
@@ -76,11 +76,11 @@ function buildCssVars(tokens: DesignTokens): string {
   return lines.join('\n')
 }
 
-function buildTokensJson(tokens: DesignTokens): string {
+export function buildTokensJson(tokens: DesignTokens): string {
   return JSON.stringify(tokens, null, 2)
 }
 
-function buildTailwindConfig(tokens: DesignTokens): string {
+export function buildTailwindConfig(tokens: DesignTokens): string {
   const t = tokens
   const sp = t.spacing.base
   const spacingScale: Record<string, string> = {}

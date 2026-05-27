@@ -125,7 +125,7 @@ function parseFrontmatter(markdown) {
 }
 
 function escapeToml(multiline) {
-  return multiline.replaceAll('"""', '\\"\\"\\"');
+  return multiline.replaceAll("\\", "\\\\").replaceAll('"""', '\\"\\"\\"');
 }
 
 function rewriteLinks(markdown, targetRoot) {

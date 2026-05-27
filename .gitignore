@@ -12,3 +12,4 @@ build/
 .opencode/cache/
 .gemini/cache/
 .qwen/cache/
+docs/reference/

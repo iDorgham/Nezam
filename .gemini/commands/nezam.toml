@@ -94,7 +94,7 @@ Templates — .nezam/templates/
   Docs: .nezam/templates/README.md
 ```
 
-### /nezam templates edit \<name\>
+### /nezam templates edit \\<name\\>
 
 Guide the user through editing a template:
 
@@ -105,7 +105,7 @@ Guide the user through editing a template:
 5. Show a diff of what changed
 6. Confirm: "Template updated. Run `pnpm ai:sync` to propagate changes."
 
-### /nezam templates reset \<name\>
+### /nezam templates reset \\<name\\>
 
 Restore a template to its NEZAM default.
 
@@ -114,7 +114,7 @@ Restore a template to its NEZAM default.
 3. If no → warn: "No reference backup found for <name>. You can restore manually from the NEZAM repo."
 4. Show what was restored
 
-### /nezam templates \<category\>
+### /nezam templates \\<category\\>
 
 List files in a specific template category with one-line descriptions.
 
@@ -140,7 +140,7 @@ Agents — .cursor/agents/  (100+ agents across 8 swarm tiers)
   Add:  /nezam agents add <name>
 ```
 
-### /nezam agents edit \<name\>
+### /nezam agents edit \\<name\\>
 
 1. Load `.cursor/agents/<name>.md`
 2. Show the agent's role, capabilities, and hard rules
@@ -149,14 +149,14 @@ Agents — .cursor/agents/  (100+ agents across 8 swarm tiers)
 5. Auto-run `pnpm ai:sync` to sync to `.antigravity/agents/` and other mirrors
 6. Show confirmation
 
-### /nezam agents add \<name\>
+### /nezam agents add \\<name\\>
 
 1. Load `.nezam/templates/ai-client/AGENT.template.md`
 2. Ask the user to fill in: role, primary task, skills it uses, hard rules
 3. Write to `.cursor/agents/<name>.md`
 4. Auto-run `pnpm ai:sync`
 
-### /nezam agents remove \<name\>
+### /nezam agents remove \\<name\\>
 
 1. Show the agent file content
 2. Confirm: "Are you sure you want to remove <name>? Type YES to confirm."
@@ -185,7 +185,7 @@ Skills — .cursor/skills/
   Edit: /nezam skills edit <category/skill-name>
 ```
 
-### /nezam skills edit \<name\>
+### /nezam skills edit \\<name\\>
 
 1. Load `.cursor/skills/<category>/<name>/SKILL.md`
 2. Show current skill definition
@@ -217,7 +217,7 @@ Rules — .cursor/rules/
   Edit: /nezam rules edit <rule-name>
 ```
 
-### /nezam rules edit \<name\>
+### /nezam rules edit \\<name\\>
 
 1. Load `.cursor/rules/<name>.mdc`
 2. Show frontmatter (trigger conditions) and body
@@ -273,7 +273,7 @@ Workspace Paths — .nezam/core/gates/workspace.paths.yaml
   Example: /nezam paths set project.prd src/product/PRD.md
 ```
 
-### /nezam paths set \<key\> \<value\>
+### /nezam paths set \\<key\\> \\<value\\>
 
 1. Parse `.nezam/core/gates/workspace.paths.yaml`
 2. Set the given key to the given value (dot-notation: `project.prd`, `project.plans_root`)

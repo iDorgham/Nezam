@@ -18,10 +18,12 @@ export const HUB_VERSION = 'v7'
 
 // ─── Hub section ─────────────────────────────────────────────────────────────
 
-export type HubSection = 'architecture' | 'design' | 'preview'
+export type HubSection = 'architecture' | 'design' | 'theming' | 'preview'
 
 /** Sub-tabs nested under the Design System section. */
-export type DesignSubTab = 'tokens' | 'components' | 'sections' | 'theming'
+export type DesignSubTab = 'tokens'
+
+export type PreviewSubTab = 'preview' | 'components' | 'sections'
 
 /** CSS variable snapshot applied to the live Preview from the Theme editor. */
 export interface ThemePreviewOverride {
@@ -73,9 +75,22 @@ interface ThemeState {
 
 export type PreviewDevice = 'desktop' | 'tablet' | 'mobile'
 
+export interface CommentPin {
+  id: string
+  pageId: string
+  x: number // percentage
+  y: number // percentage
+  author: string
+  text: string
+  createdAt: number
+}
+
 interface PreviewState {
   selectedPageId: string | null
   device: PreviewDevice
+  comments: CommentPin[]
+  isAddingComment: boolean
+  subTab: PreviewSubTab
 }
 
 // ─── Components state ─────────────────────────────────────────────────────────
@@ -116,7 +131,7 @@ interface HubStore {
   archDeletePage(id: string): void
   archUpdatePage(id: string, patch: Partial<ArchPage>): void
   archSelectPage(id: string | null): void
-  archApplyProfile(profileId: ArchProfileId): void
+  archApplyProfile(profileId: ArchProfileId, selectedPageIds?: string[]): void
   /** Append pages from a template under an optional parent. Returns the new IDs. */
   archAppendPages(pages: Array<{ name: string; route: string; icon?: string }>, parentId?: string | null): void
 
@@ -136,6 +151,10 @@ interface HubStore {
   // ── Preview actions ──
   previewSelectPage(id: string | null): void
   previewSetDevice(device: PreviewDevice): void
+  previewAddComment(pageId: string, x: number, y: number, text: string, author: string): void
+  previewDeleteComment(id: string): void
+  previewSetIsAddingComment(isAdding: boolean): void
+  previewSetSubTab(tab: PreviewSubTab): void
 
   // ── Components actions ──
   compSetGroup(group: ComponentGroup | null): void
@@ -165,6 +184,10 @@ interface HubStore {
   sectionsQuery: string
   setSectionsCategory(cat: string | null): void
   setSectionsQuery(q: string): void
+
+  // ── Resizable Sidebar ──
+  sidebarWidth?: number
+  setSidebarWidth(width: number): void
 }
 
 // ─── Helper: derive next order among siblings ──────────────────────────────
@@ -236,12 +259,12 @@ export const useHub = create<HubStore>()(
       archFuture: [] as Record<string, ArchPage>[],
       exportModalOpen: false,
       sectionsCategory: null as string | null,
+      sidebarWidth: 240,
       sectionsQuery: '',
 
       onboarding: {
         completed: false,
         step: 0,
-      },
       },
 
       arch: {
@@ -266,6 +289,9 @@ export const useHub = create<HubStore>()(
       preview: {
         selectedPageId: null,
         device: 'desktop',
+        comments: [] as CommentPin[],
+        isAddingComment: false,
+        subTab: 'preview' as PreviewSubTab,
       },
 
       comp: {
@@ -280,6 +306,9 @@ export const useHub = create<HubStore>()(
           if (!state.visitedSections.includes(s)) {
             state.visitedSections.push(s)
           }
+          if (s === 'preview') {
+            state.preview.subTab = 'preview'
+          }
         }),
 
       // ── Architecture ─────────────────────────────────────────────────────────
@@ -288,16 +317,49 @@ export const useHub = create<HubStore>()(
           recordHistory(state)
           const id = uid('pg')
           const order = nextOrder(state.arch.pages, parentId)
+
+          // Determine page level based on parent level
+          let level: any = 'page'
+          let navSlot: any = 'sidebar'
+          let icon = 'FileText'
+          if (!parentId) {
+            level = 'app'
+            navSlot = 'hidden'
+            icon = 'Layers'
+          } else {
+            const parent = state.arch.pages[parentId]
+            if (parent) {
+              if (parent.type === 'app') {
+                level = 'navmenu'
+                navSlot = 'hidden'
+                icon = 'Menu'
+              } else if (parent.type === 'navmenu') {
+                level = 'page'
+                navSlot = 'sidebar'
+                icon = 'FileText'
+              } else if (parent.type === 'page') {
+                level = 'subpage'
+                navSlot = 'sidebar'
+                icon = 'CornerDownRight'
+              } else if (parent.type === 'subpage') {
+                level = 'section'
+                navSlot = 'hidden'
+                icon = 'LayoutGrid'
+              }
+            }
+          }
+
           state.arch.pages[id] = {
             id,
-            name: 'New Page',
+            name: level === 'app' ? 'New App' : level === 'navmenu' ? 'New Nav Menu' : 'New Page',
             route: '/new-page',
             parentId,
             order,
-            type: 'page',
-            navSlot: parentId ? 'sidebar' : 'topnav',
-            icon: 'FileText',
+            type: level,
+            navSlot,
+            icon,
             description: '',
+            services: [],
           }
           state.arch.selectedPageId = id
         }),
@@ -333,14 +395,41 @@ export const useHub = create<HubStore>()(
           state.arch.selectedPageId = id
         }),
 
-      archApplyProfile: (profileId) =>
+      archApplyProfile: (profileId, selectedPageIds) =>
         set((state) => {
           recordHistory(state)
           const profile = ARCH_PROFILES_MAP[profileId]
           if (!profile) return
           state.arch.pages = {}
           profile.pages.forEach((pg) => {
-            state.arch.pages[pg.id] = { ...pg }
+            if (!selectedPageIds || selectedPageIds.includes(pg.id)) {
+              // Backward compatibility mapping for old fields to new 5-level hierarchy
+              let mappedType = pg.type
+              let services = pg.services || []
+              
+              if (pg.type === 'group') {
+                if (!pg.parentId) {
+                  mappedType = 'app'
+                } else {
+                  mappedType = 'navmenu'
+                }
+              } else if (pg.type === 'page') {
+                if (pg.parentId) {
+                  const parent = profile.pages.find(p => p.id === pg.parentId)
+                  if (parent && parent.type === 'group' && parent.parentId) {
+                    mappedType = 'page'
+                  } else if (parent && parent.type === 'page') {
+                    mappedType = 'subpage'
+                  }
+                }
+              }
+              
+              state.arch.pages[pg.id] = {
+                ...pg,
+                type: mappedType,
+                services,
+              }
+            }
           })
           state.arch.activeProfileId = profileId
           state.arch.selectedPageId = null
@@ -352,16 +441,48 @@ export const useHub = create<HubStore>()(
           let base = nextOrder(state.arch.pages, parentId)
           pages.forEach((pg, i) => {
             const id = uid('pg')
+            let level: any = 'page'
+            let navSlot: any = 'sidebar'
+            let icon = pg.icon ?? 'FileText'
+
+            if (!parentId) {
+              level = 'app'
+              navSlot = 'hidden'
+              icon = pg.icon ?? 'Layers'
+            } else {
+              const parent = state.arch.pages[parentId]
+              if (parent) {
+                if (parent.type === 'app') {
+                  level = 'navmenu'
+                  navSlot = 'hidden'
+                  icon = pg.icon ?? 'Menu'
+                } else if (parent.type === 'navmenu') {
+                  level = 'page'
+                  navSlot = 'sidebar'
+                  icon = pg.icon ?? 'FileText'
+                } else if (parent.type === 'page') {
+                  level = 'subpage'
+                  navSlot = 'sidebar'
+                  icon = pg.icon ?? 'CornerDownRight'
+                } else if (parent.type === 'subpage') {
+                  level = 'section'
+                  navSlot = 'hidden'
+                  icon = pg.icon ?? 'LayoutGrid'
+                }
+              }
+            }
+
             state.arch.pages[id] = {
               id,
               name: pg.name,
               route: pg.route,
               parentId,
               order: base + i,
-              type: 'page',
-              navSlot: parentId ? 'sidebar' : 'topnav',
-              icon: pg.icon ?? 'FileText',
+              type: level,
+              navSlot,
+              icon,
               description: '',
+              services: [],
             }
           })
         }),
@@ -489,6 +610,41 @@ export const useHub = create<HubStore>()(
           state.preview.device = device
         }),
 
+      previewAddComment: (pageId, x, y, text, author) =>
+        set((state) => {
+          const id = uid('comment')
+          if (!state.preview.comments) {
+            state.preview.comments = []
+          }
+          state.preview.comments.push({
+            id,
+            pageId,
+            x,
+            y,
+            text,
+            author: author.trim() || 'Anonymous',
+            createdAt: Date.now(),
+          })
+          state.preview.isAddingComment = false
+        }),
+
+      previewDeleteComment: (id) =>
+        set((state) => {
+          if (state.preview.comments) {
+            state.preview.comments = state.preview.comments.filter((c) => c.id !== id)
+          }
+        }),
+
+      previewSetIsAddingComment: (isAdding) =>
+        set((state) => {
+          state.preview.isAddingComment = isAdding
+        }),
+
+      previewSetSubTab: (tab) =>
+        set((state) => {
+          state.preview.subTab = tab
+        }),
+
       // ── Components ───────────────────────────────────────────────────────────
       compSetGroup: (group) =>
         set((state) => {
@@ -533,9 +689,16 @@ export const useHub = create<HubStore>()(
         set((state) => {
           state.sectionsQuery = q
         }),
+
+      // ── Resizable Sidebar ──
+      setSidebarWidth: (width) =>
+        set((state) => {
+          state.sidebarWidth = width
+        }),
     })),
     {
-      name: 'nezam-design-hub-v7',
+      name: 'nezam-design-hub-v8',
+      version: 2,
       partialize: (s) => ({
         section: s.section,
         arch: s.arch,
@@ -545,8 +708,53 @@ export const useHub = create<HubStore>()(
         onboarding: s.onboarding,
         visitedSections: s.visitedSections,
         hubTheme: s.hubTheme,
+        sidebarWidth: s.sidebarWidth,
         // comp state & past/future stacks are intentionally not persisted
       }),
+      migrate: (persisted: any, version: number) => {
+        // v0 = pre-v7 (no version field), v1 = v7 initial, v2 = v8 expansion
+        if (version < 2 && persisted?.design?.tokens) {
+          const defaults = DESIGN_PROFILES_MAP['minimal'].tokens
+          const tokens = persisted.design.tokens
+          for (const key of Object.keys(defaults) as (keyof typeof defaults)[]) {
+            if (!(key in tokens)) {
+              tokens[key] = defaults[key]
+            }
+          }
+          // Deep-merge nested fields that were expanded
+          if (tokens.shadows) {
+            if (!('inner' in tokens.shadows)) tokens.shadows.inner = defaults.shadows.inner
+            if (!('glow' in tokens.shadows)) tokens.shadows.glow = defaults.shadows.glow
+          }
+          if (tokens.motion) {
+            if (!('transition' in tokens.motion)) tokens.motion.transition = defaults.motion.transition
+            if (!('spring' in tokens.motion)) tokens.motion.spring = defaults.motion.spring
+            if (tokens.motion.duration && !('instant' in tokens.motion.duration)) {
+              tokens.motion.duration.instant = defaults.motion.duration.instant
+              tokens.motion.duration.slower = defaults.motion.duration.slower
+            }
+            if (tokens.motion.easing && !('easeIn' in tokens.motion.easing)) {
+              tokens.motion.easing.easeIn = defaults.motion.easing.easeIn
+              tokens.motion.easing.easeOut = defaults.motion.easing.easeOut
+              tokens.motion.easing.spring = defaults.motion.easing.spring
+            }
+          }
+          if (tokens.borders) {
+            if (!('widthScale' in tokens.borders)) tokens.borders.widthScale = defaults.borders.widthScale
+            if (!('divider' in tokens.borders)) tokens.borders.divider = defaults.borders.divider
+            if (!('focus' in tokens.borders)) tokens.borders.focus = defaults.borders.focus
+          }
+          if (tokens.colors) {
+            if (!('successScale' in tokens.colors)) tokens.colors.successScale = defaults.colors.successScale
+            if (!('warningScale' in tokens.colors)) tokens.colors.warningScale = defaults.colors.warningScale
+            if (!('errorScale' in tokens.colors)) tokens.colors.errorScale = defaults.colors.errorScale
+            if (!('infoScale' in tokens.colors)) tokens.colors.infoScale = defaults.colors.infoScale
+            if (!('darkSurface' in tokens.colors)) tokens.colors.darkSurface = defaults.colors.darkSurface
+            if (!('darkText' in tokens.colors)) tokens.colors.darkText = defaults.colors.darkText
+          }
+        }
+        return persisted
+      },
     },
   ),
 )

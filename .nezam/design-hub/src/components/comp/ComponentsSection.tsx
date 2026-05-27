@@ -3,6 +3,7 @@
 import { useHub } from '@/store/hub.store'
 import { ComponentsSidebar } from './ComponentsSidebar'
 import { ComponentCard } from './ComponentCard'
+import { PreviewSubTabs } from '@/components/preview/PreviewSubTabs'
 import {
   GROUP_LABELS,
   GROUP_ORDER,
@@ -26,6 +27,7 @@ export function ComponentsSection() {
       <ComponentsSidebar />
 
       <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <PreviewSubTabs />
         <div className="flex-1 overflow-y-auto app-scroll">
           {/* Banner */}
           <div className="mx-6 mt-6 mb-4 rounded-app-lg border border-app-border bg-app-surface p-4">

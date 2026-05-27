@@ -36,13 +36,13 @@ Restrained color strategy: tinted neutrals with a single accent (≤10%). Functi
 
 ### Primitives — Light
 - --color-bg-canvas: #f7f8fb
-- --color-bg-surface: #ffffff
-- --color-bg-elevated: #ffffff
+- --color-bg-surface: #fbfdff
+- --color-bg-elevated: #f9fbff
 - --color-text-primary: #111827
 - --color-text-secondary: #4b5563
 - --color-border-muted: #d1d5db
 - --color-accent-primary: #2563eb
-- --color-accent-primary-contrast: #ffffff
+- --color-accent-primary-contrast: #f8fafc
 - --color-success: #16a34a
 - --color-warning: #ca8a04
 - --color-danger: #dc2626
@@ -90,8 +90,10 @@ Notes:
 - This seeded token set should be refined to OKLCH color tokens when finalizing brand palette.
 
 ## Next steps
-1. When ready, run an automated `document` scan (re-run `npx impeccable document`) to extract tokens from code and capture any project-specific overrides.
-2. Iterate colors to OKLCH tokens and produce a locked tokens section in DESIGN.md.
+1. Run an automated `document` scan (re-run `npx impeccable document` or `npx impeccable document`) to extract tokens from code and capture any project-specific overrides.
+2. Convert color tokens to OKLCH and lock the brand palette — avoid pure #000 / #fff by tinting neutrals toward the brand hue.
+3. Run contrast and accessibility checks (WCAG AA) and adjust accent contrast tokens as needed (light text on accent backgrounds should use an off-white token, not pure #fff).
+4. Produce a consolidated `tokens.css` export and perform visual QA across breakpoints and devices.
 
 ---
 

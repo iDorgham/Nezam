@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic'
 
 const ArchSection    = dynamic(() => import('@/components/arch/ArchSection').then(m => ({ default: m.ArchSection })), { ssr: false })
 const DesignSection  = dynamic(() => import('@/components/design/DesignSection').then(m => ({ default: m.DesignSection })), { ssr: false })
+const ThemingSection = dynamic(() => import('@/components/theming/ThemingSection').then(m => ({ default: m.ThemingSection })), { ssr: false })
 const PreviewSection = dynamic(() => import('@/components/preview/PreviewSection').then(m => ({ default: m.PreviewSection })), { ssr: false })
 export function DesignHub() {
   const section = useHub((s) => s.section)
@@ -33,6 +34,7 @@ export function DesignHub() {
       <div className="flex min-h-0 flex-1">
         {section === 'architecture' && <ArchSection />}
         {section === 'design'       && <DesignSection />}
+        {section === 'theming'      && <ThemingSection />}
         {section === 'preview'      && <PreviewSection />}
       </div>
     </div>

@@ -186,3 +186,192 @@ export function generateHarmoniousPalette(): HarmoniousPalette {
     harmonyType: type,
   }
 }
+
+/** Check lightness to choose high-contrast text foreground. */
+export function getContrastForeground(hex: string): string {
+  const hsl = hexToHsl(hex)
+  if (!hsl) return '#fbfdff'
+  // Return very dark charcoal for light colors, pure white for dark colors
+  return hsl.l > 0.55 ? '#09090b' : '#fbfdff'
+}
+
+/**
+ * Generates a fully cohesive set of shadcn UI ThemeTokens (or generic representation)
+ * using a single base hue with harmonious tints and mathematically correct lightness levels.
+ */
+export function generateTintedTheme(baseHue: number, baseSat: number, mode: 'light' | 'dark'): any {
+  const isDark = mode === 'dark'
+  
+  const make = (h: number, s: number, l: number) =>
+    hslToHex({ h: ((h % 360) + 360) % 360, s: Math.max(0, Math.min(1, s)), l: Math.max(0, Math.min(1, l)) })
+    
+  // Harmony offset angles for supplementary colors
+  const accentHue = (baseHue + 180) % 360
+  const secondaryHue = (baseHue + 30) % 360
+  
+  // Base brand colors
+  const primary = make(baseHue, baseSat, isDark ? 0.60 : 0.45)
+  const primaryForeground = getContrastForeground(primary)
+  
+  const accent = make(accentHue, baseSat * 0.4, isDark ? 0.22 : 0.93)
+  const accentForeground = getContrastForeground(accent)
+  
+  const destructive = make(0, 0.85, isDark ? 0.35 : 0.50)
+  const destructiveForeground = '#fbfdff'
+  
+  if (isDark) {
+    const bg = make(baseHue, baseSat * 0.12, 0.04)        // Very deep black/charcoal with subtle tint
+    const card = make(baseHue, baseSat * 0.12, 0.07)      // Slightly lighter card background
+    const border = make(baseHue, baseSat * 0.15, 0.13)    // Muted border
+    
+    return {
+      background:            bg,
+      foreground:            make(baseHue, baseSat * 0.05, 0.96),
+      card:                  card,
+      cardForeground:        make(baseHue, baseSat * 0.05, 0.96),
+      popover:               card,
+      popoverForeground:     make(baseHue, baseSat * 0.05, 0.96),
+      primary:               primary,
+      primaryForeground:     primaryForeground,
+      secondary:             make(baseHue, baseSat * 0.10, 0.12),
+      secondaryForeground:   make(baseHue, baseSat * 0.05, 0.96),
+      muted:                 make(baseHue, baseSat * 0.10, 0.11),
+      mutedForeground:       make(baseHue, baseSat * 0.10, 0.60),
+      accent:                accent,
+      accentForeground:      accentForeground,
+      destructive:           destructive,
+      destructiveForeground: destructiveForeground,
+      border:                border,
+      input:                 make(baseHue, baseSat * 0.15, 0.11),
+      ring:                  primary,
+      chart1:                primary,
+      chart2:                make(secondaryHue, baseSat, 0.6),
+      chart3:                make(accentHue, baseSat, 0.6),
+      chart4:                make((baseHue + 90) % 360, baseSat, 0.6),
+      chart5:                make((baseHue + 270) % 360, baseSat, 0.6),
+    }
+  } else {
+    const bg = make(baseHue, baseSat * 0.08, 0.985)        // Ultra soft white with subtle tint
+    const card = '#fbfdff'                                // Crisp white cards
+    const border = make(baseHue, baseSat * 0.15, 0.91)    // Soft border
+    
+    return {
+      background:            bg,
+      foreground:            make(baseHue, baseSat * 0.20, 0.06),
+      card:                  card,
+      cardForeground:        make(baseHue, baseSat * 0.20, 0.06),
+      popover:               card,
+      popoverForeground:     make(baseHue, baseSat * 0.20, 0.06),
+      primary:               primary,
+      primaryForeground:     primaryForeground,
+      secondary:             make(baseHue, baseSat * 0.10, 0.94),
+      secondaryForeground:   make(baseHue, baseSat * 0.20, 0.06),
+      muted:                 make(baseHue, baseSat * 0.08, 0.95),
+      mutedForeground:       make(baseHue, baseSat * 0.15, 0.40),
+      accent:                accent,
+      accentForeground:      accentForeground,
+      destructive:           destructive,
+      destructiveForeground: destructiveForeground,
+      border:                border,
+      input:                 make(baseHue, baseSat * 0.15, 0.94),
+      ring:                  primary,
+      chart1:                primary,
+      chart2:                make(secondaryHue, baseSat, 0.5),
+      chart3:                make(accentHue, baseSat, 0.5),
+      chart4:                make((baseHue + 90) % 360, baseSat, 0.5),
+      chart5:                make((baseHue + 270) % 360, baseSat, 0.5),
+    }
+  }
+}
+
+/** Generates a theme using a specific color harmony type! */
+export function generateSpecificHarmonyTheme(type: HarmonyType, mode: 'light' | 'dark'): any {
+  const baseHue = Math.random() * 360
+  const baseSat = 0.60 + Math.random() * 0.20 // 60% - 80%
+  const baseLit = mode === 'dark' ? 0.60 : 0.45
+  
+  const offsets = harmonyHueOffsets(type)
+  const hues: number[] = offsets.map((o) => ((baseHue + o) % 360 + 360) % 360)
+  
+  // Pad to 4 distinct hues
+  while (hues.length < 4) hues.push(((hues[hues.length - 1] + 60) % 360 + 360) % 360)
+  
+  const make = (h: number, s: number, l: number) =>
+    hslToHex({ h: ((h % 360) + 360) % 360, s: Math.max(0, Math.min(1, s)), l: Math.max(0, Math.min(1, l)) })
+    
+  const primary = make(hues[0], baseSat, baseLit)
+  const primaryForeground = getContrastForeground(primary)
+  
+  const secondary = make(hues[1 % hues.length], baseSat * 0.4, mode === 'dark' ? 0.125 : 0.945)
+  const secondaryForeground = getContrastForeground(secondary)
+  
+  const accent = make(hues[2 % hues.length], baseSat * 0.6, mode === 'dark' ? 0.22 : 0.93)
+  const accentForeground = getContrastForeground(accent)
+  
+  const destructive = make(0, 0.85, mode === 'dark' ? 0.35 : 0.50)
+  const destructiveForeground = '#fbfdff'
+  
+  if (mode === 'dark') {
+    const bg = make(baseHue, baseSat * 0.12, 0.04)
+    const card = make(baseHue, baseSat * 0.12, 0.07)
+    const border = make(baseHue, baseSat * 0.15, 0.13)
+    
+    return {
+      background:            bg,
+      foreground:            make(baseHue, baseSat * 0.05, 0.96),
+      card:                  card,
+      cardForeground:        make(baseHue, baseSat * 0.05, 0.96),
+      popover:               card,
+      popoverForeground:     make(baseHue, baseSat * 0.05, 0.96),
+      primary:               primary,
+      primaryForeground:     primaryForeground,
+      secondary:             secondary,
+      secondaryForeground:   secondaryForeground,
+      muted:                 make(baseHue, baseSat * 0.10, 0.11),
+      mutedForeground:       make(baseHue, baseSat * 0.10, 0.60),
+      accent:                accent,
+      accentForeground:      accentForeground,
+      destructive:           destructive,
+      destructiveForeground: destructiveForeground,
+      border:                border,
+      input:                 make(baseHue, baseSat * 0.15, 0.11),
+      ring:                  primary,
+      chart1:                primary,
+      chart2:                make(hues[1 % hues.length], baseSat, 0.6),
+      chart3:                make(hues[2 % hues.length], baseSat, 0.6),
+      chart4:                make((baseHue + 90) % 360, baseSat, 0.6),
+      chart5:                make((baseHue + 270) % 360, baseSat, 0.6),
+    }
+  } else {
+    const bg = make(baseHue, baseSat * 0.08, 0.985)
+    const card = '#fbfdff'
+    const border = make(baseHue, baseSat * 0.15, 0.91)
+    
+    return {
+      background:            bg,
+      foreground:            make(baseHue, baseSat * 0.20, 0.06),
+      card:                  card,
+      cardForeground:        make(baseHue, baseSat * 0.20, 0.06),
+      popover:               card,
+      popoverForeground:     make(baseHue, baseSat * 0.20, 0.06),
+      primary:               primary,
+      primaryForeground:     primaryForeground,
+      secondary:             secondary,
+      secondaryForeground:   secondaryForeground,
+      muted:                 make(baseHue, baseSat * 0.08, 0.95),
+      mutedForeground:       make(baseHue, baseSat * 0.15, 0.40),
+      accent:                accent,
+      accentForeground:      accentForeground,
+      destructive:           destructive,
+      destructiveForeground: destructiveForeground,
+      border:                border,
+      input:                 make(baseHue, baseSat * 0.15, 0.94),
+      ring:                  primary,
+      chart1:                primary,
+      chart2:                make(hues[1 % hues.length], baseSat, 0.5),
+      chart3:                make(hues[2 % hues.length], baseSat, 0.5),
+      chart4:                make((baseHue + 90) % 360, baseSat, 0.5),
+      chart5:                make((baseHue + 270) % 360, baseSat, 0.5),
+    }
+  }
+}

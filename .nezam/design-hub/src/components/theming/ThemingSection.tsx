@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react'
 import {
   Sun, Moon, Copy, Check, RotateCcw, Sparkles, Palette, Shuffle,
-  Wand2, Play, BookmarkPlus, Trash2, ChevronDown,
+  Wand2, Play, BookmarkPlus, Trash2, Sliders, Settings, SlidersHorizontal,
+  Download, Layers, Compass, Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
@@ -18,9 +19,16 @@ import {
   isIdentityTransform,
   randomSoftHex,
   generateHarmoniousPalette,
+  generateTintedTheme,
+  generateSpecificHarmonyTheme,
+  hexToHsl,
+  hslToHex,
   type ColorTransform,
+  type HarmonyType,
 } from './color-utils'
 import { useHub, type ThemePreviewOverride } from '@/store/hub.store'
+import { useSidebarResize } from '@/lib/useSidebarResize'
+import { getContrastRatio, meetsWCAG, contrastBadge } from '@/lib/color-a11y'
 
 type Mode = 'light' | 'dark'
 
@@ -39,6 +47,8 @@ interface ThemeConfig {
   surfaceStyle: SurfaceStyle
   shadowStyle:  ShadowStyle
   letterSpacing: number      // em, -0.05..0.15
+  borderWidth?:  number      // px, 0..6
+  motionStyle?:  'none' | 'smooth' | 'spring' | 'pulsing'
 }
 
 // ─── Google Fonts — curated popular families ───────────────────────────────
@@ -87,12 +97,53 @@ function loadGoogleFont(entry: typeof SANS_FONTS[number] | undefined) {
 
 // ─── Color transform + contrast ───────────────────────────────────────────────
 
-/** Apply a color transform to every token (no-op if identity). */
-function applyTransform(tokens: ThemeTokens, t: ColorTransform): ThemeTokens {
-  if (isIdentityTransform(t)) return tokens
+// ─── Color transform + contrast ───────────────────────────────────────────────
+
+const BG_KEYS = ['background', 'card', 'popover', 'secondary', 'muted', 'border', 'input']
+const FG_KEYS = ['foreground', 'cardForeground', 'popoverForeground', 'secondaryForeground', 'mutedForeground']
+
+/** Apply a color transform and contrast scaling to every token. */
+function applyTransform(tokens: ThemeTokens, t: ColorTransform, contrast = 1, mode: Mode = 'light'): ThemeTokens {
   const out = { ...tokens }
   ;(Object.keys(out) as Array<keyof ThemeTokens>).forEach((k) => {
-    out[k] = transformColor(out[k], t)
+    let hex = out[k]
+    
+    // 1. Apply global hue shift, sat, light transforms
+    if (!isIdentityTransform(t)) {
+      hex = transformColor(hex, t)
+    }
+    
+    // 2. Apply contrast scaling (WCAG AA compliant lightness separation)
+    if (contrast !== 1) {
+      const hsl = hexToHsl(hex)
+      if (hsl) {
+        const isBg = BG_KEYS.includes(k)
+        const isFg = FG_KEYS.includes(k)
+        
+        if (isBg) {
+          if (mode === 'light') {
+            // Light background gets lighter (closer to 1.0) under high contrast
+            hsl.l = 1.0 - (1.0 - hsl.l) / contrast
+          } else {
+            // Dark background gets darker (closer to 0.0) under high contrast
+            hsl.l = hsl.l / contrast
+          }
+        } else if (isFg) {
+          if (mode === 'light') {
+            // Light mode text gets darker (closer to 0.0) under high contrast
+            hsl.l = hsl.l / contrast
+          } else {
+            // Dark mode text gets lighter (closer to 1.0) under high contrast
+            hsl.l = 1.0 - (1.0 - hsl.l) / contrast
+          }
+        }
+        
+        hsl.l = Math.max(0, Math.min(1, hsl.l))
+        hex = hslToHex(hsl)
+      }
+    }
+    
+    out[k] = hex
   })
   return out
 }
@@ -110,34 +161,26 @@ function configFromPreset(preset: ThemePreset): ThemeConfig {
     surfaceStyle: 'flat',
     shadowStyle:  'soft',
     letterSpacing: 0,
+    borderWidth:  1,
+    motionStyle:  'smooth',
   }
 }
 
-/** Randomize the palette using real color-theory harmony. */
+/** Randomize the palette using dynamic brand-tinted HSL color-theory generation. */
 function randomizeTokens(base: ThemeTokens, mode: Mode): ThemeTokens {
-  const palette = generateHarmoniousPalette()
-  const isDark  = mode === 'dark'
-  return {
-    ...base,
-    primary:           palette.primary,
-    primaryForeground: isDark ? '#0a0a0a' : '#ffffff',
-    accent:            palette.accent,
-    accentForeground:  isDark ? '#0a0a0a' : '#ffffff',
-    secondary:         isDark ? base.secondary : palette.secondary,
-    secondaryForeground: base.secondaryForeground,
-    ring:    palette.primary,
-    chart1:  palette.charts[0],
-    chart2:  palette.charts[1],
-    chart3:  palette.charts[2],
-    chart4:  palette.charts[3],
-    chart5:  palette.charts[4],
-    muted:   isDark ? base.muted : randomSoftHex(0.96),
-  }
+  const baseHue = Math.random() * 360
+  const baseSat = 0.55 + Math.random() * 0.35 // 55% - 90%
+  
+  return generateTintedTheme(baseHue, baseSat, mode)
 }
 
 // ─── Build the ThemePreviewOverride from current config ───────────────────────
 
 function buildOverride(config: ThemeConfig, mode: Mode, presetName: string): ThemePreviewOverride {
+  // Apply transform and contrast to light and dark tokens!
+  const lightTransformed = applyTransform(config.light, config.transform, config.contrast, 'light')
+  const darkTransformed  = applyTransform(config.dark,  config.transform, config.contrast, 'dark')
+
   const buildVars = (t: ThemeTokens): Record<string, string> => ({
     background:         t.background,
     foreground:         t.foreground,
@@ -172,8 +215,8 @@ function buildOverride(config: ThemeConfig, mode: Mode, presetName: string): The
   })
 
   return {
-    light:     buildVars(config.light),
-    dark:      buildVars(config.dark),
+    light:     buildVars(lightTransformed),
+    dark:      buildVars(darkTransformed),
     mode,
     fontSans:  config.fontSans,
     fontMono:  config.fontMono,
@@ -185,6 +228,10 @@ function buildOverride(config: ThemeConfig, mode: Mode, presetName: string): The
 // ─── CSS export ───────────────────────────────────────────────────────────────
 
 function buildCss(config: ThemeConfig): string {
+  // Apply transform and contrast to light and dark tokens!
+  const lightTransformed = applyTransform(config.light, config.transform, config.contrast, 'light')
+  const darkTransformed  = applyTransform(config.dark,  config.transform, config.contrast, 'dark')
+
   const block = (t: ThemeTokens) => [
     `  --background: ${t.background};`,
     `  --foreground: ${t.foreground};`,
@@ -217,11 +264,11 @@ function buildCss(config: ThemeConfig): string {
     `  --radius: ${config.radius}rem;`,
     `  --font-sans: ${config.fontSans};`,
     `  --font-mono: ${config.fontMono};`,
-    block(config.light),
+    block(lightTransformed),
     `}`,
     ``,
     `.dark {`,
-    block(config.dark),
+    block(darkTransformed),
     `}`,
   ].join('\n')
 }
@@ -229,12 +276,15 @@ function buildCss(config: ThemeConfig): string {
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export function ThemingSection() {
+  const { width, startResize } = useSidebarResize()
   const [config, setConfig] = useState<ThemeConfig>(() => configFromPreset(THEME_PRESETS[0]))
   const [mode,   setMode]   = useState<Mode>('light')
   const [copied, setCopied] = useState(false)
   const [saveInput, setSaveInput]   = useState('')
   const [showSaveBox, setShowSaveBox] = useState(false)
   const [applied, setApplied] = useState(false)
+  const [controlTab, setControlTab] = useState<'presets' | 'styles' | 'colors' | 'export'>('presets')
+  const [showWcagAudit, setShowWcagAudit] = useState(false)
 
   const applyToPreview    = useHub((s) => s.themeApplyToPreview)
   const saveProfile       = useHub((s) => s.themeSaveProfile)
@@ -243,7 +293,7 @@ export function ThemingSection() {
   const previewOverride   = useHub((s) => s.theme.previewOverride)
 
   const rawTokens = config[mode]
-  const tokens    = useMemo(() => applyTransform(rawTokens, config.transform), [rawTokens, config.transform])
+  const tokens    = useMemo(() => applyTransform(rawTokens, config.transform, config.contrast, mode), [rawTokens, config.transform, config.contrast, mode])
 
   const cssOutput = useMemo(() => buildCss(config), [config])
 
@@ -253,6 +303,15 @@ export function ThemingSection() {
       presetId: preset.id,
       light: { ...preset.light },
       dark:  { ...preset.dark },
+    }))
+  }
+
+  function applyHarmony(type: HarmonyType) {
+    setConfig((c) => ({
+      ...c,
+      presetId: `harmony-${type}`,
+      light: generateSpecificHarmonyTheme(type, 'light'),
+      dark:  generateSpecificHarmonyTheme(type, 'dark'),
     }))
   }
 
@@ -285,8 +344,8 @@ export function ThemingSection() {
   }
 
   function handleApplyToPreview() {
-    const name = config.presetId === 'custom' ? 'Custom' :
-      (THEME_PRESETS.find((p) => p.id === config.presetId)?.name ?? config.presetId)
+    const name = config.presetId.startsWith('harmony-') ? `${config.presetId.replace('harmony-', '')} harmony` : (config.presetId === 'custom' ? 'Custom' :
+      (THEME_PRESETS.find((p) => p.id === config.presetId)?.name ?? config.presetId))
     applyToPreview(buildOverride(config, mode, name))
     setApplied(true)
     setTimeout(() => setApplied(false), 1800)
@@ -310,171 +369,352 @@ export function ThemingSection() {
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
       {/* Left: controls */}
-      <aside className="shrink-0 w-[360px] flex flex-col border-r border-app-border bg-app-surface overflow-hidden">
+      <aside
+        style={{ width }}
+        className="relative shrink-0 flex flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
+      >
         {/* Header */}
         <div className="shrink-0 flex items-center justify-between px-4 h-12 border-b border-app-border">
           <div className="flex items-center gap-2">
             <Palette size={13} className="text-app-accent" />
             <p className="text-[12px] font-semibold text-app-text">Theme Editor</p>
           </div>
-          <ModePill mode={mode} setMode={setMode} />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowWcagAudit((v) => !v)}
+              className={cn(
+                'flex items-center gap-1 h-6 px-2 rounded text-[10px] font-medium transition-colors border',
+                showWcagAudit
+                  ? 'bg-app-accent text-app-on-accent border-app-accent'
+                  : 'text-app-subtle hover:text-app-text border-transparent hover:border-app-border',
+              )}
+            >
+              <Eye size={10} />
+              WCAG
+            </button>
+            <ModePill mode={mode} setMode={setMode} />
+          </div>
+        </div>
+
+        {/* Tab row */}
+        <div className="shrink-0 flex items-center justify-between border-b border-app-border bg-app-elevated/40 p-1 gap-1">
+          <button
+            onClick={() => setControlTab('presets')}
+            className={cn(
+              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
+              controlTab === 'presets' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
+            )}
+          >
+            <Compass size={13} className="mb-0.5" />
+            Harmony
+          </button>
+          <button
+            onClick={() => setControlTab('styles')}
+            className={cn(
+              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
+              controlTab === 'styles' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
+            )}
+          >
+            <Sliders size={13} className="mb-0.5" />
+            Geometry
+          </button>
+          <button
+            onClick={() => setControlTab('colors')}
+            className={cn(
+              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
+              controlTab === 'colors' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
+            )}
+          >
+            <SlidersHorizontal size={13} className="mb-0.5" />
+            Tokens
+          </button>
+          <button
+            onClick={() => setControlTab('export')}
+            className={cn(
+              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
+              controlTab === 'export' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
+            )}
+          >
+            <Download size={13} className="mb-0.5" />
+            Export
+          </button>
         </div>
 
         {/* Scrollable controls */}
         <div className="flex-1 overflow-y-auto app-scroll p-4 flex flex-col gap-5">
-
-          {/* Presets */}
-          <Group label="Presets" hint="Start from a preset, then customize.">
-            <div className="grid grid-cols-4 gap-2">
-              {THEME_PRESETS.map((preset) => {
-                const active = config.presetId === preset.id
-                return (
-                  <button
-                    key={preset.id}
-                    onClick={() => applyPreset(preset)}
-                    title={preset.description}
-                    className={cn(
-                      'flex flex-col items-center gap-1 p-2 rounded-app-sm border transition-colors duration-100',
-                      active
-                        ? 'border-app-accent bg-app-accent-subtle'
-                        : 'border-app-border hover:border-app-border-strong bg-app-elevated/40',
-                    )}
-                  >
-                    <span className="h-5 w-5 rounded-full ring-1 ring-app-border-strong" style={{ background: preset.swatch }} />
-                    <span className="text-[10px] font-medium text-app-text truncate w-full text-center">{preset.name}</span>
-                  </button>
-                )
-              })}
-            </div>
-          </Group>
-
-          {/* Radius */}
-          <Group label="Radius" hint={`${config.radius.toFixed(2)} rem`}>
-            <input type="range" min={0} max={1.5} step={0.05} value={config.radius}
-              onChange={(e) => setConfig((c) => ({ ...c, radius: parseFloat(e.target.value) }))}
-              className="w-full accent-app-accent" />
-            <div className="flex justify-between text-[9.5px] text-app-subtle mt-1 font-mono">
-              <span>0</span><span>0.5</span><span>1</span><span>1.5</span>
-            </div>
-          </Group>
-
-          {/* Contrast */}
-          <Group label="Contrast" hint={`${config.contrast.toFixed(2)}×`}>
-            <input type="range" min={0.7} max={1.4} step={0.01} value={config.contrast}
-              onChange={(e) => setConfig((c) => ({ ...c, contrast: parseFloat(e.target.value) }))}
-              className="w-full accent-app-accent" />
-            <div className="flex justify-between text-[9.5px] text-app-subtle mt-1 font-mono">
-              <span>low</span><span>normal</span><span>high</span>
-            </div>
-          </Group>
-
-          {/* Fonts */}
-          <Group label="Fonts">
-            <div className="flex flex-col gap-2">
-              <FontRow label="Sans" value={config.fontSans} options={SANS_FONTS}
-                onChange={(f) => handleFontChange('sans', f)} />
-              <FontRow label="Mono" value={config.fontMono} options={MONO_FONTS}
-                onChange={(f) => handleFontChange('mono', f)} />
-            </div>
-          </Group>
-
-          {/* Generator */}
-          <Group label="Generator" hint="Color-theory harmony + global transforms.">
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={() => {
-                  setConfig((c) => ({
-                    ...c,
-                    presetId: 'random',
-                    light: randomizeTokens(c.light, 'light'),
-                    dark:  randomizeTokens(c.dark,  'dark'),
-                  }))
-                }}
-                className="flex items-center justify-center gap-1.5 h-8 rounded-app-sm bg-app-elevated border border-app-border text-[11.5px] font-semibold text-app-text hover:border-app-accent transition-colors"
-              >
-                <Shuffle size={11} />
-                Randomize palette
-              </button>
-
-              <SliderRow label="Hue shift" value={config.transform.hueShift} min={-180} max={180} step={1} unit="°"
-                onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, hueShift: v } }))} />
-              <SliderRow label="Saturation" value={config.transform.satScale} min={0} max={2} step={0.05} unit="×"
-                onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, satScale: v } }))} />
-              <SliderRow label="Lightness" value={config.transform.lightScale} min={0.5} max={1.5} step={0.05} unit="×"
-                onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, lightScale: v } }))} />
-              {!isIdentityTransform(config.transform) && (
-                <button
-                  onClick={() => setConfig((c) => ({ ...c, transform: { hueShift: 0, satScale: 1, lightScale: 1 } }))}
-                  className="flex items-center justify-center gap-1 h-6 rounded-app-sm text-[10.5px] text-app-subtle hover:text-app-text transition-colors"
-                >
-                  <Wand2 size={10} />
-                  Clear transforms
-                </button>
-              )}
-            </div>
-          </Group>
-
-          {/* Surface + Shadow */}
-          <Group label="Surface style" hint="Card backgrounds and borders.">
-            <SegmentPicker value={config.surfaceStyle} options={['flat','glass','brutalist']}
-              onChange={(v) => setConfig((c) => ({ ...c, surfaceStyle: v as SurfaceStyle }))} />
-          </Group>
-          <Group label="Shadow style" hint="Card / button elevation feel.">
-            <SegmentPicker value={config.shadowStyle} options={['none','soft','hard','glow','neon']}
-              onChange={(v) => setConfig((c) => ({ ...c, shadowStyle: v as ShadowStyle }))} />
-          </Group>
-
-          <Group label="Letter spacing" hint={`${config.letterSpacing.toFixed(2)} em`}>
-            <input type="range" min={-0.05} max={0.15} step={0.005} value={config.letterSpacing}
-              onChange={(e) => setConfig((c) => ({ ...c, letterSpacing: parseFloat(e.target.value) }))}
-              className="w-full accent-app-accent" />
-          </Group>
-
-          {/* Token groups */}
-          {TOKEN_GROUPS.map((group) => (
-            <Group key={group.label} label={group.label} hint={group.description}>
-              <div className="flex flex-col gap-1.5">
-                {group.tokens.map(({ key, label }) => (
-                  <ColorRow key={key} label={label} value={rawTokens[key]}
-                    onChange={(v) => setToken(key, v)} />
-                ))}
-              </div>
-            </Group>
-          ))}
-
-          {/* Saved profiles */}
-          {savedProfiles.length > 0 && (
-            <Group label="Saved profiles">
-              <div className="flex flex-col gap-1">
-                {savedProfiles.map((p) => (
-                  <div key={p.id} className="flex items-center gap-1.5 h-7">
-                    <button
-                      onClick={() => loadSavedProfile(p.id)}
-                      className="flex-1 flex items-center gap-1.5 h-7 px-2 rounded-app-sm text-[11px] text-app-text bg-app-elevated hover:bg-app-surface border border-app-border transition-colors truncate text-left"
-                    >
-                      <span className="w-3 h-3 rounded-full shrink-0"
-                        style={{ background: p.override[p.override.mode].primary ?? '#888' }} />
-                      {p.name}
-                    </button>
-                    <button onClick={() => deleteProfile(p.id)}
-                      className="flex items-center justify-center h-7 w-7 rounded-app-sm text-app-subtle hover:text-app-danger hover:bg-app-elevated border border-app-border transition-colors"
-                      title="Delete profile">
-                      <Trash2 size={10} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </Group>
+          {/* WCAG Audit Overlay */}
+          {showWcagAudit && (
+            <WcagAuditPanel tokens={tokens} mode={mode} />
           )}
 
-          {/* Reset */}
-          <button
-            onClick={resetMode}
-            className="flex items-center justify-center gap-1.5 h-7 rounded-app-sm border border-app-border text-[11px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-colors"
-          >
-            <RotateCcw size={11} />
-            Reset {mode} mode to preset
-          </button>
+          {/* TAB 1: PRESETS & HARMONIES */}
+          {controlTab === 'presets' && (
+            <>
+              {/* Generator / Randomize */}
+              <Group label="AI Randomizer" hint="Dynamic brand-tinted HSL generator">
+                <button
+                  onClick={() => {
+                    setConfig((c) => ({
+                      ...c,
+                      presetId: 'random',
+                      light: randomizeTokens(c.light, 'light'),
+                      dark:  randomizeTokens(c.dark,  'dark'),
+                    }))
+                  }}
+                  className="flex items-center justify-center gap-1.5 w-full h-8 rounded bg-app-accent text-[11px] font-bold text-app-on-accent hover:bg-app-accent-hover transition-colors shadow-sm"
+                >
+                  <Shuffle size={11} />
+                  Randomize Palette
+                </button>
+              </Group>
+
+              {/* Color theory Harmonies */}
+              <Group label="Color theory harmonies" hint="Mathematical color placement.">
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { type: 'complementary', label: 'Complementary', desc: 'Stark opposite contrast' },
+                    { type: 'triadic', label: 'Triadic', desc: 'Cohesive 120° offsets' },
+                    { type: 'analogous', label: 'Analogous', desc: 'Grounded neighboring HSL' },
+                    { type: 'split-complementary', label: 'Split-Comp.', desc: 'High-end soft contrast' },
+                    { type: 'tetradic', label: 'Tetradic', desc: 'Double complementary grid' },
+                    { type: 'monochromatic', label: 'Monochrome Scale', desc: 'Same hue, distinct shading' },
+                  ].map(({ type, label, desc }) => (
+                    <button
+                      key={type}
+                      onClick={() => applyHarmony(type as HarmonyType)}
+                      title={desc}
+                      className={cn(
+                        'flex flex-col items-start p-2 rounded border text-left transition-all',
+                        config.presetId === `harmony-${type}`
+                          ? 'border-app-accent bg-app-accent-subtle/50'
+                          : 'border-app-border hover:border-app-border-strong bg-app-elevated/20',
+                      )}
+                    >
+                      <span className="text-[10.5px] font-bold text-app-text">{label}</span>
+                      <span className="text-[9px] text-app-subtle mt-0.5 leading-tight">{desc}</span>
+                    </button>
+                  ))}
+                </div>
+              </Group>
+
+              {/* Preset catalog */}
+              <Group label="Theme Presets" hint="Classic layout profiles.">
+                <div className="grid grid-cols-3 gap-1.5">
+                  {THEME_PRESETS.map((preset) => {
+                    const active = config.presetId === preset.id
+                    return (
+                      <button
+                        key={preset.id}
+                        onClick={() => applyPreset(preset)}
+                        title={preset.description}
+                        className={cn(
+                          'flex flex-col items-center gap-1 p-1.5 rounded border transition-all duration-100',
+                          active
+                            ? 'border-app-accent bg-app-accent-subtle'
+                            : 'border-app-border hover:border-app-border-strong bg-app-elevated/40',
+                        )}
+                      >
+                        <span className="h-4 w-4 rounded-full ring-1 ring-app-border-strong" style={{ background: preset.swatch }} />
+                        <span className="text-[9px] font-bold text-app-text truncate w-full text-center">{preset.name}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </Group>
+            </>
+          )}
+
+          {/* TAB 2: GLOBAL STYLES & GEOMETRY */}
+          {controlTab === 'styles' && (
+            <>
+              <Group label="Surface style" hint="Card borders & treatments.">
+                <SegmentPicker value={config.surfaceStyle} options={['flat','glass','brutalist']}
+                  onChange={(v) => setConfig((c) => ({ ...c, surfaceStyle: v as SurfaceStyle }))} />
+              </Group>
+
+              <Group label="Shadow style" hint="UI container depth controls.">
+                <SegmentPicker value={config.shadowStyle} options={['none','soft','hard','glow','neon']}
+                  onChange={(v) => setConfig((c) => ({ ...c, shadowStyle: v as ShadowStyle }))} />
+              </Group>
+
+              <Group label="Border Radius" hint={`${config.radius.toFixed(2)} rem`}>
+                <input type="range" min={0} max={1.5} step={0.05} value={config.radius}
+                  onChange={(e) => setConfig((c) => ({ ...c, radius: parseFloat(e.target.value) }))}
+                  className="w-full accent-app-accent" />
+                <div className="flex justify-between text-[9px] text-app-subtle mt-1 font-mono">
+                  <span>0px (Sharp)</span><span>0.5rem</span><span>1.5rem (Round)</span>
+                </div>
+              </Group>
+
+              <Group label="Letter spacing" hint={`${config.letterSpacing.toFixed(3)} em`}>
+                <input type="range" min={-0.05} max={0.15} step={0.005} value={config.letterSpacing}
+                  onChange={(e) => setConfig((c) => ({ ...c, letterSpacing: parseFloat(e.target.value) }))}
+                  className="w-full accent-app-accent" />
+                <div className="flex justify-between text-[9px] text-app-subtle mt-1 font-mono">
+                  <span>Tight</span><span>0</span><span>Spaced</span>
+                </div>
+              </Group>
+
+              <Group label="Border width" hint={`${config.borderWidth ?? 1} px`}>
+                <input type="range" min={0} max={6} step={1} value={config.borderWidth ?? 1}
+                  onChange={(e) => setConfig((c) => ({ ...c, borderWidth: parseInt(e.target.value) }))}
+                  className="w-full accent-app-accent" />
+                <div className="flex justify-between text-[9px] text-app-subtle mt-1 font-mono">
+                  <span>0px (None)</span><span>1px</span><span>6px (Thick)</span>
+                </div>
+              </Group>
+
+              <Group label="Motion & transitions" hint="Tactile micro-motions.">
+                <SegmentPicker value={config.motionStyle ?? 'smooth'} options={['none','smooth','spring','pulsing']}
+                  onChange={(v) => setConfig((c) => ({ ...c, motionStyle: v as any }))} />
+              </Group>
+
+              <Group label="Typography Fonts">
+                <div className="flex flex-col gap-2">
+                  <FontRow label="Sans" value={config.fontSans} options={SANS_FONTS}
+                    onChange={(f) => handleFontChange('sans', f)} />
+                  <FontRow label="Mono" value={config.fontMono} options={MONO_FONTS}
+                    onChange={(f) => handleFontChange('mono', f)} />
+                </div>
+              </Group>
+            </>
+          )}
+
+          {/* TAB 3: COLOR TOKEN OVERRIDES */}
+          {controlTab === 'colors' && (
+            <>
+              {/* Calibration */}
+              <Group label="Contrast Calibration" hint={`${config.contrast.toFixed(2)}× separation`}>
+                <input type="range" min={0.7} max={1.4} step={0.01} value={config.contrast}
+                  onChange={(e) => setConfig((c) => ({ ...c, contrast: parseFloat(e.target.value) }))}
+                  className="w-full accent-app-accent" />
+                <div className="flex justify-between text-[9px] text-app-subtle mt-1 font-mono">
+                  <span>Soft (0.7)</span><span>Normal (1.0)</span><span>High (1.4)</span>
+                </div>
+              </Group>
+
+              <Group label="Global HSL Shifts">
+                <div className="flex flex-col gap-2">
+                  <SliderRow label="Hue shift" value={config.transform.hueShift} min={-180} max={180} step={1} unit="°"
+                    onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, hueShift: v } }))} />
+                  <SliderRow label="Saturation" value={config.transform.satScale} min={0} max={2} step={0.05} unit="×"
+                    onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, satScale: v } }))} />
+                  <SliderRow label="Lightness" value={config.transform.lightScale} min={0.5} max={1.5} step={0.05} unit="×"
+                    onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, lightScale: v } }))} />
+                  {!isIdentityTransform(config.transform) && (
+                    <button
+                      onClick={() => setConfig((c) => ({ ...c, transform: { hueShift: 0, satScale: 1, lightScale: 1 } }))}
+                      className="flex items-center justify-center gap-1 h-6 rounded text-[10px] text-app-accent hover:text-app-text transition-colors mt-1 border border-app-border/40 bg-app-elevated/20"
+                    >
+                      <Wand2 size={10} />
+                      Clear HSL transforms
+                    </button>
+                  )}
+                </div>
+              </Group>
+
+              {/* Token list */}
+              {TOKEN_GROUPS.map((group) => (
+                <Group key={group.label} label={group.label} hint={group.description}>
+                  <div className="flex flex-col gap-1.5">
+                    {group.tokens.map(({ key, label }) => (
+                      <ColorRow key={key} label={label} value={rawTokens[key]}
+                        onChange={(v) => setToken(key, v)} />
+                    ))}
+                  </div>
+                </Group>
+              ))}
+            </>
+          )}
+
+          {/* TAB 4: PROFILE MANAGE & EXPORTS */}
+          {controlTab === 'export' && (
+            <>
+              {/* Presets manager */}
+              <Group label="Save Active Profile">
+                {showSaveBox ? (
+                  <div className="flex flex-col gap-2 p-2 rounded border border-app-border bg-app-elevated/20">
+                    <input
+                      autoFocus
+                      type="text"
+                      placeholder="Custom profile name…"
+                      value={saveInput}
+                      onChange={(e) => setSaveInput(e.target.value)}
+                      className="w-full h-8 px-2 rounded bg-app-bg border border-app-accent text-[11px] text-app-text outline-none"
+                    />
+                    <div className="flex items-center gap-2 justify-end">
+                      <button onClick={() => setShowSaveBox(false)}
+                        className="h-7 px-2.5 rounded border border-app-border text-[11px] text-app-muted hover:text-app-text transition-colors">
+                        Cancel
+                      </button>
+                      <button onClick={handleSaveProfile}
+                        className="h-7 px-3 rounded bg-app-accent text-app-on-accent text-[11px] font-bold hover:bg-app-accent-hover transition-colors">
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowSaveBox(true)}
+                    className="flex items-center justify-center gap-1.5 w-full h-8 rounded border border-app-border text-[11px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-all"
+                  >
+                    <BookmarkPlus size={11} />
+                    Save active setup
+                  </button>
+                )}
+              </Group>
+
+              {/* Saved profiles list */}
+              {savedProfiles.length > 0 && (
+                <Group label="Saved profiles library">
+                  <div className="flex flex-col gap-1.5">
+                    {savedProfiles.map((p) => (
+                      <div key={p.id} className="flex items-center gap-1.5 h-7">
+                        <button
+                          onClick={() => loadSavedProfile(p.id)}
+                          className="flex-1 flex items-center gap-1.5 h-7 px-2 rounded text-[11px] text-app-text bg-app-elevated hover:bg-app-surface border border-app-border transition-colors truncate text-left"
+                        >
+                          <span className="w-2.5 h-2.5 rounded-full shrink-0"
+                            style={{ background: p.override[p.override.mode].primary ?? '#888' }} />
+                          {p.name}
+                        </button>
+                        <button onClick={() => deleteProfile(p.id)}
+                          className="flex items-center justify-center h-7 w-7 rounded text-app-subtle hover:text-app-danger hover:bg-app-elevated border border-app-border transition-colors"
+                          title="Delete profile">
+                          <Trash2 size={10} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </Group>
+              )}
+
+              {/* Code output */}
+              <Group label="CSS Code Export" hint="Ready for root DESIGN.md">
+                <div className="relative">
+                  <pre className="p-2 text-[9px] font-mono rounded bg-app-deep text-app-muted overflow-auto max-h-36 app-scroll border border-app-border">
+                    {cssOutput}
+                  </pre>
+                  <button
+                    onClick={copyCss}
+                    className="absolute top-1.5 right-1.5 flex items-center justify-center h-6 px-2 rounded bg-app-surface/90 border border-app-border text-[9.5px] font-semibold text-app-text hover:border-app-accent hover:bg-app-surface transition-all"
+                  >
+                    {copied ? <Check size={9} className="text-app-success mr-1" /> : <Copy size={9} className="mr-1" />}
+                    {copied ? 'Copied!' : 'Copy'}
+                  </button>
+                </div>
+              </Group>
+
+              {/* Reset to Preset */}
+              <button
+                onClick={resetMode}
+                className="flex items-center justify-center gap-1.5 w-full h-8 rounded border border-app-border text-[11px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-colors mt-2"
+              >
+                <RotateCcw size={11} />
+                Reset {mode} mode to preset
+              </button>
+            </>
+          )}
         </div>
 
         {/* Footer — Apply / Save / Copy */}
@@ -483,7 +723,7 @@ export function ThemingSection() {
           <button
             onClick={handleApplyToPreview}
             className={cn(
-              'flex items-center justify-center gap-1.5 h-8 rounded-app-sm text-[11.5px] font-semibold transition-colors',
+              'flex items-center justify-center gap-1.5 h-8 rounded text-[11.5px] font-bold transition-all shadow-sm',
               applied
                 ? 'bg-app-success text-white'
                 : 'bg-app-accent text-app-on-accent hover:bg-app-accent-hover active:bg-app-accent-active',
@@ -492,48 +732,13 @@ export function ThemingSection() {
             {applied ? <Check size={12} /> : <Play size={12} />}
             {applied ? 'Applied to Preview!' : 'Apply to Preview'}
           </button>
-
-          <div className="flex items-center gap-2">
-            {/* Save as color profile */}
-            {showSaveBox ? (
-              <div className="flex items-center gap-1 flex-1">
-                <input
-                  autoFocus
-                  type="text"
-                  placeholder="Profile name…"
-                  value={saveInput}
-                  onChange={(e) => setSaveInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleSaveProfile()
-                    if (e.key === 'Escape') setShowSaveBox(false)
-                  }}
-                  className="flex-1 h-7 px-2 rounded-app-sm bg-app-elevated border border-app-accent text-[11px] text-app-text outline-none"
-                />
-                <button onClick={handleSaveProfile}
-                  className="flex items-center justify-center h-7 px-2 rounded-app-sm bg-app-elevated border border-app-border text-[11px] font-semibold text-app-text hover:bg-app-surface transition-colors">
-                  Save
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => setShowSaveBox(true)}
-                className="flex items-center justify-center gap-1.5 flex-1 h-7 rounded-app-sm border border-app-border text-[11px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-colors"
-              >
-                <BookmarkPlus size={11} />
-                Save as color profile
-              </button>
-            )}
-
-            {/* Copy CSS */}
-            <button
-              onClick={copyCss}
-              title="Copy CSS"
-              className="flex items-center justify-center h-7 w-8 rounded-app-sm border border-app-border text-app-muted hover:text-app-text hover:bg-app-elevated transition-colors"
-            >
-              {copied ? <Check size={12} className="text-app-success" /> : <Copy size={12} />}
-            </button>
-          </div>
         </div>
+
+        {/* Resizer Handle */}
+        <div
+          onMouseDown={startResize}
+          className="absolute top-0 right-0 w-1.5 h-full cursor-col-resize hover:bg-app-accent/30 active:bg-app-accent transition-colors z-50 select-none"
+        />
       </aside>
 
       {/* Right: live preview */}
@@ -569,6 +774,8 @@ export function ThemingSection() {
             shadowStyle={config.shadowStyle}
             letterSpacing={config.letterSpacing}
             contrast={config.contrast}
+            borderWidth={config.borderWidth ?? 1}
+            motionStyle={config.motionStyle ?? 'smooth'}
           />
         </div>
       </main>
@@ -664,6 +871,70 @@ function SegmentPicker({ value, options, onChange }: { value: string; options: r
   )
 }
 
+function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mode }) {
+  const PAIRS: Array<{ label: string; fg: keyof ThemeTokens; bg: keyof ThemeTokens }> = [
+    { label: 'Body text',          fg: 'foreground',        bg: 'background' },
+    { label: 'Card text',          fg: 'cardForeground',    bg: 'card' },
+    { label: 'Popover text',       fg: 'popoverForeground', bg: 'popover' },
+    { label: 'Secondary text',     fg: 'secondaryForeground', bg: 'secondary' },
+    { label: 'Muted text',         fg: 'mutedForeground',   bg: 'muted' },
+    { label: 'Primary button',     fg: 'primaryForeground', bg: 'primary' },
+    { label: 'Accent button',      fg: 'accentForeground',  bg: 'accent' },
+    { label: 'Destructive button', fg: 'destructiveForeground', bg: 'destructive' },
+    { label: 'Input text',         fg: 'foreground',        bg: 'input' },
+  ]
+
+  const allPass = PAIRS.every(({ fg, bg }) => {
+    const ratio = getContrastRatio(tokens[fg], tokens[bg])
+    return meetsWCAG(ratio, 'AA')
+  })
+
+  return (
+    <div className={cn(
+      'rounded border p-3 flex flex-col gap-2',
+      allPass ? 'border-green-500/50 bg-green-50/10' : 'border-amber-500/50 bg-amber-50/10',
+    )}>
+      <div className="flex items-center justify-between">
+        <span className="text-[10.5px] font-semibold text-app-text">WCAG Contrast Audit</span>
+        <span className={cn(
+          'text-[10px] font-bold font-mono',
+          allPass ? 'text-green-600' : 'text-amber-600',
+        )}>
+          {allPass ? 'AA ✓ All pass' : 'FAIL — needs attention'}
+        </span>
+      </div>
+      <div className="flex flex-col gap-1">
+        {PAIRS.map(({ label, fg, bg }) => {
+          const ratio = getContrastRatio(tokens[fg], tokens[bg])
+          const badge = contrastBadge(ratio)
+          return (
+            <div key={label} className="flex items-center gap-2 text-[10px]">
+              <div className="flex items-center gap-1 w-28 shrink-0">
+                <span className="h-2.5 w-2.5 rounded ring-1 ring-black/10 shrink-0" style={{ background: tokens[fg] }} />
+                <span className="h-2.5 w-2.5 rounded ring-1 ring-black/10 shrink-0" style={{ background: tokens[bg] }} />
+                <span className="text-app-muted ml-0.5 truncate">{label}</span>
+              </div>
+              <span className="font-mono text-app-subtle w-12 text-right">{ratio.toFixed(2)}:1</span>
+              <span className={cn(
+                'font-mono w-16 text-center rounded px-1',
+                badge.pass ? 'text-green-600 bg-green-500/10' : 'text-red-600 bg-red-500/10 font-bold',
+              )}>
+                {badge.pass ? 'AA' : 'FAIL'}
+              </span>
+              <span className={cn(
+                'font-mono w-16 text-center rounded px-1',
+                meetsWCAG(ratio, 'AAA') ? 'text-green-600 bg-green-500/10' : 'text-app-subtle',
+              )}>
+                {meetsWCAG(ratio, 'AAA') ? 'AAA' : '—'}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
   return (
     <div className="flex items-center gap-0.5 p-0.5 rounded-app-sm bg-app-elevated border border-app-border">
@@ -685,5 +956,5 @@ function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
 
 function normalizeHex(value: string): string {
   const m = /^#([0-9a-f]{6})$/i.exec(value.trim())
-  return m ? `#${m[1]}` : '#000000'
+  return m ? `#${m[1]}` : '#111827'
 }

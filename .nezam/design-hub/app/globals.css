@@ -3,69 +3,82 @@
 @tailwind utilities;
 
 /* =============================================================
-   NEZAM Design Hub — Adobe Spectrum-inspired dark workspace
-   Neutral graphite tool chrome. Live design tokens (--n-*) stay
-   scoped to the preview — never leak onto :root.
+   NEZAM Design Hub — Professional design system workspace
+   Two-level depth contrast: page bg ≠ component bg, both modes.
+   Dark:  #161616 base  + #1E1E1E surface  + #262626 elevated
+   Light: #F7F7F8 base  + #FFFFFF surface  + #EDEDF0 elevated
    ============================================================= */
 
 :root {
-  /* Adobe Spectrum dark surfaces (slightly tuned). */
-  --app-bg: #1d1d1d;
-  --app-surface: #252526;
-  --app-elevated: #2f2f30;
-  --app-inset: #1a1a1a;
-  --app-deep: #161616;
-  --app-border: #393939;
-  --app-border-strong: #4a4a4a;
-  --app-text: #e8e8e8;
-  --app-muted: #a3a3a3;
-  --app-subtle: #6e6e6e;
-  /* Adobe blue accent. */
-  --app-accent: #2680eb;
-  --app-accent-hover: #378ef0;
-  --app-accent-active: #1473e6;
-  --app-accent-subtle: rgba(38, 128, 235, 0.18);
-  --app-on-accent: #ffffff;
-  /* Status. */
-  --app-danger: #e34850;
-  --app-warning: #e68619;
-  --app-success: #2d9d78;
+  /* ── Dark mode (Atlassian Design System Inspired Charcoal) ── */
+  --app-bg:            #161619;   /* Sleek, deep charcoal backdrop */
+  --app-surface:       #1E1F22;   /* Clean panel graphite surfaces */
+  --app-elevated:      #2A2C31;   /* Dropdowns, active item states */
+  --app-inset:         #101012;   /* Search inputs, inset blocks */
+  --app-deep:          #0C0D0F;   /* canvas bg background */
 
-  --app-font-sans: 'Inter', 'Adobe Clean', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --app-font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
-  --app-font-arabic: 'IBM Plex Sans Arabic', 'Cairo', 'Noto Sans Arabic', system-ui, sans-serif;
+  /* Borders */
+  --app-border:        #2E3035;
+  --app-border-strong: #40444C;
+
+  /* Text */
+  --app-text:          #F4F5F7;
+  --app-muted:         #A5ADBA;
+  --app-subtle:        #7A869A;
+
+  /* Atlassian premium blue accents */
+  --app-accent:        #0065FF;
+  --app-accent-hover:  #2684FF;
+  --app-accent-active: #0747A6;
+  --app-accent-subtle: rgba(38, 128, 235, 0.16);
+  --app-on-accent:     #fbfdff;
+
+  /* Status colors */
+  --app-danger:        #DE350B;
+  --app-warning:       #FFAB00;
+  --app-success:       #00875A;
+
+  /* Fonts */
+  --app-font-sans:    'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --app-font-mono:    'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
+  --app-font-arabic:  'IBM Plex Sans Arabic', 'Cairo', 'Noto Sans Arabic', system-ui, sans-serif;
 
   --right-w: 432px;
-
   color-scheme: dark;
 }
 
+/* ── Light mode (Atlassian Light Mode Palette) ── */
 .light {
-  --app-bg: #f5f5f5;
-  --app-surface: #ffffff;
-  --app-elevated: #ededed;
-  --app-inset: #e0e0e0;
-  --app-deep: #e8e8e8;
-  --app-border: #dcdcdc;
-  --app-border-strong: #b5b5b5;
-  --app-text: #222222;
-  --app-muted: #555555;
-  --app-subtle: #888888;
-  --app-accent: #2680eb;
-  --app-accent-hover: #1473e6;
-  --app-accent-active: #0d59b3;
-  --app-accent-subtle: rgba(38, 128, 235, 0.08);
-  --app-on-accent: #ffffff;
-  --app-danger: #d73a49;
-  --app-warning: #d97706;
-  --app-success: #059669;
+  --app-bg:            #FAFBFC;   /* Crisp slate-tinted off-white background */
+  --app-surface:       #FFFFFF;   /* Pure white panel surfaces */
+  --app-elevated:      #F4F5F7;   /* Clean light gray backgrounds for lists */
+  --app-inset:         #EBECF0;   /* Input fields, border/inset depth */
+  --app-deep:          #F4F5F7;   /* Canvas dot backdrop */
+
+  --app-border:        #DFE1E6;
+  --app-border-strong: #C1C7D0;
+
+  --app-text:          #172B4D;   /* Classic Atlassian deep navy-slate */
+  --app-muted:         #5E6C84;   /* Muted gray-blue */
+  --app-subtle:        #8993A4;
+
+  --app-accent:        #0052CC;   /* True Atlassian Blue */
+  --app-accent-hover:  #0065FF;
+  --app-accent-active: #0747A6;
+  --app-accent-subtle: rgba(0, 82, 204, 0.08);
+  --app-on-accent:     #fbfdff;
+
+  --app-danger:        #DE350B;
+  --app-warning:       #FFAB00;
+  --app-success:       #00875A;
 
   color-scheme: light;
 }
 
+/* Light canvas grid */
 .light .canvas-grid {
-  background-color: #ededed;
-  background-image: radial-gradient(circle at 1px 1px, #d5d5d5 1px, transparent 0);
+  background-color: var(--app-deep);
+  background-image: radial-gradient(circle at 1px 1px, #CBCBD4 1px, transparent 0);
 }
 
 * {
@@ -91,19 +104,19 @@ body {
   font-family: var(--app-font-arabic);
 }
 
-/* ── Scrollbars (Adobe-thin) ────────────────────────────────── */
+/* ── Scrollbars (thin) ──────────────────────────────────────── */
 .app-scroll {
   scrollbar-width: thin;
   scrollbar-color: var(--app-border-strong) transparent;
 }
 .app-scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 .app-scroll::-webkit-scrollbar-thumb {
   background: var(--app-border-strong);
   border-radius: 999px;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   background-clip: content-box;
 }
 .app-scroll::-webkit-scrollbar-thumb:hover {
@@ -164,18 +177,19 @@ body {
 /* Canvas backdrop — Adobe-style dotted grid */
 .canvas-grid {
   background-color: var(--app-deep);
-  background-image: radial-gradient(circle at 1px 1px, #2a2a2a 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, #252525 1px, transparent 0);
   background-size: 22px 22px;
 }
 
-/* ── Design System component preview — light/dark surface context ── */
+/* ── Design System component preview — dual-surface ── */
+/* Dark preview: #111112 bg, #1C1C1E card/component */
 .preview-surface-light {
-  background: #ffffff;
+  background: #FAFAFA;
   color: #111111;
 }
 .preview-surface-dark {
   background: #111112;
-  color: #f0f0f0;
+  color: #F0F0F0;
 }
 
 /* ── Thin focus ring for interactive preview elements ── */

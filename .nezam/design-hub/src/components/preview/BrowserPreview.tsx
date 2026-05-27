@@ -1,6 +1,7 @@
 'use client'
 
 import { Monitor, Tablet, Smartphone, Lock, RotateCw, ArrowLeft, ArrowRight, Sparkles, X } from 'lucide-react'
+import { useState, useMemo } from 'react'
 import { useHub, type PreviewDevice } from '@/store/hub.store'
 import { PageRenderer } from './DeviceFrame'
 import { cn } from '@/lib/utils'
@@ -18,6 +19,8 @@ const DEVICE_ICONS: Record<PreviewDevice, React.FC<{ size?: number; className?: 
   mobile:  Smartphone,
 }
 
+const EMPTY_COMMENTS: any[] = []
+
 /**
  * Browser-window preview chrome. Replaces the old standalone device toolbar.
  * - Desktop: page renders at natural 1:1 scale, fills the entire canvas area.
@@ -32,12 +35,18 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
   const override       = useHub((s) => s.theme.previewOverride)
   const clearOverride  = useHub((s) => s.themeClearPreview)
 
-  // Build shadcn CSS vars for the page container if an override is active
-  const overrideStyle: React.CSSProperties | undefined = override
-    ? Object.fromEntries(
-        Object.entries(override[override.mode]).map(([k, v]) => [k.startsWith('--') ? k : `--${k}`, v])
-      ) as React.CSSProperties
-    : undefined
+  const comments        = useHub((s) => s.preview.comments) || EMPTY_COMMENTS
+  const isAddingComment = useHub((s) => s.preview.isAddingComment)
+  const addComment      = useHub((s) => s.previewAddComment)
+  const setIsAdding     = useHub((s) => s.previewSetIsAddingComment)
+
+  const pageComments = useMemo(() => {
+    return comments.filter((c) => c.pageId === page.id)
+  }, [comments, page.id])
+
+  // overrideStyle is no longer needed on the parent — PageRenderer merges
+  // override vars directly into its wrapStyle as the final layer.
+  // We keep `override` only to show the theme badge and the clear button.
 
   const targetWidth = DEVICE_WIDTH[device]
   const url = displayUrl(page)
@@ -123,13 +132,20 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
         className="flex-1 min-h-0 overflow-auto app-scroll"
         style={{
           ...(device !== 'desktop' ? { background: 'var(--app-deep)' } : undefined),
-          ...(overrideStyle ?? {}),
         }}
       >
         {device === 'desktop' ? (
           // Full-bleed: page fills 100% of the viewport — min-h-full so short pages still cover
           <div className="min-h-full w-full">
-            <PageRenderer page={page} tokens={tokens} device="desktop" />
+            <CommentCanvasOverlay
+              pageId={page.id}
+              pageComments={pageComments}
+              isAddingComment={isAddingComment}
+              addComment={addComment}
+              setIsAdding={setIsAdding}
+            >
+              <PageRenderer page={page} tokens={tokens} device="desktop" />
+            </CommentCanvasOverlay>
           </div>
         ) : (
           // Centered, fixed-width device viewport — page renders at 1:1 inside
@@ -143,7 +159,15 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
                 boxShadow: '0 24px 64px rgba(0,0,0,0.35)',
               }}
             >
-              <PageRenderer page={page} tokens={tokens} device={device} />
+              <CommentCanvasOverlay
+                pageId={page.id}
+                pageComments={pageComments}
+                isAddingComment={isAddingComment}
+                addComment={addComment}
+                setIsAdding={setIsAdding}
+              >
+                <PageRenderer page={page} tokens={tokens} device={device} />
+              </CommentCanvasOverlay>
             </div>
           </div>
         )}
@@ -156,4 +180,161 @@ function displayUrl(page: ArchPage): string {
   const route = page.route?.trim() || '/'
   const cleaned = route.startsWith('/') ? route : `/${route}`
   return `https://acme.dev${cleaned}`
+}
+
+function CommentCanvasOverlay({
+  pageId,
+  pageComments,
+  isAddingComment,
+  addComment,
+  setIsAdding,
+  children,
+}: {
+  pageId: string
+  pageComments: any[]
+  isAddingComment: boolean
+  addComment: (pageId: string, x: number, y: number, text: string, author: string) => void
+  setIsAdding: (isAdding: boolean) => void
+  children: React.ReactNode
+}) {
+  const [pendingPin, setPendingPin] = useState<{ x: number; y: number } | null>(null)
+  const [authorName, setAuthorName] = useState('')
+  const [commentText, setCommentText] = useState('')
+  const [activePinId, setActivePinId] = useState<string | null>(null)
+
+  function handleCanvasClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (!isAddingComment) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    setPendingPin({ x, y })
+    setCommentText('')
+  }
+
+  function handleSave() {
+    if (!pendingPin || !commentText.trim()) return
+    addComment(pageId, pendingPin.x, pendingPin.y, commentText, authorName || 'Guest Reviewer')
+    setPendingPin(null)
+    setCommentText('')
+  }
+
+  return (
+    <div 
+      className={cn("relative min-h-full w-full", isAddingComment ? "cursor-crosshair" : "")}
+      onClick={handleCanvasClick}
+    >
+      {/* RENDER VIEWPORT CONTENT */}
+      {children}
+
+      {/* CLICK INTERCEPTOR OVERLAY */}
+      {isAddingComment && (
+        <div className="absolute inset-0 bg-transparent z-40" />
+      )}
+
+      {/* RENDER PINS */}
+      {pageComments.map((pin, index) => {
+        const isActive = activePinId === pin.id
+        return (
+          <div
+            key={pin.id}
+            className="absolute z-50 group"
+            style={{
+              left: `${pin.x}%`,
+              top: `${pin.y}%`,
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
+            {/* Circle badge with pulsing shadow */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setActivePinId(isActive ? null : pin.id)
+              }}
+              className={cn(
+                "flex h-6 w-6 items-center justify-center rounded-full text-white text-xs font-bold shadow-lg transition-transform active:scale-95 duration-150 ring-2 ring-white",
+                isActive
+                  ? "bg-amber-500 scale-110 shadow-amber-500/50"
+                  : "bg-app-accent hover:scale-105 shadow-black/40"
+              )}
+            >
+              {index + 1}
+            </button>
+
+            {/* Premium Glassmorphic Tooltip */}
+            <div className={cn(
+              "absolute left-1/2 -translate-x-1/2 bottom-8 w-48 p-2.5 rounded-app-md bg-app-surface/90 backdrop-blur-md border border-app-border/80 shadow-2xl flex flex-col gap-1 select-text pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200",
+              isActive ? "opacity-100 pointer-events-auto scale-100 animate-in fade-in zoom-in-95 duration-100" : "opacity-0 scale-95 origin-bottom"
+            )}>
+              <div className="flex items-center gap-1.5 justify-between">
+                <span className="text-[10px] font-bold text-app-text truncate">{pin.author}</span>
+                <span className="text-[8px] text-app-subtle font-mono">{new Date(pin.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              </div>
+              <p className="text-[9.5px] text-app-muted leading-relaxed whitespace-pre-wrap">{pin.text}</p>
+            </div>
+          </div>
+        )
+      })}
+
+      {/* FLOATING COMMENT DIALOG MODAL ON CANVAS */}
+      {pendingPin && (
+        <div
+          className="absolute z-50 p-3 rounded-app-md bg-app-surface/95 backdrop-blur-md border border-app-border/80 shadow-2xl flex flex-col gap-2.5 w-60 animate-in zoom-in-95 duration-150 select-text"
+          style={{
+            left: `${pendingPin.x}%`,
+            top: `${pendingPin.y}%`,
+            transform: pendingPin.y > 60 ? 'translate(-50%, -105%)' : 'translate(-50%, 15px)',
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-black text-[10px] font-bold">
+              {pageComments.length + 1}
+            </span>
+            <span className="text-[10.5px] font-bold text-app-text">Add Feedback Pin</span>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <input
+              type="text"
+              placeholder="Your name (e.g. Reviewer)"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+              className="w-full h-6 rounded border border-app-border bg-app-inset px-2 text-[10.5px] font-medium text-app-text focus:outline-none focus:border-app-accent focus:ring-1 focus:ring-app-accent/30 placeholder-app-subtle"
+            />
+            <textarea
+              placeholder="Write a comment..."
+              rows={2}
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              className="w-full rounded border border-app-border bg-app-inset p-2 text-[10.5px] font-medium text-app-text focus:outline-none focus:border-app-accent focus:ring-1 focus:ring-app-accent/30 placeholder-app-subtle resize-none"
+            />
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                setPendingPin(null)
+                setIsAdding(false)
+              }}
+              className="flex-1 rounded border border-app-border bg-app-elevated px-2 py-1 text-[10px] font-medium text-app-muted hover:text-app-text transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSave}
+              disabled={!commentText.trim()}
+              className={cn(
+                "flex-1 rounded px-2 py-1 text-[10px] font-bold transition-all duration-100",
+                commentText.trim()
+                  ? "bg-app-accent text-white hover:bg-app-accent-hover"
+                  : "bg-app-elevated border border-app-border text-app-subtle cursor-not-allowed"
+              )}
+            >
+              Save Pin
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }

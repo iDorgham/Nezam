@@ -12,6 +12,19 @@ interface Props {
   onClose: () => void
 }
 
+function getDescendantIds(pages: Record<string, ArchPage>, id: string): string[] {
+  const result: string[] = []
+  const stack = [id]
+  while (stack.length > 0) {
+    const cur = stack.pop()!
+    result.push(cur)
+    Object.values(pages)
+      .filter((p) => p.parentId === cur)
+      .forEach((p) => stack.push(p.id))
+  }
+  return result
+}
+
 export function PageDetail({ onClose }: Props) {
   const selectedId     = useHub((s) => s.arch.selectedPageId)
   const pages          = useHub((s) => s.arch.pages)
@@ -21,7 +34,15 @@ export function PageDetail({ onClose }: Props) {
   const page = selectedId ? pages[selectedId] : null
   if (!page) return null
 
-  const parentPage = page.parentId ? pages[page.parentId] : null
+  const descendants = getDescendantIds(pages, page.id)
+  const possibleParents = Object.values(pages).filter((p) => !descendants.includes(p.id))
+  const parentOptions = [
+    { value: 'none', label: 'None (Root Page)' },
+    ...possibleParents.map((p) => ({
+      value: p.id,
+      label: `${p.name} (${p.route})`,
+    })),
+  ]
 
   function update(patch: Parameters<typeof archUpdatePage>[1]) {
     if (selectedId) archUpdatePage(selectedId, patch)
@@ -84,17 +105,16 @@ export function PageDetail({ onClose }: Props) {
           className="font-mono"
         />
 
-        {/* Parent */}
-        {parentPage && (
-          <div>
-            <p className="text-[11px] text-app-muted font-medium uppercase tracking-wide mb-1">Parent</p>
-            <div className="flex items-center gap-1.5 h-7 px-2.5 rounded-app-sm bg-app-inset border border-app-border text-xs text-app-muted">
-              <IconRenderer name={parentPage.icon} size={12} />
-              <span>{parentPage.name}</span>
-              <span className="ml-1 font-mono text-[10px]">{parentPage.route}</span>
-            </div>
-          </div>
-        )}
+        {/* Parent Selector */}
+        <Select
+          label="Parent Page"
+          value={page.parentId ?? 'none'}
+          onChange={(e) => {
+            const val = e.target.value
+            update({ parentId: val === 'none' ? null : val })
+          }}
+          options={parentOptions}
+        />
 
         {/* Type */}
         <Select
@@ -111,6 +131,71 @@ export function PageDetail({ onClose }: Props) {
           onChange={(e) => update({ navSlot: e.target.value as ArchPage['navSlot'] })}
           options={Object.entries(NAV_SLOT_LABELS).map(([v, l]) => ({ value: v, label: l }))}
         />
+
+        {/* Page Layout */}
+        <Select
+          label="Page Layout"
+          value={page.layout ?? 'standard'}
+          onChange={(e) => update({ layout: e.target.value as any })}
+          options={[
+            { value: 'standard', label: 'Standard (Header + Footer)' },
+            { value: 'sidebar', label: 'Sidebar Layout' },
+            { value: 'blank', label: 'Blank / Landing Page' },
+            { value: 'tabs', label: 'Tabbed Layout' },
+          ]}
+        />
+
+        {/* Layout Width */}
+        <Select
+          label="Layout Width"
+          value={page.layoutWidth ?? 'boxed'}
+          onChange={(e) => update({ layoutWidth: e.target.value as any })}
+          options={[
+            { value: 'boxed', label: 'Boxed (Max-width container)' },
+            { value: 'fullwidth', label: 'Full Width (Fluid edge-to-edge)' },
+          ]}
+        />
+
+
+        {/* Backend service bindings checklist */}
+        <div>
+          <p className="text-[10px] text-app-muted font-bold uppercase tracking-wider mb-1.5">
+            Backend Microservices
+          </p>
+          <div className="flex flex-col gap-1 rounded-lg border border-app-border bg-app-elevated/40 p-2">
+            {Object.entries({
+              api:      'API Endpoints',
+              auth:     'Auth / Security',
+              payment:  'Billing / Payments',
+              database: 'Database Sync',
+            }).map(([kind, label]) => {
+              const activeServices = page.services || []
+              const isChecked = activeServices.includes(kind as any)
+              
+              function handleToggle() {
+                const next = isChecked
+                  ? activeServices.filter((s) => s !== kind)
+                  : [...activeServices, kind as any]
+                update({ services: next })
+              }
+
+              return (
+                <label
+                  key={kind}
+                  className="flex items-center justify-between cursor-pointer rounded px-2 py-1.5 hover:bg-app-elevated/70 transition-colors select-none"
+                >
+                  <span className="text-[11px] font-medium text-app-text">{label}</span>
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleToggle}
+                    className="h-3.5 w-3.5 rounded border-app-border bg-app-elevated text-app-accent focus:ring-1 focus:ring-app-accent/30 transition-all cursor-pointer"
+                  />
+                </label>
+              )
+            })}
+          </div>
+        </div>
 
         {/* Description */}
         <Textarea

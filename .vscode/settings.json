@@ -28,5 +28,6 @@
     "node_modules/**": true
   },
   "specstory.cloudSync.enabled": "always",
-  "claudeCodeChat.permissions.yoloMode": true
+  "claudeCodeChat.permissions.yoloMode": true,
+  "npm.autoDetect": "on"
 }

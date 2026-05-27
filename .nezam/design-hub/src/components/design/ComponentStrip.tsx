@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback, useRef } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import type { DesignTokens } from '@/types/design'
@@ -70,21 +70,51 @@ export function ComponentStrip() {
   const tokens = useHub((s) => s.design.tokens)
   const [dark, setDark] = useState(tokens.colors.mode === 'dark')
   const vars = useMemo(() => buildVars(tokens, dark), [tokens, dark])
+  const [panelWidth, setPanelWidth] = useState(420)
+  const dragRef = useRef<{ startX: number; startW: number } | null>(null)
 
   const bg     = dark ? DARK['--p-bg']!    : tokens.colors.surface.bg
   const panel  = dark ? DARK['--p-panel']! : tokens.colors.surface.panel
   const border = dark ? DARK['--p-border']!: tokens.colors.surface.border
 
+  const startDrag = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    dragRef.current = { startX: e.clientX, startW: panelWidth }
+    const onMove = (ev: MouseEvent) => {
+      if (!dragRef.current) return
+      const delta = dragRef.current.startX - ev.clientX // drag left = wider
+      const next = Math.min(800, Math.max(280, dragRef.current.startW + delta))
+      setPanelWidth(next)
+    }
+    const onUp = () => {
+      dragRef.current = null
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }, [panelWidth])
+
   return (
     <aside
-      className="w-80 shrink-0 flex flex-col overflow-hidden"
       style={{
+        width: `${panelWidth}px`,
+        minWidth: '280px',
+        maxWidth: '800px',
         ...vars,
         borderLeft: `1px solid ${border}`,
         backgroundColor: bg,
         fontFamily: tokens.typography.sans,
+        position: 'relative',
       }}
+      className="shrink-0 flex flex-col overflow-hidden"
     >
+      {/* ── Drag resize handle (left edge) ──── */}
+      <div
+        onMouseDown={startDrag}
+        className="absolute left-0 top-0 w-1.5 h-full cursor-col-resize hover:bg-app-accent/30 active:bg-app-accent z-50 transition-colors"
+        title="Drag to resize component preview"
+      />
       {/* ── Sticky header ─────────────────────────────────────── */}
       <div
         className="sticky top-0 z-10 flex shrink-0 items-center gap-3 px-4 py-2.5"
@@ -180,8 +210,20 @@ export function ComponentStrip() {
           <PreviewLoading />
         </Sec>
 
+        <Sec label="Opacity">
+          <OpacityPreview />
+        </Sec>
+
         <Sec label="Alerts">
           <PreviewAlerts />
+        </Sec>
+
+        <Sec label="Pagination">
+          <PreviewPagination />
+        </Sec>
+
+        <Sec label="Tooltips">
+          <PreviewTooltip />
         </Sec>
 
         <Sec label="Form">
@@ -190,6 +232,38 @@ export function ComponentStrip() {
 
         <Sec label="Table">
           <PreviewTable />
+        </Sec>
+
+        <Sec label="Dialog">
+          <PreviewDialog />
+        </Sec>
+
+        <Sec label="Dropdown">
+          <PreviewDropdown />
+        </Sec>
+
+        <Sec label="Toast">
+          <PreviewToast />
+        </Sec>
+
+        <Sec label="Sidebar">
+          <PreviewSidebar />
+        </Sec>
+
+        <Sec label="DataTable">
+          <PreviewDataTable />
+        </Sec>
+
+        <Sec label="Stepper">
+          <PreviewStepper />
+        </Sec>
+
+        <Sec label="Slider">
+          <PreviewSlider />
+        </Sec>
+
+        <Sec label="Tags">
+          <PreviewTags />
         </Sec>
 
       </div>
@@ -210,7 +284,6 @@ function Sec({ label, children }: { label: string; children: React.ReactNode }) 
         gap: '10px',
       }}
     >
-      {/* Header row: label + divider line */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <span
           style={{
@@ -227,6 +300,39 @@ function Sec({ label, children }: { label: string; children: React.ReactNode }) 
         <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--p-border)' }} />
       </div>
       {children}
+    </div>
+  )
+}
+
+// ─── Opacity Demo ────────────────────────────────────────────────────────────
+
+function OpacityPreview() {
+  const opacity = useHub((s) => s.design.tokens.opacity)
+  const tokens = useHub((s) => s.design.tokens)
+  const brand = tokens.colors.brand['500']
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {[
+        { label: 'Disabled', value: opacity.disabled },
+        { label: 'Overlay', value: opacity.overlay },
+        { label: 'Hover', value: opacity.hover },
+        { label: 'Focus', value: opacity.focus },
+      ].map(({ label, value }) => (
+        <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '10px', color: 'var(--p-muted)', width: '50px' }}>{label}</span>
+          <div
+            style={{
+              flex: 1,
+              height: '24px',
+              backgroundColor: brand,
+              borderRadius: 'var(--p-radius-sm)',
+              opacity: Number(value),
+            }}
+          />
+          <span style={{ fontSize: '9px', fontFamily: 'monospace', color: 'var(--p-text-2)', width: '32px' }}>{value}</span>
+        </div>
+      ))}
     </div>
   )
 }
@@ -597,6 +703,68 @@ function PreviewLoading() {
   )
 }
 
+// ─── Pagination ───────────────────────────────────────────────────────────────
+
+function PreviewPagination() {
+  const tokens = useHub((s) => s.design.tokens)
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <button style={{
+        height: '28px', minWidth: '28px', padding: '0 8px',
+        borderRadius: 'var(--p-radius-md)',
+        border: '1px solid var(--p-border)',
+        backgroundColor: 'var(--p-panel)',
+        color: 'var(--p-muted)', fontSize: '11px',
+      }}>‹</button>
+      {[1, 2, 3].map((p) => (
+        <button key={p} style={{
+          height: '28px', minWidth: '28px', padding: '0 8px',
+          borderRadius: 'var(--p-radius-md)',
+          border: 'none',
+          backgroundColor: p === 1 ? tokens.colors.brand['500'] : 'var(--p-panel)',
+          color: p === 1 ? '#fff' : 'var(--p-text)',
+          fontSize: '11px', fontWeight: p === 1 ? 600 : 400,
+        }}>{p}</button>
+      ))}
+      <button style={{
+        height: '28px', minWidth: '28px', padding: '0 8px',
+        borderRadius: 'var(--p-radius-md)',
+        border: '1px solid var(--p-border)',
+        backgroundColor: 'var(--p-panel)',
+        color: 'var(--p-muted)', fontSize: '11px',
+      }}>›</button>
+    </div>
+  )
+}
+
+// ─── Tooltips ───────────────────────────────────────────────────────────────────
+
+function PreviewTooltip() {
+  const tokens = useHub((s) => s.design.tokens)
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      <span style={{
+        fontSize: '11px', color: 'var(--p-muted)', cursor: 'pointer',
+        borderBottom: '1px dotted var(--p-brand)',
+      }}>Hover for tooltip</span>
+      <div style={{
+        position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%) translateY(-8px)',
+        padding: '6px 10px', borderRadius: 'var(--p-radius-sm)',
+        backgroundColor: tokens.colors.brand['500'], color: '#fff',
+        fontSize: '10px', fontWeight: 500, whiteSpace: 'nowrap',
+        boxShadow: 'var(--p-shadow-md)',
+      }}>
+        Tooltip text
+        <div style={{
+          position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+          width: '0', height: '0', borderLeft: '6px solid transparent',
+          borderRight: '6px solid transparent', borderTop: `6px solid ${tokens.colors.brand['500']}`,
+        }} />
+      </div>
+    </div>
+  )
+}
+
 // ─── Alerts ───────────────────────────────────────────────────────────────────
 
 function PreviewAlerts() {
@@ -705,6 +873,144 @@ function PreviewTable() {
             bg={row.s ? 'var(--p-success)1a' : 'var(--p-warn)1a'}
           >{row.status}</Badge>
         </div>
+      ))}
+    </div>
+  )
+}
+
+function PreviewDialog() {
+  return (
+    <div style={{ padding: '12px', border: 'var(--p-b-w) var(--p-b-s) var(--p-border)', borderRadius: 'var(--p-radius-md)', backgroundColor: 'var(--p-panel)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div>
+        <p style={{ fontSize: '12px', fontWeight: 700, color: 'var(--p-text)' }}>Confirm Workspace Deploy</p>
+        <p style={{ fontSize: '10px', color: 'var(--p-muted)', marginTop: '3px' }}>Are you sure you want to broadcast active tokens to production?</p>
+      </div>
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+        <Btn v="ghost" sz="sm">Cancel</Btn>
+        <Btn v="primary" sz="sm">Deploy</Btn>
+      </div>
+    </div>
+  )
+}
+
+function PreviewDropdown() {
+  return (
+    <div style={{ border: 'var(--p-b-w) var(--p-b-s) var(--p-border)', borderRadius: 'var(--p-radius-md)', overflow: 'hidden', backgroundColor: 'var(--p-panel)' }}>
+      {['Edit Settings', 'Share Workspace', 'Delete Instance'].map((item, idx) => (
+        <div key={item} style={{
+          padding: '8px 12px',
+          fontSize: '11px',
+          fontWeight: 500,
+          color: idx === 2 ? '#ef4444' : 'var(--p-text-2)',
+          cursor: 'pointer',
+          borderBottom: idx < 2 ? '1px solid var(--p-border)' : 'none',
+        }}>
+          {item}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function PreviewToast() {
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '10px 14px',
+      borderRadius: 'var(--p-radius-md)',
+      backgroundColor: 'var(--p-brand)',
+      color: '#fff',
+      boxShadow: 'var(--p-shadow-md)',
+    }}>
+      <span style={{ fontSize: '11px', fontWeight: 600, flex: 1 }}>Tokens saved to cloud!</span>
+      <span style={{ fontSize: '9px', fontWeight: 700, textTransform: 'uppercase', cursor: 'pointer', opacity: 0.8 }}>Dismiss</span>
+    </div>
+  )
+}
+
+function PreviewSidebar() {
+  return (
+    <div style={{ display: 'flex', border: 'var(--p-b-w) var(--p-b-s) var(--p-border)', borderRadius: 'var(--p-radius-md)', overflow: 'hidden', height: '80px' }}>
+      <div style={{ width: '56px', backgroundColor: 'var(--p-panel)', borderRight: '1px solid var(--p-border)', padding: '6px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        {[1, 2, 3].map((i) => (
+          <div key={i} style={{ height: '14px', borderRadius: 'var(--p-radius-sm)', backgroundColor: i === 1 ? 'var(--p-brand)' : 'var(--p-neu-300)' }} />
+        ))}
+      </div>
+      <div style={{ flex: 1, backgroundColor: 'var(--p-bg)', padding: '8px' }}>
+        <div style={{ height: '8px', width: '40px', backgroundColor: 'var(--p-neu-200)', borderRadius: '4px', marginBottom: '6px' }} />
+        <div style={{ height: '6px', width: '80px', backgroundColor: 'var(--p-neu-200)', borderRadius: '4px' }} />
+      </div>
+    </div>
+  )
+}
+
+function PreviewDataTable() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <PreviewTable />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '9px', color: 'var(--p-muted)' }}>
+        <span>Showing 1-3 of 42 entries</span>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          <Btn v="secondary" sz="sm">Prev</Btn>
+          <Btn v="secondary" sz="sm">Next</Btn>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PreviewStepper() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+      {['Scope', 'Design', 'Deploy'].map((step, idx) => (
+        <div key={step} style={{ display: 'flex', alignItems: 'center', gap: '4px', flex: 1 }}>
+          <div style={{
+            width: '16px', height: '16px', borderRadius: '50%',
+            backgroundColor: idx === 0 ? 'var(--p-brand)' : 'var(--p-neu-300)',
+            color: '#fff', fontSize: '9px', fontWeight: 700,
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+          }}>
+            {idx + 1}
+          </div>
+          <span style={{ fontSize: '10px', fontWeight: 600, color: idx === 0 ? 'var(--p-text)' : 'var(--p-muted)' }}>{step}</span>
+          {idx < 2 && <div style={{ flex: 1, height: '1.5px', backgroundColor: 'var(--p-border)' }} />}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function PreviewSlider() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', color: 'var(--p-muted)', fontWeight: 600 }}>
+        <span>Brightness Scale</span>
+        <span>65%</span>
+      </div>
+      <div style={{ height: '6px', borderRadius: '999px', backgroundColor: 'var(--p-neu-200)', position: 'relative' }}>
+        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '65%', backgroundColor: 'var(--p-brand)', borderRadius: '999px' }} />
+        <div style={{
+          position: 'absolute', left: '65%', top: '50%', transform: 'translate(-50%, -50%)',
+          width: '14px', height: '14px', borderRadius: '50%',
+          backgroundColor: '#fff', border: '2px solid var(--p-brand)', boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+        }} />
+      </div>
+    </div>
+  )
+}
+
+function PreviewTags() {
+  return (
+    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+      {['SaaS', 'Nezaam', 'Cairo', 'Sahel', 'Responsive'].map((tag) => (
+        <span key={tag} style={{
+          fontSize: '9px', fontWeight: 700, padding: '3px 8px',
+          borderRadius: 'var(--p-radius-sm)',
+          backgroundColor: 'var(--p-brand-s)',
+          color: 'var(--p-brand-600)',
+        }}>
+          {tag}
+        </span>
       ))}
     </div>
   )

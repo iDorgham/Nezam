@@ -33,9 +33,9 @@ prompt = """
 | `/DESIGN clarify` | `/impeccable clarify` | Improve unclear UX copy |
 | `/DESIGN normalize` | `/impeccable normalize` | Align with design system standards |
 | `/DESIGN overdrive` | `/impeccable overdrive` | Shaders, spring physics, scroll-driven |
-| `/DESIGN localize --dialect=<khaleeji\|masri\|levantine\|maghrebi\|msa>` | — | Validate cultural context |
-| `/DESIGN tokens --framework=<react\|vue\|flutter>` | — | Generate framework-bound tokens |
-| `/DESIGN motion --budget=<60fps\|30fps>` | — | Create perf-budgeted animations |
+| `/DESIGN localize --dialect=<khaleeji\\|masri\\|levantine\\|maghrebi\\|msa>` | — | Validate cultural context |
+| `/DESIGN tokens --framework=<react\\|vue\\|flutter>` | — | Generate framework-bound tokens |
+| `/DESIGN motion --budget=<60fps\\|30fps>` | — | Create perf-budgeted animations |
 | `/DESIGN iterate` | — | Reflection loop on design output |
 | `/DESIGN migrate --from=impeccable` | — | Import Impeccable artifacts to NEZAM |
 | `/DESIGN dashboard intent <page>` | — | Generate dashboard brief from PRD |

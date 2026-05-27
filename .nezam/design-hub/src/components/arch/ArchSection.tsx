@@ -6,6 +6,7 @@ import { ArchLeftPanel } from './ArchLeftPanel'
 import { SitemapCanvas } from './SitemapCanvas'
 import { PageDetail } from './PageDetail'
 
+
 export function ArchSection() {
   const selectedId     = useHub((s) => s.arch.selectedPageId)
   const archSelectPage = useHub((s) => s.archSelectPage)
@@ -35,16 +36,17 @@ export function ArchSection() {
       <div className="relative flex min-w-0 flex-1 overflow-hidden">
         <SitemapCanvas onSelectPage={() => {}} />
 
-        {/* Page detail side panel */}
-        <div
-          className={[
-            'absolute inset-y-0 right-0 w-72 border-l border-app-border bg-app-surface shadow-app-lg',
-            'transition-transform duration-200 ease-smooth',
-            showDetail ? 'translate-x-0' : 'translate-x-full',
-          ].join(' ')}
-        >
-          {showDetail && <PageDetail onClose={() => archSelectPage(null)} />}
-        </div>
+        {/* Properties/Right-Rail side panel — only shown when a card is selected */}
+        {showDetail && (
+          <aside
+            className={[
+              'relative h-full w-72 shrink-0 border-l border-app-border bg-app-surface z-20 flex flex-col shadow-none',
+              'transition-transform duration-200 ease-smooth',
+            ].join(' ')}
+          >
+            <PageDetail onClose={() => archSelectPage(null)} />
+          </aside>
+        )}
       </div>
     </div>
   )

@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
-import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo } from 'lucide-react'
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo, Sparkles } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
-import { useEffect } from 'react'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
-import type { ArchPage } from '@/types/arch'
+import type { ArchPage, ServiceKind } from '@/types/arch'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -22,18 +21,74 @@ interface TreeNode {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const NAV_SLOT_COLOR: Record<ArchPage['navSlot'], { ring: string; bg: string; text: string; dot: string; label: string }> = {
-  topnav:  { ring: '#38bdf8', bg: 'rgba(56,189,248,0.08)',  text: '#7dd3fc', dot: '#38bdf8', label: 'Top Nav'  },
-  sidebar: { ring: '#a78bfa', bg: 'rgba(167,139,250,0.08)', text: '#c4b5fd', dot: '#a78bfa', label: 'Sidebar'  },
-  footer:  { ring: '#fbbf24', bg: 'rgba(251,191,36,0.08)',  text: '#fde68a', dot: '#fbbf24', label: 'Footer'   },
-  hidden:  { ring: '#6b7280', bg: 'rgba(107,114,128,0.05)', text: '#9ca3af', dot: '#6b7280', label: 'Hidden'   },
+const NAV_SLOT_COLOR: Record<
+  ArchPage['navSlot'],
+  { bgClass: string; textClass: string; dotClass: string; iconClass: string; label: string; bg: string }
+> = {
+  topnav: {
+    bgClass: 'bg-sky-500/10 dark:bg-sky-500/8',
+    textClass: 'text-sky-700 dark:text-sky-300',
+    dotClass: 'bg-sky-500 dark:bg-sky-400',
+    iconClass: 'text-sky-600 dark:text-sky-400',
+    label: 'Top Nav',
+    bg: 'rgba(56,189,248,0.08)',
+  },
+  sidebar: {
+    bgClass: 'bg-violet-500/10 dark:bg-violet-500/8',
+    textClass: 'text-violet-700 dark:text-violet-300',
+    dotClass: 'bg-violet-500 dark:bg-violet-400',
+    iconClass: 'text-violet-600 dark:text-violet-400',
+    label: 'Sidebar',
+    bg: 'rgba(167,139,250,0.08)',
+  },
+  footer: {
+    bgClass: 'bg-amber-500/10 dark:bg-amber-500/8',
+    textClass: 'text-amber-700 dark:text-amber-300',
+    dotClass: 'bg-amber-500 dark:bg-amber-400',
+    iconClass: 'text-amber-600 dark:text-amber-400',
+    label: 'Footer',
+    bg: 'rgba(251,191,36,0.08)',
+  },
+  hidden: {
+    bgClass: 'bg-slate-500/10 dark:bg-slate-500/8',
+    textClass: 'text-slate-600 dark:text-slate-400',
+    dotClass: 'bg-slate-500 dark:bg-slate-400',
+    iconClass: 'text-slate-600 dark:text-slate-400',
+    label: 'Hidden',
+    bg: 'rgba(107,114,128,0.05)',
+  },
 }
 
 const PAGE_TYPE_BADGE: Record<ArchPage['type'], string> = {
+  app:      'text-blue-600 dark:text-blue-400',
+  navmenu:  'text-violet-600 dark:text-violet-400',
   page:     'text-app-subtle',
-  group:    'text-amber-400',
-  modal:    'text-purple-400',
-  redirect: 'text-rose-400',
+  subpage:  'text-slate-500 dark:text-slate-400',
+  section:  'text-emerald-600 dark:text-emerald-400',
+  group:    'text-amber-600 dark:text-amber-400',
+  modal:    'text-purple-600 dark:text-purple-400',
+  redirect: 'text-rose-600 dark:text-rose-400',
+}
+
+const LEVEL_STYLES: Record<
+  ArchPage['type'],
+  { border: string; bg: string; textClass: string; indicatorClass: string }
+> = {
+  app:      { border: 'border-blue-500/30', bg: 'bg-blue-50/50 dark:bg-blue-950/15', textClass: 'text-blue-700 dark:text-blue-300', indicatorClass: 'bg-blue-500' },
+  navmenu:  { border: 'border-violet-500/30', bg: 'bg-violet-50/50 dark:bg-violet-950/15', textClass: 'text-violet-700 dark:text-violet-300', indicatorClass: 'bg-violet-500' },
+  page:     { border: 'border-app-border', bg: 'bg-app-surface', textClass: 'text-app-text', indicatorClass: 'bg-slate-300 dark:bg-slate-700' },
+  subpage:  { border: 'border-app-border-subtle', bg: 'bg-app-bg/40 dark:bg-white/5', textClass: 'text-app-subtle', indicatorClass: 'bg-slate-200 dark:bg-slate-800' },
+  section:  { border: 'border-dashed border-emerald-500/30', bg: 'bg-emerald-50/30 dark:bg-emerald-950/8', textClass: 'text-emerald-700 dark:text-emerald-300', indicatorClass: 'bg-emerald-500' },
+  group:    { border: 'border-amber-500/20', bg: 'bg-amber-50/30 dark:bg-amber-950/10', textClass: 'text-amber-700 dark:text-amber-300', indicatorClass: 'bg-amber-500' },
+  modal:    { border: 'border-purple-500/20', bg: 'bg-purple-50/30 dark:bg-purple-950/10', textClass: 'text-purple-700 dark:text-purple-300', indicatorClass: 'bg-purple-500' },
+  redirect: { border: 'border-rose-500/20', bg: 'bg-rose-50/30 dark:bg-rose-950/10', textClass: 'text-rose-700 dark:text-rose-300', indicatorClass: 'bg-rose-500' },
+}
+
+const SERVICE_METRICS: Record<ServiceKind, { color: string; bg: string; label: string; dot: string }> = {
+  api:      { color: '#38bdf8', bg: 'rgba(56,189,248,0.12)',  label: 'API',      dot: '#38bdf8' },
+  auth:     { color: '#c084fc', bg: 'rgba(192,132,252,0.12)', label: 'Auth',     dot: '#c084fc' },
+  payment:  { color: '#fbbf24', bg: 'rgba(251,191,36,0.12)',  label: 'Payment',  dot: '#fbbf24' },
+  database: { color: '#34d399', bg: 'rgba(52,211,153,0.12)',  label: 'Database', dot: '#34d399' },
 }
 
 const ZOOM_MIN = 0.4
@@ -63,6 +118,7 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
   const isSelected  = selectedId === node.page.id
   const hasChildren = node.children.length > 0
   const slotStyle   = NAV_SLOT_COLOR[node.page.navSlot]
+  const levelStyle  = LEVEL_STYLES[node.page.type] || LEVEL_STYLES.page
 
   function handleClick() {
     archSelectPage(isSelected ? null : node.page.id)
@@ -74,39 +130,61 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
       {/* Card */}
       <div
         onClick={handleClick}
+        data-page-id={node.page.id}
         className={cn(
           'group relative flex w-40 cursor-pointer flex-col gap-2 rounded-xl border p-3.5 transition-all duration-150 select-none',
+          levelStyle.border,
           isSelected
-            ? 'shadow-lg'
-            : 'hover:border-app-border-strong hover:shadow-md',
+            ? 'shadow-lg border-app-accent bg-app-accent-subtle/10'
+            : cn('hover:border-app-border-strong hover:shadow-md', levelStyle.bg),
         )}
-        style={{
-          background: isSelected
-            ? `linear-gradient(145deg, ${slotStyle.bg}, rgba(38,128,235,0.12))`
-            : 'var(--app-elevated)',
-          borderColor: isSelected ? 'var(--app-accent)' : 'var(--app-border)',
-          boxShadow: isSelected
-            ? '0 0 0 2px rgba(38,128,235,0.25), 0 4px 16px rgba(0,0,0,0.3)'
-            : undefined,
-        }}
+        style={
+          isSelected
+            ? {
+                background: `linear-gradient(145deg, ${slotStyle.bg}, rgba(38,128,235,0.12))`,
+                borderColor: 'var(--app-accent)',
+                boxShadow: '0 0 0 2px rgba(38,128,235,0.25), 0 4px 16px rgba(0,0,0,0.3)',
+              }
+            : undefined
+        }
       >
-        {/* Left accent bar (nav slot color) */}
+        {/* Left accent bar (level indicator color) */}
         <div
-          className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full"
-          style={{ backgroundColor: slotStyle.ring }}
+          className={cn("absolute left-0 top-3 bottom-3 w-0.5 rounded-full", levelStyle.indicatorClass)}
         />
+
+        {/* Dynamic Microservice Bindings indicator bubbles */}
+        {node.page.services && node.page.services.length > 0 && (
+          <div className="absolute -top-2 right-2 flex gap-0.5">
+            {node.page.services.map((svc) => {
+              const spec = SERVICE_METRICS[svc]
+              if (!spec) return null
+              return (
+                <span
+                  key={svc}
+                  className="flex h-3.5 w-3.5 items-center justify-center rounded-full text-[7.5px] font-bold border font-mono tracking-wide shadow-sm bg-app-surface"
+                  style={{
+                    borderColor: spec.dot,
+                    color: spec.color,
+                  }}
+                  title={`${spec.label} microservice integration active on this page`}
+                >
+                  {spec.label[0]}
+                </span>
+              )
+            })}
+          </div>
+        )}
 
         {/* Icon + type badge */}
         <div className="flex items-center justify-between pl-1">
           <div
-            className="flex h-7 w-7 items-center justify-center rounded-lg"
-            style={{ background: slotStyle.bg }}
+            className={cn("flex h-7 w-7 items-center justify-center rounded-lg", slotStyle.bgClass)}
           >
             <IconRenderer
               name={node.page.icon}
               size={13}
-              className="opacity-80"
-              style={{ color: slotStyle.ring }}
+              className={cn("opacity-80", slotStyle.iconClass)}
             />
           </div>
           <span className={cn('text-[9px] font-semibold uppercase tracking-wider', PAGE_TYPE_BADGE[node.page.type])}>
@@ -125,49 +203,44 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
         </p>
 
         {/* Nav slot badge */}
-        <div
+        <div 
           className="flex items-center gap-1 pl-1"
+          title={`Anchored to ${slotStyle.label} navigation placement`}
         >
           <span
-            className="inline-block h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: slotStyle.dot }}
+            className={cn("inline-block h-1.5 w-1.5 rounded-full", slotStyle.dotClass)}
           />
-          <span className="text-[9.5px] font-medium" style={{ color: slotStyle.text }}>
+          <span className={cn("text-[9.5px] font-medium", slotStyle.textClass)}>
             {slotStyle.label}
           </span>
         </div>
 
         {/* Add child button — appears on hover */}
-        <button
-          className="absolute -bottom-3 left-1/2 z-10 hidden h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full bg-app-accent text-white shadow-lg transition-transform hover:scale-110 group-hover:flex"
-          title="Add child page"
-          onClick={(e) => {
-            e.stopPropagation()
-            archAddPage(node.page.id)
-          }}
-        >
-          <Plus size={10} />
-        </button>
+        {node.page.type !== 'section' && (
+          <button
+            className="absolute -bottom-3 left-1/2 z-10 hidden h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full bg-app-accent text-white shadow-lg transition-transform hover:scale-110 group-hover:flex"
+            title={`Add a new child page nested under ${node.page.name}`}
+            onClick={(e) => {
+              e.stopPropagation()
+              archAddPage(node.page.id)
+            }}
+          >
+            <Plus size={10} />
+          </button>
+        )}
       </div>
 
       {/* Connector line down to children */}
-      {hasChildren && <div className="w-px h-5 bg-app-border" />}
+      {hasChildren && <div className="w-px h-5" />}
 
       {/* Children subtree */}
       {hasChildren && (
         <div className="flex flex-col items-center">
-          {/* Horizontal connector bar across children */}
-          {node.children.length > 1 && (
-            <div
-              className="h-px bg-app-border"
-              style={{ width: `${node.children.length * 176 - 16}px` }}
-            />
-          )}
           {/* Children row */}
           <div className="flex items-start gap-4">
             {node.children.map((child) => (
               <div key={child.page.id} className="flex flex-col items-center">
-                <div className="w-px h-5 bg-app-border" />
+                <div className="w-px h-5" />
                 <PageCard node={child} onSelect={onSelect} />
               </div>
             ))}
@@ -204,50 +277,50 @@ function CanvasToolbar({
   return (
     <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 rounded-xl border border-app-border bg-app-surface/90 px-2 py-1.5 shadow-lg backdrop-blur-md">
       {/* Zoom out */}
-      <ToolBtn onClick={onZoomOut} disabled={zoom <= ZOOM_MIN} title="Zoom out">
+      <ToolBtn onClick={onZoomOut} disabled={zoom <= ZOOM_MIN} title="Zoom out to view more of the architecture sitemap canvas">
         <ZoomOut size={12} />
       </ToolBtn>
 
       {/* Zoom level */}
       <button
         onClick={onFit}
-        title="Reset zoom"
+        title="Reset sitemap canvas zoom scale to 100%"
         className="min-w-[44px] text-center text-[11px] font-semibold text-app-muted hover:text-app-text transition-colors px-1.5"
       >
         {Math.round(zoom * 100)}%
       </button>
 
       {/* Zoom in */}
-      <ToolBtn onClick={onZoomIn} disabled={zoom >= ZOOM_MAX} title="Zoom in">
+      <ToolBtn onClick={onZoomIn} disabled={zoom >= ZOOM_MAX} title="Zoom in to inspect sitemap page card configurations">
         <ZoomIn size={12} />
       </ToolBtn>
 
       <div className="w-px h-4 bg-app-border mx-1" />
 
       {/* Undo */}
-      <ToolBtn onClick={onUndo} disabled={!canUndo} title="Undo (⌘Z)">
+      <ToolBtn onClick={onUndo} disabled={!canUndo} title="Undo last architecture canvas modification (⌘Z)">
         <Undo size={12} />
       </ToolBtn>
 
       {/* Redo */}
-      <ToolBtn onClick={onRedo} disabled={!canRedo} title="Redo (⌘Y)">
+      <ToolBtn onClick={onRedo} disabled={!canRedo} title="Redo last reverted architecture canvas modification (⌘Y)">
         <Redo size={12} />
       </ToolBtn>
 
       <div className="w-px h-4 bg-app-border mx-1" />
 
       {/* Fit to screen */}
-      <ToolBtn onClick={onFit} title="Fit to screen">
+      <ToolBtn onClick={onFit} title="Reset zoom and center sitemap canvas to workspace boundaries">
         <Maximize2 size={12} />
       </ToolBtn>
 
       <div className="w-px h-4 bg-app-border mx-1" />
 
       {/* Page count */}
-      <div className="flex items-center gap-1.5 px-1.5">
+      <div className="flex items-center gap-1.5 px-1.5" title="Total active pages and nested route groups currently defined in your sitemap">
         <LayoutGrid size={11} className="text-app-subtle" />
         <span className="text-[11px] text-app-subtle font-medium">
-          {pageCount} {pageCount === 1 ? 'page' : 'pages'}
+          {pageCount} {pageCount === 1 ? 'node' : 'nodes'}
         </span>
       </div>
     </div>
@@ -289,8 +362,8 @@ function NavLegend() {
     <div className="absolute bottom-3 left-3 z-20 flex items-center gap-3 rounded-xl border border-app-border bg-app-surface/90 px-3 py-2 shadow-lg backdrop-blur-md">
       {Object.values(NAV_SLOT_COLOR).map((slot) => (
         <div key={slot.label} className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: slot.dot }} />
-          <span className="text-[10px] text-app-subtle font-medium">{slot.label}</span>
+          <span className={cn("h-2 w-2 rounded-full", slot.dotClass)} />
+          <span className={cn("text-[10px] font-medium", slot.textClass)}>{slot.label}</span>
         </div>
       ))}
     </div>
@@ -302,7 +375,7 @@ function NavLegend() {
 function EmptyState({ onAdd }: { onAdd(): void }) {
   return (
     <div className="flex h-full min-h-[400px] items-center justify-center">
-      <div className="flex flex-col items-center gap-4 text-center max-w-xs">
+      <div className="flex flex-col items-center gap-4 text-center max-w-sm">
         {/* Icon */}
         <div
           className="flex h-16 w-16 items-center justify-center rounded-2xl"
@@ -312,10 +385,10 @@ function EmptyState({ onAdd }: { onAdd(): void }) {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <p className="text-sm font-semibold text-app-text">No pages yet</p>
+          <p className="text-sm font-semibold text-app-text">Initialize Architecture Canvas</p>
           <p className="text-xs text-app-subtle leading-relaxed">
-            Pick a profile from the left panel to start with a pre-built structure,
-            or add pages manually.
+            Select a predefined blueprint profile from the left sidebar to populate a starter structure instantly, 
+            or click below to build your canvas nodes manually.
           </p>
         </div>
 
@@ -324,7 +397,7 @@ function EmptyState({ onAdd }: { onAdd(): void }) {
           className="flex items-center gap-1.5 h-8 px-4 rounded-app-sm text-xs font-semibold bg-app-accent text-app-on-accent hover:bg-app-accent-hover transition-colors"
         >
           <Plus size={12} />
-          Add first page
+          Create First Canvas Node
         </button>
       </div>
     </div>
@@ -338,7 +411,12 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   const archAddPage = useHub((s) => s.archAddPage)
 
   const [zoom, setZoom] = useState(1)
-  const contentRef      = useRef<HTMLDivElement>(null)
+  const [connections, setConnections] = useState<Array<{ fromX: number; fromY: number; toX: number; toY: number; color: string; serviceKind: ServiceKind }>>([])
+  const [treeLines, setTreeLines] = useState<Array<{ pathD: string }>>([])
+  const [hoveredService, setHoveredService] = useState<ServiceKind | null>(null)
+  
+  const contentRef   = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const roots    = buildTree(pages, null, 0)
   const isEmpty  = roots.length === 0
@@ -347,6 +425,145 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   const zoomIn  = useCallback(() => setZoom((z) => Math.min(+(z + ZOOM_STEP).toFixed(2), ZOOM_MAX)), [])
   const zoomOut = useCallback(() => setZoom((z) => Math.max(+(z - ZOOM_STEP).toFixed(2), ZOOM_MIN)), [])
   const fitZoom = useCallback(() => setZoom(1), [])
+
+  // Dynamic service and tree connections calculations
+  const updateWires = useCallback(() => {
+    if (!containerRef.current || !contentRef.current) return
+    const containerRect = containerRef.current.getBoundingClientRect()
+    const contentRect = contentRef.current.getBoundingClientRect()
+    const newConnections: typeof connections = []
+    const newTreeLines: Array<{ pathD: string }> = []
+
+    // Helper to get unscaled coordinates relative to content container
+    const getUnscaledCoords = (rect: DOMRect) => {
+      return {
+        left: (rect.left - contentRect.left) / zoom,
+        top: (rect.top - contentRect.top) / zoom,
+        width: rect.width / zoom,
+        height: rect.height / zoom,
+      }
+    }
+
+    // 1. Tree connections
+    const childrenByParent: Record<string, ArchPage[]> = {}
+    Object.values(pages).forEach((pg) => {
+      if (pg.parentId) {
+        if (!childrenByParent[pg.parentId]) {
+          childrenByParent[pg.parentId] = []
+        }
+        childrenByParent[pg.parentId].push(pg)
+      }
+    })
+
+    Object.entries(childrenByParent).forEach(([parentId, children]) => {
+      const parentEl = contentRef.current?.querySelector(`[data-page-id="${parentId}"]`)
+      if (!parentEl) return
+
+      // Sort children by order
+      children.sort((a, b) => a.order - b.order)
+
+      // Find children card elements
+      const childCoordsList: Array<{ id: string; centerX: number; topY: number }> = []
+      children.forEach((c) => {
+        const el = contentRef.current?.querySelector(`[data-page-id="${c.id}"]`)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          const coords = getUnscaledCoords(rect)
+          childCoordsList.push({
+            id: c.id,
+            centerX: coords.left + coords.width / 2,
+            topY: coords.top,
+          })
+        }
+      })
+
+      if (childCoordsList.length === 0) return
+
+      const parentRect = parentEl.getBoundingClientRect()
+      const parentCoords = getUnscaledCoords(parentRect)
+      const parentCenterX = parentCoords.left + parentCoords.width / 2
+      const parentBottomY = parentCoords.top + parentCoords.height
+
+      // Find minimum child top Y to set connection hub height
+      const minChildTopY = Math.min(...childCoordsList.map((c) => c.topY))
+      
+      // Vertical space buffer for drawing right angles nicely
+      const verticalGap = minChildTopY - parentBottomY
+      const midY = parentBottomY + Math.max(verticalGap / 2, 8)
+
+      if (childCoordsList.length === 1) {
+        const child = childCoordsList[0]
+        // Single child tree connection (straight vertical or simple step path)
+        if (Math.abs(parentCenterX - child.centerX) < 2) {
+          newTreeLines.push({
+            pathD: `M ${parentCenterX} ${parentBottomY} L ${parentCenterX} ${child.topY}`,
+          })
+        } else {
+          newTreeLines.push({
+            pathD: `M ${parentCenterX} ${parentBottomY} L ${parentCenterX} ${midY} L ${child.centerX} ${midY} L ${child.centerX} ${child.topY}`,
+          })
+        }
+      } else {
+        // Multi-child tree connection
+        // A vertical drop from parent
+        newTreeLines.push({
+          pathD: `M ${parentCenterX} ${parentBottomY} L ${parentCenterX} ${midY}`,
+        })
+
+        // A horizontal bar at midY spanning from the leftmost to the rightmost child
+        const centerXs = childCoordsList.map((c) => c.centerX)
+        const minX = Math.min(...centerXs)
+        const maxX = Math.max(...centerXs)
+        newTreeLines.push({
+          pathD: `M ${minX} ${midY} L ${maxX} ${midY}`,
+        })
+
+        // A vertical drop from midY to each child
+        childCoordsList.forEach((child) => {
+          newTreeLines.push({
+            pathD: `M ${child.centerX} ${midY} L ${child.centerX} ${child.topY}`,
+          })
+        })
+      }
+    })
+
+    // 2. Microservice connections
+    Object.values(pages).forEach((pg) => {
+      if (pg.services && pg.services.length > 0) {
+        const cardEl = contentRef.current?.querySelector(`[data-page-id="${pg.id}"]`)
+        if (cardEl) {
+          const cardRect = cardEl.getBoundingClientRect()
+          const fromX = cardRect.left + cardRect.width / 2 - containerRect.left
+          const fromY = cardRect.bottom - containerRect.top
+
+          pg.services.forEach((svc) => {
+            const svcEl = containerRef.current?.querySelector(`[data-service-id="${svc}"]`)
+            if (svcEl) {
+              const svcRect = svcEl.getBoundingClientRect()
+              const toX = svcRect.left + svcRect.width / 2 - containerRect.left
+              const toY = svcRect.top - containerRect.top
+
+              const color = SERVICE_METRICS[svc]?.color ?? '#38bdf8'
+              newConnections.push({ fromX, fromY, toX, toY, color, serviceKind: svc })
+            }
+          })
+        }
+      }
+    })
+
+    setConnections(newConnections)
+    setTreeLines(newTreeLines)
+  }, [pages, zoom])
+
+  useEffect(() => {
+    // Run update logic after layouts settle
+    const timer = setTimeout(updateWires, 150)
+    window.addEventListener('resize', updateWires)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('resize', updateWires)
+    }
+  }, [pages, updateWires, zoom])
 
   // Scroll-wheel zoom
   function handleWheel(e: React.WheelEvent<HTMLDivElement>) {
@@ -420,7 +637,28 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   }, [selectedPageId, canUndo, canRedo, undo, redo, archAddPage, archDeletePage, onSelectPage])
 
   return (
-    <div className="canvas-grid flex-1 overflow-hidden relative" onWheel={handleWheel}>
+    <div
+      ref={containerRef}
+      className="canvas-grid flex-1 overflow-hidden relative"
+      onWheel={handleWheel}
+    >
+      {/* Dynamic glow styles */}
+      <style>{`
+        @keyframes dynamicDash {
+          to {
+            stroke-dashoffset: -20;
+          }
+        }
+        .wire-path-glow {
+          stroke-dasharray: 5 3;
+          animation: dynamicDash 1.2s linear infinite;
+        }
+        .wire-path-glow-fast {
+          stroke-dasharray: 8 4;
+          animation: dynamicDash 0.5s linear infinite;
+        }
+      `}</style>
+
       {/* Toolbar */}
       {!isEmpty && (
         <CanvasToolbar
@@ -436,14 +674,55 @@ export function SitemapCanvas({ onSelectPage }: Props) {
         />
       )}
 
+      {/* SVG Connection Layer */}
+      {!isEmpty && connections.length > 0 && (
+        <svg className="absolute inset-0 pointer-events-none w-full h-full z-10">
+          {connections.map((c, i) => {
+            const isHighlighted = hoveredService === null || hoveredService === c.serviceKind
+            const isDirectHover = hoveredService === c.serviceKind
+            // Cubic bezier anchor points calculations for smooth curves
+            const controlY = c.fromY + (c.toY - c.fromY) * 0.5
+            const pathD = `M ${c.fromX} ${c.fromY} C ${c.fromX} ${controlY}, ${c.toX} ${controlY}, ${c.toX} ${c.toY}`
+            return (
+              <g key={i} className={cn("transition-all duration-200", isHighlighted ? "opacity-90" : "opacity-15")}>
+                {/* Background Shadow line */}
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke="rgba(0,0,0,0.5)"
+                  strokeWidth={isDirectHover ? 6 : 4}
+                />
+                {/* Base color line */}
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke={c.color}
+                  strokeWidth={isDirectHover ? 2.5 : 1.5}
+                  className="opacity-45"
+                />
+                {/* Glow dash line */}
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke={c.color}
+                  strokeWidth={isDirectHover ? 2.5 : 1.5}
+                  className={cn("wire-path-glow", isDirectHover ? "wire-path-glow-fast" : "")}
+                />
+              </g>
+            )
+          })}
+        </svg>
+      )}
+
       {/* Scrollable zoom container */}
-      <div className="h-full overflow-auto app-scroll">
+      <div className="h-full overflow-auto app-scroll" onScroll={updateWires}>
         <div
           style={{
+            position: 'relative',
             transformOrigin: 'top center',
             transform: `scale(${zoom})`,
             transition: 'transform 0.15s ease',
-            padding: '64px 48px 48px',
+            padding: '64px 48px 120px',
             minHeight: '100%',
           }}
           ref={contentRef}
@@ -451,14 +730,71 @@ export function SitemapCanvas({ onSelectPage }: Props) {
           {isEmpty ? (
             <EmptyState onAdd={() => archAddPage(null)} />
           ) : (
-            <div className="flex flex-wrap gap-16 justify-start items-start">
-              {roots.map((root) => (
-                <PageCard key={root.page.id} node={root} onSelect={onSelectPage} />
-              ))}
-            </div>
+            <>
+              {/* Dynamic SVG Tree Connection Layer */}
+              <svg className="absolute inset-0 pointer-events-none w-full h-full z-0 overflow-visible">
+                {treeLines.map((line, idx) => (
+                  <path
+                    key={idx}
+                    d={line.pathD}
+                    fill="none"
+                    stroke="var(--app-border)"
+                    strokeWidth={1.5}
+                    className="transition-all duration-150"
+                  />
+                ))}
+              </svg>
+              <div className="flex flex-wrap gap-16 justify-start items-start relative z-10">
+                {roots.map((root) => (
+                  <PageCard key={root.page.id} node={root} onSelect={onSelectPage} />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
+
+      {/* Microservices Hub Panel at the bottom-right */}
+      {!isEmpty && (
+        <div className="absolute bottom-16 right-3 z-20 flex flex-col gap-2 rounded-xl border border-app-border bg-app-surface/90 p-3 shadow-lg backdrop-blur-md w-52 select-none">
+          <div className="flex flex-col gap-0.5 border-b border-app-border pb-1">
+            <div className="flex items-center gap-1.5">
+              <Sparkles size={11} className="text-app-accent animate-pulse" />
+              <p className="text-[9.5px] font-bold text-app-subtle uppercase tracking-wider">
+                Backend Services Hub
+              </p>
+            </div>
+            <p className="text-[8px] text-app-subtle leading-normal">
+              Hover over a service to highlight network integrations on the canvas wires.
+            </p>
+          </div>
+            {Object.entries(SERVICE_METRICS).map(([kind, spec]) => {
+              const isHovered = hoveredService === kind
+              return (
+                <div
+                  key={kind}
+                  data-service-id={kind}
+                  onMouseEnter={() => setHoveredService(kind as ServiceKind)}
+                  onMouseLeave={() => setHoveredService(null)}
+                  className={cn(
+                    "flex items-center justify-between rounded-lg border px-2.5 py-1.5 transition-all cursor-pointer select-none",
+                    isHovered
+                      ? "border-app-accent bg-app-accent-subtle/15 shadow-sm scale-[1.02]"
+                      : "border-app-border/40 bg-app-elevated/45 hover:border-app-accent/30"
+                  )}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: spec.dot }} />
+                    <span className="text-[10px] text-app-text font-medium">{spec.label}</span>
+                  </div>
+                  <span className="text-[8px] font-mono text-app-subtle font-semibold opacity-70">
+                    service
+                  </span>
+                </div>
+              )
+            })}
+        </div>
+      )}
 
       {/* Nav slot legend */}
       {!isEmpty && <NavLegend />}

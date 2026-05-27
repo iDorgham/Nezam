@@ -585,18 +585,18 @@ function DesignStep({
               
               {/* Typography Font Spec Section */}
               <div className="flex flex-col gap-1 border-b border-white/5 pb-2">
-                <p className="text-[8.5px] text-white/30 font-bold uppercase">Active Font Family</p>
+                <p className="text-[8.5px] text-white/30 font-bold uppercase">Active Typography Family</p>
                 <p className="text-[14px] font-extrabold text-white" style={{ fontFamily: tokens.typography.sans }}>
                   {tokens.typography.sans.split(',')[0]}
                 </p>
                 <p className="text-[9.5px] text-white/40 leading-relaxed italic" style={{ fontFamily: tokens.typography.sans }}>
-                  "Nezaam design tokens dynamically sync interfaces across platforms seamlessly."
+                  "NEZAM design tokens dynamically sync interfaces across platforms seamlessly."
                 </p>
               </div>
 
               {/* Color Chips Section */}
               <div className="flex flex-col gap-1.5">
-                <p className="text-[8.5px] text-white/30 font-bold uppercase">Core Token Colors</p>
+                <p className="text-[8.5px] text-white/30 font-bold uppercase">Color Palette Foundations</p>
                 <div className="grid grid-cols-2 gap-2 text-[10px]">
                   
                   {/* Brand Color Swatch */}
@@ -639,7 +639,7 @@ function DesignStep({
 
               {/* Live Render Geometry components sandbox mockup */}
               <div className="flex flex-col gap-2 mt-1">
-                <p className="text-[8.5px] text-white/30 font-bold uppercase">Geometry & Components Preview</p>
+                <p className="text-[8.5px] text-white/30 font-bold uppercase">Geometric Token Mechanics</p>
                 <div 
                   className="rounded p-3 border flex flex-col gap-2.5 transition-all duration-200"
                   style={{

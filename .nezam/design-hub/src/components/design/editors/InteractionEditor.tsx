@@ -46,7 +46,7 @@ export function InteractionEditor() {
   ] as const
 
   return (
-    <div className="flex flex-col gap-8 max-w-2xl">
+    <div className="flex flex-col gap-10 max-w-2xl">
       <div>
         <h2 className="text-base font-semibold text-app-text">Interaction</h2>
         <p className="mt-1 text-xs text-app-subtle leading-relaxed">

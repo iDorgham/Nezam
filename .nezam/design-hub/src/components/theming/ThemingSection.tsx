@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import {
   Sun, Moon, Copy, Check, RotateCcw, Sparkles, Palette, Shuffle,
   Wand2, Play, BookmarkPlus, Trash2, Sliders, Settings, SlidersHorizontal,
-  Download, Layers, Compass,
+  Download, Layers, Compass, Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
@@ -28,6 +28,7 @@ import {
 } from './color-utils'
 import { useHub, type ThemePreviewOverride } from '@/store/hub.store'
 import { useSidebarResize } from '@/lib/useSidebarResize'
+import { getContrastRatio, meetsWCAG, contrastBadge } from '@/lib/color-a11y'
 
 type Mode = 'light' | 'dark'
 
@@ -283,6 +284,7 @@ export function ThemingSection() {
   const [showSaveBox, setShowSaveBox] = useState(false)
   const [applied, setApplied] = useState(false)
   const [controlTab, setControlTab] = useState<'presets' | 'styles' | 'colors' | 'export'>('presets')
+  const [showWcagAudit, setShowWcagAudit] = useState(false)
 
   const applyToPreview    = useHub((s) => s.themeApplyToPreview)
   const saveProfile       = useHub((s) => s.themeSaveProfile)
@@ -377,7 +379,21 @@ export function ThemingSection() {
             <Palette size={13} className="text-app-accent" />
             <p className="text-[12px] font-semibold text-app-text">Theme Editor</p>
           </div>
-          <ModePill mode={mode} setMode={setMode} />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowWcagAudit((v) => !v)}
+              className={cn(
+                'flex items-center gap-1 h-6 px-2 rounded text-[10px] font-medium transition-colors border',
+                showWcagAudit
+                  ? 'bg-app-accent text-app-on-accent border-app-accent'
+                  : 'text-app-subtle hover:text-app-text border-transparent hover:border-app-border',
+              )}
+            >
+              <Eye size={10} />
+              WCAG
+            </button>
+            <ModePill mode={mode} setMode={setMode} />
+          </div>
         </div>
 
         {/* Tab row */}
@@ -426,6 +442,11 @@ export function ThemingSection() {
 
         {/* Scrollable controls */}
         <div className="flex-1 overflow-y-auto app-scroll p-4 flex flex-col gap-5">
+          {/* WCAG Audit Overlay */}
+          {showWcagAudit && (
+            <WcagAuditPanel tokens={tokens} mode={mode} />
+          )}
+
           {/* TAB 1: PRESETS & HARMONIES */}
           {controlTab === 'presets' && (
             <>
@@ -850,6 +871,70 @@ function SegmentPicker({ value, options, onChange }: { value: string; options: r
   )
 }
 
+function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mode }) {
+  const PAIRS: Array<{ label: string; fg: keyof ThemeTokens; bg: keyof ThemeTokens }> = [
+    { label: 'Body text',          fg: 'foreground',        bg: 'background' },
+    { label: 'Card text',          fg: 'cardForeground',    bg: 'card' },
+    { label: 'Popover text',       fg: 'popoverForeground', bg: 'popover' },
+    { label: 'Secondary text',     fg: 'secondaryForeground', bg: 'secondary' },
+    { label: 'Muted text',         fg: 'mutedForeground',   bg: 'muted' },
+    { label: 'Primary button',     fg: 'primaryForeground', bg: 'primary' },
+    { label: 'Accent button',      fg: 'accentForeground',  bg: 'accent' },
+    { label: 'Destructive button', fg: 'destructiveForeground', bg: 'destructive' },
+    { label: 'Input text',         fg: 'foreground',        bg: 'input' },
+  ]
+
+  const allPass = PAIRS.every(({ fg, bg }) => {
+    const ratio = getContrastRatio(tokens[fg], tokens[bg])
+    return meetsWCAG(ratio, 'AA')
+  })
+
+  return (
+    <div className={cn(
+      'rounded border p-3 flex flex-col gap-2',
+      allPass ? 'border-green-500/50 bg-green-50/10' : 'border-amber-500/50 bg-amber-50/10',
+    )}>
+      <div className="flex items-center justify-between">
+        <span className="text-[10.5px] font-semibold text-app-text">WCAG Contrast Audit</span>
+        <span className={cn(
+          'text-[10px] font-bold font-mono',
+          allPass ? 'text-green-600' : 'text-amber-600',
+        )}>
+          {allPass ? 'AA ✓ All pass' : 'FAIL — needs attention'}
+        </span>
+      </div>
+      <div className="flex flex-col gap-1">
+        {PAIRS.map(({ label, fg, bg }) => {
+          const ratio = getContrastRatio(tokens[fg], tokens[bg])
+          const badge = contrastBadge(ratio)
+          return (
+            <div key={label} className="flex items-center gap-2 text-[10px]">
+              <div className="flex items-center gap-1 w-28 shrink-0">
+                <span className="h-2.5 w-2.5 rounded ring-1 ring-black/10 shrink-0" style={{ background: tokens[fg] }} />
+                <span className="h-2.5 w-2.5 rounded ring-1 ring-black/10 shrink-0" style={{ background: tokens[bg] }} />
+                <span className="text-app-muted ml-0.5 truncate">{label}</span>
+              </div>
+              <span className="font-mono text-app-subtle w-12 text-right">{ratio.toFixed(2)}:1</span>
+              <span className={cn(
+                'font-mono w-16 text-center rounded px-1',
+                badge.pass ? 'text-green-600 bg-green-500/10' : 'text-red-600 bg-red-500/10 font-bold',
+              )}>
+                {badge.pass ? 'AA' : 'FAIL'}
+              </span>
+              <span className={cn(
+                'font-mono w-16 text-center rounded px-1',
+                meetsWCAG(ratio, 'AAA') ? 'text-green-600 bg-green-500/10' : 'text-app-subtle',
+              )}>
+                {meetsWCAG(ratio, 'AAA') ? 'AAA' : '—'}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
   return (
     <div className="flex items-center gap-0.5 p-0.5 rounded-app-sm bg-app-elevated border border-app-border">
@@ -871,5 +956,5 @@ function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
 
 function normalizeHex(value: string): string {
   const m = /^#([0-9a-f]{6})$/i.exec(value.trim())
-  return m ? `#${m[1]}` : '#000000'
+  return m ? `#${m[1]}` : '#111827'
 }

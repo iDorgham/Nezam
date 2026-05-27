@@ -1,7 +1,7 @@
 /** Design System section types — tokens, scales, profiles. */
 
 export type TokenCategory =
-  // Existing
+  // ── Core Visual Foundations ──
   | 'colors'
   | 'typography'
   | 'spacing'
@@ -10,11 +10,24 @@ export type TokenCategory =
   | 'motion'
   | 'borders'
   | 'iconography'
-  // New — Atlassian-style expanded taxonomy
+  // ── Semantic Tokens ──
   | 'elevation'
   | 'font'
   | 'interaction'
   | 'utility'
+  // ── Layout & Sizing ──
+  | 'opacity'
+  | 'z-index'
+  | 'breakpoints'
+  | 'layout'
+  // ── New: Advanced Categories ──
+  | 'cursor'
+  | 'scrollbar'
+  | 'glass'
+  | 'gradients'
+  | 'grid'
+  | 'content'
+  | 'density'
 
 export type DesignProfileId =
   // ── Aesthetic styles ──
@@ -77,6 +90,11 @@ export interface DesignTokens {
       error: string
       info: string
     }
+    /** Full semantic color scales (11-step) for rich feedback UI. */
+    successScale: ColorScale
+    warningScale: ColorScale
+    errorScale: ColorScale
+    infoScale: ColorScale
     /** Surface/background tokens. */
     surface: {
       bg: string
@@ -86,6 +104,19 @@ export interface DesignTokens {
     }
     /** Text tokens. */
     text: {
+      primary: string
+      secondary: string
+      muted: string
+      disabled: string
+    }
+    /** Dark mode surface/text overrides. */
+    darkSurface: {
+      bg: string
+      panel: string
+      overlay: string
+      border: string
+    }
+    darkText: {
       primary: string
       secondary: string
       muted: string
@@ -133,22 +164,67 @@ export interface DesignTokens {
     md: string
     lg: string
     xl: string
+    /** Inset shadows for inputs, wells. */
+    inner: string
+    /** Brand-colored glow shadow. */
+    glow: string
   }
   motion: {
     duration: {
+      instant: string
       fast: string
       base: string
       slow: string
+      slower: string
     }
     easing: {
       default: string
       bounce: string
       smooth: string
+      /** Ease in for exits. */
+      easeIn: string
+      /** Ease out for entrances. */
+      easeOut: string
+      /** Spring-like overshoot. */
+      spring: string
+    }
+    /** Named transition presets for common property groups. */
+    transition: {
+      colors: string
+      transform: string
+      opacity: string
+      all: string
+    }
+    /** Spring physics config for natural animations. */
+    spring: {
+      stiffness: number
+      damping: number
+      mass: number
     }
   }
   borders: {
     width: string
     style: 'solid' | 'dashed'
+    /** Named border width scale (0-4). */
+    widthScale: {
+      '0': string
+      '1': string
+      '2': string
+      '3': string
+      '4': string
+    }
+    /** Divider (horizontal rule) styling. */
+    divider: {
+      width: string
+      style: 'solid' | 'dashed' | 'dotted'
+      color: string
+    }
+    /** Focus-visible border config. */
+    focus: {
+      width: string
+      color: string
+      offset: string
+    }
   }
   iconography: {
     /** Icon library name. */
@@ -161,7 +237,7 @@ export interface DesignTokens {
     strokeWidth: number
   }
 
-  // ─── New expanded token categories ───────────────────────────────────────
+  // ─── Semantic Tokens ──────────────────────────────────────────────────────
 
   /** Elevation — surface layering + semantic shadow scale. */
   elevation: {
@@ -261,6 +337,188 @@ export interface DesignTokens {
       }
     }
   }
+
+  // ─── Layout & Sizing ──────────────────────────────────────────────────────
+
+  /** Opacity — semantic opacity tokens for consistent transparency. */
+  opacity: {
+    /** Disabled elements. */
+    disabled: string
+    /** Overlay backgrounds (e.g., dropdowns, tooltips). */
+    overlay: string
+    /** Hover state overlays. */
+    hover: string
+    /** Focus state overlays. */
+    focus: string
+  }
+  /** Z-index — layer ordering for UI components. */
+  zIndex: {
+    /** Hide — completely hidden from view. */
+    hide: number
+    /** Auto — element appears in natural document flow. */
+    auto: number
+    /** Base — default layer (most content). */
+    base: number
+    /** Dropdown — dropdowns, tooltips. */
+    dropdown: number
+    /** Sticky — sticky headers, footers. */
+    sticky: number
+    /** Fixed — fixed position elements. */
+    fixed: number
+    /** Modal — modals, dialogs. */
+    modal: number
+    /** Toast — toast notifications. */
+    toast: number
+    /** Tooltip — tooltips, popovers. */
+    tooltip: number
+  }
+  /** Breakpoints — responsive design breakpoints. */
+  breakpoints: {
+    /** Extra small (mobile). */
+    xs: string
+    /** Small (tablet portrait). */
+    sm: string
+    /** Medium (tablet landscape). */
+    md: string
+    /** Large (desktop). */
+    lg: string
+    /** Extra large (wide desktop). */
+    xl: string
+    /** Extra extra large (ultrawide). */
+    '2xl': string
+  }
+  /** Layout — spacing and sizing for layout containers. */
+  layout: {
+    /** Maximum content width. */
+    maxWidth: string
+    /** Container padding. */
+    containerPadding: string
+    /** Gutter spacing between columns. */
+    gutter: string
+    /** Header height. */
+    headerHeight: string
+    /** Footer height. */
+    footerHeight: string
+    /** Sidebar width. */
+    sidebarWidth: string
+  }
+
+  // ─── New Advanced Categories ──────────────────────────────────────────────
+
+  /** Cursor & Focus — focus ring, cursor types per element. */
+  cursor: {
+    /** Focus ring width. */
+    focusRingWidth: string
+    /** Focus ring offset from element. */
+    focusRingOffset: string
+    /** Focus ring style. */
+    focusRingStyle: 'solid' | 'dashed' | 'dotted' | 'double'
+    /** Focus ring color. */
+    focusRingColor: string
+    /** Cursor for interactive elements. */
+    interactive: 'pointer' | 'default'
+    /** Cursor for text elements. */
+    text: 'text' | 'default'
+    /** Cursor for disabled elements. */
+    disabled: 'not-allowed' | 'default'
+    /** Cursor for draggable elements. */
+    drag: 'grab' | 'move'
+  }
+
+  /** Scrollbar — custom scrollbar appearance. */
+  scrollbar: {
+    /** Scrollbar width. */
+    width: string
+    /** Thumb color. */
+    thumbColor: string
+    /** Thumb hover color. */
+    thumbHoverColor: string
+    /** Track color. */
+    trackColor: string
+    /** Thumb border radius. */
+    thumbRadius: string
+  }
+
+  /** Glass — backdrop-filter blur + frosted effects. */
+  glass: {
+    blur: {
+      sm: string
+      md: string
+      lg: string
+      xl: string
+    }
+    /** Frosted overlay tint (rgba). */
+    tint: string
+    /** Glass border opacity (0-1 as string). */
+    borderOpacity: string
+    /** Glass shadow. */
+    shadow: string
+  }
+
+  /** Gradients — named gradient presets. */
+  gradients: {
+    /** Brand gradient (primary → accent). */
+    brand: string
+    /** Accent gradient. */
+    accent: string
+    /** Surface gradient (subtle bg gradient). */
+    surface: string
+    /** Mesh gradient seed colors (for generative gradients). */
+    mesh: {
+      color1: string
+      color2: string
+      color3: string
+      color4: string
+    }
+  }
+
+  /** Grid — responsive column grid system. */
+  grid: {
+    columns: {
+      xs: number
+      sm: number
+      md: number
+      lg: number
+      xl: number
+      '2xl': number
+    }
+    /** Gutter between columns. */
+    gutter: string
+    /** Outer margin for grid container. */
+    margin: string
+  }
+
+  /** Content — prose/reading optimized tokens. */
+  content: {
+    /** Maximum line length for readability. */
+    maxWidth: string
+    /** Optimal line length (characters). */
+    lineLength: string
+    /** Paragraph spacing. */
+    paragraphSpacing: string
+    /** Heading margin spacing. */
+    headingSpacing: string
+    /** List item indent. */
+    listIndent: string
+    /** Blockquote border width. */
+    blockquoteBorder: string
+  }
+
+  /** Density — compact/comfortable/spacious multiplier. */
+  density: {
+    /** Current density mode. */
+    mode: 'compact' | 'comfortable' | 'spacious'
+    /** Spacing multiplier (0.75 for compact, 1.0 for comfortable, 1.25 for spacious). */
+    spacingMultiplier: number
+    /** Font size multiplier. */
+    fontMultiplier: number
+    /** Padding multiplier for interactive elements. */
+    paddingMultiplier: number
+    /** Gap multiplier for flex/grid layouts. */
+    gapMultiplier: number
+    /** Min touch target size in px. */
+    minTouchTarget: number
+  }
 }
 
 export interface DesignProfile {
@@ -277,13 +535,24 @@ export const TOKEN_CATEGORY_LABELS: Record<TokenCategory, string> = {
   spacing:      'Spacing',
   radius:       'Border Radius',
   shadows:      'Shadows',
-  motion:       'Motion',
-  borders:      'Borders',
+  motion:       'Motion & Animation',
+  borders:      'Borders & Dividers',
   iconography:  'Iconography',
   elevation:    'Elevation',
   font:         'Semantic Typography',
-  interaction:  'Interaction',
+  interaction:  'Interaction States',
   utility:      'Utility',
+  opacity:      'Opacity',
+  'z-index':    'Z-Index Layers',
+  breakpoints:  'Breakpoints',
+  layout:       'Layout',
+  cursor:       'Cursor & Focus',
+  scrollbar:    'Scrollbar',
+  glass:        'Glass & Blur',
+  gradients:    'Gradients',
+  grid:         'Grid System',
+  content:      'Content & Prose',
+  density:      'Density',
 }
 
 /** Lucide icon name strings — render via <IconRenderer name={...} /> */
@@ -300,28 +569,43 @@ export const TOKEN_CATEGORY_ICONS: Record<TokenCategory, string> = {
   font:         'AlignLeft',
   interaction:  'MousePointer',
   utility:      'Grid',
+  opacity:      'Opacity',
+  'z-index':    'Layers',
+  breakpoints:  'ScreenShare',
+  layout:       'Layout',
+  cursor:       'Crosshair',
+  scrollbar:    'ScrollText',
+  glass:        'Sparkles',
+  gradients:    'Blend',
+  grid:         'LayoutGrid',
+  content:      'BookOpen',
+  density:      'SlidersHorizontal',
 }
 
 /** Logical groups for the token nav sidebar. */
 export const TOKEN_CATEGORY_GROUPS: Array<{ label: string; categories: TokenCategory[] }> = [
   {
-    label: 'Color',
-    categories: ['colors', 'elevation'],
+    label: 'Color & Surface',
+    categories: ['colors', 'elevation', 'gradients', 'glass'],
   },
   {
     label: 'Typography',
-    categories: ['typography', 'font'],
+    categories: ['typography', 'font', 'content'],
   },
   {
-    label: 'Geometry',
-    categories: ['spacing', 'radius', 'borders'],
+    label: 'Geometry & Space',
+    categories: ['spacing', 'radius', 'borders', 'density'],
   },
   {
-    label: 'Effects',
-    categories: ['shadows', 'motion'],
+    label: 'Effects & Motion',
+    categories: ['shadows', 'motion', 'opacity'],
   },
   {
-    label: 'System',
-    categories: ['iconography', 'interaction', 'utility'],
+    label: 'Interaction & A11y',
+    categories: ['interaction', 'cursor', 'scrollbar'],
+  },
+  {
+    label: 'Layout & System',
+    categories: ['iconography', 'utility', 'z-index', 'breakpoints', 'layout', 'grid'],
   },
 ]

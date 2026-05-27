@@ -258,7 +258,7 @@ export function ArchLeftPanel() {
   return (
     <aside
       style={{ width }}
-      className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
+      className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none shadow-none"
     >
       {/* Tab bar */}
       <div className="shrink-0 flex items-center gap-0.5 px-2 py-1.5 border-b border-app-border bg-app-bg">

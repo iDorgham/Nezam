@@ -37,13 +37,19 @@ export function TopBar() {
         <div className="h-4 w-px bg-app-border shrink-0 mx-1" />
 
         {/* Section tabs */}
+        {/* Section tabs */}
         <nav className="flex items-center h-11 shrink-0">
           {SECTIONS.map(({ id, label, Icon }) => {
             const active = section === id
+            const tooltip = id === 'architecture' ? 'Map visual sitemaps, establish page routes, and configure backend microservices'
+                          : id === 'design' ? 'Configure design token presets, typography structures, and fluid scaling scales'
+                          : id === 'theming' ? 'Apply brand aesthetic presets, color palette swatches, and interface themes'
+                          : 'Render interactive device frame previews and download production-ready code tokens'
             return (
               <button
                 key={id}
                 onClick={() => setSection(id)}
+                title={tooltip}
                 className={cn(
                   'relative flex items-center gap-1.5 h-full px-3 text-[11px] font-medium transition-colors duration-100 select-none',
                   active ? 'text-app-text' : 'text-app-muted hover:text-app-text',
@@ -60,16 +66,19 @@ export function TopBar() {
         </nav>
 
         {/* Section progress dots */}
-        <div className="ml-auto flex items-center gap-2" title={`${visitedSections.length}/4 sections visited`}>
+        <div className="ml-auto flex items-center gap-2" title={`${visitedSections.length} of 4 workspace workflow phases fully completed`}>
           <span className="text-[9.5px] text-app-subtle font-medium hidden sm:block">
             {visitedSections.length}/4
           </span>
           {SECTION_ORDER.map((s) => {
             const visited = visitedSections.includes(s)
+            const phaseLabel = s === 'architecture' ? 'Architecture' : s === 'design' ? 'Design Tokens' : s === 'theming' ? 'Theming' : 'Cinematic Preview'
             return (
               <span
                 key={s}
-                title={`${s}${visited ? ' ✓' : ''}`}
+                title={visited 
+                  ? `Phase completed: You have successfully configured and validated the ${phaseLabel} parameters.`
+                  : `Upcoming phase: Navigate to ${phaseLabel} to build out the respective workspace layer.`}
                 className={cn(
                   'h-1.5 rounded-full transition-all duration-300 cursor-default',
                   visited ? 'w-4 bg-app-accent' : 'w-1.5 bg-app-border',
@@ -83,7 +92,7 @@ export function TopBar() {
         <div className="flex items-center gap-2 ml-3">
           <button
             onClick={() => setHubTheme(hubTheme === 'light' ? 'dark' : 'light')}
-            title={`Switch to ${hubTheme === 'light' ? 'dark' : 'light'} mode`}
+            title={`Toggle workspace visual theme: switch to ${hubTheme === 'light' ? 'dark' : 'light'} color palette mode`}
             className="flex items-center justify-center h-6 w-6 rounded-app-sm text-app-subtle hover:text-app-muted hover:bg-app-elevated transition-colors"
           >
             {hubTheme === 'light' ? <Moon size={12} /> : <Sun size={12} />}
@@ -91,7 +100,7 @@ export function TopBar() {
 
           <button
             onClick={onboardingReset}
-            title="Re-run onboarding"
+            title="Re-initialize onboarding walkthrough wizard and workspace configuration guides"
             className="flex items-center justify-center h-6 w-6 rounded-app-sm text-app-subtle hover:text-app-muted hover:bg-app-elevated transition-colors"
           >
             <RotateCcw size={11} />
@@ -103,7 +112,7 @@ export function TopBar() {
                 else if (section === 'design') setSection('theming')
                 else if (section === 'theming') setSection('preview')
               }}
-              title="Go to next section"
+              title={`Proceed to next phase: Configure ${section === 'architecture' ? 'Design System Scales' : section === 'design' ? 'Interface Mode & Color Presets' : 'Interactive Device Viewports'}`}
               className="flex items-center gap-1.5 h-7 px-3 rounded-app-sm text-[11px] font-semibold bg-app-accent text-app-on-accent hover:bg-app-accent-hover active:bg-app-accent-active transition-colors duration-100 select-none animate-in fade-in"
             >
               Next
@@ -112,7 +121,7 @@ export function TopBar() {
           ) : (
             <button
               onClick={() => setExportModalOpen(true)}
-              title="Export design tokens"
+              title="Launch export options to export W3C tokens JSON, CSS custom variables, NextJS router files, and system presets"
               className="flex items-center gap-1.5 h-7 px-3 rounded-app-sm text-[11px] font-semibold bg-app-accent text-app-on-accent hover:bg-app-accent-hover active:bg-app-accent-active transition-colors duration-100 select-none animate-in fade-in"
             >
               <Download size={11} />

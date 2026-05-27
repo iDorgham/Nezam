@@ -132,6 +132,71 @@ export function PageDetail({ onClose }: Props) {
           options={Object.entries(NAV_SLOT_LABELS).map(([v, l]) => ({ value: v, label: l }))}
         />
 
+        {/* Page Layout */}
+        <Select
+          label="Page Layout"
+          value={page.layout ?? 'standard'}
+          onChange={(e) => update({ layout: e.target.value as any })}
+          options={[
+            { value: 'standard', label: 'Standard (Header + Footer)' },
+            { value: 'sidebar', label: 'Sidebar Layout' },
+            { value: 'blank', label: 'Blank / Landing Page' },
+            { value: 'tabs', label: 'Tabbed Layout' },
+          ]}
+        />
+
+        {/* Layout Width */}
+        <Select
+          label="Layout Width"
+          value={page.layoutWidth ?? 'boxed'}
+          onChange={(e) => update({ layoutWidth: e.target.value as any })}
+          options={[
+            { value: 'boxed', label: 'Boxed (Max-width container)' },
+            { value: 'fullwidth', label: 'Full Width (Fluid edge-to-edge)' },
+          ]}
+        />
+
+
+        {/* Backend service bindings checklist */}
+        <div>
+          <p className="text-[10px] text-app-muted font-bold uppercase tracking-wider mb-1.5">
+            Backend Microservices
+          </p>
+          <div className="flex flex-col gap-1 rounded-lg border border-app-border bg-app-elevated/40 p-2">
+            {Object.entries({
+              api:      'API Endpoints',
+              auth:     'Auth / Security',
+              payment:  'Billing / Payments',
+              database: 'Database Sync',
+            }).map(([kind, label]) => {
+              const activeServices = page.services || []
+              const isChecked = activeServices.includes(kind as any)
+              
+              function handleToggle() {
+                const next = isChecked
+                  ? activeServices.filter((s) => s !== kind)
+                  : [...activeServices, kind as any]
+                update({ services: next })
+              }
+
+              return (
+                <label
+                  key={kind}
+                  className="flex items-center justify-between cursor-pointer rounded px-2 py-1.5 hover:bg-app-elevated/70 transition-colors select-none"
+                >
+                  <span className="text-[11px] font-medium text-app-text">{label}</span>
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleToggle}
+                    className="h-3.5 w-3.5 rounded border-app-border bg-app-elevated text-app-accent focus:ring-1 focus:ring-app-accent/30 transition-all cursor-pointer"
+                  />
+                </label>
+              )
+            })}
+          </div>
+        </div>
+
         {/* Description */}
         <Textarea
           label="Description"

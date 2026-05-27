@@ -38,7 +38,7 @@ function shadowFor(
 ): string {
   if (surface === 'brutalist') {
     if (style === 'none') return 'none'
-    const shadowColor = mode === 'dark' ? primary : '#000000'
+    const shadowColor = mode === 'dark' ? primary : '#111827'
     return `5px 5px 0 0 ${shadowColor}`
   }
 

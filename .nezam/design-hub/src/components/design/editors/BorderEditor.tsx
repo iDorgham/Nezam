@@ -30,7 +30,7 @@ export function BorderEditor() {
 
       <div className="grid grid-cols-2 gap-6">
         {/* Width */}
-        <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm">
+        <div className="rounded-app-lg border border-app-border bg-app-surface p-5">
           <h3 className="text-xs font-semibold text-app-text mb-4 flex items-center gap-1.5">
             <Sliders className="h-3.5 w-3.5 text-app-accent" />
             Border Width
@@ -40,6 +40,7 @@ export function BorderEditor() {
               <button
                 key={w}
                 onClick={() => setToken('borders.width', w)}
+                type="button"
                 className={`flex flex-col items-center gap-2.5 p-3.5 rounded-xl border transition-all ${
                   borders.width === w
                     ? 'bg-app-elevated border-app-accent shadow-sm'
@@ -47,7 +48,7 @@ export function BorderEditor() {
                 }`}
               >
                 <div
-                  className="h-8 w-full border-black/10"
+                  className="h-8 w-full border-app-border/40"
                   style={{
                     borderWidth: w,
                     borderStyle: borders.style,
@@ -62,7 +63,7 @@ export function BorderEditor() {
         </div>
 
         {/* Style */}
-        <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm">
+        <div className="rounded-app-lg border border-app-border bg-app-surface p-5">
           <h3 className="text-xs font-semibold text-app-text mb-4 flex items-center gap-1.5">
             <Sparkles className="h-3.5 w-3.5 text-app-accent" />
             Border Style
@@ -72,6 +73,7 @@ export function BorderEditor() {
               <button
                 key={s.value}
                 onClick={() => setToken('borders.style', s.value)}
+                type="button"
                 className={`flex flex-col items-center gap-2.5 p-3.5 rounded-xl border transition-all ${
                   borders.style === s.value
                     ? 'bg-app-elevated border-app-accent shadow-sm'
@@ -79,7 +81,7 @@ export function BorderEditor() {
                 }`}
               >
                 <div
-                  className="h-8 w-full border-black/10"
+                  className="h-8 w-full border-app-border/40"
                   style={{
                     borderWidth: borders.width,
                     borderStyle: s.value,
@@ -96,13 +98,13 @@ export function BorderEditor() {
 
       {/* Focus & Divider Configurations */}
       {borders.focus && (
-        <div className="grid grid-cols-2 gap-6 p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm">
+        <div className="grid grid-cols-2 gap-6 rounded-app-lg border border-app-border bg-app-surface p-5">
           <div className="flex flex-col gap-3">
             <h3 className="text-xs font-semibold text-app-text flex items-center gap-1.5">
               <Target className="h-4 w-4 text-app-accent" />
               Focus Ring Outlines
             </h3>
-            <div className="flex flex-col gap-2.5 p-3.5 bg-app-elevated border border-app-border/60 rounded-xl">
+            <div className="flex flex-col gap-2.5 rounded-app-md border border-app-border bg-app-elevated p-3.5">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] uppercase tracking-wider font-mono text-app-muted">Focus Color:</span>
                 <input
@@ -115,6 +117,7 @@ export function BorderEditor() {
               <div className="flex justify-between items-center mt-1">
                 <span className="text-[10px] uppercase tracking-wider font-mono text-app-muted">Visual Demo:</span>
                 <button 
+                  type="button"
                   className="px-4 py-1.5 rounded bg-app-inset border border-app-border text-[11px] font-semibold text-app-text transition-all focus:outline-none"
                   style={{
                     boxShadow: `0 0 0 ${borders.focus.width} ${borders.focus.color}`
@@ -131,7 +134,7 @@ export function BorderEditor() {
               <Layers className="h-4 w-4 text-app-accent" />
               Divider Rhythms
             </h3>
-            <div className="flex flex-col gap-2.5 p-3.5 bg-app-elevated border border-app-border/60 rounded-xl">
+            <div className="flex flex-col gap-2.5 rounded-app-md border border-app-border bg-app-elevated p-3.5">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] uppercase tracking-wider font-mono text-app-muted">Divider Width:</span>
                 <input
@@ -149,7 +152,7 @@ export function BorderEditor() {
       )}
 
       {/* Live demo */}
-      <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm">
+      <div className="rounded-app-lg border border-app-border bg-app-surface p-5">
         <h3 className="text-xs font-semibold text-app-text mb-4 flex items-center gap-1.5">
           <CheckCircle className="h-4 w-4 text-emerald-500" />
           Proportional Border Radii Preview
@@ -158,7 +161,7 @@ export function BorderEditor() {
           {(['sm','md','lg','full'] as const).map((r) => (
             <div
               key={r}
-              className="h-20 flex flex-col items-center justify-center rounded-xl bg-app-elevated border border-black/5 relative overflow-hidden transition-all hover:scale-[1.02]"
+              className="relative h-20 overflow-hidden rounded-app-md border border-app-border bg-app-elevated transition-all hover:scale-[1.02] flex flex-col items-center justify-center"
               style={{
                 borderWidth: borders.width,
                 borderStyle: borders.style,

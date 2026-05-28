@@ -6,6 +6,7 @@ import { useHub } from '@/store/hub.store'
 import { DESIGN_PROFILES_MAP, DESIGN_PROFILE_GROUPS } from '@/data/design-profiles'
 import { TOKEN_CATEGORY_LABELS, TOKEN_CATEGORY_ICONS, TOKEN_CATEGORY_GROUPS } from '@/types/design'
 import { IconRenderer } from '@/lib/icons'
+import { LeftPanelSearchRow, LeftPanelTabsRow, LeftPanelTitleRow } from '@/components/ui/LeftPanelHeader'
 import { cn } from '@/lib/utils'
 import { useSidebarResize } from '@/lib/useSidebarResize'
 import type { TokenCategory, DesignProfileId } from '@/types/design'
@@ -67,10 +68,15 @@ export function TokenNav() {
       style={{ width }}
       className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
     >
+      <LeftPanelTitleRow title="Design panel" />
+      <div className="px-3 pb-2">
+        <p className="text-[9.5px] font-semibold uppercase tracking-[0.12em] text-app-subtle">Token controls</p>
+      </div>
 
-      {/* Tab bar */}
-      <div className="shrink-0 flex items-center gap-0.5 px-2 py-1.5 border-b border-app-border bg-app-bg">
+      <LeftPanelTabsRow role="tablist" aria-label="Design panel tabs" className="px-2 pb-1">
         <PanelTabBtn
+          id="token-nav-tab-tokens"
+          controls="token-nav-panel-tokens"
           label="Tokens"
           Icon={Layers}
           active={activeTab === 'tokens'}
@@ -80,6 +86,8 @@ export function TokenNav() {
           }}
         />
         <PanelTabBtn
+          id="token-nav-tab-profiles"
+          controls="token-nav-panel-profiles"
           label="Profiles"
           Icon={Sparkles}
           active={activeTab === 'profiles'}
@@ -88,11 +96,10 @@ export function TokenNav() {
             setQuery('')
           }}
         />
-      </div>
+      </LeftPanelTabsRow>
 
-      {/* Search Input */}
-      <div className="px-2 pb-2 pt-1 border-b border-app-border shrink-0">
-        <div className="relative flex items-center h-7 bg-app-elevated border border-app-border rounded px-2">
+      <LeftPanelSearchRow className="px-2 py-1.5">
+        <div className="relative flex items-center h-8 bg-app-elevated/90 border border-app-border rounded-app-sm px-2.5">
           <Search size={11} className="text-app-subtle mr-1.5 shrink-0" />
           <input
             type="text"
@@ -102,18 +109,18 @@ export function TokenNav() {
             className="w-full bg-transparent text-[11px] text-app-text outline-none placeholder:text-app-subtle"
           />
         </div>
-      </div>
+      </LeftPanelSearchRow>
 
       {/* ── Token category nav ── */}
       {activeTab === 'tokens' && (
-        <nav className="flex-1 overflow-y-auto app-scroll py-1.5">
+        <nav id="token-nav-panel-tokens" role="tabpanel" aria-labelledby="token-nav-tab-tokens" className="flex-1 overflow-y-auto app-scroll py-2">
           {filteredGroups.length === 0 ? (
             <div className="px-3 py-4 text-center">
               <p className="text-[11px] text-app-subtle">No categories found.</p>
             </div>
           ) : (
             filteredGroups.map((group) => (
-              <div key={group.label} className="mb-2">
+              <div key={group.label} className="mb-2.5">
                 <p className="px-3 pt-2 pb-1 text-[9.5px] font-bold uppercase tracking-[0.13em] text-app-subtle select-none">
                   {group.label}
                 </p>
@@ -133,7 +140,7 @@ export function TokenNav() {
 
       {/* ── Design profiles tab panel ── */}
       {activeTab === 'profiles' && (
-        <div className="flex-1 overflow-y-auto app-scroll p-2.5 flex flex-col gap-3 min-h-0">
+        <div id="token-nav-panel-profiles" role="tabpanel" aria-labelledby="token-nav-tab-profiles" className="flex-1 overflow-y-auto app-scroll p-2.5 flex flex-col gap-3 min-h-0">
           {showWarning && (
             <div className="p-3 rounded-app-sm border border-amber-500/30 bg-amber-500/8 flex flex-col gap-2 shrink-0 animate-in fade-in duration-150">
               <div className="flex items-start gap-1.5">
@@ -183,7 +190,7 @@ export function TokenNav() {
                     const aColor = p.tokens.colors.accent['500'] ?? '#6366f1'
 
                     return (
-                      <div
+                        <button
                         key={id}
                         onClick={() => {
                           if (!isActive) {
@@ -196,6 +203,7 @@ export function TokenNav() {
                             }
                           }
                         }}
+                        type="button"
                         className={cn(
                           'rounded-app-sm border p-2.5 flex flex-col gap-2 transition-all duration-150 cursor-pointer select-none',
                           isActive
@@ -250,7 +258,7 @@ export function TokenNav() {
                             {p.tokens.colors.mode}
                           </span>
                         </div>
-                      </div>
+                      </button>
                     )
                   })}
                 </div>
@@ -307,10 +315,11 @@ function CategoryRow({
   return (
     <button
       onClick={onClick}
+      type="button"
       className={cn(
-        'relative flex w-full items-center gap-2.5 h-8 px-3 text-[11px] font-medium transition-colors duration-75 select-none',
+        'relative flex w-full items-center gap-2.5 h-8 px-3 text-[11px] font-medium transition-colors duration-75 select-none rounded-r-app-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
         active
-          ? 'bg-app-elevated text-app-text'
+          ? 'bg-app-elevated/80 text-app-text'
           : 'text-app-muted hover:bg-app-elevated/40 hover:text-app-text',
       )}
     >
@@ -326,7 +335,9 @@ function CategoryRow({
   )
 }
 
-function PanelTabBtn({ label, Icon, active, onClick }: {
+function PanelTabBtn({ id, controls, label, Icon, active, onClick }: {
+  id: string
+  controls: string
   label: string
   Icon: React.FC<{ size?: number; className?: string }>
   active: boolean
@@ -334,9 +345,15 @@ function PanelTabBtn({ label, Icon, active, onClick }: {
 }) {
   return (
     <button
+      id={id}
+      role="tab"
+      aria-controls={controls}
+      aria-selected={active}
+      tabIndex={active ? 0 : -1}
       onClick={onClick}
+      type="button"
       className={cn(
-        'flex-1 flex items-center justify-center gap-1 h-7 rounded-app-sm text-[11px] font-medium transition-colors duration-100',
+        'flex-1 flex items-center justify-center gap-1 h-7 rounded-app-sm text-[11px] font-medium transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
         active
           ? 'bg-app-surface text-app-text border border-app-border'
           : 'text-app-subtle hover:text-app-muted hover:bg-app-elevated/40',

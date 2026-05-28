@@ -3,7 +3,7 @@
 import { useHub } from '@/store/hub.store'
 import { ComponentsSidebar } from './ComponentsSidebar'
 import { ComponentCard } from './ComponentCard'
-import { PreviewSubTabs } from '@/components/preview/PreviewSubTabs'
+import { LeftPanelTitleRow } from '@/components/ui/LeftPanelHeader'
 import {
   GROUP_LABELS,
   GROUP_ORDER,
@@ -27,7 +27,7 @@ export function ComponentsSection() {
       <ComponentsSidebar />
 
       <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
-        <PreviewSubTabs />
+        <LeftPanelTitleRow title="Components library" className="border-b border-app-border" />
         <div className="flex-1 overflow-y-auto app-scroll">
           {/* Banner */}
           <div className="mx-6 mt-6 mb-4 rounded-app-lg border border-app-border bg-app-surface p-4">
@@ -41,7 +41,7 @@ export function ComponentsSection() {
 
           {/* Empty state */}
           {filtered.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-20 text-center px-6">
+            <div className="flex flex-col items-center justify-center py-20 text-center px-6" role="status" aria-live="polite">
               <p className="text-sm font-medium text-app-text mb-1">No components found</p>
               <p className="text-xs text-app-subtle">
                 Try a different search term or select a different group.

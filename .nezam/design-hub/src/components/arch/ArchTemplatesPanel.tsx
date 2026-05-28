@@ -46,7 +46,7 @@ export function ArchTemplatesPanel() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search templates…"
-          className="w-full h-7 pl-7 pr-2 rounded-app-sm bg-app-elevated border border-app-border text-[11px] text-app-text placeholder:text-app-subtle outline-none focus:border-app-accent"
+          className="w-full h-7 pl-7 pr-2 rounded-app-sm bg-app-elevated border border-app-border text-[11px] text-app-text placeholder:text-app-subtle outline-none focus:border-app-accent focus:ring-2 focus:ring-app-accent-subtle"
         />
       </div>
 

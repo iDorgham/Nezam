@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import tailwindcssAnimate from 'tailwindcss-animate'
 
 /**
  * NEZAM Design Hub v2 — Tailwind config.
@@ -16,6 +17,7 @@ const config: Config = {
           surface: 'var(--app-surface)',
           elevated: 'var(--app-elevated)',
           inset: 'var(--app-inset)',
+          deep: 'var(--app-deep)',
           border: 'var(--app-border)',
           'border-strong': 'var(--app-border-strong)',
           text: 'var(--app-text)',
@@ -23,8 +25,12 @@ const config: Config = {
           subtle: 'var(--app-subtle)',
           accent: 'var(--app-accent)',
           'accent-hover': 'var(--app-accent-hover)',
+          'accent-active': 'var(--app-accent-active)',
           'accent-subtle': 'var(--app-accent-subtle)',
           'on-accent': 'var(--app-on-accent)',
+          danger: 'var(--app-danger)',
+          warning: 'var(--app-warning)',
+          success: 'var(--app-success)',
         },
         n: {
           brand: 'var(--n-brand)',
@@ -49,6 +55,9 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--app-font-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--app-font-mono)', 'ui-monospace', 'monospace'],
+      },
+      accentColor: {
+        'app-accent': 'var(--app-accent)',
       },
       borderRadius: {
         'app-sm': '6px',
@@ -84,7 +93,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssAnimate],
 }
 
 export default config

@@ -1,5 +1,5 @@
 ---
-description: Cross-tool sync contract — Cursor, Claude Code, Antigravity, Codex (Tier 1) + Windsurf, Roo, Kilo, OpenCode, Qwen, Gemini, Kiro, VSCode, Copilot (Tier 2)
+description: Cross-tool sync contract — Cursor, Claude Code, Antigravity IDE/CLI, Codex (Tier 1) + Windsurf, Roo, Kilo, OpenCode, Qwen, Gemini, Kiro, VSCode, Copilot (Tier 2)
 alwaysApply: true
 ---
 
@@ -15,6 +15,8 @@ directories are GENERATED MIRRORS. Never edit mirrors directly.
 | Mirror directory   | Target tool            | Sync method         |
 |--------------------|------------------------|---------------------|
 | `.antigravity/`    | Antigravity IDE        | `pnpm ai:sync`      |
+| `.antigravitycli/` | Antigravity CLI (`agy`) | `pnpm ai:sync`     |
+| `.agents/skills/nezam-*` | Antigravity CLI skills | `pnpm ai:sync` |
 | `.codex/`          | Codex app / Codex CLI  | `pnpm ai:sync`      |
 | `.claude/`         | Claude Code / CLI      | `pnpm ai:sync`      |
 | `AGENTS.md`        | Codex CLI (root)       | `pnpm ai:sync`      |
@@ -81,6 +83,7 @@ The hook:
 | Cursor IDE        | 1    | `.cursor/` native   | `/start all`           | `/plan all`         | `/guide status`     | (native)        |
 | Claude Code CLI   | 1    | `CLAUDE.md`         | `/start all`           | `/plan all`         | `/guide status`     | [→ CLAUDE_CODE.md](../../.nezam/core/tools/CLAUDE_CODE.md) |
 | Antigravity IDE   | 1    | `.antigravity/`     | `/start all`           | `/plan all`         | `/guide status`     | [→ ANTIGRAVITY.md](../../.nezam/core/tools/ANTIGRAVITY.md) |
+| Antigravity CLI   | 1    | `AGENTS.md`, `.agents/skills/nezam-*` | `/start all` | `/plan all` | `/guide status` | [→ ANTIGRAVITYCLI.md](../../.nezam/core/tools/ANTIGRAVITYCLI.md) |
 | Codex CLI         | 1    | `AGENTS.md`         | `codex "/start all"`   | `codex "/plan all"` | `codex "/guide"`    | [→ CODEX.md](../../.nezam/core/tools/CODEX.md) |
 | Codex App         | 1    | `.codex/`           | `/start all`           | `/plan all`         | `/guide status`     | [→ CODEX.md](../../.nezam/core/tools/CODEX.md) |
 | Windsurf IDE      | 2    | `WINDSURF.md`       | `/start all`           | `/plan all`         | `/guide status`     | (read WINDSURF.md) |

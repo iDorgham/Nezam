@@ -6,6 +6,9 @@ import { IconRenderer, PAGE_ICON_NAMES } from '@/lib/icons'
 import { Button } from '@/components/ui/button'
 import { Input, Textarea } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
+import { getServiceRoots } from '@/lib/arch/page-tree'
+import { BrandIcon } from '@/components/arch/BrandIcon'
+import { getCatalogProvider } from '@/lib/arch/service-catalog'
 import { NAV_SLOT_LABELS, PAGE_TYPE_LABELS, type ArchPage } from '@/types/arch'
 
 interface Props {
@@ -30,6 +33,8 @@ export function PageDetail({ onClose }: Props) {
   const pages          = useHub((s) => s.arch.pages)
   const archUpdatePage = useHub((s) => s.archUpdatePage)
   const archDeletePage = useHub((s) => s.archDeletePage)
+  const archTogglePageServiceWire = useHub((s) => s.archTogglePageServiceWire)
+  const archSelectService = useHub((s) => s.archSelectService)
 
   const page = selectedId ? pages[selectedId] : null
   if (!page) return null
@@ -88,123 +93,254 @@ export function PageDetail({ onClose }: Props) {
           </div>
         </div>
 
-        {/* Name */}
         <Input
-          label="Page Name"
+          label="Name"
           value={page.name}
           onChange={(e) => update({ name: e.target.value })}
-          placeholder="Page name"
+          placeholder="Display name"
         />
 
-        {/* Route */}
-        <Input
-          label="Route / URL"
-          value={page.route}
-          onChange={(e) => update({ route: e.target.value })}
-          placeholder="/your-route"
-          className="font-mono"
-        />
-
-        {/* Parent Selector */}
-        <Select
-          label="Parent Page"
-          value={page.parentId ?? 'none'}
-          onChange={(e) => {
-            const val = e.target.value
-            update({ parentId: val === 'none' ? null : val })
-          }}
-          options={parentOptions}
-        />
-
-        {/* Type */}
-        <Select
-          label="Page Type"
-          value={page.type}
-          onChange={(e) => update({ type: e.target.value as ArchPage['type'] })}
-          options={Object.entries(PAGE_TYPE_LABELS).map(([v, l]) => ({ value: v, label: l }))}
-        />
-
-        {/* Nav slot */}
-        <Select
-          label="Navigation Slot"
-          value={page.navSlot}
-          onChange={(e) => update({ navSlot: e.target.value as ArchPage['navSlot'] })}
-          options={Object.entries(NAV_SLOT_LABELS).map(([v, l]) => ({ value: v, label: l }))}
-        />
-
-        {/* Page Layout */}
-        <Select
-          label="Page Layout"
-          value={page.layout ?? 'standard'}
-          onChange={(e) => update({ layout: e.target.value as any })}
-          options={[
-            { value: 'standard', label: 'Standard (Header + Footer)' },
-            { value: 'sidebar', label: 'Sidebar Layout' },
-            { value: 'blank', label: 'Blank / Landing Page' },
-            { value: 'tabs', label: 'Tabbed Layout' },
-          ]}
-        />
-
-        {/* Layout Width */}
-        <Select
-          label="Layout Width"
-          value={page.layoutWidth ?? 'boxed'}
-          onChange={(e) => update({ layoutWidth: e.target.value as any })}
-          options={[
-            { value: 'boxed', label: 'Boxed (Max-width container)' },
-            { value: 'fullwidth', label: 'Full Width (Fluid edge-to-edge)' },
-          ]}
-        />
-
-
-        {/* Backend service bindings checklist */}
-        <div>
-          <p className="text-[10px] text-app-muted font-bold uppercase tracking-wider mb-1.5">
-            Backend Microservices
-          </p>
-          <div className="flex flex-col gap-1 rounded-lg border border-app-border bg-app-elevated/40 p-2">
-            {Object.entries({
-              api:      'API Endpoints',
-              auth:     'Auth / Security',
-              payment:  'Billing / Payments',
-              database: 'Database Sync',
-            }).map(([kind, label]) => {
-              const activeServices = page.services || []
-              const isChecked = activeServices.includes(kind as any)
-              
-              function handleToggle() {
-                const next = isChecked
-                  ? activeServices.filter((s) => s !== kind)
-                  : [...activeServices, kind as any]
-                update({ services: next })
-              }
-
-              return (
-                <label
-                  key={kind}
-                  className="flex items-center justify-between cursor-pointer rounded px-2 py-1.5 hover:bg-app-elevated/70 transition-colors select-none"
-                >
-                  <span className="text-[11px] font-medium text-app-text">{label}</span>
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleToggle}
-                    className="h-3.5 w-3.5 rounded border-app-border bg-app-elevated text-app-accent focus:ring-1 focus:ring-app-accent/30 transition-all cursor-pointer"
-                  />
-                </label>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Description */}
         <Textarea
           label="Description"
           value={page.description}
           onChange={(e) => update({ description: e.target.value })}
-          placeholder="Brief description of this page's purpose…"
-          rows={3}
+          placeholder="Purpose, audience, or constraints…"
+          rows={2}
         />
+
+        {page.type === 'app' && (
+          <>
+            <Input
+              label="Domain"
+              value={page.domain ?? ''}
+              onChange={(e) => update({ domain: e.target.value })}
+              placeholder="app.example.com"
+            />
+            <label className="flex items-center justify-between rounded-app-sm border border-app-border px-2.5 py-2 cursor-pointer">
+              <span className="text-[11px] text-app-text">Has authentication</span>
+              <input
+                type="checkbox"
+                checked={page.hasAuth ?? false}
+                onChange={(e) => update({ hasAuth: e.target.checked })}
+                className="h-3.5 w-3.5 rounded border-app-border"
+              />
+            </label>
+            <Select
+              label="Stack"
+              value={page.stackKind ?? 'fullstack'}
+              onChange={(e) => update({ stackKind: e.target.value as ArchPage['stackKind'] })}
+              options={[
+                { value: 'frontend', label: 'Frontend' },
+                { value: 'backend', label: 'Backend' },
+                { value: 'fullstack', label: 'Full stack' },
+              ]}
+            />
+            <Select
+              label="Main layout"
+              value={page.layout ?? 'standard'}
+              onChange={(e) => update({ layout: e.target.value as ArchPage['layout'] })}
+              options={[
+                { value: 'standard', label: 'Standard' },
+                { value: 'sidebar', label: 'Sidebar' },
+                { value: 'blank', label: 'Blank' },
+                { value: 'tabs', label: 'Tabs' },
+              ]}
+            />
+            <Select
+              label="Layout width"
+              value={page.layoutWidth ?? 'boxed'}
+              onChange={(e) => update({ layoutWidth: e.target.value as ArchPage['layoutWidth'] })}
+              options={[
+                { value: 'boxed', label: 'Boxed' },
+                { value: 'fullwidth', label: 'Full width' },
+              ]}
+            />
+            <label className="flex items-center justify-between rounded-app-sm border border-app-border px-2.5 py-2 cursor-pointer">
+              <span className="text-[11px] text-app-text">AI / LLM integration</span>
+              <input
+                type="checkbox"
+                checked={page.hasAi ?? false}
+                onChange={(e) => update({ hasAi: e.target.checked })}
+                className="h-3.5 w-3.5 rounded border-app-border"
+              />
+            </label>
+            <label className="flex items-center justify-between rounded-app-sm border border-app-border px-2.5 py-2 cursor-pointer">
+              <span className="text-[11px] text-app-text">Billing / payments</span>
+              <input
+                type="checkbox"
+                checked={page.hasBilling ?? false}
+                onChange={(e) => update({ hasBilling: e.target.checked })}
+                className="h-3.5 w-3.5 rounded border-app-border"
+              />
+            </label>
+            <label className="flex items-center justify-between rounded-app-sm border border-app-border px-2.5 py-2 cursor-pointer">
+              <span className="text-[11px] text-app-text">Microservices enabled</span>
+              <input
+                type="checkbox"
+                checked={page.microservicesEnabled ?? true}
+                onChange={(e) => update({ microservicesEnabled: e.target.checked })}
+                className="h-3.5 w-3.5 rounded border-app-border"
+              />
+            </label>
+          </>
+        )}
+
+        {page.type === 'navmenu' && (
+          <>
+            <Select
+              label="Menu placement"
+              value={page.menuPlacement ?? 'main'}
+              onChange={(e) => update({ menuPlacement: e.target.value as ArchPage['menuPlacement'] })}
+              options={[
+                { value: 'main', label: 'Main navigation' },
+                { value: 'footer', label: 'Footer navigation' },
+                { value: 'widget', label: 'Widget / utility' },
+              ]}
+            />
+            <label className="flex items-center justify-between rounded-app-sm border border-app-border px-2.5 py-2 cursor-pointer">
+              <span className="text-[11px] text-app-text">Show icons</span>
+              <input
+                type="checkbox"
+                checked={page.menuHasIcons ?? true}
+                onChange={(e) => update({ menuHasIcons: e.target.checked })}
+                className="h-3.5 w-3.5 rounded border-app-border"
+              />
+            </label>
+            <Select
+              label="Presentation"
+              value={page.menuPresentation ?? 'dropdown'}
+              onChange={(e) =>
+                update({ menuPresentation: e.target.value as ArchPage['menuPresentation'] })
+              }
+              options={[
+                { value: 'dropdown', label: 'Dropdown' },
+                { value: 'mega', label: 'Mega menu' },
+              ]}
+            />
+          </>
+        )}
+
+        {page.type === 'service' && (
+          <>
+            <Select
+              label="Service kind"
+              value={page.serviceKind ?? 'api'}
+              onChange={(e) => update({ serviceKind: e.target.value as ArchPage['serviceKind'] })}
+              options={[
+                { value: 'api', label: 'API' },
+                { value: 'auth', label: 'Auth' },
+                { value: 'payment', label: 'Payment' },
+                { value: 'database', label: 'Database' },
+              ]}
+            />
+            <Input
+              label="Endpoint (optional)"
+              value={page.serviceEndpoint ?? ''}
+              onChange={(e) => update({ serviceEndpoint: e.target.value })}
+              placeholder="https://api.example.com"
+              className="font-mono text-[11px]"
+            />
+          </>
+        )}
+
+        {(page.type === 'page' ||
+          page.type === 'subpage' ||
+          page.type === 'section') && (
+          <>
+            <Input
+              label="Route / URL"
+              value={page.route}
+              onChange={(e) => update({ route: e.target.value })}
+              placeholder="/your-route"
+              className="font-mono"
+            />
+            {page.type !== 'section' && (
+              <Select
+                label="Parent"
+                value={page.parentId ?? 'none'}
+                onChange={(e) => {
+                  const val = e.target.value
+                  update({ parentId: val === 'none' ? null : val })
+                }}
+                options={parentOptions}
+              />
+            )}
+            <Select
+              label="Navigation slot"
+              value={page.navSlot}
+              onChange={(e) => update({ navSlot: e.target.value as ArchPage['navSlot'] })}
+              options={Object.entries(NAV_SLOT_LABELS).map(([v, l]) => ({ value: v, label: l }))}
+            />
+            <Select
+              label="Page layout"
+              value={page.layout ?? 'standard'}
+              onChange={(e) => update({ layout: e.target.value as ArchPage['layout'] })}
+              options={[
+                { value: 'standard', label: 'Standard' },
+                { value: 'sidebar', label: 'Sidebar' },
+                { value: 'blank', label: 'Blank' },
+                { value: 'tabs', label: 'Tabs' },
+              ]}
+            />
+            <Select
+              label="Layout width"
+              value={page.layoutWidth ?? 'boxed'}
+              onChange={(e) => update({ layoutWidth: e.target.value as ArchPage['layoutWidth'] })}
+              options={[
+                { value: 'boxed', label: 'Boxed' },
+                { value: 'fullwidth', label: 'Full width' },
+              ]}
+            />
+            <div>
+              <p className="text-[10px] text-app-muted font-bold uppercase tracking-wider mb-1.5">
+                Wire to rack services
+              </p>
+              <div className="flex flex-col gap-1 rounded-app border border-app-border bg-app-elevated/40 p-2">
+                {getServiceRoots(pages).length === 0 ? (
+                  <p className="text-[10px] text-app-subtle px-2 py-1">
+                    Add services from the rack catalog first.
+                  </p>
+                ) : (
+                  getServiceRoots(pages).map((svc) => {
+                    const wired = page.wiredServiceIds ?? []
+                    const isChecked = wired.includes(svc.id)
+                    const provider = svc.serviceProviderId
+                      ? getCatalogProvider(svc.serviceProviderId)
+                      : undefined
+                    return (
+                      <div
+                        key={svc.id}
+                        className="flex items-center justify-between gap-2 rounded px-2 py-1.5 hover:bg-app-elevated/70"
+                      >
+                        <label className="flex items-center gap-2 cursor-pointer min-w-0 flex-1">
+                          {provider ? (
+                            <BrandIcon slug={provider.simpleIconSlug} size={14} />
+                          ) : null}
+                          <span className="text-[11px] font-medium text-app-text truncate">
+                            {svc.name}
+                          </span>
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => archTogglePageServiceWire(page.id, svc.id)}
+                            className="h-3.5 w-3.5 rounded border-app-border ml-auto shrink-0"
+                          />
+                        </label>
+                        <button
+                          type="button"
+                          className="text-[9px] text-app-accent hover:underline shrink-0"
+                          onClick={() => archSelectService(svc.id)}
+                        >
+                          Setup
+                        </button>
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Footer */}

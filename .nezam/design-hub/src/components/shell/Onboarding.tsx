@@ -13,6 +13,7 @@ import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { ArchProfileId } from '@/types/arch'
 import type { DesignProfileId } from '@/types/design'
+import { ArchPagePacksPicker } from '@/components/arch/ArchPagePacksPicker'
 
 // ─── Step definitions ─────────────────────────────────────────────────────────
 
@@ -362,7 +363,9 @@ function ArchStep({
       <div className="flex flex-col gap-1 border-b border-white/5 pb-3">
         <p className="text-[10px] font-extrabold text-blue-400 uppercase tracking-widest">Step 1 of 2</p>
         <h2 className="text-[17px] font-bold text-white tracking-tight">Configure Architecture & Page Routing</h2>
-        <p className="text-[11px] text-white/40">Select a template and choose which routing pages you want to pre-load.</p>
+        <p className="text-[11px] text-white/40">
+          Pick a sitemap blueprint, optional page packs, and which routes to pre-load.
+        </p>
       </div>
 
       {/* Two Column Layout: Templates Left, Pages Selector Right */}
@@ -370,7 +373,7 @@ function ArchStep({
         
         {/* Left Column: Vertical Templates directory */}
         <div className="w-[42%] flex flex-col gap-1.5 pr-1 border-r border-white/5">
-          <p className="text-[9.5px] font-bold text-white/40 uppercase tracking-wider mb-0.5">Sitemap Presets</p>
+          <p className="text-[9.5px] font-bold text-white/40 uppercase tracking-wider mb-0.5">Blueprint profiles</p>
           <div className="flex-1 overflow-y-auto app-scroll space-y-1.5 pr-1">
             {ARCH_PROFILES.map((profile) => {
               const isSelected = selected === profile.id
@@ -479,6 +482,10 @@ function ArchStep({
             {activeProfile && <span>Category: {activeProfile.name}</span>}
           </div>
         </div>
+      </div>
+
+      <div className="shrink-0 max-h-[160px] min-h-[120px] border-t border-white/5 pt-3 [&_.text-app-subtle]:text-white/40 [&_.border-app-border]:border-white/10">
+        <ArchPagePacksPicker />
       </div>
 
       {/* Navigation Actions */}

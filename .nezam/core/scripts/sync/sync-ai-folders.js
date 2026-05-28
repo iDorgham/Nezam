@@ -44,7 +44,7 @@ Examples:
   node .nezam/core/scripts/sync/sync-ai-folders.js --status
   node .nezam/core/scripts/sync/sync-ai-folders.js --target=claude --write
 
-Tool ids (see .nezam/core/scripts/config/tools.config.json): cursor, claude, codex, copilot, opencode, antigravity, gemini, qwen, kilo
+Tool ids (see .nezam/core/scripts/config/tools.config.json): cursor, claude, codex, copilot, opencode, antigravity, antigravitycli, gemini, qwen, kilo
 
 Exit codes:
   0  No drift (check mode), or --write finished, or --status all mirrors match
@@ -126,6 +126,43 @@ function parseFrontmatter(markdown) {
 
 function escapeToml(multiline) {
   return multiline.replaceAll("\\", "\\\\").replaceAll('"""', '\\"\\"\\"');
+}
+
+function describeNezamCommand(srcText, fileName) {
+  const lines = srcText.trim().split("\n");
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("##")) continue;
+    if (trimmed.startsWith("/")) {
+      const emDash = trimmed.indexOf("—");
+      const colon = trimmed.indexOf(":");
+      if (emDash > -1) return trimmed.slice(emDash + 1).trim();
+      if (colon > -1) return trimmed.slice(colon + 1).trim();
+      return `NEZAM /${fileName} slash command`;
+    }
+    return trimmed.slice(0, 240);
+  }
+  return `NEZAM ${fileName} slash command`;
+}
+
+function buildAgySkillFromCommand(srcPath, srcText) {
+  const fileName = path.basename(srcPath, ".md");
+  const body = srcText.trim();
+  if (body.startsWith("---\n")) {
+    return `${BANNER}\n\n${body}\n`;
+  }
+  const description = describeNezamCommand(body, fileName).replaceAll('"', '\\"');
+  return [
+    BANNER,
+    "",
+    "---",
+    `name: nezam-${fileName}`,
+    `description: "${description}"`,
+    "---",
+    "",
+    body,
+    "",
+  ].join("\n");
 }
 
 function rewriteLinks(markdown, targetRoot) {
@@ -212,8 +249,19 @@ function computeOutputsForTool(tool) {
       if (kind === "rules-copy" && !src.endsWith(".mdc")) continue;
       if (kind === "markdown-copy" && !src.endsWith(".md")) continue;
       if (kind === "toml-commands" && !src.endsWith(".md")) continue;
+      if (kind === "agy-skills-from-commands" && !src.endsWith(".md")) continue;
 
       const srcText = readUtf8(src);
+
+      if (kind === "agy-skills-from-commands") {
+        const fileName = path.basename(src, ".md");
+        const content = buildAgySkillFromCommand(src, srcText);
+        outputs.push({
+          path: `${target.path}/${fileName}/SKILL.md`,
+          content,
+        });
+        continue;
+      }
 
       if (kind === "toml-commands") {
         const { description, body } = parseFrontmatter(srcText);

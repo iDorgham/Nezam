@@ -4,10 +4,17 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { uid, setByPath } from '@/lib/utils'
-import type { ArchPage, ArchProfileId } from '@/types/arch'
+import type { AddableArchType, ArchPage, ArchProfileId } from '@/types/arch'
+import {
+  addableToArchType,
+  createArchPageDefaults,
+  inferChildTypeFromParent,
+  validateArchParentChild,
+} from '@/lib/arch/arch-node'
 import type { DesignTokens, TokenCategory, DesignProfileId } from '@/types/design'
 import type { ComponentGroup } from '@/data/components-library'
 import { ARCH_PROFILES_MAP } from '@/data/arch-profiles'
+import { getCatalogProvider } from '@/lib/arch/service-catalog'
 import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
 import { hexToHsl, hslToHex } from '@/components/theming/color-utils'
 
@@ -18,12 +25,18 @@ export const HUB_VERSION = 'v7'
 
 // ─── Hub section ─────────────────────────────────────────────────────────────
 
-export type HubSection = 'architecture' | 'design' | 'theming' | 'preview'
+export type HubSection =
+  | 'architecture'
+  | 'wireframes'
+  | 'design'
+  | 'components'
+  | 'theming'
+  | 'preview'
 
 /** Sub-tabs nested under the Design System section. */
 export type DesignSubTab = 'tokens'
 
-export type PreviewSubTab = 'preview' | 'components' | 'sections'
+export type PreviewSubTab = 'preview' | 'sections'
 
 /** CSS variable snapshot applied to the live Preview from the Theme editor. */
 export interface ThemePreviewOverride {
@@ -50,6 +63,8 @@ export interface SavedColorProfile {
 interface ArchState {
   pages: Record<string, ArchPage>
   selectedPageId: string | null
+  /** Selected rack service instance (mutually exclusive with selectedPageId). */
+  selectedServiceId: string | null
   activeProfileId: ArchProfileId | null
 }
 
@@ -85,12 +100,21 @@ export interface CommentPin {
   createdAt: number
 }
 
+export interface PreviewLayerState {
+  order: string[]
+  hidden: string[]
+  locked: string[]
+}
+
 interface PreviewState {
   selectedPageId: string | null
   device: PreviewDevice
+  /** Preview-only text direction for the rendered page. */
+  rtl: boolean
   comments: CommentPin[]
   isAddingComment: boolean
   subTab: PreviewSubTab
+  layerStateByPage: Record<string, PreviewLayerState>
 }
 
 // ─── Components state ─────────────────────────────────────────────────────────
@@ -120,6 +144,8 @@ interface HubStore {
   preview: PreviewState
   comp: CompState
   onboarding: OnboardingState
+  /** ISO timestamp when the user last clicked "Lock & Export" in the hub. */
+  lockedAt: string | null
   /** Sections the user has visited at least once — drives progress bar. */
   visitedSections: HubSection[]
 
@@ -127,13 +153,19 @@ interface HubStore {
   setSection(s: HubSection): void
 
   // ── Architecture actions ──
+  archAddNode(kind: AddableArchType, parentId: string | null): { ok: true; id: string } | { ok: false; reason: string }
   archAddPage(parentId: string | null): void
   archDeletePage(id: string): void
   archUpdatePage(id: string, patch: Partial<ArchPage>): void
   archSelectPage(id: string | null): void
+  archSelectService(id: string | null): void
+  archAddServiceFromCatalog(providerId: string): { ok: true; id: string } | { ok: false; reason: string }
+  archTogglePageServiceWire(pageId: string, serviceInstanceId: string): void
   archApplyProfile(profileId: ArchProfileId, selectedPageIds?: string[]): void
   /** Append pages from a template under an optional parent. Returns the new IDs. */
   archAppendPages(pages: Array<{ name: string; route: string; icon?: string }>, parentId?: string | null): void
+  /** Bulk hydrate pages from `project_context.json` (Phase 3). */
+  archHydratePages(pages: ArchPage[]): void
 
   // ── Design actions ──
   designSetToken(path: string, value: string | number): void
@@ -151,10 +183,14 @@ interface HubStore {
   // ── Preview actions ──
   previewSelectPage(id: string | null): void
   previewSetDevice(device: PreviewDevice): void
+  previewSetRtl(rtl: boolean): void
   previewAddComment(pageId: string, x: number, y: number, text: string, author: string): void
   previewDeleteComment(id: string): void
   previewSetIsAddingComment(isAdding: boolean): void
   previewSetSubTab(tab: PreviewSubTab): void
+  previewSetLayerOrder(pageId: string, order: string[]): void
+  previewToggleLayerHidden(pageId: string, layerId: string): void
+  previewToggleLayerLocked(pageId: string, layerId: string): void
 
   // ── Components actions ──
   compSetGroup(group: ComponentGroup | null): void
@@ -188,6 +224,9 @@ interface HubStore {
   // ── Resizable Sidebar ──
   sidebarWidth?: number
   setSidebarWidth(width: number): void
+
+  // ── Lock / export state ──────────────────────────────────────────────────
+  setLockedAt(ts: string | null): void
 }
 
 // ─── Helper: derive next order among siblings ──────────────────────────────
@@ -251,7 +290,7 @@ function generateScaleFromHex(hex: string): any {
 
 export const useHub = create<HubStore>()(
   persist(
-    immer((set) => ({
+    immer((set, get) => ({
       section: 'architecture' as HubSection,
       visitedSections: ['architecture'] as HubSection[],
       hubTheme: 'dark' as 'light' | 'dark',
@@ -267,9 +306,12 @@ export const useHub = create<HubStore>()(
         step: 0,
       },
 
+      lockedAt: null,
+
       arch: {
         pages: {},
         selectedPageId: null,
+        selectedServiceId: null,
         activeProfileId: null,
       },
 
@@ -289,9 +331,11 @@ export const useHub = create<HubStore>()(
       preview: {
         selectedPageId: null,
         device: 'desktop',
+        rtl: false,
         comments: [] as CommentPin[],
         isAddingComment: false,
         subTab: 'preview' as PreviewSubTab,
+        layerStateByPage: {},
       },
 
       comp: {
@@ -312,55 +356,81 @@ export const useHub = create<HubStore>()(
         }),
 
       // ── Architecture ─────────────────────────────────────────────────────────
+      archAddNode: (kind, parentId) => {
+        const pages = get().arch.pages
+        const childType = addableToArchType(kind)
+        const resolvedParentId =
+          kind === 'service' || kind === 'application' ? null : parentId
+        const parent =
+          resolvedParentId && pages[resolvedParentId]
+            ? pages[resolvedParentId]
+            : null
+        const validation = validateArchParentChild(
+          kind === 'service' || kind === 'application' ? null : parent,
+          childType,
+        )
+        if (!validation.ok) return validation
+
+        const id = uid('pg')
+        set((state) => {
+          recordHistory(state)
+          const order = nextOrder(state.arch.pages, resolvedParentId)
+          state.arch.pages[id] = createArchPageDefaults(
+            id,
+            childType,
+            resolvedParentId,
+            order,
+            parent,
+          )
+          state.arch.selectedPageId = id
+          state.arch.selectedServiceId = null
+        })
+        return { ok: true as const, id }
+      },
+
+      archAddServiceFromCatalog: (providerId) => {
+        const provider = getCatalogProvider(providerId)
+        if (!provider) {
+          return { ok: false as const, reason: 'Unknown service provider.' }
+        }
+        const id = uid('pg')
+        set((state) => {
+          recordHistory(state)
+          const order = nextOrder(state.arch.pages, null)
+          const page = createArchPageDefaults(id, 'service', null, order, null)
+          page.name = provider.name
+          page.icon = 'Server'
+          page.route = `/api/${provider.id}`
+          page.serviceKind = provider.serviceKind
+          page.serviceProviderId = provider.id
+          page.description = provider.description
+          state.arch.pages[id] = page
+          state.arch.selectedServiceId = id
+          state.arch.selectedPageId = null
+        })
+        return { ok: true as const, id }
+      },
+
       archAddPage: (parentId) =>
         set((state) => {
           recordHistory(state)
+          const parent =
+            parentId && state.arch.pages[parentId]
+              ? state.arch.pages[parentId]
+              : null
+          const childType = inferChildTypeFromParent(parent)
+          const validation = validateArchParentChild(parent, childType)
+          if (!validation.ok) return
+
           const id = uid('pg')
           const order = nextOrder(state.arch.pages, parentId)
-
-          // Determine page level based on parent level
-          let level: any = 'page'
-          let navSlot: any = 'sidebar'
-          let icon = 'FileText'
-          if (!parentId) {
-            level = 'app'
-            navSlot = 'hidden'
-            icon = 'Layers'
-          } else {
-            const parent = state.arch.pages[parentId]
-            if (parent) {
-              if (parent.type === 'app') {
-                level = 'navmenu'
-                navSlot = 'hidden'
-                icon = 'Menu'
-              } else if (parent.type === 'navmenu') {
-                level = 'page'
-                navSlot = 'sidebar'
-                icon = 'FileText'
-              } else if (parent.type === 'page') {
-                level = 'subpage'
-                navSlot = 'sidebar'
-                icon = 'CornerDownRight'
-              } else if (parent.type === 'subpage') {
-                level = 'section'
-                navSlot = 'hidden'
-                icon = 'LayoutGrid'
-              }
-            }
-          }
-
-          state.arch.pages[id] = {
+          state.arch.pages[id] = createArchPageDefaults(
             id,
-            name: level === 'app' ? 'New App' : level === 'navmenu' ? 'New Nav Menu' : 'New Page',
-            route: '/new-page',
+            childType,
             parentId,
             order,
-            type: level,
-            navSlot,
-            icon,
-            description: '',
-            services: [],
-          }
+            parent,
+          )
           state.arch.selectedPageId = id
         }),
 
@@ -373,6 +443,15 @@ export const useHub = create<HubStore>()(
           if (state.arch.selectedPageId && toDelete.includes(state.arch.selectedPageId)) {
             state.arch.selectedPageId = null
           }
+          if (state.arch.selectedServiceId && toDelete.includes(state.arch.selectedServiceId)) {
+            state.arch.selectedServiceId = null
+          }
+          // Remove deleted service instances from page wires
+          Object.values(state.arch.pages).forEach((p) => {
+            if (p.wiredServiceIds?.length) {
+              p.wiredServiceIds = p.wiredServiceIds.filter((sid) => !toDelete.includes(sid))
+            }
+          })
           // Re-index sibling orders
           const siblings = Object.values(state.arch.pages)
             .filter((p) => p.parentId === parentId)
@@ -393,6 +472,27 @@ export const useHub = create<HubStore>()(
       archSelectPage: (id) =>
         set((state) => {
           state.arch.selectedPageId = id
+          if (id) state.arch.selectedServiceId = null
+        }),
+
+      archSelectService: (id) =>
+        set((state) => {
+          state.arch.selectedServiceId = id
+          if (id) state.arch.selectedPageId = null
+        }),
+
+      archTogglePageServiceWire: (pageId, serviceInstanceId) =>
+        set((state) => {
+          const page = state.arch.pages[pageId]
+          const svc = state.arch.pages[serviceInstanceId]
+          if (!page || page.type === 'service' || !svc || svc.type !== 'service') return
+          recordHistory(state)
+          const current = page.wiredServiceIds ?? []
+          const has = current.includes(serviceInstanceId)
+          page.wiredServiceIds = has
+            ? current.filter((x) => x !== serviceInstanceId)
+            : [...current, serviceInstanceId]
+          page.services = undefined
         }),
 
       archApplyProfile: (profileId, selectedPageIds) =>
@@ -433,6 +533,7 @@ export const useHub = create<HubStore>()(
           })
           state.arch.activeProfileId = profileId
           state.arch.selectedPageId = null
+          state.arch.selectedServiceId = null
         }),
 
       archAppendPages: (pages, parentId = null) =>
@@ -485,6 +586,15 @@ export const useHub = create<HubStore>()(
               services: [],
             }
           })
+        }),
+
+      // ── Project context hydration (Phase 3) ───────────────────────────────
+      archHydratePages: (pages) =>
+        set((state) => {
+          recordHistory(state)
+          state.arch.pages = Object.fromEntries(pages.map((p) => [p.id, p]))
+          state.arch.activeProfileId = null
+          state.arch.selectedPageId = null
         }),
 
       // ── Undo/Redo actions ──
@@ -610,6 +720,11 @@ export const useHub = create<HubStore>()(
           state.preview.device = device
         }),
 
+      previewSetRtl: (rtl) =>
+        set((state) => {
+          state.preview.rtl = rtl
+        }),
+
       previewAddComment: (pageId, x, y, text, author) =>
         set((state) => {
           const id = uid('comment')
@@ -643,6 +758,48 @@ export const useHub = create<HubStore>()(
       previewSetSubTab: (tab) =>
         set((state) => {
           state.preview.subTab = tab
+        }),
+
+      previewSetLayerOrder: (pageId, order) =>
+        set((state) => {
+          if (!state.preview.layerStateByPage) state.preview.layerStateByPage = {}
+          const current = state.preview.layerStateByPage[pageId] ?? {
+            order: [],
+            hidden: [],
+            locked: [],
+          }
+          state.preview.layerStateByPage[pageId] = {
+            ...current,
+            order: [...order],
+          }
+        }),
+
+      previewToggleLayerHidden: (pageId, layerId) =>
+        set((state) => {
+          if (!state.preview.layerStateByPage) state.preview.layerStateByPage = {}
+          const current = state.preview.layerStateByPage[pageId] ?? {
+            order: [],
+            hidden: [],
+            locked: [],
+          }
+          const hidden = current.hidden.includes(layerId)
+            ? current.hidden.filter((id) => id !== layerId)
+            : [...current.hidden, layerId]
+          state.preview.layerStateByPage[pageId] = { ...current, hidden }
+        }),
+
+      previewToggleLayerLocked: (pageId, layerId) =>
+        set((state) => {
+          if (!state.preview.layerStateByPage) state.preview.layerStateByPage = {}
+          const current = state.preview.layerStateByPage[pageId] ?? {
+            order: [],
+            hidden: [],
+            locked: [],
+          }
+          const locked = current.locked.includes(layerId)
+            ? current.locked.filter((id) => id !== layerId)
+            : [...current.locked, layerId]
+          state.preview.layerStateByPage[pageId] = { ...current, locked }
         }),
 
       // ── Components ───────────────────────────────────────────────────────────
@@ -695,10 +852,16 @@ export const useHub = create<HubStore>()(
         set((state) => {
           state.sidebarWidth = width
         }),
+
+      // ── Lock / export state ──
+      setLockedAt: (ts) =>
+        set((state) => {
+          state.lockedAt = ts
+        }),
     })),
     {
-      name: 'nezam-design-hub-v8',
-      version: 2,
+      name: 'nezam-design-hub-v7',
+      version: 3,
       partialize: (s) => ({
         section: s.section,
         arch: s.arch,
@@ -709,6 +872,7 @@ export const useHub = create<HubStore>()(
         visitedSections: s.visitedSections,
         hubTheme: s.hubTheme,
         sidebarWidth: s.sidebarWidth,
+        lockedAt: s.lockedAt,
         // comp state & past/future stacks are intentionally not persisted
       }),
       migrate: (persisted: any, version: number) => {
@@ -751,6 +915,44 @@ export const useHub = create<HubStore>()(
             if (!('infoScale' in tokens.colors)) tokens.colors.infoScale = defaults.colors.infoScale
             if (!('darkSurface' in tokens.colors)) tokens.colors.darkSurface = defaults.colors.darkSurface
             if (!('darkText' in tokens.colors)) tokens.colors.darkText = defaults.colors.darkText
+          }
+        }
+        // v3: catalog-backed services — selectedServiceId + wiredServiceIds
+        if (version < 3 && persisted?.arch?.pages) {
+          if (persisted.arch.selectedServiceId === undefined) {
+            persisted.arch.selectedServiceId = null
+          }
+          const allPages = Object.values(persisted.arch.pages) as ArchPage[]
+          for (const pg of allPages) {
+            if (pg.type === 'service' && !pg.serviceProviderId) {
+              pg.serviceProviderId = `legacy-${pg.serviceKind ?? 'api'}`
+            }
+            if (pg.type !== 'service' && pg.services?.length) {
+              const wired: string[] = [...(pg.wiredServiceIds ?? [])]
+              for (const kind of pg.services) {
+                const match = allPages.find(
+                  (p) => p.type === 'service' && (p.serviceKind ?? 'api') === kind,
+                )
+                if (match && !wired.includes(match.id)) wired.push(match.id)
+              }
+              pg.wiredServiceIds = wired
+              pg.services = undefined
+            }
+            if (!pg.wiredServiceIds) pg.wiredServiceIds = []
+          }
+        }
+        // Preview-only migration: ensure rtl exists for older persisted stores.
+        if (persisted?.preview && typeof persisted.preview.rtl !== 'boolean') {
+          persisted.preview.rtl = false
+        }
+        if (persisted?.preview?.subTab === 'components') {
+          persisted.preview.subTab = 'sections'
+          persisted.section = 'components'
+          if (!Array.isArray(persisted.visitedSections)) {
+            persisted.visitedSections = ['architecture']
+          }
+          if (!persisted.visitedSections.includes('components')) {
+            persisted.visitedSections.push('components')
           }
         }
         return persisted

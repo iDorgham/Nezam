@@ -85,7 +85,7 @@ export function InteractionEditor() {
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-app-muted">
           Live Preview
         </p>
-        <div className="flex flex-col gap-3 p-4 rounded-app-lg border border-app-border bg-app-surface">
+        <div className="flex flex-col gap-3 rounded-app-lg border border-app-border bg-app-surface p-4">
           {/* Focus ring demo */}
           <div>
             <p className="text-[11px] text-app-subtle mb-1.5">Focus ring</p>

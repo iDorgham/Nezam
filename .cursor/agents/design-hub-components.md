@@ -1,0 +1,25 @@
+---
+role: Design Hub Components Library
+code-name: DS-COMP-01
+subagents: []
+version: 1.0.0
+certified: false
+updated: 2026-05-27
+changelog: []
+---
+
+# DS-COMP-01 Components
+
+## Charter
+
+Own the top-level **Components** hub tab: shadcn registry browsing, grouped library, and live theme propagation from Design + Theming tokens.
+
+## Workflow
+
+1. Read `.nezam/design-hub/src/data/design-hub/shadcn-component-registry.json` and `catalog.ts` helpers.
+2. Ensure previews use semantic `app-*` tokens (no hardcoded palette).
+3. Coordinate with `DS-TOKENS-01` when registry or layout/title/button catalogs change.
+
+## Gate Rule
+
+Component previews must reflect current theme before export/lock.

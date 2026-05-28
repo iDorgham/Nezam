@@ -16,6 +16,7 @@ const IGNORED_DIRS = new Set([
   '.opencode',
   '.qwen',
   '.antigravity',
+  '.antigravitycli',
   '.kilocode',
   '.kiro',
   '.specstory',

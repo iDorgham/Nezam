@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "presets": [
+    {
+      "id": "marketing",
+      "label": "Marketing",
+      "description": "Wide hero sections with balanced container spacing.",
+      "layout": {
+        "maxWidth": "1280px",
+        "containerPadding": "24px",
+        "gutter": "32px",
+        "headerHeight": "72px",
+        "footerHeight": "96px",
+        "sidebarWidth": "280px"
+      },
+      "title": { "scale": "display", "align": "center", "maxLines": 2 },
+      "buttons": { "primaryVariant": "default", "secondaryVariant": "outline", "size": "lg" }
+    },
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "description": "Data-dense canvas with stable sidebar navigation.",
+      "layout": {
+        "maxWidth": "1440px",
+        "containerPadding": "16px",
+        "gutter": "20px",
+        "headerHeight": "64px",
+        "footerHeight": "72px",
+        "sidebarWidth": "280px"
+      },
+      "title": { "scale": "xl", "align": "start", "maxLines": 1 },
+      "buttons": { "primaryVariant": "default", "secondaryVariant": "secondary", "size": "sm" }
+    },
+    {
+      "id": "auth",
+      "label": "Authentication",
+      "description": "Narrower content for focused forms and conversion steps.",
+      "layout": {
+        "maxWidth": "960px",
+        "containerPadding": "20px",
+        "gutter": "24px",
+        "headerHeight": "64px",
+        "footerHeight": "64px",
+        "sidebarWidth": "240px"
+      },
+      "title": { "scale": "lg", "align": "center", "maxLines": 2 },
+      "buttons": { "primaryVariant": "default", "secondaryVariant": "ghost", "size": "default" }
+    },
+    {
+      "id": "docs",
+      "label": "Documentation",
+      "description": "Reading-first layout with persistent side navigation.",
+      "layout": {
+        "maxWidth": "1200px",
+        "containerPadding": "24px",
+        "gutter": "28px",
+        "headerHeight": "64px",
+        "footerHeight": "80px",
+        "sidebarWidth": "320px"
+      },
+      "title": { "scale": "lg", "align": "start", "maxLines": 2 },
+      "buttons": { "primaryVariant": "default", "secondaryVariant": "outline", "size": "default" }
+    }
+  ]
+}

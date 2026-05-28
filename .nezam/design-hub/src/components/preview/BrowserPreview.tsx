@@ -1,11 +1,12 @@
 'use client'
 
 import { Monitor, Tablet, Smartphone, Lock, RotateCw, ArrowLeft, ArrowRight, Sparkles, X } from 'lucide-react'
-import { useState, useMemo } from 'react'
-import { useHub, type PreviewDevice } from '@/store/hub.store'
+import { useState, useMemo, useEffect } from 'react'
+import { useHub, type CommentPin, type PreviewDevice } from '@/store/hub.store'
 import { PageRenderer } from './DeviceFrame'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
+import { buildSeedPageSections } from '@/lib/wireframe/seed-page-session'
 
 const DEVICE_WIDTH: Record<PreviewDevice, number | null> = {
   desktop: null,   // null = fill container at 100%
@@ -19,7 +20,21 @@ const DEVICE_ICONS: Record<PreviewDevice, React.FC<{ size?: number; className?: 
   mobile:  Smartphone,
 }
 
-const EMPTY_COMMENTS: any[] = []
+const EMPTY_COMMENTS: CommentPin[] = []
+
+type WireframeSession = {
+  sections?: Array<{ section_id?: string; block_type?: string; order?: number }>
+}
+
+function extractWireframeSections(session: WireframeSession | null): WireframeSession['sections'] {
+  const sections = session?.sections ?? []
+  if (!sections.length) return undefined
+  return [...sections].sort((a, b) => {
+    const ao = Number(a.order ?? 0)
+    const bo = Number(b.order ?? 0)
+    return ao - bo
+  })
+}
 
 /**
  * Browser-window preview chrome. Replaces the old standalone device toolbar.
@@ -32,6 +47,8 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
   const tokens         = useHub((s) => s.design.tokens)
   const device         = useHub((s) => s.preview.device)
   const setDevice      = useHub((s) => s.previewSetDevice)
+  const previewRtl     = useHub((s) => s.preview.rtl)
+  const setPreviewRtl  = useHub((s) => s.previewSetRtl)
   const override       = useHub((s) => s.theme.previewOverride)
   const clearOverride  = useHub((s) => s.themeClearPreview)
 
@@ -39,10 +56,53 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
   const isAddingComment = useHub((s) => s.preview.isAddingComment)
   const addComment      = useHub((s) => s.previewAddComment)
   const setIsAdding     = useHub((s) => s.previewSetIsAddingComment)
+  const activeProfileId = useHub((s) => s.arch.activeProfileId)
 
   const pageComments = useMemo(() => {
     return comments.filter((c) => c.pageId === page.id)
   }, [comments, page.id])
+  const [wireframeSections, setWireframeSections] = useState<WireframeSession['sections']>()
+  const [sessionSource, setSessionSource] = useState<'loading' | 'saved' | 'seeded'>('loading')
+
+  useEffect(() => {
+    const controller = new AbortController()
+    async function loadSession() {
+      setSessionSource('loading')
+      try {
+        const res = await fetch(`/api/pages/${encodeURIComponent(page.id)}`, {
+          signal: controller.signal,
+        })
+        const data = await res.json().catch(() => ({}))
+        const loaded = extractWireframeSections(data?.session ?? null)
+        if (loaded && loaded.length > 0) {
+          setWireframeSections(loaded)
+          setSessionSource('saved')
+          return
+        }
+
+        // Fallback for unsaved pages: still render from seeded wireframe blocks
+        // so preview reflects sitemap presets immediately.
+        const seeded = buildSeedPageSections({
+          page,
+          profileId: activeProfileId,
+        })
+        setWireframeSections(seeded)
+        setSessionSource('seeded')
+      } catch {
+        if (controller.signal.aborted) return
+        const seeded = buildSeedPageSections({
+          page,
+          profileId: activeProfileId,
+        })
+        setWireframeSections(seeded)
+        setSessionSource('seeded')
+      }
+    }
+    void loadSession()
+    return () => {
+      controller.abort()
+    }
+  }, [page, activeProfileId])
 
   // overrideStyle is no longer needed on the parent — PageRenderer merges
   // override vars directly into its wrapStyle as the final layer.
@@ -101,6 +161,18 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
                 </button>
               )
             })}
+
+            {/* RTL/LTR toggle (affects preview + drives lock payload) */}
+            <button
+              onClick={() => setPreviewRtl(!previewRtl)}
+              title={previewRtl ? 'Switch preview to LTR' : 'Switch preview to RTL'}
+              className={cn(
+                'flex items-center justify-center h-5 w-10 rounded text-[10px] transition-colors duration-100',
+                previewRtl ? 'bg-app-surface text-app-text' : 'text-app-subtle hover:text-app-text',
+              )}
+            >
+              {previewRtl ? 'RTL' : 'LTR'}
+            </button>
           </div>
         </div>
 
@@ -124,6 +196,20 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
           <span className="text-[10px] font-mono text-app-subtle px-1.5 select-none">
             {device === 'desktop' ? 'fluid' : `${targetWidth}px`}
           </span>
+          <span
+            className={cn(
+              'text-[9px] rounded-full px-1.5 py-0.5 border',
+              sessionSource === 'saved'
+                ? 'text-app-success border-app-success/40 bg-app-success/10'
+                : sessionSource === 'loading'
+                  ? 'text-app-subtle border-app-border bg-app-elevated'
+                  : 'text-app-warning border-app-warning/40 bg-app-warning/10',
+            )}
+            role="status"
+            aria-live="polite"
+          >
+            {sessionSource === 'saved' ? 'saved session' : sessionSource === 'loading' ? 'loading' : 'seeded'}
+          </span>
         </div>
       </div>
 
@@ -144,7 +230,14 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
               addComment={addComment}
               setIsAdding={setIsAdding}
             >
-              <PageRenderer page={page} tokens={tokens} device="desktop" />
+              <div dir={previewRtl ? 'rtl' : 'ltr'}>
+                <PageRenderer
+                  page={page}
+                  tokens={tokens}
+                  device="desktop"
+                  wireframeSections={wireframeSections ?? undefined}
+                />
+              </div>
             </CommentCanvasOverlay>
           </div>
         ) : (
@@ -166,7 +259,14 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
                 addComment={addComment}
                 setIsAdding={setIsAdding}
               >
-                <PageRenderer page={page} tokens={tokens} device={device} />
+                  <div dir={previewRtl ? 'rtl' : 'ltr'}>
+                    <PageRenderer
+                      page={page}
+                      tokens={tokens}
+                      device={device}
+                      wireframeSections={wireframeSections ?? undefined}
+                    />
+                  </div>
               </CommentCanvasOverlay>
             </div>
           </div>

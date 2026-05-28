@@ -6,6 +6,8 @@ import type { PreviewDevice } from '@/store/hub.store'
 import type { ArchPage } from '@/types/arch'
 import type { DesignTokens } from '@/types/design'
 import { composePage } from './PageComposer'
+import { WireframeBlocksPage } from './WireframeBlocksPage'
+import { detectTemplate, TEMPLATE_INFO, resolveTemplateLayerOrder } from '@/lib/preview/templates'
 
 // ─── Build override CSS vars from a previewOverride record ────────────────────
 function buildOverrideVars(override: NonNullable<ReturnType<typeof useHub.getState>['theme']['previewOverride']>): React.CSSProperties {
@@ -92,60 +94,21 @@ function buildVars(t: DesignTokens): React.CSSProperties {
   } as React.CSSProperties
 }
 
-// ─── Page type detector ───────────────────────────────────────────────────────
-
-type PageTemplate =
-  | 'marketing' | 'features' | 'pricing' | 'blog-list' | 'article' | 'contact'
-  | 'auth-login' | 'auth-signup' | 'auth-forgot'
-  | 'dashboard' | 'analytics' | 'settings' | 'profile' | 'team'
-  | 'docs' | 'api-explorer' | 'media-library' | 'notifications'
-  | 'product-list' | 'product-detail' | 'cart' | 'checkout' | 'order-success'
-  | 'onboarding' | 'error-404'
-
-function detectTemplate(page: ArchPage): PageTemplate {
-  const name  = page.name.toLowerCase()
-  const route = (page.route ?? '').toLowerCase()
-
-  const has = (...terms: string[]) =>
-    terms.some((t) => name.includes(t) || route.includes(t))
-
-  const nameWords = new Set(name.split(/[\s\-_/[\].]+/).filter(Boolean))
-  const word = (...terms: string[]) => terms.some((t) => nameWords.has(t))
-
-  if (has('login', 'sign-in', 'signin') || word('login'))          return 'auth-login'
-  if (has('signup', 'sign-up', 'register') || word('register'))    return 'auth-signup'
-  if (has('forgot', 'reset', 'password'))                          return 'auth-forgot'
-  if (has('checkout'))                                              return 'checkout'
-  if (has('cart', 'basket'))                                        return 'cart'
-  if (has('order', 'success', 'thank') || word('confirm'))          return 'order-success'
-  if ((has('product', 'item', '[') || has('detail')) && !has('list', 'catalog')) return 'product-detail'
-  if (has('shop', 'store', 'catalog', 'collection', 'wishlist') || (has('product') && has('list'))) return 'product-list'
-  if (has('pricing', 'plan', 'price'))                              return 'pricing'
-  if (has('blog', 'news', 'articles', 'posts') || word('post'))     return 'blog-list'
-  if (has('article', 'journal', 'story') || word('slug'))           return 'article'
-  if (has('contact', 'reach', 'get-in-touch'))                      return 'contact'
-  if (has('newsletter'))                                            return 'blog-list'
-  if (has('docs', 'documentation', 'guide', 'reference') || word('doc')) return 'docs'
-  if (has('api') && (has('explorer', 'reference', 'docs') || route.includes('/api'))) return 'api-explorer'
-  if (has('analytics', 'report', 'chart', 'insight', 'explorer') || word('reports')) return 'analytics'
-  if (has('settings', 'preference', 'security', 'privacy', 'billing') || word('account')) return 'settings'
-  if (has('notification', 'inbox', 'message') && !has('setting'))    return 'notifications'
-  if (has('team', 'member', 'people', 'staff') || word('org'))        return 'team'
-  if (has('media', 'library', 'asset', 'upload') || word('files'))    return 'media-library'
-  if (has('profile', 'portfolio', 'resume') || word('me', 'about'))   return 'profile'
-  if (has('onboarding', 'welcome', 'setup', 'permission') || word('start')) return 'onboarding'
-  if (has('feature') || word('features'))                             return 'features'
-  if (has('dashboard', 'overview', 'admin') ||
-      route.startsWith('/app') || route.startsWith('/dashboard') || route.startsWith('/admin'))
-    return 'dashboard'
-  if (route === '/' || word('home', 'landing'))                       return 'marketing'
-  if (has('404', 'not-found', 'error'))                               return 'error-404'
-  return 'marketing'
-}
-
 // ─── Master dispatcher ─────────────────────────────────────────────────────────
 
-export function PageRenderer({ page, tokens, device }: { page: ArchPage; tokens: DesignTokens; device: PreviewDevice }) {
+export function PageRenderer({
+  page,
+  tokens,
+  device,
+  forcedVisibleLayers,
+  wireframeSections,
+}: {
+  page: ArchPage
+  tokens: DesignTokens
+  device: PreviewDevice
+  forcedVisibleLayers?: string[]
+  wireframeSections?: Array<{ section_id?: string; block_type?: string; order?: number }>
+}) {
   const vars           = useMemo(() => buildVars(tokens), [tokens])
   const previewOverride = useHub((s) => s.theme.previewOverride)
   const overrideVars   = useMemo(
@@ -155,10 +118,22 @@ export function PageRenderer({ page, tokens, device }: { page: ArchPage; tokens:
   const isMobile = device === 'mobile'
   const isTablet  = device === 'tablet'
   const template  = detectTemplate(page)
+  const layerState = useHub((s) => s.preview.layerStateByPage?.[page.id])
+  const allLayers = TEMPLATE_INFO[template]?.layers ?? []
+  const orderedLayers = resolveTemplateLayerOrder(allLayers, layerState?.order ?? [])
+  const visibleLayers = forcedVisibleLayers ?? orderedLayers.filter((id) => !(layerState?.hidden ?? []).includes(id))
 
   const wrapStyle: React.CSSProperties = { ...vars, ...overrideVars, minHeight: '100%' }
 
-  return <div style={wrapStyle}>{composePage(template, page, isMobile, isTablet)}</div>
+  return (
+    <div style={wrapStyle}>
+      {wireframeSections && wireframeSections.length > 0 ? (
+        <WireframeBlocksPage page={page} sections={wireframeSections} device={device} />
+      ) : (
+        composePage(template, page, isMobile, isTablet, visibleLayers)
+      )}
+    </div>
+  )
 }
 
 // ─── Device frame ─────────────────────────────────────────────────────────────

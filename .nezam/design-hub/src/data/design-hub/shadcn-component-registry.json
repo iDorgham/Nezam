@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "components": [
+    { "id": "button", "label": "Button", "group": "actions", "importPath": "@/components/ui/button" },
+    { "id": "input", "label": "Input", "group": "forms", "importPath": "@/components/ui/input" },
+    { "id": "card", "label": "Card", "group": "layout", "importPath": "@/components/ui/card" },
+    { "id": "label", "label": "Label", "group": "forms", "importPath": "@/components/ui/label" },
+    { "id": "badge", "label": "Badge", "group": "data", "importPath": "@/components/ui/badge" },
+    { "id": "avatar", "label": "Avatar", "group": "data", "importPath": "@/components/ui/avatar" },
+    { "id": "tabs", "label": "Tabs", "group": "navigation", "importPath": "@/components/ui/tabs" },
+    { "id": "separator", "label": "Separator", "group": "layout", "importPath": "@/components/ui/separator" },
+    { "id": "skeleton", "label": "Skeleton", "group": "feedback", "importPath": "@/components/ui/skeleton" },
+    { "id": "dropdown-menu", "label": "Dropdown Menu", "group": "navigation", "importPath": "@/components/ui/dropdown-menu" }
+  ]
+}

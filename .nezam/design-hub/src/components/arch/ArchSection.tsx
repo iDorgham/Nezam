@@ -4,16 +4,18 @@ import { useEffect } from 'react'
 import { useHub } from '@/store/hub.store'
 import { ArchLeftPanel } from './ArchLeftPanel'
 import { SitemapCanvas } from './SitemapCanvas'
-import { PageDetail } from './PageDetail'
+import { ArchRightRail } from './ArchRightRail'
 
 
 export function ArchSection() {
-  const selectedId     = useHub((s) => s.arch.selectedPageId)
+  const selectedPageId = useHub((s) => s.arch.selectedPageId)
+  const selectedServiceId = useHub((s) => s.arch.selectedServiceId)
   const archSelectPage = useHub((s) => s.archSelectPage)
+  const archSelectService = useHub((s) => s.archSelectService)
   const archUndo       = useHub((s) => s.archUndo)
   const archRedo       = useHub((s) => s.archRedo)
 
-  const showDetail = !!selectedId
+  const showDetail = !!selectedPageId || !!selectedServiceId
 
   // Keyboard shortcuts: ⌘Z / Ctrl+Z = undo, ⌘⇧Z / Ctrl+Y = redo
   useEffect(() => {
@@ -44,7 +46,12 @@ export function ArchSection() {
               'transition-transform duration-200 ease-smooth',
             ].join(' ')}
           >
-            <PageDetail onClose={() => archSelectPage(null)} />
+            <ArchRightRail
+              onClose={() => {
+                archSelectPage(null)
+                archSelectService(null)
+              }}
+            />
           </aside>
         )}
       </div>

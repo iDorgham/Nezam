@@ -56,14 +56,14 @@ export function OpacityEditor() {
       </div>
 
       {/* Live preview */}
-      <div className="rounded-app-md border border-app-border bg-app-elevated p-4">
+      <div className="rounded-app-lg border border-app-border bg-app-surface p-4">
         <SectionTitle>Preview</SectionTitle>
         <div className="flex flex-col gap-3">
           <p style={{ fontSize: '12px', opacity: Number(opacity.disabled) }}>Disabled text with low opacity</p>
           <div style={{
             padding: '8px 12px',
             backgroundColor: brand,
-            borderRadius: '6px',
+            borderRadius: tokens.radius.sm,
             fontSize: '11px',
             color: '#fff',
             opacity: Number(opacity.overlay),

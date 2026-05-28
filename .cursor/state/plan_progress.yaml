@@ -20,7 +20,7 @@ scrumban_board:
   done: []
   blocked: []
   wip_limit: 3
-phase_02_design: in_progress
+phase_02_design: complete
 phase_02_design_spec: "SPEC-DS-VISUAL-001"
 phase_02_design_date: "2026-05-23"
 phase_02_design_deliverables:

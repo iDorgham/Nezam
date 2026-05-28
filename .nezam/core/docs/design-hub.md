@@ -21,15 +21,15 @@ The NEZAM Design Hub (`.nezam/design-hub/`) is a local Next.js 15 application ru
 | **Styling** | Tailwind CSS 3 |
 | **State** | Zustand |
 | **Port** | 4000 (configurable via `NEZAM_DESIGN_PORT`) |
-| **Profiles** | 100+ design profiles in `.nezam/design/` |
+| **Profiles** | 100+ design profiles in `.nezam/design-hub/design/` |
 
 ### Core Modules
 
 1. **Sitemap Builder** — Visual page hierarchy editor; AI pre-populates from PRD
-2. **Wireframe Editor** — Per-page block canvas (Hero, CTA, Cards, Features, etc.)
-3. **Token Studio** — Live editor with CSS custom property preview (`--ds-*`)
-4. **Profile Browser** — Browse & apply 100+ brand profiles from `.nezam/design/`
-5. **State Review** — Review loading/empty/error/populated states per section
+2. **Token Studio** — Live editor with CSS custom property preview (`--ds-*`)
+3. **Theming** — Theme presets and token preview for the design system
+4. **Preview** — Compose page previews across device frames
+5. **Export Engine** — Generate multiple export artifacts from the current design state
 
 ---
 
@@ -67,7 +67,7 @@ NEZAM ships with 100+ brand design profiles organized by category:
 pnpm run design:apply -- <brand-name>
 
 # List available profiles
-cat .nezam/design/catalog.json
+cat .nezam/design-hub/design/catalog.json
 ```
 
 ---
@@ -136,15 +136,23 @@ pnpm run check:all
 
 ## API Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/context` | GET | Fetch current project context |
-| `/api/profiles` | GET | List available design profiles |
-| `/api/profiles/[name]` | POST | Save custom design profile |
-| `/api/lock` | POST | Export `DESIGN.md` and `wireframes_locked.json` |
-| `/api/ai/generate` | POST | AI-powered wireframe generation |
-| `/api/pages/[page_id]` | GET/PUT | Page session persistence |
-| `/api/tui/[page_id]` | GET | Terminal UI preview |
+In the active v7 UI, design exports are generated **client-side** and copied/downloaded from within the hub UI.
+
+Server-side lock APIs (`/api/lock`) and the wireframe editor are active in the current hub flow.
+
+### Wireframe Session Mapping
+
+- Wireframe sessions are stored by architecture node ID at `.session/pages/{archPage.id}.json`.
+- Lock export still emits `PAGE-xxx` IDs in `wireframes_locked.json` to satisfy the schema contract.
+- Each sitemap page now carries `arch_page_id` so lock/export can resolve sessions from stable architecture IDs.
+- If a page session is empty or missing, the editor auto-seeds a draft block stack from architecture metadata; users must still click **Save session** to persist it.
+
+### Wireframes UX (v7)
+
+- **Page tree:** The Wireframes left rail mirrors the Architecture sitemap hierarchy (app → nav → pages). Only `page` and `subpage` nodes are selectable; containers expand/collapse only.
+- **Illustrated canvas:** The center column renders token-aware CSS wireframe previews per block (not text-only rows). Blocks can be reordered via drag-and-drop inside a centered page frame.
+- **Expanded palette:** The block registry ships ~27 minimal-plus blocks (navigation, hero, content, forms, data, layout). The right palette is filtered by the active architecture profile canvas mode (`web` / `saas` / `mobile`) and shows compact preview thumbnails per block.
+- **Seeding:** Auto-seed heuristics pick stacks by route/profile (e.g. home → hero + features + CTA; pricing → pricing + FAQ; dashboard/sidebar → KPI row + table; login → form login).
 
 ---
 
@@ -153,20 +161,17 @@ pnpm run check:all
 ```
 .nezam/design-hub/
 ├── app/
-│   ├── api/           # API routes
-│   ├── layout.tsx     # Root layout
-│   └── page.tsx       # Dashboard
-├── components/
-│   ├── tokens/        # Token Studio, Color Studio, Radius Studio
-│   ├── sitemap/       # Sitemap builder, tree view
-│   ├── wireframe/     # Wireframe editor workspace
-│   ├── profiles/      # Profile grid, card, search
-│   └── layout/        # Sidebar, top nav, console
-├── lib/
-│   ├── store/         # Zustand stores (tokens, session, wireframe)
-│   ├── parsers/       # Profile parser, context parser
-│   ├── locking/       # Design export logic
-│   └── wireframe-library/  # Block registry, templates
+│   ├── globals.css     # Hub-local base styles + design variables
+│   ├── layout.tsx      # Root layout
+│   └── page.tsx        # Hub shell (Architecture / Design / Theming / Preview)
+├── src/
+│   ├── components/     # Architecture sitemap, token editors, preview, exports
+│   ├── data/           # Profiles, templates, library definitions
+│   ├── store/          # Zustand stores (hub state + persistence)
+│   ├── types/          # Shared type contracts for the hub
+│   └── lib/            # Helpers (export formats, adapters, utilities)
+├── _archive/
+│   └── v1/            # Legacy wireframe + lock APIs and test suites
 └── public/            # Static assets
 ```
 

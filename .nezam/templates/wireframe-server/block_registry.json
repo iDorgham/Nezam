@@ -31,6 +31,15 @@
         "props": {
           "items": { "type": "array", "default": ["Home", "Search", "Profile"] }
         }
+      },
+      {
+        "type": "Nav_Footer",
+        "name": "Site Footer",
+        "canvas_modes": ["web", "saas"],
+        "description": "Multi-column footer with links",
+        "props": {
+          "columns": { "type": "number", "default": 4 }
+        }
       }
     ],
     "hero": [
@@ -43,6 +52,25 @@
           "title": { "type": "string", "default": "Welcome to NEZAM" },
           "subtitle": { "type": "string", "default": "The ultimate workspace" },
           "cta": { "type": "string", "default": "Get Started" }
+        }
+      },
+      {
+        "type": "Hero_Centered",
+        "name": "Centered Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Centered headline with badge and dual CTAs",
+        "props": {
+          "title": { "type": "string", "default": "Build faster" },
+          "subtitle": { "type": "string", "default": "Ship with confidence" }
+        }
+      },
+      {
+        "type": "Hero_Split",
+        "name": "Split Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Text left, visual mock right",
+        "props": {
+          "title": { "type": "string", "default": "Product headline" }
         }
       }
     ],
@@ -65,6 +93,381 @@
           "title": { "type": "string", "default": "Card Title" },
           "content": { "type": "string", "default": "Card content goes here." }
         }
+      },
+      {
+        "type": "Content_Features",
+        "name": "Features Grid",
+        "canvas_modes": ["web", "saas"],
+        "description": "Three-column feature cards",
+        "props": {
+          "columns": { "type": "number", "default": 3 }
+        }
+      },
+      {
+        "type": "Content_Pricing",
+        "name": "Pricing Table",
+        "canvas_modes": ["web", "saas"],
+        "description": "Pricing tier cards",
+        "props": {
+          "tiers": { "type": "number", "default": 3 }
+        }
+      },
+      {
+        "type": "Content_FAQ",
+        "name": "FAQ Accordion",
+        "canvas_modes": ["web", "saas"],
+        "description": "Expandable FAQ list",
+        "props": {
+          "items": { "type": "number", "default": 4 }
+        }
+      },
+      {
+        "type": "Content_CTA",
+        "name": "Call to Action",
+        "canvas_modes": ["web", "saas"],
+        "description": "Conversion banner with button",
+        "props": {
+          "headline": { "type": "string", "default": "Ready to start?" }
+        }
+      },
+      {
+        "type": "Content_Stats",
+        "name": "Stats Row",
+        "canvas_modes": ["web", "saas"],
+        "description": "Metric highlights in a row",
+        "props": {
+          "metrics": { "type": "number", "default": 4 }
+        }
+      },
+      {
+        "type": "Content_Testimonials",
+        "name": "Testimonials",
+        "canvas_modes": ["web", "saas"],
+        "description": "Customer quote cards",
+        "props": {
+          "count": { "type": "number", "default": 3 }
+        }
+      },
+      {
+        "type": "Content_Logos",
+        "name": "Logo Strip",
+        "canvas_modes": ["web", "saas"],
+        "description": "Trusted-by logo row",
+        "props": {
+          "logos": { "type": "number", "default": 5 }
+        }
+      },
+      {
+        "type": "Content_BlogGrid",
+        "name": "Blog Grid",
+        "canvas_modes": ["web", "saas"],
+        "description": "Article cards in a responsive grid",
+        "props": {
+          "posts": { "type": "number", "default": 6 }
+        }
+      }
+    ],
+    "forms": [
+      {
+        "type": "Form_Login",
+        "name": "Login Form",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Email/password sign-in form",
+        "props": {
+          "showSocial": { "type": "boolean", "default": true }
+        }
+      },
+      {
+        "type": "Form_Contact",
+        "name": "Contact Form",
+        "canvas_modes": ["web", "saas"],
+        "description": "Name, email, message contact form",
+        "props": {}
+      },
+      {
+        "type": "Form_Newsletter",
+        "name": "Newsletter Signup",
+        "canvas_modes": ["web", "saas"],
+        "description": "Email capture with subscribe button",
+        "props": {}
+      },
+      {
+        "type": "Form_Signup",
+        "name": "Signup Form",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Registration form with name, email, password",
+        "props": {
+          "showSocial": { "type": "boolean", "default": true }
+        }
+      }
+    ],
+    "data": [
+      {
+        "type": "Data_KPI_Row",
+        "name": "KPI Cards",
+        "canvas_modes": ["saas", "web"],
+        "description": "Dashboard metric cards row",
+        "props": {
+          "cards": { "type": "number", "default": 4 }
+        }
+      },
+      {
+        "type": "Data_Table",
+        "name": "Data Table",
+        "canvas_modes": ["saas", "web"],
+        "description": "Sortable table with rows",
+        "props": {
+          "rows": { "type": "number", "default": 5 }
+        }
+      },
+      {
+        "type": "Data_Chart",
+        "name": "Chart Panel",
+        "canvas_modes": ["saas", "web"],
+        "description": "Line or bar chart placeholder",
+        "props": {
+          "chartType": { "type": "string", "default": "line" }
+        }
+      }
+    ],
+    "layout": [
+      {
+        "type": "Layout_PageHeader",
+        "name": "Page Header",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Title, breadcrumb, and actions bar",
+        "props": {
+          "title": { "type": "string", "default": "Page title" }
+        }
+      },
+      {
+        "type": "Layout_TwoColumn",
+        "name": "Two Column Layout",
+        "canvas_modes": ["web", "saas"],
+        "description": "Main content with sidebar column",
+        "props": {
+          "sidebarWidth": { "type": "string", "default": "30%" }
+        }
+      },
+      {
+        "type": "Layout_AuthSplit",
+        "name": "Auth Split Screen",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Full-page auth layout: marketing copy left, login form and social buttons right. No top or side nav.",
+        "props": {
+          "variant": { "type": "string", "default": "login" }
+        }
+      },
+      {
+        "type": "Layout_EmptyState",
+        "name": "Empty State",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Illustration, message, and primary action when no data",
+        "props": {
+          "title": { "type": "string", "default": "Nothing here yet" }
+        }
+      }
+    ],
+    "artistic": [
+      {
+        "type": "Art_Hero_Cinematic",
+        "name": "Cinematic Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Full-width hero with badge, dual CTA, and decorative media panel",
+        "shadcn_primitives": ["Badge", "Button", "Skeleton"],
+        "props": { "title": { "type": "string", "default": "Build something remarkable" } }
+      },
+      {
+        "type": "Art_Hero_Bento",
+        "name": "Bento Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Headline with embedded asymmetric bento grid",
+        "shadcn_primitives": ["Card", "Button", "Badge"],
+        "props": {}
+      },
+      {
+        "type": "Art_Hero_StatsFloat",
+        "name": "Hero with Floating Stats",
+        "canvas_modes": ["web", "saas"],
+        "description": "Hero copy with inline metric pills",
+        "shadcn_primitives": ["Badge", "Button"],
+        "props": { "metrics": { "type": "number", "default": 3 } }
+      },
+      {
+        "type": "Art_BentoGrid_4",
+        "name": "Bento Grid (4)",
+        "canvas_modes": ["web", "saas"],
+        "description": "2×2 asymmetric bento cells with icons",
+        "shadcn_primitives": ["Card"],
+        "props": {}
+      },
+      {
+        "type": "Art_BentoGrid_6",
+        "name": "Bento Grid (6)",
+        "canvas_modes": ["web", "saas"],
+        "description": "Dense six-cell marketing bento",
+        "shadcn_primitives": ["Card"],
+        "props": {}
+      },
+      {
+        "type": "Art_Feature_Zigzag",
+        "name": "Zigzag Features",
+        "canvas_modes": ["web", "saas"],
+        "description": "Alternating icon and copy rows",
+        "shadcn_primitives": ["Card"],
+        "props": { "rows": { "type": "number", "default": 3 } }
+      },
+      {
+        "type": "Art_Feature_IconMatrix",
+        "name": "Icon Feature Matrix",
+        "canvas_modes": ["web", "saas"],
+        "description": "3×2 grid of icon feature cards",
+        "shadcn_primitives": ["Card"],
+        "props": {}
+      },
+      {
+        "type": "Art_Pricing_Spotlight",
+        "name": "Spotlight Pricing",
+        "canvas_modes": ["web", "saas"],
+        "description": "Three pricing tiers with center spotlight",
+        "shadcn_primitives": ["Card", "Badge", "Button"],
+        "props": { "tiers": { "type": "number", "default": 3 } }
+      },
+      {
+        "type": "Art_Testimonial_Spotlight",
+        "name": "Spotlight Testimonial",
+        "canvas_modes": ["web", "saas"],
+        "description": "Large quote with avatar row",
+        "shadcn_primitives": ["Card", "Avatar"],
+        "props": {}
+      },
+      {
+        "type": "Art_Testimonial_Masonry",
+        "name": "Quote Masonry",
+        "canvas_modes": ["web", "saas"],
+        "description": "Varied-height testimonial cards",
+        "shadcn_primitives": ["Card", "Avatar"],
+        "props": { "count": { "type": "number", "default": 3 } }
+      },
+      {
+        "type": "Art_Logos_Marquee",
+        "name": "Logo Marquee",
+        "canvas_modes": ["web", "saas"],
+        "description": "Trusted-by logo strip with subtle motion",
+        "shadcn_primitives": ["Skeleton"],
+        "props": { "logos": { "type": "number", "default": 6 } }
+      },
+      {
+        "type": "Art_Stats_BigNumber",
+        "name": "Big Number Stats",
+        "canvas_modes": ["web", "saas"],
+        "description": "Oversized metrics with labels",
+        "shadcn_primitives": ["Card"],
+        "props": { "metrics": { "type": "number", "default": 4 } }
+      },
+      {
+        "type": "Art_Team_Portraits",
+        "name": "Team Portraits",
+        "canvas_modes": ["web", "saas"],
+        "description": "Avatar grid with role badges",
+        "shadcn_primitives": ["Avatar", "Badge", "Card"],
+        "props": { "members": { "type": "number", "default": 6 } }
+      },
+      {
+        "type": "Art_CaseStudy_Row",
+        "name": "Case Study Row",
+        "canvas_modes": ["web", "saas"],
+        "description": "Three case study cards with tags",
+        "shadcn_primitives": ["Card", "Badge", "Button"],
+        "props": {}
+      },
+      {
+        "type": "Art_Gallery_Masonry",
+        "name": "Media Masonry",
+        "canvas_modes": ["web", "saas"],
+        "description": "Image placeholder masonry grid",
+        "shadcn_primitives": ["Skeleton"],
+        "props": { "tiles": { "type": "number", "default": 6 } }
+      },
+      {
+        "type": "Art_Media_SplitCinematic",
+        "name": "Cinematic Media Split",
+        "canvas_modes": ["web", "saas"],
+        "description": "Copy column with tall media frame",
+        "shadcn_primitives": ["Card", "Button", "Skeleton"],
+        "props": {}
+      },
+      {
+        "type": "Art_Comparison_Matrix",
+        "name": "Comparison Matrix",
+        "canvas_modes": ["web", "saas"],
+        "description": "Feature comparison check grid",
+        "shadcn_primitives": ["Card"],
+        "props": {}
+      },
+      {
+        "type": "Art_CTA_Band",
+        "name": "CTA Band",
+        "canvas_modes": ["web", "saas"],
+        "description": "Full-width conversion strip",
+        "shadcn_primitives": ["Button", "Card"],
+        "props": {}
+      },
+      {
+        "type": "Art_Newsletter_Card",
+        "name": "Newsletter Card",
+        "canvas_modes": ["web", "saas"],
+        "description": "Centered email capture card",
+        "shadcn_primitives": ["Card", "Input", "Button"],
+        "props": {}
+      },
+      {
+        "type": "Art_FAQ_Split",
+        "name": "FAQ Split",
+        "canvas_modes": ["web", "saas"],
+        "description": "FAQ list beside visual panel",
+        "shadcn_primitives": ["Card"],
+        "props": { "items": { "type": "number", "default": 4 } }
+      },
+      {
+        "type": "Art_Blog_Featured",
+        "name": "Featured Blog",
+        "canvas_modes": ["web", "saas"],
+        "description": "Featured post with sidebar list",
+        "shadcn_primitives": ["Card", "Badge"],
+        "props": {}
+      },
+      {
+        "type": "Art_Integrations_Wall",
+        "name": "Integrations Wall",
+        "canvas_modes": ["web", "saas"],
+        "description": "Integration logo wall with connect badges",
+        "shadcn_primitives": ["Card", "Badge"],
+        "props": {}
+      },
+      {
+        "type": "Art_Process_Timeline",
+        "name": "Process Timeline",
+        "canvas_modes": ["web", "saas"],
+        "description": "Vertical steps with icons",
+        "shadcn_primitives": ["Card"],
+        "props": { "steps": { "type": "number", "default": 4 } }
+      },
+      {
+        "type": "Art_Product_Highlight",
+        "name": "Product Highlight",
+        "canvas_modes": ["web", "saas"],
+        "description": "Product frame with spec bullets",
+        "shadcn_primitives": ["Card", "Button"],
+        "props": {}
+      },
+      {
+        "type": "Art_AppPreview_Frame",
+        "name": "App Preview Frame",
+        "canvas_modes": ["web", "saas"],
+        "description": "Browser chrome with dashboard mock",
+        "shadcn_primitives": ["Card", "Skeleton", "Tabs"],
+        "props": {}
       }
     ]
   }

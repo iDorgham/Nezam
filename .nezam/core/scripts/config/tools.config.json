@@ -67,6 +67,19 @@
       ]
     },
     {
+      "id": "antigravitycli",
+      "tier": 1,
+      "targets": [
+        { "kind": "markdown-copy", "source": ".cursor/commands", "path": ".antigravitycli/commands" },
+        { "kind": "markdown-copy", "source": ".cursor/agents", "path": ".antigravitycli/agents" },
+        { "kind": "markdown-copy", "source": ".cursor/skills", "path": ".antigravitycli/skills" },
+        { "kind": "rules-copy", "source": ".cursor/rules", "path": ".antigravitycli/rules" },
+        { "kind": "agy-skills-from-commands", "source": ".cursor/commands", "path": ".agents/skills/nezam-commands" },
+        { "kind": "markdown-copy", "source": ".cursor/skills", "path": ".agents/skills/nezam-sync" },
+        { "kind": "rules-copy", "source": ".cursor/rules", "path": ".agents/rules" }
+      ]
+    },
+    {
       "id": "gemini",
       "tier": 2,
       "targets": [

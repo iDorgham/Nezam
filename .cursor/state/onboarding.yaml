@@ -13,11 +13,14 @@ prd_locked: false
 prd_path: ".nezam/core/prd/PRD.md"
 prd_locked_at: ""
 
-design_locked: false
-design_profile: ""
-design_locked_at: ""
+design_locked: true
+design_profile: "nezam-v3"
+design_locked_at: "2026-05-28T20:24:50Z"
 
-planning_complete: false
+wireframe_complete: true
+wireframe_locked_at: "2026-05-27T08:59:11.418Z"
+
+planning_complete: true
 planning_completed_at: ""
 
 current_phase: 0

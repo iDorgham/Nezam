@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "roles": [
+    { "id": "display", "label": "Display", "className": "text-4xl font-bold tracking-tight" },
+    { "id": "xl", "label": "Heading XL", "className": "text-2xl font-semibold tracking-tight" },
+    { "id": "lg", "label": "Heading LG", "className": "text-xl font-semibold" },
+    { "id": "body", "label": "Body", "className": "text-sm leading-relaxed" },
+    { "id": "caption", "label": "Caption", "className": "text-xs text-muted-foreground" }
+  ]
+}

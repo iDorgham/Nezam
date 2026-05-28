@@ -28,7 +28,8 @@ pnpm ai:check
 | Codex CLI | `AGENTS.md`, `.codex/AGENTS.md` | Synced |
 | Copilot CLI | `AGENTS.md` | Synced |
 | Opencode CLI | `AGENTS.md`, `.opencode/**` | Synced |
-| Antigravity IDE | `.antigravity/**` | Generated (tier-2 fidelity) |
+| Antigravity IDE | `.antigravity/**` | Generated (tier-1 fidelity) |
+| Antigravity CLI (`agy`) | `.antigravitycli/**`, `.agents/skills/nezam-commands/**`, `.agents/skills/nezam-sync/**`, `.agents/rules/**` | Generated (tier-1); see [ANTIGRAVITYCLI.md](../tools/ANTIGRAVITYCLI.md) |
 | Gemini CLI | `GEMINI.md`, `.gemini/commands/*.toml` | Generated (tier-2 fidelity) |
 | Qwen CLI | `QWEN.md`, `.qwen/commands/*.toml` | Generated (tier-2 fidelity) |
 | Kilo Code CLI | `.kilocode/rules/**` | Generated (tier-2 fidelity) |
@@ -39,9 +40,9 @@ pnpm ai:check
 
 ## Mapping summary
 
-- `.cursor/commands/*.md` -> `.claude/commands/*.md`, `.opencode/command/*.md`, `.antigravity/commands/*.md`, `.gemini/commands/*.toml`, `.qwen/commands/*.toml`, `.windsurf/commands/*.md`, `.vscode/nezam/commands/*.md`
+- `.cursor/commands/*.md` -> `.claude/commands/*.md`, `.opencode/command/*.md`, `.antigravity/commands/*.md`, `.antigravitycli/commands/*.md`, `.agents/skills/nezam-commands/<cmd>/SKILL.md` (CLI), `.gemini/commands/*.toml`, `.qwen/commands/*.toml`, `.windsurf/commands/*.md`, `.vscode/nezam/commands/*.md`
 - `.cursor/agents/*.md` -> `.claude/agents/*.md`, `.opencode/agent/*.md`, `.antigravity/agents/*.md`, `.windsurf/agents/*.md`, `.vscode/nezam/agents/*.md`
-- `.cursor/skills/**` -> `.claude/skills/**`, `.antigravity/skills/**`, `.windsurf/skills/**`, `.vscode/nezam/skills/**`
+- `.cursor/skills/**` -> `.claude/skills/**`, `.antigravity/skills/**`, `.antigravitycli/skills/**`, `.agents/skills/nezam-sync/**` (CLI; namespaced), `.windsurf/skills/**`, `.vscode/nezam/skills/**`
 - `.cursor/rules/*.mdc` -> memory injection (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, `KIRO.md`, `WINDSURF.md`, `VSCODE.md`) and rules copy (`.antigravity/rules/**`, `.kilocode/rules/**`, `.kiro/steering/rules/**`, `.windsurf/rules/**`, `.vscode/nezam/rules/**`)
 
 ## Design system contract (same in every client)
@@ -57,9 +58,11 @@ Orchestration treats **repository root `DESIGN.md`** as the primary design artif
 
 ### Clients without a root “memory” file
 
-**Antigravity** and **Kilo** do not receive a generated `CLAUDE.md`-style bundle at repo root. Use:
+**Antigravity IDE** does not receive a separate root memory file beyond shared `AGENTS.md`. Use `.antigravity/commands/` or read `CLAUDE.md` / `AGENTS.md`.
 
-- Mirrored **commands** (`.antigravity/commands/`, or rules under `.kilocode/rules/`)
+**Antigravity CLI** uses `.agents/skills/nezam-commands/` plus `AGENTS.md` and `.agents/rules/`.
+
+**Kilo** does not receive a generated `CLAUDE.md`-style bundle at repo root. Use mirrored rules under `.kilocode/rules/`.
 - Human-readable onboarding: **[`docs/start.md`](../../../docs/start.md)**, **[`.nezam/core/memory/CONTEXT.md`](CONTEXT.md)**, and this file
 
 So design selection and `pnpm run design:apply` work the same from any terminal; only the *slash command* UX is Cursor-native.

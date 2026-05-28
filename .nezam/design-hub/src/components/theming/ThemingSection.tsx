@@ -1,12 +1,13 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { type ComponentType, useMemo, useState } from 'react'
 import {
   Sun, Moon, Copy, Check, RotateCcw, Sparkles, Palette, Shuffle,
   Wand2, Play, BookmarkPlus, Trash2, Sliders, Settings, SlidersHorizontal,
   Download, Layers, Compass, Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LeftPanelTabsRow, LeftPanelTitleRow } from '@/components/ui/LeftPanelHeader'
 import {
   THEME_PRESETS,
   TOKEN_GROUPS,
@@ -373,72 +374,67 @@ export function ThemingSection() {
         style={{ width }}
         className="relative shrink-0 flex flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
       >
-        {/* Header */}
-        <div className="shrink-0 flex items-center justify-between px-4 h-12 border-b border-app-border">
-          <div className="flex items-center gap-2">
-            <Palette size={13} className="text-app-accent" />
-            <p className="text-[12px] font-semibold text-app-text">Theme Editor</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowWcagAudit((v) => !v)}
-              className={cn(
-                'flex items-center gap-1 h-6 px-2 rounded text-[10px] font-medium transition-colors border',
-                showWcagAudit
-                  ? 'bg-app-accent text-app-on-accent border-app-accent'
-                  : 'text-app-subtle hover:text-app-text border-transparent hover:border-app-border',
-              )}
-            >
-              <Eye size={10} />
-              WCAG
-            </button>
-            <ModePill mode={mode} setMode={setMode} />
-          </div>
-        </div>
+        <LeftPanelTitleRow
+          title={
+            <div className="flex items-center gap-2">
+              <Palette size={13} className="text-app-accent" />
+              <span>Theme editor</span>
+            </div>
+          }
+          rightSlot={
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowWcagAudit((v) => !v)}
+                className={cn(
+                  'flex items-center gap-1 h-6 px-2 rounded text-[10px] font-medium transition-colors border',
+                  showWcagAudit
+                    ? 'bg-app-accent text-app-on-accent border-app-accent'
+                    : 'text-app-subtle hover:text-app-text border-transparent hover:border-app-border',
+                )}
+              >
+                <Eye size={10} />
+                WCAG
+              </button>
+              <ModePill mode={mode} setMode={setMode} />
+            </div>
+          }
+        />
 
         {/* Tab row */}
-        <div className="shrink-0 flex items-center justify-between border-b border-app-border bg-app-elevated/40 p-1 gap-1">
-          <button
+        <LeftPanelTabsRow className="px-1.5 bg-app-elevated/40" role="tablist" aria-label="Theme editor tabs">
+          <ControlTabButton
+            id="theme-tab-presets"
+            controls="theme-panel-presets"
+            active={controlTab === 'presets'}
             onClick={() => setControlTab('presets')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'presets' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <Compass size={13} className="mb-0.5" />
-            Harmony
-          </button>
-          <button
+            Icon={Compass}
+            label="Harmony"
+          />
+          <ControlTabButton
+            id="theme-tab-styles"
+            controls="theme-panel-styles"
+            active={controlTab === 'styles'}
             onClick={() => setControlTab('styles')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'styles' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <Sliders size={13} className="mb-0.5" />
-            Geometry
-          </button>
-          <button
+            Icon={Sliders}
+            label="Geometry"
+          />
+          <ControlTabButton
+            id="theme-tab-colors"
+            controls="theme-panel-colors"
+            active={controlTab === 'colors'}
             onClick={() => setControlTab('colors')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'colors' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <SlidersHorizontal size={13} className="mb-0.5" />
-            Tokens
-          </button>
-          <button
+            Icon={SlidersHorizontal}
+            label="Tokens"
+          />
+          <ControlTabButton
+            id="theme-tab-export"
+            controls="theme-panel-export"
+            active={controlTab === 'export'}
             onClick={() => setControlTab('export')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'export' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <Download size={13} className="mb-0.5" />
-            Export
-          </button>
-        </div>
+            Icon={Download}
+            label="Export"
+          />
+        </LeftPanelTabsRow>
 
         {/* Scrollable controls */}
         <div className="flex-1 overflow-y-auto app-scroll p-4 flex flex-col gap-5">
@@ -449,7 +445,7 @@ export function ThemingSection() {
 
           {/* TAB 1: PRESETS & HARMONIES */}
           {controlTab === 'presets' && (
-            <>
+            <div id="theme-panel-presets" role="tabpanel" aria-labelledby="theme-tab-presets">
               {/* Generator / Randomize */}
               <Group label="AI Randomizer" hint="Dynamic brand-tinted HSL generator">
                 <button
@@ -521,12 +517,12 @@ export function ThemingSection() {
                   })}
                 </div>
               </Group>
-            </>
+            </div>
           )}
 
           {/* TAB 2: GLOBAL STYLES & GEOMETRY */}
           {controlTab === 'styles' && (
-            <>
+            <div id="theme-panel-styles" role="tabpanel" aria-labelledby="theme-tab-styles">
               <Group label="Surface style" hint="Card borders & treatments.">
                 <SegmentPicker value={config.surfaceStyle} options={['flat','glass','brutalist']}
                   onChange={(v) => setConfig((c) => ({ ...c, surfaceStyle: v as SurfaceStyle }))} />
@@ -577,12 +573,12 @@ export function ThemingSection() {
                     onChange={(f) => handleFontChange('mono', f)} />
                 </div>
               </Group>
-            </>
+            </div>
           )}
 
           {/* TAB 3: COLOR TOKEN OVERRIDES */}
           {controlTab === 'colors' && (
-            <>
+            <div id="theme-panel-colors" role="tabpanel" aria-labelledby="theme-tab-colors">
               {/* Calibration */}
               <Group label="Contrast Calibration" hint={`${config.contrast.toFixed(2)}× separation`}>
                 <input type="range" min={0.7} max={1.4} step={0.01} value={config.contrast}
@@ -624,12 +620,12 @@ export function ThemingSection() {
                   </div>
                 </Group>
               ))}
-            </>
+            </div>
           )}
 
           {/* TAB 4: PROFILE MANAGE & EXPORTS */}
           {controlTab === 'export' && (
-            <>
+            <div id="theme-panel-export" role="tabpanel" aria-labelledby="theme-tab-export">
               {/* Presets manager */}
               <Group label="Save Active Profile">
                 {showSaveBox ? (
@@ -713,7 +709,7 @@ export function ThemingSection() {
                 <RotateCcw size={11} />
                 Reset {mode} mode to preset
               </button>
-            </>
+            </div>
           )}
         </div>
 
@@ -871,6 +867,40 @@ function SegmentPicker({ value, options, onChange }: { value: string; options: r
   )
 }
 
+function ControlTabButton({
+  id,
+  controls,
+  active,
+  onClick,
+  Icon,
+  label,
+}: {
+  id: string
+  controls: string
+  active: boolean
+  onClick: () => void
+  Icon: ComponentType<{ size?: number; className?: string }>
+  label: string
+}) {
+  return (
+    <button
+      id={id}
+      role="tab"
+      aria-controls={controls}
+      aria-selected={active}
+      tabIndex={active ? 0 : -1}
+      onClick={onClick}
+      className={cn(
+        'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
+        active ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text',
+      )}
+    >
+      <Icon size={13} className="mb-0.5" />
+      {label}
+    </button>
+  )
+}
+
 function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mode }) {
   const PAIRS: Array<{ label: string; fg: keyof ThemeTokens; bg: keyof ThemeTokens }> = [
     { label: 'Body text',          fg: 'foreground',        bg: 'background' },
@@ -955,6 +985,6 @@ function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function normalizeHex(value: string): string {
-  const m = /^#([0-9a-f]{6})$/i.exec(value.trim())
+  const m = value.trim().match(/^#([0-9a-f]{6})$/i)
   return m ? `#${m[1]}` : '#111827'
 }

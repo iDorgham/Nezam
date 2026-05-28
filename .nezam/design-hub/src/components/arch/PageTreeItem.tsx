@@ -6,6 +6,7 @@ import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
+import { PREMIUM_ICON, PREMIUM_MOTION, PREMIUM_SPACE, PREMIUM_TYPE } from '@/lib/design/premium-standards'
 
 interface Props {
   page: ArchPage
@@ -49,12 +50,17 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
     <div>
       <div
         className={cn(
-          'group flex items-center gap-1 h-7 pr-2 rounded-app-sm cursor-pointer select-none transition-colors duration-75',
+          'group flex items-center gap-1 pr-2 rounded-app-sm cursor-pointer select-none transition-colors motion-reduce:transition-none',
           isSelected
             ? 'bg-app-accent-subtle text-app-text'
             : 'text-app-muted hover:bg-app-elevated hover:text-app-text',
         )}
-        style={{ paddingLeft: `${8 + indent}px` }}
+        style={{
+          height: PREMIUM_SPACE.rowHeight,
+          paddingLeft: `${8 + indent}px`,
+          transitionDuration: PREMIUM_MOTION.durationFast,
+          transitionTimingFunction: PREMIUM_MOTION.easingStandard,
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => archSelectPage(isSelected ? null : page.id)}
@@ -62,25 +68,38 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
         {/* Expand toggle */}
         <button
           className={cn(
-            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-transform duration-150',
+            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-transform motion-reduce:transition-none',
             hasChildren ? 'opacity-100' : 'opacity-0 pointer-events-none',
             expanded ? 'rotate-90' : '',
           )}
+          style={{
+            transitionDuration: PREMIUM_MOTION.durationBase,
+            transitionTimingFunction: PREMIUM_MOTION.easingStandard,
+          }}
           onClick={(e) => {
             e.stopPropagation()
             setExpanded(!expanded)
           }}
         >
-          <ChevronRight size={11} />
+          <ChevronRight size={PREMIUM_ICON.control} />
         </button>
 
         {/* Icon */}
         <span className="shrink-0 flex items-center">
-          <IconRenderer name={page.icon} size={13} />
+          <IconRenderer name={page.icon} size={PREMIUM_ICON.row} />
         </span>
 
         {/* Name */}
-        <span className="flex-1 truncate text-xs font-medium">{page.name}</span>
+        <span
+          className="flex-1 truncate"
+          style={{
+            fontSize: PREMIUM_TYPE.rowSize,
+            fontWeight: PREMIUM_TYPE.rowWeight,
+            lineHeight: PREMIUM_TYPE.lineHeightTight,
+          }}
+        >
+          {page.name}
+        </span>
 
         {/* Route pill */}
         <span className={cn(

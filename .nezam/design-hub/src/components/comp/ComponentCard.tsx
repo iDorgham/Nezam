@@ -30,13 +30,18 @@ export function ComponentCard({ component }: ComponentCardProps) {
         <StatusBadge status={component.status} />
       </div>
 
+      {/* Preview area — 1:1 square on every card */}
+      <div
+        className="aspect-square w-full shrink-0 overflow-hidden rounded-app-md border border-app-border/60 bg-app-elevated"
+        aria-hidden
+      >
+        <ComponentPreview component={component} />
+      </div>
+
       {/* Description */}
-      <p className="text-[11px] text-app-subtle leading-relaxed line-clamp-2 flex-1">
+      <p className="text-[11px] text-app-subtle leading-relaxed line-clamp-2">
         {component.description}
       </p>
-
-      {/* Preview area */}
-      <ComponentPreview component={component} />
     </div>
   )
 }
@@ -45,7 +50,7 @@ export function ComponentCard({ component }: ComponentCardProps) {
 
 function ComponentPreview({ component }: { component: ComponentDef }) {
   const previewClass =
-    'h-12 rounded-app-sm border border-app-border/60 bg-app-elevated flex items-center justify-center gap-2 px-3 overflow-hidden'
+    'h-full w-full min-h-0 flex items-center justify-center gap-2 overflow-hidden p-3 box-border'
 
   switch (component.id) {
     case 'button':
@@ -222,7 +227,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'tabs':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated flex flex-col overflow-hidden">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated flex flex-col overflow-hidden">
           <div className="flex border-b border-app-border">
             {['Overview', 'Details', 'History'].map((t, i) => (
               <button
@@ -323,7 +328,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'modal':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden relative bg-app-border/10">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden relative bg-app-border/10">
           <div className="absolute inset-0 bg-black/20" />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-20 bg-app-surface rounded-app-sm border border-app-border p-1.5 shadow-md">
             <div className="h-1.5 rounded bg-app-border mb-1 w-3/4" />
@@ -338,7 +343,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'drawer':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden relative bg-app-border/10">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden relative bg-app-border/10">
           <div className="absolute inset-0 bg-black/10" />
           <div className="absolute right-0 top-0 bottom-0 w-16 bg-app-surface border-l border-app-border p-2 shadow-lg">
             <div className="h-1.5 rounded bg-app-border mb-1.5 w-3/4" />
@@ -352,7 +357,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
     case 'inline-message':
     case 'section-message':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated flex flex-col gap-0.5 justify-center px-3">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated flex flex-col gap-0.5 justify-center px-3">
           <div className="flex items-center gap-1.5">
             <div className="h-3 w-3 rounded-full bg-sky-500 shrink-0" />
             <span className="text-[11px] font-medium text-app-text">Information</span>
@@ -363,7 +368,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'banner':
       return (
-        <div className="h-12 rounded-app-sm border border-amber-200 bg-amber-50 flex items-center gap-2 px-3">
+        <div className="h-full w-full min-h-0 rounded-app-sm border border-amber-200 bg-amber-50 flex items-center gap-2 px-3">
           <div className="h-3 w-3 rounded-full bg-amber-500 shrink-0" />
           <p className="text-[11px] text-amber-800 font-medium">System maintenance scheduled</p>
         </div>
@@ -390,7 +395,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'card':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-surface shadow-sm p-2.5 flex flex-col gap-1">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-surface shadow-sm p-2.5 flex flex-col gap-1">
           <div className="h-2 w-2/3 rounded-full bg-app-border" />
           <div className="h-1.5 w-full rounded-full bg-app-border/60" />
           <div className="h-1.5 w-4/5 rounded-full bg-app-border/60" />
@@ -401,7 +406,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
     case 'table':
     case 'dynamic-table':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden">
           <div className="flex bg-app-elevated border-b border-app-border px-2 py-1 gap-3">
             {['Name', 'Status', 'Date'].map((h) => (
               <span key={h} className="text-[9px] font-semibold text-app-muted flex-1">{h}</span>
@@ -486,7 +491,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'calendar':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated overflow-hidden px-2 py-1.5">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated overflow-hidden px-2 py-1.5">
           <div className="flex justify-between items-center mb-1">
             <span className="text-[9px] font-semibold text-app-text">May 2025</span>
             <div className="flex gap-1">
@@ -507,7 +512,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'comment-editor':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated overflow-hidden flex flex-col">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated overflow-hidden flex flex-col">
           <div className="flex gap-1.5 px-2 py-1 border-b border-app-border/60 bg-app-surface">
             {['B', 'I', 'U', '@', '😊'].map((t) => (
               <span key={t} className="text-[10px] text-app-muted font-medium w-4 text-center">{t}</span>
@@ -535,7 +540,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'dropdown':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated flex flex-col overflow-hidden">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated flex flex-col overflow-hidden">
           <button className="flex items-center gap-1 px-2 py-1.5 text-[11px] text-app-text border-b border-app-border/60 bg-app-surface">
             <span className="flex-1 text-left">Actions</span>
             <svg viewBox="0 0 10 6" className="w-2 h-1.5 fill-current text-app-muted"><path d="M0 0l5 6 5-6z" /></svg>
@@ -551,7 +556,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'form':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated px-2.5 py-1.5 flex flex-col gap-1.5">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated px-2.5 py-1.5 flex flex-col gap-1.5">
           {['Email address', 'Password'].map((f) => (
             <div key={f} className="flex flex-col gap-0.5">
               <span className="text-[8px] font-medium text-app-muted">{f}</span>
@@ -586,7 +591,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'textarea':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-surface px-2 pt-1.5 pb-1 flex flex-col justify-between">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-surface px-2 pt-1.5 pb-1 flex flex-col justify-between">
           <span className="text-[10px] text-app-subtle">Tell us more about your project…</span>
           <div className="self-end text-[9px] text-app-muted">0 / 500</div>
         </div>
@@ -636,7 +641,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'image':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated overflow-hidden relative">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated overflow-hidden relative">
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-app-border/20">
             <div className="w-6 h-5 border border-app-border rounded flex items-end overflow-hidden">
               <div className="w-2 h-2 rounded-sm bg-amber-400 ml-0.5 mb-0.5" />
@@ -692,7 +697,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'page':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden bg-app-surface flex flex-col">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden bg-app-surface flex flex-col">
           <div className="h-4 bg-app-elevated border-b border-app-border flex items-center px-2 gap-1.5">
             <div className="w-10 h-1.5 rounded-full bg-app-border" />
             <div className="flex-1" />
@@ -711,7 +716,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'page-header':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated px-3 flex items-center gap-3">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated px-3 flex items-center gap-3">
           <div className="flex flex-col gap-1 flex-1">
             <div className="h-2 w-24 rounded-full bg-app-text/60" />
             <div className="h-1.5 w-36 rounded-full bg-app-border" />
@@ -737,7 +742,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'sidebar-layout':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden bg-app-surface flex">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden bg-app-surface flex">
           <div className="w-10 bg-app-elevated border-r border-app-border flex flex-col gap-1 p-1.5">
             <div className="h-1.5 w-full rounded-full bg-app-accent" />
             <div className="h-1.5 w-full rounded-full bg-app-border" />
@@ -755,7 +760,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'spotlight':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden relative bg-black/5">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden relative bg-black/5">
           <div className="absolute inset-0 bg-black/30" />
           {/* Spotlight hole */}
           <div className="absolute top-2 right-3 w-8 h-5 rounded bg-app-surface border-2 border-app-accent shadow-lg shadow-app-accent/30" />
@@ -782,7 +787,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'menu':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 bg-app-elevated overflow-hidden py-1">
+        <div className="h-full w-full min-h-0 rounded-app-sm bg-app-elevated overflow-hidden py-1">
           {[
             { label: 'Dashboard', active: true },
             { label: 'Settings', active: false },
@@ -801,7 +806,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'nav-system':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden flex flex-col">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden flex flex-col">
           {/* Top nav */}
           <div className="h-7 bg-app-elevated border-b border-app-border flex items-center px-2 gap-2">
             <div className="w-4 h-4 rounded bg-app-accent" />
@@ -827,7 +832,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'blanket':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden relative">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden relative">
           {/* Content underneath */}
           <div className="absolute inset-0 bg-app-surface flex flex-col gap-1 p-2">
             <div className="h-1.5 w-3/4 rounded bg-app-border/60" />
@@ -917,7 +922,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'table-tree':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden">
           <div className="flex bg-app-elevated border-b border-app-border px-2 py-0.5 gap-2">
             <span className="text-[8px] font-semibold text-app-muted flex-1">Name</span>
             <span className="text-[8px] font-semibold text-app-muted w-12">Status</span>
@@ -1039,7 +1044,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'bleed':
       return (
-        <div className="h-12 rounded-app-sm border border-app-border/60 overflow-hidden bg-app-elevated relative">
+        <div className="h-full w-full min-h-0 rounded-app-sm overflow-hidden bg-app-elevated relative">
           {/* Parent box */}
           <div className="absolute inset-2 border border-dashed border-app-border rounded flex items-center justify-center">
             {/* Bleed child breaks out */}

@@ -177,7 +177,7 @@ function ColorScaleRow({
 
       {/* Inline editor */}
       {editingStep && (
-        <div className="flex items-center gap-3 mt-3.5 p-3 rounded-xl bg-app-elevated border border-app-accent/25 animate-fadeIn">
+        <div className="flex items-center gap-3 mt-3.5 p-3 rounded-xl bg-app-elevated border border-app-accent/25 animate-fade-in">
           <div
             className="h-8 w-8 rounded-lg shrink-0 border border-black/10 shadow-sm"
             style={{ backgroundColor: editValue }}

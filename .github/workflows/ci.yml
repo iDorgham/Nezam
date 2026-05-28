@@ -261,6 +261,7 @@ jobs:
           # Hardening performance contract must be populated (non-empty).
           perf_populated=0
           for candidate in \
+            ".nezam/core/plans/05-harden/02-performance/perf.md" \
             "docs/plans/05-harden/02-performance/perf.md"; do
             if [[ -s "$candidate" ]]; then
               perf_populated=1
@@ -269,9 +270,8 @@ jobs:
           done
           if [[ "$perf_populated" -ne 1 ]]; then
             echo "Performance hardening contract must exist and be non-empty. Tried:"
+            echo "  .nezam/core/plans/05-harden/02-performance/perf.md"
             echo "  docs/plans/05-harden/02-performance/perf.md"
-            echo "  docs/workspace/plans/05-harden/02-performance/perf.md"
-            echo "  docs/workspace/plans/04-harden/perf.md"
             exit 1
           fi
 

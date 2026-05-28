@@ -13,6 +13,7 @@ references:
   - .cursor/design/references/open-design-main/
   - DESIGN.md
   - wireframes_locked.json
+breaking_changes: false
 ---
 
 # Website Wireframes Engine

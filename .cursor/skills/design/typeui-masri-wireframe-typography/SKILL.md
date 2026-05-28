@@ -11,6 +11,7 @@ references:
   - .cursor/design/references/typeui-main/
   - .cursor/design/references/masri-design-assets/
   - DESIGN.md
+breaking_changes: false
 ---
 
 # TypeUI Masri Wireframe Typography

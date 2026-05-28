@@ -5,6 +5,7 @@ description: "Workspace-level theme manager that curates and builds 10 design th
 version: 1.0.0
 updated: 2026-05-28
 changelog: []
+breaking_changes: false
 ---
 
 # Theme Factory Skill

@@ -232,6 +232,7 @@ When conflicts appear, follow:
 - `design`
 - `external`
 - `frontend`
+- `impeccable`
 - `infrastructure`
 - `mobile-testing`
 - `pm`

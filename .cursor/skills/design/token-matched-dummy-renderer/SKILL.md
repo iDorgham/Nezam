@@ -11,6 +11,7 @@ references:
   - DESIGN.md
   - .cursor/design/references/masri-design-assets/
   - .cursor/design/references/typeui-main/
+breaking_changes: false
 ---
 
 # Token-Matched Dummy Renderer

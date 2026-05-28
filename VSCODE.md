@@ -281,6 +281,7 @@ pnpm ai:check  # verify no drift
 - `design`
 - `external`
 - `frontend`
+- `impeccable`
 - `infrastructure`
 - `mobile-testing`
 - `pm`

@@ -7,6 +7,7 @@ description: "Workspace-level visual asset and canvas pipeline for generating do
 version: 1.0.0
 updated: 2026-05-28
 changelog: []
+breaking_changes: false
 ---
 
 # Canvas Design Skill

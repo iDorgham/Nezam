@@ -12,6 +12,7 @@ changelog:
 references:
   - DESIGN.md
   - .cursor/design/references/impeccable-main/
+breaking_changes: false
 ---
 
 # Fixed Layout Composer

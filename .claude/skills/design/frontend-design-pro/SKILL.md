@@ -8,6 +8,7 @@ version: 2.0.0
 updated: 2026-05-28
 changelog:
   - "2.0.0 — 2026-05-28: Upgraded to utilize design-intelligence plugins, open-design style selector, and strict anti-slop gating."
+breaking_changes: false
 ---
 
 # Purpose

@@ -10,6 +10,7 @@ changelog:
 references:
   - .cursor/design/references/impeccable-main/
   - DESIGN.md
+breaking_changes: false
 ---
 
 # Impeccable Wireframe Craft

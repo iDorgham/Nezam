@@ -220,6 +220,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 - `design`
 - `external`
 - `frontend`
+- `impeccable`
 - `infrastructure`
 - `mobile-testing`
 - `pm`

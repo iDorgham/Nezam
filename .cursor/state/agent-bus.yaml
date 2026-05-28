@@ -1,7 +1,25 @@
 ---
 created: ''
-version: 1.0.0
+version: 1.1.0
 owner: PM-01
+channels:
+  design:
+    owner: DESIGN-01
+    description: "Design swarm communication channel. All design task handoffs, style decisions, and anti-slop approvals are routed here."
+    schema:
+      design-task:
+        request: "string — what to design"
+        register: "brand | product"
+        style-ref: "path/to/DESIGN.md OR open-design style name"
+        shadcn-components: "list"
+        rtl: "boolean"
+        a11y-level: "AA | AAA"
+        anti-refs: "list of styles to avoid"
+        primary-agent: "DESIGN-02 | DESIGN-06"
+        validator: "DESIGN-10"
+        approved-by: "DESIGN-01"
+        status: "in-progress | review | approved | blocked"
+    current-task: null
 messages:
   - id: MSG-1779719097717
     from: swarm-leader
@@ -29,3 +47,48 @@ messages:
       artifact_path: ''
       summary: ''
       action_required: ''
+  - id: MSG-DESIGN-TASK-001
+    from: design-swarm-leader
+    to: design-intelligence-orchestrator
+    type: design-task
+    phase: design-execution
+    mode: design
+    timestamp: '2026-05-28T21:16:00.000Z'
+    status: active
+    payload:
+      request: "Design a luxury Cairo/Sahel summer-home premium listings card slider for NEZAM real estate vertical."
+      register: "product"
+      style-ref: "luxury"
+      shadcn-components:
+        - Carousel
+        - Card
+        - Badge
+        - Button
+      rtl: true
+      a11y-level: "AA"
+      anti-refs:
+        - "neobrutalism"
+        - "flat-design"
+      primary-agent: "DESIGN-02"
+      validator: "DESIGN-10"
+      status: "in-progress"
+  - id: MSG-DESIGN-SWARM-BOOT
+    from: design-swarm-leader
+    to: design-intelligence-orchestrator
+    type: system_init
+    phase: design-intelligence-upgrade
+    mode: design
+    timestamp: '2026-05-28T17:00:00.000Z'
+    status: active
+    payload:
+      subject: Design Intelligence Swarm Bootstrap
+      summary: "17-agent design swarm activated. design-intelligence plugin installed. 71 brand DESIGN.md files + 67 open-design styles + anti-slop validator + typeui fundamentals now wired. All design tasks route through DESIGN-01."
+      references:
+        - ".agents/skills/design/design-intelligence-index/SKILL.md"
+        - ".agents/skills/design/source-library-loader/SKILL.md"
+        - ".agents/skills/impeccable/SKILL.md"
+        - ".gemini/config/plugins/design-intelligence/"
+        - "docs/reference/awesome-design-md-main/design-md/"
+        - "docs/reference/open-design-main/"
+        - "docs/reference/typeui-main/skills/fundamentals/"
+      action_required: none — system active

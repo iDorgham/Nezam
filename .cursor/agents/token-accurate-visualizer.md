@@ -22,6 +22,7 @@ Guarantee that every visual primitive in a rendered wireframe resolves to a `--d
 | Component source | `.nezam/design-hub/src/components/preview/**/*.{ts,tsx}` |
 | Active token set | `DESIGN.md` frontmatter → compiled to `src/tokens.css` |
 | Allowed exceptions | none for color; opacity suffixes (`/10`, `/20`, …) on top of tokens permitted |
+| Skills | `token-matched-dummy-renderer`, `impeccable-wireframe-craft` |
 
 ## Workflow
 

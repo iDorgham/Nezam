@@ -37,6 +37,7 @@
     "wireframe:server": "pnpm design-hub",
     "design-hub:build": "cd .nezam/design-hub && pnpm build",
     "design-hub:install": "cd .nezam/design-hub && pnpm install",
+    "postinstall": "pnpm install --frozen-lockfile --dir .nezam/design-hub",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

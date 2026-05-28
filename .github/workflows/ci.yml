@@ -178,6 +178,54 @@ jobs:
             test -f package.json && echo "Design server package.json found."
           fi
 
+  design-hub-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Detect .nezam/design-hub changes
+        id: designhub_changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            base="$PR_BASE_SHA"
+            head="$HEAD_SHA"
+            git fetch --no-tags origin "$base"
+            count="$(git diff --name-only "$base" "$head" | sed -n '/^\.nezam\/design-hub\//p' | wc -l | tr -d ' ')"
+            if [[ "$count" -eq 0 ]]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: pnpm/action-setup@v6
+        if: steps.designhub_changes.outputs.skip == 'false'
+
+      - uses: actions/setup-node@v6
+        if: steps.designhub_changes.outputs.skip == 'false'
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        if: steps.designhub_changes.outputs.skip == 'false'
+        run: pnpm install --frozen-lockfile
+
+      - name: Design hub build
+        if: steps.designhub_changes.outputs.skip == 'false'
+        run: pnpm -C .nezam/design-hub build
+
+      - name: Design hub tests
+        if: steps.designhub_changes.outputs.skip == 'false'
+        run: pnpm -C .nezam/design-hub test
+
   design-gate-readiness:
     runs-on: ubuntu-latest
     steps:

@@ -4,11 +4,12 @@
 skill_id: nezam-design-md
 name: "Design Md"
 tier: 3
-description: Author DESIGN.md textual prototypes — layout archetypes, color systems, typography, motion, accessibility, example pages BEFORE implementation.
+description: Author DESIGN.md textual prototypes using the 71-brand reference library under docs/reference/awesome-design-md-main/design-md/ — including Apple, Stripe, Linear, Tesla, etc.
 paths:
-version: 1.0.0
-updated: 2026-05-08
-changelog: []
+version: 2.0.0
+updated: 2026-05-28
+changelog:
+  - "2.0.0 — 2026-05-28: Upgraded to reference the 71-brand awesome-design-md library."
 ---
 # DESIGN.md prototype system
 
@@ -30,5 +31,6 @@ Iterate with user until narrative reads buildable **without opening Figma** (Fig
 
 ## Reference library provenance
 
-- Brand palettes and mood boards also live under **`.nezam/design/<brand>/design.md`** (see [`.nezam/design/README.md`](../../../agents/README.md)). When swapping brands, re-extract tokens into root `docs/DESIGN.md` — do not drift from the chosen brand file.
-- Large third-party design skill packs remain under [`docs/skills/nexu_open_design/`](../../../docs/skills/nexu_open_design) as a **library only**; promote individual procedures into NEZAM skills via [`docs/INGEST_QUEUE.md`](../../../docs/INGEST_QUEUE.md), not bulk copy.
+- **Brand Provenance**: Palettes and mood boards live in `.nezam/design/<brand>/design.md` or the 71-brand awesome-design-md library at `docs/reference/awesome-design-md-main/design-md/`.
+- **Lookup Protocol**: When starting a design task, call `design-md-lookup` with style keywords (e.g. "minimal", "luxury", "dark") to map it to the correct brand guidelines.
+- **RTL & Masri Support**: Ensure Arabic font sizing presets and Egyptian Arabic contexts are integrated in the prototypes.

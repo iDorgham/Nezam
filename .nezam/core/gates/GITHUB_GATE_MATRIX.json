@@ -1,37 +1,395 @@
 {
   "manifestVersion": "1.0.0",
   "$schemaVersion": "1.0.0",
+  "generatedAt": "2026-05-28T12:00:00.000Z",
+  "humanMatrix": ".nezam/core/gates/GATE_MATRIX.md",
+  "pathRegistry": ".nezam/core/gates/hardlock-paths.json",
+  "owners": [
+    {
+      "role": "swarm-leader",
+      "agent": "swarm-leader.md",
+      "accountable": "PM-01",
+      "scope": "gate policy and phase transitions"
+    },
+    {
+      "role": "lead-qa-architect",
+      "agent": "lead-qa-architect.md",
+      "accountable": "QA-01",
+      "scope": "pre_merge and ship verification"
+    },
+    {
+      "role": "lead-devops-performance",
+      "agent": "lead-devops-performance.md",
+      "accountable": "DEVOPS-01",
+      "scope": "CI workflows and nightly_self_test"
+    }
+  ],
+  "gateProfiles": [
+    "spec_only",
+    "subphase",
+    "phase",
+    "release_affecting"
+  ],
+  "taxonomy": [
+    {
+      "id": "sdd",
+      "label": "SDD pipeline",
+      "description": "Planning → design → develop → ship hardlocks"
+    },
+    {
+      "id": "design",
+      "label": "Design quality",
+      "description": "Token-first CSS, wireframe lock, DESIGN.md alignment"
+    },
+    {
+      "id": "sync",
+      "label": "Multi-client sync",
+      "description": "Canonical .cursor/ mirror integrity"
+    },
+    {
+      "id": "ci",
+      "label": "Continuous integration",
+      "description": "GitHub Actions readiness and PR gates"
+    },
+    {
+      "id": "release",
+      "label": "Release",
+      "description": "SemVer, changelog, roadmap consistency"
+    }
+  ],
+  "severityModel": [
+    {
+      "level": "hard",
+      "description": "Blocks forward phase work; no silent bypass. Remediate via /FIX gates or complete prerequisites."
+    },
+    {
+      "level": "soft",
+      "description": "Warning until phase lock; must be cleared before /DEVELOP or /deploy on production-facing scope."
+    },
+    {
+      "level": "info",
+      "description": "Advisory only; logged in /check output without blocking."
+    }
+  ],
+  "bypassBanRules": [
+    {
+      "id": "no-silent-bypass",
+      "rule": "Hard gates cannot be skipped without a recorded decision in Decision Amendments or SWARM_DECISION_LOG.",
+      "severity": "hard"
+    },
+    {
+      "id": "fix-always-allowed",
+      "rule": "/FIX and /check are never hardlocked; they exist to remediate gate failures.",
+      "severity": "info"
+    },
+    {
+      "id": "backward-amendment-only",
+      "rule": "Upstream artifact edits require partial rollback or amendment protocol; they do not unlock downstream work until gates re-pass.",
+      "severity": "hard"
+    }
+  ],
   "gates": [
     {
-      "id": "onboarding",
+      "id": "onboarding-readiness",
+      "humanGateId": "G-01",
       "name": "Onboarding Readiness",
-      "description": "Ensures the workspace is correctly initialized with PRD and Project Prompt.",
+      "stage": "start",
+      "profile": "phase",
+      "severity": "hard",
+      "taxonomy": "sdd",
+      "description": "Workspace initialized with PRD, project prompt, changelog, versioning, and gate manifest.",
       "prerequisites": [
-        ".nezam/core/plans/00-define/01-product/PRD.md",
-        ".nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md"
+        "docs/start/PRD.md",
+        "docs/start/PROJECT_PROMPT.md",
+        "CHANGELOG.md",
+        ".nezam/core/specs/VERSIONING.md",
+        "DESIGN.md",
+        ".nezam/core/gates/GITHUB_GATE_MATRIX.json"
       ],
-      "checkScript": ".nezam/scripts/checks/check-onboarding-readiness.sh"
+      "verifier": {
+        "type": "script",
+        "command": "bash .nezam/core/scripts/checks/check-onboarding-readiness.sh"
+      },
+      "blocks": ["/plan", "/develop"],
+      "workflow": "ci.yml#readiness"
+    },
+    {
+      "id": "prd-roadmap-sync",
+      "humanGateId": "G-04",
+      "name": "PRD Release Roadmap Sync",
+      "stage": "start",
+      "profile": "spec_only",
+      "severity": "hard",
+      "taxonomy": "release",
+      "description": "PRD §11 release table matches release-roadmap.json.",
+      "prerequisites": [
+        ".nezam/core/prd/PRD.md"
+      ],
+      "verifier": {
+        "type": "script",
+        "command": "node .nezam/core/scripts/prd/render-release-roadmap.mjs --check"
+      },
+      "blocks": ["/deploy"],
+      "workflow": "ci.yml#readiness"
+    },
+    {
+      "id": "architecture-artifact",
+      "humanGateId": "G-08",
+      "name": "Architecture Contract",
+      "stage": "start",
+      "profile": "phase",
+      "severity": "hard",
+      "taxonomy": "sdd",
+      "description": "Canonical architecture document exists before scaffold and develop.",
+      "prerequisites": [
+        ".nezam/core/architecture/ARCHITECTURE.md"
+      ],
+      "verifier": {
+        "type": "file",
+        "command": "test -f .nezam/core/architecture/ARCHITECTURE.md"
+      },
+      "blocks": ["/plan scaffold", "/develop"],
+      "workflow": null
+    },
+    {
+      "id": "gate-matrix-human",
+      "humanGateId": "G-09",
+      "name": "Human Gate Matrix",
+      "stage": "start",
+      "profile": "spec_only",
+      "severity": "hard",
+      "taxonomy": "sdd",
+      "description": "Human-readable gate matrix present for auditors and /guide.",
+      "prerequisites": [
+        ".nezam/core/gates/GATE_MATRIX.md"
+      ],
+      "verifier": {
+        "type": "file",
+        "command": "test -f .nezam/core/gates/GATE_MATRIX.md"
+      },
+      "blocks": ["/develop"],
+      "workflow": null
     },
     {
       "id": "design-tokens",
+      "humanGateId": "DG-01",
       "name": "Design Token Validation",
-      "description": "Verifies that the design system tokens are correctly defined.",
+      "stage": "pre_merge",
+      "profile": "subphase",
+      "severity": "hard",
+      "taxonomy": "design",
+      "description": "No hardcoded design primitives outside governed token sources.",
       "prerequisites": [
         "DESIGN.md"
       ],
-      "checkScript": ".nezam/scripts/checks/check-design-tokens.sh"
+      "verifier": {
+        "type": "script",
+        "command": "bash .nezam/core/scripts/checks/check-design-tokens.sh"
+      },
+      "blocks": ["/develop"],
+      "workflow": "design-gates.yml"
     },
     {
-      "id": "swarm-integrity",
-      "name": "AI Swarm Integrity",
-      "description": "Ensures all AI clients are synced and agent metadata is valid.",
+      "id": "ai-sync-integrity",
+      "humanGateId": "G-10",
+      "name": "AI Client Sync Integrity",
+      "stage": "pre_merge",
+      "profile": "phase",
+      "severity": "hard",
+      "taxonomy": "sync",
+      "description": "Generated mirrors match canonical .cursor/ contracts.",
+      "prerequisites": [
+        ".cursor/commands/",
+        "AGENTS.md",
+        "CLAUDE.md"
+      ],
+      "verifier": {
+        "type": "pnpm",
+        "command": "pnpm ai:check"
+      },
+      "blocks": ["/develop"],
+      "workflow": "nezam-pr-gates.yml"
+    },
+    {
+      "id": "sdd-state-integrity",
+      "humanGateId": "G-13",
+      "name": "SDD State Integrity",
+      "stage": "pre_merge",
+      "profile": "phase",
+      "severity": "hard",
+      "taxonomy": "sdd",
+      "description": "Onboarding, plan progress, and develop phase YAML state files are present and valid.",
+      "prerequisites": [
+        ".cursor/state/onboarding.yaml",
+        ".cursor/state/plan_progress.yaml",
+        ".cursor/state/develop_phases.yaml"
+      ],
+      "verifier": {
+        "type": "script",
+        "command": "bash .nezam/core/scripts/checks/sdd-gate-validator.sh"
+      },
+      "blocks": ["/develop"],
+      "workflow": "sdd-gate-enforcement.yml"
+    },
+    {
+      "id": "wireframe-lock",
+      "humanGateId": "G-11",
+      "name": "Wireframe Lock",
+      "stage": "pre_merge",
+      "profile": "subphase",
+      "severity": "hard",
+      "taxonomy": "design",
+      "description": "wireframes_locked.json exists with pages and blocks when UI development is in scope.",
+      "prerequisites": [
+        "wireframes_locked.json",
+        ".session/wireframes_locked.json"
+      ],
+      "verifier": {
+        "type": "workflow",
+        "command": "ci.yml#design-server-validate"
+      },
+      "blocks": ["/develop start"],
+      "workflow": "ci.yml#design-server-validate"
+    },
+    {
+      "id": "pr-gates-bundle",
+      "humanGateId": "G-14",
+      "name": "PR Quality Bundle",
+      "stage": "pre_merge",
+      "profile": "subphase",
+      "severity": "hard",
+      "taxonomy": "ci",
+      "description": "Lint, typecheck, tests, token check, and spec version validation on pull requests.",
       "prerequisites": [],
-      "checkScript": "pnpm ai:check"
+      "verifier": {
+        "type": "workflow",
+        "command": "nezam-pr-gates.yml"
+      },
+      "blocks": ["merge"],
+      "workflow": "nezam-pr-gates.yml"
+    },
+    {
+      "id": "post-merge-roadmap",
+      "humanGateId": "G-16",
+      "name": "Post-Merge Roadmap Consistency",
+      "stage": "post_merge",
+      "profile": "release_affecting",
+      "severity": "soft",
+      "taxonomy": "release",
+      "description": "After merge to main, release roadmap and changelog drafts stay aligned.",
+      "prerequisites": [
+        "CHANGELOG.md",
+        ".nezam/core/prd/PRD.md"
+      ],
+      "verifier": {
+        "type": "script",
+        "command": "node .nezam/core/scripts/prd/render-release-roadmap.mjs --check"
+      },
+      "blocks": ["/deploy"],
+      "workflow": null
+    },
+    {
+      "id": "develop-ship-readiness",
+      "humanGateId": "G-16",
+      "name": "Develop → Ship Readiness",
+      "stage": "end",
+      "profile": "phase",
+      "severity": "hard",
+      "taxonomy": "sdd",
+      "description": "Hardening complete, security audit present, performance thresholds met.",
+      "prerequisites": [
+        "docs/reports/security/SECURITY_AUDIT.md",
+        ".lighthouserc.json"
+      ],
+      "verifier": {
+        "type": "manual",
+        "command": "/SCAN a11y perf && /check"
+      },
+      "blocks": ["/deploy"],
+      "workflow": null
+    },
+    {
+      "id": "nightly-ai-drift",
+      "humanGateId": "G-10",
+      "name": "Nightly Mirror Drift Check",
+      "stage": "nightly_self_test",
+      "profile": "phase",
+      "severity": "soft",
+      "taxonomy": "sync",
+      "description": "Scheduled verification that AI client mirrors have not drifted from .cursor/.",
+      "prerequisites": [],
+      "verifier": {
+        "type": "pnpm",
+        "command": "pnpm ai:check"
+      },
+      "blocks": [],
+      "workflow": "sync-and-drift-check.yml"
+    },
+    {
+      "id": "nightly-onboarding-smoke",
+      "humanGateId": "G-00",
+      "name": "Nightly Onboarding Smoke",
+      "stage": "nightly_self_test",
+      "profile": "phase",
+      "severity": "info",
+      "taxonomy": "ci",
+      "description": "Re-runs onboarding readiness on a clean checkout signal.",
+      "prerequisites": [],
+      "verifier": {
+        "type": "script",
+        "command": "bash .nezam/core/scripts/checks/check-onboarding-readiness.sh"
+      },
+      "blocks": [],
+      "workflow": "ci.yml#readiness"
     }
   ],
   "matrix": {
-    "define": ["onboarding"],
-    "design": ["design-tokens"],
-    "build": ["swarm-integrity"]
+    "00-define": [
+      "onboarding-readiness",
+      "prd-roadmap-sync",
+      "architecture-artifact",
+      "gate-matrix-human"
+    ],
+    "01-research": [
+      "onboarding-readiness"
+    ],
+    "02-ia": [
+      "onboarding-readiness"
+    ],
+    "03-content": [
+      "onboarding-readiness"
+    ],
+    "04-design": [
+      "design-tokens",
+      "wireframe-lock"
+    ],
+    "05-scaffold": [
+      "architecture-artifact",
+      "wireframe-lock"
+    ],
+    "06-develop": [
+      "design-tokens",
+      "ai-sync-integrity",
+      "sdd-state-integrity",
+      "pr-gates-bundle"
+    ],
+    "07-harden": [
+      "develop-ship-readiness",
+      "pr-gates-bundle"
+    ],
+    "08-ship": [
+      "develop-ship-readiness",
+      "post-merge-roadmap"
+    ],
+    "pull_request": [
+      "design-tokens",
+      "ai-sync-integrity",
+      "sdd-state-integrity",
+      "pr-gates-bundle"
+    ],
+    "nightly": [
+      "nightly-ai-drift",
+      "nightly-onboarding-smoke"
+    ]
   }
 }

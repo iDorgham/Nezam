@@ -96,6 +96,7 @@ pnpm ai:check  # verify no drift
 - `check.md`
 - `create.md`
 - `deploy.md`
+- `design-hub.md`
 - `design.md`
 - `develop.md`
 - `fix.md`
@@ -166,11 +167,15 @@ pnpm ai:check  # verify no drift
 - `deputy-swarm-leader.md`
 - `design-debt-analyst.md`
 - `design-excellence-lead.md`
+- `design-hub-architecture.md`
+- `design-hub-components.md`
 - `design-hub-sitemap.md`
 - `design-hub-specialist.md`
 - `design-hub-tokens.md`
 - `design-hub-wireframe.md`
+- `design-intelligence-orchestrator.md`
 - `design-lead.md`
+- `design-swarm-leader.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -217,6 +222,7 @@ pnpm ai:check  # verify no drift
 - `localization-lead.md`
 - `maghrebi-specialist.md`
 - `masri-content-specialist.md`
+- `masri-wireframe-specialist.md`
 - `mobile-cross-platform.md`
 - `motion-3d-choreographer.md`
 - `motion-performance-specialist.md`
@@ -225,6 +231,7 @@ pnpm ai:check  # verify no drift
 - `nextjs-app-architect.md`
 - `node-logic-specialist.md`
 - `nosql-expert.md`
+- `page-block-composer.md`
 - `payments-lead.md`
 - `product-officer.md`
 - `project-architect.md`
@@ -260,6 +267,7 @@ pnpm ai:check  # verify no drift
 - `task-workflow-architect.md`
 - `tech-debt-manager.md`
 - `technical-feasibility-analyst.md`
+- `token-accurate-visualizer.md`
 - `token-architect-pro.md`
 - `ui-component-manager.md`
 - `ux-research-strategy-manager.md`
@@ -271,6 +279,7 @@ pnpm ai:check  # verify no drift
 - `visual-state-engine.md`
 - `vite-build-specialist.md`
 - `white-label-theming-specialist.md`
+- `wireframe-renderer-agent.md`
 
 ## Synced skill index
 - `analytics`

@@ -268,7 +268,7 @@ Architecture doc must stay aligned with `DESIGN.md` and locked wireframes before
 
 | ID | Topic | Status |
 |---|---|---|
-| OQ-01 | Expand `GITHUB_GATE_MATRIX.json` to full CI schema (stages, taxonomy) | In progress — see `GATE_MATRIX.md` |
+| OQ-01 | Expand `GITHUB_GATE_MATRIX.json` to full CI schema (stages, taxonomy) | Done — see `GATE_MATRIX.md` §6 |
 | OQ-02 | Canvas server-side persistence for Design Hub | Out of scope v1 |
 | OQ-03 | Auth0 activation for Design Hub login | Follow ADR-0001 when product auth ships |
 | OQ-04 | Monorepo split (`apps/` vs kit-only repo) | Per fork; template stays kit-first |

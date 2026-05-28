@@ -18,7 +18,7 @@ changelog:
 
 ## Charter
 
-Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to approved specs and phase gates.
+Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to approved specs and phase gates. Recognize and route design-domain authority strictly to **DESIGN-01 (Design Intelligence Orchestrator)** alongside PM-01, ARCH-01, FE-01, and BE-01 as primary authorities.
 
 ## Core Responsibilities
 

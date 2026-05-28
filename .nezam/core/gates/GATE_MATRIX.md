@@ -106,14 +106,14 @@ Enforced before production-facing `/DEVELOP` (see `.cursor/rules/design-gates.md
 
 ## 6. Machine manifest (`GITHUB_GATE_MATRIX.json`)
 
-**Current status:** Minimal manifest present (`manifestVersion`, `gates[]`, `matrix{}`). CI expects additional keys: `generatedAt`, `owners`, `gateProfiles`, `taxonomy`, `severityModel`, `bypassBanRules`, and per-gate `stage` covering `start`, `end`, `pre_merge`, `post_merge`, `nightly_self_test`.
+**Current status:** Full CI schema (`manifestVersion`, `generatedAt`, `owners`, `gateProfiles`, `gates[]`, `taxonomy`, `severityModel`, `bypassBanRules`, `matrix`). Each required GitHub stage is represented: `start`, `end`, `pre_merge`, `post_merge`, `nightly_self_test`.
 
 | Action | Owner |
 |---|---|
-| Expand JSON to full schema | `/FIX gates` or follow-up `/plan gates` revision |
-| Validate locally | `python3` block in `ci.yml` (readiness job) or `/check` |
+| Regenerate after gate policy change | `/FIX gates` then commit manifest + this file together |
+| Validate locally | `python3` block in `.github/workflows/ci.yml` (readiness job) or `/check` |
 
-Until expanded, treat **this markdown matrix** as authoritative for humans; treat CI validation as the forcing function to complete the JSON.
+Human operators use **this markdown** for narrative; automation consumes **JSON** for structure and verifier commands.
 
 ### Planned JSON gate profiles
 

@@ -146,12 +146,11 @@ Tell the user:
 🖥️  WIREFRAME SERVER READY
 
 Start the server:
-  cd apps/wireframe-server
-  pnpm dev
+  pnpm wireframe:server
 
 Then open: http://localhost:4000
 
-Your project context has been pre-loaded. The server will show you:
+If `project_context.json` exists at repo root, the hub will preload it. The server will show you:
 
   1. Sitemap — approve or edit your page hierarchy
   2. Wireframes — review AI-suggested block layout per page

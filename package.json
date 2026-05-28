@@ -34,6 +34,7 @@
     "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open",
     "state:set": "node .nezam/core/scripts/state/write-state.js",
     "design-hub": "cd .nezam/design-hub && pnpm dev",
+    "wireframe:server": "pnpm design-hub",
     "design-hub:build": "cd .nezam/design-hub && pnpm build",
     "design-hub:install": "cd .nezam/design-hub && pnpm install",
     "dev": "next dev",

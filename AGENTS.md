@@ -39,38 +39,33 @@ Do not proceed to development unless all exist:
 
 ## Learned User Preferences
 
-- When implementing an attached plan, do not modify the plan file; reuse existing todo items and advance them from in_progress through completed in order instead of recreating them.
-- For plan-driven execution, stay within stated scope and constraints, run verification steps the plan lists, and finish with a concise change report that includes touched files and verification outputs.
+- When implementing an attached plan, do not modify the plan file; reuse existing todo items and advance them from in_progress through completed in order; stay in scope, run listed verification, and report touched files plus verification outputs.
 - For high-impact AI releases, default mandatory approvers to CTO or engineering head, legal or compliance, responsible AI or ethics lead, and security or privacy lead unless the user supplies a different sign-off map.
-- When changing agents, commands, rules, or skills, edit `.cursor/` as canonical and run `pnpm ai:sync`; avoid hand-editing generated mirrors for those assets.
-- When expanding swarm-style orchestration in this repo, align leadership with PM-01, ARCH-01, DESIGN-01, FE-01, and BE-01 as the primary authorities over specialist agents.
-- Add or revise learned memory only in `.nezam/templates/ai-client/AGENTS.md.template.md`, then run `pnpm ai:sync` so root `AGENTS.md` and `.codex/AGENTS.md` regenerate correctly.
+- Edit `.cursor/` as canonical for agents, commands, rules, and skills; add or revise learned memory only in `.nezam/templates/ai-client/AGENTS.md.template.md`; update `.nezam/core/memory/MULTI_TOOL_INDEX.md` when cross-client workflow text changes; then run `pnpm ai:sync` (and `pnpm ai:check` when touching shared contracts)—never hand-edit generated mirrors.
+- When expanding swarm-style orchestration, align leadership with PM-01, ARCH-01, DESIGN-01, FE-01, and BE-01 as primary authorities over specialist agents.
 - **Continual Learning defaults off** until **`/START continual-learning`** or `pnpm continual-learning:on` sets `.cursor/hooks/state/continual-learning.json` → `enabled: true`. While off, `pnpm continual-learning` / prepare skip work and do not update transcript indexes. Clear incremental transcript state only with `pnpm continual-learning:reset-memory` (does not remove existing bullets from the template). When enabled, mine Cursor agent transcripts for durable preferences and stable workspace facts, merge net-new bullets only into `.nezam/templates/ai-client/AGENTS.md.template.md`, bump `.cursor/hooks/state/continual-learning-index.json` for processed transcript files, then run `pnpm ai:sync` so generated AGENTS mirrors stay aligned.
-- For NEZAM README work, keep README body copy in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections (for example Mermaid) rather than Arabic wording inside README narrative text.
-- Keep narrative documentation and doc-only images under `docs/`; place raster assets under `docs/assets/` instead of the repository root.
-- When changing shared AI workflows or design-contract text that must match Claude, Codex, Antigravity, Gemini, Qwen, and similar clients, update `.nezam/templates/ai-client/` and `.nezam/core/memory/MULTI_TOOL_INDEX.md` alongside `.cursor/`, then run `pnpm ai:sync` and `pnpm ai:check`.
-- **Arabic Language Preference:** When Arabic is chosen or required for content, localization, or communication, default to **Egyptian Arabic** (Masri) to match the project's Cairo/Sahel context, rather than Modern Standard Arabic (MSA).
-- **Planning Team Improvement:** To strengthen the Planning team, ensure all agents respect the SDD hardlocks, maintain strict traceability in `.nezam/core/plans/INDEX.md`, and consult the `masri-content-specialist` for regional alignment.
-- **Claude Token Optimization & Prompt Caching:** Always structure prompts to place core static reference documents (`AGENTS.md`, `CLAUDE.md`, `DESIGN.md`) at the very beginning of the context boundary to trigger automatic Anthropic Prompt Caching (saving up to 90% in token costs).
-- **Reference Over Repetition:** Avoid pasting full file contents or repeating rules. Use concise file paths, line-range links (e.g., `path.js#L12-L24`), and directory structure maps to keep the context window compact and prevent context window bloat.
-- **Handoff Compression:** Prioritize high-signal summaries over prose-heavy narration during agent handoffs. Log compact schema-compliant YAML records to `.cursor/state/agent-bus.yaml` to maintain a zero-redundancy active communications bus.
-- **Search and Index Hygiene:** Keep all synced client directories (`.claude/**`, `.gemini/**`, `.antigravity/**`, etc.) completely ignored in the workspace `search.exclude` and `files.exclude` configurations to eliminate double-search indexing and redundant file-system scans.
+- Keep README narrative in English; represent Arabic/MENA agents, skills, and RTL themes with diagrams or structural sections rather than Arabic prose in README body text. Keep narrative docs under `docs/` and raster assets under `docs/assets/`, not the repository root.
+- **Arabic Language Preference:** When Arabic is chosen or required, default to **Egyptian Arabic** (Masri) for this project's Cairo/Sahel context, not MSA. Planning agents enforce SDD hardlocks, `.nezam/core/plans/INDEX.md` traceability, and `masri-content-specialist` review when MENA content applies.
+- **Token economy:** Lead prompts with static contracts (`AGENTS.md`, `CLAUDE.md`, `DESIGN.md`); reference paths and line ranges instead of pasting full files; compress handoffs via compact YAML in `.cursor/state/agent-bus.yaml`.
+- **Search and Index Hygiene:** Keep synced client directories (`.claude/**`, `.gemini/**`, `.antigravity/**`, etc.) in workspace `search.exclude` and `files.exclude` to avoid double indexing.
+- **Design Hub Wireframes:** Treat Architecture `page`/`subpage` nodes as the source of truth—wireframe sessions bind 1:1 to those nodes, not index-based `PAGE-xxx` keys alone; auto-seed suggested blocks in the editor only (Save session per page before lock/export); wireframe block stacks should mirror Preview sections for the same arch page.
+- **Design Hub left panels:** All main sections use shared `LeftPanelHeader` primitives in order Title → Tabs (when present) → Search → content, with `h-10` title row aligned to the tab bar; Architecture and Preview sidebars use the same `p-4` wrapper and inner `-mx-4` bleed pattern as Wireframes for consistent horizontal inset.
+- **Design Hub styling:** Use semantic `app-*` tokens with light/dark pairs for status and alerts; map every `app-*` utility in `tailwind.config.ts`; apply theme on `document.documentElement`; include `tailwindcss-animate` for overlay/transition classes.
 
 ## Learned Workspace Facts
 
-- Execution plans and SDD tasks live under `.nezam/core/plans/` (and optional local `.cursor/plans/` if your team uses Cursor plan files).
-- AI ethics audit outputs and companion operational templates belong under `.nezam/core/reports/audits/` per the docs reports placement policy.
-- Optional swarm- and skills-oriented Mermaid sources live under `.nezam/core/architecture/mermaids/` when that layout is maintained.
-- **Design Hub (v2) Sitemap Hierarchy:** The visual sitemap represents an enterprise-grade **5-Level Hierarchy** (`App` → `NavMenu` → `Page` → `Sub-page` → `Section`) rather than a simple flat page list.
-- **Design Hub Service Connections:** Page nodes support direct backend microservice bindings (`ServiceKind` like `api`, `auth`, `payment`, `database`) that draw interactive SVG connection wires.
-- **Design Hub Theme & Layout Panels:** Right-rail builders include `ThemePanel` (light/dark token preview) and `DesignSystemPanel` (spacing, fluid typography scales, custom CSS properties mapping).
-- **Design Hub 12-Format Export Engine:** Supports 12 distinct export schemas (Folder structures, RBAC metrics, Next.js Router files, Mermaid charts, etc.) stored within the sitemap export library.
+- Execution plans and SDD tasks live under `.nezam/core/plans/` (optional `.cursor/plans/` for Cursor plan files). Locked PRD path: `.nezam/core/prd/PRD.md`. Develop hardlock requires `wireframes_locked.json` at repo root or `.session/`.
+- AI ethics audit outputs belong under `.nezam/core/reports/audits/` per docs reports policy. Optional swarm Mermaid sources: `.nezam/core/architecture/mermaids/`.
+- **Design Hub (v2) Architecture:** `+ Add` creates `application` | `menu` | `page` | `service` with type-specific detail panels; `MicroServicesServerRack` sits above the app tree—catalog services in the rack, apps below, nav menus inside apps; developer catalog (~80 providers) at `.nezam/design-hub/src/data/design-hub/developer-services-catalog.json` with Simple Icons via `BrandIcon`, pick via `ServiceCatalogPicker`, wire with `wiredServiceIds`; `ArchRightRail` hosts `ServiceIntegrationGuide` plus theme/design-system panels (not under the rack).
+- **Design Hub Wireframes:** Sessions persist as `.session/pages/{archPageId}.json` keyed by stable Architecture IDs; lock export maps to `PAGE-001`… via `arch_page_id` (`arch-page-map.ts`, `session-resolver.ts`). Editor canvas renders blocks via `ShadcnBlockPreview` in `shadcn-block-previews.tsx` (~28 types from `block_registry.json`, routed by `block-preview-map.ts`); canvas slots pass `showCaption={false}` on `WireframeBlockPreview` so only `WireframeBlockSlot` footer shows the label. UI: `WireframePageTree`, palette + `seed-page-session` for empty pages; apply `layout-catalog.json` shells before blocks fill the content slot.
+- **Design Hub app:** Package at `.nezam/design-hub/` (Next.js); run `pnpm test` / `pnpm build` there for wireframe and lock-path changes. Top-level **Components** (`ComponentsSection`) browses `shadcn-component-registry.json`—not a Preview sub-tab; Preview keeps **Pages** + **Sections** only.
 
 ## Synced command index
 - `archetype.md`
 - `check.md`
 - `create.md`
 - `deploy.md`
+- `design-hub.md`
 - `design.md`
 - `develop.md`
 - `fix.md`
@@ -141,11 +136,15 @@ Do not proceed to development unless all exist:
 - `deputy-swarm-leader.md`
 - `design-debt-analyst.md`
 - `design-excellence-lead.md`
+- `design-hub-architecture.md`
+- `design-hub-components.md`
 - `design-hub-sitemap.md`
 - `design-hub-specialist.md`
 - `design-hub-tokens.md`
 - `design-hub-wireframe.md`
+- `design-intelligence-orchestrator.md`
 - `design-lead.md`
+- `design-swarm-leader.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -192,6 +191,7 @@ Do not proceed to development unless all exist:
 - `localization-lead.md`
 - `maghrebi-specialist.md`
 - `masri-content-specialist.md`
+- `masri-wireframe-specialist.md`
 - `mobile-cross-platform.md`
 - `motion-3d-choreographer.md`
 - `motion-performance-specialist.md`
@@ -200,6 +200,7 @@ Do not proceed to development unless all exist:
 - `nextjs-app-architect.md`
 - `node-logic-specialist.md`
 - `nosql-expert.md`
+- `page-block-composer.md`
 - `payments-lead.md`
 - `product-officer.md`
 - `project-architect.md`
@@ -235,6 +236,7 @@ Do not proceed to development unless all exist:
 - `task-workflow-architect.md`
 - `tech-debt-manager.md`
 - `technical-feasibility-analyst.md`
+- `token-accurate-visualizer.md`
 - `token-architect-pro.md`
 - `ui-component-manager.md`
 - `ux-research-strategy-manager.md`
@@ -246,6 +248,7 @@ Do not proceed to development unless all exist:
 - `visual-state-engine.md`
 - `vite-build-specialist.md`
 - `white-label-theming-specialist.md`
+- `wireframe-renderer-agent.md`
 
 ## Synced skill index
 - `analytics`

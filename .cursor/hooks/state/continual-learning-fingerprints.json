@@ -135,9 +135,9 @@
     "sha1": "cbe5bee7cfc8bb0cc6b460a28aed0b8cf26c2d7d"
   },
   "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-NEZAM/agent-transcripts/80fd3887-0b3f-443a-8a49-831cfea370f6/80fd3887-0b3f-443a-8a49-831cfea370f6.jsonl": {
-    "mtimeMs": 1780056006029.8345,
-    "size": 274105,
-    "sha1": "4101bbd1faa4ce6ba0fdb75abae9157149b4c720"
+    "mtimeMs": 1780061771103.818,
+    "size": 471764,
+    "sha1": "724fd290a126162152279fffe49b1c643a53a7e8"
   },
   "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-NEZAM/agent-transcripts/80fd3887-0b3f-443a-8a49-831cfea370f6/subagents/4dc92265-42ec-44fd-8b88-b7013f86c72f.jsonl": {
     "mtimeMs": 1780055710564.398,
@@ -323,5 +323,10 @@
     "mtimeMs": 1778414106768.8577,
     "size": 90751,
     "sha1": "a56841e245dd5227526626133149f18b86ba7d82"
+  },
+  "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-NEZAM/agent-transcripts/ac608855-705e-41a8-bc3b-2a1d4df20b56/ac608855-705e-41a8-bc3b-2a1d4df20b56.jsonl": {
+    "mtimeMs": 1780066353371.3438,
+    "size": 20111,
+    "sha1": "d0104032acdd38e5d9553bdff229f33a03caf583"
   }
 }

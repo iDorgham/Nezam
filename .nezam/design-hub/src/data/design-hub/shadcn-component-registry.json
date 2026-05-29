@@ -10,6 +10,7 @@
     { "id": "tabs", "label": "Tabs", "group": "navigation", "importPath": "@/components/ui/tabs" },
     { "id": "separator", "label": "Separator", "group": "layout", "importPath": "@/components/ui/separator" },
     { "id": "skeleton", "label": "Skeleton", "group": "feedback", "importPath": "@/components/ui/skeleton" },
-    { "id": "dropdown-menu", "label": "Dropdown Menu", "group": "navigation", "importPath": "@/components/ui/dropdown-menu" }
+    { "id": "dropdown-menu", "label": "Dropdown Menu", "group": "navigation", "importPath": "@/components/ui/dropdown-menu" },
+    { "id": "table", "label": "Table", "group": "data", "importPath": "@/components/ui/table", "wireframeBlocks": ["Data_Table"] }
   ]
 }

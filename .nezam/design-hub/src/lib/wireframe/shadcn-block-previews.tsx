@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
 
@@ -96,6 +97,107 @@ function MiniCard({
   )
 }
 
+type ChromeButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline'
+type ChromeButtonSize = 'xs' | 'sm' | 'md' | 'lg'
+
+const chromeButtonBase =
+  'inline-flex items-center justify-center gap-1.5 font-medium rounded-app-sm select-none'
+
+const chromeButtonVariants: Record<ChromeButtonVariant, string> = {
+  primary: 'bg-app-accent text-app-on-accent',
+  secondary: 'bg-app-elevated text-app-text',
+  ghost: 'bg-transparent text-app-muted',
+  danger: 'bg-transparent text-red-400',
+  outline: 'border border-app-border text-app-muted',
+}
+
+const chromeButtonSizes: Record<ChromeButtonSize, string> = {
+  xs: 'h-6 px-2 text-[11px]',
+  sm: 'h-7 px-2.5 text-xs',
+  md: 'h-8 px-3 text-xs',
+  lg: 'h-9 px-4 text-sm',
+}
+
+/** Palette thumbnails sit inside `<button>` — use non-interactive chrome when compact. */
+function ChromeButton({
+  compact,
+  variant = 'secondary',
+  size = 'md',
+  className,
+  children,
+}: {
+  compact?: boolean
+  variant?: ChromeButtonVariant
+  size?: ChromeButtonSize
+  className?: string
+  children: ReactNode
+}) {
+  const style = cn(chromeButtonBase, chromeButtonVariants[variant], chromeButtonSizes[size], className)
+
+  if (compact) {
+    return <span className={style}>{children}</span>
+  }
+
+  return (
+    <Button variant={variant} size={size} type="button" tabIndex={-1} className={cn('pointer-events-none', className)}>
+      {children}
+    </Button>
+  )
+}
+
+function ChromeInput({
+  compact,
+  placeholder,
+  className,
+  type,
+}: {
+  compact?: boolean
+  placeholder?: string
+  className?: string
+  type?: string
+}) {
+  if (compact) {
+    return (
+      <span
+        className={cn(
+          'block w-full rounded-app-sm border border-app-border bg-app-inset px-2.5 text-[10px] text-app-subtle truncate',
+          className,
+        )}
+      >
+        {type === 'password' ? placeholder ?? '••••••••' : placeholder}
+      </span>
+    )
+  }
+
+  return <Input placeholder={placeholder} type={type} className={className} readOnly tabIndex={-1} />
+}
+
+function ChromeTabPills({ compact }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <div className="inline-flex h-5 items-center gap-0.5 rounded-app-sm border border-app-border bg-app-elevated p-0.5">
+        <span className="inline-flex h-4 items-center rounded-app-sm bg-app-surface px-1.5 text-[8px] text-app-text">
+          Week
+        </span>
+        <span className="inline-flex h-4 items-center px-1.5 text-[8px] text-app-muted">Month</span>
+      </div>
+    )
+  }
+
+  return (
+    <Tabs defaultValue="w" className="pointer-events-none">
+      <TabsList className="h-5">
+        <TabsTrigger value="w" className="text-[8px] px-1.5 h-4">
+          Week
+        </TabsTrigger>
+        <TabsTrigger value="m" className="text-[8px] px-1.5 h-4">
+          Month
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
+  )
+}
+
 function PreviewNavTopBar({ compact }: PreviewOpts) {
   return (
     <WireframePreviewFrame compact={compact} className={compact ? 'h-14' : 'h-[4.5rem]'}>
@@ -107,15 +209,15 @@ function PreviewNavTopBar({ compact }: PreviewOpts) {
           <Skeleton className={cn(compact ? 'h-2 w-10' : 'h-2.5 w-14')} />
         </div>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          <ChromeButton compact={compact} variant="ghost" size="xs">
             Link
-          </Button>
-          <Button variant="outline" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          </ChromeButton>
+          <ChromeButton compact={compact} variant="outline" size="xs">
             Docs
-          </Button>
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          </ChromeButton>
+          <ChromeButton compact={compact} variant="primary" size="xs">
             Start
-          </Button>
+          </ChromeButton>
         </div>
       </div>
     </WireframePreviewFrame>
@@ -209,9 +311,9 @@ function PreviewHeroSimple({ compact }: PreviewOpts) {
       >
         <Skeleton className={cn(compact ? 'h-2.5 w-2/3' : 'h-3.5 w-3/5')} />
         <Skeleton className={cn(compact ? 'h-2 w-1/2' : 'h-2.5 w-2/5')} />
-        <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none mt-0.5">
+        <ChromeButton compact={compact} variant="primary" size="xs" className="mt-0.5">
           Get started
-        </Button>
+        </ChromeButton>
       </div>
     </WireframePreviewFrame>
   )
@@ -232,12 +334,12 @@ function PreviewHeroCentered({ compact }: PreviewOpts) {
         <Skeleton className={cn(compact ? 'h-2.5 w-3/4' : 'h-3.5 w-4/5')} />
         <Skeleton className={cn(compact ? 'h-2 w-1/2' : 'h-2 w-2/5')} />
         <div className="flex gap-1.5 mt-0.5">
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          <ChromeButton compact={compact} variant="primary" size="xs">
             Primary
-          </Button>
-          <Button variant="outline" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          </ChromeButton>
+          <ChromeButton compact={compact} variant="outline" size="xs">
             Secondary
-          </Button>
+          </ChromeButton>
         </div>
       </div>
     </WireframePreviewFrame>
@@ -251,9 +353,9 @@ function PreviewHeroSplit({ compact }: PreviewOpts) {
         <div className="flex-1 flex flex-col justify-center gap-1.5">
           <Skeleton className={cn(compact ? 'h-2.5 w-full' : 'h-3 w-full')} />
           <Skeleton className={cn(compact ? 'h-2 w-4/5' : 'h-2 w-3/4')} />
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none w-fit">
+          <ChromeButton compact={compact} variant="primary" size="xs" className="w-fit">
             Learn more
-          </Button>
+          </ChromeButton>
         </div>
         <MiniCard compact={compact} className={cn('bg-app-elevated', compact ? 'w-[38%]' : 'w-[40%]')}>
           <Skeleton className="h-full min-h-[40px] w-full rounded-app-sm" />
@@ -324,9 +426,9 @@ function PreviewContentPricing({ compact }: PreviewOpts) {
             <Skeleton className="h-2 w-1/2 mb-1 bg-app-accent/20" />
             <Skeleton className="h-1 w-full" />
             {i === 2 ? (
-              <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none w-full mt-1">
+              <ChromeButton compact={compact} variant="primary" size="xs" className="w-full mt-1">
                 Pro
-              </Button>
+              </ChromeButton>
             ) : null}
           </MiniCard>
         ))}
@@ -367,9 +469,9 @@ function PreviewContentCta({ compact }: PreviewOpts) {
           <Skeleton className="h-2 w-2/3" />
           <Skeleton className="h-1.5 w-1/2" />
         </div>
-        <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none shrink-0">
+        <ChromeButton compact={compact} variant="primary" size="xs" className="shrink-0">
           Action
-        </Button>
+        </ChromeButton>
       </div>
     </WireframePreviewFrame>
   )
@@ -451,15 +553,15 @@ function PreviewFormLogin({ compact }: PreviewOpts) {
           <Skeleton className="h-2 w-1/2 mx-auto" />
           <div className="space-y-1">
             <Label className="text-[9px]">Email</Label>
-            <Input placeholder="you@example.com" className="h-6 text-[10px]" readOnly tabIndex={-1} />
+            <ChromeInput compact={compact} placeholder="you@example.com" className="h-6 text-[10px]" />
           </div>
           <div className="space-y-1">
             <Label className="text-[9px]">Password</Label>
-            <Input type="password" placeholder="••••••••" className="h-6 text-[10px]" readOnly tabIndex={-1} />
+            <ChromeInput compact={compact} type="password" placeholder="••••••••" className="h-6 text-[10px]" />
           </div>
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none w-full">
+          <ChromeButton compact={compact} variant="primary" size="xs" className="w-full">
             Sign in
-          </Button>
+          </ChromeButton>
         </MiniCard>
       </div>
     </WireframePreviewFrame>
@@ -471,13 +573,13 @@ function PreviewFormContact({ compact }: PreviewOpts) {
     <WireframePreviewFrame compact={compact} className={compact ? 'h-[4.5rem]' : 'h-28'}>
       <MiniCard compact={compact} className={cn('m-2', compact ? 'space-y-1' : 'space-y-2')}>
         <div className="grid grid-cols-2 gap-1.5">
-          <Input placeholder="Name" className="h-6 text-[10px]" readOnly tabIndex={-1} />
-          <Input placeholder="Email" className="h-6 text-[10px]" readOnly tabIndex={-1} />
+          <ChromeInput compact={compact} placeholder="Name" className="h-6 text-[10px]" />
+          <ChromeInput compact={compact} placeholder="Email" className="h-6 text-[10px]" />
         </div>
         <Skeleton className={cn('w-full rounded-app-sm border border-app-border', compact ? 'h-8' : 'h-12')} />
-        <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none w-fit">
+        <ChromeButton compact={compact} variant="primary" size="xs" className="w-fit">
           Send
-        </Button>
+        </ChromeButton>
       </MiniCard>
     </WireframePreviewFrame>
   )
@@ -487,10 +589,10 @@ function PreviewFormNewsletter({ compact }: PreviewOpts) {
   return (
     <WireframePreviewFrame compact={compact} className={compact ? 'h-10' : 'h-14'}>
       <div className={cn('flex items-center gap-2', compact ? 'p-2' : 'p-3')}>
-        <Input placeholder="Email address" className="h-6 text-[10px] flex-1" readOnly tabIndex={-1} />
-        <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none shrink-0">
+        <ChromeInput compact={compact} placeholder="Email address" className="h-6 text-[10px] flex-1" />
+        <ChromeButton compact={compact} variant="primary" size="xs" className="shrink-0">
           Subscribe
-        </Button>
+        </ChromeButton>
       </div>
     </WireframePreviewFrame>
   )
@@ -502,12 +604,12 @@ function PreviewFormSignup({ compact }: PreviewOpts) {
       <div className={cn('flex justify-center', compact ? 'p-2' : 'p-3')}>
         <MiniCard compact={compact} className={cn('w-full max-w-[220px]', compact ? 'space-y-1' : 'space-y-1.5')}>
           <Skeleton className="h-2.5 w-2/3 mx-auto" />
-          <Input placeholder="Name" className="h-6 text-[10px]" readOnly tabIndex={-1} />
-          <Input placeholder="Email" className="h-6 text-[10px]" readOnly tabIndex={-1} />
-          <Input placeholder="Password" className="h-6 text-[10px]" readOnly tabIndex={-1} />
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none w-full">
+          <ChromeInput compact={compact} placeholder="Name" className="h-6 text-[10px]" />
+          <ChromeInput compact={compact} placeholder="Email" className="h-6 text-[10px]" />
+          <ChromeInput compact={compact} placeholder="Password" className="h-6 text-[10px]" />
+          <ChromeButton compact={compact} variant="primary" size="xs" className="w-full">
             Create account
-          </Button>
+          </ChromeButton>
         </MiniCard>
       </div>
     </WireframePreviewFrame>
@@ -530,23 +632,48 @@ function PreviewDataKpiRow({ compact }: PreviewOpts) {
   )
 }
 
+const DATA_TABLE_ROWS = [
+  { customer: 'Acme Corp', status: 'Active' as const, plan: 'Pro' },
+  { customer: 'Globex', status: 'Pending' as const, plan: 'Team' },
+  { customer: 'Initech', status: 'Active' as const, plan: 'Enterprise' },
+  { customer: 'Umbrella', status: 'Paused' as const, plan: 'Starter' },
+] as const
+
 function PreviewDataTable({ compact }: PreviewOpts) {
-  const rows = compact ? 2 : 4
+  const rows = DATA_TABLE_ROWS.slice(0, compact ? 2 : 4)
+
   return (
     <WireframePreviewFrame compact={compact} className={compact ? 'h-16' : 'h-24'}>
-      <MiniCard compact={compact} className="m-2 overflow-hidden">
-        <div className="flex gap-2 border-b border-app-border px-2 py-1 bg-app-elevated/50">
-          <Skeleton className="h-1.5 flex-1" />
-          <Skeleton className="h-1.5 flex-1" />
-          <Skeleton className="h-1.5 w-8" />
-        </div>
-        {Array.from({ length: rows }).map((_, i) => (
-          <div key={i} className="flex gap-2 px-2 py-1 border-b border-app-border/50 last:border-0">
-            <Skeleton className="h-1.5 flex-1" />
-            <Skeleton className="h-1.5 flex-1" />
-            <Skeleton className="h-1.5 w-8" />
-          </div>
-        ))}
+      <MiniCard compact={compact} className="m-2 overflow-hidden p-0">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-app-elevated/50 hover:bg-app-elevated/50">
+              <TableHead className={compact ? 'text-[8px] h-6 px-1.5' : undefined}>Customer</TableHead>
+              <TableHead className={compact ? 'text-[8px] h-6 px-1.5' : undefined}>Status</TableHead>
+              <TableHead className={cn('text-right', compact ? 'text-[8px] h-6 px-1.5' : undefined)}>Plan</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.customer}>
+                <TableCell className={cn('font-medium', compact ? 'text-[8px] px-1.5 py-1' : undefined)}>
+                  {row.customer}
+                </TableCell>
+                <TableCell className={compact ? 'px-1.5 py-1' : undefined}>
+                  <Badge
+                    variant={row.status === 'Active' ? 'success' : row.status === 'Pending' ? 'warning' : 'muted'}
+                    className={compact ? 'text-[7px] px-1 py-0' : undefined}
+                  >
+                    {row.status}
+                  </Badge>
+                </TableCell>
+                <TableCell className={cn('text-right text-app-muted', compact ? 'text-[8px] px-1.5 py-1' : undefined)}>
+                  {row.plan}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </MiniCard>
     </WireframePreviewFrame>
   )
@@ -559,16 +686,7 @@ function PreviewDataChart({ compact }: PreviewOpts) {
       <div className={cn(compact ? 'p-2' : 'p-3')}>
         <div className="flex items-center justify-between mb-2">
           <Skeleton className="h-2 w-1/4" />
-          <Tabs defaultValue="w" className="pointer-events-none">
-            <TabsList className="h-5">
-              <TabsTrigger value="w" className="text-[8px] px-1.5 h-4">
-                Week
-              </TabsTrigger>
-              <TabsTrigger value="m" className="text-[8px] px-1.5 h-4">
-                Month
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <ChromeTabPills compact={compact} />
         </div>
         <div className="flex items-end gap-0.5 h-10 border-b border-app-border pb-0.5">
           {[40, 65, 45, 80, 55, 70].slice(0, bars).map((h, i) => (
@@ -589,12 +707,12 @@ function PreviewLayoutPageHeader({ compact }: PreviewOpts) {
           <Skeleton className={cn(compact ? 'h-2 w-20' : 'h-2.5 w-28', 'bg-app-accent/20')} />
         </div>
         <div className="flex gap-1">
-          <Button variant="outline" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          <ChromeButton compact={compact} variant="outline" size="xs">
             Export
-          </Button>
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+          </ChromeButton>
+          <ChromeButton compact={compact} variant="primary" size="xs">
             New
-          </Button>
+          </ChromeButton>
         </div>
       </div>
     </WireframePreviewFrame>
@@ -635,11 +753,11 @@ function PreviewLayoutAuthSplit({ compact }: PreviewOpts) {
         </div>
         <div className={cn('w-1/2 space-y-1', compact ? 'p-2' : 'p-3')}>
           <Skeleton className="h-1.5 w-1/2 mx-auto" />
-          <Input className="h-6 text-[10px]" readOnly tabIndex={-1} />
-          <Input className="h-6 text-[10px]" readOnly tabIndex={-1} />
-          <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none w-full">
+          <ChromeInput compact={compact} className="h-6 text-[10px]" />
+          <ChromeInput compact={compact} className="h-6 text-[10px]" />
+          <ChromeButton compact={compact} variant="primary" size="xs" className="w-full">
             Continue
-          </Button>
+          </ChromeButton>
         </div>
       </div>
     </WireframePreviewFrame>
@@ -665,9 +783,9 @@ function PreviewLayoutEmptyState({ compact }: PreviewOpts) {
         </div>
         <Skeleton className="h-2 w-24 bg-app-accent/20" />
         <Skeleton className="h-1.5 w-32" />
-        <Button variant="primary" size="xs" type="button" tabIndex={-1} className="pointer-events-none">
+        <ChromeButton compact={compact} variant="primary" size="xs">
           Create
-        </Button>
+        </ChromeButton>
       </div>
     </WireframePreviewFrame>
   )

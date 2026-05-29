@@ -109,3 +109,14 @@ jobs:
             exit 1
           fi
           echo "Gate 7 PASS: DESIGN.md present and non-template"
+  design-skills-gate:
+    name: Gate 8 - Vendored design skills manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Design skills doctor
+        run: node .nezam/core/scripts/skills/design-skills-doctor.js doctor
+      - name: Impeccable slop detect (warn-only)
+        continue-on-error: true
+        run: bash .nezam/core/scripts/checks/check-impeccable-slop.sh
+

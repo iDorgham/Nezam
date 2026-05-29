@@ -230,6 +230,8 @@ When conflicts appear, follow:
 - `cms-saas`
 - `content`
 - `design`
+- `design-taste-frontend`
+- `emil-design-eng`
 - `external`
 - `frontend`
 - `impeccable`
@@ -239,6 +241,7 @@ When conflicts appear, follow:
 - `quality`
 - `research`
 - `s8`
+- `stitch-design-taste`
 - `system`
 
 ## Synced rule sources
@@ -246,6 +249,7 @@ When conflicts appear, follow:
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/dashboard-design-gates.mdc`
 - `.cursor/rules/design-excellence-gates.mdc`
+- `.cursor/rules/design-external-skills.mdc`
 - `.cursor/rules/design-gates.mdc`
 - `.cursor/rules/design-hub-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

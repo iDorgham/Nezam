@@ -19,10 +19,13 @@ Lead agent for all design tasks in the NEZAM swarm. Receives design requests, de
 - **DESIGN-14**: `lead-frontend-architect.md` — Frontend implementation
 
 ## Skills Used (Always Load)
-1. `.agents/skills/design/design-intelligence-index/SKILL.md` — routing table
-2. `.agents/skills/design/source-library-loader/SKILL.md` — reference loading
-3. `.agents/skills/impeccable/SKILL.md` — design methodology
-4. `.gemini/config/plugins/design-intelligence/plugin.json` — full plugin suite
+1. `.cursor/skills/design/design-intelligence-index/SKILL.md` — routing table
+2. `.cursor/skills/design/source-library-loader/SKILL.md` — reference loading
+3. `.cursor/skills/impeccable/SKILL.md` — design methodology
+
+## Opt-in external design stacks
+
+For phase `04-design` and UI build subphases, resolve **`designSkillStack`** from `docs/plan/<phase>/<subphase>/prompt.json` (see `.nezam/core/gates/design-skills.yaml` default stacks: `plan_design`, `develop_ui`, `wireframe`). Run `@nezam-design-prompt-assembler` or `pnpm skills:assemble-design-prompt` after design lock — do not load full skill bodies into every prompt.
 
 ## Intake Protocol
 

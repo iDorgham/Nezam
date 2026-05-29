@@ -33,14 +33,15 @@ Swarm Manager for UI/UX Design. Reports to DESIGN-01 (design-intelligence-orches
 
 **Before generating any UI code, component, or spec:**
 
-1. **Load design intelligence index**: Read `.agents/skills/design/design-intelligence-index/SKILL.md`
-2. **Run source library loader**: Read `.agents/skills/design/source-library-loader/SKILL.md` with task profile
-3. **Load impeccable context**: `node .agents/skills/impeccable/scripts/load-context.mjs` (or read DESIGN.md + PRODUCT.md manually)
-4. **Identify register**: brand or product (from DESIGN-01 handoff or task context)
-5. **Load register reference**: `.agents/skills/impeccable/reference/brand.md` or `reference/product.md`
-6. **Load task reference**: `reference/craft.md`, `reference/shape.md`, or appropriate sub-command
-7. **Load style reference**: Brand DESIGN.md (via design-md-lookup) OR open-design style pack (via open-design-style-picker) OR NEZAM default
-8. **Run anti-slop check**: Pre-validate direction against `anti-slop-validator` before major implementation
+1. **Load design intelligence index**: Read `.cursor/skills/design/design-intelligence-index/SKILL.md`
+2. **Run source library loader**: Read `.cursor/skills/design/source-library-loader/SKILL.md` with task profile
+3. **Resolve opt-in stack**: Read active `prompt.json` → `designSkillStack` when present (see `.nezam/core/gates/design-skills.yaml`)
+4. **Load impeccable context**: `node .cursor/skills/impeccable/scripts/load-context.mjs` (or read DESIGN.md + PRODUCT.md manually)
+5. **Identify register**: brand or product (from DESIGN-01 handoff or task context)
+6. **Load register reference**: `.cursor/skills/impeccable/reference/brand.md` or `reference/product.md`
+7. **Load task reference**: `reference/craft.md`, `reference/shape.md`, or appropriate sub-command
+8. **Load style reference**: Brand DESIGN.md (via design-md-lookup) OR open-design style pack (via open-design-style-picker) OR NEZAM default
+9. **Run anti-slop check**: Pre-validate direction against `anti-slop-validator` before major implementation
 
 **Skipping these steps produces generic output. Non-negotiable.**
 

@@ -24,6 +24,22 @@ Recommendation footer: required
 
 ---
 
+## /CREATE prompt — design skill stacks
+
+When scaffolding subphase `prompt.json` for UI-related phases, include optional `designSkillStack` per `.nezam/templates/plan/PROMPT_SCHEMA.template.json`:
+
+- Set `enabled: true` only for frontend/design subphases
+- Use `phaseHint`: `plan_design`, `develop_ui`, or `wireframe` (see `.nezam/core/gates/design-skills.yaml` → `default_stacks`)
+- List skill **IDs** only — agents load `@.cursor/skills/.../SKILL.md` paths via assembler output
+
+Generate or refresh:
+
+```bash
+pnpm skills:assemble-design-prompt --phase develop_ui --write --dir docs/plan/<phase>/<subphase>
+```
+
+---
+
 ## /CREATE task — Tool Tagging Rules
 
 When creating a task entry in `docs/plan/MASTER_TASKS.md`, include routing fields:

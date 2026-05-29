@@ -1,0 +1,101 @@
+# NEZAM external design skills manifest (canonical source of truth).
+# Vendored copies live under .cursor/skills/ — sync mirrors via pnpm ai:sync.
+# Update upstream: pnpm skills:vendor-design
+
+$schemaVersion: "1.0.0"
+manifest_version: "1.0.0"
+updated: "2026-05-29"
+
+cli:
+  impeccable:
+    npm_package: "impeccable@^2.1.9"
+    detect: "npx impeccable detect"
+    license: "Apache-2.0"
+  stitch:
+    docs: "https://stitch.withgoogle.com/docs/design-md/cli/"
+    export_hint: "Use stitch-design-taste skill to author DESIGN.md for Stitch; align with repo root DESIGN.md"
+
+skills:
+  - id: emil-design-eng
+    title: "Emil Kowalski — Design Engineering"
+    description: "UI polish, motion, component feel; animations.dev philosophy"
+    tier: 2
+    canonical_dir: ".cursor/skills/emil-design-eng"
+    upstream: "https://emilkowal.ski/skill"
+    npx_add: "npx skills add emilkowalski/skill -g -y"
+    local_sources:
+      - "~/.claude/skills/emil-design-eng"
+      - "~/.cursor/skills/emil-design-eng"
+    prompt_stack_roles:
+      - motion-polish
+      - component-feel
+      - design-review
+    enabled: true
+
+  - id: design-taste-frontend
+    title: "Taste Skill v2 — Anti-Slop Frontend"
+    description: "Landing pages, portfolios, redesigns; brief inference and anti-AI-default discipline"
+    tier: 2
+    canonical_dir: ".cursor/skills/design-taste-frontend"
+    upstream: "https://www.tasteskill.dev/"
+    npx_add: "npx skills add Leonxlnx/taste-skill -g -y"
+    local_sources:
+      - "~/.claude/skills/design-taste-frontend"
+      - "~/.cursor/skills/design-taste-frontend"
+    prompt_stack_roles:
+      - landing-page
+      - portfolio
+      - marketing-ui
+      - anti-slop
+    enabled: true
+
+  - id: stitch-design-taste
+    title: "Google Stitch — DESIGN.md Semantic Skill"
+    description: "Agent-friendly DESIGN.md for Stitch screen generation; anti-generic UI standards"
+    tier: 2
+    canonical_dir: ".cursor/skills/stitch-design-taste"
+    upstream: "https://stitch.withgoogle.com/docs/design-md/cli/"
+    local_sources:
+      - "~/.claude/skills/stitch-design-taste"
+    extra_files:
+      - "DESIGN.md"
+    prompt_stack_roles:
+      - design-md-export
+      - stitch-screens
+      - semantic-tokens
+    enabled: true
+
+  - id: impeccable
+    title: "Impeccable — Frontend Design & Critique"
+    description: "Critique, audit, polish, animate, bolder/quieter; NEZAM-managed in repo"
+    tier: 2
+    canonical_dir: ".cursor/skills/impeccable"
+    upstream: "https://impeccable.style/"
+    npm_package: "impeccable@^2.1.9"
+    managed_in_repo: true
+    prompt_stack_roles:
+      - critique
+      - audit
+      - polish
+      - ux-review
+    enabled: true
+
+default_stacks:
+  plan_design:
+    skills:
+      - design-intelligence-index
+      - design-taste-frontend
+      - stitch-design-taste
+      - emil-design-eng
+      - impeccable
+  develop_ui:
+    skills:
+      - design-intelligence-index
+      - emil-design-eng
+      - design-taste-frontend
+      - impeccable
+  wireframe:
+    skills:
+      - design-intelligence-index
+      - stitch-design-taste
+      - impeccable

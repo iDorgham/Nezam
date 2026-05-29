@@ -257,6 +257,8 @@ pnpm ai:check  # verify no drift
 - `cms-saas`
 - `content`
 - `design`
+- `design-taste-frontend`
+- `emil-design-eng`
 - `external`
 - `frontend`
 - `impeccable`
@@ -266,6 +268,7 @@ pnpm ai:check  # verify no drift
 - `quality`
 - `research`
 - `s8`
+- `stitch-design-taste`
 - `system`
 
 ## Synced rule sources
@@ -273,6 +276,7 @@ pnpm ai:check  # verify no drift
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/dashboard-design-gates.mdc`
 - `.cursor/rules/design-excellence-gates.mdc`
+- `.cursor/rules/design-external-skills.mdc`
 - `.cursor/rules/design-gates.mdc`
 - `.cursor/rules/design-hub-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

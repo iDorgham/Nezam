@@ -48,13 +48,12 @@ Do not proceed to development unless all exist:
 - **Arabic Language Preference:** When Arabic is chosen or required, default to **Egyptian Arabic** (Masri) for this project's Cairo/Sahel context, not MSA. Planning agents enforce SDD hardlocks, `.nezam/core/plans/INDEX.md` traceability, and `masri-content-specialist` review when MENA content applies.
 - **Token economy:** Lead prompts with static contracts (`AGENTS.md`, `CLAUDE.md`, `DESIGN.md`); reference paths and line ranges instead of pasting full files; compress handoffs via compact YAML in `.cursor/state/agent-bus.yaml`.
 - **Search and Index Hygiene:** Keep synced client directories (`.claude/**`, `.gemini/**`, `.antigravity/**`, `.antigravitycli/**`, `.agents/skills/nezam-commands/**`, `.agents/skills/nezam-sync/**`, etc.) in workspace `search.exclude` and `files.exclude` to avoid double indexing.
-- **Design Hub Wireframes:** Treat Architecture `page`/`subpage` nodes as the source of truth—wireframe sessions bind 1:1 to those nodes, not index-based `PAGE-xxx` keys alone; auto-seed suggested blocks in the editor only (Save session per page before lock/export); wireframe block stacks should mirror Preview sections for the same arch page.
-- **Design Hub left panels:** All main sections use shared `LeftPanelHeader` primitives in order Title → Tabs (when present) → Search → content, with `h-10` title row aligned to the tab bar; Architecture and Preview sidebars use the same `p-4` wrapper and inner `-mx-4` bleed pattern as Wireframes for consistent horizontal inset.
-- **Design Hub styling:** Use semantic `app-*` tokens with light/dark pairs for status and alerts; map every `app-*` utility in `tailwind.config.ts`; apply theme on `document.documentElement`; include `tailwindcss-animate` for overlay/transition classes.
+- **Design Hub UI:** Treat Architecture `page`/`subpage` nodes as wireframe source of truth (1:1 sessions, Save before lock/export); wireframe block stacks mirror Preview sections; use shared `LeftPanelHeader` (Title → Tabs → Search → content, `h-10` title row) and matching sidebar `p-4` + `-mx-4` bleed; use semantic `app-*` tokens (light/dark) mapped in `tailwind.config.ts`, theme on `document.documentElement`, `tailwindcss-animate` for overlays.
+- **External design skills:** Vendor third-party UI skills (Emil Kowalski motion, Taste v2 anti-slop, Impeccable critique, Google Stitch `DESIGN.md`) under `.cursor/skills/` with a governed manifest and `pnpm ai:sync`—not registry-only. Use opt-in `designSkillStack` in `prompt.json` so prompt/design agents assemble per phase from PRD + root `DESIGN.md`; never inject the full design skill library into every prompt by default.
 
 ## Learned Workspace Facts
 
-- Execution plans and SDD tasks live under `.nezam/core/plans/` (optional `.cursor/plans/` for Cursor plan files). Locked PRD path: `.nezam/core/prd/PRD.md`. Develop hardlock requires `wireframes_locked.json` at repo root or `.session/`.
+- Execution plans and SDD tasks live under `.nezam/core/plans/` (optional `.cursor/plans/` for Cursor plan files). Locked PRD path: `.nezam/core/prd/PRD.md`—when editing PRD, keep `docs/plan/00-define/01-product/PRD.md` and `docs/start/PRD.md` copies aligned. Develop hardlock requires `wireframes_locked.json` at repo root or `.session/`.
 - AI ethics audit outputs belong under `.nezam/core/reports/audits/` per docs reports policy. Optional swarm Mermaid sources: `.nezam/core/architecture/mermaids/`.
 - **Design Hub (v2) Architecture:** `+ Add` creates `application` | `menu` | `page` | `service` with type-specific detail panels; `MicroServicesServerRack` sits above the app tree—catalog services in the rack, apps below, nav menus inside apps; developer catalog (~80 providers) at `.nezam/design-hub/src/data/design-hub/developer-services-catalog.json` with Simple Icons via `BrandIcon`, pick via `ServiceCatalogPicker`, wire with `wiredServiceIds`; `ArchRightRail` hosts `ServiceIntegrationGuide` plus theme/design-system panels (not under the rack).
 - **Design Hub Wireframes:** Sessions persist as `.session/pages/{archPageId}.json` keyed by stable Architecture IDs; lock export maps to `PAGE-001`… via `arch_page_id` (`arch-page-map.ts`, `session-resolver.ts`). Editor canvas renders blocks via `ShadcnBlockPreview` in `shadcn-block-previews.tsx` (~28 types from `block_registry.json`, routed by `block-preview-map.ts`); canvas slots pass `showCaption={false}` on `WireframeBlockPreview` so only `WireframeBlockSlot` footer shows the label. UI: `WireframePageTree`, palette + `seed-page-session` for empty pages; apply `layout-catalog.json` shells before blocks fill the content slot.
@@ -260,6 +259,8 @@ Do not proceed to development unless all exist:
 - `cms-saas`
 - `content`
 - `design`
+- `design-taste-frontend`
+- `emil-design-eng`
 - `external`
 - `frontend`
 - `impeccable`
@@ -269,6 +270,7 @@ Do not proceed to development unless all exist:
 - `quality`
 - `research`
 - `s8`
+- `stitch-design-taste`
 - `system`
 
 ## Synced rule sources
@@ -276,6 +278,7 @@ Do not proceed to development unless all exist:
 - `.cursor/rules/cli-orchestration.mdc`
 - `.cursor/rules/dashboard-design-gates.mdc`
 - `.cursor/rules/design-excellence-gates.mdc`
+- `.cursor/rules/design-external-skills.mdc`
 - `.cursor/rules/design-gates.mdc`
 - `.cursor/rules/design-hub-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`

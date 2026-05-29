@@ -9,7 +9,7 @@ version: 1.0.0
 updated: YYYY-MM-DD
 changelog: []
 owner: "<agent-code-name>"
-tier: 0
+tier: 2
 sdd_phase: "<Planning | Research | IA | Content | Design | Development | Quality | Release>"
 rtl_aware: false
 certified: false

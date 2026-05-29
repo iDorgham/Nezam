@@ -300,6 +300,22 @@ projects:
 
 ---
 
+## Design UI routing (external skills)
+
+For UI/UX implementation tasks, read the active subphase **`prompt.json` → `designSkillStack`** before loading vendored skills (`emil-design-eng`, `design-taste-frontend`, `impeccable`, `stitch-design-taste`). Do not paste full skill bodies into prompts — reference paths only.
+
+| Command | Purpose |
+|---------|---------|
+| `pnpm skills:list-design` | List manifest + enabled state |
+| `pnpm skills:doctor-design` | Verify vendored paths (also in `pnpm ai:check`) |
+| `pnpm skills:vendor-design` | Copy from `~/.claude/skills` per manifest |
+| `pnpm skills:assemble-design-prompt` | Merge stack into `prompt.json` / `PROMPT.md` |
+| `/Settings skills` | enable/disable overrides |
+
+See `docs/plan/design/DESIGN_SKILLS.md`.
+
+---
+
 ## Adding a New Tool
 
 1. Add profile block above following the existing schema

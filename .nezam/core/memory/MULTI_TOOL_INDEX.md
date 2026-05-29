@@ -45,6 +45,13 @@ pnpm ai:check
 - `.cursor/skills/**` -> `.claude/skills/**`, `.antigravity/skills/**`, `.antigravitycli/skills/**`, `.agents/skills/nezam-sync/**` (CLI; namespaced), `.windsurf/skills/**`, `.vscode/nezam/skills/**`
 - `.cursor/rules/*.mdc` -> memory injection (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, `KIRO.md`, `WINDSURF.md`, `VSCODE.md`) and rules copy (`.antigravity/rules/**`, `.kilocode/rules/**`, `.kiro/steering/rules/**`, `.windsurf/rules/**`, `.vscode/nezam/rules/**`)
 
+## External design skills (opt-in stacks)
+
+- Manifest: `.nezam/core/gates/design-skills.yaml`
+- User guide: `docs/plan/design/DESIGN_SKILLS.md`
+- Subphase prompts: `designSkillStack` in `prompt.json` (see `PROMPT_SCHEMA.template.json`)
+- Commands: `/Settings skills`, `pnpm skills:vendor-design`, `pnpm skills:assemble-design-prompt`
+
 ## Design system contract (same in every client)
 
 Orchestration treats **repository root `DESIGN.md`** as the primary design artifact (legacy: `docs/DESIGN.md`).

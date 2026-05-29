@@ -26,5 +26,12 @@
     ]
   },
   "githubGateProfile": "spec_only",
-  "unlockStatus": "blocked"
+  "unlockStatus": "blocked",
+  "designSkillStack": {
+    "enabled": false,
+    "skills": [],
+    "phaseHint": "plan_design",
+    "notes": "Opt-in. Skill ids from .nezam/core/gates/design-skills.yaml — reference @ paths only; do not paste full SKILL.md bodies.",
+    "manifest": ".nezam/core/gates/design-skills.yaml"
+  }
 }

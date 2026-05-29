@@ -2,12 +2,12 @@
 
 | Field | Value |
 |---|---|
-| Document | PRD v2.0 |
+| Document | PRD v2.1 |
 | Status | Active |
 | Owner | Dorgham (Founder) |
-| Last Updated | 2026-05-10 |
+| Last Updated | 2026-05-29 |
 | Repository | [iDorgham/Nezam](https://github.com/iDorgham/Nezam) |
-| Companion Docs | `.nezam/core/memory/CONTEXT.md` · `docs/specs/` · `.nezam/core/plans/` |
+| Companion Docs | `.nezam/core/memory/CONTEXT.md` · `.nezam/core/plans/` · `DESIGN.md` · `wireframes_locked.json` |
 
 ---
 
@@ -78,15 +78,16 @@ AI coding assistants (Cursor, Claude, Gemini, Codex, OpenCode) are powerful but 
 
 ### In Scope
 
-- Canonical SDD pipeline: Planning → SEO → IA → Content → Design → Development → Release
-- Slash commands (`/START`, `/PLAN`, `/DEVELOP`, `/CHECK`, `/DEPLOY`, `/FIX`, `/SCAN`)
-- Multi-AI client sync: Cursor, Claude, Gemini, OpenCode, Codex, Qwen, Antigravity, Kilocode
-- Swarm agent system: 100+ specialized agents with role contracts
-- Skill library: domain-specific reusable skill packs (design, backend, frontend, infra, etc.)
-- Memory system: 4-layer durable memory with session, project, team, and org tiers
-- Design governance: token-first design contracts with gate checks before implementation
-- GitHub automation: CI/CD gates for onboarding readiness, design tokens, test matrices
-- Hardlock prerequisite system: blocks execution until spec prerequisites are satisfied
+- Canonical SDD pipeline: Planning → SEO → IA → Content → Design → Development → Release (product-type aware)
+- Slash commands (`/START`, `/PLAN`, `/DEVELOP`, `/CHECK`, `/DEPLOY`, `/FIX`, `/SCAN`, `/WIREFRAME`, `/DESIGN`)
+- **Design Hub** (`.nezam/design-hub/`): architecture tree, wireframe editor, theme studio, profile browser, export hub → `DESIGN.md` + `wireframes_locked.json`
+- Multi-AI client sync: Cursor (canonical), Claude, Gemini, OpenCode, Codex, Qwen, Antigravity, Kilocode, Windsurf, VS Code mirrors
+- Swarm agent system: 150+ specialized agents with lazy-load routing
+- Skill library: domain skill packs under `.cursor/skills/` with registry + `pnpm ai:check` frontmatter validation
+- Memory system: 4-layer durable memory (session → project → team → workspace contracts)
+- Design governance: token-first CSS, fluid type/grid, motion budget, wireframe lock before `/DEVELOP`
+- GitHub automation: CI for onboarding, AI sync drift, design tokens, wireframe schema validation
+- Hardlock system: `.nezam/core/gates/hardlock-paths.json` + `.cursor/state/onboarding.yaml` gate `/plan` and `/develop`
 
 ### Out of Scope
 
@@ -113,9 +114,10 @@ AI coding assistants (Cursor, Claude, Gemini, Codex, OpenCode) are powerful but 
 
 | ID | Requirement | Acceptance Criteria |
 |---|---|---|
-| R-06 | Design contract exists before implementation begins | `DESIGN.md` passes `scripts/checks/check-design-tokens.sh` |
+| R-06 | Design contract exists before implementation begins | Root `DESIGN.md` passes `.nezam/core/scripts/checks/check-design-tokens.sh` |
+| R-06b | Wireframe lock exists for UI work | `wireframes_locked.json` (repo root or `.session/`) validates in CI |
 | R-07 | Test matrix defined before test code is written | `docs/reports/tests/TEST_MATRIX.md` maps ACs to plan PT-IDs |
-| R-08 | GitHub gate matrix enforces phase transitions | `.nezam/core/plans/gates/GITHUB_GATE_MATRIX.json` covers all phases |
+| R-08 | GitHub gate matrix enforces phase transitions | `.nezam/core/gates/GITHUB_GATE_MATRIX.json` covers all phases |
 | R-09 | Multi-tool sync keeps all AI clients aligned | `pnpm ai:sync` completes without diff errors |
 | R-10 | Skill packs cover all major development domains | 10 domain skill packs each with `SKILL.md` entry point |
 
@@ -134,41 +136,38 @@ AI coding assistants (Cursor, Claude, Gemini, Codex, OpenCode) are powerful but 
 
 ```
 NEZAM Workspace
-├── .cursor/               ← Canonical source (agents, commands, skills, rules, design)
-├── .claude/               ← Claude sync (mirrors .cursor)
-├── .gemini/               ← Gemini sync
-├── .opencode/             ← OpenCode sync
-├── .codex/                ← Codex sync
-├── .antigravity/          ← Antigravity sync
-├── .kilocode/             ← Kilocode sync
-├── .qwen/                 ← Qwen sync
+├── .cursor/                    ← Canonical (agents, commands, skills, rules) — edit here only
+├── .claude/ · .gemini/ · .codex/ · .opencode/ · .qwen/ · .antigravity/ · .kilocode/  ← pnpm ai:sync mirrors
+├── .nezam/
+│   ├── core/
+│   │   ├── prd/                ← PRD (this file), release-roadmap.json
+│   │   ├── plans/              ← SDD phase plans + feature specs
+│   │   ├── gates/              ← hardlock-paths.json, GITHUB_GATE_MATRIX.json
+│   │   ├── memory/             ← MEMORY.md, CONTEXT.md, decision logs
+│   │   ├── architecture/       ← ARCHITECTURE.md, ADRs
+│   │   └── scripts/            ← sync, checks, design:apply, continual-learning
+│   ├── design-hub/             ← Next.js Design Hub (localhost:4000)
+│   └── design/                 ← Brand profile catalog
 ├── docs/
-│   ├── memory/            ← Durable AI memory layer
-│   ├── prd/               ← Product Requirements (this file)
-│   ├── architecture/      ← ADRs + system diagrams
-│   ├── design/            ← Design philosophy + contracts
-│   ├── specs/             ← Feature specs + SDD artifacts
-│   ├── plans/             ← Phase execution plans + gate matrix
-│   ├── reports/           ← CI-generated reports (tests, perf, a11y)
-│   ├── templates/         ← Reusable doc templates
-│   └── wiki/              ← GitHub Wiki source pages
-├── scripts/               ← Automation: checks, sync, design, release
-├── .github/               ← CI/CD workflows + issue templates
-├── CLAUDE.md              ← Claude workspace contract
-├── AGENTS.md              ← Codex/AGENTS contract
-├── GEMINI.md              ← Gemini workspace contract
-├── README.md              ← Public-facing repo documentation
-├── DESIGN.md              ← Active design contract
+│   ├── plan/ · docs/reports/   ← User project plans + generated reports
+│   └── start/                ← Onboarding intake (PRD drop zone)
+├── .cursor/state/              ← onboarding.yaml, agent-bus, plan progress
+├── DESIGN.md                   ← Active design contract (root)
+├── wireframes_locked.json      ← Human-approved layout contract (root)
+├── CLAUDE.md · AGENTS.md · GEMINI.md   ← Generated client entrypoints
+└── README.md                   ← Public GitHub documentation
 ```
 
 ### SDD Pipeline
 
 ```
-/START → define → /PLAN → research/SEO → design → /DEVELOP → harden → /DEPLOY
-  ↓         ↓       ↓          ↓            ↓          ↓          ↓        ↓
-PRD.md   CONTEXT  plans/   keywords.md  DESIGN.md   feature   tests/  release
-         .md      INDEX.md              (gated)     slices    pass    tag
+/START → /PLAN → research · IA · content → DESIGN + wireframes → /DEVELOP → harden → /DEPLOY
+   ↓       ↓              ↓                    ↓ (Design Hub)        ↓
+ PRD    plans/         SEO/IA docs         DESIGN.md +            feature slices
+ lock   INDEX.md                         wireframes_locked.json
 ```
+
+**Hardlock sources:** `.nezam/core/gates/hardlock-paths.json`, `.cursor/state/onboarding.yaml`, design-hub + design-gates rules.
 
 ---
 
@@ -249,21 +248,37 @@ All agents are lazy-loaded via `agent-lazy-load.mdc`. Only agents needed for the
 
 ---
 
-## 12. Open Questions
+## 12. Design Hub (product surface)
 
-- [ ] Should `apps/` packages use the same SDD pipeline or a lighter variant?
-- [ ] Should memory layer 0 write to a gitignored `.session.md` for local persistence?
-- [ ] Add a `/REVIEW` command for structured peer/AI review at phase gates?
-- [ ] Publish NEZAM as `create-nezam` npm scaffolding CLI?
+The Design Hub is a first-class NEZAM deliverable — not optional tooling.
+
+| Module | Purpose | Output |
+|--------|---------|--------|
+| Architecture | App → menu → page tree; service rack; API wiring | `project_context.json`, arch page IDs |
+| Wireframes | Block canvas per architecture page; layout shells | `.session/pages/{archPageId}.json` → `wireframes_locked.json` |
+| Theme / design system | Tokens, light/dark, typography, grid | Root `DESIGN.md` via `pnpm run design:apply` or export |
+| Components | shadcn registry browse | Implementation reference for `/DEVELOP` |
+| Export | 12 formats (routes, nav, Mermaid, full context) | Planning handoff artifacts |
+
+**Run:** `pnpm design-hub` (port **4000**). **Gate:** no implementation-oriented `/DEVELOP` until `wireframes_locked.json` exists.
 
 ---
 
-## 13. Appendix
+## 13. Open Questions
 
-- [Architecture Diagrams](../architecture/diagrams/)
-- [Architecture Decision Records](../architecture/decisions/)
+- [ ] Should monorepo `apps/*` use the full SDD pipeline or a lighter variant per app?
+- [ ] Standardize `.session/` wireframe sessions vs repo-root lock only?
+- [ ] Publish NEZAM as `create-nezam` scaffolding CLI?
+- [x] Design Hub wireframe lock as hard gate — **implemented** (`design-hub-gates.mdc`, CI wireframe validation)
+
+---
+
+## 14. Appendix
+
+- [Architecture](../architecture/ARCHITECTURE.md)
 - [Memory Architecture](../memory/MEMORY_ARCHITECTURE.md)
 - [SDD Phase Plans](../plans/)
-- [Tech Stack Reference](../specs/TECH_STACK.md)
-- [Design Philosophy](../design/DESIGN_PHILOSOPHY.md)
+- [Design Hub overview](../docs/design-hub.md) · [Design Hub app](../../design-hub/)
+- [Gate matrix](../gates/GITHUB_GATE_MATRIX.json)
+- [Hardlock paths](../gates/hardlock-paths.json)
 - [Agent Eval Framework](../../../.cursor/agents/EVAL_FRAMEWORK.md)

@@ -35,8 +35,12 @@ This is the **first skill loaded** on any design task. It resolves the intent â†
 | Reference Library | Path | Load When |
 |---|---|---|
 | **NEZAM DESIGN.md** | `DESIGN.md` (repo root) | Always â€” base token system for all NEZAM UI |
-| **impeccable skill** | `.agents/skills/impeccable/SKILL.md` | Any frontend design, critique, audit, or polish task |
-| **impeccable references** | `.agents/skills/impeccable/reference/` | Sub-commands: craft, shape, bolder, overdrive, animate, etc. |
+| **impeccable skill** | `.cursor/skills/impeccable/SKILL.md` | Any frontend design, critique, audit, or polish task |
+| **impeccable references** | `.cursor/skills/impeccable/reference/` | Sub-commands: craft, shape, bolder, overdrive, animate, etc. |
+| **emil-design-eng** | `.cursor/skills/emil-design-eng/SKILL.md` | Motion polish, component feel, design-engineering review |
+| **design-taste-frontend** | `.cursor/skills/design-taste-frontend/SKILL.md` | Landing/portfolio anti-slop; brief inference before UI gen |
+| **stitch-design-taste** | `.cursor/skills/stitch-design-taste/SKILL.md` | Stitch DESIGN.md export; semantic design contract for screens |
+| **design skills manifest** | `.nezam/core/gates/design-skills.yaml` | Opt-in `designSkillStack` in prompt.json; vendor via `pnpm skills:vendor-design` |
 | **typeui fundamentals** | `docs/reference/typeui-main/skills/fundamentals/` | Universal design law validation (ui-principles, ux-principles, typography, accessibility) |
 | **frontend-design principles** | `docs/reference/skills-main/skills/frontend-design/SKILL.md` | Bold aesthetic direction, anti-AI-slop rules |
 | **brand DESIGN.md library** | `docs/reference/awesome-design-md-main/design-md/` | Style matching, brand inspiration, token extraction |

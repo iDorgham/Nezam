@@ -29,6 +29,10 @@ Translate a user task description into the correct ordered skill stack automatic
 | MENA payments / fawry / paymob / tabby | mena_payment_routing | nezam-api-design, nezam-auth-workflows |
 | database / schema / migrations | nezam-supabase-architect OR nezam-prisma-orm | nezam-database-optimization |
 | design system / tokens / components | nezam-pro-design-tokens | token-grid-typography, nezam-component-library-api |
+| anti-slop / landing polish / portfolio UI | design-taste-frontend | design-intelligence-index, impeccable |
+| motion polish / interaction feel | emil-design-eng | impeccable, design-intelligence-index |
+| design critique / audit UI / slop | impeccable | design-taste-frontend |
+| stitch / portable DESIGN.md export | stitch-design-taste | design-md, nezam-design-prompt-assembler |
 | animation / motion / 3D | nezam-motion-3d-progressive | nezam-a11y-automation |
 | SEO / ranking / search | seo-ia-content | nezam-structured-data-schema, nezam-topical-authority |
 | Arabic content / MENA content | arabic_content_master OR egyptian_arabic_content_master | nezam-aeo-answer-engines |
@@ -69,6 +73,7 @@ execute: "Proceeding with steps in order..."
 - `/DEVELOP feature <description>` must route through this skill before implementation.
 - `/START mena` should bias routing toward MENA-aware skills.
 - Pairs with command router and hardlock manager checks.
+- For UI tasks, also consult `.nezam/core/gates/design-skills.yaml` and subphase `prompt.json` → `designSkillStack` (see `docs/plan/design/DESIGN_SKILLS.md`).
 
 # Anti-Patterns
 - Do not require users to name skills explicitly.

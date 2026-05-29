@@ -306,13 +306,18 @@ For UI/UX implementation tasks, read the active subphase **`prompt.json` → `de
 
 | Command | Purpose |
 |---------|---------|
-| `pnpm skills:list-design` | List manifest + enabled state |
+| `pnpm skills:list-design` | List manifest skills + **default stacks** (`plan_design`, `develop_ui`, `wireframe`) |
 | `pnpm skills:doctor-design` | Verify vendored paths (also in `pnpm ai:check`) |
-| `pnpm skills:vendor-design` | Copy from `~/.claude/skills` per manifest |
-| `pnpm skills:assemble-design-prompt` | Merge stack into `prompt.json` / `PROMPT.md` |
-| `/Settings skills` | enable/disable overrides |
+| `pnpm skills:vendor-design` | Copy from `~/.claude/skills` per manifest (`--force` to overwrite) |
+| `pnpm skills:assemble-design-prompt --phase <hint>` | Preview stack JSON (`plan_design` \| `develop_ui` \| `wireframe`) |
+| `pnpm skills:assemble-design-prompt --phase <hint> --write --dir <path>` | Write `prompt.json` + `PROMPT.md` section |
+| `/Settings skills list\|doctor\|enable\|disable` | Same manifest; overrides in `workspace.settings.yaml` |
 
-See `docs/plan/design/DESIGN_SKILLS.md`.
+**CLI:** use `--phase`, not `--phaseHint`. **zsh:** never use literal `<feature>` in paths — use a real folder (e.g. `docs/plan/07-build/f-001-design-hub`).
+
+Example: `pnpm skills:assemble-design-prompt --phase develop_ui --write --dir docs/plan/07-build/f-001-design-hub`
+
+See `docs/plan/design/DESIGN_SKILLS.md` and `docs/plan/07-build/README.md`.
 
 ---
 

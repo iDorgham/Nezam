@@ -49,8 +49,10 @@ pnpm ai:check
 
 - Manifest: `.nezam/core/gates/design-skills.yaml`
 - User guide: `docs/plan/design/DESIGN_SKILLS.md`
+- Build prompt packs: `docs/plan/07-build/<feature-slug>/` (example: `f-001-design-hub/`)
 - Subphase prompts: `designSkillStack` in `prompt.json` (see `PROMPT_SCHEMA.template.json`)
-- Commands: `/Settings skills`, `pnpm skills:vendor-design`, `pnpm skills:assemble-design-prompt`
+- Commands: `/Settings skills list|doctor`, `pnpm skills:vendor-design`, `pnpm skills:assemble-design-prompt --phase <hint> [--write --dir <path>]`
+- Assembler: `@.cursor/skills/design/nezam-design-prompt-assembler/SKILL.md`
 
 ## Design system contract (same in every client)
 

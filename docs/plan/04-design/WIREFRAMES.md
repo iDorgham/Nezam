@@ -126,3 +126,11 @@ States: empty page (seed suggested blocks) · saved · validation error on expor
 grep -c "screen_id" docs/plan/04-design/WIREFRAMES.md
 # Expect: ≥1 (PAGE-001 + DH-* entries)
 ```
+
+## Design skill stack (wireframe phase)
+
+For wireframe authoring prompts, use manifest phase `wireframe` (see [`../design/DESIGN_SKILLS.md`](../design/DESIGN_SKILLS.md)):
+
+```bash
+pnpm skills:assemble-design-prompt --phase wireframe --write --dir docs/plan/04-design/wireframes
+```

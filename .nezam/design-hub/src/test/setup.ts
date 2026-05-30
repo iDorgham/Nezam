@@ -1,3 +1,6 @@
 // Vitest setup file referenced by `vitest.config.ts`.
-// Keep this lightweight to avoid slowing test startup.
+import * as matchers from 'vitest-axe/matchers'
+import { expect } from 'vitest'
+
+expect.extend(matchers)
 

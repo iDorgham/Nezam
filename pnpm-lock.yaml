@@ -37,8 +37,8 @@ importers:
         specifier: 19.2.15
         version: 19.2.15
       impeccable:
-        specifier: ^2.3.0
-        version: 2.3.0(typescript@6.0.3)
+        specifier: ^2.3.1
+        version: 2.3.1(typescript@6.0.3)
       semantic-release:
         specifier: ^25.0.3
         version: 25.0.3(typescript@6.0.3)
@@ -955,8 +955,8 @@ packages:
     resolution: {integrity: sha512-1dhVQZXhcHje7798IVM+xoo/1ZdVfzOMIc8/rgVSijRK38EDqOJoGula9N/8ZI5RD8QTxNQtK/Gozpr+qUqRRA==}
     engines: {node: '>=20.0.0'}
 
-  impeccable@2.3.0:
-    resolution: {integrity: sha512-48KSGOH6f5w1M7iJOTX+YiE9qHoDlc0j4Tx1CtGqM0SpSkyNJedTIi4K2ACgvd1SJv5sjrUqCmNtZ9WzpEnSCQ==}
+  impeccable@2.3.1:
+    resolution: {integrity: sha512-FMX7WHTXImjWqj8q0MhN4aR+6QU6CxZZJw+gyVGi0l3yW6kW4LadydICuuViqmvzjB6rwgzKNwp6g3stJbSOpg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2796,7 +2796,7 @@ snapshots:
 
   iceberg-js@0.8.1: {}
 
-  impeccable@2.3.0(typescript@6.0.3):
+  impeccable@2.3.1(typescript@6.0.3):
     dependencies:
       css-select: 5.2.2
       css-tree: 3.2.1

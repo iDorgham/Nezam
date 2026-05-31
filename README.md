@@ -104,7 +104,6 @@ flowchart LR
     B --> C["3. Run /START"]
     C --> D["4. Execute /PLAN"]
     D --> E["5. Verify via /SCAN"]
-end
 ```
 
 ### 1. Initialize Workspace

@@ -865,7 +865,7 @@ export function ThemingSection() {
 
 function Group({ label, hint, children, className }: { label: string; hint?: string; children: React.ReactNode; className?: string }) {
   return (
-    <section className={cn('flex flex-col gap-4 border-t border-app-border/35 pt-8 first:border-t-0 first:pt-0', className)}>
+    <section className={cn('flex flex-col gap-4', className)}>
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
         <p className="text-[9.5px] font-bold uppercase tracking-[0.13em] text-app-subtle select-none">{label}</p>
         {hint ? <p className="text-[10px] text-app-subtle leading-snug">{hint}</p> : null}
@@ -1014,7 +1014,7 @@ function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mo
 
   return (
     <div className={cn(
-      'rounded-app-sm border p-3.5 flex flex-col gap-2.5 mb-1',
+      'rounded-app-sm border p-4 flex flex-col gap-3',
       allPass ? 'border-app-success/50 bg-app-success/10' : 'border-app-warning/50 bg-app-warning/10',
     )}>
       <div className="flex items-center justify-between">

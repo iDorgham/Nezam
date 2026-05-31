@@ -40,6 +40,22 @@
         "props": {
           "columns": { "type": "number", "default": 4 }
         }
+      },
+      {
+        "type": "Nav_Breadcrumb",
+        "name": "Breadcrumb Bar",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Hierarchy trail above page content",
+        "props": {}
+      },
+      {
+        "type": "Nav_Subnav",
+        "name": "Sub Navigation Pills",
+        "canvas_modes": ["web", "saas"],
+        "description": "Secondary horizontal tab pills under the header",
+        "props": {
+          "items": { "type": "array", "default": ["Overview", "Analytics", "Settings"] }
+        }
       }
     ],
     "hero": [
@@ -71,6 +87,44 @@
         "description": "Text left, visual mock right",
         "props": {
           "title": { "type": "string", "default": "Product headline" }
+        }
+      },
+      {
+        "type": "Hero_Video",
+        "name": "Video Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Headline with play-button media frame",
+        "props": {}
+      },
+      {
+        "type": "Hero_Minimal",
+        "name": "Minimal Hero",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Single headline and subtle subcopy only",
+        "props": {
+          "title": { "type": "string", "default": "Page title" }
+        }
+      },
+      {
+        "type": "Hero_ImageCover",
+        "name": "Image Cover Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Full-bleed token image backdrop with headline overlay",
+        "shadcn_primitives": ["Button", "Badge"],
+        "props": {
+          "backgroundImage": { "type": "string", "default": "" },
+          "colorVariant": { "type": "string", "default": "brand" },
+          "motionVariant": { "type": "string", "default": "reveal" }
+        }
+      },
+      {
+        "type": "Hero_GradientMesh",
+        "name": "Gradient Mesh Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Token-based mesh background without gradient text",
+        "shadcn_primitives": ["Button"],
+        "props": {
+          "colorVariant": { "type": "string", "default": "brand" }
         }
       }
     ],
@@ -165,6 +219,139 @@
         "props": {
           "posts": { "type": "number", "default": 6 }
         }
+      },
+      {
+        "type": "Content_Timeline",
+        "name": "Timeline",
+        "canvas_modes": ["web", "saas"],
+        "description": "Vertical steps with connectors",
+        "props": {
+          "steps": { "type": "number", "default": 4 }
+        }
+      },
+      {
+        "type": "Content_Comparison",
+        "name": "Feature Comparison",
+        "canvas_modes": ["web", "saas"],
+        "description": "Side-by-side plan or product comparison",
+        "props": {
+          "columns": { "type": "number", "default": 2 }
+        }
+      },
+      {
+        "type": "Content_Gallery",
+        "name": "Image Gallery",
+        "canvas_modes": ["web", "saas"],
+        "description": "Responsive image grid with captions",
+        "props": {
+          "tiles": { "type": "number", "default": 6 }
+        }
+      },
+      {
+        "type": "Content_Tabs",
+        "name": "Tabbed Content",
+        "canvas_modes": ["web", "saas"],
+        "description": "Tab switcher with panel body",
+        "props": {
+          "tabs": { "type": "number", "default": 3 }
+        }
+      },
+      {
+        "type": "Content_SplitMedia",
+        "name": "Split Media Content",
+        "canvas_modes": ["web", "saas"],
+        "description": "Copy column beside token media panel with profile tint",
+        "shadcn_primitives": ["Card", "Button"],
+        "props": {
+          "colorVariant": { "type": "string", "default": "accent" },
+          "motionVariant": { "type": "string", "default": "scale-media" }
+        }
+      },
+      {
+        "type": "Content_ProfileBands",
+        "name": "Profile Color Bands",
+        "canvas_modes": ["web", "saas"],
+        "description": "Stacked bands cycling brand palette with media rails",
+        "shadcn_primitives": ["Card"],
+        "props": {
+          "bands": { "type": "number", "default": 3 }
+        }
+      },
+      {
+        "type": "Content_PricingToggle",
+        "name": "Pricing with Toggle",
+        "canvas_modes": ["web", "saas"],
+        "description": "Monthly/annual toggle above pricing tiers",
+        "shadcn_primitives": ["Tabs", "Button"],
+        "props": {
+          "tiers": { "type": "number", "default": 3 }
+        }
+      },
+      {
+        "type": "Content_FeatureBento",
+        "name": "Feature Bento",
+        "canvas_modes": ["web", "saas"],
+        "description": "Asymmetric bento feature grid with profile tints",
+        "shadcn_primitives": ["Card"],
+        "props": {
+          "tiles": { "type": "number", "default": 4 }
+        }
+      },
+      {
+        "type": "Content_ContactChannels",
+        "name": "Contact Channels",
+        "canvas_modes": ["web", "saas"],
+        "description": "Three-up cards for email, phone, and office hours",
+        "props": {}
+      },
+      {
+        "type": "Content_ContactSplit",
+        "name": "Contact Split",
+        "canvas_modes": ["web", "saas"],
+        "description": "Form column beside map or office details column",
+        "props": {}
+      },
+      {
+        "type": "Content_UserInvite",
+        "name": "User Invite Band",
+        "canvas_modes": ["web", "saas"],
+        "description": "Invite by email with role selector for team admins",
+        "props": {}
+      },
+      {
+        "type": "Content_ProfileHeader",
+        "name": "Profile Header",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Avatar, display name, role badge, and profile actions",
+        "props": {}
+      },
+      {
+        "type": "Content_AboutHero",
+        "name": "About Hero",
+        "canvas_modes": ["web", "saas"],
+        "description": "Mission headline, supporting copy, and optional stat strip",
+        "props": {}
+      },
+      {
+        "type": "Content_AboutValues",
+        "name": "About Values",
+        "canvas_modes": ["web", "saas"],
+        "description": "Three-column values or principles grid",
+        "props": {}
+      },
+      {
+        "type": "Content_AboutTimeline",
+        "name": "About Timeline",
+        "canvas_modes": ["web", "saas"],
+        "description": "Company story milestones in a vertical timeline",
+        "props": {}
+      },
+      {
+        "type": "Content_DangerZone",
+        "name": "Danger Zone",
+        "canvas_modes": ["web", "saas"],
+        "description": "Destructive actions card for account or workspace settings",
+        "props": {}
       }
     ],
     "forms": [
@@ -199,6 +386,45 @@
         "props": {
           "showSocial": { "type": "boolean", "default": true }
         }
+      },
+      {
+        "type": "Form_Search",
+        "name": "Search & Filters",
+        "canvas_modes": ["web", "saas"],
+        "description": "Search field with filter chips",
+        "props": {}
+      },
+      {
+        "type": "Form_WaitlistInline",
+        "name": "Waitlist Inline",
+        "canvas_modes": ["web", "saas"],
+        "description": "Inline email capture with primary CTA",
+        "shadcn_primitives": ["Input", "Button"],
+        "props": {
+          "placeholder": { "type": "string", "default": "you@company.com" }
+        }
+      },
+      {
+        "type": "Form_SplitAuth",
+        "name": "Split Auth Form",
+        "canvas_modes": ["web", "saas"],
+        "description": "Media panel beside sign-in form",
+        "shadcn_primitives": ["Input", "Button"],
+        "props": {}
+      },
+      {
+        "type": "Form_ProfileDetails",
+        "name": "Profile Details Form",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Editable profile field groups for account settings",
+        "props": {}
+      },
+      {
+        "type": "Form_SettingsSections",
+        "name": "Settings Sections",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Grouped settings rows with toggles and selects",
+        "props": {}
       }
     ],
     "data": [
@@ -228,6 +454,50 @@
         "props": {
           "chartType": { "type": "string", "default": "line" }
         }
+      },
+      {
+        "type": "Data_Activity",
+        "name": "Activity Feed",
+        "canvas_modes": ["saas", "web"],
+        "description": "Recent events list with avatars",
+        "props": {
+          "items": { "type": "number", "default": 5 }
+        }
+      },
+      {
+        "type": "Data_FilterBar",
+        "name": "Dashboard Filters",
+        "canvas_modes": ["saas", "web"],
+        "description": "Date range and segment filter toolbar",
+        "props": {}
+      },
+      {
+        "type": "Data_UserTable",
+        "name": "User Table",
+        "canvas_modes": ["web", "saas"],
+        "description": "Team members table with search, roles, and row actions",
+        "props": {}
+      },
+      {
+        "type": "Data_AnalyticsToolbar",
+        "name": "Analytics Toolbar",
+        "canvas_modes": ["web", "saas"],
+        "description": "Date range, compare toggle, export, and segment filters",
+        "props": {}
+      },
+      {
+        "type": "Data_AnalyticsOverview",
+        "name": "Analytics Overview",
+        "canvas_modes": ["web", "saas"],
+        "description": "Hero KPI row with large trend chart and side mini-metrics",
+        "props": {}
+      },
+      {
+        "type": "Data_AnalyticsChartGrid",
+        "name": "Analytics Chart Grid",
+        "canvas_modes": ["web", "saas"],
+        "description": "Two-by-two chart cards with sparkline summaries",
+        "props": {}
       }
     ],
     "layout": [
@@ -266,6 +536,36 @@
         "props": {
           "title": { "type": "string", "default": "Nothing here yet" }
         }
+      },
+      {
+        "type": "Layout_ThreeColumn",
+        "name": "Three Column Layout",
+        "canvas_modes": ["web", "saas"],
+        "description": "Left rail, main content, and right aside",
+        "props": {}
+      },
+      {
+        "type": "Layout_StickyCTA",
+        "name": "Sticky CTA Bar",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Fixed bottom bar with message and action",
+        "props": {
+          "headline": { "type": "string", "default": "Ready to upgrade?" }
+        }
+      },
+      {
+        "type": "Layout_ProfileTabs",
+        "name": "Profile Tabs",
+        "canvas_modes": ["web", "saas", "mobile"],
+        "description": "Horizontal sub-navigation for profile sections",
+        "props": {}
+      },
+      {
+        "type": "Layout_SettingsShell",
+        "name": "Settings Shell",
+        "canvas_modes": ["web", "saas"],
+        "description": "Left settings navigation with right content panel",
+        "props": {}
       }
     ],
     "artistic": [
@@ -356,6 +656,14 @@
         "description": "Trusted-by logo strip with subtle motion",
         "shadcn_primitives": ["Skeleton"],
         "props": { "logos": { "type": "number", "default": 6 } }
+      },
+      {
+        "type": "Art_Section_Marquee",
+        "name": "Testimonial Marquee",
+        "canvas_modes": ["web", "saas"],
+        "description": "Horizontal scroll of quote cards with reveal motion",
+        "shadcn_primitives": ["Card"],
+        "props": { "count": { "type": "number", "default": 5 } }
       },
       {
         "type": "Art_Stats_BigNumber",
@@ -468,6 +776,27 @@
         "description": "Browser chrome with dashboard mock",
         "shadcn_primitives": ["Card", "Skeleton", "Tabs"],
         "props": {}
+      },
+      {
+        "type": "Art_Hero_ImageBackdrop",
+        "name": "Hero Image Backdrop",
+        "canvas_modes": ["web", "saas"],
+        "description": "Cinematic hero with full-width profile image field",
+        "shadcn_primitives": ["Button", "Badge"],
+        "props": {
+          "colorVariant": { "type": "string", "default": "brand" },
+          "motionVariant": { "type": "string", "default": "reveal" }
+        }
+      },
+      {
+        "type": "Art_Card_HoverGrid",
+        "name": "Hover Card Grid",
+        "canvas_modes": ["web", "saas"],
+        "description": "Asymmetric cards with distinct tint and hover motion",
+        "shadcn_primitives": ["Card"],
+        "props": {
+          "columns": { "type": "number", "default": 3 }
+        }
       }
     ]
   }

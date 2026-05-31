@@ -7,21 +7,14 @@ import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
 import { PREMIUM_ICON, PREMIUM_MOTION, PREMIUM_SPACE, PREMIUM_TYPE } from '@/lib/design/premium-standards'
+import { getSortedChildren } from '@/lib/arch/page-tree'
+import { menuPlacementLabel } from '@/lib/arch/migrate-legacy-nav-menus'
 
 interface Props {
   page: ArchPage
   allPages: Record<string, ArchPage>
   depth: number
   searchQuery?: string
-}
-
-function matchesSearch(page: ArchPage, pages: Record<string, ArchPage>, query: string): boolean {
-  const q = query.toLowerCase()
-  if (page.name.toLowerCase().includes(q) || page.route.toLowerCase().includes(q)) {
-    return true
-  }
-  const children = Object.values(pages).filter((p) => p.parentId === page.id)
-  return children.some((child) => matchesSearch(child, pages, query))
 }
 
 export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props) {
@@ -33,13 +26,7 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
   const [expanded, setExpanded] = useState(true)
   const [hovered, setHovered]   = useState(false)
 
-  const children = Object.values(allPages)
-    .filter((p) => p.parentId === page.id)
-    .filter((p) => {
-      if (!searchQuery) return true
-      return matchesSearch(p, allPages, searchQuery)
-    })
-    .sort((a, b) => a.order - b.order)
+  const children = getSortedChildren(page.id, allPages, searchQuery)
 
   const hasChildren = children.length > 0
   const isSelected  = selectedId === page.id
@@ -91,14 +78,19 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
 
         {/* Name */}
         <span
-          className="flex-1 truncate"
+          className="flex flex-1 min-w-0 items-center gap-1 truncate"
           style={{
             fontSize: PREMIUM_TYPE.rowSize,
             fontWeight: PREMIUM_TYPE.rowWeight,
             lineHeight: PREMIUM_TYPE.lineHeightTight,
           }}
         >
-          {page.name}
+          <span className="truncate">{page.name}</span>
+          {page.type === 'navmenu' ? (
+            <span className="shrink-0 text-[9px] font-medium text-violet-600/80 dark:text-violet-400/90">
+              ({menuPlacementLabel(page.menuPlacement)})
+            </span>
+          ) : null}
         </span>
 
         {/* Route pill */}

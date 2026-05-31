@@ -8,7 +8,11 @@ export function inferCanvasMode(profileId: ArchProfileId | null): CanvasMode {
     profileId === 'saas' ||
     profileId === 'analytics' ||
     profileId === 'enterprise' ||
-    profileId === 'developer-console'
+    profileId === 'developer-console' ||
+    profileId === 'ai-assistant' ||
+    profileId === 'fintech' ||
+    profileId === 'cms' ||
+    profileId === 'task-manager'
   ) {
     return 'saas'
   }

@@ -10,7 +10,10 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "regenerate:sessions": "REGENERATE_SESSIONS=1 vitest run src/test/regenerate-page-sessions.integration.test.ts",
+    "test:a11y": "vitest run src/test/color-a11y.wcag.test.ts src/test/ui-button.a11y.test.tsx",
+    "a11y:report": "vitest run src/test/color-a11y.wcag.test.ts src/test/ui-button.a11y.test.tsx --reporter=verbose"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.78",
@@ -45,16 +48,20 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^22.15.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.21",
+    "axe-core": "^4.10.3",
     "happy-dom": "^15",
+    "playwright": "1.51.0",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.3",
-    "vitest": "^2"
+    "vitest": "^2",
+    "vitest-axe": "^0.1.0"
   },
   "engines": {
     "node": ">=18.0.0",

@@ -12,6 +12,8 @@
     "check:dashboard": "bash scripts/checks/check-dashboard-specs.sh",
     "scaffold:v3": "node scripts/scaffold-nezam-v3.js",
     "check:tokens": "bash .nezam/core/scripts/checks/check-design-tokens.sh",
+    "check:gate-5-a11y": "bash .nezam/core/scripts/checks/check-gate-5-a11y.sh",
+    "check:gate-5-a11y:report": "bash .nezam/core/scripts/reports/write-gate-5-a11y-report.sh",
     "check:specs": "bash .nezam/core/scripts/checks/check-spec-versions.sh",
     "check:all": "npm run check:tokens && npm run check:specs && npm run ai:check && npm run check:agent-bus && npm run skills:registry",
     "check:onboarding": "bash .nezam/core/scripts/checks/check-onboarding-readiness.sh",

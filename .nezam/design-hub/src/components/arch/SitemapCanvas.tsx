@@ -6,7 +6,10 @@ import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import { MicroServicesServerRack } from '@/components/arch/MicroServicesServerRack'
-import { getAppRoots } from '@/lib/arch/page-tree'
+import { ArchCanvasContextMenu, type ArchCanvasMenuState } from '@/components/arch/ArchCanvasContextMenu'
+import { compareSitemapSiblings, getAppRoots } from '@/lib/arch/page-tree'
+import { menuPlacementLabel } from '@/lib/arch/migrate-legacy-nav-menus'
+import { isEditableTarget } from '@/lib/design-hub/keyboard'
 import type { ArchPage, ServiceKind } from '@/types/arch'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -103,22 +106,26 @@ const ZOOM_STEP = 0.15
 
 function buildAppTree(
   pages: Record<string, ArchPage>,
-  parentId: string | null,
+  parentId: string,
   depth: number,
 ): TreeNode[] {
   return Object.values(pages)
-    .filter((p) => {
-      if (p.parentId !== parentId) return false
-      if (p.type === 'service') return false
-      if (parentId === null && p.type !== 'app') return false
-      return true
-    })
-    .sort((a, b) => a.order - b.order)
+    .filter((p) => p.parentId === parentId && p.type !== 'service')
+    .sort(compareSitemapSiblings)
     .map((page) => ({
       page,
       children: buildAppTree(pages, page.id, depth + 1),
       depth,
     }))
+}
+
+/** Application roots (app + group) for sitemap canvas — matches left tree. */
+function buildAppForest(pages: Record<string, ArchPage>): TreeNode[] {
+  return getAppRoots(pages).map((page) => ({
+    page,
+    children: buildAppTree(pages, page.id, 1),
+    depth: 0,
+  }))
 }
 
 // ─── Wired service bubbles ───────────────────────────────────────────────────
@@ -171,7 +178,15 @@ function WiredServiceBubbles({ page }: { page: ArchPage }) {
 
 // ─── Page card ────────────────────────────────────────────────────────────────
 
-function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) {
+function PageCard({
+  node,
+  onSelect,
+  onContextMenu,
+}: {
+  node: TreeNode
+  onSelect: () => void
+  onContextMenu: (pageId: string, e: React.MouseEvent) => void
+}) {
   const selectedId     = useHub((s) => s.arch.selectedPageId)
   const archSelectPage = useHub((s) => s.archSelectPage)
   const archAddPage    = useHub((s) => s.archAddPage)
@@ -191,6 +206,11 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
       {/* Card */}
       <div
         onClick={handleClick}
+        onContextMenu={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          onContextMenu(node.page.id, e)
+        }}
         data-page-id={node.page.id}
         className={cn(
           'group relative flex w-40 cursor-pointer flex-col gap-2 rounded-app border p-3.5 transition-all duration-150 select-none',
@@ -243,18 +263,30 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
           {node.page.route}
         </p>
 
-        {/* Nav slot badge */}
-        <div 
-          className="flex items-center gap-1 pl-1"
-          title={`Anchored to ${slotStyle.label} navigation placement`}
-        >
-          <span
-            className={cn("inline-block h-1.5 w-1.5 rounded-full", slotStyle.dotClass)}
-          />
-          <span className={cn("text-[9.5px] font-medium", slotStyle.textClass)}>
-            {slotStyle.label}
-          </span>
-        </div>
+        {/* Nav menu placement vs page shell slot */}
+        {node.page.type === 'navmenu' ? (
+          <div
+            className="flex items-center gap-1 pl-1"
+            title="Menu drives header and/or sidebar from one tree"
+          >
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500 dark:bg-violet-400" />
+            <span className="text-[9.5px] font-medium text-violet-700 dark:text-violet-300">
+              {menuPlacementLabel(node.page.menuPlacement)}
+            </span>
+          </div>
+        ) : (
+          <div
+            className="flex items-center gap-1 pl-1"
+            title={`Shell placement: ${slotStyle.label}`}
+          >
+            <span
+              className={cn('inline-block h-1.5 w-1.5 rounded-full', slotStyle.dotClass)}
+            />
+            <span className={cn('text-[9.5px] font-medium', slotStyle.textClass)}>
+              {slotStyle.label}
+            </span>
+          </div>
+        )}
 
         {/* Add child button — appears on hover */}
         {node.page.type !== 'section' && (
@@ -282,7 +314,7 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
             {node.children.map((child) => (
               <div key={child.page.id} className="flex flex-col items-center">
                 <div className="w-px h-5" />
-                <PageCard node={child} onSelect={onSelect} />
+                <PageCard node={child} onSelect={onSelect} onContextMenu={onContextMenu} />
               </div>
             ))}
           </div>
@@ -455,11 +487,12 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   const [connections, setConnections] = useState<Array<{ fromX: number; fromY: number; toX: number; toY: number; color: string; serviceKind: ServiceKind }>>([])
   const [treeLines, setTreeLines] = useState<Array<{ pathD: string }>>([])
   const [hoveredService, setHoveredService] = useState<ServiceKind | null>(null)
-  
+  const [contextMenu, setContextMenu] = useState<ArchCanvasMenuState>(null)
+
   const contentRef   = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const appRoots = buildAppTree(pages, null, 0)
+  const appRoots = buildAppForest(pages)
   const isEmpty =
     appRoots.length === 0 &&
     getAppRoots(pages).length === 0 &&
@@ -469,6 +502,14 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   const zoomIn  = useCallback(() => setZoom((z) => Math.min(+(z + ZOOM_STEP).toFixed(2), ZOOM_MAX)), [])
   const zoomOut = useCallback(() => setZoom((z) => Math.max(+(z - ZOOM_STEP).toFixed(2), ZOOM_MIN)), [])
   const fitZoom = useCallback(() => setZoom(1), [])
+
+  const openPageContextMenu = useCallback((pageId: string, e: React.MouseEvent) => {
+    setContextMenu({ kind: 'page', pageId, x: e.clientX, y: e.clientY })
+  }, [])
+
+  const openCanvasContextMenu = useCallback((e: React.MouseEvent) => {
+    setContextMenu({ kind: 'canvas', x: e.clientX, y: e.clientY })
+  }, [])
 
   // Dynamic service and tree connections calculations
   const updateWires = useCallback(() => {
@@ -632,16 +673,7 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   // Keyboard shortcuts
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      const activeEl = document.activeElement
-      if (
-        activeEl &&
-        (activeEl.tagName === 'INPUT' ||
-          activeEl.tagName === 'TEXTAREA' ||
-          activeEl.tagName === 'SELECT' ||
-          activeEl.getAttribute('contenteditable') === 'true')
-      ) {
-        return
-      }
+      if (isEditableTarget(document.activeElement)) return
 
       // Undo / Redo
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
@@ -763,8 +795,18 @@ export function SitemapCanvas({ onSelectPage }: Props) {
         </svg>
       )}
 
+      <ArchCanvasContextMenu menu={contextMenu} onClose={() => setContextMenu(null)} />
+
       {/* Scrollable zoom container */}
-      <div className="h-full overflow-auto app-scroll" onScroll={updateWires}>
+      <div
+        className="h-full overflow-auto app-scroll"
+        onScroll={updateWires}
+        onContextMenu={(e) => {
+          if ((e.target as HTMLElement).closest('[data-page-id]')) return
+          e.preventDefault()
+          openCanvasContextMenu(e)
+        }}
+      >
         <div
           style={{
             position: 'relative',
@@ -806,7 +848,12 @@ export function SitemapCanvas({ onSelectPage }: Props) {
               </svg>
               <div className="flex flex-wrap gap-16 justify-start items-start relative z-10">
                 {appRoots.map((root) => (
-                  <PageCard key={root.page.id} node={root} onSelect={onSelectPage} />
+                  <PageCard
+                    key={root.page.id}
+                    node={root}
+                    onSelect={onSelectPage}
+                    onContextMenu={openPageContextMenu}
+                  />
                 ))}
               </div>
             </>

@@ -6,6 +6,8 @@ import type { ArchPageType, NavSlot } from '@/types/arch'
 import { TopBar } from './TopBar'
 import { Onboarding } from './Onboarding'
 import { ExportSuccessModal } from './ExportSuccessModal'
+import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog'
+import { useDesignHubShortcuts } from '@/hooks/useDesignHubShortcuts'
 
 // Lazy-import sections to keep initial bundle small
 import dynamic from 'next/dynamic'
@@ -24,6 +26,7 @@ export function DesignHub() {
   const hubTheme = useHub((s) => s.hubTheme)
   const archPages = useHub((s) => s.arch.pages)
   const archHydratePages = useHub((s) => s.archHydratePages)
+  const { shortcutsOpen, setShortcutsOpen } = useDesignHubShortcuts()
 
   // Rehydrate persisted state on mount
   useEffect(() => {
@@ -109,42 +112,44 @@ export function DesignHub() {
   }, [archPages, archHydratePages])
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-app-bg text-app-text">
+    <div className="flex h-screen w-full flex-col overflow-hidden bg-app-bg text-app-text">
       {/* Onboarding overlay — shown on first visit */}
       <Onboarding />
 
       {/* Post-export next steps modal */}
       <ExportSuccessModal />
 
+      <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
+
       <TopBar />
-      <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 min-w-0 w-full flex-1">
         {section === 'architecture' && (
-          <div id="topbar-panel-architecture" role="tabpanel" aria-labelledby="topbar-tab-architecture" className="flex min-h-0 flex-1">
+          <div id="topbar-panel-architecture" role="tabpanel" aria-labelledby="topbar-tab-architecture" className="flex min-h-0 min-w-0 w-full flex-1">
             <ArchSection />
           </div>
         )}
         {section === 'wireframes' && (
-          <div id="topbar-panel-wireframes" role="tabpanel" aria-labelledby="topbar-tab-wireframes" className="flex min-h-0 flex-1">
+          <div id="topbar-panel-wireframes" role="tabpanel" aria-labelledby="topbar-tab-wireframes" className="flex min-h-0 min-w-0 w-full flex-1">
             <WireframesSection />
           </div>
         )}
         {section === 'design' && (
-          <div id="topbar-panel-design" role="tabpanel" aria-labelledby="topbar-tab-design" className="flex min-h-0 flex-1">
+          <div id="topbar-panel-design" role="tabpanel" aria-labelledby="topbar-tab-design" className="flex min-h-0 min-w-0 w-full flex-1">
             <DesignSection />
           </div>
         )}
         {section === 'components' && (
-          <div id="topbar-panel-components" role="tabpanel" aria-labelledby="topbar-tab-components" className="flex min-h-0 flex-1">
+          <div id="topbar-panel-components" role="tabpanel" aria-labelledby="topbar-tab-components" className="flex min-h-0 min-w-0 w-full flex-1">
             <ComponentsSection />
           </div>
         )}
         {section === 'theming' && (
-          <div id="topbar-panel-theming" role="tabpanel" aria-labelledby="topbar-tab-theming" className="flex min-h-0 flex-1">
+          <div id="topbar-panel-theming" role="tabpanel" aria-labelledby="topbar-tab-theming" className="flex min-h-0 min-w-0 w-full flex-1">
             <ThemingSection />
           </div>
         )}
         {section === 'preview' && (
-          <div id="topbar-panel-preview" role="tabpanel" aria-labelledby="topbar-tab-preview" className="flex min-h-0 flex-1">
+          <div id="topbar-panel-preview" role="tabpanel" aria-labelledby="topbar-tab-preview" className="flex min-h-0 min-w-0 w-full flex-1">
             <PreviewSection />
           </div>
         )}

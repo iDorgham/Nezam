@@ -27,10 +27,12 @@ export function hasBlockPreview(blockType: string): boolean {
 export function BlockPreview({
   blockType,
   compact = false,
+  sidebarColumn = false,
   className,
 }: {
   blockType: string
   compact?: boolean
+  sidebarColumn?: boolean
   className?: string
 }) {
   if (hasArtShadcnBlockPreview(blockType)) {
@@ -41,10 +43,24 @@ export function BlockPreview({
   }
 
   if (hasShadcnBlockPreview(blockType)) {
-    return <ShadcnBlockPreview blockType={blockType} compact={compact} className={className} />
+    return (
+      <ShadcnBlockPreview
+        blockType={blockType}
+        compact={compact}
+        sidebarColumn={sidebarColumn}
+        className={className}
+      />
+    )
   }
 
-  return <ShadcnBlockPreview blockType={blockType} compact={compact} className={className} />
+  return (
+    <ShadcnBlockPreview
+      blockType={blockType}
+      compact={compact}
+      sidebarColumn={sidebarColumn}
+      className={className}
+    />
+  )
 }
 
 /** @deprecated Use hasBlockPreview */

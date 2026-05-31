@@ -13,7 +13,7 @@ export function LeftPanelTitleRow({
   className?: string
 }) {
   return (
-    <div className={cn('shrink-0 h-10 px-3 border-b border-app-border bg-app-bg/70 flex items-center justify-between gap-2', className)}>
+    <div className={cn('shrink-0 flex min-h-10 items-center justify-between gap-2 border-b border-app-border bg-app-bg/70 px-3', className)}>
       <div className="min-w-0 truncate text-xs font-semibold text-app-text">{title}</div>
       {rightSlot ? <div className="shrink-0">{rightSlot}</div> : null}
     </div>

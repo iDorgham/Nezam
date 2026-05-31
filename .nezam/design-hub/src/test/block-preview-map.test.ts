@@ -9,7 +9,7 @@ import {
 describe('block preview map', () => {
   it('lists dedicated previews for every registry block type', () => {
     const registryTypes = getAllRegistryBlockTypes()
-    expect(registryTypes.length).toBe(53)
+    expect(registryTypes.length).toBe(93)
 
     for (const type of registryTypes) {
       expect(hasDedicatedPreview(type)).toBe(true)

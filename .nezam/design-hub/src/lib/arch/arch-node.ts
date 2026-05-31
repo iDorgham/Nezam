@@ -150,6 +150,7 @@ export function createArchPageDefaults(
       menuPlacement: 'main',
       menuHasIcons: true,
       menuPresentation: 'dropdown',
+      menuSidebarPresentation: 'tree',
     }
   }
 

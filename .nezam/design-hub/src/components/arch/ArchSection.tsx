@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useHub } from '@/store/hub.store'
 import { ArchLeftPanel } from './ArchLeftPanel'
 import { SitemapCanvas } from './SitemapCanvas'
@@ -12,22 +11,8 @@ export function ArchSection() {
   const selectedServiceId = useHub((s) => s.arch.selectedServiceId)
   const archSelectPage = useHub((s) => s.archSelectPage)
   const archSelectService = useHub((s) => s.archSelectService)
-  const archUndo       = useHub((s) => s.archUndo)
-  const archRedo       = useHub((s) => s.archRedo)
 
   const showDetail = !!selectedPageId || !!selectedServiceId
-
-  // Keyboard shortcuts: ⌘Z / Ctrl+Z = undo, ⌘⇧Z / Ctrl+Y = redo
-  useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      const mod = e.metaKey || e.ctrlKey
-      if (!mod) return
-      if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); archUndo() }
-      if ((e.key === 'z' && e.shiftKey) || e.key === 'y') { e.preventDefault(); archRedo() }
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [archUndo, archRedo])
 
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">

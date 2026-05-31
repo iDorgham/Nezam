@@ -1,18 +1,26 @@
 'use client'
 
-import { type ReactNode, useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useHub } from '@/store/hub.store'
-import { getPaletteByCategory, type WireframeBlockDescriptor } from '@/lib/wireframe/blockRegistry'
+import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
+import { useDesignPreviewScopeStyle } from '@/lib/use-design-preview-scope'
+import {
+  countPaletteBlocks,
+  formatPaletteCategoryLabel,
+  getPaletteByCategory,
+  type WireframeBlockDescriptor,
+} from '@/lib/wireframe/blockRegistry'
+import { inferCanvasMode } from '@/lib/wireframe/canvas-mode'
+import { PaletteCategorySection } from './PaletteCategorySection'
 import { buildSeedPageSections } from '@/lib/wireframe/seed-page-session'
+import { isSidebarShellLayout, splitSidebarShellSections } from '@/lib/wireframe/sidebar-shell-layout'
 import { buildArchToLockMap, getEligibleArchPages, toLockPageId } from '@/lib/wireframe/arch-page-map'
 import { WireframePageTree } from './WireframePageTree'
 import { WireframeBlockSlot } from './WireframeBlockSlot'
-import { WireframeBlockPreview } from './WireframeBlockPreview'
-import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
+import { LeftPanelSearchRow, LeftPanelTitleRow } from '@/components/ui/LeftPanelHeader'
 import { cn } from '@/lib/utils'
 
 type PageSessionSection = {
@@ -56,7 +64,7 @@ function InlineNotice({
 
   return (
     <div
-      className={cn('mt-4 rounded-app-sm border px-3 py-2 text-[10.5px]', classes)}
+      className={cn('rounded-app-sm border px-3 py-2 text-[11px] leading-snug', classes)}
       role={tone === 'error' ? 'alert' : 'status'}
       aria-live="polite"
     >
@@ -66,8 +74,20 @@ function InlineNotice({
 }
 
 export function WireframesSection() {
+  const section = useHub((s) => s.section)
+  const archSelectedPageId = useHub((s) => s.arch.selectedPageId)
   const archPages = useHub((s) => s.arch.pages)
   const archProfileId = useHub((s) => s.arch.activeProfileId)
+  const designProfileId = useHub((s) => s.design.activeProfileId)
+  const hubTheme = useHub((s) => s.hubTheme)
+  const pagePreviewScopeStyle = useDesignPreviewScopeStyle({ fillHeight: true, matchHubChrome: true })
+  const wireframeCanvasStyle = useMemo(
+    () => ({
+      ...pagePreviewScopeStyle,
+      backgroundColor: hubTheme === 'dark' ? '#0C0D0F' : '#F4F5F7',
+    }),
+    [pagePreviewScopeStyle, hubTheme],
+  )
 
   const eligiblePages = useMemo(() => getEligibleArchPages(archPages), [archPages])
   const archToLockMap = useMemo(() => buildArchToLockMap(eligiblePages), [eligiblePages])
@@ -98,6 +118,19 @@ export function WireframesSection() {
   const [savedSessions, setSavedSessions] = useState<Record<string, SavedSessionSummary>>({})
   const [lastLoadedSignature, setLastLoadedSignature] = useState<string>('[]')
   const [paletteSearch, setPaletteSearch] = useState('')
+  const [showAllCanvasModes, setShowAllCanvasModes] = useState(false)
+  const [paletteCategoryFilter, setPaletteCategoryFilter] = useState<string>('all')
+  const [collapsedPaletteCategories, setCollapsedPaletteCategories] = useState<Record<string, boolean>>(
+    {},
+  )
+
+  const wireframePagesRef = useRef(wireframePages)
+  wireframePagesRef.current = wireframePages
+
+  const archPageIdsKey = useMemo(
+    () => wireframePages.map((wp) => wp.page.id).join('|'),
+    [wireframePages],
+  )
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -113,9 +146,24 @@ export function WireframesSection() {
   }, [wireframePages])
 
   useEffect(() => {
+    if (section !== 'wireframes') return
+    if (!archSelectedPageId) return
+    if (!wireframePages.some((wp) => wp.page.id === archSelectedPageId)) return
+    setSelectedArchPageId(archSelectedPageId)
+  }, [section, archSelectedPageId, wireframePages])
+
+  useEffect(() => {
+    if (archPageIdsKey.length === 0) {
+      setSavedSessions({})
+      return
+    }
+
+    let cancelled = false
+    const pages = wireframePagesRef.current
+
     async function indexSavedSessions() {
       const entries = await Promise.all(
-        wireframePages.map(async ({ page }) => {
+        pages.map(async ({ page }) => {
           try {
             const res = await fetch(`/api/pages/${encodeURIComponent(page.id)}`)
             const data = await res.json().catch(() => ({}))
@@ -140,15 +188,29 @@ export function WireframesSection() {
           }
         }),
       )
-      setSavedSessions(Object.fromEntries(entries))
+      if (!cancelled) {
+        setSavedSessions(Object.fromEntries(entries))
+      }
     }
 
-    if (wireframePages.length === 0) {
-      setSavedSessions({})
-      return
+    const run = () => {
+      if (!cancelled) void indexSavedSessions()
     }
-    void indexSavedSessions()
-  }, [wireframePages])
+
+    const idleHandle =
+      typeof requestIdleCallback !== 'undefined'
+        ? requestIdleCallback(run, { timeout: 2500 })
+        : window.setTimeout(run, 16)
+
+    return () => {
+      cancelled = true
+      if (typeof requestIdleCallback !== 'undefined') {
+        cancelIdleCallback(idleHandle as number)
+      } else {
+        clearTimeout(idleHandle as number)
+      }
+    }
+  }, [archPageIdsKey])
 
   useEffect(() => {
     async function loadSession(archPageId: string) {
@@ -156,7 +218,7 @@ export function WireframesSection() {
       setSessionError(null)
       setSaveSuccess(null)
       try {
-        const selected = wireframePages.find((wp) => wp.page.id === archPageId)
+        const selected = wireframePagesRef.current.find((wp) => wp.page.id === archPageId)
         const res = await fetch(`/api/pages/${encodeURIComponent(archPageId)}`)
         const data = await res.json().catch(() => ({}))
         const loadedSections = Array.isArray(data?.session?.sections) ? data.session.sections : []
@@ -184,34 +246,76 @@ export function WireframesSection() {
 
     if (!selectedArchPageId) return
     void loadSession(selectedArchPageId)
-  }, [selectedArchPageId, wireframePages, archProfileId])
+  }, [selectedArchPageId, archProfileId])
 
-  const palette = useMemo(() => getPaletteByCategory(archProfileId), [archProfileId])
+  const palette = useMemo(
+    () => getPaletteByCategory(archProfileId, { includeAllModes: showAllCanvasModes }),
+    [archProfileId, showAllCanvasModes],
+  )
+
+  const paletteBlockCount = useMemo(
+    () => countPaletteBlocks(archProfileId, { includeAllModes: showAllCanvasModes }),
+    [archProfileId, showAllCanvasModes],
+  )
+
+  const canvasModeLabel = inferCanvasMode(archProfileId)
+
+  const sidebarCanvasLayout = useMemo(() => isSidebarShellLayout(sections), [sections])
+  const sidebarCanvasSplit = useMemo(() => splitSidebarShellSections(sections), [sections])
 
   const filteredPalette = useMemo(() => {
     const q = paletteSearch.trim().toLowerCase()
-    if (!q) return palette
-    return palette
-      .map((cat) => ({
-        ...cat,
-        blocks: cat.blocks.filter(
-          (b) =>
-            b.name.toLowerCase().includes(q) ||
-            b.type.toLowerCase().includes(q) ||
-            (b.description?.toLowerCase().includes(q) ?? false),
-        ),
-      }))
-      .filter((cat) => cat.blocks.length > 0)
-  }, [palette, paletteSearch])
+    let next = palette
+    if (q) {
+      next = palette
+        .map((cat) => ({
+          ...cat,
+          blocks: cat.blocks.filter(
+            (b) =>
+              b.name.toLowerCase().includes(q) ||
+              b.type.toLowerCase().includes(q) ||
+              (b.description?.toLowerCase().includes(q) ?? false),
+          ),
+        }))
+        .filter((cat) => cat.blocks.length > 0)
+    }
+    if (paletteCategoryFilter === 'all') return next
+    return next.filter((cat) => cat.category === paletteCategoryFilter)
+  }, [palette, paletteSearch, paletteCategoryFilter])
 
-  function addBlock(block: WireframeBlockDescriptor) {
+  const visiblePaletteBlockCount = useMemo(
+    () => filteredPalette.reduce((sum, cat) => sum + cat.blocks.length, 0),
+    [filteredPalette],
+  )
+
+  const paletteCategoryFilters = useMemo(() => {
+    const withBlocks = palette.filter((cat) => cat.blocks.length > 0)
+    return [{ id: 'all', label: 'All', count: paletteBlockCount }, ...withBlocks.map((cat) => ({
+      id: cat.category,
+      label: formatPaletteCategoryLabel(cat.category),
+      count: cat.blocks.length,
+    }))]
+  }, [palette, paletteBlockCount])
+
+  const togglePaletteCategory = useCallback((category: string) => {
+    setCollapsedPaletteCategories((prev) => {
+      if (prev[category] === true) {
+        const next = { ...prev }
+        delete next[category]
+        return next
+      }
+      return { ...prev, [category]: true }
+    })
+  }, [])
+
+  const addBlock = useCallback((block: WireframeBlockDescriptor) => {
     setSessionError(null)
     setSaveSuccess(null)
 
     const next: PageSessionSection = {
       section_id: crypto.randomUUID(),
       block_type: block.type,
-      order: sections.length,
+      order: 0,
       approved: true,
       locked_props: {},
       flexible_props: {},
@@ -219,25 +323,25 @@ export function WireframesSection() {
       states: {},
     }
 
-    setSections((prev) => [...prev, next])
-  }
+    setSections((prev) => [...prev, { ...next, order: prev.length }])
+  }, [])
 
-  function removeSection(sectionId: string) {
+  const removeSection = useCallback((sectionId: string) => {
     setSessionError(null)
     setSaveSuccess(null)
     setSections((prev) => {
       const next = prev.filter((s) => s.section_id !== sectionId)
       return next.map((s, idx) => ({ ...s, order: idx }))
     })
-  }
+  }, [])
 
-  function toggleApproved(sectionId: string, nextApproved: boolean) {
+  const toggleApproved = useCallback((sectionId: string, nextApproved: boolean) => {
     setSessionError(null)
     setSaveSuccess(null)
     setSections((prev) =>
       prev.map((s) => (s.section_id === sectionId ? { ...s, approved: nextApproved } : s)),
     )
-  }
+  }, [])
 
   function handleDragEnd(e: DragEndEvent) {
     const activeId = String(e.active.id)
@@ -345,10 +449,21 @@ export function WireframesSection() {
     return 'Empty'
   }
 
+  const activeDesignProfile = designProfileId ? DESIGN_PROFILES_MAP[designProfileId] : null
+
+  const profileLabel = activeDesignProfile ? (
+    <span className="font-medium text-app-text">
+      {activeDesignProfile.emoji} {activeDesignProfile.name}
+    </span>
+  ) : (
+    <span className="font-medium text-app-text">design profile</span>
+  )
+
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">
-      <div className="w-80 shrink-0 border-r border-app-border bg-app-surface flex flex-col min-h-0 overflow-hidden p-4">
+      <aside className="flex w-72 shrink-0 flex-col overflow-hidden border-r border-app-border bg-app-surface">
         <WireframePageTree
+          bleed={false}
           pages={archPages}
           selectedArchPageId={selectedArchPageId}
           lockIdByArchId={lockIdByArchId}
@@ -358,16 +473,16 @@ export function WireframesSection() {
           getSavedCount={getSavedCount}
           title="Wireframe pages"
         />
-      </div>
+      </aside>
 
-      <div className="relative flex min-w-0 flex-1 overflow-hidden">
-        <div className="flex-1 overflow-auto p-4">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <div className="text-sm font-bold text-app-text">
-                  Blocks for {selectedRow ? selectedRow.page.name : '—'}
-                </div>
+      <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden bg-app-bg/40">
+        <header className="shrink-0 border-b border-app-border bg-app-surface/90 px-6 py-4 backdrop-blur-sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div className="min-w-0 space-y-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="text-sm font-semibold text-app-text">
+                  {selectedRow ? selectedRow.page.name : 'Select a page'}
+                </h2>
                 {selectedArchPageId ? (
                   <span
                     className={cn(
@@ -379,25 +494,25 @@ export function WireframesSection() {
                   </span>
                 ) : null}
               </div>
-              <div className="text-[10px] text-app-subtle mt-1">
-                Drag to reorder illustrated blocks. Save this page session before locking.
-              </div>
               {selectedRow ? (
-                <div className="text-[10px] text-app-subtle mt-1 font-mono">
+                <p className="font-mono text-[10px] text-app-subtle">
                   {selectedRow.page.route} · {selectedRow.lockId}
-                </div>
+                </p>
               ) : null}
+              <p className="max-w-xl text-xs leading-relaxed text-app-subtle">
+                Reorder blocks on the canvas. Previews follow {profileLabel}; save before lock and export.
+              </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={resetToTemplate}
                 disabled={loadingSession || !selectedArchPageId}
                 className={cn(
-                  'h-8 px-3 rounded-app-sm border transition-colors select-none',
+                  'h-8 rounded-app-sm border px-3 text-xs transition-colors select-none',
                   loadingSession || !selectedArchPageId
-                    ? 'border-app-border bg-app-bg text-app-muted cursor-not-allowed'
+                    ? 'cursor-not-allowed border-app-border bg-app-bg text-app-muted'
                     : 'border-app-border bg-app-bg text-app-text hover:bg-app-elevated',
                 )}
               >
@@ -408,9 +523,9 @@ export function WireframesSection() {
                 onClick={saveSession}
                 disabled={saveBusy || loadingSession || !selectedArchPageId}
                 className={cn(
-                  'h-8 px-4 rounded-app-sm border transition-colors select-none',
+                  'h-8 rounded-app-sm border px-4 text-xs transition-colors select-none',
                   saveBusy || loadingSession || !selectedArchPageId
-                    ? 'border-app-border bg-app-bg text-app-muted cursor-not-allowed'
+                    ? 'cursor-not-allowed border-app-border bg-app-bg text-app-muted'
                     : 'border-transparent bg-app-accent text-app-on-accent hover:bg-app-accent-hover',
                 )}
               >
@@ -419,89 +534,153 @@ export function WireframesSection() {
             </div>
           </div>
 
-          {loadingSession ? <InlineNotice tone="info">Loading session…</InlineNotice> : null}
-          {sessionError ? <InlineNotice tone="error">{sessionError}</InlineNotice> : null}
-          {saveSuccess ? <InlineNotice tone="success">{saveSuccess}</InlineNotice> : null}
+          {(loadingSession || sessionError || saveSuccess) ? (
+            <div className="flex flex-col gap-2 border-t border-app-border/60 pt-3">
+              {loadingSession ? <InlineNotice tone="info">Loading session…</InlineNotice> : null}
+              {sessionError ? <InlineNotice tone="error">{sessionError}</InlineNotice> : null}
+              {saveSuccess ? <InlineNotice tone="success">{saveSuccess}</InlineNotice> : null}
+            </div>
+          ) : null}
+        </header>
 
-          <div className="mt-4 max-w-4xl mx-auto wf-page-frame px-6 py-7">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          <div
+            className="wf-page-canvas relative z-[1] flex min-h-0 flex-1 flex-col"
+            style={wireframeCanvasStyle}
+          >
             <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
               <SortableContext
                 items={sections.map((s) => s.section_id)}
                 strategy={verticalListSortingStrategy}
               >
-                <div className="flex flex-col gap-3">
-                  {sections.length === 0 ? (
-                    <div className="relative z-[1] rounded-app-md border border-app-border bg-app-surface px-4 py-5 text-center">
-                      <p className="text-[11px] font-medium text-app-text">No blocks on this page yet</p>
-                      <p className="text-[10px] text-app-subtle mt-1 max-w-sm mx-auto">
-                        Pick blocks from the palette on the right, or use Reset to template. Save session before lock
-                        and export.
-                      </p>
+                {sidebarCanvasLayout && sidebarCanvasSplit.sidebar ? (
+                  <div className="grid min-h-0 flex-1 grid-cols-1 overflow-hidden md:grid-cols-[15rem_1fr]">
+                    <div className="flex min-h-0 flex-col overflow-hidden border-b border-app-border px-3 pt-3 pb-3 md:h-full md:border-b-0 md:border-r">
+                      <WireframeBlockSlot
+                        section={sidebarCanvasSplit.sidebar}
+                        onRemove={removeSection}
+                        onToggleApproved={toggleApproved}
+                        sidebarColumn
+                      />
                     </div>
-                  ) : null}
+                    <div className="min-h-0 overflow-y-auto overscroll-contain app-scroll px-4 pt-4 pb-6">
+                      {sidebarCanvasSplit.main.length === 0 ? (
+                        <div className="py-12 text-center">
+                          <p className="text-sm font-medium text-app-text">No main blocks yet</p>
+                          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-app-subtle">
+                            Add blocks from the palette to the main column.
+                          </p>
+                        </div>
+                      ) : (
+                        sidebarCanvasSplit.main.map((section) => (
+                          <WireframeBlockSlot
+                            key={section.section_id}
+                            section={section}
+                            onRemove={removeSection}
+                            onToggleApproved={toggleApproved}
+                          />
+                        ))
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain app-scroll px-4 pt-4 pb-6">
+                    {sections.length === 0 ? (
+                      <div className="py-12 text-center">
+                        <p className="text-sm font-medium text-app-text">No blocks yet</p>
+                        <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-app-subtle">
+                          Add from the palette, or reset to the architecture template, then save the session.
+                        </p>
+                      </div>
+                    ) : null}
 
-                  {sections.map((section) => (
-                    <WireframeBlockSlot
-                      key={section.section_id}
-                      section={section}
-                      onRemove={removeSection}
-                      onToggleApproved={toggleApproved}
-                    />
-                  ))}
-                </div>
+                    {sections.map((section) => (
+                      <WireframeBlockSlot
+                        key={section.section_id}
+                        section={section}
+                        onRemove={removeSection}
+                        onToggleApproved={toggleApproved}
+                      />
+                    ))}
+                  </div>
+                )}
               </SortableContext>
             </DndContext>
           </div>
         </div>
-      </div>
+      </main>
 
-      <div className="w-96 shrink-0 border-l border-app-border bg-app-surface overflow-auto p-4 flex flex-col min-h-0">
-        <div className="text-sm font-bold text-app-text">Block palette</div>
-        <div className="text-[10px] text-app-subtle mt-1">
-          Click a block to add it to the selected page. Filtered for your profile canvas mode.
+      <aside className="flex w-96 shrink-0 flex-col overflow-hidden border-l border-app-border bg-app-surface">
+        <LeftPanelTitleRow title="Block palette" />
+        <div className="shrink-0 space-y-2 border-b border-app-border px-3 py-3">
+          <p className="text-[11px] leading-relaxed text-app-subtle">
+            Click or drag to add. Previews use {profileLabel}. Showing{' '}
+            <span className="font-medium text-app-text">{visiblePaletteBlockCount}</span> of{' '}
+            <span className="font-medium text-app-text">{paletteBlockCount}</span> blocks for{' '}
+            <span className="font-medium text-app-text">{canvasModeLabel}</span> canvas
+            {showAllCanvasModes ? ' (all modes)' : ''}.
+          </p>
+          <label className="flex cursor-pointer items-center gap-2 text-[11px] text-app-subtle">
+            <input
+              type="checkbox"
+              className="h-3.5 w-3.5 rounded border-app-border accent-app-accent"
+              checked={showAllCanvasModes}
+              onChange={(e) => setShowAllCanvasModes(e.target.checked)}
+            />
+            Show blocks for all canvas modes (mobile, SaaS, web)
+          </label>
         </div>
-
-        <div className="mt-3">
+        <LeftPanelSearchRow className="bg-app-surface">
           <Input
-            placeholder="Search blocks…"
+            placeholder="Search name, type, or description…"
             value={paletteSearch}
             onChange={(e) => setPaletteSearch(e.target.value)}
             className="h-8 text-xs"
             aria-label="Search block palette"
           />
+        </LeftPanelSearchRow>
+
+        <div className="shrink-0 border-b border-app-border px-3 py-2">
+          <div className="app-scroll flex gap-2 overflow-x-auto pb-1">
+            {paletteCategoryFilters.map((filter) => (
+              <button
+                key={filter.id}
+                type="button"
+                onClick={() => setPaletteCategoryFilter(filter.id)}
+                className={cn(
+                  'shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-medium transition-colors',
+                  paletteCategoryFilter === filter.id
+                    ? 'border-app-accent/50 bg-app-accent/15 text-app-text'
+                    : 'border-app-border bg-app-bg text-app-muted hover:bg-app-elevated hover:text-app-text',
+                )}
+              >
+                {filter.label}
+                <span className="ml-1 tabular-nums text-app-subtle">({filter.count})</span>
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-4 flex flex-col gap-4 flex-1 min-h-0">
-          {filteredPalette.length === 0 ? (
-            <p className="text-[10px] text-app-subtle">No blocks match your search.</p>
-          ) : null}
-          {filteredPalette.map((cat, catIndex) => (
-            <div key={cat.category}>
-              {catIndex > 0 ? <Separator className="mb-4 bg-app-border" /> : null}
-              <Badge variant="muted" className="uppercase tracking-wide text-[9px]">
-                {cat.category}
-              </Badge>
-              <div className="mt-2 flex flex-col gap-2">
-                {cat.blocks.map((block) => (
-                  <button
-                    key={block.type}
-                    type="button"
-                    onClick={() => addBlock(block)}
-                    className="text-left rounded-app-md border border-app-border bg-app-bg p-2 min-h-[108px] hover:bg-app-elevated hover:border-app-accent/30 transition-colors select-none overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
-                    title={block.description ?? block.type}
-                  >
-                    <WireframeBlockPreview blockType={block.type} compact showCaption={false} />
-                    <div className="mt-2 px-0.5">
-                      <div className="text-[11px] font-semibold text-app-text truncate">{block.name}</div>
-                      <div className="text-[9.5px] text-app-subtle/90 font-mono truncate">{block.type}</div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div className="app-scroll min-h-0 flex-1 overflow-y-auto px-3 py-4">
+          <div className="flex flex-col gap-4">
+            {filteredPalette.length === 0 ? (
+              <p className="text-xs text-app-subtle">
+                No blocks match your search. Try clearing the filter or enabling all canvas modes.
+              </p>
+            ) : null}
+            {filteredPalette.map((cat) => (
+              <PaletteCategorySection
+                key={cat.category}
+                category={cat.category}
+                blocks={cat.blocks}
+                expanded={collapsedPaletteCategories[cat.category] !== true}
+                onToggle={() => togglePaletteCategory(cat.category)}
+                onAdd={addBlock}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </aside>
     </div>
   )
 }

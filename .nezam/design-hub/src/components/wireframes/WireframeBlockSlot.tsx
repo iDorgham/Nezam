@@ -2,6 +2,7 @@
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { GripVertical } from 'lucide-react'
 import { WireframeBlockPreview } from './WireframeBlockPreview'
 import { getBlockDescriptor } from '@/lib/wireframe/blockRegistry'
 import { Badge } from '@/components/ui/badge'
@@ -18,9 +19,11 @@ interface Props {
   section: PageSessionSection
   onRemove: (sectionId: string) => void
   onToggleApproved: (sectionId: string, nextApproved: boolean) => void
+  /** Left column in sidebar-shell canvas: preview fills column height. */
+  sidebarColumn?: boolean
 }
 
-export function WireframeBlockSlot({ section, onRemove, onToggleApproved }: Props) {
+export function WireframeBlockSlot({ section, onRemove, onToggleApproved, sidebarColumn = false }: Props) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: section.section_id,
   })
@@ -33,15 +36,44 @@ export function WireframeBlockSlot({ section, onRemove, onToggleApproved }: Prop
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
-        'group relative z-[1] rounded-app-md border border-app-border/80 bg-app-surface/40 overflow-hidden',
-        isDragging && 'opacity-90 shadow-md ring-2 ring-app-accent/20 z-10',
-        section.approved && 'ring-1 ring-app-success/25',
-        !section.approved && !isDragging && 'opacity-90',
+        'group',
+        sidebarColumn
+          ? 'flex h-full min-h-0 flex-col'
+          : 'border-b border-app-border/60 pb-4 last:border-b-0 last:pb-0',
+        isDragging && 'z-10 opacity-90',
       )}
     >
-      <div className="relative px-3 pt-3 pb-3">
-        <div className="absolute right-2 top-2 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-          <label className="flex items-center gap-1 cursor-pointer">
+      <div className="mb-2 flex shrink-0 items-start gap-2">
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          className="mt-0.5 flex h-8 w-7 shrink-0 cursor-grab items-center justify-center rounded-app-sm border border-app-border bg-app-surface text-app-muted hover:bg-app-elevated hover:text-app-text active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
+          title="Drag to reorder"
+          aria-label="Drag to reorder"
+        >
+          <GripVertical className="h-4 w-4" />
+        </button>
+
+        <div className="min-w-0 flex-1 pt-0.5">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+            <span className="text-[10px] font-mono tabular-nums text-app-subtle">#{section.order + 1}</span>
+            <span className="truncate text-sm font-medium text-app-text">{label}</span>
+            {section.approved ? (
+              <Badge variant="success" className="shrink-0 text-[8px]">
+                Approved
+              </Badge>
+            ) : (
+              <Badge variant="muted" className="shrink-0 text-[8px]">
+                Draft
+              </Badge>
+            )}
+          </div>
+          <p className="mt-0.5 truncate font-mono text-[10px] text-app-subtle">{section.block_type}</p>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
+          <label className="flex cursor-pointer items-center gap-2">
             <input
               type="checkbox"
               checked={section.approved}
@@ -49,55 +81,33 @@ export function WireframeBlockSlot({ section, onRemove, onToggleApproved }: Prop
               className="h-3.5 w-3.5 accent-app-accent"
               title="Approve block"
             />
-            <span className="sr-only">Approve block</span>
+            <span className="text-[10px] text-app-subtle">Approve</span>
           </label>
           <button
             type="button"
             onClick={() => onRemove(section.section_id)}
-            className="h-7 px-2.5 rounded-app-sm border border-app-border bg-app-surface text-[10px] text-app-subtle hover:text-app-text hover:bg-app-elevated transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
+            className="h-7 rounded-app-sm border border-app-border bg-app-surface px-2.5 text-[10px] text-app-subtle transition-colors hover:bg-app-elevated hover:text-app-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
           >
             Remove
           </button>
         </div>
+      </div>
 
-        <button
-          type="button"
-          {...attributes}
-          {...listeners}
-          className="absolute left-2 top-2 z-10 cursor-grab active:cursor-grabbing select-none rounded-app-sm border border-app-border bg-app-surface px-2 py-1 text-[10px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
-          title="Drag to reorder"
-        >
-          ⋮⋮
-        </button>
-
-        <div className="pt-7">
-          <WireframeBlockPreview
-            blockType={section.block_type}
-            showCaption={false}
-            className="opacity-[0.98]"
-          />
-        </div>
-
-        <div className="mt-2 flex items-center justify-between gap-2 px-1">
-          <div className="min-w-0 flex items-center gap-2">
-            <span className="text-[9px] font-mono text-app-subtle tabular-nums shrink-0">
-              #{section.order + 1}
-            </span>
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold text-app-text truncate">{label}</div>
-              <div className="text-[9px] text-app-subtle font-mono truncate">{section.block_type}</div>
-            </div>
-          </div>
-          {section.approved ? (
-            <Badge variant="success" className="shrink-0 text-[8px]">
-              Approved
-            </Badge>
-          ) : (
-            <Badge variant="muted" className="shrink-0 text-[8px]">
-              Draft
-            </Badge>
-          )}
-        </div>
+      <div
+        className={cn(
+          'overflow-hidden rounded-app-md border border-app-border bg-app-surface',
+          section.approved && 'ring-1 ring-app-success/20',
+          sidebarColumn && 'flex min-h-0 flex-1 flex-col',
+        )}
+      >
+        <WireframeBlockPreview
+          blockType={section.block_type}
+          sidebarColumn={sidebarColumn}
+          showCaption={false}
+          lazy
+          lazyRootMargin="200px"
+          className={sidebarColumn ? 'flex min-h-0 flex-1 flex-col' : undefined}
+        />
       </div>
     </div>
   )

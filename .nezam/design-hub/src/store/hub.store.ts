@@ -13,10 +13,24 @@ import {
 } from '@/lib/arch/arch-node'
 import type { DesignTokens, TokenCategory, DesignProfileId } from '@/types/design'
 import type { ComponentGroup } from '@/data/components-library'
+import {
+  COMP_CARD_SCALE_DEFAULT,
+  COMP_GRID_COLUMNS_DEFAULT,
+  clampCardScale,
+  clampGridColumns,
+} from '@/store/comp-grid'
 import { ARCH_PROFILES_MAP } from '@/data/arch-profiles'
 import { getCatalogProvider } from '@/lib/arch/service-catalog'
+import { migrateLegacyNavMenus } from '@/lib/arch/migrate-legacy-nav-menus'
 import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
+import {
+  buildPreviewOverrideFromSnapshot,
+  buildThemeEditorSnapshot,
+  type ThemeEditorSnapshot,
+} from '@/lib/design-to-theme'
 import { hexToHsl, hslToHex } from '@/components/theming/color-utils'
+
+export type { ThemeEditorSnapshot } from '@/lib/design-to-theme'
 
 // ─── Version ─────────────────────────────────────────────────────────────────
 
@@ -84,6 +98,8 @@ interface DesignState {
 interface ThemeState {
   previewOverride: ThemePreviewOverride | null
   savedProfiles:   SavedColorProfile[]
+  /** Theme editor UI + preview, synced from onboarding / Design profile apply. */
+  editorSnapshot: ThemeEditorSnapshot | null
 }
 
 // ─── Preview state ────────────────────────────────────────────────────────────
@@ -124,6 +140,10 @@ interface CompState {
   selectedGroup: ComponentGroup | null
   /** Search query string. */
   query: string
+  /** Fixed column count for the component catalog grid (2–6). */
+  gridColumns: number
+  /** Preview/card scale multiplier (0.75–1.35). */
+  cardScale: number
 }
 
 // ─── Onboarding state ─────────────────────────────────────────────────────────
@@ -195,6 +215,8 @@ interface HubStore {
   // ── Components actions ──
   compSetGroup(group: ComponentGroup | null): void
   compSetQuery(query: string): void
+  compSetGridColumns(columns: number): void
+  compSetCardScale(scale: number): void
 
   // ── Onboarding actions ──
   onboardingSetStep(step: number): void
@@ -326,6 +348,7 @@ export const useHub = create<HubStore>()(
       theme: {
         previewOverride: null,
         savedProfiles:   [],
+        editorSnapshot: null,
       },
 
       preview: {
@@ -341,6 +364,8 @@ export const useHub = create<HubStore>()(
       comp: {
         selectedGroup: null,
         query: '',
+        gridColumns: COMP_GRID_COLUMNS_DEFAULT,
+        cardScale: COMP_CARD_SCALE_DEFAULT,
       },
 
       // ── Section ──────────────────────────────────────────────────────────────
@@ -642,6 +667,15 @@ export const useHub = create<HubStore>()(
           if (!profile) return
           state.design.tokens = profile.tokens
           state.design.activeProfileId = profileId
+
+          const snapshot = buildThemeEditorSnapshot(
+            profile.tokens,
+            profileId,
+            profile.name,
+          )
+          state.theme.editorSnapshot = snapshot
+          state.theme.previewOverride = buildPreviewOverrideFromSnapshot(snapshot)
+          state.hubTheme = snapshot.defaultMode
         }),
 
       designTogglePreviewStrip: () =>
@@ -813,6 +847,16 @@ export const useHub = create<HubStore>()(
           state.comp.query = query
         }),
 
+      compSetGridColumns: (columns) =>
+        set((state) => {
+          state.comp.gridColumns = clampGridColumns(columns)
+        }),
+
+      compSetCardScale: (scale) =>
+        set((state) => {
+          state.comp.cardScale = clampCardScale(scale)
+        }),
+
       // ── Onboarding ───────────────────────────────────────────────────────────
       onboardingSetStep: (step) =>
         set((state) => {
@@ -861,7 +905,7 @@ export const useHub = create<HubStore>()(
     })),
     {
       name: 'nezam-design-hub-v7',
-      version: 3,
+      version: 5,
       partialize: (s) => ({
         section: s.section,
         arch: s.arch,
@@ -954,6 +998,31 @@ export const useHub = create<HubStore>()(
           if (!persisted.visitedSections.includes('components')) {
             persisted.visitedSections.push('components')
           }
+        }
+        // v4: sync theme editor + preview from onboarding design profile
+        if (version < 4) {
+          if (!persisted.theme) persisted.theme = {}
+          if (persisted.theme.editorSnapshot === undefined) {
+            persisted.theme.editorSnapshot = null
+          }
+          const profileId = persisted.design?.activeProfileId as DesignProfileId | undefined
+          if (!persisted.theme.editorSnapshot && profileId && DESIGN_PROFILES_MAP[profileId]) {
+            const profile = DESIGN_PROFILES_MAP[profileId]
+            const snapshot = buildThemeEditorSnapshot(
+              profile.tokens,
+              profileId,
+              profile.name,
+            )
+            persisted.theme.editorSnapshot = snapshot
+            persisted.theme.previewOverride = buildPreviewOverrideFromSnapshot(snapshot)
+            if (profile.tokens.colors.mode === 'dark' || profile.tokens.colors.mode === 'light') {
+              persisted.hubTheme = profile.tokens.colors.mode
+            }
+          }
+        }
+        // v5: merge legacy Top/Sidebar navmenu nodes into Main Navigation per app
+        if (version < 5 && persisted?.arch?.pages) {
+          migrateLegacyNavMenus(persisted.arch.pages)
         }
         return persisted
       },

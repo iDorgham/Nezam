@@ -13,18 +13,53 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { getAppRoots, matchesArchPageSearch } from '@/lib/arch/page-tree'
-import { ADDABLE_TYPE_LABELS, type AddableArchType } from '@/types/arch'
+import { getAppRoots, getServiceRoots, matchesArchPageSearch } from '@/lib/arch/page-tree'
+import { ADDABLE_TYPE_LABELS, type AddableArchType, type ArchPage } from '@/types/arch'
+import { cn } from '@/lib/utils'
 import { useSidebarResize } from '@/lib/useSidebarResize'
+
+function SitemapSectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="px-2 pt-2 pb-0.5 text-[9px] font-bold uppercase tracking-wider text-app-subtle">
+      {children}
+    </div>
+  )
+}
+
+function ServiceTreeRow({ page }: { page: ArchPage }) {
+  const selectedId = useHub((s) => s.arch.selectedPageId)
+  const archSelectPage = useHub((s) => s.archSelectPage)
+  const isSelected = selectedId === page.id
+
+  return (
+    <button
+      type="button"
+      onClick={() => archSelectPage(isSelected ? null : page.id)}
+      className={cn(
+        'flex w-full items-center gap-2 rounded-app-sm px-2 text-left text-[11px] font-medium transition-colors',
+        'h-7',
+        isSelected
+          ? 'bg-app-accent-subtle text-app-text'
+          : 'text-app-muted hover:bg-app-elevated hover:text-app-text',
+      )}
+    >
+      <Server size={12} className="shrink-0 opacity-70" />
+      <span className="truncate">{page.name}</span>
+    </button>
+  )
+}
 
 function PagesPanel() {
   const pages = useHub((s) => s.arch.pages)
   const [searchQuery, setSearchQuery] = useState('')
 
-  const roots = getAppRoots(pages).filter((root) =>
+  const services = getServiceRoots(pages).filter((root) =>
     matchesArchPageSearch(root, pages, searchQuery),
   )
-  const isEmpty = roots.length === 0
+  const apps = getAppRoots(pages).filter((root) =>
+    matchesArchPageSearch(root, pages, searchQuery),
+  )
+  const isEmpty = services.length === 0 && apps.length === 0
 
   return (
     <div className="flex flex-col flex-1 min-h-0 overflow-hidden -mx-4 -mt-4">
@@ -48,15 +83,30 @@ function PagesPanel() {
             </p>
           </div>
         ) : (
-          roots.map((root) => (
-            <PageTreeItem
-              key={root.id}
-              page={root}
-              allPages={pages}
-              depth={0}
-              searchQuery={searchQuery}
-            />
-          ))
+          <>
+            {services.length > 0 ? (
+              <div className="mb-1">
+                <SitemapSectionLabel>Server rack</SitemapSectionLabel>
+                {services.map((svc) => (
+                  <ServiceTreeRow key={svc.id} page={svc} />
+                ))}
+              </div>
+            ) : null}
+            {apps.length > 0 ? (
+              <div>
+                <SitemapSectionLabel>Applications</SitemapSectionLabel>
+                {apps.map((root) => (
+                  <PageTreeItem
+                    key={root.id}
+                    page={root}
+                    allPages={pages}
+                    depth={0}
+                    searchQuery={searchQuery}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </>
         )}
       </div>
     </div>

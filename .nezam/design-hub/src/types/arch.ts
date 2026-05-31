@@ -20,7 +20,8 @@ export type ServiceKind = 'api' | 'auth' | 'payment' | 'database'
 export type AppStackKind = 'frontend' | 'backend' | 'fullstack'
 export type AppLayoutKind = 'standard' | 'sidebar' | 'blank' | 'tabs'
 export type MenuPlacement = 'main' | 'footer' | 'widget'
-export type MenuPresentation = 'dropdown' | 'mega'
+export type MenuPresentation = 'dropdown' | 'mega' | 'tree'
+export type MenuSidebarPresentation = 'tree' | 'flat'
 
 export type ArchProfileId =
   | 'cms'
@@ -71,7 +72,10 @@ export interface ArchPage {
   /** Menu-only */
   menuPlacement?: MenuPlacement
   menuHasIcons?: boolean
+  /** Header / top bar when menuPlacement is main */
   menuPresentation?: MenuPresentation
+  /** Sidebar shell when menuPlacement is main (defaults to tree) */
+  menuSidebarPresentation?: MenuSidebarPresentation
   /** Service-only (root rack) */
   serviceKind?: ServiceKind
   serviceEndpoint?: string

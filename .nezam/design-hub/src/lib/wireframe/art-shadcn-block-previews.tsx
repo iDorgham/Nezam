@@ -14,19 +14,23 @@ import {
 } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
-import { WireframePreviewFrame } from '@/lib/wireframe/wireframe-preview-primitives'
+import {
+  ChromeButton,
+  ChromeInput,
+  ChromeTabPills,
+  WireframePreviewFrame,
+} from '@/lib/wireframe/wireframe-preview-primitives'
 
 export const ART_SHADCN_BLOCK_PREVIEW_TYPES = [
   'Art_Hero_Cinematic',
+  'Art_Hero_ImageBackdrop',
   'Art_Hero_Bento',
   'Art_Hero_StatsFloat',
   'Art_BentoGrid_4',
+  'Art_Card_HoverGrid',
   'Art_BentoGrid_6',
   'Art_Feature_Zigzag',
   'Art_Feature_IconMatrix',
@@ -34,6 +38,7 @@ export const ART_SHADCN_BLOCK_PREVIEW_TYPES = [
   'Art_Testimonial_Spotlight',
   'Art_Testimonial_Masonry',
   'Art_Logos_Marquee',
+  'Art_Section_Marquee',
   'Art_Stats_BigNumber',
   'Art_Team_Portraits',
   'Art_CaseStudy_Row',
@@ -73,15 +78,43 @@ function PreviewArtHeroCinematic({ compact }: PreviewOpts) {
           <Skeleton className={cn(compact ? 'h-3 w-3/4' : 'h-4 w-4/5')} />
           <Skeleton className="h-2 w-full" />
           <div className="flex gap-1 pt-1">
-            <Button size="xs" variant="primary" type="button" tabIndex={-1} className="pointer-events-none">
+            <ChromeButton compact={compact} size="xs" variant="primary">
               Start
-            </Button>
-            <Button size="xs" variant="outline" type="button" tabIndex={-1} className="pointer-events-none">
+            </ChromeButton>
+            <ChromeButton compact={compact} size="xs" variant="outline">
               Demo
-            </Button>
+            </ChromeButton>
           </div>
         </div>
         <Skeleton className={cn('rounded-app-sm', compact ? 'h-14' : 'h-20')} />
+      </div>
+    </WireframePreviewFrame>
+  )
+}
+
+function PreviewArtHeroImageBackdrop({ compact }: PreviewOpts) {
+  return (
+    <WireframePreviewFrame compact={compact} className={compact ? 'min-h-[80px]' : 'min-h-[120px]'}>
+      <div
+        className={cn(
+          'relative flex flex-col justify-end h-full',
+          compact ? 'gap-1 p-2 min-h-[80px]' : 'gap-1.5 p-3 min-h-[120px]',
+        )}
+        style={{
+          backgroundImage: [
+            'linear-gradient(180deg, color-mix(in oklab, var(--app-surface) 8%, transparent) 0%, color-mix(in oklab, var(--app-surface) 72%, transparent) 100%)',
+            'linear-gradient(145deg, color-mix(in oklab, var(--brand) 44%, var(--app-elevated)), color-mix(in oklab, var(--accent) 28%, var(--app-surface)))',
+          ].join(', '),
+        }}
+      >
+        <Badge variant="muted" className="text-[8px] w-fit">
+          Editorial
+        </Badge>
+        <Skeleton className={cn(compact ? 'h-3 w-4/5' : 'h-4 w-3/4', 'bg-app-surface/70')} />
+        <Skeleton className={cn(compact ? 'h-2 w-full' : 'h-2 w-5/6', 'bg-app-surface/55')} />
+        <ChromeButton compact={compact} size="xs" variant="primary" className="w-fit mt-0.5">
+          Read
+        </ChromeButton>
       </div>
     </WireframePreviewFrame>
   )
@@ -127,13 +160,53 @@ function PreviewArtHeroStatsFloat({ compact }: PreviewOpts) {
 }
 
 function PreviewArtBentoGrid4({ compact }: PreviewOpts) {
+  const tints = [
+    'color-mix(in oklab, var(--brand) 14%, var(--app-surface))',
+    'color-mix(in oklab, var(--accent) 12%, var(--app-surface))',
+    'color-mix(in oklab, var(--app-success, var(--accent)) 10%, var(--app-surface))',
+    'color-mix(in oklab, var(--app-warning, var(--accent)) 10%, var(--app-surface))',
+  ]
   return (
     <WireframePreviewFrame compact={compact}>
       <div className={cn('grid grid-cols-2 gap-1', compact ? 'p-2' : 'p-3')}>
         {[LayoutGrid, Zap, Layers, Star].map((Icon, i) => (
-          <Card key={i} className={cn(compact ? 'p-1.5' : 'p-2', i === 0 && 'col-span-1 row-span-1')}>
+          <Card
+            key={i}
+            className={cn(compact ? 'p-1.5' : 'p-2', i === 0 && 'col-span-1 row-span-1')}
+            style={{ background: tints[i] }}
+          >
             <Icon className={cn(iconSize(compact), 'text-app-accent mb-1')} />
             <Skeleton className="h-2 w-2/3" />
+          </Card>
+        ))}
+      </div>
+    </WireframePreviewFrame>
+  )
+}
+
+function PreviewArtCardHoverGrid({ compact }: PreviewOpts) {
+  const spans = ['col-span-2 row-span-2', 'col-span-1', 'col-span-1', 'col-span-2']
+  const tints = [
+    'color-mix(in oklab, var(--brand) 16%, var(--app-elevated))',
+    'color-mix(in oklab, var(--accent) 14%, var(--app-elevated))',
+    'color-mix(in oklab, var(--app-success, var(--accent)) 12%, var(--app-elevated))',
+    'color-mix(in oklab, var(--app-warning, var(--accent)) 12%, var(--app-elevated))',
+  ]
+  return (
+    <WireframePreviewFrame compact={compact} className={compact ? 'min-h-[88px]' : 'min-h-[120px]'}>
+      <div className={cn('grid grid-cols-3 auto-rows-[minmax(28px,1fr)] gap-1', compact ? 'p-2' : 'p-3')}>
+        {spans.map((span, i) => (
+          <Card
+            key={i}
+            className={cn(
+              'border border-app-border/80 flex flex-col justify-end',
+              span,
+              compact ? 'p-1.5 min-h-[28px]' : 'p-2 min-h-[36px]',
+            )}
+            style={{ background: tints[i] }}
+          >
+            <Skeleton className={cn('h-1.5 mb-0.5', i === 0 ? 'w-2/3' : 'w-1/2')} />
+            <Skeleton className="h-1 w-full" />
           </Card>
         ))}
       </div>
@@ -247,6 +320,31 @@ function PreviewArtTestimonialMasonry({ compact }: PreviewOpts) {
   )
 }
 
+function PreviewArtSectionMarquee({ compact }: PreviewOpts) {
+  return (
+    <WireframePreviewFrame compact={compact} className={compact ? 'h-14' : 'h-16'}>
+      <div className="px-2 py-2 overflow-hidden">
+        <p className="text-[8px] text-app-subtle text-center mb-1.5 uppercase tracking-wide">Loved by builders</p>
+        <div className="flex gap-1.5 overflow-x-auto pb-0.5">
+          {Array.from({ length: compact ? 2 : 3 }).map((_, i) => (
+            <div
+              key={i}
+              className="shrink-0 rounded-app-sm border p-1.5 min-w-[52px]"
+              style={{
+                borderColor: `color-mix(in oklab, var(--accent) ${10 + i * 6}%, var(--app-border))`,
+                background: `color-mix(in oklab, var(--brand) ${8 + i * 5}%, var(--app-surface))`,
+              }}
+            >
+              <Skeleton className="h-1 w-full mb-1" />
+              <Skeleton className="h-1 w-2/3" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </WireframePreviewFrame>
+  )
+}
+
 function PreviewArtLogosMarquee({ compact }: PreviewOpts) {
   return (
     <WireframePreviewFrame compact={compact} className={compact ? 'h-12' : 'h-14'}>
@@ -312,9 +410,9 @@ function PreviewArtCaseStudyRow({ compact }: PreviewOpts) {
               Case
             </Badge>
             <Skeleton className="h-2 w-full mb-1" />
-            <Button size="xs" variant="ghost" type="button" tabIndex={-1} className="pointer-events-none h-5 px-1">
+            <ChromeButton compact={compact} size="xs" variant="ghost" className="h-5 px-1">
               Read <ArrowRight className="h-2 w-2" />
-            </Button>
+            </ChromeButton>
           </Card>
         ))}
       </div>
@@ -341,9 +439,9 @@ function PreviewArtMediaSplitCinematic({ compact }: PreviewOpts) {
         <div className="space-y-1">
           <Skeleton className="h-3 w-4/5" />
           <Skeleton className="h-2 w-full" />
-          <Button size="xs" variant="primary" type="button" tabIndex={-1} className="pointer-events-none mt-1">
+          <ChromeButton compact={compact} size="xs" variant="primary" className="mt-1">
             Explore
-          </Button>
+          </ChromeButton>
         </div>
         <Skeleton className={cn('rounded-app-md w-full', compact ? 'h-16' : 'h-24')} />
       </div>
@@ -383,9 +481,9 @@ function PreviewArtCtaBand({ compact }: PreviewOpts) {
     <WireframePreviewFrame compact={compact} className="bg-app-elevated/60">
       <div className={cn('flex items-center justify-between gap-2', compact ? 'p-2' : 'p-3')}>
         <Skeleton className={cn(compact ? 'h-3 w-1/2' : 'h-4 w-2/5')} />
-        <Button size="xs" variant="primary" type="button" tabIndex={-1} className="pointer-events-none shrink-0">
+        <ChromeButton compact={compact} size="xs" variant="primary" className="shrink-0">
           Get started
-        </Button>
+        </ChromeButton>
       </div>
     </WireframePreviewFrame>
   )
@@ -399,10 +497,10 @@ function PreviewArtNewsletterCard({ compact }: PreviewOpts) {
           <Skeleton className="h-3 w-3/4 mx-auto" />
         </CardHeader>
         <CardContent className="p-0 flex gap-1">
-          <Input className="h-6 text-[9px] flex-1 pointer-events-none" placeholder="you@company.com" readOnly />
-          <Button size="xs" variant="primary" type="button" tabIndex={-1} className="pointer-events-none">
+          <ChromeInput compact={compact} className="h-6 text-[9px] flex-1" placeholder="you@company.com" />
+          <ChromeButton compact={compact} size="xs" variant="primary">
             Join
-          </Button>
+          </ChromeButton>
         </CardContent>
       </Card>
     </WireframePreviewFrame>
@@ -517,16 +615,7 @@ function PreviewArtAppPreviewFrame({ compact }: PreviewOpts) {
           <Skeleton className="h-2 flex-1 max-w-[40%] mx-auto" />
         </div>
         <div className={cn('p-2', compact ? 'space-y-1' : 'space-y-2')}>
-          <Tabs defaultValue="a" className="pointer-events-none">
-            <TabsList className="h-6">
-              <TabsTrigger value="a" className="text-[8px] px-2">
-                Overview
-              </TabsTrigger>
-              <TabsTrigger value="b" className="text-[8px] px-2">
-                Data
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <ChromeTabPills compact={compact} tabs={['Overview', 'Data']} />
           <div className="grid grid-cols-3 gap-1">
             {Array.from({ length: 3 }).map((_, i) => (
               <Skeleton key={i} className={compact ? 'h-6' : 'h-10'} />
@@ -540,9 +629,11 @@ function PreviewArtAppPreviewFrame({ compact }: PreviewOpts) {
 
 const ART_RENDERERS: Record<ArtShadcnBlockPreviewType, (opts: PreviewOpts) => ReactNode> = {
   Art_Hero_Cinematic: PreviewArtHeroCinematic,
+  Art_Hero_ImageBackdrop: PreviewArtHeroImageBackdrop,
   Art_Hero_Bento: PreviewArtHeroBento,
   Art_Hero_StatsFloat: PreviewArtHeroStatsFloat,
   Art_BentoGrid_4: PreviewArtBentoGrid4,
+  Art_Card_HoverGrid: PreviewArtCardHoverGrid,
   Art_BentoGrid_6: PreviewArtBentoGrid6,
   Art_Feature_Zigzag: PreviewArtFeatureZigzag,
   Art_Feature_IconMatrix: PreviewArtFeatureIconMatrix,
@@ -550,6 +641,7 @@ const ART_RENDERERS: Record<ArtShadcnBlockPreviewType, (opts: PreviewOpts) => Re
   Art_Testimonial_Spotlight: PreviewArtTestimonialSpotlight,
   Art_Testimonial_Masonry: PreviewArtTestimonialMasonry,
   Art_Logos_Marquee: PreviewArtLogosMarquee,
+  Art_Section_Marquee: PreviewArtSectionMarquee,
   Art_Stats_BigNumber: PreviewArtStatsBigNumber,
   Art_Team_Portraits: PreviewArtTeamPortraits,
   Art_CaseStudy_Row: PreviewArtCaseStudyRow,

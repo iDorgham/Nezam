@@ -1,7 +1,7 @@
 'use client'
 
 import { Eye, MessageSquare, Plus, Trash, Search, Layers3, GripVertical, EyeOff, Lock, Unlock } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { DndContext, PointerSensor, type DragEndEvent, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
@@ -16,6 +16,13 @@ import { BrowserPreview } from './BrowserPreview'
 import { PreviewSubTabs } from './PreviewSubTabs'
 import { detectTemplate, TEMPLATE_INFO, resolveTemplateLayerOrder } from '@/lib/preview/templates'
 import { PREMIUM_ICON, PREMIUM_MOTION, PREMIUM_SPACE, PREMIUM_TYPE } from '@/lib/design/premium-standards'
+import { ARCH_PROFILES } from '@/data/arch-profiles'
+import {
+  buildSeedPageSections,
+  warmSeedPageSectionsCacheForProfiles,
+} from '@/lib/wireframe/seed-page-session'
+import { prefetchPreviewSessions } from '@/lib/preview/preview-session-cache'
+import { scheduleIdleWork } from '@/lib/preview/schedule-idle'
 
 const SectionsSection = dynamic(
   () => import('@/components/design/SectionsSection').then((m) => ({ default: m.SectionsSection })),
@@ -331,6 +338,32 @@ export function PreviewSection() {
   const selectedPageId = useHub((s) => s.preview.selectedPageId)
   const selectPage = useHub((s) => s.previewSelectPage)
   const subTab = useHub((s) => s.preview.subTab)
+  const archProfileId = useHub((s) => s.arch.activeProfileId)
+
+  const previewablePages = useMemo(
+    () => Object.values(pages).filter(isPreviewableNode),
+    [pages],
+  )
+
+  useEffect(() => {
+    if (subTab !== 'preview' || previewablePages.length === 0) return
+
+    scheduleIdleWork(() => {
+      warmSeedPageSectionsCacheForProfiles(
+        previewablePages,
+        ARCH_PROFILES.map((profile) => profile.id),
+      )
+      prefetchPreviewSessions(
+        previewablePages.map((p) => p.id),
+        archProfileId,
+        (pageId) => {
+          const target = pages[pageId]
+          if (!target || !isPreviewableNode(target)) return []
+          return buildSeedPageSections({ page: target, profileId: archProfileId })
+        },
+      )
+    })
+  }, [subTab, previewablePages, pages, archProfileId])
 
   const sortedPages = Object.values(pages).sort((a, b) => a.order - b.order)
   const selectedPage =

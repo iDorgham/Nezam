@@ -1,15 +1,59 @@
 'use client'
 
-import { ArrowRight, BarChart2, Check, ChevronRight, Code2, Globe, Grid3X3, Image as ImageIcon, Play, Search, Shield, Star, Users, Zap } from 'lucide-react'
+import { memo } from 'react'
+import {
+  ArrowRight,
+  BarChart2,
+  Check,
+  ChevronRight,
+  Code2,
+  Globe,
+  Image as ImageIcon,
+  Play,
+  Search,
+  Shield,
+  Star,
+  Users,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  BlockAvatarHeader,
+  BlockFaqRow,
+  BlockFormStack,
+  BlockHeading,
+  BlockHeroBackdrop,
+  BlockHoverCard,
+  BlockKpiPill,
+  BlockLead,
+  BlockMediaBackground,
+  BlockPricingColumn,
+  BlockProfileBand,
+  BlockSection,
+  BlockSettingsRow,
+  BlockStatTile,
+  BlockSurface,
+  BlockTintBand,
+  BlockWaitlistInline,
+} from '@/components/wireframe/block-primitives'
+import { Switch } from '@/components/ui/switch'
+import { blockTintAt, blockTintStyles } from '@/lib/wireframe/block-visual-system'
+import { isSidebarShellLayout, splitSidebarShellSections } from '@/lib/wireframe/sidebar-shell-layout'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
 import { renderArtWireframeSection } from './art-wireframe-sections'
+import {
+  ArchNavFooter,
+  ArchNavSidebar,
+  ArchNavTopBar,
+  archNavSignature,
+} from './arch-nav-preview'
 import { DUMMY, IllusChart, IllusDashboard, IllusEmpty, IllusFeatures, IllusHero, IllusProduct } from './dummy-content'
 
 type WireframeSection = {
@@ -19,6 +63,26 @@ type WireframeSection = {
 }
 
 type AuthVariant = 'login' | 'signup'
+
+/** Body blocks whose band/background should span the full preview width (not max-w-6xl). */
+const FULL_BLEED_BODY_BLOCK_TYPES = new Set<string>([
+  'Art_CTA_Band',
+  'Art_Logos_Marquee',
+  'Art_Section_Marquee',
+  'Hero_ImageCover',
+  'Hero_GradientMesh',
+  'Art_Hero_ImageBackdrop',
+])
+
+function isFullBleedBodyBlock(blockType: string | undefined): boolean {
+  return FULL_BLEED_BODY_BLOCK_TYPES.has(blockType ?? '')
+}
+
+function bodyBlockWidthClass(isCompact: boolean, blockType: string | undefined): string {
+  return isFullBleedBodyBlock(blockType)
+    ? 'w-full'
+    : cn('mx-auto', isCompact ? 'max-w-2xl' : 'max-w-6xl')
+}
 
 function isAuthPage(page: ArchPage): boolean {
   const route = page.route.toLowerCase()
@@ -50,12 +114,27 @@ function getAuthVariant(page: ArchPage): AuthVariant {
   return 'login'
 }
 
-function shouldUseSidebarShell(sections: WireframeSection[]): boolean {
-  return sections.length > 1 && sections[0]?.block_type === 'Nav_Sidebar'
-}
-
-function Shell({ children }: { children: React.ReactNode }) {
-  return <div className="min-h-full bg-[var(--bg-surface)] text-[var(--text)]">{children}</div>
+function Shell({
+  children,
+  className,
+  fillHeight,
+}: {
+  children: React.ReactNode
+  className?: string
+  /** When true, fill the preview viewport so only inner panes scroll (sidebar shell). */
+  fillHeight?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        'bg-[var(--bg-surface)] text-[var(--text)]',
+        fillHeight ? 'flex h-full min-h-0 flex-1 flex-col' : 'min-h-full',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  )
 }
 
 function Card({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -67,33 +146,10 @@ function Card({ children, className }: { children: React.ReactNode; className?: 
 }
 
 function Section({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <section className={cn('px-6 py-14', className)}>{children}</section>
-}
-
-function DashboardSidebar() {
   return (
-    <aside className="border-r border-app-border bg-app-elevated p-4 min-h-full">
-      <div className="flex items-center gap-2 mb-6">
-        <div className="h-7 w-7 rounded-app-sm bg-app-accent/30 border border-app-accent/50" />
-        <span className="text-sm font-semibold">Workspace</span>
-      </div>
-      <nav className="space-y-0.5">
-        {['Overview', 'Analytics', 'Users', 'Media', 'Settings'].map((item, i) => (
-          <button
-            key={item}
-            type="button"
-            className={cn(
-              'w-full h-9 rounded-app-sm px-3 text-left text-xs transition',
-              i === 0
-                ? 'bg-app-accent/15 text-app-text font-medium'
-                : 'text-app-muted hover:bg-app-surface hover:text-app-text',
-            )}
-          >
-            {item}
-          </button>
-        ))}
-      </nav>
-    </aside>
+    <BlockSection density="default" motion="reveal" className={className}>
+      {children}
+    </BlockSection>
   )
 }
 
@@ -186,25 +242,23 @@ function LayoutAuthSplit({ page, variant }: { page: ArchPage; variant: AuthVaria
   )
 }
 
-function RuntimeChrome() {
-  return (
-    <div className="border-b border-app-border px-6 py-3 flex items-center justify-between bg-app-bg/60 shrink-0">
-      <div className="text-xs text-app-muted flex items-center gap-2">
-        <Grid3X3 size={12} />
-        Wireframe runtime
-      </div>
-      <Tabs defaultValue="preview">
-        <TabsList className="h-8">
-          <TabsTrigger value="preview" className="text-[11px]">Preview</TabsTrigger>
-          <TabsTrigger value="components" className="text-[11px]">Components</TabsTrigger>
-          <TabsTrigger value="sections" className="text-[11px]">Sections</TabsTrigger>
-        </TabsList>
-      </Tabs>
-    </div>
-  )
+function sectionsSignature(sections: WireframeSection[]): string {
+  return sections
+    .map((s) => `${s.section_id ?? ''}:${s.block_type ?? ''}:${s.order ?? 0}`)
+    .join('|')
 }
 
-function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage }) {
+const LAZY_SECTION_STYLE = { contentVisibility: 'auto' as const, containIntrinsicSize: 'auto 320px' }
+
+function RenderBlock({
+  blockType,
+  page,
+  archPages,
+}: {
+  blockType: string
+  page: ArchPage
+  archPages: Record<string, ArchPage>
+}) {
   const artSection = renderArtWireframeSection(blockType)
   if (artSection) return artSection
 
@@ -212,25 +266,43 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
   const accent = 'var(--accent)'
   switch (blockType) {
     case 'Nav_TopBar':
-      return (
-        <header className="w-full sticky top-0 z-10 border-b border-app-border bg-app-surface/90 backdrop-blur">
-          <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-            <div className="flex items-center gap-2 font-semibold">
-              <div className="h-6 w-6 rounded bg-app-accent/30 border border-app-accent/50" />
-              YourApp
-            </div>
-            <nav className="hidden md:flex items-center gap-6 text-xs text-app-muted">
-              <span>Features</span>
-              <span>Pricing</span>
-              <span>Blog</span>
-              <span>Docs</span>
-            </nav>
-            <Button variant="primary" size="sm">Get Started</Button>
-          </div>
-        </header>
-      )
+      return <ArchNavTopBar page={page} pages={archPages} />
     case 'Nav_Sidebar':
-      return <DashboardSidebar />
+      return <ArchNavSidebar page={page} pages={archPages} />
+    case 'Nav_Breadcrumb':
+      return (
+        <BlockSection density="compact" motion="reveal" className="!py-0">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-sm">
+            <button type="button" className="text-app-muted transition hover:text-app-text">
+              Home
+            </button>
+            <ChevronRight size={14} className="shrink-0 text-app-subtle" aria-hidden />
+            <button type="button" className="text-app-muted transition hover:text-app-text">
+              Workspace
+            </button>
+            <ChevronRight size={14} className="shrink-0 text-app-subtle" aria-hidden />
+            <span className="font-medium text-app-text">{page.name || 'Overview'}</span>
+          </nav>
+        </BlockSection>
+      )
+    case 'Nav_Subnav':
+      return (
+        <BlockSection density="compact" motion="reveal" className="!py-0">
+          <Tabs defaultValue="overview">
+            <TabsList className="h-9 w-full justify-start rounded-none border-b border-app-border bg-transparent p-0">
+              {['Overview', 'Reports', 'Settings'].map((tab) => (
+                <TabsTrigger
+                  key={tab}
+                  value={tab.toLowerCase()}
+                  className="rounded-none border-b-2 border-transparent px-4 text-xs data-[state=active]:border-[var(--brand)] data-[state=active]:bg-transparent data-[state=active]:text-app-text"
+                >
+                  {tab}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </BlockSection>
+      )
     case 'Layout_AuthSplit':
       return <LayoutAuthSplit page={page} variant={getAuthVariant(page)} />
     case 'Nav_Mobile':
@@ -248,22 +320,7 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
         </div>
       )
     case 'Nav_Footer':
-      return (
-        <footer className="w-full border-t border-app-border bg-app-elevated">
-          <div className="max-w-6xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-            {['Product', 'Company', 'Resources', 'Legal'].map((c) => (
-              <div key={c}>
-                <div className="text-[11px] font-semibold mb-2">{c}</div>
-                <div className="space-y-1 text-[11px] text-app-muted">
-                  <div>Overview</div>
-                  <div>Pricing</div>
-                  <div>Contact</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </footer>
-      )
+      return <ArchNavFooter page={page} pages={archPages} />
     case 'Hero_Simple':
       return (
         <div className="relative overflow-hidden" style={{ background: 'radial-gradient(ellipse 90% 55% at 50% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 72%)' }}>
@@ -307,26 +364,43 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
       )
     case 'Hero_Split':
       return (
-        <div className="relative overflow-hidden" style={{ background: 'radial-gradient(ellipse 90% 55% at 50% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 72%)' }}>
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-          <Section className="grid md:grid-cols-2 gap-6 items-center pt-16 md:pt-24 relative">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border border-app-border bg-app-elevated/80 text-app-muted mb-4">
-                <span className="h-1.5 w-1.5 rounded-full bg-app-accent" />
-                Trusted by 2,800+ teams
-              </div>
-              <h2 className="text-3xl font-bold mb-3">{DUMMY.headings[2]}</h2>
-              <p className="text-sm text-app-muted mb-4">{DUMMY.descriptions[2]}</p>
-              <div className="flex gap-2">
-                <Button variant="primary" size="md" iconEnd={<ArrowRight size={12} />}>Try it</Button>
-                <Button variant="ghost" size="md">Learn more</Button>
-              </div>
+        <BlockSection
+          density="spacious"
+          motion="reveal"
+          className="grid md:grid-cols-2 gap-8 items-center"
+        >
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border border-app-border bg-app-elevated/80 text-app-muted mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-app-accent" />
+              Trusted by 2,800+ teams
             </div>
-            <Card className="p-4 h-64">
+            <BlockHeading as="h2" size="lg">{DUMMY.headings[2]}</BlockHeading>
+            <BlockLead className="mb-5">{DUMMY.descriptions[2]}</BlockLead>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="primary" size="md" iconEnd={<ArrowRight size={12} />}>Try it</Button>
+              <Button variant="ghost" size="md">Learn more</Button>
+            </div>
+          </div>
+          <BlockMediaBackground seed={0} minHeight="min-h-[260px]" overlay={0.12}>
+            <div className="flex h-full min-h-[260px] items-center justify-center p-4">
               <IllusFeatures brand={brand} />
-            </Card>
-          </Section>
-        </div>
+            </div>
+          </BlockMediaBackground>
+        </BlockSection>
+      )
+    case 'Hero_ImageCover':
+      return (
+        <BlockHeroBackdrop seed={1} fullBleed>
+          <BlockSection density="spacious" bleed motion="reveal" className="relative text-center max-w-3xl">
+            <Badge variant="muted" className="mb-4">Featured launch</Badge>
+            <BlockHeading as="h1" size="xl">{DUMMY.headings[0]}</BlockHeading>
+            <BlockLead className="mx-auto mb-6">{DUMMY.descriptions[0]}</BlockLead>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Button variant="primary" size="md">Get started</Button>
+              <Button variant="outline" size="md">See examples</Button>
+            </div>
+          </BlockSection>
+        </BlockHeroBackdrop>
       )
     case 'Content_Text':
       return (
@@ -337,19 +411,50 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
       )
     case 'Content_Card':
       return (
-        <Section>
+        <BlockSection density="default" motion="reveal">
           <div className="grid md:grid-cols-3 gap-4">
-            {DUMMY.features.slice(0, 3).map((f) => (
-              <Card key={f.title} className="p-4">
-                <div className="h-10 w-10 rounded bg-app-accent/20 border border-app-accent/30 mb-3 flex items-center justify-center">
-                  <Star size={14} className="text-app-accent" />
+            {DUMMY.features.slice(0, 3).map((f, i) => (
+              <BlockHoverCard key={f.title} index={i} tint={blockTintAt(i)}>
+                <div
+                  className="h-10 w-10 rounded-app-sm mb-3 flex items-center justify-center border"
+                  style={{
+                    background: blockTintStyles(blockTintAt(i)).bg,
+                    borderColor: blockTintStyles(blockTintAt(i)).border,
+                  }}
+                >
+                  <Star size={14} style={{ color: blockTintStyles(blockTintAt(i)).subtle }} />
                 </div>
                 <div className="text-sm font-semibold mb-1">{f.title}</div>
-                <p className="text-xs text-app-muted">{f.desc}</p>
-              </Card>
+                <p className="text-xs text-app-muted leading-relaxed">{f.desc}</p>
+              </BlockHoverCard>
             ))}
           </div>
-        </Section>
+        </BlockSection>
+      )
+    case 'Content_SplitMedia':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div>
+              <BlockHeading size="lg">{DUMMY.headings[1]}</BlockHeading>
+              <BlockLead className="mb-5">{DUMMY.descriptions[1]}</BlockLead>
+              <Button variant="primary" size="md" iconEnd={<ArrowRight size={12} />}>Explore</Button>
+            </div>
+            <BlockMediaBackground seed={3} minHeight="min-h-[240px] md:min-h-[300px]" overlay={0.18} />
+          </div>
+        </BlockSection>
+      )
+    case 'Content_ProfileBands':
+      return (
+        <BlockSection density="default" motion="reveal" className="space-y-4">
+          <div className="max-w-2xl mb-1">
+            <BlockHeading size="md">Built for every lane</BlockHeading>
+            <BlockLead>Profile tints cycle across bands so previews reflect your locked design system.</BlockLead>
+          </div>
+          {DUMMY.features.slice(0, 3).map((f, i) => (
+            <BlockProfileBand key={f.title} title={f.title} subtitle={f.desc} seed={i + 4} index={i} />
+          ))}
+        </BlockSection>
       )
     case 'Content_Features': {
       const featureIcons = [
@@ -361,105 +466,157 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
         <Globe key="globe" size={22} className="text-app-accent" />,
       ]
       return (
-        <Section>
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold mb-2">Everything you need</h3>
-            <p className="text-sm text-app-muted">Sections built from icons, text, vectors, and components.</p>
+        <BlockSection density="default" motion="reveal">
+          <div className="text-center mb-8 max-w-2xl mx-auto">
+            <BlockHeading size="lg" className="mb-2">Everything you need</BlockHeading>
+            <BlockLead className="mx-auto">Sections built from icons, text, vectors, and components.</BlockLead>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-5">
             {DUMMY.features.slice(0, 6).map((f, i) => (
-              <Card key={f.title} className="p-5">
-                <div className="h-12 w-12 rounded-app-md bg-app-accent/10 border border-app-accent/20 flex items-center justify-center mb-4">
+              <BlockHoverCard key={f.title} index={i} tint={blockTintAt(i)}>
+                <div
+                  className="h-12 w-12 rounded-app-md border flex items-center justify-center mb-4"
+                  style={{
+                    background: `color-mix(in oklab, var(--accent) 10%, var(--app-surface))`,
+                    borderColor: 'color-mix(in oklab, var(--accent) 22%, var(--app-border))',
+                  }}
+                >
                   {featureIcons[i]}
                 </div>
                 <div className="text-sm font-semibold mb-1">{f.title}</div>
-                <p className="text-xs text-app-muted">{f.desc}</p>
-              </Card>
+                <p className="text-xs text-app-muted leading-relaxed">{f.desc}</p>
+              </BlockHoverCard>
             ))}
           </div>
-        </Section>
+        </BlockSection>
       )
     }
     case 'Content_Pricing':
       return (
-        <Section>
-          <div className="grid md:grid-cols-3 gap-4">
-            {DUMMY.prices.map((p) => (
-              <Card key={p.name} className={cn('p-4', p.featured && 'border-app-accent')}>
-                <div className="text-xs text-app-muted">{p.name}</div>
-                <div className="text-3xl font-bold my-2">{p.price}</div>
-                <p className="text-xs text-app-muted mb-4">{p.desc}</p>
-                <Button variant={p.featured ? 'primary' : 'outline'} size="sm" className="w-full">
-                  Choose plan
-                </Button>
-              </Card>
+        <BlockSection density="default" motion="reveal">
+          <div className="grid md:grid-cols-3 gap-4 items-stretch">
+            {DUMMY.prices.map((p, i) => (
+              <BlockPricingColumn
+                key={p.name}
+                name={p.name}
+                price={p.price}
+                desc={p.desc}
+                featured={p.featured}
+                index={i}
+              />
             ))}
           </div>
-        </Section>
+        </BlockSection>
+      )
+    case 'Content_PricingToggle':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="flex justify-center mb-6">
+            <Tabs defaultValue="monthly">
+              <TabsList>
+                <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                <TabsTrigger value="annual">Annual · save 20%</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4 items-stretch">
+            {DUMMY.prices.map((p, i) => (
+              <BlockPricingColumn
+                key={p.name}
+                name={p.name}
+                price={p.price}
+                desc={p.desc}
+                featured={p.featured}
+                index={i}
+              />
+            ))}
+          </div>
+        </BlockSection>
+      )
+    case 'Content_FeatureBento':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="grid md:grid-cols-12 gap-3 auto-rows-[minmax(100px,auto)]">
+            {DUMMY.features.slice(0, 4).map((f, i) => (
+              <BlockHoverCard
+                key={f.title}
+                index={i}
+                tint={blockTintAt(i)}
+                className={cn(
+                  'flex flex-col justify-end',
+                  i === 0 && 'md:col-span-7 md:row-span-2 min-h-[200px]',
+                  i === 1 && 'md:col-span-5',
+                  i === 2 && 'md:col-span-4',
+                  i === 3 && 'md:col-span-8',
+                )}
+              >
+                <div className="text-sm font-semibold mb-1">{f.title}</div>
+                <p className="text-xs text-app-muted leading-relaxed">{f.desc}</p>
+              </BlockHoverCard>
+            ))}
+          </div>
+        </BlockSection>
       )
     case 'Content_FAQ':
       return (
-        <Section>
+        <BlockSection density="default" motion="reveal">
           <div className="max-w-3xl mx-auto space-y-2">
-            {['Is there a free plan?', 'Can I cancel anytime?', 'Do you support SSO?', 'Do you offer onboarding?'].map((q) => (
-              <Card key={q} className="p-3 flex items-center justify-between">
-                <span className="text-sm">{q}</span>
-                <ChevronRight size={14} className="text-app-muted" />
-              </Card>
-            ))}
+            {['Is there a free plan?', 'Can I cancel anytime?', 'Do you support SSO?', 'Do you offer onboarding?'].map(
+              (q) => (
+                <BlockFaqRow key={q} question={q} />
+              ),
+            )}
           </div>
-        </Section>
+        </BlockSection>
       )
     case 'Content_CTA':
       return (
-        <Section>
-          <div className="rounded-app-md p-8 flex flex-col md:flex-row gap-6 md:items-center md:justify-between"
-            style={{ background: 'linear-gradient(135deg, var(--accent) 0%, color-mix(in oklch, var(--accent) 70%, #1e1b4b) 100%)' }}>
+        <BlockSection density="compact" motion="reveal">
+          <BlockTintBand tint="accent" className="flex flex-col md:flex-row gap-5 md:items-center md:justify-between">
             <div>
-              <div className="text-xl font-bold text-white mb-1">Ready to launch your project?</div>
-              <p className="text-sm text-white/70">Ship production-ready interfaces with reusable blocks.</p>
+              <div className="text-xl font-bold mb-1">Ready to launch your project?</div>
+              <p className="text-sm opacity-80 max-w-md">Ship production-ready interfaces with reusable blocks.</p>
             </div>
-            <button
-              type="button"
-              className="shrink-0 h-10 px-6 rounded-app-sm text-sm font-semibold bg-white text-[var(--accent)] hover:bg-white/90 transition border-0 shadow-md whitespace-nowrap"
+            <Button
+              variant="ghost"
+              size="lg"
+              className="shrink-0 min-w-[7.5rem] border border-white bg-transparent text-white font-semibold tracking-tight hover:bg-white hover:text-app-muted hover:border-white active:scale-[0.98] whitespace-nowrap"
             >
-              Start now →
-            </button>
-          </div>
-        </Section>
+              Start now
+            </Button>
+          </BlockTintBand>
+        </BlockSection>
       )
     case 'Content_Stats':
       return (
-        <Section>
+        <BlockSection density="compact" motion="reveal">
           <div className="grid md:grid-cols-4 gap-3">
-            {DUMMY.stats.map((s) => (
-              <Card key={s.label} className="p-3">
-                <div className="text-[11px] text-app-muted mb-1">{s.label}</div>
-                <div className="text-xl font-bold">{s.value}</div>
-                <div className="text-[11px] text-green-500">{s.change}</div>
-              </Card>
+            {DUMMY.stats.map((s, i) => (
+              <BlockStatTile key={s.label} label={s.label} value={s.value} change={s.change} index={i} />
             ))}
           </div>
-        </Section>
+        </BlockSection>
       )
     case 'Content_Testimonials':
       return (
-        <Section>
+        <BlockSection density="default" motion="reveal">
           <div className="grid md:grid-cols-3 gap-4">
-            {DUMMY.team.slice(0, 3).map((member) => (
-              <Card key={member.name} className="p-4">
-                <p className="text-sm mb-4">"{DUMMY.descriptions[0]}"</p>
+            {DUMMY.team.slice(0, 3).map((member, i) => (
+              <BlockHoverCard key={member.name} index={i} tint={blockTintAt(i)} className="block-hover-lift">
+                <p className="text-sm mb-4 leading-relaxed">&ldquo;{DUMMY.descriptions[0]}&rdquo;</p>
                 <div className="flex items-center gap-2">
-                  <Avatar size="md"><AvatarFallback>{member.initials}</AvatarFallback></Avatar>
+                  <Avatar size="md">
+                    <AvatarFallback>{member.initials}</AvatarFallback>
+                  </Avatar>
                   <div>
                     <div className="text-xs font-semibold">{member.name}</div>
                     <div className="text-[11px] text-app-muted">{member.role}</div>
                   </div>
                 </div>
-              </Card>
+              </BlockHoverCard>
             ))}
           </div>
-        </Section>
+        </BlockSection>
       )
     case 'Content_Logos': {
       const companyLogos = [
@@ -475,7 +632,10 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
           <p className="text-center text-[11px] text-app-muted mb-5 uppercase tracking-widest">Trusted by teams at</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
             {companyLogos.map(({ name, src }) => (
-              <Card key={name} className="h-20 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity cursor-default">
+              <Card
+                key={name}
+                className="h-20 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity cursor-default block-hover-glow"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={src} alt={name} className="object-contain w-auto" style={{ maxHeight: 52, maxWidth: 110 }} />
               </Card>
@@ -486,75 +646,138 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
     }
     case 'Form_Login':
       return (
-        <Section>
-          <Card className="max-w-md mx-auto p-5">
-            <h3 className="text-lg font-semibold mb-4">Sign in</h3>
-            <div className="space-y-3">
+        <BlockSection density="default" motion="reveal">
+          <BlockSurface tint="surface" padding="p-5" className="max-w-md mx-auto">
+            <BlockHeading as="h3" size="md" className="mb-4">
+              Sign in
+            </BlockHeading>
+            <BlockFormStack>
               <Input label="Email" placeholder="you@company.com" />
               <Input label="Password" type="password" placeholder="********" />
-              <Button variant="primary" size="md" className="w-full">Continue</Button>
-            </div>
-          </Card>
-        </Section>
+              <Button variant="primary" size="md" className="w-full">
+                Continue
+              </Button>
+            </BlockFormStack>
+          </BlockSurface>
+        </BlockSection>
+      )
+    case 'Form_SplitAuth':
+      return (
+        <BlockSection density="default" motion="reveal" bleed className="grid md:grid-cols-2 min-h-[420px]">
+          <BlockMediaBackground seed={5} minHeight="min-h-[280px] md:min-h-full" overlay={0.2} className="hidden md:block" />
+          <div className="flex items-center justify-center p-6 md:p-10">
+            <BlockSurface tint="surface" padding="p-5" className="w-full max-w-sm">
+              <BlockHeading as="h3" size="md" className="mb-4">
+                Welcome back
+              </BlockHeading>
+              <BlockFormStack>
+                <Input label="Email" placeholder="you@company.com" />
+                <Input label="Password" type="password" placeholder="********" />
+                <Button variant="primary" size="md" className="w-full">
+                  Sign in
+                </Button>
+              </BlockFormStack>
+            </BlockSurface>
+          </div>
+        </BlockSection>
       )
     case 'Form_Contact':
       return (
-        <Section>
-          <Card className="max-w-2xl mx-auto p-5">
-            <h3 className="text-lg font-semibold mb-4">Contact us</h3>
+        <BlockSection density="default" motion="reveal">
+          <BlockSurface tint="surface" padding="p-5" className="max-w-2xl mx-auto">
+            <BlockHeading as="h3" size="md" className="mb-4">
+              Contact us
+            </BlockHeading>
             <div className="grid md:grid-cols-2 gap-3 mb-3">
               <Input label="First name" placeholder="Alex" />
               <Input label="Last name" placeholder="Rivera" />
             </div>
             <Input label="Email" placeholder="alex@example.com" className="mb-3" />
-            <textarea className="w-full h-24 rounded-app-sm border border-app-border bg-app-inset p-2.5 text-xs" placeholder="Your message..." />
-            <Button variant="primary" size="md" className="mt-3">Send message</Button>
-          </Card>
-        </Section>
+            <textarea
+              className="w-full h-24 rounded-app-sm border border-app-border bg-app-inset p-2.5 text-xs"
+              placeholder="Your message..."
+            />
+            <Button variant="primary" size="md" className="mt-3">
+              Send message
+            </Button>
+          </BlockSurface>
+        </BlockSection>
       )
     case 'Form_Newsletter':
       return (
-        <Section>
-          <Card className="max-w-2xl mx-auto p-4">
-            <div className="text-sm font-semibold mb-2">Join our newsletter</div>
-            <div className="flex gap-2">
-              <Input placeholder="you@company.com" className="flex-1" />
-              <Button variant="primary" size="md">Subscribe</Button>
-            </div>
+        <BlockSection density="compact" motion="reveal">
+          <Card className="max-w-2xl mx-auto p-5 md:p-6 border-app-border/80">
+            <BlockHeading as="h3" size="md" className="mb-2">Join our newsletter</BlockHeading>
+            <BlockLead className="mb-4">Product updates and layout recipes, no spam.</BlockLead>
+            <BlockWaitlistInline placeholder="you@company.com" cta="Subscribe" />
           </Card>
-        </Section>
+        </BlockSection>
+      )
+    case 'Form_WaitlistInline':
+      return (
+        <BlockSection density="compact" motion="reveal" className="text-center">
+          <BlockHeading as="h3" size="md" className="mb-2">Join the waitlist</BlockHeading>
+          <BlockLead className="mx-auto mb-5 max-w-lg">{DUMMY.descriptions[2]}</BlockLead>
+          <div className="flex justify-center">
+            <BlockWaitlistInline />
+          </div>
+        </BlockSection>
       )
     case 'Form_Signup':
       return (
-        <Section>
-          <Card className="max-w-md mx-auto p-5">
-            <h3 className="text-lg font-semibold mb-4">Create account</h3>
-            <div className="space-y-3">
+        <BlockSection density="default" motion="reveal">
+          <BlockSurface tint="surface" padding="p-5" className="max-w-md mx-auto">
+            <BlockHeading as="h3" size="md" className="mb-4">
+              Create account
+            </BlockHeading>
+            <BlockFormStack>
               <Input label="Full name" placeholder="Alex Rivera" />
               <Input label="Email" placeholder="you@company.com" />
               <Input label="Password" type="password" placeholder="********" />
-              <Button variant="primary" size="md" className="w-full">Create account</Button>
-            </div>
-          </Card>
-        </Section>
+              <Button variant="primary" size="md" className="w-full">
+                Create account
+              </Button>
+            </BlockFormStack>
+          </BlockSurface>
+        </BlockSection>
+      )
+    case 'Hero_GradientMesh':
+      return (
+        <BlockSection
+          density="spacious"
+          motion="reveal"
+          bleed
+          className="relative min-h-[300px] flex items-center justify-center overflow-hidden"
+          style={{
+            background: `radial-gradient(ellipse 80% 60% at 20% 40%, color-mix(in srgb, var(--brand) 35%, transparent), transparent),
+              radial-gradient(ellipse 70% 50% at 80% 60%, color-mix(in srgb, var(--accent) 28%, transparent), transparent),
+              var(--app-surface)`,
+          }}
+        >
+          <div className="text-center relative z-[1] px-6 max-w-2xl">
+            <BlockHeading as="h1" size="xl">
+              {DUMMY.headings[0]}
+            </BlockHeading>
+            <BlockLead className="mb-5">{DUMMY.descriptions[1]}</BlockLead>
+            <Button variant="primary" size="md">
+              Explore
+            </Button>
+          </div>
+        </BlockSection>
       )
     case 'Data_KPI_Row':
       return (
-        <Section>
+        <BlockSection density="compact" motion="reveal">
           <div className="grid md:grid-cols-4 gap-3">
-            {DUMMY.stats.map((s) => (
-              <Card key={s.label} className="p-3">
-                <div className="text-[11px] text-app-muted">{s.label}</div>
-                <div className="text-2xl font-bold my-1">{s.value}</div>
-                <div className="text-[11px] text-app-muted">{s.change}</div>
-              </Card>
+            {DUMMY.stats.map((s, i) => (
+              <BlockStatTile key={s.label} label={s.label} value={s.value} change={s.change} index={i} />
             ))}
           </div>
-        </Section>
+        </BlockSection>
       )
     case 'Data_Table':
       return (
-        <Section>
+        <BlockSection density="compact" motion="reveal">
           <Card className="overflow-hidden">
             <div className="grid grid-cols-[2fr_1fr_1fr] text-[11px] text-app-muted bg-app-elevated px-4 py-2 border-b border-app-border">
               <span>Name</span><span>Role</span><span>Status</span>
@@ -567,18 +790,18 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
               </div>
             ))}
           </Card>
-        </Section>
+        </BlockSection>
       )
     case 'Data_Chart':
       return (
-        <Section>
+        <BlockSection density="compact" motion="reveal">
           <Card className="p-4">
             <div className="text-sm font-semibold mb-3">Usage trend</div>
             <div className="h-56">
               <IllusChart brand={brand} accent={accent} />
             </div>
           </Card>
-        </Section>
+        </BlockSection>
       )
     case 'Layout_PageHeader':
       return (
@@ -638,6 +861,367 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
           </div>
         </Section>
       )
+    case 'Content_ContactChannels':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { title: 'Email', body: 'hello@company.com', icon: Globe },
+              { title: 'Phone', body: '+1 (555) 010-2000', icon: Users },
+              { title: 'Hours', body: 'Mon–Fri, 9am–6pm', icon: Shield },
+            ].map((ch, i) => (
+              <BlockHoverCard key={ch.title} index={i}>
+                <div className="text-sm font-semibold mb-1">{ch.title}</div>
+                <p className="text-xs text-app-muted leading-relaxed">{ch.body}</p>
+              </BlockHoverCard>
+            ))}
+          </div>
+        </BlockSection>
+      )
+    case 'Content_ContactSplit':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="grid lg:grid-cols-2 gap-6">
+            <BlockSurface tint="surface" padding="p-5">
+              <BlockHeading as="h3" size="md" className="mb-4">
+                Send a message
+              </BlockHeading>
+              <Input label="Name" placeholder="Your name" className="mb-3" />
+              <Input label="Email" placeholder="you@company.com" className="mb-3" />
+              <textarea
+                className="w-full h-24 rounded-app-sm border border-app-border bg-app-inset p-2.5 text-xs"
+                placeholder="How can we help?"
+              />
+              <Button variant="primary" size="md" className="mt-3">
+                Send message
+              </Button>
+            </BlockSurface>
+            <BlockSurface tint="muted" padding="p-0" className="relative overflow-hidden min-h-[16rem]">
+              <BlockMediaBackground seed={3} minHeight="min-h-[16rem]" />
+              <div className="relative p-5">
+                <BlockHeading as="h3" size="md">
+                  Visit us
+                </BlockHeading>
+                <BlockLead className="mt-2">123 Market Street, Suite 400</BlockLead>
+              </div>
+            </BlockSurface>
+          </div>
+        </BlockSection>
+      )
+    case 'Content_UserInvite':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <BlockSurface tint="surface" padding="p-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
+              <Input label="Invite by email" placeholder="teammate@company.com" className="flex-1" />
+              <div className="flex gap-2 shrink-0">
+                <Button variant="outline" size="sm">
+                  Member
+                </Button>
+                <Button variant="primary" size="sm">
+                  Send invite
+                </Button>
+              </div>
+            </div>
+          </BlockSurface>
+        </BlockSection>
+      )
+    case 'Content_ProfileHeader':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <BlockSurface tint="surface" padding="p-5">
+            <BlockAvatarHeader
+              name="Alex Rivera"
+              subtitle="alex@company.com"
+              role="Workspace admin"
+            />
+          </BlockSurface>
+        </BlockSection>
+      )
+    case 'Content_AboutHero':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <BlockHeroBackdrop seed={1}>
+            <BlockHeading as="h2" size="lg" className="max-w-xl">
+              We build tools that help teams ship with clarity
+            </BlockHeading>
+            <BlockLead className="mt-3 max-w-lg">
+              Our mission is to make product decisions visible, measurable, and humane.
+            </BlockLead>
+            <div className="mt-6 grid grid-cols-3 gap-4 max-w-md">
+              {DUMMY.stats.slice(0, 3).map((s, i) => (
+                <BlockStatTile key={s.label} label={s.label} value={s.value} change={s.change} index={i} />
+              ))}
+            </div>
+          </BlockHeroBackdrop>
+        </BlockSection>
+      )
+    case 'Content_AboutValues':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <BlockHeading as="h3" size="md" className="mb-4 text-center">
+            What we stand for
+          </BlockHeading>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { title: 'Craft', body: 'Polish the details that users feel every day.' },
+              { title: 'Trust', body: 'Security and transparency are non-negotiable.' },
+              { title: 'Momentum', body: 'Ship iteratively without losing the north star.' },
+            ].map((v, i) => (
+              <BlockHoverCard key={v.title} index={i}>
+                <div className="text-sm font-semibold mb-1">{v.title}</div>
+                <p className="text-xs text-app-muted leading-relaxed">{v.body}</p>
+              </BlockHoverCard>
+            ))}
+          </div>
+        </BlockSection>
+      )
+    case 'Content_AboutTimeline':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <BlockHeading as="h3" size="md" className="mb-6">
+            Our story
+          </BlockHeading>
+          <div className="space-y-4 border-l-2 border-app-border pl-6">
+            {[
+              { year: '2022', title: 'Founded', desc: 'Started as a design systems consultancy.' },
+              { year: '2024', title: 'Platform launch', desc: 'Shipped the first public beta.' },
+              { year: '2026', title: 'Global teams', desc: 'Serving customers in 40+ countries.' },
+            ].map((m) => (
+              <div key={m.year} className="relative">
+                <span className="absolute -left-[1.6rem] top-1 h-2.5 w-2.5 rounded-full bg-app-accent border-2 border-app-surface" />
+                <div className="text-[11px] text-app-muted">{m.year}</div>
+                <div className="font-semibold text-sm">{m.title}</div>
+                <div className="text-xs text-app-muted mt-0.5">{m.desc}</div>
+              </div>
+            ))}
+          </div>
+        </BlockSection>
+      )
+    case 'Content_DangerZone':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <Card className="p-5 border-[color-mix(in_srgb,var(--app-danger,#ef4444)_40%,var(--app-border))]">
+            <BlockHeading as="h3" size="md" className="mb-2 text-[var(--app-danger,#ef4444)]">
+              Danger zone
+            </BlockHeading>
+            <BlockLead className="mb-4">
+              Irreversible actions for this workspace or account.
+            </BlockLead>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" size="sm">
+                Revoke API keys
+              </Button>
+              <Button variant="outline" size="sm" className="text-[var(--app-danger,#ef4444)] border-[color-mix(in_srgb,var(--app-danger,#ef4444)_50%,var(--app-border))]">
+                Delete account
+              </Button>
+            </div>
+          </Card>
+        </BlockSection>
+      )
+    case 'Form_ProfileDetails':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <BlockSurface tint="surface" padding="p-5">
+            <BlockFormStack>
+              <Input label="Display name" placeholder="Alex Rivera" />
+              <Input label="Email" placeholder="alex@company.com" />
+              <div>
+                <label className="text-[11px] text-app-muted mb-1 block">Bio</label>
+                <textarea
+                  className="w-full h-20 rounded-app-sm border border-app-border bg-app-inset p-2.5 text-xs"
+                  placeholder="Tell teammates about yourself"
+                />
+              </div>
+            </BlockFormStack>
+            <Button variant="primary" size="md" className="mt-4">
+              Save changes
+            </Button>
+          </BlockSurface>
+        </BlockSection>
+      )
+    case 'Form_SettingsSections':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <BlockSurface tint="surface" padding="p-5">
+            <BlockHeading as="h3" size="md" className="mb-2">
+              Notifications
+            </BlockHeading>
+            <BlockSettingsRow
+              label="Email digests"
+              description="Weekly summary of workspace activity"
+              control={<Switch defaultChecked />}
+            />
+            <BlockSettingsRow
+              label="Product updates"
+              description="Release notes and feature announcements"
+              control={<Switch defaultChecked />}
+            />
+            <BlockHeading as="h3" size="md" className="mt-6 mb-2">
+              Privacy
+            </BlockHeading>
+            <BlockSettingsRow
+              label="Profile visibility"
+              description="Show profile to other workspace members"
+              control={<Switch />}
+            />
+          </BlockSurface>
+        </BlockSection>
+      )
+    case 'Data_UserTable':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <div className="flex flex-col sm:flex-row gap-3 mb-4">
+            <Input placeholder="Search members..." className="flex-1" />
+            <Button variant="outline" size="sm">
+              Filter
+            </Button>
+          </div>
+          <Card className="overflow-hidden">
+            <div className="grid grid-cols-[2fr_1fr_1fr_auto] text-[11px] text-app-muted bg-app-elevated px-4 py-2 border-b border-app-border">
+              <span>Member</span>
+              <span>Role</span>
+              <span>Status</span>
+              <span />
+            </div>
+            {DUMMY.names.slice(0, 6).map((name, i) => (
+              <div
+                key={name}
+                className="grid grid-cols-[2fr_1fr_1fr_auto] items-center px-4 py-2.5 border-b border-app-border last:border-0 text-xs gap-2"
+              >
+                <span className="font-medium">{name}</span>
+                <Badge variant="muted">{['Admin', 'Editor', 'Viewer'][i % 3]}</Badge>
+                <span className="text-app-muted">{['Active', 'Pending', 'Invited'][i % 3]}</span>
+                <Button variant="ghost" size="sm" className="text-[10px] h-7">
+                  ···
+                </Button>
+              </div>
+            ))}
+          </Card>
+          <div className="flex justify-between items-center mt-3 text-[11px] text-app-muted">
+            <span>1–6 of 24</span>
+            <div className="flex gap-1">
+              <Button variant="outline" size="sm" className="h-7 px-2">
+                Prev
+              </Button>
+              <Button variant="outline" size="sm" className="h-7 px-2">
+                Next
+              </Button>
+            </div>
+          </div>
+        </BlockSection>
+      )
+    case 'Data_AnalyticsToolbar':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <div className="flex flex-wrap items-center gap-2 justify-between">
+            <div className="flex flex-wrap gap-2">
+              {['7d', '30d', '90d'].map((r, i) => (
+                <Button key={r} variant={i === 1 ? 'primary' : 'outline'} size="sm">
+                  {r}
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2 items-center">
+              <label className="flex items-center gap-2 text-xs text-app-muted">
+                <Switch defaultChecked />
+                Compare
+              </label>
+              <Button variant="outline" size="sm">
+                Export
+              </Button>
+            </div>
+          </div>
+        </BlockSection>
+      )
+    case 'Data_AnalyticsOverview':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <div className="grid lg:grid-cols-[1fr_12rem] gap-4">
+            <Card className="p-4">
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                {DUMMY.stats.slice(0, 3).map((s, i) => (
+                  <BlockStatTile key={s.label} label={s.label} value={s.value} change={s.change} index={i} />
+                ))}
+              </div>
+              <div className="h-48">
+                <IllusChart brand={brand} accent={accent} />
+              </div>
+            </Card>
+            <div className="space-y-2">
+              {DUMMY.stats.slice(0, 4).map((s, i) => (
+                <BlockKpiPill key={s.label} label={s.label} value={s.value} delta={s.change} index={i} />
+              ))}
+            </div>
+          </div>
+        </BlockSection>
+      )
+    case 'Data_AnalyticsChartGrid':
+      return (
+        <BlockSection density="compact" motion="reveal">
+          <div className="grid md:grid-cols-2 gap-4">
+            {['Sessions', 'Conversion', 'Retention', 'Revenue'].map((title, i) => (
+              <Card key={title} className="p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="text-sm font-semibold">{title}</div>
+                  <Badge variant="muted" className="text-[10px]">
+                    {DUMMY.stats[i % DUMMY.stats.length]?.change ?? '+0%'}
+                  </Badge>
+                </div>
+                <div className="h-24">
+                  <IllusChart brand={brand} accent={accent} />
+                </div>
+              </Card>
+            ))}
+          </div>
+        </BlockSection>
+      )
+    case 'Layout_ProfileTabs':
+      return (
+        <BlockSection density="compact" motion="reveal" className="!py-0">
+          <Tabs defaultValue="profile">
+            <TabsList className="h-9 w-full justify-start rounded-none border-b border-app-border bg-transparent p-0">
+              {['Profile', 'Security', 'Notifications'].map((tab) => (
+                <TabsTrigger
+                  key={tab}
+                  value={tab.toLowerCase()}
+                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-app-accent data-[state=active]:bg-transparent text-xs"
+                >
+                  {tab}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </BlockSection>
+      )
+    case 'Layout_SettingsShell':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="grid lg:grid-cols-[14rem_1fr] gap-6 min-h-[20rem]">
+            <Card className="p-2">
+              {['General', 'Notifications', 'Billing', 'API'].map((item, i) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={cn(
+                    'w-full text-left px-3 py-2 rounded-app-sm text-xs',
+                    i === 0 ? 'bg-app-accent/15 text-app-text font-medium' : 'text-app-muted hover:bg-app-elevated',
+                  )}
+                >
+                  {item}
+                </button>
+              ))}
+            </Card>
+            <BlockSurface tint="surface" padding="p-5">
+              <BlockHeading as="h3" size="md" className="mb-2">
+                General
+              </BlockHeading>
+              <BlockLead className="mb-4">Workspace name, locale, and defaults.</BlockLead>
+              <Input label="Workspace name" placeholder="Acme Inc." />
+            </BlockSurface>
+          </div>
+        </BlockSection>
+      )
     default:
       return (
         <Section>
@@ -650,14 +1234,24 @@ function RenderBlock({ blockType, page }: { blockType: string; page: ArchPage })
   }
 }
 
-export function WireframeBlocksPage({
+const MemoRenderBlock = memo(RenderBlock, (prev, next) => {
+  return (
+    prev.blockType === next.blockType &&
+    prev.page.id === next.page.id &&
+    archNavSignature(prev.page, prev.archPages) === archNavSignature(next.page, next.archPages)
+  )
+})
+
+function WireframeBlocksPageInner({
   page,
   sections,
   device,
+  archPages,
 }: {
   page: ArchPage
   sections: WireframeSection[]
   device: 'desktop' | 'tablet' | 'mobile'
+  archPages: Record<string, ArchPage>
 }) {
   const isCompact = device !== 'desktop'
   const ordered = [...sections].sort((a, b) => {
@@ -668,16 +1262,15 @@ export function WireframeBlocksPage({
 
   const authPage =
     isAuthPage(page) || ordered.some((section) => section.block_type === 'Layout_AuthSplit')
-  const sidebarShell = !authPage && shouldUseSidebarShell(ordered)
-  const mainSections = sidebarShell ? ordered.slice(1) : ordered
+  const sidebarShell = !authPage && isSidebarShellLayout(ordered)
+  const { main: mainSections } = splitSidebarShellSections(ordered)
 
   if (authPage) {
     const hasAuthBlock = ordered.some((section) => section.block_type === 'Layout_AuthSplit')
     return (
       <Shell>
-        <RuntimeChrome />
         {hasAuthBlock ? (
-          <RenderBlock blockType="Layout_AuthSplit" page={page} />
+          <MemoRenderBlock blockType="Layout_AuthSplit" page={page} archPages={archPages} />
         ) : (
           <LayoutAuthSplit page={page} variant={getAuthVariant(page)} />
         )}
@@ -687,32 +1280,52 @@ export function WireframeBlocksPage({
 
   if (sidebarShell) {
     return (
-      <Shell>
-        <RuntimeChrome />
-        <div className={cn('grid grid-cols-1 md:grid-cols-[240px_1fr] min-h-[520px]', isCompact && 'max-w-2xl mx-auto')}>
-          <DashboardSidebar />
-          <main className="min-w-0 bg-[var(--bg-surface)]">
+      <Shell fillHeight={!isCompact}>
+        <div
+          className={cn(
+            'grid min-h-0 grid-cols-1 overflow-hidden md:grid-cols-[240px_1fr]',
+            isCompact
+              ? 'mx-auto min-h-[520px] max-w-2xl'
+              : 'min-h-0 flex-1',
+          )}
+        >
+          <div className="hidden h-full min-h-0 overflow-hidden md:block">
+            <ArchNavSidebar page={page} pages={archPages} />
+          </div>
+          {isCompact ? (
+            <div className="border-b border-app-border md:hidden">
+              <ArchNavSidebar page={page} pages={archPages} />
+            </div>
+          ) : null}
+          <main className="min-h-0 min-w-0 h-full max-h-full overflow-y-auto overscroll-contain bg-[var(--bg-surface)] app-scroll">
             {mainSections.length === 0 ? (
-              <RenderBlock blockType="Layout_EmptyState" page={page} />
+              <MemoRenderBlock blockType="Layout_EmptyState" page={page} archPages={archPages} />
             ) : (
               mainSections.map((section, index) => (
-                <div key={section.section_id ?? `${section.block_type}-${index}`}>
-                  <RenderBlock blockType={section.block_type ?? 'Layout_EmptyState'} page={page} />
+                <div
+                  key={section.section_id ?? `${section.block_type}-${index}`}
+                  style={LAZY_SECTION_STYLE}
+                >
+                  <MemoRenderBlock
+                    blockType={section.block_type ?? 'Layout_EmptyState'}
+                    page={page}
+                    archPages={archPages}
+                  />
                 </div>
               ))
             )}
+            <Section className="pt-0">
+              <Card className="p-4 flex flex-wrap items-center gap-2 text-xs text-app-muted">
+                <ImageIcon size={12} />
+                Dashboard shell: sidebar navigation with main content blocks.
+                <div className="ml-auto flex gap-2">
+                  <Badge variant="success">Stable</Badge>
+                  <Badge variant="muted">Dashboard</Badge>
+                </div>
+              </Card>
+            </Section>
           </main>
         </div>
-        <Section className="pt-0">
-          <Card className="p-4 flex flex-wrap items-center gap-2 text-xs text-app-muted">
-            <ImageIcon size={12} />
-            Dashboard shell: sidebar navigation with main content blocks.
-            <div className="ml-auto flex gap-2">
-              <Badge variant="success">Stable</Badge>
-              <Badge variant="muted">Dashboard</Badge>
-            </div>
-          </Card>
-        </Section>
       </Shell>
     )
   }
@@ -723,29 +1336,34 @@ export function WireframeBlocksPage({
 
   return (
     <Shell>
-      <RuntimeChrome />
-
       {headerBlocks.map((section, index) => (
         <div key={section.section_id ?? `Nav_TopBar-${index}`} className="w-full">
-          <RenderBlock blockType="Nav_TopBar" page={page} />
+          <MemoRenderBlock blockType="Nav_TopBar" page={page} archPages={archPages} />
         </div>
       ))}
 
-      <div className={cn('mx-auto', isCompact ? 'max-w-2xl' : 'max-w-6xl')}>
-        {bodyBlocks.length === 0 && footerBlocks.length === 0 && headerBlocks.length === 0 ? (
-          <RenderBlock blockType="Layout_EmptyState" page={page} />
-        ) : (
-          bodyBlocks.map((section, index) => (
-            <div key={section.section_id ?? `${section.block_type}-${index}`}>
-              <RenderBlock blockType={section.block_type ?? 'Layout_EmptyState'} page={page} />
+      {bodyBlocks.length === 0 && footerBlocks.length === 0 && headerBlocks.length === 0 ? (
+        <div className={bodyBlockWidthClass(isCompact, 'Layout_EmptyState')}>
+          <MemoRenderBlock blockType="Layout_EmptyState" page={page} archPages={archPages} />
+        </div>
+      ) : (
+        bodyBlocks.map((section, index) => {
+          const blockType = section.block_type ?? 'Layout_EmptyState'
+          return (
+            <div
+              key={section.section_id ?? `${blockType}-${index}`}
+              className={bodyBlockWidthClass(isCompact, blockType)}
+              style={LAZY_SECTION_STYLE}
+            >
+              <MemoRenderBlock blockType={blockType} page={page} archPages={archPages} />
             </div>
-          ))
-        )}
-      </div>
+          )
+        })
+      )}
 
       {footerBlocks.map((section, index) => (
         <div key={section.section_id ?? `Nav_Footer-${index}`} className="w-full">
-          <RenderBlock blockType="Nav_Footer" page={page} />
+          <MemoRenderBlock blockType="Nav_Footer" page={page} archPages={archPages} />
         </div>
       ))}
 
@@ -762,4 +1380,13 @@ export function WireframeBlocksPage({
     </Shell>
   )
 }
+
+export const WireframeBlocksPage = memo(WireframeBlocksPageInner, (prev, next) => {
+  return (
+    prev.page.id === next.page.id &&
+    prev.device === next.device &&
+    prev.archPages === next.archPages &&
+    sectionsSignature(prev.sections) === sectionsSignature(next.sections)
+  )
+})
 

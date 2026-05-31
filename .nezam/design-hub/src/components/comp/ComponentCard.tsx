@@ -1,45 +1,101 @@
 'use client'
 
 import { IconRenderer } from '@/lib/icons'
+import {
+  CODE_BLOCK_PREVIEW,
+  FLOATING_CHROME,
+  FLOATING_CHROME_MUTED,
+  LOZENGE_NEUTRAL,
+  LOZENGE_SUCCESS,
+  LOZENGE_WARNING,
+  WARNING_BANNER,
+  WARNING_BANNER_TEXT,
+} from '@/lib/semantic-preview-classes'
+import { useDesignPreviewScopeStyle } from '@/lib/use-design-preview-scope'
 import { GROUP_ICONS } from '@/data/components-library'
 import { StatusBadge } from './StatusBadge'
 import type { ComponentDef } from '@/data/components-library'
 
 interface ComponentCardProps {
   component: ComponentDef
+  /** Catalog density scale from grid controls (0.75–1.35). */
+  scale?: number
 }
 
-export function ComponentCard({ component }: ComponentCardProps) {
+export function ComponentCard({ component, scale = 1 }: ComponentCardProps) {
+  const previewScopeStyle = useDesignPreviewScopeStyle({
+    fillHeight: false,
+    matchHubChrome: true,
+  })
+
   const iconName = GROUP_ICONS[component.group] ?? 'Box'
+  const pad = Math.round(12 * scale)
+  const gap = Math.round(10 * scale)
+  const iconBox = Math.round(24 * scale)
+  const iconSize = Math.max(10, Math.round(12 * scale))
+  const titleSize = Math.max(11, Math.round(13 * scale))
+  const descSize = Math.max(10, Math.round(11 * scale))
+  const previewPad = Math.max(6, Math.round(10 * scale))
 
   return (
-    <div className="group flex flex-col gap-3 rounded-app-lg border border-app-border bg-app-surface p-4 hover:border-app-accent/50 hover:shadow-sm transition-all duration-150">
+    <div
+      className="group flex w-full min-w-0 flex-col rounded-app-lg border border-app-border bg-app-surface hover:border-app-accent/50 hover:shadow-sm transition-[border-color,box-shadow] duration-200 motion-reduce:transition-none"
+      style={{ padding: pad, gap }}
+    >
       {/* Card header */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
-          {/* Icon */}
-          <div className="h-7 w-7 shrink-0 rounded-app-sm bg-app-elevated border border-app-border flex items-center justify-center">
-            <IconRenderer name={iconName} size={14} className="text-app-muted" />
+          <div
+            className="shrink-0 rounded-app-sm bg-app-elevated border border-app-border flex items-center justify-center"
+            style={{ width: iconBox, height: iconBox }}
+          >
+            <IconRenderer name={iconName} size={iconSize} className="text-app-muted" />
           </div>
-          {/* Name */}
-          <p className="text-sm font-semibold text-app-text truncate leading-tight">
+          <p
+            className="font-semibold text-app-text truncate leading-tight"
+            style={{ fontSize: titleSize }}
+          >
             {component.name}
           </p>
         </div>
-        {/* Status badge */}
         <StatusBadge status={component.status} />
       </div>
 
-      {/* Preview area — 1:1 square on every card */}
+      {/* Preview stage */}
       <div
-        className="aspect-square w-full shrink-0 overflow-hidden rounded-app-md border border-app-border/60 bg-app-elevated"
+        className="relative w-full shrink-0 overflow-hidden rounded-app-md border border-app-border/60 bg-app-elevated"
+        style={{ aspectRatio: '4 / 3' }}
         aria-hidden
       >
-        <ComponentPreview component={component} />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--app-border) 70%, transparent) 1px, transparent 0)',
+            backgroundSize: '12px 12px',
+          }}
+        />
+        <div
+          className="relative flex h-full w-full items-center justify-center overflow-hidden"
+          style={{ ...previewScopeStyle, padding: previewPad }}
+        >
+          <div
+            className="flex h-full w-full items-center justify-center"
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: 'center center',
+            }}
+          >
+            <ComponentPreview component={component} />
+          </div>
+        </div>
       </div>
 
       {/* Description */}
-      <p className="text-[11px] text-app-subtle leading-relaxed line-clamp-2">
+      <p
+        className="text-app-subtle leading-relaxed line-clamp-2 min-h-[2.5em]"
+        style={{ fontSize: descSize }}
+      >
         {component.description}
       </p>
     </div>
@@ -50,7 +106,7 @@ export function ComponentCard({ component }: ComponentCardProps) {
 
 function ComponentPreview({ component }: { component: ComponentDef }) {
   const previewClass =
-    'h-full w-full min-h-0 flex items-center justify-center gap-2 overflow-hidden p-3 box-border'
+    'h-full w-full min-h-0 flex items-center justify-center gap-2 overflow-hidden box-border'
 
   switch (component.id) {
     case 'button':
@@ -206,9 +262,9 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
     case 'lozenge':
       return (
         <div className={previewClass + ' flex-wrap gap-1.5'}>
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">Done</span>
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200">In Progress</span>
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-50 text-slate-600 border border-slate-200">Backlog</span>
+          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${LOZENGE_SUCCESS}`}>Done</span>
+          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${LOZENGE_WARNING}`}>In Progress</span>
+          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${LOZENGE_NEUTRAL}`}>Backlog</span>
         </div>
       )
 
@@ -313,11 +369,11 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
       return (
         <div className={previewClass}>
           <div className="relative flex flex-col items-center gap-0.5">
-            <div className="bg-gray-900 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap">
+            <div className={`${FLOATING_CHROME} text-[10px] px-2 py-1 rounded whitespace-nowrap`}>
               Tooltip text
             </div>
             <div className="w-2 h-1.5 overflow-hidden">
-              <div className="w-2 h-2 bg-gray-900 rotate-45 -mt-1 mx-auto" />
+              <div className={`w-2 h-2 ${FLOATING_CHROME} rotate-45 -mt-1 mx-auto`} />
             </div>
             <button className="px-3 py-1 rounded text-[11px] border border-app-border text-app-text bg-app-elevated">
               Hover me
@@ -368,19 +424,19 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'banner':
       return (
-        <div className="h-full w-full min-h-0 rounded-app-sm border border-amber-200 bg-amber-50 flex items-center gap-2 px-3">
+        <div className={`h-full w-full min-h-0 rounded-app-sm flex items-center gap-2 px-3 ${WARNING_BANNER}`}>
           <div className="h-3 w-3 rounded-full bg-amber-500 shrink-0" />
-          <p className="text-[11px] text-amber-800 font-medium">System maintenance scheduled</p>
+          <p className={`text-[11px] font-medium ${WARNING_BANNER_TEXT}`}>System maintenance scheduled</p>
         </div>
       )
 
     case 'flag':
       return (
         <div className={previewClass}>
-          <div className="flex items-center gap-2 px-2 py-1.5 rounded-app-sm bg-gray-900 text-white">
+          <div className={`flex items-center gap-2 px-2 py-1.5 rounded-app-sm ${FLOATING_CHROME}`}>
             <div className="h-2.5 w-2.5 rounded-full bg-emerald-400 shrink-0" />
             <span className="text-[10px]">Changes saved</span>
-            <span className="text-gray-500 text-[10px] ml-1">&times;</span>
+            <span className={`${FLOATING_CHROME_MUTED} text-[10px] ml-1`}>&times;</span>
           </div>
         </div>
       )
@@ -424,7 +480,7 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
 
     case 'code':
       return (
-        <div className={previewClass + ' bg-gray-900 border-gray-700'}>
+        <div className={`${previewClass} ${CODE_BLOCK_PREVIEW} border rounded-app-sm px-2`}>
           <code className="text-[10px] font-mono text-green-400">
             {'const x = <Component />'}
           </code>
@@ -765,9 +821,9 @@ function ComponentPreview({ component }: { component: ComponentDef }) {
           {/* Spotlight hole */}
           <div className="absolute top-2 right-3 w-8 h-5 rounded bg-app-surface border-2 border-app-accent shadow-lg shadow-app-accent/30" />
           {/* Tooltip */}
-          <div className="absolute bottom-1.5 right-1.5 w-20 bg-gray-900 text-white rounded p-1">
+          <div className={`absolute bottom-1.5 right-1.5 w-20 rounded p-1 ${FLOATING_CHROME}`}>
             <div className="text-[8px] font-medium mb-0.5">New feature!</div>
-            <div className="text-[7px] text-gray-400">Click here to try it</div>
+            <div className={`text-[7px] ${FLOATING_CHROME_MUTED}`}>Click here to try it</div>
           </div>
         </div>
       )

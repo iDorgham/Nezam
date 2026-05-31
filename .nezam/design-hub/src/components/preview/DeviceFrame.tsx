@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { useHub } from '@/store/hub.store'
 import type { PreviewDevice } from '@/store/hub.store'
 import type { ArchPage } from '@/types/arch'
@@ -8,30 +8,8 @@ import type { DesignTokens } from '@/types/design'
 import { composePage } from './PageComposer'
 import { WireframeBlocksPage } from './WireframeBlocksPage'
 import { detectTemplate, TEMPLATE_INFO, resolveTemplateLayerOrder } from '@/lib/preview/templates'
-
-// ─── Build override CSS vars from a previewOverride record ────────────────────
-function buildOverrideVars(override: NonNullable<ReturnType<typeof useHub.getState>['theme']['previewOverride']>): React.CSSProperties {
-  const v = override[override.mode]
-  if (!v) return {}
-  return {
-    '--bg-surface':     v.background   ?? undefined,
-    '--panel':          v.card         ?? undefined,
-    '--border':         v.border       ?? undefined,
-    '--text':           v.foreground   ?? undefined,
-    '--text-secondary': v['card-foreground'] ?? v['muted-foreground'] ?? undefined,
-    '--text-muted':     v['muted-foreground'] ?? undefined,
-    '--brand':          v.primary      ?? undefined,
-    '--brand-hover':    v.primary      ?? undefined,
-    '--brand-subtle':   v.secondary    ?? undefined,
-    '--brand-deep':     v.primary      ?? undefined,
-    '--accent':         v.accent       ?? undefined,
-    '--neutral-100':    v.secondary    ?? undefined,
-    '--neutral-200':    v.muted        ?? undefined,
-    '--error':          v.destructive  ?? undefined,
-    '--radius-md':      v.radius       ?? undefined,
-    '--radius-lg':      v.radius       ?? undefined,
-  } as React.CSSProperties
-}
+import { mergePreviewScopeVars } from '@/lib/preview-scope-vars'
+import { cn } from '@/lib/utils'
 
 // ─── Device sizes ─────────────────────────────────────────────────────────────
 
@@ -53,88 +31,57 @@ const SCALE: Record<PreviewDevice, number> = {
   mobile:  0.95,
 }
 
-// ─── Token → CSS vars ─────────────────────────────────────────────────────────
-
-function buildVars(t: DesignTokens): React.CSSProperties {
-  return {
-    '--brand':          t.colors.brand['500'],
-    '--brand-hover':    t.colors.brand['400'],
-    '--brand-subtle':   t.colors.brand['100'],
-    '--brand-deep':     t.colors.brand['700'],
-    '--bg-surface':     t.colors.surface.bg,
-    '--panel':          t.colors.surface.panel,
-    '--border':         t.colors.surface.border,
-    '--text':           t.colors.text.primary,
-    '--text-secondary': t.colors.text.secondary,
-    '--text-muted':     t.colors.text.muted,
-    '--text-disabled':  t.colors.text.disabled,
-    '--success':        t.colors.semantic.success,
-    '--warning':        t.colors.semantic.warning,
-    '--error':          t.colors.semantic.error,
-    '--accent':         t.colors.accent['500'],
-    '--radius-sm':      t.radius.sm,
-    '--radius-md':      t.radius.md,
-    '--radius-lg':      t.radius.lg,
-    '--radius-xl':      t.radius.xl,
-    '--radius-full':    t.radius.full,
-    '--shadow-sm':      t.shadows.sm,
-    '--shadow-md':      t.shadows.md,
-    '--shadow-lg':      t.shadows.lg,
-    '--font-sans':      t.typography.sans,
-    '--font-display':   t.typography.display,
-    '--font-mono':      t.typography.mono,
-    '--motion-duration': t.motion.duration.base,
-    '--motion-easing':  t.motion.easing.default,
-    '--border-width':   t.borders.width,
-    '--border-style':   t.borders.style,
-    '--neutral-100':    t.colors.neutral['100'],
-    '--neutral-200':    t.colors.neutral['200'],
-    '--neutral-300':    t.colors.neutral['300'],
-    '--spacing-base':   `${t.spacing.base}px`,
-  } as React.CSSProperties
-}
-
 // ─── Master dispatcher ─────────────────────────────────────────────────────────
 
-export function PageRenderer({
+export const PageRenderer = memo(function PageRenderer({
   page,
   tokens,
   device,
   forcedVisibleLayers,
   wireframeSections,
+  fillViewport,
 }: {
   page: ArchPage
   tokens: DesignTokens
   device: PreviewDevice
   forcedVisibleLayers?: string[]
   wireframeSections?: Array<{ section_id?: string; block_type?: string; order?: number }>
+  /** Fill preview viewport so sidebar-shell main column can scroll. */
+  fillViewport?: boolean
 }) {
-  const vars           = useMemo(() => buildVars(tokens), [tokens])
   const previewOverride = useHub((s) => s.theme.previewOverride)
-  const overrideVars   = useMemo(
-    () => previewOverride ? buildOverrideVars(previewOverride) : {},
-    [previewOverride],
+  const archPages = useHub((s) => s.arch.pages)
+  const layerState = useHub((s) => s.preview.layerStateByPage?.[page.id])
+  const wrapStyle = useMemo(
+    () => mergePreviewScopeVars(tokens, previewOverride),
+    [tokens, previewOverride],
   )
   const isMobile = device === 'mobile'
-  const isTablet  = device === 'tablet'
-  const template  = detectTemplate(page)
-  const layerState = useHub((s) => s.preview.layerStateByPage?.[page.id])
+  const isTablet = device === 'tablet'
+  const template = detectTemplate(page)
   const allLayers = TEMPLATE_INFO[template]?.layers ?? []
   const orderedLayers = resolveTemplateLayerOrder(allLayers, layerState?.order ?? [])
-  const visibleLayers = forcedVisibleLayers ?? orderedLayers.filter((id) => !(layerState?.hidden ?? []).includes(id))
-
-  const wrapStyle: React.CSSProperties = { ...vars, ...overrideVars, minHeight: '100%' }
+  const visibleLayers =
+    forcedVisibleLayers ?? orderedLayers.filter((id) => !(layerState?.hidden ?? []).includes(id))
 
   return (
-    <div style={wrapStyle}>
+    <div
+      style={wrapStyle}
+      className={cn(fillViewport && 'flex h-full min-h-0 flex-1 flex-col overflow-hidden')}
+    >
       {wireframeSections && wireframeSections.length > 0 ? (
-        <WireframeBlocksPage page={page} sections={wireframeSections} device={device} />
+        <WireframeBlocksPage
+          page={page}
+          sections={wireframeSections}
+          device={device}
+          archPages={archPages}
+        />
       ) : (
         composePage(template, page, isMobile, isTablet, visibleLayers)
       )}
     </div>
   )
-}
+})
 
 // ─── Device frame ─────────────────────────────────────────────────────────────
 

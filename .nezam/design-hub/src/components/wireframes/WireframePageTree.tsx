@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { FileText } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { getTreeRoots, matchesArchPageSearch } from '@/lib/arch/page-tree'
 import { WireframePageTreeItem } from './WireframePageTreeItem'
 import type { ArchPage } from '@/types/arch'
@@ -21,6 +22,8 @@ interface Props {
   description?: string
   searchPlaceholder?: string
   showTitle?: boolean
+  /** When true, negative margins bleed into a parent with `p-4` (Preview sidebar). */
+  bleed?: boolean
 }
 
 export function WireframePageTree({
@@ -35,6 +38,7 @@ export function WireframePageTree({
   description,
   searchPlaceholder = 'Search pages...',
   showTitle = true,
+  bleed = true,
 }: Props) {
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -42,7 +46,12 @@ export function WireframePageTree({
   const isEmpty = roots.length === 0
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 overflow-hidden -mx-4 -mt-4">
+    <div
+      className={cn(
+        'flex min-h-0 flex-1 flex-col overflow-hidden',
+        bleed && '-mx-4 -mt-4',
+      )}
+    >
       {showTitle ? (
         <div className="h-10 px-4 border-b border-app-border shrink-0 flex items-center">
           <div className="text-xs font-semibold text-app-text">{title}</div>
@@ -50,7 +59,7 @@ export function WireframePageTree({
       ) : null}
 
       {description ? (
-        <div className="px-4 py-1.5 border-b border-app-border shrink-0">
+        <div className="shrink-0 border-b border-app-border px-4 py-2">
           <div
             className="text-app-subtle"
             style={{ fontSize: PREMIUM_TYPE.metaSize, fontWeight: PREMIUM_TYPE.metaWeight }}

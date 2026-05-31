@@ -1,17 +1,74 @@
 name: NEZAM Sync & Drift Check
-on: [push, pull_request]
+
+on:
+  pull_request:
+    paths:
+      - '.cursor/**'
+      - '.claude/**'
+      - '.gemini/**'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'GEMINI.md'
+      - '.nezam/core/scripts/sync/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
 jobs:
-  sync-validate:
+  drift-verify:
+    name: Verify mirrors match canonical .cursor/
     runs-on: ubuntu-latest
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v6
-      - run: pnpm install
-      - run: pnpm ai:sync
-      - run: pnpm ai:check
-      - name: Validate Skill Frontmatter
-        run: node .nezam/core/scripts/checks/check-skill-frontmatter.js
-      - name: Check Path Normalization
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Verify mode: regenerate mirrors in a workspace copy, then diff against committed state.
+      # If `pnpm ai:sync` would change anything, this job fails — meaning the PR forgot to run sync.
+      - name: Verify mirrors are in sync (no write)
         run: |
-          grep -r "\.cursor/templates/" .cursor/ .nezam/ docs/ || true
-          grep -r "docs/core/" . || echo "✅ No legacy paths found"
+          set -euo pipefail
+          pnpm ai:sync
+          if ! git diff --quiet -- ':!pnpm-lock.yaml' ':!node_modules'; then
+            echo "❌ Mirror drift detected. Run \`pnpm ai:sync\` locally and commit the diff."
+            echo ""
+            echo "--- Drift diff (truncated) ---"
+            git diff --stat -- ':!pnpm-lock.yaml' ':!node_modules' | head -50
+            exit 1
+          fi
+          echo "✅ Mirrors in sync with canonical .cursor/"
+
+      - name: Run AI check suite
+        run: pnpm ai:check
+
+      - name: Check path normalization
+        run: |
+          set -euo pipefail
+          violations=0
+          if grep -rln "\.cursor/templates/" .cursor .nezam docs 2>/dev/null; then
+            echo "❌ Legacy .cursor/templates/ references found"
+            violations=$((violations + 1))
+          fi
+          if grep -rln "docs/core/" . --exclude-dir=node_modules --exclude-dir=.git 2>/dev/null; then
+            echo "❌ Legacy docs/core/ references found"
+            violations=$((violations + 1))
+          fi
+          if [ "$violations" -ne 0 ]; then
+            exit 1
+          fi
+          echo "✅ No legacy path references"

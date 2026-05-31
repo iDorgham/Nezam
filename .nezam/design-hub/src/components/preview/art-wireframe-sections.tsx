@@ -19,12 +19,25 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  BlockHeading,
+  BlockHeroBackdrop,
+  BlockHoverCard,
+  BlockLead,
+  BlockMediaBackground,
+  BlockSection,
+} from '@/components/wireframe/block-primitives'
+import { blockTintAt, blockTintStyles } from '@/lib/wireframe/block-visual-system'
 import { hasArtShadcnBlockPreview } from '@/lib/wireframe/art-shadcn-block-previews'
 import { cn } from '@/lib/utils'
 import { DUMMY, IllusDashboard, IllusFeatures, IllusHero } from './dummy-content'
 
 function Section({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <section className={cn('px-6 py-14 max-w-6xl mx-auto', className)}>{children}</section>
+  return (
+    <BlockSection density="default" motion="reveal" className={className}>
+      {children}
+    </BlockSection>
+  )
 }
 
 function PageCard({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -41,24 +54,35 @@ export function renderArtWireframeSection(blockType: string): React.ReactNode | 
   switch (blockType) {
     case 'Art_Hero_Cinematic':
       return (
-        <Section className="pt-16 md:pt-20">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+        <BlockSection density="spacious" motion="reveal" className="pt-4 md:pt-6">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
             <div>
               <Badge variant="muted" className="mb-4">New release</Badge>
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">Build something remarkable</h1>
-              <p className="text-sm text-app-muted mb-6 max-w-md">{DUMMY.descriptions[0]}</p>
-              <div className="flex gap-2">
+              <BlockHeading as="h1" size="xl">Build something remarkable</BlockHeading>
+              <BlockLead className="mb-6">{DUMMY.descriptions[0]}</BlockLead>
+              <div className="flex flex-wrap gap-2">
                 <Button variant="primary" size="md">Start building</Button>
                 <Button variant="outline" size="md">Watch demo</Button>
               </div>
             </div>
-            <PageCard className="p-2 overflow-hidden">
-              <div className="h-56 md:h-72 rounded-app-sm overflow-hidden">
+            <BlockMediaBackground seed={1} minHeight="min-h-[240px] md:min-h-[300px]" overlay={0.1}>
+              <div className="h-full min-h-[240px] p-2 flex items-center justify-center">
                 <IllusHero brand="var(--brand)" />
               </div>
-            </PageCard>
+            </BlockMediaBackground>
           </div>
-        </Section>
+        </BlockSection>
+      )
+    case 'Art_Hero_ImageBackdrop':
+      return (
+        <BlockHeroBackdrop seed={2} fullBleed className="min-h-[360px] md:min-h-[420px] flex items-end">
+          <BlockSection density="spacious" bleed motion="reveal" className="w-full">
+            <Badge variant="muted" className="mb-3">Editorial</Badge>
+            <BlockHeading as="h1" size="xl">Stories worth telling</BlockHeading>
+            <BlockLead className="max-w-xl mb-5">{DUMMY.descriptions[0]}</BlockLead>
+            <Button variant="primary" size="md" iconEnd={<ArrowRight size={14} />}>Read the case study</Button>
+          </BlockSection>
+        </BlockHeroBackdrop>
       )
     case 'Art_Hero_Bento':
       return (
@@ -101,17 +125,57 @@ export function renderArtWireframeSection(blockType: string): React.ReactNode | 
       )
     case 'Art_BentoGrid_4':
       return (
-        <Section>
-          <div className="grid md:grid-cols-2 gap-3">
+        <BlockSection density="default" motion="reveal">
+          <div className="grid md:grid-cols-12 gap-3 auto-rows-[minmax(120px,auto)]">
             {[LayoutGrid, Zap, Layers, Star].map((Icon, i) => (
-              <Card key={i} className={cn('p-4', i === 0 && 'md:row-span-1')}>
-                <Icon className="h-5 w-5 text-app-accent mb-2" />
+              <BlockHoverCard
+                key={i}
+                index={i}
+                tint={blockTintAt(i)}
+                className={cn(
+                  'md:col-span-6',
+                  i === 0 && 'md:col-span-7 md:row-span-2',
+                  i === 1 && 'md:col-span-5',
+                  i === 2 && 'md:col-span-4',
+                  i === 3 && 'md:col-span-8',
+                  i % 2 === 0 ? 'block-hover-tilt' : 'block-hover-glow',
+                )}
+              >
+                <Icon className="h-5 w-5 mb-2" style={{ color: blockTintStyles(blockTintAt(i)).subtle }} />
                 <div className="font-semibold text-sm">Capability {i + 1}</div>
-                <p className="text-xs text-app-muted mt-1">{DUMMY.descriptions[i % 3]}</p>
-              </Card>
+                <p className="text-xs text-app-muted mt-1 leading-relaxed">{DUMMY.descriptions[i % 3]}</p>
+              </BlockHoverCard>
             ))}
           </div>
-        </Section>
+        </BlockSection>
+      )
+    case 'Art_Card_HoverGrid':
+      return (
+        <BlockSection density="default" motion="reveal">
+          <div className="grid md:grid-cols-12 gap-3 auto-rows-[minmax(128px,auto)]">
+            {DUMMY.features.slice(0, 4).map((f, i) => (
+              <BlockHoverCard
+                key={f.title}
+                index={i}
+                tint={blockTintAt(i + 1)}
+                className={cn(
+                  'flex flex-col justify-end',
+                  i === 0 && 'md:col-span-7 md:row-span-2 min-h-[220px]',
+                  i === 1 && 'md:col-span-5',
+                  i === 2 && 'md:col-span-4',
+                  i === 3 && 'md:col-span-8',
+                  i % 2 === 0 ? 'block-hover-tilt' : 'block-hover-border-accent',
+                )}
+              >
+                <div className="text-[11px] font-semibold uppercase tracking-wider mb-2 opacity-70">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div className="font-semibold text-sm mb-1">{f.title}</div>
+                <p className="text-xs text-app-muted leading-relaxed">{f.desc}</p>
+              </BlockHoverCard>
+            ))}
+          </div>
+        </BlockSection>
       )
     case 'Art_BentoGrid_6':
       return (
@@ -147,42 +211,50 @@ export function renderArtWireframeSection(blockType: string): React.ReactNode | 
       )
     case 'Art_Feature_IconMatrix':
       return (
-        <Section>
+        <BlockSection density="default" motion="reveal">
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {DUMMY.features.map((f) => (
-              <Card key={f.title} className="p-4">
-                <BarChart3 className="h-5 w-5 text-app-accent mb-2" />
+            {DUMMY.features.map((f, i) => (
+              <BlockHoverCard key={f.title} index={i} tint={blockTintAt(i)} className="block-hover-lift">
+                <BarChart3 className="h-5 w-5 mb-2" style={{ color: blockTintStyles(blockTintAt(i)).subtle }} />
                 <div className="font-semibold text-sm mb-1">{f.title}</div>
-                <p className="text-xs text-app-muted">{f.desc}</p>
-              </Card>
+                <p className="text-xs text-app-muted leading-relaxed">{f.desc}</p>
+              </BlockHoverCard>
             ))}
           </div>
-        </Section>
+        </BlockSection>
       )
     case 'Art_Pricing_Spotlight':
       return (
-        <Section>
+        <BlockSection density="default" motion="reveal">
           <div className="grid md:grid-cols-3 gap-4 items-stretch">
             {['Starter', 'Growth', 'Enterprise'].map((tier, i) => (
-              <Card
+              <BlockHoverCard
                 key={tier}
-                className={cn('p-5 flex flex-col', i === 1 && 'ring-2 ring-app-accent border-app-accent/40 scale-[1.02]')}
+                index={i}
+                tint={i === 1 ? 'accent' : blockTintAt(i)}
+                className={cn('flex flex-col', i === 1 && 'block-hover-border-accent')}
               >
-                {i === 1 ? <Badge className="w-fit mb-2">Most popular</Badge> : null}
+                {i === 1 ? (
+                  <Badge variant="default" className="w-fit mb-2 text-[10px]">
+                    Most popular
+                  </Badge>
+                ) : null}
                 <div className="text-lg font-bold mb-1">{tier}</div>
-                <div className="text-2xl font-bold text-app-accent mb-4">${(i + 1) * 19}</div>
+                <div className="text-2xl font-bold mb-4" style={{ color: blockTintStyles(blockTintAt(i)).subtle }}>
+                  ${(i + 1) * 19}
+                </div>
                 <ul className="text-xs text-app-muted space-y-1 mb-4 flex-1">
                   <li>• Unlimited projects</li>
                   <li>• Team seats</li>
                   <li>• Priority support</li>
                 </ul>
-                <Button variant={i === 1 ? 'primary' : 'outline'} size="sm" className="w-full">
+                <Button variant={i === 1 ? 'primary' : 'outline'} size="sm" className="w-full mt-auto">
                   Choose plan
                 </Button>
-              </Card>
+              </BlockHoverCard>
             ))}
           </div>
-        </Section>
+        </BlockSection>
       )
     case 'Art_Testimonial_Spotlight': {
       const spotlight = DUMMY.team[0]
@@ -229,6 +301,32 @@ export function renderArtWireframeSection(blockType: string): React.ReactNode | 
           <div className="flex flex-wrap justify-center gap-6 px-6 max-w-5xl mx-auto motion-reduce:flex motion-reduce:flex-wrap">
             {Array.from({ length: 6 }).map((_, i) => (
               <Skeleton key={i} className="h-8 w-20 rounded-app-sm" />
+            ))}
+          </div>
+        </section>
+      )
+    case 'Art_Section_Marquee':
+      return (
+        <section className="py-10 border-y border-app-border overflow-hidden bg-app-elevated/30">
+          <p className="text-center text-[11px] text-app-muted mb-5 uppercase tracking-widest px-6">
+            Loved by builders
+          </p>
+          <div className="flex gap-8 px-6 max-w-6xl mx-auto overflow-x-auto pb-2 snap-x snap-mandatory">
+            {DUMMY.team.slice(0, 5).map((member, i) => (
+              <div
+                key={member.name}
+                className={cn(
+                  'shrink-0 snap-center min-w-[200px] rounded-app-md border p-4 block-scroll-reveal block-hover-lift',
+                )}
+                style={{
+                  borderColor: blockTintStyles(blockTintAt(i)).border,
+                  background: blockTintStyles(blockTintAt(i)).bg,
+                }}
+              >
+                <p className="text-xs mb-3 leading-relaxed">&ldquo;{DUMMY.descriptions[i % 3]}&rdquo;</p>
+                <div className="text-[11px] font-semibold">{member.name}</div>
+                <div className="text-[10px] text-app-muted">{member.role}</div>
+              </div>
             ))}
           </div>
         </section>

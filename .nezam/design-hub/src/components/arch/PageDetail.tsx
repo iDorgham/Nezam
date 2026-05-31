@@ -206,17 +206,50 @@ export function PageDetail({ onClose }: Props) {
                 className="h-3.5 w-3.5 rounded border-app-border"
               />
             </label>
-            <Select
-              label="Presentation"
-              value={page.menuPresentation ?? 'dropdown'}
-              onChange={(e) =>
-                update({ menuPresentation: e.target.value as ArchPage['menuPresentation'] })
-              }
-              options={[
-                { value: 'dropdown', label: 'Dropdown' },
-                { value: 'mega', label: 'Mega menu' },
-              ]}
-            />
+            {(page.menuPlacement ?? 'main') === 'main' ? (
+              <>
+                <p className="text-[10px] text-app-muted leading-snug px-0.5">
+                  Main menu powers the header (top nav) and sidebar shell. Use nav slot on each page
+                  to control topnav vs sidebar visibility.
+                </p>
+                <Select
+                  label="Header presentation"
+                  value={page.menuPresentation ?? 'dropdown'}
+                  onChange={(e) =>
+                    update({ menuPresentation: e.target.value as ArchPage['menuPresentation'] })
+                  }
+                  options={[
+                    { value: 'dropdown', label: 'Dropdown' },
+                    { value: 'mega', label: 'Mega menu' },
+                  ]}
+                />
+                <Select
+                  label="Sidebar presentation"
+                  value={page.menuSidebarPresentation ?? 'tree'}
+                  onChange={(e) =>
+                    update({
+                      menuSidebarPresentation: e.target.value as ArchPage['menuSidebarPresentation'],
+                    })
+                  }
+                  options={[
+                    { value: 'tree', label: 'Tree menu' },
+                    { value: 'flat', label: 'Flat list' },
+                  ]}
+                />
+              </>
+            ) : (
+              <Select
+                label="Presentation"
+                value={page.menuPresentation ?? 'dropdown'}
+                onChange={(e) =>
+                  update({ menuPresentation: e.target.value as ArchPage['menuPresentation'] })
+                }
+                options={[
+                  { value: 'dropdown', label: 'Dropdown' },
+                  { value: 'mega', label: 'Mega menu' },
+                ]}
+              />
+            )}
           </>
         )}
 

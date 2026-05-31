@@ -2,7 +2,7 @@ phases:
   phase_1:
     name: "Foundation"
     description: "Core architecture, auth, database schema, base UI"
-    status: "in_progress"
+    status: "testing"
     testing_passed: false
     unlocked_at: "2026-05-28T20:58:17Z"
     completed_at: ""

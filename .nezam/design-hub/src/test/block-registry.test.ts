@@ -7,10 +7,10 @@ import {
 } from '../lib/wireframe/blockRegistry'
 
 describe('block registry', () => {
-  it('exposes 53 block types (28 core + 25 artistic)', () => {
+  it('exposes 93 block types (65 core + 28 artistic)', () => {
     const blocks = getAllBlocks()
     const types = new Set(blocks.map((b) => b.type))
-    expect(types.size).toBe(53)
+    expect(types.size).toBe(93)
   })
 
   it('filters blocks by profile canvas mode', () => {

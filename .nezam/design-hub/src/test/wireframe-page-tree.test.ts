@@ -54,4 +54,24 @@ describe('wireframe page tree', () => {
     expect(leafChildren.map((p) => p.id)).toEqual(['home', 'pricing'])
     expect(leafChildren.filter(isEligibleArchPage).map((p) => p.id)).toEqual(['home', 'pricing'])
   })
+
+  it('treats blueprint group roots like application roots', () => {
+    const pages: Record<string, ArchPage> = {
+      root: archPage({ id: 'root', type: 'group', name: 'CMS App' }),
+      nav: archPage({ id: 'nav', type: 'navmenu', parentId: 'root', order: 0 }),
+      contact: archPage({
+        id: 'contact',
+        type: 'page',
+        parentId: 'nav',
+        order: 0,
+        route: '/contact',
+        name: 'Contact',
+      }),
+    }
+
+    expect(getTreeRoots(pages).map((p) => p.id)).toEqual(['root'])
+    expect(getSortedChildren('nav', pages).filter(isEligibleArchPage).map((p) => p.id)).toEqual([
+      'contact',
+    ])
+  })
 })

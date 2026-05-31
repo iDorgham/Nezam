@@ -111,12 +111,34 @@ Open **http://localhost:4000** → Architecture → Wireframes → approve → e
 
 ### 6. Keep AI mirrors in sync
 
-After editing `.cursor/commands`, `.cursor/agents`, `.cursor/skills`, or `.cursor/rules`:
+`.cursor/` is the **only canonical source**. Mirrors (`.claude/`, `.gemini/`, `AGENTS.md`, etc.) are write-output, not write-input — never edit them directly.
+
+After editing `.cursor/commands`, `.cursor/agents`, `.cursor/skills`, `.cursor/rules`, or `.cursor/state`:
 
 ```bash
-pnpm ai:sync
-pnpm ai:check
+pnpm ai:sync   # regenerate all mirrors
+pnpm ai:check  # validate drift, swarm integrity, skill frontmatter
 ```
+
+#### Pre-commit guard
+
+`.husky/pre-commit` runs `pnpm ai:check` automatically and **blocks** the commit if the committed mirrors are out of sync with `.cursor/`. To enable it once:
+
+```bash
+pnpm install   # husky installs hooks via the `prepare` script
+```
+
+If the hook blocks your commit, fix is always:
+
+```bash
+pnpm ai:sync && git add -A && git commit
+```
+
+#### CI gate
+
+[`.github/workflows/sync-and-drift-check.yml`](.github/workflows/sync-and-drift-check.yml) runs the same verification on every PR touching `.cursor/`, mirror folders, or sync scripts. The workflow is **verify-only**: it regenerates mirrors in the runner and fails if anything would change — proving the PR author already committed in-sync mirrors locally.
+
+See [`DESIGN.md` §10.3](DESIGN.md) for the full sync discipline rule.
 
 ---
 

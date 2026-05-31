@@ -498,7 +498,7 @@ export function ThemingSection() {
         </LeftPanelTabsRow>
 
         {/* Scrollable controls */}
-        <div className="flex-1 overflow-y-auto app-scroll px-4 py-5 flex flex-col gap-6">
+        <div className="flex-1 overflow-y-auto app-scroll px-4 py-6 flex flex-col gap-8">
           {/* WCAG Audit Overlay */}
           {showWcagAudit && (
             <WcagAuditPanel tokens={tokens} mode={mode} />
@@ -506,7 +506,7 @@ export function ThemingSection() {
 
           {/* TAB 1: PRESETS & HARMONIES */}
           {controlTab === 'presets' && (
-            <div id="theme-panel-presets" role="tabpanel" aria-labelledby="theme-tab-presets" className="flex flex-col gap-7">
+            <div id="theme-panel-presets" role="tabpanel" aria-labelledby="theme-tab-presets" className="flex flex-col gap-10">
               {/* Generator / Randomize */}
               <Group label="AI randomizer" hint="Dynamic brand-tinted HSL generator">
                 <button
@@ -528,7 +528,7 @@ export function ThemingSection() {
 
               {/* Color theory Harmonies */}
               <Group label="Color harmonies" hint="Mathematical color placement.">
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-2 gap-3">
                   {[
                     { type: 'complementary', label: 'Complementary', desc: 'Stark opposite contrast' },
                     { type: 'triadic', label: 'Triadic', desc: 'Cohesive 120° offsets' },
@@ -543,7 +543,7 @@ export function ThemingSection() {
                       onClick={() => applyHarmony(type as HarmonyType)}
                       title={desc}
                       className={cn(
-                        'flex flex-col items-start gap-1 rounded-app-sm border p-2.5 text-left transition-colors duration-150',
+                        'flex flex-col items-start gap-1.5 rounded-app-sm border p-3 text-left transition-colors duration-150',
                         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg',
                         config.presetId === `harmony-${type}`
                           ? 'border-app-accent bg-app-accent-subtle/50'
@@ -559,7 +559,7 @@ export function ThemingSection() {
 
               {/* Preset catalog */}
               <Group label="Presets" hint="Classic layout profiles.">
-                <div className="grid grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-3 gap-3">
                   {THEME_PRESETS.map((preset) => {
                     const active = config.presetId === preset.id
                     return (
@@ -588,7 +588,7 @@ export function ThemingSection() {
 
           {/* TAB 2: GLOBAL STYLES & GEOMETRY */}
           {controlTab === 'styles' && (
-            <div id="theme-panel-styles" role="tabpanel" aria-labelledby="theme-tab-styles" className="flex flex-col gap-7">
+            <div id="theme-panel-styles" role="tabpanel" aria-labelledby="theme-tab-styles" className="flex flex-col gap-10">
               <Group label="Surface style" hint="Card borders & treatments.">
                 <SegmentPicker value={config.surfaceStyle} options={['flat','glass','brutalist']}
                   onChange={(v) => setConfig((c) => ({ ...c, surfaceStyle: v as SurfaceStyle }))} />
@@ -644,7 +644,7 @@ export function ThemingSection() {
 
           {/* TAB 3: COLOR TOKEN OVERRIDES */}
           {controlTab === 'colors' && (
-            <div id="theme-panel-colors" role="tabpanel" aria-labelledby="theme-tab-colors" className="flex flex-col gap-7">
+            <div id="theme-panel-colors" role="tabpanel" aria-labelledby="theme-tab-colors" className="flex flex-col gap-10">
               {/* Calibration */}
               <Group label="Contrast calibration" hint={`${config.contrast.toFixed(2)}× separation`}>
                 <input type="range" min={0.7} max={1.4} step={0.01} value={config.contrast}
@@ -692,7 +692,7 @@ export function ThemingSection() {
 
           {/* TAB 4: PROFILE MANAGE & EXPORTS */}
           {controlTab === 'export' && (
-            <div id="theme-panel-export" role="tabpanel" aria-labelledby="theme-tab-export" className="flex flex-col gap-7">
+            <div id="theme-panel-export" role="tabpanel" aria-labelledby="theme-tab-export" className="flex flex-col gap-10">
               {/* Presets manager */}
               <Group label="Save active profile">
                 {showSaveBox ? (
@@ -794,7 +794,7 @@ export function ThemingSection() {
         </div>
 
         {/* Footer — Apply / Save / Copy */}
-        <div className="shrink-0 px-4 py-3.5 border-t border-app-border bg-app-bg flex flex-col gap-2.5">
+        <div className="shrink-0 px-4 py-4 border-t border-app-border bg-app-bg flex flex-col gap-3">
           {/* Apply to preview */}
           <button
             type="button"
@@ -863,10 +863,10 @@ export function ThemingSection() {
 
 // ─── Building blocks ─────────────────────────────────────────────────────────
 
-function Group({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+function Group({ label, hint, children, className }: { label: string; hint?: string; children: React.ReactNode; className?: string }) {
   return (
-    <section className="flex flex-col gap-3">
-      <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+    <section className={cn('flex flex-col gap-4 border-t border-app-border/35 pt-8 first:border-t-0 first:pt-0', className)}>
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
         <p className="text-[9.5px] font-bold uppercase tracking-[0.13em] text-app-subtle select-none">{label}</p>
         {hint ? <p className="text-[10px] text-app-subtle leading-snug">{hint}</p> : null}
       </div>

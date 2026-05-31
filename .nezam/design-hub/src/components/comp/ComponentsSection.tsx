@@ -1,9 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
 import { useHub } from '@/store/hub.store'
 import { ComponentsSidebar } from './ComponentsSidebar'
-import { ComponentsCategoryTabs } from './ComponentsCategoryTabs'
 import { ComponentsGridControls } from './ComponentsGridControls'
 import { ComponentCard } from './ComponentCard'
 import { LeftPanelTitleRow } from '@/components/ui/LeftPanelHeader'
@@ -21,27 +19,8 @@ export function ComponentsSection() {
   const query = useHub((s) => s.comp.query)
   const gridColumns = useHub((s) => s.comp.gridColumns)
   const cardScale = useHub((s) => s.comp.cardScale)
-  const compSetGroup = useHub((s) => s.compSetGroup)
 
   const filtered = filterComponents(query, selectedGroup)
-
-  const searchFiltered = useMemo(
-    () => filterComponents(query, null),
-    [query],
-  )
-
-  const visibleTabGroups = useMemo(
-    () => GROUP_ORDER.filter((g) => searchFiltered.some((c) => c.group === g)),
-    [searchFiltered],
-  )
-
-  const filteredGroupCounts = useMemo(() => {
-    const counts = {} as Record<ComponentGroup, number>
-    for (const group of GROUP_ORDER) {
-      counts[group] = searchFiltered.filter((c) => c.group === group).length
-    }
-    return counts
-  }, [searchFiltered])
 
   const groupsToShow: ComponentGroup[] = selectedGroup
     ? [selectedGroup]
@@ -60,34 +39,17 @@ export function ComponentsSection() {
           rightSlot={<ComponentsGridControls compact />}
         />
         <div className="min-w-0 w-full flex-1 overflow-y-auto app-scroll">
-          {/* Banner */}
-          <div className="mx-6 mt-6 mb-4 rounded-app-lg border border-app-border bg-app-surface p-4">
-            <p className="text-sm font-semibold text-app-text mb-1">Components Library</p>
-            <p className="text-xs text-app-subtle leading-relaxed max-w-2xl">
-              Reusable building blocks for crafting consistent user interfaces.
-              Each component is built on design tokens and follows accessibility best practices.
-              {' '}Previews use your{' '}
-              {activeProfile ? (
-                <span className="font-medium text-app-text">
-                  {activeProfile.emoji} {activeProfile.name}
-                </span>
-              ) : (
-                <span className="font-medium text-app-text">active design profile</span>
-              )}
-              {' '}— change it under Design → Profiles or during onboarding.
-            </p>
-          </div>
-
-          {searchFiltered.length > 0 && (
-            <div className="sticky top-0 z-10 mx-6 mb-4 border-b border-app-border bg-app-bg/95 py-3 backdrop-blur-sm">
-              <ComponentsCategoryTabs
-                selectedGroup={selectedGroup}
-                visibleGroups={visibleTabGroups}
-                groupCounts={filteredGroupCounts}
-                onSelect={compSetGroup}
-              />
-            </div>
-          )}
+          <p className="mx-6 mt-4 mb-3 max-w-2xl text-xs leading-relaxed text-app-subtle">
+            Token-backed building blocks with accessible previews using{' '}
+            {activeProfile ? (
+              <span className="font-medium text-app-text">
+                {activeProfile.emoji} {activeProfile.name}
+              </span>
+            ) : (
+              <span className="font-medium text-app-text">your active design profile</span>
+            )}
+            .
+          </p>
 
           {/* Empty state */}
           {filtered.length === 0 && (
@@ -103,8 +65,8 @@ export function ComponentsSection() {
           {filtered.length > 0 && (
             <div
               id="components-panel"
-              role="tabpanel"
-              aria-labelledby={selectedGroup ? `components-tab-${selectedGroup}` : 'components-tab-all'}
+              role="region"
+              aria-label="Component previews"
               className="flex w-full min-w-0 flex-col gap-8 px-4 pb-10 sm:px-6"
             >
               {groupsToShow.map((group) => {

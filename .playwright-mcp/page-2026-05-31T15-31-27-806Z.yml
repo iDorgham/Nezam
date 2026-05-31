@@ -1,0 +1,115 @@
+- generic [ref=e2]:
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - img [ref=e10]
+        - generic [ref=e14]: NEZAM Design Hub
+        - generic [ref=e15]: v7
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]: "1"
+          - generic [ref=e19]: Welcome
+        - generic [ref=e21]:
+          - generic [ref=e22]: "2"
+          - generic [ref=e23]: Architecture
+        - generic [ref=e25]:
+          - generic [ref=e26]: "3"
+          - generic [ref=e27]: Design
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - text: Visual Handoff Design Workspace
+        - heading "Develop with absolute confidence. Perfect code, aligned to your design tokens." [level=1] [ref=e34]:
+          - text: Develop with absolute confidence.
+          - text: Perfect code, aligned to your design tokens.
+        - paragraph [ref=e35]: Design Hub connects sitemap pages, variables, and presets directly to your source files. Set up your workspace parameters in under a minute.
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - img [ref=e40]
+            - generic [ref=e45]: Interactive
+          - generic [ref=e46]:
+            - paragraph [ref=e47]: Architecture
+            - paragraph [ref=e48]: Map visual sitemaps. Design pages, nested groups, and microservices links in real-time.
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - img [ref=e52]
+            - generic [ref=e58]: Fully Curated
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: Design Tokens
+            - paragraph [ref=e61]: Fine-tune dynamic parameters for colors, scales, borders, shadows, and spacing scales.
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - img [ref=e65]
+            - generic [ref=e68]: Multidevice
+          - generic [ref=e69]:
+            - paragraph [ref=e70]: Cinematic Preview
+            - paragraph [ref=e71]: Pixel-perfect live rendering of your tokens inside mobile, tablet, and widescreen dashboard viewports.
+        - generic [ref=e72]:
+          - generic [ref=e73]:
+            - img [ref=e75]
+            - generic [ref=e77]: 80+ Elements
+          - generic [ref=e78]:
+            - paragraph [ref=e79]: Components Hub
+            - paragraph [ref=e80]: Interactive elements library matching Atlaskit-standard interfaces and copyable Tailwind codes.
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - img [ref=e84]
+            - generic [ref=e87]: Full Sections
+          - generic [ref=e88]:
+            - paragraph [ref=e89]: Presets Catalog
+            - paragraph [ref=e90]: Detailed heroes, features, pricing grids, and dashboard templates loaded with المصري Egyptian content.
+        - generic [ref=e91]:
+          - generic [ref=e92]:
+            - img [ref=e94]
+            - generic [ref=e96]: Zero-Lag Handoff
+          - generic [ref=e97]:
+            - paragraph [ref=e98]: AI Swarm Ready
+            - paragraph [ref=e99]: Export seamless DESIGN.md contracts directly and orchestrate your autonomous NEZAM coding agents.
+      - generic [ref=e100]:
+        - button "Skip setup" [ref=e101] [cursor=pointer]
+        - button "Set up my workspace" [ref=e102] [cursor=pointer]:
+          - text: Set up my workspace
+          - img [ref=e103]
+  - banner [ref=e105]:
+    - generic [ref=e106]:
+      - generic [ref=e107]:
+        - generic [ref=e108]: Design Hub
+        - generic [ref=e109]: v7
+      - tablist "Design Hub sections" [ref=e111]:
+        - tab "Architecture" [selected] [ref=e112] [cursor=pointer]:
+          - img [ref=e113]
+          - text: Architecture
+        - tab "Wireframes" [ref=e118] [cursor=pointer]:
+          - img [ref=e119]
+          - text: Wireframes
+        - tab "Design System" [ref=e123] [cursor=pointer]:
+          - img [ref=e124]
+          - text: Design System
+        - tab "Components" [ref=e128] [cursor=pointer]:
+          - img [ref=e129]
+          - text: Components
+        - tab "Theming" [ref=e131] [cursor=pointer]:
+          - img [ref=e132]
+          - text: Theming
+        - tab "Preview" [ref=e138] [cursor=pointer]:
+          - img [ref=e139]
+          - text: Preview
+      - generic "1 of 6 workspace workflow phases fully completed" [ref=e142]:
+        - generic [ref=e143]: 1/6
+        - 'generic "Phase completed: You have successfully configured and validated the Architecture parameters." [ref=e144]'
+        - 'generic "Upcoming phase: Navigate to Wireframes to build out the respective workspace layer." [ref=e145]'
+        - 'generic "Upcoming phase: Navigate to Design Tokens to build out the respective workspace layer." [ref=e146]'
+        - 'generic "Upcoming phase: Navigate to Cinematic Preview to build out the respective workspace layer." [ref=e147]'
+        - 'generic "Upcoming phase: Navigate to Theming to build out the respective workspace layer." [ref=e148]'
+        - 'generic "Upcoming phase: Navigate to Cinematic Preview to build out the respective workspace layer." [ref=e149]'
+      - generic [ref=e150]:
+        - 'button "Toggle workspace visual theme: switch to light color palette mode" [ref=e151] [cursor=pointer]':
+          - img [ref=e152]
+        - button "Re-initialize onboarding walkthrough wizard and workspace configuration guides" [ref=e158] [cursor=pointer]:
+          - img [ref=e159]
+        - button "Next" [ref=e162] [cursor=pointer]:
+          - text: Next
+          - img [ref=e163]
+  - tabpanel "Architecture" [ref=e166]

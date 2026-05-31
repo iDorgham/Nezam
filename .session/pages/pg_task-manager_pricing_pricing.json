@@ -1,0 +1,88 @@
+{
+  "arch_page_id": "pg_task-manager_pricing_pricing",
+  "lock_page_id": "PAGE-007",
+  "layout_approved": true,
+  "sections": [
+    {
+      "section_id": "seed-Nav_TopBar-1",
+      "block_type": "Nav_TopBar",
+      "order": 0,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_Hero_StatsFloat-2",
+      "block_type": "Art_Hero_StatsFloat",
+      "order": 1,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_Pricing_Spotlight-3",
+      "block_type": "Art_Pricing_Spotlight",
+      "order": 2,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_Comparison_Matrix-4",
+      "block_type": "Art_Comparison_Matrix",
+      "order": 3,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_FAQ_Split-5",
+      "block_type": "Art_FAQ_Split",
+      "order": 4,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_CTA_Band-6",
+      "block_type": "Art_CTA_Band",
+      "order": 5,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Layout_StickyCTA-7",
+      "block_type": "Layout_StickyCTA",
+      "order": 6,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Nav_Footer-8",
+      "block_type": "Nav_Footer",
+      "order": 7,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    }
+  ],
+  "updated_at": "2026-05-31T18:22:23.110Z"
+}

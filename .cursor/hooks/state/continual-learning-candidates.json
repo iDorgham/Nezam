@@ -1,12 +1,7 @@
 {
-  "generatedAt": "2026-05-29T14:54:15.337Z",
+  "generatedAt": "2026-05-31T21:34:43.866Z",
   "transcriptsRoot": "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-NEZAM/agent-transcripts",
-  "totalCandidates": 2,
+  "totalCandidates": 0,
   "batchSize": 25,
-  "batches": [
-    [
-      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-NEZAM/agent-transcripts/ac608855-705e-41a8-bc3b-2a1d4df20b56/ac608855-705e-41a8-bc3b-2a1d4df20b56.jsonl",
-      "/Users/Dorgham/.cursor/projects/Users-Dorgham-Documents-Work-Devleopment-NEZAM/agent-transcripts/80fd3887-0b3f-443a-8a49-831cfea370f6/80fd3887-0b3f-443a-8a49-831cfea370f6.jsonl"
-    ]
-  ]
+  "batches": []
 }

@@ -1,0 +1,88 @@
+{
+  "arch_page_id": "pg_ecommerce_products_cat_slug_slug",
+  "lock_page_id": "PAGE-003",
+  "layout_approved": true,
+  "sections": [
+    {
+      "section_id": "seed-Nav_TopBar-1",
+      "block_type": "Nav_TopBar",
+      "order": 0,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Layout_PageHeader-2",
+      "block_type": "Layout_PageHeader",
+      "order": 1,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_Product_Highlight-3",
+      "block_type": "Art_Product_Highlight",
+      "order": 2,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Layout_TwoColumn-4",
+      "block_type": "Layout_TwoColumn",
+      "order": 3,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Art_Comparison_Matrix-5",
+      "block_type": "Art_Comparison_Matrix",
+      "order": 4,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Content_CTA-6",
+      "block_type": "Content_CTA",
+      "order": 5,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Layout_StickyCTA-7",
+      "block_type": "Layout_StickyCTA",
+      "order": 6,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Nav_Footer-8",
+      "block_type": "Nav_Footer",
+      "order": 7,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    }
+  ],
+  "updated_at": "2026-05-31T18:22:23.118Z"
+}

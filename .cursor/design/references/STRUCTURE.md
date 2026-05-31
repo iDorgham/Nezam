@@ -10,6 +10,20 @@ Local vendored design libraries, skills, UI kits, and tooling used by NEZAM Desi
 
 > **Note:** `.git/` and `node_modules/` are excluded from counts and trees below.
 
+## Block pattern sources (Design Hub palette)
+
+Reference kits mined for net-new block types and migration patterns (paths only; no vendored copy in app code).
+
+| Block type | Category | Primary reference |
+|------------|----------|-------------------|
+| `Content_PricingToggle` | content | `ShadcnVaults-main/` — pricing tiers + billing toggle |
+| `Content_FeatureBento` | content | `ShadcnVaults-main/`, `tail-kit-main/` — asymmetric feature grids |
+| `Hero_GradientMesh` | hero | `tail-kit-main/` — mesh-style hero backgrounds (token `color-mix` only) |
+| `Form_SplitAuth` | forms | `shadcn-studio-main/` — split-panel auth layouts |
+| `Art_Section_Marquee` | artistic | `awesome-shadcn-ui-main/` — horizontal logo/quote strips |
+
+Registry: `.nezam/templates/wireframe-server/block_registry.json` (77 types). Renderers: `.nezam/design-hub/src/components/preview/`.
+
 ## Summary
 
 | Package | Files | Directories | Total entries |

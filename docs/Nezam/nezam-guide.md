@@ -644,8 +644,6 @@ Since Antigravity does not natively discover workspace-scoped `.antigravity/comm
 
 ### Flow
 
-### Flow
-
 1. **Session start:** Rules may require reading `.cursor/state/onboarding.yaml`, `AGENT_REGISTRY.yaml`, `swarm-leader.md`. The `/start` command initiates a **Pre-flight check** by reading `HANDOFF_QUEUE.yaml` to resume any `pending` or `in_progress` contexts immediately.
 2. **Commands** point to PRD, plans, `DESIGN.md`, reports.
 3. **Queue Promotion & Closure:** `deputy-swarm-leader` manages `HANDOFF_QUEUE.yaml` and `PHASE_HANDOFF.md` to promote tasks at the start of a session, enforce priorities, and record `session_history` closures at the end.

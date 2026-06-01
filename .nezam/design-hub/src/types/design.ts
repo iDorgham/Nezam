@@ -57,6 +57,8 @@ export type DesignProfileId =
   | 'supabase'
   | 'raycast'
   | 'resend'
+  | 'claude'
+  | 'figma'
 
 /** 11-step color scale. */
 export interface ColorScale {

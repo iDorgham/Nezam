@@ -1697,6 +1697,94 @@ const RESEND: DesignTokens = {
   density: BASE_DENSITY,
 }
 
+// ─── Claude ────────────────────────────────────────────────────────────────────
+const CLAUDE: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#fdf5f2','100':'#fbebe6','200':'#f7d7cd','300':'#f0b5a3','400':'#e48e75','500':'#cc785c','600':'#b35d42','700':'#974830','800':'#7e3925','900':'#682e1d','950':'#39140b' },
+    secondary: { '50':'#faf9f5','100':'#f5f0e8','200':'#efe9de','300':'#e8e0d2','400':'#dfd5c4','500':'#d3c7b3','600':'#bdae97','700':'#a39278','800':'#8c7b62','900':'#6e5d48','950':'#3d3d3a' },
+    accent:  { '50':'#f0fbf9','100':'#dcf4f0','200':'#b9e9e1','300':'#8cdcd0','400':'#5db8a6','500':'#46a290','600':'#358173','700':'#2b685c','800':'#23544a','900':'#1c443c','950':'#0f2622' },
+    neutral: { '50':'#faf9f5','100':'#f5f5f4','200':'#e6dfd8','300':'#c8c6c0','400':'#a8a69e','500':'#8e8b82','600':'#6c6a64','700':'#4d4c47','800':'#3d3d3a','900':'#252523','950':'#141413' },
+    semantic: { success:'#5db872', warning:'#d4a017', error:'#c64545', info:'#5db8a6' },
+    surface: { bg:'#faf9f5', panel:'#f5f0e8', overlay:'rgba(20,20,19,0.45)', border:'#e6dfd8' },
+    text: { primary:'#141413', secondary:'#3d3d3a', muted:'#6c6a64', disabled:'#8e8b82' },
+    successScale: { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    warningScale: { '50':'#fffbeb','100':'#fef3c7','200':'#fde68a','300':'#fcd34d','400':'#fbbf24','500':'#f59e0b','600':'#d97706','700':'#b45309','800':'#92400e','900':'#78350f','950':'#451a03' },
+    errorScale:   { '50':'#fef2f2','100':'#fee2e2','200':'#fecaca','300':'#fca5a5','400':'#f87171','500':'#ef4444','600':'#dc2626','700':'#b91c1c','800':'#991b1b','900':'#7f1d1d','950':'#450a0a' },
+    infoScale:    { '50':'#f0f9ff','100':'#e0f2fe','200':'#bae6fd','300':'#7dd3fc','400':'#38bdf8','500':'#0ea5e9','600':'#0284c7','700':'#0369a1','800':'#075985','900':'#0c4a6e','950':'#082f49' },
+    darkSurface: { bg: '#181715', panel: '#252320', overlay: 'rgba(0,0,0,0.7)', border: '#3d3d3a' },
+    darkText: { primary: '#faf9f5', secondary: '#a09d96', muted: '#8e8b82', disabled: '#6c6a64' },
+  },
+  typography: { sans:"'StyreneB', 'Inter', system-ui, sans-serif", mono:"'JetBrains Mono', ui-monospace, monospace", display:"'Copernicus', 'Tiempos Headline', serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'6px', md:'8px', lg:'12px', xl:'16px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 3px rgba(20,20,19,0.06)', md:'0 8px 24px rgba(20,20,19,0.08)', lg:'0 16px 48px rgba(20,20,19,0.12)', xl:'0 24px 64px rgba(20,20,19,0.16)', inner:'inset 0 2px 4px rgba(0,0,0,0.06)', glow:'0 0 20px rgba(204,120,92,0.3)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid', widthScale: BASE_BORDER_SCALE, divider: { ...BASE_DIVIDER, color: '#e6dfd8' }, focus: { ...BASE_FOCUS, color: '#cc785c' } }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#faf9f5', raised:'#efe9de', overlay:'#f5f0e8', sunken:'#e8e0d2' }, shadow:{ card:'0 1px 3px rgba(20,20,19,0.08)', modal:'0 20px 60px rgba(20,20,19,0.22)', tooltip:'0 4px 12px rgba(20,20,19,0.12)', sticky:'0 2px 8px rgba(20,20,19,0.08)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Copernicus', 'Tiempos Headline', serif", body:"'StyreneB', 'Inter', sans-serif", mono:"'JetBrains Mono', monospace", display:"'Copernicus', serif" } },
+  interaction:{ focusRing:'#cc785c', hover:'rgba(204,120,92,0.05)', pressed:'rgba(204,120,92,0.10)', selected:'rgba(204,120,92,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(20,20,19,0.45)', skeleton:{ base:'#f5f0e8', shimmer:'#efe9de' }, chart:{ primary:'#cc785c', secondary:'#5db8a6', tertiary:'#e8a55a', quaternary:'#5db872', divergent:{ low:'#39140b', high:'#cc785c' } } },
+  opacity: BASE_OPACITY,
+  zIndex: { hide: -1, auto: 0, base: 1, dropdown: 1000, sticky: 1100, fixed: 1200, modal: 1300, toast: 1400, tooltip: 1500 },
+  breakpoints: BASE_BREAKPOINTS,
+  layout: BASE_LAYOUT,
+  cursor: { ...BASE_CURSOR, focusRingColor: '#cc785c' },
+  scrollbar: BASE_SCROLLBAR,
+  glass: BASE_GLASS,
+  gradients: {
+    brand: 'linear-gradient(135deg, #cc785c, #e8a55a)',
+    accent: 'linear-gradient(135deg, #e8a55a, #5db8a6)',
+    surface: 'linear-gradient(180deg, #faf9f5, #f5f0e8)',
+    mesh: { color1: '#faf9f5', color2: '#f5f0e8', color3: '#efe9de', color4: '#cc785c' },
+  },
+  grid: BASE_GRID,
+  content: BASE_CONTENT,
+  density: BASE_DENSITY,
+}
+
+// ─── Figma ────────────────────────────────────────────────────────────────────
+const FIGMA: DesignTokens = {
+  colors: {
+    mode: 'light',
+    brand:   { '50':'#f2f2f2','100':'#e6e6e6','200':'#d4d4d4','300':'#a3a3a3','400':'#737373','500':'#000000','600':'#111111','700':'#222222','800':'#333333','900':'#444444','950':'#555555' },
+    secondary: { '50':'#fbfdf5','100':'#f7faeb','200':'#edf5d4','300':'#dceeb1','400':'#c3dd82','500':'#c8e6cd','600':'#a1ccaa','700':'#7bb386','800':'#579963','900':'#398048','950':'#1e662d' },
+    accent:  { '50':'#fff0f5','100':'#ffe3ed','200':'#ffc2d8','300':'#ff85b4','400':'#ff3d8b','500':'#c5b0f4','600':'#aa93df','700':'#8a70c3','800':'#6b4ea7','900':'#4d328b','950':'#311b6d' },
+    neutral: { '50':'#fafafa','100':'#f1f1f1','200':'#e6e6e6','300':'#cccccc','400':'#999999','500':'#666666','600':'#444444','700':'#333333','800':'#222222','900':'#111111','950':'#000000' },
+    semantic: { success:'#1ea64a', warning:'#ffc533', error:'#ff3d8b', info:'#c5b0f4' },
+    surface: { bg:'#ffffff', panel:'#f7f7f5', overlay:'rgba(0,0,0,0.60)', border:'#e6e6e6' },
+    text: { primary:'#000000', secondary:'#222222', muted:'#666666', disabled:'#999999' },
+    successScale: { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    warningScale: { '50':'#fffbeb','100':'#fef3c7','200':'#fde68a','300':'#fcd34d','400':'#fbbf24','500':'#f59e0b','600':'#d97706','700':'#b45309','800':'#92400e','900':'#78350f','950':'#451a03' },
+    errorScale:   { '50':'#fef2f2','100':'#fee2e2','200':'#fecaca','300':'#fca5a5','400':'#f87171','500':'#ef4444','600':'#dc2626','700':'#b91c1c','800':'#991b1b','900':'#7f1d1d','950':'#450a0a' },
+    infoScale:    { '50':'#f0f9ff','100':'#e0f2fe','200':'#bae6fd','300':'#7dd3fc','400':'#38bdf8','500':'#0ea5e9','600':'#0284c7','700':'#0369a1','800':'#075985','900':'#0c4a6e','950':'#082f49' },
+    darkSurface: { bg: '#000000', panel: '#111111', overlay: 'rgba(0,0,0,0.8)', border: '#222222' },
+    darkText: { primary: '#ffffff', secondary: '#cccccc', muted: '#666666', disabled: '#444444' },
+  },
+  typography: { sans:"'figmaSans', 'Inter', system-ui, sans-serif", mono:"'figmaMono', 'JetBrains Mono', monospace", display:"'figmaSans', 'Inter', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'6px', md:'8px', lg:'24px', xl:'32px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 2px rgba(0,0,0,0.04)', md:'0 4px 16px rgba(0,0,0,0.06)', lg:'0 16px 32px rgba(0,0,0,0.08)', xl:'0 24px 64px rgba(0,0,0,0.12)', inner:'inset 0 2px 4px rgba(0,0,0,0.06)', glow:'0 0 20px rgba(0,0,0,0.1)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid', widthScale: BASE_BORDER_SCALE, divider: { ...BASE_DIVIDER, color: '#e6e6e6' }, focus: { ...BASE_FOCUS, color: '#000000' } }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#ffffff', raised:'#f7f7f5', overlay:'#ffffff', sunken:'#eaeaea' }, shadow:{ card:'0 1px 3px rgba(0,0,0,0.06)', modal:'0 16px 48px rgba(0,0,0,0.18)', tooltip:'0 4px 12px rgba(0,0,0,0.08)', sticky:'0 2px 8px rgba(0,0,0,0.06)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'figmaSans', sans-serif", body:"'figmaSans', sans-serif", mono:"'figmaMono', monospace", display:"'figmaSans', sans-serif" } },
+  interaction:{ focusRing:'#000000', hover:'rgba(0,0,0,0.04)', pressed:'rgba(0,0,0,0.08)', selected:'rgba(0,0,0,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(0,0,0,0.60)', skeleton:{ base:'#f1f1f1', shimmer:'#e6e6e6' }, chart:{ primary:'#000000', secondary:'#c5b0f4', tertiary:'#dceeb1', quaternary:'#ff3d8b', divergent:{ low:'#e6e6e6', high:'#000000' } } },
+  opacity: BASE_OPACITY,
+  zIndex: { hide: -1, auto: 0, base: 1, dropdown: 1000, sticky: 1100, fixed: 1200, modal: 1300, toast: 1400, tooltip: 1500 },
+  breakpoints: BASE_BREAKPOINTS,
+  layout: BASE_LAYOUT,
+  cursor: { ...BASE_CURSOR, focusRingColor: '#000000' },
+  scrollbar: BASE_SCROLLBAR,
+  glass: BASE_GLASS,
+  gradients: {
+    brand: 'linear-gradient(135deg, #000000, #c5b0f4)',
+    accent: 'linear-gradient(135deg, #c5b0f4, #dceeb1)',
+    surface: 'linear-gradient(180deg, #ffffff, #f7f7f5)',
+    mesh: { color1: '#ffffff', color2: '#f7f7f5', color3: '#c5b0f4', color4: '#dceeb1' },
+  },
+  grid: BASE_GRID,
+  content: BASE_CONTENT,
+  density: BASE_DENSITY,
+}
+
 // ─── Profile groups for UI ────────────────────────────────────────────────────
 
 export const DESIGN_PROFILE_GROUPS: Array<{ label: string; ids: DesignProfile['id'][] }> = [
@@ -1706,7 +1794,7 @@ export const DESIGN_PROFILE_GROUPS: Array<{ label: string; ids: DesignProfile['i
   },
   {
     label: 'Brand Profiles',
-    ids: ['apple', 'google', 'spotify', 'github', 'stripe', 'linear', 'notion', 'netflix', 'airbnb', 'vercel', 'supabase', 'raycast', 'resend'],
+    ids: ['apple', 'google', 'spotify', 'github', 'stripe', 'linear', 'notion', 'netflix', 'airbnb', 'vercel', 'supabase', 'raycast', 'resend', 'claude', 'figma'],
   },
 ]
 
@@ -1739,6 +1827,8 @@ export const DESIGN_PROFILES: DesignProfile[] = [
   { id: 'supabase',    name: 'Supabase',      emoji: '⚡', description: 'Emerald green on dark. Developer-first database platform.',  tokens: SUPABASE },
   { id: 'raycast',     name: 'Raycast',       emoji: '⌘', description: 'Obsidian dark command palette system. Fast, keyboard-first.',tokens: RAYCAST },
   { id: 'resend',      name: 'Resend',        emoji: '✉', description: 'Domaine serif and Favorit sans on pure black. Editorial confidence.', tokens: RESEND },
+  { id: 'claude',      name: 'Claude',        emoji: '✦', description: 'Warm cream canvas with coral CTAs. Editorial, literary, elegant.', tokens: CLAUDE },
+  { id: 'figma',       name: 'Figma',         emoji: '❖', description: 'Monochrome frames with saturated color blocks. technical & joyful.', tokens: FIGMA },
 ]
 
 export const DESIGN_PROFILES_MAP = Object.fromEntries(

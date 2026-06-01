@@ -1,327 +1,233 @@
+# <div align="center"><img src="https://raw.githubusercontent.com/iDorgham/Nezam/main/docs/assets/nezam/magnific_i-want-create-final-icon-_SOawJmTUb8.png" width="128" height="128" alt="NEZAM Logo" style="border-radius: 24px; box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25);"/><br><br>NEZAM</div>
+
 <div align="center">
 
-# NEZAM
+**Specification-Driven Development (SDD) for High-Velocity AI-Native Teams**
 
-**Specification-Driven Development for AI-native teams**
+*Slash commands, visual design-to-code, automated swarms, and hardlocked gates—orchestrated as a single unified contract across Cursor, Claude, Codex, Gemini, and Antigravity.*
 
-Slash commands, swarm agents, and a visual Design Hub — one workspace contract across Cursor, Claude, Codex, Gemini, and more.
+</div>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](package.json)
-[![pnpm](https://img.shields.io/badge/pnpm-9%2B-orange)](package.json)
-[![PRD](https://img.shields.io/badge/PRD-v2.1-6366f1)](.nezam/core/prd/PRD.md)
-[![Design Hub](https://img.shields.io/badge/Design%20Hub-v2-8b5cf6)](.nezam/design-hub/)
+<div align="center">
 
-[Quick start](#-quick-start) · [Commands](#-slash-commands) · [Design Hub](#-design-hub) · [PRD](.nezam/core/prd/PRD.md) · [Contributing](#-contributing)
+[![License: MIT](https://img.shields.io/badge/License-MIT-6366f1.svg?style=for-the-badge&logo=github)](LICENSE)
+[![Node](https://img.shields.io/badge/Node-%3E%3D20.0.0-emerald.svg?style=for-the-badge&logo=node.js)](package.json)
+[![pnpm](https://img.shields.io/badge/pnpm-9%2B-orange.svg?style=for-the-badge&logo=pnpm)](package.json)
+[![PRD](https://img.shields.io/badge/PRD-v2.1-violet.svg?style=for-the-badge&logo=readme)](.nezam/core/prd/PRD.md)
+[![Design Hub](https://img.shields.io/badge/Design%20Hub-v3-8b5cf6.svg?style=for-the-badge&logo=figma)](.nezam/design-hub/)
 
+</div>
+
+<div align="center">
+  <h3>
+    <a href="#-what-is-nezam">What is NEZAM?</a> •
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-slash-commands">Slash Commands</a> •
+    <a href="#-design-hub-v3">Design Hub v3</a> •
+    <a href="#-sdd-pipeline-and-gates">SDD Pipeline</a> •
+    <a href="#-multi-client-sync">AI Sync</a>
+  </h3>
 </div>
 
 ---
 
-## Table of contents
+## ⚡ What is NEZAM?
 
-- [What is NEZAM?](#what-is-nezam)
-- [Quick start](#-quick-start)
-- [Slash commands](#-slash-commands)
-- [Design Hub](#-design-hub)
-- [Repository layout](#-repository-layout)
-- [SDD pipeline](#-sdd-pipeline)
-- [Multi-tool sync](#-multi-tool-sync)
-- [Swarms & skills](#-swarms--skills)
-- [Scripts](#-scripts)
-- [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
+NEZAM is an **open-source workspace specification and framework** that enables software engineering teams to design, model, and build production-grade web applications in absolute lockstep with AI agents under **Specification-Driven Development (SDD)**.
 
----
+Instead of writing code blindly, NEZAM enforces an immaculate pipeline: from product requirement documents (PRD) to structured visual wireframes, down to auto-generated typography scale contracts, all before generating a single line of application logic.
 
-## What is NEZAM?
+### 🏛️ The Five Core Pillars of Nezam
 
-NEZAM is an **open-source workspace framework** for building software with AI agents under **Specification-Driven Development (SDD)**:
-
-| Pillar | What you get |
-|--------|----------------|
-| **Specs first** | PRD → plans → `DESIGN.md` → locked wireframes → feature specs → code |
-| **Governed agents** | 150+ agents, lazy-loaded by swarm; handoffs via `agent-bus.yaml` |
-| **Design Hub** | Visual architecture, wireframes, tokens, and export — before `/DEVELOP` |
-| **Multi-client** | Edit `.cursor/` only; `pnpm ai:sync` mirrors to Claude, Gemini, Codex, etc. |
-| **Hardlocks** | `/plan` and `/develop` blocked until prerequisites pass (no silent skips) |
+| Pillar | Focus | What it Accomplishes |
+| :--- | :--- | :--- |
+| 📋 **Specs-First Discipline** | PRD ➔ DESIGN.md | Transforms PRDs directly into granular visual and code tokens. |
+| 🖥️ **Interactive Design Hub** | Architecture ➔ Code | Visually model layout systems, service structures, and routes in real-time. |
+| 🤖 **Governed AI Swarms** | 150+ Specialized Agents | Restricts AI scopes and enforces handoffs through `agent-bus.yaml`. |
+| 🛡️ **Hardlocked Development** | Automated Quality Gates | Prevents `/DEVELOP` command execution until wireframes and tokens are verified. |
+| 🔄 **Multi-Client Mirroring** | Tier 1 & Tier 2 Syncing | Edit once in `.cursor/`—auto-mirrors settings to Claude, Gemini, Windsurf, etc. |
 
 ```mermaid
-flowchart LR
-  START["/START"] --> PLAN["/PLAN"]
-  PLAN --> DH["Design Hub"]
-  DH --> DEV["/DEVELOP"]
-  DEV --> SHIP["/DEPLOY"]
+flowchart TD
+    A["🏁 Onboarding (/START all)"] --> B["📐 Planning & Research (/PLAN)"]
+    B --> C["🎨 Visual Design Hub (Arch + Wireframes)"]
+    C --> D["🔒 Lock Contracts (wireframes_locked.json)"]
+    D --> E["⚙️ Gated Development (/DEVELOP start)"]
+    E --> F["🚀 releasing & Hardening (/DEPLOY)"]
 ```
 
 ---
 
-## Quick start
+## 🚀 Quick Start
 
 ### Prerequisites
+- **Node.js** ≥ 20.0.0
+- **pnpm** ≥ 9.0.0
+- **Git**
 
-- **Node.js** ≥ 20 · **pnpm** ≥ 9 · **Git**
-
-### 1. Clone and install
-
+### 1. Clone & Bootstrap
 ```bash
 git clone https://github.com/iDorgham/Nezam.git
 cd Nezam
 pnpm install
 ```
 
-### 2. Onboard the workspace
-
-In **Cursor** (or any synced client), run:
-
+### 2. Onboard the AI Workspace
+Open the workspace in your IDE (Cursor, VS Code, or Antigravity) and execute the global onboarding shortcut in the chat:
 ```
 /START all
 ```
-
-Or from the terminal:
-
+*Alternatively, verify onboarding manually via the terminal:*
 ```bash
 pnpm run check:onboarding
 ```
 
-### 3. Lock your design profile
-
+### 3. Choose and Apply a Design Profile
+Lock in a premium design profile template (such as minimal, SaaS, or dashboard) to bind your active `DESIGN.md` contract:
 ```bash
-pnpm run design:apply -- nezam-v3   # or: minimal, saas, dashboard, …
+pnpm run design:apply -- nezam-v3
 ```
+> [!TIP]
+> Curated profile templates reside in `.nezam/design-hub/design/<brand>/design.md`.
 
-Catalog: `.nezam/design-hub/design/<brand>/design.md` → root **`DESIGN.md`**.
-
-### 4. Open Design Hub (wireframes)
-
+### 4. Boot Up the Visual Design Hub
+Launch the local desktop environment to visually map your pages, wireframes, and architecture services:
 ```bash
 pnpm design-hub
 ```
-
-Open **http://localhost:4000** → Architecture → Wireframes → approve → export **`wireframes_locked.json`**.
-
-### 5. Plan and build
-
-```
-/PLAN all
-/DEVELOP start
-```
-
-**Develop hardlock:** `wireframes_locked.json` at repo root (or `.session/`) must exist before UI implementation.
-
-### 6. Keep AI mirrors in sync
-
-`.cursor/` is the **only canonical source**. Mirrors (`.claude/`, `.gemini/`, `AGENTS.md`, etc.) are write-output, not write-input — never edit them directly.
-
-After editing `.cursor/commands`, `.cursor/agents`, `.cursor/skills`, `.cursor/rules`, or `.cursor/state`:
-
-```bash
-pnpm ai:sync   # regenerate all mirrors
-pnpm ai:check  # validate drift, swarm integrity, skill frontmatter
-```
-
-#### Pre-commit guard
-
-`.husky/pre-commit` runs `pnpm ai:check` automatically and **blocks** the commit if the committed mirrors are out of sync with `.cursor/`. To enable it once:
-
-```bash
-pnpm install   # husky installs hooks via the `prepare` script
-```
-
-If the hook blocks your commit, fix is always:
-
-```bash
-pnpm ai:sync && git add -A && git commit
-```
-
-#### CI gate
-
-[`.github/workflows/sync-and-drift-check.yml`](.github/workflows/sync-and-drift-check.yml) runs the same verification on every PR touching `.cursor/`, mirror folders, or sync scripts. The workflow is **verify-only**: it regenerates mirrors in the runner and fails if anything would change — proving the PR author already committed in-sync mirrors locally.
-
-See [`DESIGN.md` §10.3](DESIGN.md) for the full sync discipline rule.
+Open **[http://localhost:4000](http://localhost:4000)** in your browser, build out your layout, and click **Export** to generate your locked local wireframe contract: `wireframes_locked.json`.
 
 ---
 
-## Slash commands
+## 🎨 Design Hub v3
 
-Canonical definitions: [`.cursor/commands/`](.cursor/commands/)
+The **NEZAM Design Hub** is a premium, visual designer and local compiler tool that allows teams and AI models to visually establish layouts, design tokens, sitemaps, and integrations before jumping into code.
 
-| Command | Role |
-|---------|------|
-| `/START` | Onboarding, PRD lock, design profile, tool activation |
-| `/PLAN` | SDD planning phases (research → IA → design → scaffold) |
-| `/WIREFRAME` | Design Hub wireframe workflow |
-| `/DESIGN` | Design system and `DESIGN.md` |
-| `/DEVELOP` | Gated implementation (spec + wireframes + design) |
-| `/CHECK` | Gate and artifact validation |
-| `/SCAN` | Audits (a11y, perf, security, tokens) |
-| `/FIX` | Targeted remediation |
-| `/DEPLOY` | Release and ship checklist |
-| `/GUIDE` | Next step and project status |
+```
+.nezam/design-hub/
+├── Architecture Canvas ➔ Model microservices, app racks, and page hierarchies.
+├── Wireframes slot     ➔ Drag-and-drop structural CMS, analytics, & dashboard blocks.
+├── Theme Studio        ➔ Fine-tune HSL/OKLCH color scales, dynamic type layers, and curves.
+└── Smart Export Engine ➔ Compile designs instantly to 12 formats (Mermaid, routes, JSON, etc.).
+```
+
+### Key V3 Features:
+* **Interactive Sitemap Canvas**: Right-click canvas modeling for layout groups, applications, nav menus, and microservices.
+* **Component Studio**: Interactive preview sandbox for the standard `shadcn/ui` components registry.
+* **Themes & Presets**: Apply and preview 12 standard premium HSL & OKLCH design palettes instantly.
+* **Locked-Down Hardlocks**: Guarantees visual compliance by exporting `wireframes_locked.json` to lock routes and prevent accidental design alterations during dev phases.
 
 ---
 
-## Design Hub
+## 💬 Slash Commands
 
-Package: [`.nezam/design-hub/`](.nezam/design-hub/) · Default port **4000**
+NEZAM is governed by descriptive slash shortcuts within your AI IDE chat pane. The canonical files are located under [`.cursor/commands/`](.cursor/commands/).
 
-| Section | Purpose |
-|---------|---------|
-| **Architecture** | App tree, services rack, API wiring |
-| **Wireframes** | Per-page blocks keyed to arch nodes → lock export |
-| **Theme** | Tokens, typography, light/dark |
-| **Components** | shadcn registry browse |
-| **Export** | Routes, nav, Mermaid, full context (12 formats) |
+| Command | Action | Description |
+| :--- | :--- | :--- |
+| **`/START`** | Onboarding & Init | Runs workspace checks, initializes PRD states, and boots up environment. |
+| **`/PLAN`** | Phase Scaffolding | Breaks down the implementation phases (Research ➔ IA ➔ Content ➔ Design). |
+| **`/WIREFRAME`** | Design Modeling | Launches block palette checks, page configurations, and wireframe updates. |
+| **`/DESIGN`** | System Lock | Syncs active styling profiles to the root `DESIGN.md` contract. |
+| **`/DEVELOP`** | Gated Building | Invokes the code generator swarm; strictly gated by PRD and wireframe locks. |
+| **`/CHECK`** | Quality Gate | Validates that required artifacts, specs, and locks exist in the workspace. |
+| **`/SCAN`** | Security & Audits | Audits styling contrast, Web accessibility (WCAG), token usage, and performance. |
+| **`/FIX`** | Targeted Patching | Resolves specific lint, compiler, type, or styling-drift failures. |
+| **`/DEPLOY`** | Relase Checklist | Ensures CI pipelines pass and generates the release changelog and tags. |
+| **`/GUIDE`** | Workspace Status | Points out missing locks and guides the developer/AI on the next sequential task. |
 
+---
+
+## 🔒 SDD Pipeline and Gates
+
+NEZAM operates on a **zero-bypass pipeline**. Development `/DEVELOP` is hardlocked until prerequisites are generated:
+
+```
+[Onboarding] ➔ [Planning / Research] ➔ [DESIGN.md + Wireframe Lock] ➔ [Scaffold] ➔ [Gated Dev]
+```
+
+### Automated Validation Matrix:
+* **Onboarding Guard**: `/START` writes locked flags (`prd_locked: true`) inside `.cursor/state/onboarding.yaml`.
+* **Wireframe Guard**: `/DEVELOP` checks for `wireframes_locked.json` at the repository root and compares compiled route schemas to prevent API discrepancies.
+* **Drift Guard**: Pre-commit hooks run `pnpm ai:check` to ensure active IDE settings match mirror contracts.
+
+---
+
+## 🔄 Multi-Client Sync
+
+Edit configurations in **`.cursor/`** only. NEZAM automatically mirrors active commands, agents, custom rules, and specialized skills to all other client environments.
+
+```
+                     ┌───► .claude/      (Claude Code)
+                     ├───► .gemini/      (Gemini CLI)
+  .cursor/ (Source)  ├───► .windsurf/    (Windsurf)
+                     ├───► AGENTS.md     (Codex)
+                     └───► CLAUDE.md     (General mirrors)
+```
+
+### Sync Command Surface:
 ```bash
-pnpm design-hub          # dev server
-cd .nezam/design-hub && pnpm test && pnpm build
+pnpm ai:sync   # Compiles all mirrors from canonical .cursor/ source files
+pnpm ai:status # Surveys local mirror drift or uncommitted changes
+pnpm ai:check  # Strictly validates swarm integrity and skill frontmatter
 ```
 
 ---
 
-## Repository layout
+## 📁 Repository Layout
 
 ```
 NEZAM/
-├── .cursor/                 # Canonical commands, agents, skills, rules
+├── .cursor/                 # 📂 Canonical rules, agents, skills, and commands
 ├── .nezam/
-│   ├── core/prd/            # PRD.md (this product)
-│   ├── core/plans/          # SDD phase artifacts
-│   ├── core/gates/          # Hardlocks + CI gate matrix
-│   ├── design-hub/          # Design Hub app
-│   └── design/              # Brand design profiles
-├── docs/plan/               # Your project plans (when using NEZAM on a product)
-├── docs/reports/            # Generated audits and progress
-├── DESIGN.md                # Active design contract
-├── wireframes_locked.json   # Approved wireframe contract
-├── CLAUDE.md · AGENTS.md    # Generated — run pnpm ai:sync after .cursor/ edits
-└── README.md
+│   ├── core/prd/            # 📂 PRD.md specifications
+│   ├── core/plans/          # 📂 SDD phase progress files
+│   ├── core/gates/          # 📂 Hardlock configurations & CI validation matrices
+│   ├── design-hub/          # 📂 Visual Design Hub (Next.js Application)
+│   └── design/              # 📂 Brand token profile files
+├── docs/
+│   ├── plan/                # 📂 Project implementation milestones
+│   └── reports/             # 📂 Accessibility, styling audits, and tests
+├── DESIGN.md                # 📄 Active design tokens contract
+├── wireframes_locked.json   # 📄 Visual sitemap and layout lock
+├── CLAUDE.md · AGENTS.md    # 📄 Auto-generated mirrors
+└── README.md                # 📄 Project master dashboard
 ```
 
 ---
 
-## SDD pipeline
-
-Order is **enforced by hardlocks** (see `.nezam/core/gates/hardlock-paths.json`):
-
-```
-Planning → SEO/IA → Content → DESIGN.md + wireframes → Scaffold → Build → Harden → Ship
-```
-
-| Gate | Requires |
-|------|----------|
-| `/plan` | `prd_locked` + `design_locked` in `.cursor/state/onboarding.yaml` |
-| `/develop` | Planning complete, `DESIGN.md`, `wireframes_locked.json`, scaffold when applicable |
-
-Product-type pipelines (website, webapp, SaaS, mobile): [`.cursor/rules/sdd-pipeline-v2.mdc`](.cursor/rules/sdd-pipeline-v2.mdc)
-
----
-
-## Multi-tool sync
-
-| Tier | Clients |
-|------|---------|
-| **1** | Cursor, Claude Code, Codex, Antigravity IDE/CLI |
-| **2** | Gemini, Qwen, OpenCode, Kilo, Windsurf, VS Code |
-
-```bash
-pnpm ai:sync      # regenerate mirrors
-pnpm ai:status    # drift survey
-pnpm ai:check     # CI-grade integrity
-```
-
-**Rule:** Never hand-edit `CLAUDE.md`, `AGENTS.md`, or `.claude/` as source of truth — edit `.cursor/` only.
-
-Map: [`.nezam/core/memory/MULTI_TOOL_INDEX.md`](.nezam/core/memory/MULTI_TOOL_INDEX.md)
-
----
-
-## Swarms & skills
-
-| Swarm | Focus |
-|-------|--------|
-| 1–3 | Architecture, design, frontend |
-| 4–7 | Backend, data, mobile, CMS/SaaS |
-| 8–14 | Analytics, security, DevOps, QA, design excellence |
-
-Registry: [`.cursor/state/AGENT_REGISTRY.yaml`](.cursor/state/AGENT_REGISTRY.yaml)  
-Skills: [`.cursor/skills/`](.cursor/skills/) (require `tier` + `version` in frontmatter for `pnpm ai:check`)
-
----
-
-## Scripts
-
-| Script | Description |
-|--------|-------------|
-| `pnpm design-hub` | Design Hub dev server |
-| `pnpm run design:apply -- <brand>` | Copy profile → `DESIGN.md` |
-| `pnpm ai:sync` | Sync `.cursor/` → all AI clients |
-| `pnpm ai:check` | Drift + skill integrity |
-| `pnpm run check:onboarding` | Onboarding gate check |
-| `pnpm run check:tokens` | Design token gate |
-| `pnpm prd:roadmap` | Regenerate roadmap from PRD table |
-| `pnpm continual-learning` | Mine transcripts → update AGENTS template |
-
----
-
-## Troubleshooting
+## 🛠️ Diagnostics & Troubleshooting
 
 <details>
-<summary><strong>pnpm install fails (registry / auth)</strong></summary>
+<summary><strong>🚫 Next.js / pnpm dependency conflicts</strong></summary>
+If you run into installation conflicts or npm-auth issues in restricted environments, force the default public registry:
 
 ```bash
 pnpm config set registry https://registry.npmjs.org/
 pnpm install
 ```
-
 </details>
 
 <details>
-<summary><strong><code>/DEVELOP</code> blocked — wireframes</strong></summary>
-
-Run `pnpm design-hub`, complete wireframes, export **`wireframes_locked.json`** to repo root.
-
+<summary><strong>🔒 `/DEVELOP` command is blocked</strong></summary>
+The `/DEVELOP` command is hardlocked until wireframe layouts are complete. Run `pnpm design-hub`, model your routes, select pages in the wireframes section, and click **Export** to create the required root contract `wireframes_locked.json`.
 </details>
 
 <details>
-<summary><strong><code>/PLAN</code> blocked — PRD or design</strong></summary>
+<summary><strong>⚠️ Git Commit is blocked by pre-commit hook</strong></summary>
+If Husky blocks your commit with drift errors, simply run `pnpm ai:sync` to rebuild client configurations, stage the changes, and commit again:
 
 ```bash
-pnpm run check:onboarding
+pnpm ai:sync && git add -A && git commit -m "your commit message"
 ```
-
-Set `prd_locked: true` and `design_locked: true` in `.cursor/state/onboarding.yaml` after `/START` completes.
-
 </details>
-
-<details>
-<summary><strong>AI mirror drift</strong></summary>
-
-```bash
-pnpm ai:sync && pnpm ai:check
-```
-
-</details>
-
----
-
-## Contributing
-
-1. Fork and branch from `main`
-2. Edit **only** under `.cursor/` for commands, agents, skills, rules
-3. Run `pnpm ai:sync` and `pnpm ai:check`
-4. For Design Hub: `cd .nezam/design-hub && pnpm test && pnpm build`
-5. Open a PR with scope and verification steps
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) · [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 ---
 
 <div align="center">
 
-**NEZAM** — specs before code, agents with guardrails, design you can lock.
+**Built for the future of agentic coding. Driven by specs. Gated by design.**
 
-[PRD v2.1](.nezam/core/prd/PRD.md) · [Report a bug](https://github.com/iDorgham/Nezam/issues) · [Request a feature](https://github.com/iDorgham/Nezam/issues/new)
+[PRD Specification](.nezam/core/prd/PRD.md) · [Report an Issue](https://github.com/iDorgham/Nezam/issues) · [License](LICENSE)
 
 </div>

@@ -28,14 +28,23 @@ import {
   buildThemeEditorSnapshot,
   type ThemeEditorSnapshot,
 } from '@/lib/design-to-theme'
-import { hexToHsl, hslToHex } from '@/components/theming/color-utils'
+import { applyThemeVarsToTokens } from '@/lib/theme-bridge-map'
+import {
+  diffFlatTokens,
+  flattenTokens,
+  type TokenDiff,
+} from '@/lib/design/token-flattener'
 
 export type { ThemeEditorSnapshot } from '@/lib/design-to-theme'
+export type { TokenDiff } from '@/lib/design/token-flattener'
 
 // ─── Version ─────────────────────────────────────────────────────────────────
 
 /** Single source of truth for the hub version badge. */
-export const HUB_VERSION = 'v7'
+export const HUB_VERSION = 'v8'
+
+const SIDEBAR_MIN = 200
+const SIDEBAR_MAX = 450
 
 // ─── Hub section ─────────────────────────────────────────────────────────────
 
@@ -166,11 +175,19 @@ interface HubStore {
   onboarding: OnboardingState
   /** ISO timestamp when the user last clicked "Lock & Export" in the hub. */
   lockedAt: string | null
-  /** Sections the user has visited at least once — drives progress bar. */
+  /** Sections the user has visited at least once — drives tab underline styling. */
   visitedSections: HubSection[]
+  /** Sections that met completion criteria — drives progress ratio. */
+  completedSections: HubSection[]
+  /** Non-persisted diff after applying a design profile. */
+  tokenDiff: TokenDiff | null
+  /** ISO timestamp of last successful Figma variable sync. */
+  figmaSyncedAt: string | null
 
   // ── Section ──
   setSection(s: HubSection): void
+  markSectionComplete(section: HubSection): void
+  clearTokenDiff(): void
 
   // ── Architecture actions ──
   archAddNode(kind: AddableArchType, parentId: string | null): { ok: true; id: string } | { ok: false; reason: string }
@@ -236,6 +253,8 @@ interface HubStore {
   // ── Export modal ──
   exportModalOpen: boolean
   setExportModalOpen(open: boolean): void
+  exportPanelOpen: boolean
+  setExportPanelOpen(open: boolean): void
 
   // ── Sections filter ──
   sectionsCategory: string | null
@@ -249,6 +268,7 @@ interface HubStore {
 
   // ── Lock / export state ──────────────────────────────────────────────────
   setLockedAt(ts: string | null): void
+  setFigmaSyncedAt(iso: string | null): void
 }
 
 // ─── Helper: derive next order among siblings ──────────────────────────────
@@ -282,29 +302,15 @@ function recordHistory(state: any) {
   }
 }
 
-function generateScaleFromHex(hex: string): any {
-  const hsl = hexToHsl(hex)
-  if (!hsl) {
-    return {
-      '50': hex, '100': hex, '200': hex, '300': hex, '400': hex,
-      '500': hex, '600': hex, '700': hex, '800': hex, '950': hex,
-    }
+function markSectionComplete(state: { completedSections: HubSection[] }, section: HubSection) {
+  if (!state.completedSections.includes(section)) {
+    state.completedSections.push(section)
   }
+}
 
-  const make = (l: number) => hslToHex({ h: hsl.h, s: hsl.s, l: Math.max(0, Math.min(1, l)) })
-
-  return {
-    '50':  make(0.97),
-    '100': make(0.92),
-    '200': make(0.84),
-    '300': make(0.74),
-    '400': make(0.62),
-    '500': hex,
-    '600': make(hsl.l * 0.85),
-    '700': make(hsl.l * 0.70),
-    '800': make(hsl.l * 0.55),
-    '900': make(hsl.l * 0.40),
-    '950': make(hsl.l * 0.25),
+function maybeCompleteArchitecture(state: { arch: ArchState; completedSections: HubSection[] }) {
+  if (Object.keys(state.arch.pages).length > 0) {
+    markSectionComplete(state, 'architecture')
   }
 }
 
@@ -315,10 +321,14 @@ export const useHub = create<HubStore>()(
     immer((set, get) => ({
       section: 'architecture' as HubSection,
       visitedSections: ['architecture'] as HubSection[],
+      completedSections: [] as HubSection[],
+      tokenDiff: null as TokenDiff | null,
+      figmaSyncedAt: null as string | null,
       hubTheme: 'dark' as 'light' | 'dark',
       archPast: [] as Record<string, ArchPage>[],
       archFuture: [] as Record<string, ArchPage>[],
       exportModalOpen: false,
+      exportPanelOpen: false,
       sectionsCategory: null as string | null,
       sidebarWidth: 240,
       sectionsQuery: '',
@@ -375,9 +385,27 @@ export const useHub = create<HubStore>()(
           if (!state.visitedSections.includes(s)) {
             state.visitedSections.push(s)
           }
+          if (s === 'components') {
+            markSectionComplete(state, 'components')
+          }
           if (s === 'preview') {
             state.preview.subTab = 'preview'
           }
+        }),
+
+      markSectionComplete: (section) =>
+        set((state) => {
+          markSectionComplete(state, section)
+        }),
+
+      clearTokenDiff: () =>
+        set((state) => {
+          state.tokenDiff = null
+        }),
+
+      setFigmaSyncedAt: (iso) =>
+        set((state) => {
+          state.figmaSyncedAt = iso
         }),
 
       // ── Architecture ─────────────────────────────────────────────────────────
@@ -409,6 +437,7 @@ export const useHub = create<HubStore>()(
           )
           state.arch.selectedPageId = id
           state.arch.selectedServiceId = null
+          maybeCompleteArchitecture(state)
         })
         return { ok: true as const, id }
       },
@@ -432,6 +461,7 @@ export const useHub = create<HubStore>()(
           state.arch.pages[id] = page
           state.arch.selectedServiceId = id
           state.arch.selectedPageId = null
+          maybeCompleteArchitecture(state)
         })
         return { ok: true as const, id }
       },
@@ -457,6 +487,7 @@ export const useHub = create<HubStore>()(
             parent,
           )
           state.arch.selectedPageId = id
+          maybeCompleteArchitecture(state)
         }),
 
       archDeletePage: (id) =>
@@ -559,6 +590,7 @@ export const useHub = create<HubStore>()(
           state.arch.activeProfileId = profileId
           state.arch.selectedPageId = null
           state.arch.selectedServiceId = null
+          maybeCompleteArchitecture(state)
         }),
 
       archAppendPages: (pages, parentId = null) =>
@@ -611,6 +643,7 @@ export const useHub = create<HubStore>()(
               services: [],
             }
           })
+          maybeCompleteArchitecture(state)
         }),
 
       // ── Project context hydration (Phase 3) ───────────────────────────────
@@ -620,6 +653,7 @@ export const useHub = create<HubStore>()(
           state.arch.pages = Object.fromEntries(pages.map((p) => [p.id, p]))
           state.arch.activeProfileId = null
           state.arch.selectedPageId = null
+          maybeCompleteArchitecture(state)
         }),
 
       // ── Undo/Redo actions ──
@@ -665,8 +699,11 @@ export const useHub = create<HubStore>()(
         set((state) => {
           const profile = DESIGN_PROFILES_MAP[profileId]
           if (!profile) return
+          const beforeFlat = flattenTokens(state.design.tokens)
           state.design.tokens = profile.tokens
           state.design.activeProfileId = profileId
+          state.tokenDiff = diffFlatTokens(beforeFlat, flattenTokens(profile.tokens))
+          markSectionComplete(state, 'design')
 
           const snapshot = buildThemeEditorSnapshot(
             profile.tokens,
@@ -692,38 +729,10 @@ export const useHub = create<HubStore>()(
       themeApplyToPreview: (override) =>
         set((state) => {
           state.theme.previewOverride = override
-
-          // BRIDGE: map HSL theme preset properties back to Design Tokens colors!
           const mode = override.mode
           const vars = override[mode]
           if (vars) {
-            const colors = state.design.tokens.colors
-            colors.mode = mode
-
-            if (vars.background) {
-              colors.surface.bg = vars.background
-            }
-            if (vars.foreground) {
-              colors.text.primary = vars.foreground
-            }
-            if (vars.primary) {
-              colors.brand = generateScaleFromHex(vars.primary)
-            }
-            if (vars.accent) {
-              colors.accent = generateScaleFromHex(vars.accent)
-            }
-            if (vars.card) {
-              colors.surface.panel = vars.card
-            }
-            if (vars.border) {
-              colors.surface.border = vars.border
-            }
-            if (vars.muted) {
-              colors.text.muted = vars.muted
-            }
-            if (vars['accent-foreground']) {
-              colors.text.secondary = vars['accent-foreground']
-            }
+            applyThemeVarsToTokens(state.design.tokens, vars, mode)
           }
         }),
 
@@ -736,6 +745,7 @@ export const useHub = create<HubStore>()(
         set((state) => {
           const id = uid('profile')
           state.theme.savedProfiles.push({ id, name, override, createdAt: Date.now() })
+          markSectionComplete(state, 'theming')
         }),
 
       themeDeleteProfile: (id) =>
@@ -752,6 +762,7 @@ export const useHub = create<HubStore>()(
       previewSetDevice: (device) =>
         set((state) => {
           state.preview.device = device
+          markSectionComplete(state, 'preview')
         }),
 
       previewSetRtl: (rtl) =>
@@ -880,6 +891,11 @@ export const useHub = create<HubStore>()(
           state.exportModalOpen = open
         }),
 
+      setExportPanelOpen: (open) =>
+        set((state) => {
+          state.exportPanelOpen = open
+        }),
+
       // ── Sections ─────────────────────────────────────────────────────────────
       setSectionsCategory: (cat) =>
         set((state) => {
@@ -894,30 +910,33 @@ export const useHub = create<HubStore>()(
       // ── Resizable Sidebar ──
       setSidebarWidth: (width) =>
         set((state) => {
-          state.sidebarWidth = width
+          state.sidebarWidth = Math.max(SIDEBAR_MIN, Math.min(SIDEBAR_MAX, width))
         }),
 
       // ── Lock / export state ──
       setLockedAt: (ts) =>
         set((state) => {
           state.lockedAt = ts
+          if (ts) markSectionComplete(state, 'wireframes')
         }),
     })),
     {
       name: 'nezam-design-hub-v7',
-      version: 5,
+      version: 6,
       partialize: (s) => ({
         section: s.section,
         arch: s.arch,
         design: s.design,
         theme: s.theme,
         preview: s.preview,
+        comp: { gridColumns: s.comp.gridColumns, cardScale: s.comp.cardScale },
         onboarding: s.onboarding,
         visitedSections: s.visitedSections,
+        completedSections: s.completedSections,
         hubTheme: s.hubTheme,
         sidebarWidth: s.sidebarWidth,
         lockedAt: s.lockedAt,
-        // comp state & past/future stacks are intentionally not persisted
+        figmaSyncedAt: s.figmaSyncedAt,
       }),
       migrate: (persisted: any, version: number) => {
         // v0 = pre-v7 (no version field), v1 = v7 initial, v2 = v8 expansion
@@ -1023,6 +1042,21 @@ export const useHub = create<HubStore>()(
         // v5: merge legacy Top/Sidebar navmenu nodes into Main Navigation per app
         if (version < 5 && persisted?.arch?.pages) {
           migrateLegacyNavMenus(persisted.arch.pages)
+        }
+        // v6: persist component grid prefs + completion / Figma sync metadata
+        if (version < 6) {
+          if (!persisted.comp) {
+            persisted.comp = {
+              gridColumns: COMP_GRID_COLUMNS_DEFAULT,
+              cardScale: COMP_CARD_SCALE_DEFAULT,
+            }
+          }
+          if (!Array.isArray(persisted.completedSections)) {
+            persisted.completedSections = []
+          }
+          if (persisted.figmaSyncedAt === undefined) {
+            persisted.figmaSyncedAt = null
+          }
         }
         return persisted
       },

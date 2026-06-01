@@ -645,6 +645,8 @@ export function SitemapCanvas({ onSelectPage }: Props) {
     setTreeLines(newTreeLines)
   }, [pages, zoom])
 
+  const hubSection = useHub((s) => s.section)
+
   useEffect(() => {
     // Run update logic after layouts settle
     const timer = setTimeout(updateWires, 150)
@@ -654,6 +656,16 @@ export function SitemapCanvas({ onSelectPage }: Props) {
       window.removeEventListener('resize', updateWires)
     }
   }, [pages, updateWires, zoom])
+
+  // Hidden tabpanels use display:none — recalc wire geometry when architecture becomes visible
+  useEffect(() => {
+    if (hubSection !== 'architecture') return
+    const raf = requestAnimationFrame(() => {
+      updateWires()
+      setTimeout(updateWires, 150)
+    })
+    return () => cancelAnimationFrame(raf)
+  }, [hubSection, updateWires])
 
   // Scroll-wheel zoom
   function handleWheel(e: React.WheelEvent<HTMLDivElement>) {

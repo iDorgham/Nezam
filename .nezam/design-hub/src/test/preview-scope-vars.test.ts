@@ -6,7 +6,7 @@ import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
 describe('buildDesignPreviewCssVars', () => {
   it('maps design profile brand to preview and app accent vars', () => {
     const profile = DESIGN_PROFILES_MAP.vibrant
-    const vars = buildDesignPreviewCssVars(profile.tokens)
+    const vars = buildDesignPreviewCssVars(profile.tokens) as Record<string, string>
 
     expect(vars['--brand']).toBe(profile.tokens.colors.brand['500'])
     expect(vars['--app-accent']).toBe(profile.tokens.colors.brand['500'])

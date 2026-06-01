@@ -1,6 +1,7 @@
 'use client'
 
 import { useHub } from '@/store/hub.store'
+import { useRTL } from '@/hooks/useRTL'
 import { ComponentsSidebar } from './ComponentsSidebar'
 import { ComponentsGridControls } from './ComponentsGridControls'
 import { ComponentCard } from './ComponentCard'
@@ -14,6 +15,7 @@ import {
 } from '@/data/components-library'
 
 export function ComponentsSection() {
+  const { rtl } = useRTL()
   const activeProfileId = useHub((s) => s.design.activeProfileId)
   const selectedGroup = useHub((s) => s.comp.selectedGroup)
   const query = useHub((s) => s.comp.query)
@@ -65,6 +67,7 @@ export function ComponentsSection() {
           {filtered.length > 0 && (
             <div
               id="components-panel"
+              dir={rtl ? 'rtl' : 'ltr'}
               role="region"
               aria-label="Component previews"
               className="flex w-full min-w-0 flex-col gap-8 px-4 pb-10 sm:px-6"

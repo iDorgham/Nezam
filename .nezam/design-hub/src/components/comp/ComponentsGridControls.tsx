@@ -3,6 +3,8 @@
 import { LayoutGrid, Maximize2 } from 'lucide-react'
 import { Slider } from '@/components/ui/Slider'
 import { useHub } from '@/store/hub.store'
+import { useRTL } from '@/hooks/useRTL'
+import { cn } from '@/lib/utils'
 import {
   COMP_CARD_SCALE_DEFAULT,
   COMP_CARD_SCALE_MAX,
@@ -13,6 +15,23 @@ import {
   COMP_GRID_COLUMNS_MIN,
 } from '@/store/comp-grid'
 
+function RtlToggle() {
+  const { rtl, setRtl } = useRTL()
+  return (
+    <button
+      type="button"
+      onClick={() => setRtl(!rtl)}
+      title={rtl ? 'Switch preview to LTR' : 'Switch preview to RTL'}
+      className={cn(
+        'flex h-7 shrink-0 items-center justify-center rounded-app-sm border border-app-border px-2.5 text-[10px] font-semibold transition-colors',
+        rtl ? 'bg-app-accent-subtle text-app-accent' : 'text-app-subtle hover:bg-app-elevated hover:text-app-text',
+      )}
+    >
+      {rtl ? 'RTL' : 'LTR'}
+    </button>
+  )
+}
+
 export function ComponentsGridControls({ compact = false }: { compact?: boolean }) {
   const gridColumns = useHub((s) => s.comp.gridColumns)
   const cardScale = useHub((s) => s.comp.cardScale)
@@ -22,6 +41,7 @@ export function ComponentsGridControls({ compact = false }: { compact?: boolean 
   if (compact) {
     return (
       <div className="flex shrink-0 items-center gap-6" aria-label="Component grid layout">
+        <RtlToggle />
         <div className="flex items-center gap-2.5">
           <LayoutGrid className="h-4 w-4 shrink-0 text-app-muted" aria-hidden />
           <span className="text-xs font-medium text-app-muted whitespace-nowrap">Per row</span>
@@ -69,6 +89,7 @@ export function ComponentsGridControls({ compact = false }: { compact?: boolean 
       className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-end sm:gap-5 lg:min-w-[300px]"
       aria-label="Component grid layout"
     >
+      <RtlToggle />
       <div className="flex min-w-[120px] items-center gap-2">
         <LayoutGrid className="h-3.5 w-3.5 shrink-0 text-app-muted" aria-hidden />
         <Slider

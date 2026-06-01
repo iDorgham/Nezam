@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback, useRef } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
+import { useRTL } from '@/hooks/useRTL'
 import type { DesignTokens } from '@/types/design'
 
 // ─── Dark override palette (used when previewDark is forced) ──────────────────
@@ -68,6 +69,7 @@ function buildVars(tokens: DesignTokens, dark: boolean): React.CSSProperties {
 
 export function ComponentStrip() {
   const tokens = useHub((s) => s.design.tokens)
+  const { rtl } = useRTL()
   const [dark, setDark] = useState(tokens.colors.mode === 'dark')
   const vars = useMemo(() => buildVars(tokens, dark), [tokens, dark])
   const [panelWidth, setPanelWidth] = useState(420)
@@ -97,6 +99,7 @@ export function ComponentStrip() {
 
   return (
     <aside
+      dir={rtl ? 'rtl' : 'ltr'}
       style={{
         width: `${panelWidth}px`,
         minWidth: '280px',

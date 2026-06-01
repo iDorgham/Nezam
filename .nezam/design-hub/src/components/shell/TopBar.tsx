@@ -30,8 +30,12 @@ export function TopBar() {
   const hubTheme        = useHub((s) => s.hubTheme)
   const setHubTheme     = useHub((s) => s.setHubTheme)
   const visitedSections = useHub((s) => s.visitedSections)
-  const setExportModalOpen = useHub((s) => s.setExportModalOpen)
+  const completedSections = useHub((s) => s.completedSections)
+  const lockedAt = useHub((s) => s.lockedAt)
+  const setExportPanelOpen = useHub((s) => s.setExportPanelOpen)
   const activeSectionIndex = SECTION_ORDER.findIndex((id) => id === section)
+  const progressCount = completedSections.length
+  const progressTotal = SECTION_ORDER.length
 
   function focusSectionTab(nextIndex: number) {
     const bounded = (nextIndex + SECTION_ORDER.length) % SECTION_ORDER.length
@@ -53,6 +57,23 @@ export function TopBar() {
           <span className="text-[9.5px] font-semibold text-app-subtle bg-app-elevated border border-app-border px-1.5 py-0.5 rounded-full tracking-wide">
             {HUB_VERSION}
           </span>
+          {lockedAt ? (
+            <button
+              type="button"
+              onClick={() => setExportPanelOpen(true)}
+              title="Wireframes locked — open export formats"
+              className="text-[9px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 rounded-full tracking-wide hover:bg-emerald-500/15 transition-colors"
+            >
+              Locked
+            </button>
+          ) : (
+            <span
+              className="text-[9px] font-medium text-app-subtle/80 px-1 py-0.5"
+              title="Wireframes not locked yet"
+            >
+              Unlocked
+            </span>
+          )}
         </div>
 
         {/* Divider */}
@@ -115,11 +136,12 @@ export function TopBar() {
         </nav>
 
         {/* Section progress dots */}
-        <div className="ml-auto flex items-center gap-2" title={`${visitedSections.length} of 6 workspace workflow phases fully completed`}>
+        <div className="ml-auto flex items-center gap-2" title={`${progressCount} of ${progressTotal} workspace phases completed`}>
           <span className="text-[9.5px] text-app-subtle font-medium hidden sm:block">
-            {visitedSections.length}/6
+            {progressCount}/{progressTotal}
           </span>
           {SECTION_ORDER.map((s) => {
+            const completed = completedSections.includes(s)
             const visited = visitedSections.includes(s)
             const phaseLabel = s === 'architecture'
               ? 'Architecture'
@@ -133,12 +155,14 @@ export function TopBar() {
             return (
               <span
                 key={s}
-                title={visited 
+                title={completed
                   ? `Phase completed: You have successfully configured and validated the ${phaseLabel} parameters.`
-                  : `Upcoming phase: Navigate to ${phaseLabel} to build out the respective workspace layer.`}
+                  : visited
+                    ? `Visited: ${phaseLabel} — finish required actions to mark complete.`
+                    : `Upcoming phase: Navigate to ${phaseLabel} to build out the respective workspace layer.`}
                 className={cn(
                   'h-1.5 rounded-full transition-all duration-300 cursor-default',
-                  visited ? 'w-4 bg-app-accent' : 'w-1.5 bg-app-border',
+                  completed ? 'w-4 bg-app-accent' : visited ? 'w-3 bg-app-accent/40' : 'w-1.5 bg-app-border',
                 )}
               />
             )
@@ -167,25 +191,25 @@ export function TopBar() {
               onClick={() => {
                 if (section === 'architecture') setSection('wireframes')
                 else if (section === 'wireframes') setSection('design')
-                else if (section === 'design') setSection('theming')
+                else if (section === 'design') setSection('components')
+                else if (section === 'components') setSection('theming')
                 else if (section === 'theming') setSection('preview')
               }}
-              title={`Proceed to next phase: Configure ${section === 'architecture' ? 'Wireframe Blocks' : section === 'wireframes' ? 'Design System Scales' : section === 'design' ? 'Interface Mode & Color Presets' : 'Interactive Device Viewports'}`}
+              title={`Proceed to next phase: Configure ${section === 'architecture' ? 'Wireframe Blocks' : section === 'wireframes' ? 'Design System Scales' : section === 'design' ? 'Component Library' : section === 'components' ? 'Interface Mode & Color Presets' : 'Interactive Device Viewports'}`}
               className="flex items-center gap-1.5 h-7 px-3 rounded-app-sm text-[11px] font-semibold bg-app-accent text-app-on-accent hover:bg-app-accent-hover active:bg-app-accent-active transition-colors duration-100 select-none animate-in fade-in"
             >
               Next
               <ArrowRight size={11} />
             </button>
-          ) : (
-            <button
-              onClick={() => setExportModalOpen(true)}
-              title="Launch export options to export W3C tokens JSON, CSS custom variables, NextJS router files, and system presets"
-              className="flex items-center gap-1.5 h-7 px-3 rounded-app-sm text-[11px] font-semibold bg-app-accent text-app-on-accent hover:bg-app-accent-hover active:bg-app-accent-active transition-colors duration-100 select-none animate-in fade-in"
-            >
-              <Download size={11} />
-              Export
-            </button>
-          )}
+          ) : null}
+          <button
+            onClick={() => setExportPanelOpen(true)}
+            title="Download design tokens, CSS variables, wireframes, and 12 export formats"
+            className="flex items-center gap-1.5 h-7 px-3 rounded-app-sm text-[11px] font-semibold bg-app-elevated text-app-text border border-app-border hover:bg-app-elevated/80 active:scale-[0.99] transition-colors duration-100 select-none"
+          >
+            <Download size={11} />
+            Export
+          </button>
         </div>
       </div>
     </header>

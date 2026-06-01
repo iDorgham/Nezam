@@ -69,6 +69,7 @@ export function ExportSuccessModal() {
   const arch = useHub((s) => s.arch)
   const activeProfileId = useHub((s) => s.design.activeProfileId)
   const setLockedAt = useHub((s) => s.setLockedAt)
+  const setExportPanelOpen = useHub((s) => s.setExportPanelOpen)
   const previewRtl = useHub((s) => s.preview.rtl)
   const [format, setFormat] = useState<ExportFormatId>('css')
   const [copied, setCopied] = useState(false)
@@ -136,6 +137,7 @@ export function ExportSuccessModal() {
         blocks: data?.summary?.blocks ?? 0,
         profile: data?.summary?.profile ?? (activeProfileId ?? 'custom'),
       })
+      setExportPanelOpen(true)
     } catch (e: any) {
       setLockError(e?.message ? String(e.message) : 'Unexpected lock error.')
     } finally {

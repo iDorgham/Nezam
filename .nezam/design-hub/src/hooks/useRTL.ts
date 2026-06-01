@@ -1,6 +1,10 @@
-/**
- * Reserved module — implementation deferred to a later phase.
- * Currently has zero importers; stub keeps the path reserved without
- * breaking the production build.
- */
-export {}
+'use client'
+
+import { useHub } from '@/store/hub.store'
+
+/** Global RTL preview flag (stored on `preview.rtl`). */
+export function useRTL() {
+  const rtl = useHub((s) => s.preview.rtl)
+  const setRtl = useHub((s) => s.previewSetRtl)
+  return { rtl, setRtl }
+}

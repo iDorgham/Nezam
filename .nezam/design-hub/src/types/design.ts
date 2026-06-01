@@ -54,6 +54,9 @@ export type DesignProfileId =
   | 'netflix'
   | 'airbnb'
   | 'vercel'
+  | 'supabase'
+  | 'raycast'
+  | 'resend'
 
 /** 11-step color scale. */
 export interface ColorScale {

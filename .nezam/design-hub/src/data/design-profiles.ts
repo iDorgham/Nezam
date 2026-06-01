@@ -1565,6 +1565,138 @@ const VERCEL: DesignTokens = {
   density: BASE_DENSITY,
 }
 
+// ─── Supabase ──────────────────────────────────────────────────────────────────
+const SUPABASE: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#ecfdf5','100':'#d1fae5','200':'#a7f3d0','300':'#6ee7b7','400':'#34d399','500':'#3ecf8e','600':'#24b47e','700':'#047857','800':'#065f46','900':'#064e3b','950':'#022c22' },
+    secondary: { '50':'#eef2ff','100':'#e0e7ff','200':'#c7d2fe','300':'#a5b4fc','400':'#818cf8','500':'#6366f1','600':'#4f46e5','700':'#4338ca','800':'#3730a3','900':'#312e81','950':'#1e1b4b' },
+    accent:  { '50':'#f5f3ff','100':'#ede9fe','200':'#ddd6fe','300':'#c4b5fd','400':'#a78bfa','500':'#6b01c2','600':'#5b21b6','700':'#4c1d95','800':'#3b0764','900':'#2e1065','950':'#1e003b' },
+    neutral: { '50':'#fafafa','100':'#f5f5f5','200':'#ededed','300':'#dfdfdf','400':'#c7c7c7','500':'#9a9a9a','600':'#707070','700':'#4b4b4b','800':'#212121','900':'#171717','950':'#0e0e0e' },
+    semantic: { success:'#3ecf8e', warning:'#ffdb13', error:'#ff2201', info:'#054cff' },
+    surface: { bg:'#171717', panel:'#1c1c1c', overlay:'rgba(0,0,0,0.60)', border:'#2e2e2e' },
+    text: { primary:'#ffffff', secondary:'#b2b2b2', muted:'#707070', disabled:'#4b4b4b' },
+    successScale: { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    warningScale: { '50':'#fffbeb','100':'#fef3c7','200':'#fde68a','300':'#fcd34d','400':'#fbbf24','500':'#f59e0b','600':'#d97706','700':'#b45309','800':'#92400e','900':'#78350f','950':'#451a03' },
+    errorScale:   { '50':'#fef2f2','100':'#fee2e2','200':'#fecaca','300':'#fca5a5','400':'#f87171','500':'#ef4444','600':'#dc2626','700':'#b91c1c','800':'#991b1b','900':'#7f1d1d','950':'#450a0a' },
+    infoScale:    { '50':'#f0f9ff','100':'#e0f2fe','200':'#bae6fd','300':'#7dd3fc','400':'#38bdf8','500':'#0ea5e9','600':'#0284c7','700':'#0369a1','800':'#075985','900':'#0c4a6e','950':'#082f49' },
+    darkSurface: { bg: '#ffffff', panel: '#fafafa', overlay: 'rgba(0,0,0,0.4)', border: '#dfdfdf' },
+    darkText: { primary: '#171717', secondary: '#707070', muted: '#9a9a9a', disabled: '#c7c7c7' },
+  },
+  typography: { sans:"'Inter', 'Circular', system-ui, sans-serif", mono:"ui-monospace, Menlo, Monaco, Consolas, monospace", display:"'Inter', 'Circular', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'6px', lg:'12px', xl:'16px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 3px rgba(0,0,0,0.06)', md:'0 8px 24px rgba(0,0,0,0.08)', lg:'0 16px 48px rgba(0,0,0,0.12)', xl:'0 24px 64px rgba(0,0,0,0.16)', inner:'inset 0 2px 4px rgba(0,0,0,0.06)', glow:'0 0 20px rgba(62,207,142,0.3)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid', widthScale: BASE_BORDER_SCALE, divider: { ...BASE_DIVIDER, color: '#2e2e2e' }, focus: { ...BASE_FOCUS, color: '#3ecf8e' } }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#171717', raised:'#1c1c1c', overlay:'#202020', sunken:'#111111' }, shadow:{ card:'0 1px 3px rgba(0,0,0,0.08)', modal:'0 20px 60px rgba(0,0,0,0.18)', tooltip:'0 4px 12px rgba(0,0,0,0.10)', sticky:'0 2px 8px rgba(0,0,0,0.08)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Inter', 'Circular', sans-serif", body:"'Inter', 'Circular', sans-serif", mono:"ui-monospace, monospace", display:"'Inter', 'Circular', sans-serif" } },
+  interaction:{ focusRing:'#3ecf8e', hover:'rgba(62,207,142,0.06)', pressed:'rgba(62,207,142,0.12)', selected:'rgba(62,207,142,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(0,0,0,0.60)', skeleton:{ base:'#1c1c1c', shimmer:'#202020' }, chart:{ primary:'#3ecf8e', secondary:'#6b01c2', tertiary:'#054cff', quaternary:'#ffdb13', divergent:{ low:'#022c22', high:'#3ecf8e' } } },
+  opacity: BASE_OPACITY,
+  zIndex: { hide: -1, auto: 0, base: 1, dropdown: 1000, sticky: 1100, fixed: 1200, modal: 1300, toast: 1400, tooltip: 1500 },
+  breakpoints: BASE_BREAKPOINTS,
+  layout: BASE_LAYOUT,
+  cursor: { ...BASE_CURSOR, focusRingColor: '#3ecf8e' },
+  scrollbar: BASE_SCROLLBAR,
+  glass: BASE_GLASS,
+  gradients: {
+    brand: 'linear-gradient(135deg, #3ecf8e, #24b47e)',
+    accent: 'linear-gradient(135deg, #24b47e, #6b01c2)',
+    surface: 'linear-gradient(180deg, #171717, #1c1c1c)',
+    mesh: { color1: '#171717', color2: '#1c1c1c', color3: '#6b01c2', color4: '#3ecf8e' },
+  },
+  grid: BASE_GRID,
+  content: BASE_CONTENT,
+  density: BASE_DENSITY,
+}
+
+// ─── Raycast ───────────────────────────────────────────────────────────────────
+const RAYCAST: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#fafafa','100':'#f5f5f6','200':'#e5e5e6','300':'#cdcdcd','400':'#9c9c9d','500':'#ffffff','600':'#e8e8e8','700':'#6a6b6c','800':'#434345','900':'#242728','950':'#101111' },
+    secondary: { '50':'#2c2d2e','100':'#242728','200':'#1c1d1e','300':'#18191a','400':'#121212','500':'#101111','600':'#0d0d0d','700':'#07080a','800':'#050506','900':'#030304','950':'#010102' },
+    accent:  { '50':'#fff5f5','100':'#ffe3e3','200':'#ffc9c9','300':'#ffa3a3','400':'#ff7373','500':'#ff5757','600':'#e53e3e','700':'#c53030','800':'#a1131a','900':'#741217','950':'#4a0b0e' },
+    neutral: { '50':'#cdcdcd','100':'#9c9c9d','200':'#6a6b6c','300':'#434345','400':'#242728','500':'#121212','600':'#101111','700':'#0d0d0d','800':'#07080a','900':'#040506','950':'#010203' },
+    semantic: { success:'#59d499', warning:'#ffc533', error:'#ff6161', info:'#57c1ff' },
+    surface: { bg:'#07080a', panel:'#0d0d0d', overlay:'rgba(0,0,0,0.80)', border:'#242728' },
+    text: { primary:'#f4f4f6', secondary:'#cdcdcd', muted:'#9c9c9d', disabled:'#6a6b6c' },
+    successScale: { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    warningScale: { '50':'#fffbeb','100':'#fef3c7','200':'#fde68a','300':'#fcd34d','400':'#fbbf24','500':'#f59e0b','600':'#d97706','700':'#b45309','800':'#92400e','900':'#78350f','950':'#451a03' },
+    errorScale:   { '50':'#fef2f2','100':'#fee2e2','200':'#fecaca','300':'#fca5a5','400':'#f87171','500':'#ef4444','600':'#dc2626','700':'#b91c1c','800':'#991b1b','900':'#7f1d1d','950':'#450a0a' },
+    infoScale:    { '50':'#f0f9ff','100':'#e0f2fe','200':'#bae6fd','300':'#7dd3fc','400':'#38bdf8','500':'#0ea5e9','600':'#0284c7','700':'#0369a1','800':'#075985','900':'#0c4a6e','950':'#082f49' },
+    darkSurface: { bg: '#ffffff', panel: '#f4f4f6', overlay: 'rgba(0,0,0,0.4)', border: '#ededed' },
+    darkText: { primary: '#07080a', secondary: '#434345', muted: '#9c9c9d', disabled: '#cdcdcd' },
+  },
+  typography: { sans:"'Inter', system-ui, sans-serif", mono:"'JetBrains Mono', ui-monospace, monospace", display:"'Inter', system-ui, sans-serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'4px', md:'6px', lg:'10px', xl:'14px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 3px rgba(0,0,0,0.5)', md:'0 4px 16px rgba(0,0,0,0.6)', lg:'0 12px 32px rgba(0,0,0,0.7)', xl:'0 24px 64px rgba(0,0,0,0.85)', inner:'inset 0 2px 4px rgba(0,0,0,0.06)', glow:'0 0 20px rgba(255,255,255,0.2)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid', widthScale: BASE_BORDER_SCALE, divider: { ...BASE_DIVIDER, color: '#242728' }, focus: { ...BASE_FOCUS, color: '#ffffff' } }, iconography:{ library:'lucide', style:'outline', size:20, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#07080a', raised:'#0d0d0d', overlay:'#101111', sunken:'#030304' }, shadow:{ card:'0 2px 8px rgba(0,0,0,0.6)', modal:'0 24px 64px rgba(0,0,0,0.85)', tooltip:'0 4px 16px rgba(0,0,0,0.70)', sticky:'0 2px 12px rgba(0,0,0,0.60)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Inter', sans-serif", body:"'Inter', sans-serif", mono:"'JetBrains Mono', monospace", display:"'Inter', sans-serif" } },
+  interaction:{ focusRing:'#ffffff', hover:'rgba(255,255,255,0.05)', pressed:'rgba(255,255,255,0.10)', selected:'rgba(255,255,255,0.08)', disabled:'0.35' },
+  utility:{ blanket:'rgba(0,0,0,0.80)', skeleton:{ base:'#0d0d0d', shimmer:'#101111' }, chart:{ primary:'#ffffff', secondary:'#ff5757', tertiary:'#57c1ff', quaternary:'#ffc533', divergent:{ low:'#101111', high:'#ffffff' } } },
+  opacity: BASE_OPACITY,
+  zIndex: { hide: -1, auto: 0, base: 1, dropdown: 1000, sticky: 1100, fixed: 1200, modal: 1300, toast: 1400, tooltip: 1500 },
+  breakpoints: BASE_BREAKPOINTS,
+  layout: BASE_LAYOUT,
+  cursor: { ...BASE_CURSOR, focusRingColor: '#ffffff' },
+  scrollbar: BASE_SCROLLBAR,
+  glass: BASE_GLASS,
+  gradients: {
+    brand: 'linear-gradient(135deg, #ffffff, #ff5757)',
+    accent: 'linear-gradient(135deg, #ff5757, #a1131a)',
+    surface: 'linear-gradient(180deg, #07080a, #0d0d0d)',
+    mesh: { color1: '#07080a', color2: '#101111', color3: '#ff5757', color4: '#ffffff' },
+  },
+  grid: BASE_GRID,
+  content: BASE_CONTENT,
+  density: BASE_DENSITY,
+}
+
+// ─── Resend ────────────────────────────────────────────────────────────────────
+const RESEND: DesignTokens = {
+  colors: {
+    mode: 'dark',
+    brand:   { '50':'#ffffff','100':'#fcfdff','200':'#f8f9fa','300':'#f1f3f5','400':'#e9ecef','500':'#fcfdff','600':'#e8e8e8','700':'#dee2e6','800':'#ced4da','900':'#adb5bd','950':'#6c757d' },
+    secondary: { '50':'#212529','100':'#1b1e21','200':'#151719','300':'#101012','400':'#0a0a0c','500':'#06060a','600':'#000000','700':'#000000','800':'#000000','900':'#000000','950':'#000000' },
+    accent:  { '50':'#fff8f2','100':'#ffedd5','200':'#ffddb9','300':'#ffc48c','400':'#ffa359','500':'#ff801f','600':'#e66a0e','700':'#cc5600','800':'#b34400','900':'#993500','950':'#802800' },
+    neutral: { '50':'#fcfdff','100':'rgba(252,253,255,0.86)','200':'rgba(252,253,255,0.7)','300':'#a1a4a5','400':'#888e90','500':'#464a4d','600':'#212529','700':'#1b1e21','800':'#0a0a0c','900':'#000000','950':'#000000' },
+    semantic: { success:'#11ff99', warning:'#ffc53d', error:'#ff2047', info:'#3b9eff' },
+    surface: { bg:'#000000', panel:'#0a0a0c', overlay:'rgba(0,0,0,0.85)', border:'rgba(255,255,255,0.06)' },
+    text: { primary:'#fcfdff', secondary:'rgba(252,253,255,0.86)', muted:'#a1a4a5', disabled:'#464a4d' },
+    successScale: { '50':'#f0fdf4','100':'#dcfce7','200':'#bbf7d0','300':'#86efac','400':'#4ade80','500':'#22c55e','600':'#16a34a','700':'#15803d','800':'#166534','900':'#14532d','950':'#052e16' },
+    warningScale: { '50':'#fffbeb','100':'#fef3c7','200':'#fde68a','300':'#fcd34d','400':'#fbbf24','500':'#f59e0b','600':'#d97706','700':'#b45309','800':'#92400e','900':'#78350f','950':'#451a03' },
+    errorScale:   { '50':'#fef2f2','100':'#fee2e2','200':'#fecaca','300':'#fca5a5','400':'#f87171','500':'#ef4444','600':'#dc2626','700':'#b91c1c','800':'#991b1b','900':'#7f1d1d','950':'#450a0a' },
+    infoScale:    { '50':'#f0f9ff','100':'#e0f2fe','200':'#bae6fd','300':'#7dd3fc','400':'#38bdf8','500':'#0ea5e9','600':'#0284c7','700':'#0369a1','800':'#075985','900':'#0c4a6e','950':'#082f49' },
+    darkSurface: { bg: '#ffffff', panel: '#fafafa', overlay: 'rgba(0,0,0,0.4)', border: '#eaeaea' },
+    darkText: { primary: '#000000', secondary: '#464a4d', muted: '#888e90', disabled: '#a1a4a5' },
+  },
+  typography: { sans:"'Inter', 'ABC Favorit', system-ui, sans-serif", mono:"'Geist Mono', 'JetBrains Mono', monospace", display:"'Domaine Display', 'ABC Favorit', serif", scale:BASE_SCALE, weights:BASE_WEIGHTS },
+  spacing:{ base:4 }, radius:{ none:'0px', sm:'6px', md:'8px', lg:'12px', xl:'16px', full:'9999px' },
+  shadows:{ none:'none', sm:'0 1px 2px rgba(255,255,255,0.02)', md:'0 4px 12px rgba(255,255,255,0.04)', lg:'0 8px 24px rgba(255,255,255,0.06)', xl:'0 16px 40px rgba(255,255,255,0.08)', inner:'inset 0 2px 4px rgba(0,0,0,0.06)', glow:'0 0 20px rgba(255,255,255,0.1)' },
+  motion:BASE_MOTION, borders:{ width:'1px', style:'solid', widthScale: BASE_BORDER_SCALE, divider: { ...BASE_DIVIDER, color: 'rgba(255,255,255,0.04)' }, focus: { ...BASE_FOCUS, color: '#fcfdff' } }, iconography:{ library:'lucide', style:'outline', size:16, strokeWidth:1.5 },
+  elevation:{ surface:{ base:'#000000', raised:'#0a0a0c', overlay:'#101012', sunken:'#06060a' }, shadow:{ card:'0 1px 3px rgba(255,255,255,0.04)', modal:'0 16px 48px rgba(0,0,0,0.90)', tooltip:'0 4px 12px rgba(255,255,255,0.05)', sticky:'0 2px 8px rgba(0,0,0,0.80)' } },
+  font:{ heading:BASE_HEADING, body:BASE_BODY, metric:BASE_METRIC, code:BASE_CODE, weight:BASE_FONT_WEIGHT, family:{ heading:"'Domaine Display', serif", body:"'ABC Favorit', sans-serif", mono:"'Geist Mono', monospace", display:"'Domaine Display', serif" } },
+  interaction:{ focusRing:'#fcfdff', hover:'rgba(255,255,255,0.04)', pressed:'rgba(255,255,255,0.08)', selected:'rgba(255,255,255,0.08)', disabled:'0.4' },
+  utility:{ blanket:'rgba(0,0,0,0.85)', skeleton:{ base:'#0a0a0c', shimmer:'#101012' }, chart:{ primary:'#fcfdff', secondary:'#ff801f', tertiary:'#3b9eff', quaternary:'#ffc53d', divergent:{ low:'#06060a', high:'#fcfdff' } } },
+  opacity: BASE_OPACITY,
+  zIndex: { hide: -1, auto: 0, base: 1, dropdown: 1000, sticky: 1100, fixed: 1200, modal: 1300, toast: 1400, tooltip: 1500 },
+  breakpoints: BASE_BREAKPOINTS,
+  layout: BASE_LAYOUT,
+  cursor: { ...BASE_CURSOR, focusRingColor: '#fcfdff' },
+  scrollbar: BASE_SCROLLBAR,
+  glass: BASE_GLASS,
+  gradients: {
+    brand: 'linear-gradient(135deg, #fcfdff, #ff801f)',
+    accent: 'linear-gradient(135deg, #ff801f, #ffc53d)',
+    surface: 'linear-gradient(180deg, #000000, #0a0a0c)',
+    mesh: { color1: '#000000', color2: '#101012', color3: '#ff801f', color4: '#fcfdff' },
+  },
+  grid: BASE_GRID,
+  content: BASE_CONTENT,
+  density: BASE_DENSITY,
+}
+
 // ─── Profile groups for UI ────────────────────────────────────────────────────
 
 export const DESIGN_PROFILE_GROUPS: Array<{ label: string; ids: DesignProfile['id'][] }> = [
@@ -1574,7 +1706,7 @@ export const DESIGN_PROFILE_GROUPS: Array<{ label: string; ids: DesignProfile['i
   },
   {
     label: 'Brand Profiles',
-    ids: ['apple', 'google', 'spotify', 'github', 'stripe', 'linear', 'notion', 'netflix', 'airbnb', 'vercel'],
+    ids: ['apple', 'google', 'spotify', 'github', 'stripe', 'linear', 'notion', 'netflix', 'airbnb', 'vercel', 'supabase', 'raycast', 'resend'],
   },
 ]
 
@@ -1604,6 +1736,9 @@ export const DESIGN_PROFILES: DesignProfile[] = [
   { id: 'netflix',     name: 'Netflix',       emoji: '▶', description: 'Netflix red on black. Bold, cinematic, entertainment.',     tokens: NETFLIX },
   { id: 'airbnb',      name: 'Airbnb',        emoji: '◈', description: 'Rausch coral on white. Warm, welcoming, community.',        tokens: AIRBNB },
   { id: 'vercel',      name: 'Vercel',        emoji: '▲', description: 'Pure black & white. Geist typeface. Razor-sharp minimal.',  tokens: VERCEL },
+  { id: 'supabase',    name: 'Supabase',      emoji: '⚡', description: 'Emerald green on dark. Developer-first database platform.',  tokens: SUPABASE },
+  { id: 'raycast',     name: 'Raycast',       emoji: '⌘', description: 'Obsidian dark command palette system. Fast, keyboard-first.',tokens: RAYCAST },
+  { id: 'resend',      name: 'Resend',        emoji: '✉', description: 'Domaine serif and Favorit sans on pure black. Editorial confidence.', tokens: RESEND },
 ]
 
 export const DESIGN_PROFILES_MAP = Object.fromEntries(

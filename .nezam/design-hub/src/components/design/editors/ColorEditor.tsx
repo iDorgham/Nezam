@@ -714,6 +714,22 @@ export function ColorEditor() {
   const [cbMode, setCbMode] = useState<string>('off')
   const [selectedKey, setSelectedKey] = useState<string | null>(null)
 
+  // Resolve or generate a high-quality secondary scale if undefined
+  let secondaryScale = tokens.colors.secondary
+  if (!secondaryScale) {
+    const brandHsl = hexToHsl(tokens.colors.brand['500'])
+    if (brandHsl) {
+      const secondaryBase = hslToHex({
+        h: (brandHsl.h + 200) % 360,
+        s: Math.max(0.3, brandHsl.s * 0.85),
+        l: Math.max(0.3, Math.min(0.7, brandHsl.l * 0.95))
+      })
+      secondaryScale = generateAccessibleScale(secondaryBase)
+    } else {
+      secondaryScale = tokens.colors.accent
+    }
+  }
+
   return (
     <div className="flex flex-col gap-8 pb-12">
       {/* Header */}
@@ -777,7 +793,15 @@ export function ColorEditor() {
         />
         
         <ColorScaleRow 
-          title="Accent (Secondary)" 
+          title="Secondary Color" 
+          scale={secondaryScale} 
+          path="colors.secondary" 
+          selectedKey={selectedKey} 
+          setSelectedKey={setSelectedKey} 
+        />
+
+        <ColorScaleRow 
+          title="Accent (Tertiary)" 
           scale={tokens.colors.accent} 
           path="colors.accent" 
           selectedKey={selectedKey} 

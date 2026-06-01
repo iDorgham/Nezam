@@ -80,7 +80,9 @@ export interface DesignTokens {
   colors: {
     /** Primary brand color scale. */
     brand: ColorScale
-    /** Secondary/accent color scale. */
+    /** Dedicated secondary color scale. */
+    secondary?: ColorScale
+    /** Accent color scale. */
     accent: ColorScale
     /** Neutral gray scale. */
     neutral: ColorScale

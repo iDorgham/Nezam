@@ -13,18 +13,20 @@ Stripped-back design emphasizing whitespace, clean typography, and restrained co
 
 ## 2. Color
 
-- **Primary:** `#0C0C09` — Token from style foundations.
-- **Secondary:** `#312C85` — Token from style foundations.
-- **Success:** `#16A34A` — Token from style foundations.
-- **Warning:** `#D97706` — Token from style foundations.
-- **Danger:** `#DC2626` — Token from style foundations.
-- **Surface:** `#F4F4F1` — Token from style foundations.
-- **Text:** `#0C0C09` — Token from style foundations.
-- **Neutral:** `#F4F4F1` — Derived from the surface token for official format compatibility.
+- **Primary (Main):** `#0F172A` (Slate 900) — Deep obsidian-slate that commands presence and provides solid layout structure.
+- **Secondary:** `#4F46E5` (Indigo 600) — Vibrant, premium royal indigo that anchors menus, headers, and secondary actions.
+- **Accent:** `#F43F5E` (Rose 500) — High-vibrancy coral-rose used for focused highlights, active states, and interactive sparks.
+- **Neutral (Surface):** `#FAF9F6` (Alabaster) — Extremely premium, warm off-white that replaces default gray for surfaces and backgrounds.
+- **Success:** `#10B981` (Emerald 500) — Elegant, fresh mint-emerald for success states.
+- **Warning:** `#F59E0B` (Amber 500) — Warm, amber-gold for warning alerts.
+- **Danger:** `#EF4444` (Red 500) — Curated deep crimson-red for destructive actions.
+- **Text:** `#0F172A` (Slate 900) — Matches Primary for absolute visual consistency and legibility.
 
-- Favor Primary (#0C0C09) for CTA emphasis.
-- Use Surface (#F4F4F1) for large backgrounds and cards.
-- Keep body copy on Text (#0C0C09) for legibility.
+- **Orchestration Guidelines:**
+  - **Dominance (Primary):** Apply `#0F172A` for typography headers, layout boundaries, and key structural divisions.
+  - **Support (Secondary):** Apply `#4F46E5` to draw guided focus to navigation nodes, tabs, and stable interfaces.
+  - **Spark (Accent):** Use `#F43F5E` selectively (under the 60-30-10 rule) to elevate CTAs, hovered indicators, and key user actions.
+  - **Canvas (Neutral):** Rely on `#FAF9F6` as the background canvas, preserving breathing room and layout breathing space.
 
 ## 3. Typography
 
@@ -47,13 +49,13 @@ Stripped-back design emphasizing whitespace, clean typography, and restrained co
 
 ## 6. Components
 
-- Buttons: primary action uses `#0C0C09`; secondary actions stay neutral.
+- Buttons: primary action uses `#0F172A` (Primary); accent actions use `#F43F5E` (Accent); secondary actions stay neutral.
 - Inputs: strong focus-visible states, clear labels, and predictable error messaging.
 - Cards/sections: use consistent radii, spacing, and elevation strategy across the page.
 
 ## 7. Motion & Interaction
 
-- Use subtle transitions that emphasize Primary (#0C0C09) as the interaction signal.
+- Use subtle transitions that emphasize Accent (#F43F5E) or Primary (#0F172A) as the interaction signal.
 - Default to short, purposeful transitions (150–250ms) with stable easing.
 - Ensure hover, focus-visible, active, disabled, and loading states are explicit.
 

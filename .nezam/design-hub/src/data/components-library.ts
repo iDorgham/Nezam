@@ -827,10 +827,10 @@ export function getGroupCounts(): Record<ComponentGroup, number> {
 
 /** Filter by query string against name and description */
 export function filterComponents(
-  query: string,
+  query?: string | null,
   group?: ComponentGroup | null,
 ): ComponentDef[] {
-  const q = query.toLowerCase().trim()
+  const q = (query || '').toLowerCase().trim()
   return COMPONENTS_LIBRARY.filter((c) => {
     if (group && c.group !== group) return false
     if (!q) return true

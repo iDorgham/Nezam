@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react'
 
 export function useRTL(): boolean {
-  const [isRTL, setIsRTL] = useState(false)
+  const [isRTL, setIsRTL] = useState(() =>
+    typeof document !== 'undefined' ? document.documentElement.dir === 'rtl' : false
+  )
   useEffect(() => {
     const check = () => setIsRTL(document.documentElement.dir === 'rtl')
     check()

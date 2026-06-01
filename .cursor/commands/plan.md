@@ -298,6 +298,14 @@ Runs after IA is complete. Generates DESIGN.md covering:
 - Component inventory (derived from IA page list)
 - Brand direction (minimal / editorial / bold / technical)
 
+After design artifacts are written for a subphase folder, populate opt-in external skills:
+
+```bash
+pnpm skills:assemble-design-prompt --phase plan_design --write --dir docs/plan/04-design/<subphase>
+```
+
+This merges `designSkillStack` into `prompt.json` and adds a **Design skill stack** section to `PROMPT.md`. See `docs/plan/design/DESIGN_SKILLS.md` and `@.cursor/skills/design/nezam-design-prompt-assembler/SKILL.md`.
+
 ### /PLAN design wireframes — High-Fidelity ASCII Wireframe System
 
 Activated by: `/plan design wireframes`

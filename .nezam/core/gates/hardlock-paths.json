@@ -19,6 +19,7 @@
   },
   "architecture": {
     "allowed": [
+      ".nezam/core/architecture/ARCHITECTURE.md",
       "docs/03_architecture/ARCHITECTURE.md",
       "docs/start/architecture/ARCHITECTURE.md",
       ".nezam/core/plans/04-arch/ARCHITECTURE.md"

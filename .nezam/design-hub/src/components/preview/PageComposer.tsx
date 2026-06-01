@@ -101,7 +101,7 @@ function blockSidebar(ctx: Ctx, items: string[], active = 0): ReactNode {
 function blockHeroMarketing(ctx: Ctx): ReactNode {
   const { m, t, page } = ctx
   return (
-    <section style={{ ...S.sec(m), background: `linear-gradient(170deg, var(--brand-subtle) 0%, var(--bg-surface) 60%)`, textAlign: 'center', paddingBottom: m ? '48px' : '80px' }}>
+    <section style={{ paddingTop: m ? '40px' : '60px', paddingInline: m ? '16px' : '28px', paddingBottom: m ? '48px' : '80px', background: `linear-gradient(170deg, var(--brand-subtle) 0%, var(--bg-surface) 60%)`, textAlign: 'center' }}>
       <span style={S.pill()}>✦ Now in public beta</span>
       <h1 style={{ ...S.h1(m, t), marginTop: '14px' }}>The smarter way<br />to build {page.name}</h1>
       <p style={{ fontSize: m ? '14px' : '16px', color: 'var(--text-muted)', maxWidth: '480px', margin: '0 auto 28px', lineHeight: 1.65 }}>{DUMMY.descriptions[0]}</p>
@@ -1034,9 +1034,54 @@ const BLUEPRINTS: Record<string, Blueprint> = {
 
 // ─── Public API ─────────────────────────────────────────────────────────────
 
-export function composePage(template: string, page: ArchPage, isMobile: boolean, isTablet: boolean): ReactNode {
+const LAYER_IDS: Record<string, string[]> = {
+  marketing: ['Top Navigation', 'Hero', 'Logos Strip', 'Features Grid', 'CTA Banner', 'Footer'],
+  features: ['Top Navigation', 'Features Detail', 'Logos Strip', 'CTA Banner', 'Footer'],
+  pricing: ['Top Navigation', 'Pricing Cards', 'Footer'],
+  'blog-list': ['Top Navigation', 'Category Pills', 'Article Grid', 'Footer'],
+  article: ['Top Navigation', 'Article Header', 'Body Content', 'Code Snippet', 'Footer'],
+  contact: ['Top Navigation', 'Contact Form', 'Contact Cards', 'Footer'],
+  'auth-login': ['Split Background', 'Auth Card', 'Form Fields', 'Social Login'],
+  'auth-signup': ['Split Background', 'Auth Card', 'Form Fields', 'Social Login'],
+  'auth-forgot': ['Split Background', 'Auth Card', 'Email Input', 'Primary CTA'],
+  dashboard: ['Sidebar', 'Header Actions', 'Stats Row', 'Chart Panel', 'Recent Users'],
+  analytics: ['Sidebar', 'Date Filters', 'Traffic Chart', 'Top Pages'],
+  settings: ['Sidebar', 'Profile Photo', 'Personal Info Form', 'Danger Zone'],
+  profile: ['Top Navigation', 'Profile Hero', 'Work Grid', 'Footer'],
+  team: ['Top Navigation', 'Team Grid', 'Footer'],
+  docs: ['Docs Sidebar', 'Article Content', 'Checklist Blocks'],
+  'api-explorer': ['Top Navigation', 'Sidebar', 'Endpoint Rows'],
+  'media-library': ['Top Navigation', 'Toolbar', 'Media Grid'],
+  notifications: ['Top Navigation', 'Notification Rows'],
+  'product-list': ['Top Navigation', 'Filter Actions', 'Product Grid', 'Footer'],
+  'product-detail': ['Top Navigation', 'Gallery', 'Product Info', 'Footer'],
+  cart: ['Top Navigation', 'Line Items', 'Order Summary', 'Footer'],
+  checkout: ['Checkout Header', 'Progress Steps', 'Form Sections', 'Order Card'],
+  'order-success': ['Header', 'Success Hero', 'Delivery Card', 'Footer'],
+  onboarding: ['Top Navigation', 'Step Indicator', 'Inputs', 'Primary CTA'],
+  'error-404': ['Error Icon', 'Error Copy', 'Action Buttons'],
+}
+
+export function composePage(
+  template: string,
+  page: ArchPage,
+  isMobile: boolean,
+  isTablet: boolean,
+  visibleLayerIds?: string[],
+): ReactNode {
   const blueprint = BLUEPRINTS[template]
   if (!blueprint) return null
   const ctx: Ctx = { m: isMobile, t: isTablet, page }
-  return <>{blueprint.map((fn, i) => <div key={i}>{fn(ctx)}</div>)}</>
+  const layerIds = LAYER_IDS[template] ?? []
+
+  if (!visibleLayerIds || visibleLayerIds.length === 0 || layerIds.length !== blueprint.length) {
+    return <>{blueprint.map((fn, i) => <div key={i}>{fn(ctx)}</div>)}</>
+  }
+
+  const order = visibleLayerIds
+    .map((layerId) => layerIds.indexOf(layerId))
+    .filter((idx) => idx >= 0)
+
+  const rendered = order.map((idx) => blueprint[idx])
+  return <>{rendered.map((fn, i) => <div key={i}>{fn(ctx)}</div>)}</>
 }

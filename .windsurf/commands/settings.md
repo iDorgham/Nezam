@@ -23,6 +23,7 @@ Recommendation footer: required
 /Settings github                   → Repository, branching, hooks, CI/CD
 /Settings automations              → Pre-commit hooks, scheduled tasks, triggers
 /Settings mcp                      → MCP server activation and env var status
+/Settings skills                   → External design skills manifest (Emil, Taste, Impeccable, Stitch)
 /Settings guide                    → GUIDE verbosity, pipeline bar, output language
 /Settings status                   → Show all active/inactive settings as a dashboard
 /Settings reset <section>          → Reset a section to defaults
@@ -477,6 +478,47 @@ When a tool becomes inactive (`/Settings ai-tools off <tool>`):
 2. Re-routing uses the deactivation chain from CLI_TOOLS_CONTEXT.md
 3. Tasks with `security: true` never re-route to free CLIs — they block instead
 4. Summary of re-routing shown to user
+
+---
+
+## /Settings skills — External design skills
+
+Manifest: `.nezam/core/gates/design-skills.yaml`  
+Docs: `docs/plan/design/DESIGN_SKILLS.md`
+
+```
+/Settings skills list              → enabled skills + default stacks
+/Settings skills doctor            → verify vendored SKILL.md paths + frontmatter
+/Settings skills update [id|all]   → pnpm skills:vendor-design [--force]
+/Settings skills enable <id>       → workspace override (does not delete vendored files)
+/Settings skills disable <id>      → workspace override
+```
+
+**TERMINAL — list design skills**
+
+```bash
+node .nezam/core/scripts/skills/design-skills-doctor.js list
+```
+
+**TERMINAL — doctor (CI uses this)**
+
+```bash
+pnpm skills:doctor-design
+```
+
+**TERMINAL — vendor from ~/.claude/skills after upstream install**
+
+```bash
+pnpm skills:vendor-design --force && pnpm ai:sync
+```
+
+**TERMINAL — enable/disable override**
+
+```bash
+node .nezam/core/scripts/skills/design-skills-toggle.js enable emil-design-eng
+```
+
+Persist overrides in `.nezam/core/gates/workspace.settings.yaml` under `design_skills.overrides`.
 
 ---
 

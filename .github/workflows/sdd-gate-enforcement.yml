@@ -1,16 +1,81 @@
 name: SDD Gate Enforcement
+
 on:
   pull_request:
-    paths: ['docs/plans/**', '.cursor/state/**']
+    paths:
+      - '.cursor/state/**'
+      - '.cursor/agents/**'
+      - '.cursor/skills/**'
+      - '.cursor/commands/**'
+      - '.cursor/rules/**'
+      - '.nezam/core/gates/**'
+      - '.nezam/core/scripts/checks/**'
+      - 'docs/plan/**'
+      - 'docs/plans/**'
+      - 'docs/start/**'
+      - 'DESIGN.md'
+      - 'CHANGELOG.md'
+      - 'wireframes_locked.json'
+
+permissions:
+  contents: read
+
 jobs:
   gate-check:
+    name: Validate SDD prerequisites + swarm integrity
     runs-on: ubuntu-latest
+    timeout-minutes: 4
     steps:
-      - uses: actions/checkout@v6
-      - run: |
-          if [ ! -f .cursor/state/plan_progress.yaml ]; then
-            echo "❌ plan_progress.yaml missing"
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Required state files exist
+        run: |
+          set -euo pipefail
+          for f in \
+            .cursor/state/plan_progress.yaml \
+            .cursor/state/develop_phases.yaml \
+            .cursor/state/onboarding.yaml ; do
+            if [ ! -f "$f" ]; then
+              echo "❌ Required state file missing: $f"
+              exit 1
+            fi
+          done
+          echo "✅ All required state files present"
+
+      - name: Onboarding readiness check
+        run: bash .nezam/core/scripts/checks/check-onboarding-readiness.sh
+
+      - name: SDD swarm integrity
+        run: node .nezam/core/scripts/checks/check-sdd-swarm-integrity.js
+
+      - name: SDD gate validator
+        run: |
+          if [ -x .nezam/core/scripts/checks/sdd-gate-validator.sh ]; then
+            bash .nezam/core/scripts/checks/sdd-gate-validator.sh
+          else
+            echo "⚠️  sdd-gate-validator.sh not executable — skipping"
+          fi
+
+      - name: Phase-transition consistency
+        run: |
+          set -euo pipefail
+          # Only one phase can be in_progress or testing at a time
+          active=$(grep -E "^\s+status:\s+\"(in_progress|testing)\"" .cursor/state/develop_phases.yaml | wc -l | tr -d ' ')
+          if [ "$active" -gt 1 ]; then
+            echo "❌ Multiple phases active simultaneously (count=$active). Sequential hardlock violated."
+            grep -nE "^\s+status:\s+\"(in_progress|testing)\"" .cursor/state/develop_phases.yaml
             exit 1
           fi
-          node .nezam/core/scripts/checks/check-sdd-swarm-integrity.js
-          echo "✅ SDD gates validated"
+          echo "✅ At most one phase active (count=$active)"

@@ -56,12 +56,16 @@ export function SectionsSidebar() {
       style={{ width }}
       className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
     >
+      <div className="px-3 pb-2 pt-3 border-b border-app-border">
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-app-subtle">Sections catalog</p>
+        <h2 className="text-[13px] font-extrabold tracking-tight text-app-text">Layout categories</h2>
+      </div>
       {/* Unified Search Location */}
       <div className="p-3 border-b border-app-border">
         <input
           type="search"
           placeholder="Search sections…"
-          className="w-full h-7 rounded-app-sm border border-app-border bg-app-elevated px-2 text-[11px] text-app-text placeholder:text-app-muted focus:outline-none focus:border-app-accent"
+          className="w-full h-8 rounded-app-sm border border-app-border bg-app-elevated px-2.5 text-[11px] text-app-text placeholder:text-app-muted focus:outline-none focus:border-app-accent focus-visible:ring-2 focus-visible:ring-app-accent/30"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -72,10 +76,11 @@ export function SectionsSidebar() {
         {/* All sections shortcut */}
         <button
           onClick={() => setCategory(null)}
+          type="button"
           className={`
-            w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors
+            w-full flex items-center gap-2 rounded-r-app-sm px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent
             ${selectedCategory === null && !query
-              ? 'bg-app-elevated text-app-text'
+              ? 'bg-app-elevated/80 text-app-text'
               : 'text-app-muted hover:text-app-text hover:bg-app-elevated/50'
             }
           `}
@@ -96,10 +101,11 @@ export function SectionsSidebar() {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
+              type="button"
               className={`
-                w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors
+                w-full flex items-center gap-2 rounded-r-app-sm px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent
                 ${isActive
-                  ? 'bg-app-elevated text-app-text'
+                  ? 'bg-app-elevated/80 text-app-text'
                   : 'text-app-muted hover:text-app-text hover:bg-app-elevated/50'
                 }
               `}

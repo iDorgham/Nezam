@@ -851,9 +851,14 @@ export const STATUS_LABELS: Record<ComponentStatus, string> = {
 }
 
 export const STATUS_COLORS: Record<ComponentStatus, string> = {
-  stable:         'text-emerald-600 bg-emerald-50 border-emerald-200',
-  beta:           'text-violet-600 bg-violet-50 border-violet-200',
-  caution:        'text-amber-600 bg-amber-50 border-amber-200',
-  'early-access': 'text-sky-600 bg-sky-50 border-sky-200',
-  deprecated:     'text-rose-600 bg-rose-50 border-rose-200',
+  stable:
+    'text-emerald-700 dark:text-emerald-300 bg-emerald-500/10 dark:bg-emerald-500/15 border-emerald-500/30 dark:border-emerald-500/40',
+  beta:
+    'text-violet-700 dark:text-violet-300 bg-violet-500/10 dark:bg-violet-500/15 border-violet-500/30 dark:border-violet-500/40',
+  caution:
+    'text-amber-700 dark:text-amber-300 bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/30 dark:border-amber-500/40',
+  'early-access':
+    'text-sky-700 dark:text-sky-300 bg-sky-500/10 dark:bg-sky-500/15 border-sky-500/30 dark:border-sky-500/40',
+  deprecated:
+    'text-rose-700 dark:text-rose-300 bg-rose-500/10 dark:bg-rose-500/15 border-rose-500/30 dark:border-rose-500/40',
 }

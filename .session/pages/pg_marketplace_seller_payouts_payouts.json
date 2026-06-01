@@ -1,0 +1,88 @@
+{
+  "arch_page_id": "pg_marketplace_seller_payouts_payouts",
+  "lock_page_id": "PAGE-009",
+  "layout_approved": true,
+  "sections": [
+    {
+      "section_id": "seed-Nav_Sidebar-1",
+      "block_type": "Nav_Sidebar",
+      "order": 0,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Layout_PageHeader-2",
+      "block_type": "Layout_PageHeader",
+      "order": 1,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Nav_Breadcrumb-3",
+      "block_type": "Nav_Breadcrumb",
+      "order": 2,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Data_KPI_Row-4",
+      "block_type": "Data_KPI_Row",
+      "order": 3,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Data_Table-5",
+      "block_type": "Data_Table",
+      "order": 4,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Data_Chart-6",
+      "block_type": "Data_Chart",
+      "order": 5,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Content_Stats-7",
+      "block_type": "Content_Stats",
+      "order": 6,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    },
+    {
+      "section_id": "seed-Content_CTA-8",
+      "block_type": "Content_CTA",
+      "order": 7,
+      "approved": true,
+      "locked_props": {},
+      "flexible_props": {},
+      "content_slots": {},
+      "states": {}
+    }
+  ],
+  "updated_at": "2026-05-31T18:22:23.189Z"
+}

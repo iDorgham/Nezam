@@ -13,6 +13,10 @@ The NEZAM Design Hub is a **local Next.js 15 app** (running on port 4000) that s
 - `DESIGN.md` — the locked design contract (tokens, typography, palette)
 - `wireframes_locked.json` — the locked page/block structure that gates AI swarm development
 
+### Current status (v7)
+
+The active Design Hub UI is now the **v7 studio** under `.nezam/design-hub/`, which focuses on interactive architecture (sitemap), token editing, theming, preview, and multi-format exports. The server-side “lock & export to repo” flow and wireframe authoring still live in the v1 legacy implementation under `_archive/v1/` and are being reconciled into the v7 app.
+
 ### Architecture Overview
 
 | Layer | What exists |

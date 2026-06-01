@@ -6,21 +6,15 @@ import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { ArchPage } from '@/types/arch'
+import { PREMIUM_ICON, PREMIUM_MOTION, PREMIUM_SPACE, PREMIUM_TYPE } from '@/lib/design/premium-standards'
+import { getSortedChildren } from '@/lib/arch/page-tree'
+import { menuPlacementLabel } from '@/lib/arch/migrate-legacy-nav-menus'
 
 interface Props {
   page: ArchPage
   allPages: Record<string, ArchPage>
   depth: number
   searchQuery?: string
-}
-
-function matchesSearch(page: ArchPage, pages: Record<string, ArchPage>, query: string): boolean {
-  const q = query.toLowerCase()
-  if (page.name.toLowerCase().includes(q) || page.route.toLowerCase().includes(q)) {
-    return true
-  }
-  const children = Object.values(pages).filter((p) => p.parentId === page.id)
-  return children.some((child) => matchesSearch(child, pages, query))
 }
 
 export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props) {
@@ -32,13 +26,7 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
   const [expanded, setExpanded] = useState(true)
   const [hovered, setHovered]   = useState(false)
 
-  const children = Object.values(allPages)
-    .filter((p) => p.parentId === page.id)
-    .filter((p) => {
-      if (!searchQuery) return true
-      return matchesSearch(p, allPages, searchQuery)
-    })
-    .sort((a, b) => a.order - b.order)
+  const children = getSortedChildren(page.id, allPages, searchQuery)
 
   const hasChildren = children.length > 0
   const isSelected  = selectedId === page.id
@@ -49,12 +37,17 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
     <div>
       <div
         className={cn(
-          'group flex items-center gap-1 h-7 pr-2 rounded-app-sm cursor-pointer select-none transition-colors duration-75',
+          'group flex items-center gap-1 pr-2 rounded-app-sm cursor-pointer select-none transition-colors motion-reduce:transition-none',
           isSelected
             ? 'bg-app-accent-subtle text-app-text'
             : 'text-app-muted hover:bg-app-elevated hover:text-app-text',
         )}
-        style={{ paddingLeft: `${8 + indent}px` }}
+        style={{
+          height: PREMIUM_SPACE.rowHeight,
+          paddingLeft: `${8 + indent}px`,
+          transitionDuration: PREMIUM_MOTION.durationFast,
+          transitionTimingFunction: PREMIUM_MOTION.easingStandard,
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => archSelectPage(isSelected ? null : page.id)}
@@ -62,25 +55,43 @@ export function PageTreeItem({ page, allPages, depth, searchQuery = '' }: Props)
         {/* Expand toggle */}
         <button
           className={cn(
-            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-transform duration-150',
+            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-transform motion-reduce:transition-none',
             hasChildren ? 'opacity-100' : 'opacity-0 pointer-events-none',
             expanded ? 'rotate-90' : '',
           )}
+          style={{
+            transitionDuration: PREMIUM_MOTION.durationBase,
+            transitionTimingFunction: PREMIUM_MOTION.easingStandard,
+          }}
           onClick={(e) => {
             e.stopPropagation()
             setExpanded(!expanded)
           }}
         >
-          <ChevronRight size={11} />
+          <ChevronRight size={PREMIUM_ICON.control} />
         </button>
 
         {/* Icon */}
         <span className="shrink-0 flex items-center">
-          <IconRenderer name={page.icon} size={13} />
+          <IconRenderer name={page.icon} size={PREMIUM_ICON.row} />
         </span>
 
         {/* Name */}
-        <span className="flex-1 truncate text-xs font-medium">{page.name}</span>
+        <span
+          className="flex flex-1 min-w-0 items-center gap-1 truncate"
+          style={{
+            fontSize: PREMIUM_TYPE.rowSize,
+            fontWeight: PREMIUM_TYPE.rowWeight,
+            lineHeight: PREMIUM_TYPE.lineHeightTight,
+          }}
+        >
+          <span className="truncate">{page.name}</span>
+          {page.type === 'navmenu' ? (
+            <span className="shrink-0 text-[9px] font-medium text-violet-600/80 dark:text-violet-400/90">
+              ({menuPlacementLabel(page.menuPlacement)})
+            </span>
+          ) : null}
+        </span>
 
         {/* Route pill */}
         <span className={cn(

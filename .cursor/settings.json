@@ -6,6 +6,9 @@
   },
   "search.exclude": {
     ".antigravity/**": true,
+    ".antigravitycli/**": true,
+    ".agents/skills/nezam-commands/**": true,
+    ".agents/skills/nezam-sync/**": true,
     ".codex/**": true,
     ".gemini/**": true,
     ".qwen/**": true,
@@ -18,6 +21,9 @@
   },
   "files.exclude": {
     ".antigravity/**": true,
+    ".antigravitycli/**": true,
+    ".agents/skills/nezam-commands/**": true,
+    ".agents/skills/nezam-sync/**": true,
     ".codex/**": true,
     ".gemini/**": true,
     ".qwen/**": true,

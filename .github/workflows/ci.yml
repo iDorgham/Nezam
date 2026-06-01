@@ -178,6 +178,54 @@ jobs:
             test -f package.json && echo "Design server package.json found."
           fi
 
+  design-hub-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Detect .nezam/design-hub changes
+        id: designhub_changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            base="$PR_BASE_SHA"
+            head="$HEAD_SHA"
+            git fetch --no-tags origin "$base"
+            count="$(git diff --name-only "$base" "$head" | sed -n '/^\.nezam\/design-hub\//p' | wc -l | tr -d ' ')"
+            if [[ "$count" -eq 0 ]]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: pnpm/action-setup@v6
+        if: steps.designhub_changes.outputs.skip == 'false'
+
+      - uses: actions/setup-node@v6
+        if: steps.designhub_changes.outputs.skip == 'false'
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        if: steps.designhub_changes.outputs.skip == 'false'
+        run: pnpm install --frozen-lockfile
+
+      - name: Design hub build
+        if: steps.designhub_changes.outputs.skip == 'false'
+        run: pnpm -C .nezam/design-hub build
+
+      - name: Design hub tests
+        if: steps.designhub_changes.outputs.skip == 'false'
+        run: pnpm -C .nezam/design-hub test
+
   design-gate-readiness:
     runs-on: ubuntu-latest
     steps:
@@ -213,6 +261,7 @@ jobs:
           # Hardening performance contract must be populated (non-empty).
           perf_populated=0
           for candidate in \
+            ".nezam/core/plans/05-harden/02-performance/perf.md" \
             "docs/plans/05-harden/02-performance/perf.md"; do
             if [[ -s "$candidate" ]]; then
               perf_populated=1
@@ -221,9 +270,8 @@ jobs:
           done
           if [[ "$perf_populated" -ne 1 ]]; then
             echo "Performance hardening contract must exist and be non-empty. Tried:"
+            echo "  .nezam/core/plans/05-harden/02-performance/perf.md"
             echo "  docs/plans/05-harden/02-performance/perf.md"
-            echo "  docs/workspace/plans/05-harden/02-performance/perf.md"
-            echo "  docs/workspace/plans/04-harden/perf.md"
             exit 1
           fi
 

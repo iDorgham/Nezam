@@ -2,12 +2,21 @@
 # Set by agent after each phase completes.
 
 seo: true
+ooroo seo_completed_at: "2026-05-29T12:30:00Z"
 ia: true
+ia_completed_at: "2026-05-29T12:30:00Z"
 content: true
+content_completed_at: "2026-05-29T12:30:00Z"
 arch: true
+arch_completed_at: "2026-05-29T12:30:00Z"
 design_wireframes: true
+design_wireframes_completed_at: "2026-05-29T12:30:00Z"
 scaffold: true
+scaffold_completed_at: "2026-05-29T12:30:00Z"
+tasks: true
+tasks_completed_at: "2026-05-29T12:30:00Z"
 planning_complete: true
+planning_completed_at: "2026-05-29T12:30:00Z"
 canvas_graph_spec: true
 canvas_graph_spec_version: "SPEC-DS-CANVAS-001-v1.0.0"
 canvas_graph_spec_date: "2026-05-18"
@@ -20,7 +29,7 @@ scrumban_board:
   done: []
   blocked: []
   wip_limit: 3
-phase_02_design: in_progress
+phase_02_design: complete
 phase_02_design_spec: "SPEC-DS-VISUAL-001"
 phase_02_design_date: "2026-05-23"
 phase_02_design_deliverables:

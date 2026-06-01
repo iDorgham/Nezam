@@ -1,15 +1,59 @@
-name: ASCII Wireframe Validation
+name: Wireframe Validation
+
 on:
   pull_request:
-    paths: ['docs/plans/design/wireframes/**', '.nezam/templates/skills/design/**']
+    paths:
+      - 'wireframes_locked.json'
+      - '.nezam/design-hub/wireframes_locked.json'
+      - 'docs/plans/design/wireframes/**'
+      - '.nezam/templates/skills/design/**'
+      - '.nezam/core/scripts/checks/check-wireframes-lock.js'
+
+permissions:
+  contents: read
+
 jobs:
-  validate-wireframes:
+  lock-schema:
+    name: Validate wireframes_locked.json schema
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v6
-      - run: |
-          for f in docs/plans/design/wireframes/*.md; do
-            grep -q "RTL" "$f" || echo "⚠️ Missing RTL parity note in $f"
-            grep -q "Interaction Specs" "$f" || echo "❌ Missing interaction specs in $f"
-          done
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate wireframes_locked.json
+        run: node .nezam/core/scripts/checks/check-wireframes-lock.js
+
+  ascii-catalog:
+    name: Validate ASCII wireframe markdown catalog
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check RTL + interaction-spec annotations
+        run: |
+          set -euo pipefail
+          fail=0
+          if [ -d docs/plans/design/wireframes ]; then
+            shopt -s nullglob
+            for f in docs/plans/design/wireframes/*.md; do
+              if ! grep -q "RTL" "$f"; then
+                echo "⚠️  Missing RTL parity note in $f"
+              fi
+              if ! grep -q "Interaction Specs" "$f"; then
+                echo "❌ Missing interaction specs in $f"
+                fail=1
+              fi
+            done
+          else
+            echo "ℹ️  No docs/plans/design/wireframes/ directory — skipping ASCII catalog check"
+          fi
+          if [ "$fail" -ne 0 ]; then
+            exit 1
+          fi
           echo "✅ Wireframe catalog validated"

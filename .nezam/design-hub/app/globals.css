@@ -48,7 +48,8 @@
 }
 
 /* ── Light mode (Atlassian Light Mode Palette) ── */
-.light {
+.light,
+html.light {
   --app-bg:            #FAFBFC;   /* Crisp slate-tinted off-white background */
   --app-surface:       #FFFFFF;   /* Pure white panel surfaces */
   --app-elevated:      #F4F5F7;   /* Clean light gray backgrounds for lists */
@@ -122,6 +123,84 @@ body {
 .app-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--app-subtle);
   background-clip: content-box;
+}
+
+/* ── Wireframes: sketched page frame ─────────────────────────── */
+.wf-page-frame {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid color-mix(in oklab, var(--app-border) 88%, transparent);
+  border-radius: 16px;
+  background-color: color-mix(in oklab, var(--app-surface) 88%, var(--app-bg));
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.015) inset;
+  overflow: hidden;
+}
+
+.light .wf-page-frame {
+  box-shadow:
+    0 4px 16px rgba(9, 30, 66, 0.08),
+    0 0 0 1px rgba(9, 30, 66, 0.04) inset;
+}
+
+.wf-page-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.38;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--app-border) 22%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--app-border) 22%, transparent) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 12% 18%,
+      color-mix(in oklab, var(--app-border) 10%, transparent) 0,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 78% 64%,
+      color-mix(in oklab, var(--app-border) 10%, transparent) 0,
+      transparent 58%
+    );
+  background-size: 24px 24px, 24px 24px, 420px 320px, 520px 420px;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+.wf-page-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--app-bg) 30%, transparent) 0%,
+    transparent 28%,
+    transparent 72%,
+    color-mix(in oklab, var(--app-bg) 18%, transparent) 100%
+  );
+  opacity: 0.9;
+}
+
+/* Wireframes editor canvas — full bleed, no card chrome */
+.wf-page-canvas {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--bg-surface, var(--app-bg));
 }
 
 /* ── Preview scope ──────────────────────────────────────────── */
@@ -224,6 +303,71 @@ body {
   to   { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
+/* ── Wireframe block motion (preview canvas body blocks) ─────── */
+@media (prefers-reduced-motion: no-preference) {
+  .block-hover-lift {
+    transition:
+      transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .block-hover-lift:hover {
+    transform: translateY(calc(-1 * var(--space-1, 0.25rem)));
+    box-shadow: 0 14px 32px color-mix(in oklab, var(--app-text) 10%, transparent);
+  }
+
+  .block-hover-glow {
+    transition: box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .block-hover-glow:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--accent) 35%, var(--app-border)),
+      0 18px 40px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+
+  .block-hover-scale-media {
+    overflow: hidden;
+  }
+  .block-hover-scale-media > .block-media-inner,
+  .block-hover-scale-media > div {
+    transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .block-hover-scale-media:hover > .block-media-inner,
+  .block-hover-scale-media:hover > div:first-child {
+    transform: scale(1.04);
+  }
+
+  .block-hover-border-accent {
+    transition: border-color 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .block-hover-border-accent:hover {
+    border-color: color-mix(in oklab, var(--accent) 55%, var(--app-border));
+  }
+
+  .block-hover-tilt {
+    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+  }
+  .block-hover-tilt:hover {
+    transform: perspective(900px) rotateX(2deg) rotateY(-2deg);
+  }
+
+  @keyframes block-scroll-reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .block-scroll-reveal {
+    animation: block-scroll-reveal-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -231,4 +375,26 @@ body {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ── Design System token-page visual consistency ───────────────────────── */
+/*
+ * Normalize legacy editor shells so all token pages (from TokenNav list)
+ * share one radius, one surface background, and one border intensity.
+ */
+#topbar-panel-design .rounded-2xl.bg-app-inset.border-app-border\/40 {
+  border-radius: 12px !important;
+  background: var(--app-surface) !important;
+  border-color: var(--app-border) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#topbar-panel-design .border-b.border-app-border\/40 {
+  border-bottom-color: var(--app-border) !important;
+}
+
+#topbar-panel-design .border-black\/10,
+#topbar-panel-design .border-black\/5 {
+  border-color: var(--app-border) !important;
 }

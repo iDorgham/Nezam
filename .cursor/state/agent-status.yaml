@@ -7,25 +7,25 @@ owner: "PM-01"
 # Do not edit manually. Updated by /GUIDE and swarm commands.
 # Source of truth for session resume.
 
-last_updated: ""
-active_swarm: ""
+last_updated: "2026-05-29"
+active_swarm: "swarm-1"
 active_agent: "swarm-leader"
-active_phase: "onboarding"
+active_phase: "develop_ready"
 active_feature_slice: ""
-active_spec: ""
+active_spec: "docs/plan/00-define/specs/F-001-design-hub.md"
 
 last_output:
-  type: ""
-  artifact_path: ""
-  status: ""
-  summary: ""
+  type: "plan_complete"
+  artifact_path: "docs/plan/MASTER_TASKS.md"
+  status: "complete"
+  summary: "SDD planning pipeline complete — SEO, IA, content, arch, design wireframes, scaffold, tasks."
 
 pending_handoff:
-  from_agent: ""
-  to_agent: ""
+  from_agent: "swarm-leader"
+  to_agent: "lead-frontend-architect"
   handoff_packet_path: ""
   status: "none"
 
 open_blockers: []
 
-session_resume_prompt: "Ready to start Nezam onboarding. Run /START to initialize."
+session_resume_prompt: "Planning complete. Run /develop start to begin Phase 1 (Design Hub hardening)."

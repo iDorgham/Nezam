@@ -1,0 +1,86 @@
+---
+name: open-design-style-selector
+description: "Workspace-level skill for selecting and applying an open-design aesthetic style from the 67 available families in docs/reference/open-design-main/. Use when agents need to go beyond NEZAM's default Precision Console aesthetic and apply a specific named visual style (neobrutalism, luxury, editorial, glassmorphism, etc.)."
+license: MIT
+metadata:
+  version: "1.0.0"
+  source: "docs/reference/open-design-main/"
+  style-count: 67
+tier: 2
+version: 1.0.0
+updated: 2026-05-29
+breaking_changes: false
+changelog:
+  - version: 1.0.0
+    date: 2026-05-29
+    notes: "Initial NEZAM skill metadata for canonical .cursor/skills."
+---
+
+# Open Design Style Selector (NEZAM Workspace Skill)
+
+Workspace-level thin wrapper around the `open-design-style-picker` plugin skill. Selects and applies one of 67 open-design aesthetic style packs to a NEZAM design task.
+
+## Source Location
+
+All 67 style packs: `docs/reference/open-design-main/<style>/`
+
+## Selection Protocol
+
+1. **Read the request** for aesthetic keywords (mood, feeling, reference, inspiration)
+2. **Match to style** using the table below
+3. **Read the style pack** at `docs/reference/open-design-main/<style>/` — look for `DESIGN.md` or primary spec
+4. **Apply the style** on top of NEZAM DESIGN.md (NEZAM tokens win for concrete values; style wins for aesthetic direction)
+5. **Run anti-slop validator** after applying — confirm the selection doesn't trigger category-reflex
+
+## NEZAM Context Style Guide
+
+For NEZAM-specific contexts, these style pairings work well:
+
+| NEZAM Context | Style Pack | Rationale |
+|---|---|---|
+| Design Hub main UI | `dashboard` | Dense data, analytical, information-rich |
+| MENA-facing consumer | `terracotta` + `friendly` | Cairo/Sahel warm tones, approachable |
+| AI agent interfaces | `agentic` or `cosmic` | Conversational, forward-looking |
+| Marketing / landing | `bold` or `editorial` | Strong impression, typographic authority |
+| Developer docs | `codex` or `minimal` | Code-first, developer sensibility |
+| Premium enterprise | `sleek` + `enterprise` | Professional, calibrated trust signals |
+| Brand awareness | `expressive` or `vibrant` | Memorable, distinctive |
+
+## Style Pack Keyword Index
+
+| Keyword / Phrase | → Style |
+|---|---|
+| Minimal, restrained, essential | `minimal`, `clean`, `simple` |
+| Bold, strong, decisive | `bold`, `neobrutalism`, `expressive` |
+| Dark, developer, terminal | `codex`, `mono`, `matrix` |
+| Luxury, premium, high-craft | `luxury`, `elegant`, `premium`, `dramatic` |
+| Editorial, magazine, typographic | `editorial`, `publication`, `spacious` |
+| Colorful, vibrant, expressive | `colorful`, `vibrant`, `gradient` |
+| Warm, organic, earthy | `terracotta`, `paper`, `cafe` |
+| Futuristic, cosmic, space | `cosmic`, `futuristic`, `neon` |
+| Glassmorphic, translucent | `glassmorphism` (use sparingly) |
+| Raw, brutalist, structural | `brutalism`, `neobrutalism` |
+| Data-dense, analytical | `dashboard`, `enterprise`, `professional` |
+| Playful, friendly, consumer | `friendly`, `claymorphism`, `doodle` |
+| Retro, nostalgic, vintage | `retro`, `vintage`, `riso` |
+| Game, interactive | `pacman`, `tetris`, `sega`, `levels`, `fantasy` |
+| Creative, artistic, free-form | `artistic`, `creative`, `expressive` |
+| Corporate, structured, B2B | `corporate`, `enterprise`, `professional` |
+
+## Applying a Style
+
+When applying a style pack:
+
+1. Read the style pack's DESIGN.md (or primary spec file)
+2. Extract: color palette, typography direction, component patterns
+3. Override NEZAM's aesthetic values (NOT the structural tokens like spacing) with the style's values
+4. Keep NEZAM's accessibility compliance (contrast, focus, targets)
+5. Run the anti-slop validator to confirm the choice is genuinely distinctive
+
+## Anti-Reflex Confirmation
+
+After selecting a style, run this check:
+
+> "If someone described the design brief to a developer, would they immediately predict I'd choose [this style]?"
+
+If yes → try a different style that fits but isn't the obvious choice. The goal is to be distinctively right, not predictably safe.

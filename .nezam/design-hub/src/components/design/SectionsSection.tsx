@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { Layers2, Check, ArrowRight, User, Shield, Star, DollarSign, Activity } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { cn } from '@/lib/utils'
@@ -1334,29 +1334,58 @@ function ComplexityBadge({ level }: { level: SectionDef['complexity'] }) {
 
 // ─── Section Card ─────────────────────────────────────────────────────────────
 
-function SectionCard({ section }: { section: SectionDef }) {
+const SectionCard = memo(function SectionCard({ section }: { section: SectionDef }) {
   return (
-    <div className="group flex flex-col gap-0 rounded-app-lg border border-app-border bg-app-surface hover:border-app-accent/50 transition-all duration-300 overflow-hidden hover:shadow-md">
+    <div className="group flex flex-col gap-0 overflow-hidden rounded-app-lg border border-app-border bg-app-surface transition-all duration-300 hover:border-app-accent/50 hover:shadow-md">
       {/* Live preview (expanded height to represent full page layout) */}
-      <div className="shrink-0 border-b border-app-border bg-app-inset overflow-hidden p-2.5 flex flex-col justify-center" style={{ minHeight: 180 }}>
+      <div className="shrink-0 overflow-hidden border-b border-app-border bg-app-inset p-2.5 flex flex-col justify-center" style={{ minHeight: 180 }}>
         <SectionPreview section={section} />
       </div>
 
       {/* Metadata */}
-      <div className="flex flex-col gap-1.5 p-3">
+      <div className="flex flex-col gap-2 p-3.5">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-[11.5px] font-extrabold text-app-text leading-tight">{section.name}</p>
+          <p className="text-[11.5px] font-extrabold leading-tight text-app-text">{section.name}</p>
           <ComplexityBadge level={section.complexity} />
         </div>
-        <p className="text-[10px] text-app-subtle leading-relaxed line-clamp-2">{section.description}</p>
-        <div className="flex flex-wrap gap-1 mt-0.5">
+        <p className="line-clamp-2 text-[10px] leading-relaxed text-app-subtle">{section.description}</p>
+        <div className="mt-0.5 flex flex-wrap gap-1.5">
           {section.tags.slice(0, 3).map(tag => (
-            <span key={tag} className="text-[9px] text-app-subtle bg-app-elevated border border-app-border px-1.5 py-0.5 rounded-full font-bold">
+            <span key={tag} className="rounded-full border border-app-border bg-app-elevated px-1.5 py-0.5 text-[9px] font-bold text-app-subtle">
               #{tag}
             </span>
           ))}
         </div>
       </div>
+    </div>
+  )
+})
+
+function SectionsHeaderStrip({ count }: { count: number }) {
+  return (
+    <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-app-border bg-app-surface">
+      <div>
+        <div className="flex items-center gap-2">
+          <Layers2 size={14} className="text-app-accent" />
+          <span className="font-extrabold text-[14px] tracking-tight">Full Page Sections</span>
+        </div>
+        <p className="text-[10px] text-app-subtle mt-0.5 uppercase tracking-wider font-semibold">PRESETS CATALOG LIBRARY</p>
+      </div>
+      <span className="text-[9.5px] font-mono text-app-subtle bg-app-elevated border border-app-border px-2 py-0.5 rounded-full font-bold">
+        {count} layouts found
+      </span>
+    </div>
+  )
+}
+
+function EmptySectionsState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-20 gap-3 text-center" role="status" aria-live="polite">
+      <div className="h-10 w-10 rounded-xl bg-app-elevated border border-app-border flex items-center justify-center">
+        <Layers2 size={18} className="text-app-subtle" />
+      </div>
+      <p className="text-sm font-medium text-app-text">No section layouts found</p>
+      <p className="text-xs text-app-subtle">Try a different search query or select a category sidebar filter.</p>
     </div>
   )
 }
@@ -1411,31 +1440,14 @@ export function SectionsSection() {
         <PreviewSubTabs />
 
         {/* Unified Header Strip */}
-        <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-app-border bg-app-surface">
-          <div>
-            <div className="flex items-center gap-2">
-              <Layers2 size={14} className="text-app-accent" />
-              <span className="font-extrabold text-[14px] tracking-tight">Full Page Sections</span>
-            </div>
-            <p className="text-[10px] text-app-subtle mt-0.5 uppercase tracking-wider font-semibold">PRESETS CATALOG LIBRARY</p>
-          </div>
-          <span className="text-[9.5px] font-mono text-app-subtle bg-app-elevated border border-app-border px-2 py-0.5 rounded-full font-bold">
-            {filtered.length} layouts found
-          </span>
-        </div>
+        <SectionsHeaderStrip count={filtered.length} />
 
         {/* Section Cards Grid */}
-        <div className="flex-1 overflow-y-auto app-scroll p-6 bg-app-inset">
+        <div className="flex-1 overflow-y-auto app-scroll bg-app-inset/40 px-6 py-5">
           {filtered.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-3 text-center">
-              <div className="h-10 w-10 rounded-xl bg-app-elevated border border-app-border flex items-center justify-center">
-                <Layers2 size={18} className="text-app-subtle" />
-              </div>
-              <p className="text-sm font-medium text-app-text">No section layouts found</p>
-              <p className="text-xs text-app-subtle">Try a different search query or select a category sidebar filter.</p>
-            </div>
+            <EmptySectionsState />
           ) : (
-            <div className="flex flex-col gap-8 pb-12">
+            <div className="mx-auto flex w-full max-w-[1300px] flex-col gap-8 pb-12">
               {shownCategories.map(cat => {
                 const items = grouped.get(cat) ?? []
                 if (items.length === 0) return null
@@ -1450,7 +1462,7 @@ export function SectionsSection() {
                       </span>
                       <div className="flex-1 h-px bg-app-border ml-2" />
                     </div>
-                    <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                       {items.map(s => <SectionCard key={s.id} section={s} />)}
                     </div>
                   </section>

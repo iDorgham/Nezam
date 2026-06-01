@@ -1,26 +1,26 @@
 # NEZAM Project State — managed by /start and gate checks
 # Do not edit manually. Use /start, /plan, /develop commands.
 
-# User mode — set during /start onboarding (Step 2, before PRD menu)
-user_mode: ""           # "solo" | "team"
-user_mode_set_at: ""
-target_market: ""       # "global" | "mena" | "ar" | "en" | "eg"
+user_mode: solo
+user_mode_set_at: "2026-05-29T12:00:00Z"
+target_market: global
+tone: friendly
 
-# Tone preference derived from user_mode
-tone: ""                # "friendly" | "structured"
+prd_locked: true
+prd_path: "docs/start/PRD.md"
+prd_locked_at: "2026-05-29T12:00:00Z"
 
-prd_locked: false
-prd_path: ".nezam/core/prd/PRD.md"
-prd_locked_at: ""
+design_locked: true
+design_profile: "nezam-v3"
+design_locked_at: "2026-05-28T20:24:50Z"
 
-design_locked: false
-design_profile: ""
-design_locked_at: ""
+wireframe_complete: true
+wireframe_locked_at: "2026-05-27T08:59:11.418Z"
 
-planning_complete: false
-planning_completed_at: ""
+planning_complete: true
+planning_completed_at: "2026-05-29T12:00:00Z"
 
 current_phase: 0
 
-build_mode: ""
-build_mode_set_at: ""
+build_mode: sdd
+build_mode_set_at: "2026-05-29T12:00:00Z"

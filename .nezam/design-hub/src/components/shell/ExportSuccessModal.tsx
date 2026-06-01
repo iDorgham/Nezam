@@ -8,6 +8,7 @@ import {
 import { useHub } from '@/store/hub.store'
 import { cn } from '@/lib/utils'
 import { EXPORT_FORMATS, generateExportContent, type ExportFormatId } from '@/lib/export-formats'
+import { buildLockPayload } from '@/lib/locking/build-lock-payload'
 
 // ─── NEZAM next-step commands ─────────────────────────────────────────────────
 
@@ -66,8 +67,20 @@ export function ExportSuccessModal() {
 
   const tokens = useHub((s) => s.design.tokens)
   const arch = useHub((s) => s.arch)
+  const activeProfileId = useHub((s) => s.design.activeProfileId)
+  const setLockedAt = useHub((s) => s.setLockedAt)
+  const previewRtl = useHub((s) => s.preview.rtl)
   const [format, setFormat] = useState<ExportFormatId>('css')
   const [copied, setCopied] = useState(false)
+  const [lockBusy, setLockBusy] = useState(false)
+  const [lockError, setLockError] = useState<string | null>(null)
+  const [lockSuccess, setLockSuccess] = useState<{
+    designPath: string
+    wireframesPath: string
+    pages: number
+    blocks: number
+    profile: string
+  } | null>(null)
 
   const content = generateExportContent(format, arch.pages, tokens)
 
@@ -75,6 +88,59 @@ export function ExportSuccessModal() {
     await navigator.clipboard.writeText(content)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  async function handleLock() {
+    if (lockBusy) return
+    setLockBusy(true)
+    setLockError(null)
+    setLockSuccess(null)
+
+    try {
+      const payload = buildLockPayload({
+        tokens,
+        archPages: arch.pages,
+        profileName: activeProfileId ?? undefined,
+        rtl: previewRtl,
+        canvasMode: 'saas-dashboard',
+      })
+
+      if (payload.sitemap.length === 0) {
+        setLockError('No pages found in the Architecture tree (need at least one Page/Sub-page node).')
+        return
+      }
+
+      const res = await fetch('/api/lock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      const data = await res.json().catch(() => ({}))
+
+      if (!res.ok) {
+        if (res.status === 422) {
+          const details = Array.isArray(data?.errors) ? data.errors.join('\n') : null
+          setLockError(data?.error ? `${data.error}${details ? `\n${details}` : ''}` : 'Lock validation failed.')
+          return
+        }
+        setLockError(data?.error ? String(data.error) : 'Lock failed.')
+        return
+      }
+
+      setLockedAt(new Date().toISOString())
+      setLockSuccess({
+        designPath: data?.artifacts?.designPath ?? 'DESIGN.md',
+        wireframesPath: data?.artifacts?.wireframesPath ?? 'wireframes_locked.json',
+        pages: data?.summary?.pages ?? payload.sitemap.length,
+        blocks: data?.summary?.blocks ?? 0,
+        profile: data?.summary?.profile ?? (activeProfileId ?? 'custom'),
+      })
+    } catch (e: any) {
+      setLockError(e?.message ? String(e.message) : 'Unexpected lock error.')
+    } finally {
+      setLockBusy(false)
+    }
   }
 
   const pageCount = Object.keys(arch.pages).length
@@ -208,19 +274,62 @@ export function ExportSuccessModal() {
               <span className="text-[10.5px] text-white/40">
                 Variables & sitemap configurations updated dynamically.
               </span>
-              <button
-                onClick={handleCopy}
-                className={cn(
-                  'h-8 px-5 rounded-lg text-xs font-semibold transition-all duration-150 active:scale-[0.99] border flex items-center gap-1.5 shadow-md',
-                  copied
-                    ? 'bg-green-500/20 text-green-400 border-green-500/30'
-                    : 'bg-app-accent text-white border-transparent hover:bg-app-accent-hover'
-                )}
-              >
-                <Copy size={11} />
-                {copied ? '✓ Export Copied!' : `Copy Output`}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleLock}
+                  disabled={lockBusy}
+                  className={cn(
+                    'h-8 px-5 rounded-lg text-xs font-semibold transition-all duration-150 active:scale-[0.99] border flex items-center gap-1.5 shadow-md',
+                    lockBusy
+                      ? 'bg-white/5 text-white/40 border-white/10 cursor-not-allowed'
+                      : 'bg-blue-500/20 text-blue-200 border-blue-500/20 hover:bg-blue-500/25'
+                  )}
+                  title="Writes DESIGN.md + wireframes_locked.json to the repo root"
+                >
+                  {lockBusy ? (
+                    'Locking…'
+                  ) : (
+                    <>
+                      <FileText size={11} />
+                      Lock & sync to repo
+                    </>
+                  )}
+                </button>
+
+                <button
+                  onClick={handleCopy}
+                  className={cn(
+                    'h-8 px-5 rounded-lg text-xs font-semibold transition-all duration-150 active:scale-[0.99] border flex items-center gap-1.5 shadow-md',
+                    copied
+                      ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                      : 'bg-app-accent text-white border-transparent hover:bg-app-accent-hover'
+                  )}
+                >
+                  <Copy size={11} />
+                  {copied ? '✓ Export Copied!' : `Copy Output`}
+                </button>
+              </div>
             </div>
+
+            {/* Lock feedback */}
+            {lockError ? (
+              <div className="px-4 py-3 border-t border-white/5 bg-red-500/10">
+                <p className="text-[10.5px] font-semibold text-red-200">Lock failed</p>
+                <p className="mt-1 text-[10px] text-red-200/90 whitespace-pre-line">{lockError}</p>
+              </div>
+            ) : null}
+            {lockSuccess ? (
+              <div className="px-4 py-3 border-t border-white/5 bg-green-500/10">
+                <p className="text-[10.5px] font-semibold text-green-200">Lock succeeded</p>
+                <p className="mt-1 text-[10px] text-green-200/90">
+                  Wrote <span className="font-mono">{lockSuccess.designPath}</span> and{' '}
+                  <span className="font-mono">{lockSuccess.wireframesPath}</span>.
+                </p>
+                <p className="mt-1 text-[10px] text-green-200/90">
+                  {lockSuccess.pages} pages, {lockSuccess.blocks} blocks (profile: {lockSuccess.profile}).
+                </p>
+              </div>
+            ) : null}
           </div>
         </div>
 

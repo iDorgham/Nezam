@@ -11,11 +11,35 @@ import {
   type PageTemplate,
 } from '@/data/templates-library'
 
-export function ArchTemplatesPanel() {
+type Props = {
+  /** Grid columns for template cards (onboarding left column → 2). */
+  gridColumns?: 2 | 3 | 4
+  variant?: 'default' | 'onboarding'
+  /** Hide in-panel search and category pills (parent supplies search). */
+  hideFilters?: boolean
+  /** External search when hideFilters is true. */
+  searchQuery?: string
+}
+
+export function ArchTemplatesPanel({
+  gridColumns = 4,
+  variant = 'default',
+  hideFilters = false,
+  searchQuery = '',
+}: Props) {
+  const isOnboarding = variant === 'onboarding'
   const archAppendPages  = useHub((s) => s.archAppendPages)
   const [query, setQuery]       = useState('')
   const [category, setCategory] = useState<string>('all')
   const [flash, setFlash]       = useState<string | null>(null)
+  const effectiveQuery = hideFilters ? searchQuery : query
+
+  const gridClass =
+    gridColumns === 2
+      ? 'grid-cols-2'
+      : gridColumns === 3
+        ? 'grid-cols-3'
+        : 'grid-cols-4'
 
   const categories = useMemo(() => {
     const used = new Set(TEMPLATES.map((t) => t.category))
@@ -23,13 +47,13 @@ export function ArchTemplatesPanel() {
   }, [])
 
   const filtered = useMemo(() => {
-    const q = query.toLowerCase()
+    const q = effectiveQuery.trim().toLowerCase()
     return TEMPLATES.filter((t) => {
-      const matchCat = category === 'all' || t.category === category
+      const matchCat = hideFilters || category === 'all' || t.category === category
       const matchQ   = !q || t.name.toLowerCase().includes(q) || t.tags.some((tag) => tag.toLowerCase().includes(q))
       return matchCat && matchQ
     })
-  }, [query, category])
+  }, [effectiveQuery, category, hideFilters])
 
   function handleImport(template: PageTemplate) {
     archAppendPages(template.pages)
@@ -38,59 +62,121 @@ export function ArchTemplatesPanel() {
   }
 
   return (
-    <div className="flex flex-col gap-2 h-full overflow-hidden pt-2">
-      {/* Search */}
-      <div className="relative shrink-0 px-2">
-        <Search size={11} className="absolute left-4 top-1/2 -translate-y-1/2 text-app-subtle pointer-events-none" />
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search templates…"
-          className="w-full h-7 pl-7 pr-2 rounded-app-sm bg-app-elevated border border-app-border text-[11px] text-app-text placeholder:text-app-subtle outline-none focus:border-app-accent"
-        />
-      </div>
+    <div
+      className={cn(
+        'flex h-full min-h-0 min-w-0 flex-col gap-2 overflow-hidden',
+        hideFilters ? 'pt-0' : 'pt-2',
+      )}
+    >
+      {!hideFilters ? (
+        <>
+          <div className="relative shrink-0 px-2">
+            <Search
+              size={11}
+              className={cn(
+                'absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none',
+                isOnboarding ? 'text-white/35' : 'text-app-subtle',
+              )}
+            />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search templates…"
+              className={cn(
+                'w-full h-8 pl-7 pr-2 rounded-md text-[11px] outline-none transition-colors duration-150',
+                'focus-visible:ring-2 focus-visible:ring-offset-0',
+                isOnboarding
+                  ? 'bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-white/25 focus-visible:border-blue-500/40 focus-visible:ring-blue-500/25'
+                  : 'rounded-app-sm bg-app-elevated border border-app-border text-app-text placeholder:text-app-subtle focus:border-app-accent focus:ring-app-accent-subtle',
+              )}
+            />
+          </div>
 
-      {/* Category filter — horizontal scroll */}
-      <div className="shrink-0 flex items-center gap-1 px-2 overflow-x-auto pb-0.5" style={{ scrollbarWidth: 'none' }}>
-        <CategoryPill label="All" active={category === 'all'} onClick={() => setCategory('all')} />
-        {categories.map((c) => (
-          <CategoryPill
-            key={c}
-            label={TEMPLATE_CATEGORY_LABELS[c]}
-            active={category === c}
-            onClick={() => setCategory(c)}
-          />
-        ))}
-      </div>
+          <div className="shrink-0 min-w-0 overflow-x-auto app-scroll px-2 pb-0.5">
+            <div
+              role="tablist"
+              aria-label="Page pack categories"
+              className="inline-flex w-max max-w-none flex-nowrap items-center gap-1"
+            >
+              <CategoryPill
+                label="All"
+                active={category === 'all'}
+                onClick={() => setCategory('all')}
+                variant={variant}
+              />
+              {categories.map((c) => (
+                <CategoryPill
+                  key={c}
+                  label={TEMPLATE_CATEGORY_LABELS[c]}
+                  active={category === c}
+                  onClick={() => setCategory(c)}
+                  variant={variant}
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      ) : null}
 
-      {/* Cards — compact 2-column grid */}
-      <div className="flex-1 overflow-y-auto app-scroll px-2 pb-2">
+      <div className={cn('min-h-0 flex-1 overflow-y-auto app-scroll pb-2', hideFilters ? 'px-0' : 'px-2')}>
         {filtered.length === 0 ? (
-          <p className="text-center text-[11px] text-app-subtle py-6">No templates found.</p>
+          <p
+            className={cn(
+              'text-center text-[11px] py-8',
+              isOnboarding ? 'text-white/35' : 'text-app-subtle',
+            )}
+          >
+            No templates found.
+          </p>
         ) : (
-          <div className="grid grid-cols-2 gap-1.5">
+          <div className={cn('grid gap-2', gridClass)}>
             {filtered.map((t) => {
               const imported = flash === t.id
               return (
                 <button
                   key={t.id}
+                  type="button"
                   onClick={() => handleImport(t)}
                   className={cn(
-                    'relative flex flex-col gap-1.5 p-2 rounded-app-sm border text-left transition-all duration-150',
-                    imported
-                      ? 'border-app-accent bg-app-accent-subtle'
-                      : 'border-app-border bg-app-elevated hover:border-app-accent/60 hover:bg-app-elevated',
+                    'relative flex min-w-0 flex-col gap-1.5 p-2 rounded-md border text-left transition-colors duration-150',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1',
+                    isOnboarding
+                      ? cn(
+                          'focus-visible:ring-blue-500/35 focus-visible:ring-offset-[#1a1b1e]',
+                          imported
+                            ? 'border-blue-500/35 bg-blue-600/10'
+                            : 'border-white/[0.08] bg-white/[0.03] hover:border-white/15 hover:bg-white/[0.05]',
+                        )
+                      : cn(
+                          'rounded-app-sm focus-visible:ring-app-accent',
+                          imported
+                            ? 'border-app-accent bg-app-accent-subtle'
+                            : 'border-app-border bg-app-elevated hover:border-app-accent/60 hover:bg-app-elevated',
+                        ),
                   )}
                 >
-                  {/* Gradient thumbnail */}
                   <div
-                    className="h-10 w-full rounded flex items-center justify-center shrink-0 overflow-hidden"
+                    className="h-9 w-full rounded-md flex items-center justify-center shrink-0 overflow-hidden"
                     style={{ background: t.gradient }}
                   >
-                    {imported && <Check size={14} className="text-white drop-shadow" />}
+                    {imported && <Check size={12} className="text-white drop-shadow" />}
                   </div>
-                  <p className="text-[10px] font-semibold text-app-text leading-tight truncate">{t.name}</p>
-                  <p className="text-[9.5px] text-app-subtle font-mono">{t.pages.length} pages</p>
+                  <p
+                    className={cn(
+                      'text-[10px] font-semibold leading-tight truncate',
+                      isOnboarding ? 'text-white/90' : 'text-app-text',
+                    )}
+                  >
+                    {t.name}
+                  </p>
+                  <p
+                    className={cn(
+                      'text-[9px] font-mono',
+                      isOnboarding ? 'text-white/35' : 'text-app-subtle',
+                    )}
+                  >
+                    {t.pages.length} pages
+                  </p>
                 </button>
               )
             })}
@@ -101,15 +187,40 @@ export function ArchTemplatesPanel() {
   )
 }
 
-function CategoryPill({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+function CategoryPill({
+  label,
+  active,
+  onClick,
+  variant = 'default',
+}: {
+  label: string
+  active: boolean
+  onClick: () => void
+  variant?: 'default' | 'onboarding'
+}) {
+  const isOnboarding = variant === 'onboarding'
   return (
     <button
+      type="button"
+      role="tab"
+      aria-selected={active}
       onClick={onClick}
       className={cn(
-        'shrink-0 h-5 px-2 rounded-full text-[9.5px] font-medium transition-colors duration-100 whitespace-nowrap',
-        active
-          ? 'bg-app-accent text-app-on-accent'
-          : 'bg-app-elevated border border-app-border text-app-subtle hover:text-app-muted',
+        'inline-flex shrink-0 items-center h-7 px-2.5 rounded-full text-[10px] font-semibold transition-colors duration-150 whitespace-nowrap',
+        'focus-visible:outline-none focus-visible:ring-2',
+        isOnboarding
+          ? cn(
+              'focus-visible:ring-blue-500/35',
+              active
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white/[0.04] border border-white/[0.08] text-white/50 hover:text-white/75 hover:bg-white/[0.06]',
+            )
+          : cn(
+              'focus-visible:ring-app-accent',
+              active
+                ? 'bg-app-accent text-app-on-accent'
+                : 'bg-app-elevated border border-app-border text-app-subtle hover:text-app-muted',
+            ),
       )}
     >
       {label}

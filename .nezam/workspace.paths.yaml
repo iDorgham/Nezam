@@ -39,7 +39,7 @@ paths:
   # Active branding layout and UI components contract spec
   design_spec_file: "DESIGN.md"
   # Static templates / css styling presets
-  global_styles_template: ".nezam/design-server/styles/global.template.css"
+  global_styles_template: ".nezam/design-hub/styles/global.template.css"
   # Wireframes drafts folder
   wireframes_folder: ".nezam/design-hub/wireframes"
 

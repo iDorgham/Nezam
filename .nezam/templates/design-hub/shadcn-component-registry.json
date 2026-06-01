@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "components": [
+    { "id": "button", "label": "Button", "group": "actions", "importPath": "@/components/ui/button" },
+    { "id": "input", "label": "Input", "group": "forms", "importPath": "@/components/ui/input" },
+    { "id": "card", "label": "Card", "group": "layout", "importPath": "@/components/ui/card" },
+    { "id": "badge", "label": "Badge", "group": "data", "importPath": "@/components/ui/badge" },
+    { "id": "dropdown-menu", "label": "Dropdown Menu", "group": "navigation", "importPath": "@/components/ui/dropdown-menu" }
+  ]
+}

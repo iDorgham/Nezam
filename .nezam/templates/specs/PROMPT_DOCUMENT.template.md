@@ -260,3 +260,15 @@ src/
 **For backend agents:** Read Sections 3, 6.3, 8 before writing any route.
 **For QA agents:** Read Sections 9, 11 to validate completion.
 **For any agent:** If your task is not in Section 5, stop and ask the user first.
+
+## 16. Default external design skill stacks (opt-in)
+
+Subphase `prompt.json` may include `designSkillStack` (see `.nezam/templates/plan/PROMPT_SCHEMA.template.json`). Defaults by product type:
+
+| Product type | Suggested `phaseHint` | Typical stack IDs |
+|--------------|---------------------|-------------------|
+| `website` | `plan_design` / `develop_ui` | `design-taste-frontend`, `impeccable`, `emil-design-eng` |
+| `webapp` / `saas` | `develop_ui` | `design-intelligence-index`, `emil-design-eng`, `impeccable` |
+| Any UI slice | `wireframe` | `stitch-design-taste`, `design-intelligence-index` |
+
+Full manifest and commands: `docs/plan/design/DESIGN_SKILLS.md`. Assembler: `@.cursor/skills/design/nezam-design-prompt-assembler/SKILL.md`.

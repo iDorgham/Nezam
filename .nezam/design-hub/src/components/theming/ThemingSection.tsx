@@ -1,12 +1,13 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { type ComponentType, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Sun, Moon, Copy, Check, RotateCcw, Sparkles, Palette, Shuffle,
   Wand2, Play, BookmarkPlus, Trash2, Sliders, Settings, SlidersHorizontal,
   Download, Layers, Compass, Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LeftPanelTabsRow, LeftPanelTitleRow } from '@/components/ui/LeftPanelHeader'
 import {
   THEME_PRESETS,
   TOKEN_GROUPS,
@@ -26,6 +27,11 @@ import {
   type ColorTransform,
   type HarmonyType,
 } from './color-utils'
+import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
+import {
+  buildThemeEditorSnapshot,
+  type ThemeEditorSnapshot,
+} from '@/lib/design-to-theme'
 import { useHub, type ThemePreviewOverride } from '@/store/hub.store'
 import { useSidebarResize } from '@/lib/useSidebarResize'
 import { getContrastRatio, meetsWCAG, contrastBadge } from '@/lib/color-a11y'
@@ -97,8 +103,6 @@ function loadGoogleFont(entry: typeof SANS_FONTS[number] | undefined) {
 
 // ─── Color transform + contrast ───────────────────────────────────────────────
 
-// ─── Color transform + contrast ───────────────────────────────────────────────
-
 const BG_KEYS = ['background', 'card', 'popover', 'secondary', 'muted', 'border', 'input']
 const FG_KEYS = ['foreground', 'cardForeground', 'popoverForeground', 'secondaryForeground', 'mutedForeground']
 
@@ -164,6 +168,44 @@ function configFromPreset(preset: ThemePreset): ThemeConfig {
     borderWidth:  1,
     motionStyle:  'smooth',
   }
+}
+
+function configFromEditorSnapshot(snapshot: ThemeEditorSnapshot): ThemeConfig {
+  return {
+    presetId: snapshot.presetId,
+    light: { ...snapshot.light },
+    dark: { ...snapshot.dark },
+    radius: snapshot.radius,
+    fontSans: snapshot.fontSans,
+    fontMono: snapshot.fontMono,
+    contrast: 1,
+    transform: { hueShift: 0, satScale: 1, lightScale: 1 },
+    surfaceStyle: 'flat',
+    shadowStyle: 'soft',
+    letterSpacing: 0,
+    borderWidth: 1,
+    motionStyle: 'smooth',
+  }
+}
+
+function initialThemeFromStore(): { config: ThemeConfig; mode: Mode } {
+  const { theme, design } = useHub.getState()
+  if (theme.editorSnapshot) {
+    return {
+      config: configFromEditorSnapshot(theme.editorSnapshot),
+      mode: theme.editorSnapshot.defaultMode,
+    }
+  }
+  const profileId = design.activeProfileId
+  if (profileId && DESIGN_PROFILES_MAP[profileId]) {
+    const profile = DESIGN_PROFILES_MAP[profileId]
+    const snapshot = buildThemeEditorSnapshot(profile.tokens, profileId, profile.name)
+    return {
+      config: configFromEditorSnapshot(snapshot),
+      mode: snapshot.defaultMode,
+    }
+  }
+  return { config: configFromPreset(THEME_PRESETS[0]), mode: 'light' }
 }
 
 /** Randomize the palette using dynamic brand-tinted HSL color-theory generation. */
@@ -277,8 +319,9 @@ function buildCss(config: ThemeConfig): string {
 
 export function ThemingSection() {
   const { width, startResize } = useSidebarResize()
-  const [config, setConfig] = useState<ThemeConfig>(() => configFromPreset(THEME_PRESETS[0]))
-  const [mode,   setMode]   = useState<Mode>('light')
+  const initial = useMemo(() => initialThemeFromStore(), [])
+  const [config, setConfig] = useState<ThemeConfig>(() => initial.config)
+  const [mode,   setMode]   = useState<Mode>(() => initial.mode)
   const [copied, setCopied] = useState(false)
   const [saveInput, setSaveInput]   = useState('')
   const [showSaveBox, setShowSaveBox] = useState(false)
@@ -291,6 +334,21 @@ export function ThemingSection() {
   const deleteProfile     = useHub((s) => s.themeDeleteProfile)
   const savedProfiles     = useHub((s) => s.theme.savedProfiles)
   const previewOverride   = useHub((s) => s.theme.previewOverride)
+  const editorSnapshot    = useHub((s) => s.theme.editorSnapshot)
+  const syncedProfileRef  = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!editorSnapshot) return
+    const key = editorSnapshot.sourceDesignProfileId
+    if (syncedProfileRef.current === key) return
+    syncedProfileRef.current = key
+    setConfig(configFromEditorSnapshot(editorSnapshot))
+    setMode(editorSnapshot.defaultMode)
+    const sansEntry = SANS_FONTS.find((f) => f.family === editorSnapshot.fontSans)
+    const monoEntry = MONO_FONTS.find((f) => f.family === editorSnapshot.fontMono)
+    loadGoogleFont(sansEntry)
+    loadGoogleFont(monoEntry)
+  }, [editorSnapshot])
 
   const rawTokens = config[mode]
   const tokens    = useMemo(() => applyTransform(rawTokens, config.transform, config.contrast, mode), [rawTokens, config.transform, config.contrast, mode])
@@ -373,75 +431,74 @@ export function ThemingSection() {
         style={{ width }}
         className="relative shrink-0 flex flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
       >
-        {/* Header */}
-        <div className="shrink-0 flex items-center justify-between px-4 h-12 border-b border-app-border">
-          <div className="flex items-center gap-2">
-            <Palette size={13} className="text-app-accent" />
-            <p className="text-[12px] font-semibold text-app-text">Theme Editor</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowWcagAudit((v) => !v)}
-              className={cn(
-                'flex items-center gap-1 h-6 px-2 rounded text-[10px] font-medium transition-colors border',
-                showWcagAudit
-                  ? 'bg-app-accent text-app-on-accent border-app-accent'
-                  : 'text-app-subtle hover:text-app-text border-transparent hover:border-app-border',
-              )}
-            >
-              <Eye size={10} />
-              WCAG
-            </button>
-            <ModePill mode={mode} setMode={setMode} />
-          </div>
-        </div>
+        <LeftPanelTitleRow
+          title={
+            <div className="flex items-center gap-2">
+              <Palette size={13} className="text-app-accent" />
+              <span>Theme editor</span>
+            </div>
+          }
+          rightSlot={
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setShowWcagAudit((v) => !v)}
+                title="Toggle WCAG contrast audit"
+                aria-pressed={showWcagAudit}
+                className={cn(
+                  'flex h-7 items-center gap-1 rounded-app-sm border px-2 text-[10px] font-medium transition-colors duration-150',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg',
+                  showWcagAudit
+                    ? 'border-app-accent bg-app-accent text-app-on-accent'
+                    : 'border-app-border bg-app-surface text-app-subtle hover:border-app-accent/30 hover:text-app-text',
+                )}
+              >
+                <Eye size={10} />
+                WCAG
+              </button>
+              <ModePill mode={mode} setMode={setMode} />
+            </div>
+          }
+        />
 
         {/* Tab row */}
-        <div className="shrink-0 flex items-center justify-between border-b border-app-border bg-app-elevated/40 p-1 gap-1">
-          <button
+        <LeftPanelTabsRow className="px-2 bg-app-elevated/40" role="tablist" aria-label="Theme editor tabs">
+          <ControlTabButton
+            id="theme-tab-presets"
+            controls="theme-panel-presets"
+            active={controlTab === 'presets'}
             onClick={() => setControlTab('presets')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'presets' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <Compass size={13} className="mb-0.5" />
-            Harmony
-          </button>
-          <button
+            Icon={Compass}
+            label="Harmony"
+          />
+          <ControlTabButton
+            id="theme-tab-styles"
+            controls="theme-panel-styles"
+            active={controlTab === 'styles'}
             onClick={() => setControlTab('styles')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'styles' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <Sliders size={13} className="mb-0.5" />
-            Geometry
-          </button>
-          <button
+            Icon={Sliders}
+            label="Geometry"
+          />
+          <ControlTabButton
+            id="theme-tab-colors"
+            controls="theme-panel-colors"
+            active={controlTab === 'colors'}
             onClick={() => setControlTab('colors')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'colors' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <SlidersHorizontal size={13} className="mb-0.5" />
-            Tokens
-          </button>
-          <button
+            Icon={SlidersHorizontal}
+            label="Tokens"
+          />
+          <ControlTabButton
+            id="theme-tab-export"
+            controls="theme-panel-export"
+            active={controlTab === 'export'}
             onClick={() => setControlTab('export')}
-            className={cn(
-              'flex-1 flex flex-col items-center justify-center py-1 rounded text-[10px] font-semibold transition-all',
-              controlTab === 'export' ? 'bg-app-surface text-app-accent shadow-sm' : 'text-app-subtle hover:text-app-text'
-            )}
-          >
-            <Download size={13} className="mb-0.5" />
-            Export
-          </button>
-        </div>
+            Icon={Download}
+            label="Export"
+          />
+        </LeftPanelTabsRow>
 
         {/* Scrollable controls */}
-        <div className="flex-1 overflow-y-auto app-scroll p-4 flex flex-col gap-5">
+        <div className="flex-1 overflow-y-auto app-scroll px-4 py-6 flex flex-col gap-8">
           {/* WCAG Audit Overlay */}
           {showWcagAudit && (
             <WcagAuditPanel tokens={tokens} mode={mode} />
@@ -449,10 +506,11 @@ export function ThemingSection() {
 
           {/* TAB 1: PRESETS & HARMONIES */}
           {controlTab === 'presets' && (
-            <>
+            <div id="theme-panel-presets" role="tabpanel" aria-labelledby="theme-tab-presets" className="flex flex-col gap-10">
               {/* Generator / Randomize */}
-              <Group label="AI Randomizer" hint="Dynamic brand-tinted HSL generator">
+              <Group label="AI randomizer" hint="Dynamic brand-tinted HSL generator">
                 <button
+                  type="button"
                   onClick={() => {
                     setConfig((c) => ({
                       ...c,
@@ -461,7 +519,7 @@ export function ThemingSection() {
                       dark:  randomizeTokens(c.dark,  'dark'),
                     }))
                   }}
-                  className="flex items-center justify-center gap-1.5 w-full h-8 rounded bg-app-accent text-[11px] font-bold text-app-on-accent hover:bg-app-accent-hover transition-colors shadow-sm"
+                  className="flex h-9 w-full items-center justify-center gap-2 rounded-app-sm bg-app-accent text-[11px] font-bold text-app-on-accent shadow-sm transition-colors duration-150 hover:bg-app-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg"
                 >
                   <Shuffle size={11} />
                   Randomize Palette
@@ -469,8 +527,8 @@ export function ThemingSection() {
               </Group>
 
               {/* Color theory Harmonies */}
-              <Group label="Color theory harmonies" hint="Mathematical color placement.">
-                <div className="grid grid-cols-2 gap-2">
+              <Group label="Color harmonies" hint="Mathematical color placement.">
+                <div className="grid grid-cols-2 gap-3">
                   {[
                     { type: 'complementary', label: 'Complementary', desc: 'Stark opposite contrast' },
                     { type: 'triadic', label: 'Triadic', desc: 'Cohesive 120° offsets' },
@@ -481,52 +539,56 @@ export function ThemingSection() {
                   ].map(({ type, label, desc }) => (
                     <button
                       key={type}
+                      type="button"
                       onClick={() => applyHarmony(type as HarmonyType)}
                       title={desc}
                       className={cn(
-                        'flex flex-col items-start p-2 rounded border text-left transition-all',
+                        'flex flex-col items-start gap-1.5 rounded-app-sm border p-3 text-left transition-colors duration-150',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg',
                         config.presetId === `harmony-${type}`
                           ? 'border-app-accent bg-app-accent-subtle/50'
-                          : 'border-app-border hover:border-app-border-strong bg-app-elevated/20',
+                          : 'border-app-border bg-app-elevated/20 hover:border-app-accent/40',
                       )}
                     >
-                      <span className="text-[10.5px] font-bold text-app-text">{label}</span>
-                      <span className="text-[9px] text-app-subtle mt-0.5 leading-tight">{desc}</span>
+                      <span className="text-[10.5px] font-bold text-app-text leading-snug">{label}</span>
+                      <span className="text-[9px] text-app-subtle leading-snug">{desc}</span>
                     </button>
                   ))}
                 </div>
               </Group>
 
               {/* Preset catalog */}
-              <Group label="Theme Presets" hint="Classic layout profiles.">
-                <div className="grid grid-cols-3 gap-1.5">
+              <Group label="Presets" hint="Classic layout profiles.">
+                <div className="grid grid-cols-3 gap-3">
                   {THEME_PRESETS.map((preset) => {
                     const active = config.presetId === preset.id
                     return (
                       <button
                         key={preset.id}
+                        type="button"
                         onClick={() => applyPreset(preset)}
                         title={preset.description}
                         className={cn(
-                          'flex flex-col items-center gap-1 p-1.5 rounded border transition-all duration-100',
+                          'flex flex-col items-center gap-1.5 rounded-app-sm border p-2 transition-colors duration-150',
+                          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg',
                           active
                             ? 'border-app-accent bg-app-accent-subtle'
-                            : 'border-app-border hover:border-app-border-strong bg-app-elevated/40',
+                            : 'border-app-border bg-app-elevated/40 hover:border-app-accent/40',
                         )}
                       >
-                        <span className="h-4 w-4 rounded-full ring-1 ring-app-border-strong" style={{ background: preset.swatch }} />
-                        <span className="text-[9px] font-bold text-app-text truncate w-full text-center">{preset.name}</span>
+                        <span className="h-5 w-5 rounded-full ring-1 ring-app-border-strong" style={{ background: preset.swatch }} />
+                        <span className="text-[9px] font-bold text-app-text truncate w-full text-center leading-tight">{preset.name}</span>
                       </button>
                     )
                   })}
                 </div>
               </Group>
-            </>
+            </div>
           )}
 
           {/* TAB 2: GLOBAL STYLES & GEOMETRY */}
           {controlTab === 'styles' && (
-            <>
+            <div id="theme-panel-styles" role="tabpanel" aria-labelledby="theme-tab-styles" className="flex flex-col gap-10">
               <Group label="Surface style" hint="Card borders & treatments.">
                 <SegmentPicker value={config.surfaceStyle} options={['flat','glass','brutalist']}
                   onChange={(v) => setConfig((c) => ({ ...c, surfaceStyle: v as SurfaceStyle }))} />
@@ -537,7 +599,7 @@ export function ThemingSection() {
                   onChange={(v) => setConfig((c) => ({ ...c, shadowStyle: v as ShadowStyle }))} />
               </Group>
 
-              <Group label="Border Radius" hint={`${config.radius.toFixed(2)} rem`}>
+              <Group label="Border radius" hint={`${config.radius.toFixed(2)} rem`}>
                 <input type="range" min={0} max={1.5} step={0.05} value={config.radius}
                   onChange={(e) => setConfig((c) => ({ ...c, radius: parseFloat(e.target.value) }))}
                   className="w-full accent-app-accent" />
@@ -569,22 +631,22 @@ export function ThemingSection() {
                   onChange={(v) => setConfig((c) => ({ ...c, motionStyle: v as any }))} />
               </Group>
 
-              <Group label="Typography Fonts">
-                <div className="flex flex-col gap-2">
+              <Group label="Typography fonts">
+                <div className="flex flex-col gap-3">
                   <FontRow label="Sans" value={config.fontSans} options={SANS_FONTS}
                     onChange={(f) => handleFontChange('sans', f)} />
                   <FontRow label="Mono" value={config.fontMono} options={MONO_FONTS}
                     onChange={(f) => handleFontChange('mono', f)} />
                 </div>
               </Group>
-            </>
+            </div>
           )}
 
           {/* TAB 3: COLOR TOKEN OVERRIDES */}
           {controlTab === 'colors' && (
-            <>
+            <div id="theme-panel-colors" role="tabpanel" aria-labelledby="theme-tab-colors" className="flex flex-col gap-10">
               {/* Calibration */}
-              <Group label="Contrast Calibration" hint={`${config.contrast.toFixed(2)}× separation`}>
+              <Group label="Contrast calibration" hint={`${config.contrast.toFixed(2)}× separation`}>
                 <input type="range" min={0.7} max={1.4} step={0.01} value={config.contrast}
                   onChange={(e) => setConfig((c) => ({ ...c, contrast: parseFloat(e.target.value) }))}
                   className="w-full accent-app-accent" />
@@ -593,8 +655,8 @@ export function ThemingSection() {
                 </div>
               </Group>
 
-              <Group label="Global HSL Shifts">
-                <div className="flex flex-col gap-2">
+              <Group label="Global HSL shifts">
+                <div className="flex flex-col gap-3">
                   <SliderRow label="Hue shift" value={config.transform.hueShift} min={-180} max={180} step={1} unit="°"
                     onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, hueShift: v } }))} />
                   <SliderRow label="Saturation" value={config.transform.satScale} min={0} max={2} step={0.05} unit="×"
@@ -603,8 +665,9 @@ export function ThemingSection() {
                     onChange={(v) => setConfig((c) => ({ ...c, transform: { ...c.transform, lightScale: v } }))} />
                   {!isIdentityTransform(config.transform) && (
                     <button
+                      type="button"
                       onClick={() => setConfig((c) => ({ ...c, transform: { hueShift: 0, satScale: 1, lightScale: 1 } }))}
-                      className="flex items-center justify-center gap-1 h-6 rounded text-[10px] text-app-accent hover:text-app-text transition-colors mt-1 border border-app-border/40 bg-app-elevated/20"
+                      className="mt-1 flex h-7 items-center justify-center gap-1 rounded-app-sm border border-app-border/40 bg-app-elevated/20 text-[10px] text-app-accent transition-colors duration-150 hover:text-app-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
                     >
                       <Wand2 size={10} />
                       Clear HSL transforms
@@ -616,7 +679,7 @@ export function ThemingSection() {
               {/* Token list */}
               {TOKEN_GROUPS.map((group) => (
                 <Group key={group.label} label={group.label} hint={group.description}>
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col gap-2">
                     {group.tokens.map(({ key, label }) => (
                       <ColorRow key={key} label={label} value={rawTokens[key]}
                         onChange={(v) => setToken(key, v)} />
@@ -624,14 +687,14 @@ export function ThemingSection() {
                   </div>
                 </Group>
               ))}
-            </>
+            </div>
           )}
 
           {/* TAB 4: PROFILE MANAGE & EXPORTS */}
           {controlTab === 'export' && (
-            <>
+            <div id="theme-panel-export" role="tabpanel" aria-labelledby="theme-tab-export" className="flex flex-col gap-10">
               {/* Presets manager */}
-              <Group label="Save Active Profile">
+              <Group label="Save active profile">
                 {showSaveBox ? (
                   <div className="flex flex-col gap-2 p-2 rounded border border-app-border bg-app-elevated/20">
                     <input
@@ -643,20 +706,27 @@ export function ThemingSection() {
                       className="w-full h-8 px-2 rounded bg-app-bg border border-app-accent text-[11px] text-app-text outline-none"
                     />
                     <div className="flex items-center gap-2 justify-end">
-                      <button onClick={() => setShowSaveBox(false)}
-                        className="h-7 px-2.5 rounded border border-app-border text-[11px] text-app-muted hover:text-app-text transition-colors">
+                      <button
+                        type="button"
+                        onClick={() => setShowSaveBox(false)}
+                        className="h-7 rounded-app-sm border border-app-border px-2.5 text-[11px] text-app-muted transition-colors duration-150 hover:text-app-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
+                      >
                         Cancel
                       </button>
-                      <button onClick={handleSaveProfile}
-                        className="h-7 px-3 rounded bg-app-accent text-app-on-accent text-[11px] font-bold hover:bg-app-accent-hover transition-colors">
+                      <button
+                        type="button"
+                        onClick={handleSaveProfile}
+                        className="h-7 rounded-app-sm bg-app-accent px-3 text-[11px] font-bold text-app-on-accent transition-colors duration-150 hover:bg-app-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg"
+                      >
                         Save
                       </button>
                     </div>
                   </div>
                 ) : (
                   <button
+                    type="button"
                     onClick={() => setShowSaveBox(true)}
-                    className="flex items-center justify-center gap-1.5 w-full h-8 rounded border border-app-border text-[11px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-all"
+                    className="flex h-8 w-full items-center justify-center gap-1.5 rounded-app-sm border border-app-border text-[11px] text-app-muted transition-colors duration-150 hover:bg-app-elevated hover:text-app-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
                   >
                     <BookmarkPlus size={11} />
                     Save active setup
@@ -667,20 +737,24 @@ export function ThemingSection() {
               {/* Saved profiles list */}
               {savedProfiles.length > 0 && (
                 <Group label="Saved profiles library">
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col gap-2">
                     {savedProfiles.map((p) => (
                       <div key={p.id} className="flex items-center gap-1.5 h-7">
                         <button
+                          type="button"
                           onClick={() => loadSavedProfile(p.id)}
-                          className="flex-1 flex items-center gap-1.5 h-7 px-2 rounded text-[11px] text-app-text bg-app-elevated hover:bg-app-surface border border-app-border transition-colors truncate text-left"
+                          className="flex h-7 flex-1 items-center gap-1.5 truncate rounded-app-sm border border-app-border bg-app-elevated px-2 text-left text-[11px] text-app-text transition-colors duration-150 hover:bg-app-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
                         >
                           <span className="w-2.5 h-2.5 rounded-full shrink-0"
                             style={{ background: p.override[p.override.mode].primary ?? '#888' }} />
                           {p.name}
                         </button>
-                        <button onClick={() => deleteProfile(p.id)}
-                          className="flex items-center justify-center h-7 w-7 rounded text-app-subtle hover:text-app-danger hover:bg-app-elevated border border-app-border transition-colors"
-                          title="Delete profile">
+                        <button
+                          type="button"
+                          onClick={() => deleteProfile(p.id)}
+                          className="flex h-7 w-7 items-center justify-center rounded-app-sm border border-app-border text-app-subtle transition-colors duration-150 hover:bg-app-elevated hover:text-app-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
+                          title="Delete profile"
+                        >
                           <Trash2 size={10} />
                         </button>
                       </div>
@@ -690,14 +764,15 @@ export function ThemingSection() {
               )}
 
               {/* Code output */}
-              <Group label="CSS Code Export" hint="Ready for root DESIGN.md">
+              <Group label="CSS export" hint="Ready for root DESIGN.md">
                 <div className="relative">
                   <pre className="p-2 text-[9px] font-mono rounded bg-app-deep text-app-muted overflow-auto max-h-36 app-scroll border border-app-border">
                     {cssOutput}
                   </pre>
                   <button
+                    type="button"
                     onClick={copyCss}
-                    className="absolute top-1.5 right-1.5 flex items-center justify-center h-6 px-2 rounded bg-app-surface/90 border border-app-border text-[9.5px] font-semibold text-app-text hover:border-app-accent hover:bg-app-surface transition-all"
+                    className="absolute right-1.5 top-1.5 flex h-7 items-center justify-center rounded-app-sm border border-app-border bg-app-surface/90 px-2 text-[9.5px] font-semibold text-app-text transition-colors duration-150 hover:border-app-accent hover:bg-app-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
                   >
                     {copied ? <Check size={9} className="text-app-success mr-1" /> : <Copy size={9} className="mr-1" />}
                     {copied ? 'Copied!' : 'Copy'}
@@ -707,25 +782,28 @@ export function ThemingSection() {
 
               {/* Reset to Preset */}
               <button
+                type="button"
                 onClick={resetMode}
-                className="flex items-center justify-center gap-1.5 w-full h-8 rounded border border-app-border text-[11px] text-app-muted hover:text-app-text hover:bg-app-elevated transition-colors mt-2"
+                className="mt-2 flex h-8 w-full items-center justify-center gap-1.5 rounded-app-sm border border-app-border text-[11px] text-app-muted transition-colors duration-150 hover:bg-app-elevated hover:text-app-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent"
               >
                 <RotateCcw size={11} />
                 Reset {mode} mode to preset
               </button>
-            </>
+            </div>
           )}
         </div>
 
         {/* Footer — Apply / Save / Copy */}
-        <div className="shrink-0 p-3 border-t border-app-border bg-app-bg flex flex-col gap-2">
+        <div className="shrink-0 px-4 py-4 border-t border-app-border bg-app-bg flex flex-col gap-3">
           {/* Apply to preview */}
           <button
+            type="button"
             onClick={handleApplyToPreview}
             className={cn(
-              'flex items-center justify-center gap-1.5 h-8 rounded text-[11.5px] font-bold transition-all shadow-sm',
+              'flex h-9 items-center justify-center gap-2 rounded-app-sm text-[11.5px] font-bold shadow-sm transition-colors duration-150',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent focus-visible:ring-offset-1 focus-visible:ring-offset-app-bg',
               applied
-                ? 'bg-app-success text-white'
+                ? 'bg-app-success text-app-bg'
                 : 'bg-app-accent text-app-on-accent hover:bg-app-accent-hover active:bg-app-accent-active',
             )}
           >
@@ -785,12 +863,12 @@ export function ThemingSection() {
 
 // ─── Building blocks ─────────────────────────────────────────────────────────
 
-function Group({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+function Group({ label, hint, children, className }: { label: string; hint?: string; children: React.ReactNode; className?: string }) {
   return (
-    <section>
-      <div className="flex items-baseline justify-between mb-2">
-        <p className="text-[10.5px] font-semibold text-app-text uppercase tracking-wider">{label}</p>
-        {hint && <p className="text-[10px] text-app-subtle">{hint}</p>}
+    <section className={cn('flex flex-col gap-4', className)}>
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+        <p className="text-[9.5px] font-bold uppercase tracking-[0.13em] text-app-subtle select-none">{label}</p>
+        {hint ? <p className="text-[10px] text-app-subtle leading-snug">{hint}</p> : null}
       </div>
       {children}
     </section>
@@ -840,7 +918,7 @@ function SliderRow({ label, value, min, max, step, unit, onChange }: {
   label: string; value: number; min: number; max: number; step: number; unit: string; onChange(v: number): void
 }) {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between text-[10.5px]">
         <span className="text-app-muted">{label}</span>
         <span className="font-mono text-app-subtle">{value.toFixed(unit === '°' ? 0 : 2)}{unit}</span>
@@ -854,20 +932,65 @@ function SliderRow({ label, value, min, max, step, unit, onChange }: {
 
 function SegmentPicker({ value, options, onChange }: { value: string; options: readonly string[]; onChange(v: string): void }) {
   return (
-    <div className="flex items-center gap-0.5 p-0.5 rounded-app-sm bg-app-elevated border border-app-border">
+    <div className="flex items-center gap-0.5 p-1 rounded-app-sm bg-app-elevated border border-app-border">
       {options.map((opt) => {
         const active = value === opt
         return (
-          <button key={opt} onClick={() => onChange(opt)}
+          <button
+            key={opt}
+            type="button"
+            onClick={() => onChange(opt)}
             className={cn(
-              'flex-1 h-6 px-1.5 rounded text-[10.5px] font-medium capitalize transition-colors duration-100',
-              active ? 'bg-app-surface text-app-text' : 'text-app-subtle hover:text-app-text',
-            )}>
+              'flex-1 h-7 px-2 rounded-app-sm text-[10.5px] font-medium capitalize transition-colors duration-150',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
+              active
+                ? 'bg-app-surface text-app-text border border-app-border'
+                : 'text-app-subtle hover:text-app-text',
+            )}
+          >
             {opt}
           </button>
         )
       })}
     </div>
+  )
+}
+
+function ControlTabButton({
+  id,
+  controls,
+  active,
+  onClick,
+  Icon,
+  label,
+}: {
+  id: string
+  controls: string
+  active: boolean
+  onClick: () => void
+  Icon: ComponentType<{ size?: number; className?: string }>
+  label: string
+}) {
+  return (
+    <button
+      id={id}
+      role="tab"
+      aria-controls={controls}
+      aria-selected={active}
+      tabIndex={active ? 0 : -1}
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'flex flex-1 items-center justify-center gap-1 h-7 rounded-app-sm text-[11px] font-medium transition-colors duration-150',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
+        active
+          ? 'bg-app-surface text-app-text border border-app-border'
+          : 'text-app-subtle hover:text-app-muted hover:bg-app-elevated/40',
+      )}
+    >
+      <Icon size={11} className={active ? 'text-app-accent' : undefined} />
+      {label}
+    </button>
   )
 }
 
@@ -891,14 +1014,14 @@ function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mo
 
   return (
     <div className={cn(
-      'rounded border p-3 flex flex-col gap-2',
-      allPass ? 'border-green-500/50 bg-green-50/10' : 'border-amber-500/50 bg-amber-50/10',
+      'rounded-app-sm border p-4 flex flex-col gap-3',
+      allPass ? 'border-app-success/50 bg-app-success/10' : 'border-app-warning/50 bg-app-warning/10',
     )}>
       <div className="flex items-center justify-between">
-        <span className="text-[10.5px] font-semibold text-app-text">WCAG Contrast Audit</span>
+        <span className="text-[10.5px] font-semibold text-app-text">WCAG contrast audit</span>
         <span className={cn(
           'text-[10px] font-bold font-mono',
-          allPass ? 'text-green-600' : 'text-amber-600',
+          allPass ? 'text-app-success' : 'text-app-warning',
         )}>
           {allPass ? 'AA ✓ All pass' : 'FAIL — needs attention'}
         </span>
@@ -917,13 +1040,13 @@ function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mo
               <span className="font-mono text-app-subtle w-12 text-right">{ratio.toFixed(2)}:1</span>
               <span className={cn(
                 'font-mono w-16 text-center rounded px-1',
-                badge.pass ? 'text-green-600 bg-green-500/10' : 'text-red-600 bg-red-500/10 font-bold',
+                badge.pass ? 'text-app-success bg-app-success/10' : 'text-app-danger bg-app-danger/10 font-bold',
               )}>
                 {badge.pass ? 'AA' : 'FAIL'}
               </span>
               <span className={cn(
                 'font-mono w-16 text-center rounded px-1',
-                meetsWCAG(ratio, 'AAA') ? 'text-green-600 bg-green-500/10' : 'text-app-subtle',
+                meetsWCAG(ratio, 'AAA') ? 'text-app-success bg-app-success/10' : 'text-app-subtle',
               )}>
                 {meetsWCAG(ratio, 'AAA') ? 'AAA' : '—'}
               </span>
@@ -938,14 +1061,26 @@ function WcagAuditPanel({ tokens, mode: _mode }: { tokens: ThemeTokens; mode: Mo
 function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
   return (
     <div className="flex items-center gap-0.5 p-0.5 rounded-app-sm bg-app-elevated border border-app-border">
-      <button onClick={() => setMode('light')}
-        className={cn('flex items-center gap-1 h-5 px-1.5 rounded text-[10px] font-medium transition-colors duration-100',
-          mode === 'light' ? 'bg-app-surface text-app-text' : 'text-app-subtle hover:text-app-text')}>
+      <button
+        type="button"
+        onClick={() => setMode('light')}
+        className={cn(
+          'flex items-center gap-1 h-7 px-2 rounded-app-sm text-[10px] font-medium transition-colors duration-150',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
+          mode === 'light' ? 'bg-app-surface text-app-text border border-app-border' : 'text-app-subtle hover:text-app-text',
+        )}
+      >
         <Sun size={10} /> Light
       </button>
-      <button onClick={() => setMode('dark')}
-        className={cn('flex items-center gap-1 h-5 px-1.5 rounded text-[10px] font-medium transition-colors duration-100',
-          mode === 'dark' ? 'bg-app-surface text-app-text' : 'text-app-subtle hover:text-app-text')}>
+      <button
+        type="button"
+        onClick={() => setMode('dark')}
+        className={cn(
+          'flex items-center gap-1 h-7 px-2 rounded-app-sm text-[10px] font-medium transition-colors duration-150',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent',
+          mode === 'dark' ? 'bg-app-surface text-app-text border border-app-border' : 'text-app-subtle hover:text-app-text',
+        )}
+      >
         <Moon size={10} /> Dark
       </button>
     </div>
@@ -955,6 +1090,6 @@ function ModePill({ mode, setMode }: { mode: Mode; setMode(m: Mode): void }) {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function normalizeHex(value: string): string {
-  const m = /^#([0-9a-f]{6})$/i.exec(value.trim())
+  const m = value.trim().match(/^#([0-9a-f]{6})$/i)
   return m ? `#${m[1]}` : '#111827'
 }

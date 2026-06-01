@@ -284,3 +284,11 @@ onboarding:
     github_connected: false             # github.repo set
     first_plan_started: false           # /PLAN idea run at least once
   skipped_steps: []                     # steps the user explicitly chose to skip
+
+# ═══════════════════════════════════════════════════════════════════════════
+# EXTERNAL DESIGN SKILLS (vendored under .cursor/skills/)
+# ═══════════════════════════════════════════════════════════════════════════
+design_skills:
+  manifest: ".nezam/core/gates/design-skills.yaml"
+  impeccable_slop_check: warn          # off | warn | fail — see check-impeccable-slop.sh
+  overrides: {}                        # per-id enabled: true|false overrides manifest

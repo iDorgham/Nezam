@@ -13,3 +13,4 @@ build/
 .gemini/cache/
 .qwen/cache/
 docs/reference/
+.cursor/design/references/

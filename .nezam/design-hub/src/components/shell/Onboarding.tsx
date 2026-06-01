@@ -1,18 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useId, type KeyboardEvent } from 'react'
 import {
   Network, Palette, Eye, Puzzle, ArrowRight, Check,
   Sparkles, Layers, Globe, Zap, ChevronLeft, Search,
-  CheckSquare, Square, Sliders, Info
+  CheckSquare, Square, Sliders, Info, LayoutTemplate, Package,
 } from 'lucide-react'
 import { useHub, HUB_VERSION } from '@/store/hub.store'
-import { ARCH_PROFILES, ARCH_PROFILES_MAP } from '@/data/arch-profiles'
+import { ARCH_PROFILES, ARCH_PROFILES_MAP, ARCH_PROFILE_GROUPS } from '@/data/arch-profiles'
 import { DESIGN_PROFILES, DESIGN_PROFILES_MAP } from '@/data/design-profiles'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { ArchProfileId } from '@/types/arch'
 import type { DesignProfileId } from '@/types/design'
+import { ArchPagePacksPicker } from '@/components/arch/ArchPagePacksPicker'
 
 // ─── Step definitions ─────────────────────────────────────────────────────────
 
@@ -324,12 +325,44 @@ interface ArchStepProps {
   onNext(): void
 }
 
+type ArchSourceTab = 'blueprint' | 'packs'
+
 function ArchStep({
   selected, onSelect, selectedPages, setSelectedPages,
   pageSearch, setPageSearch, onBack, onNext,
 }: ArchStepProps) {
+  const [sourceTab, setSourceTab] = useState<ArchSourceTab>('blueprint')
+  const [sourceSearch, setSourceSearch] = useState('')
+  const blueprintPanelId = useId()
+  const packsPanelId = useId()
 
   const activeProfile = selected ? ARCH_PROFILES_MAP[selected] : null
+  const sourceQuery = sourceSearch.trim().toLowerCase()
+
+  const blueprintMatchCount = ARCH_PROFILE_GROUPS.reduce((count, group) => {
+    return (
+      count +
+      group.ids.filter((id) => {
+        const profile = ARCH_PROFILES_MAP[id]
+        if (!profile) return false
+        if (!sourceQuery) return true
+        return (
+          profile.name.toLowerCase().includes(sourceQuery) ||
+          profile.description.toLowerCase().includes(sourceQuery)
+        )
+      }).length
+    )
+  }, 0)
+
+  function handleSourceTabKeyDown(e: KeyboardEvent<HTMLElement>) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      setSourceTab('packs')
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      setSourceTab('blueprint')
+    }
+  }
   const pagesList = activeProfile?.pages ?? []
 
   // Filter pages inside the active sitemap template
@@ -356,133 +389,175 @@ function ArchStep({
   }
 
   return (
-    <div className="flex flex-col h-full justify-between p-6">
+    <div className="flex h-full min-h-0 flex-col p-6">
       
       {/* Row: Title & Subtitle */}
-      <div className="flex flex-col gap-1 border-b border-white/5 pb-3">
+      <div className="flex flex-col gap-1 border-b border-white/5 pb-3 shrink-0">
         <p className="text-[10px] font-extrabold text-blue-400 uppercase tracking-widest">Step 1 of 2</p>
         <h2 className="text-[17px] font-bold text-white tracking-tight">Configure Architecture & Page Routing</h2>
-        <p className="text-[11px] text-white/40">Select a template and choose which routing pages you want to pre-load.</p>
+        <p className="text-[11px] text-white/40">
+          Pick a template or page pack on the left; choose sitemap routes on the right.
+        </p>
       </div>
 
-      {/* Two Column Layout: Templates Left, Pages Selector Right */}
-      <div className="flex flex-1 min-h-0 py-3 gap-6">
-        
-        {/* Left Column: Vertical Templates directory */}
-        <div className="w-[42%] flex flex-col gap-1.5 pr-1 border-r border-white/5">
-          <p className="text-[9.5px] font-bold text-white/40 uppercase tracking-wider mb-0.5">Sitemap Presets</p>
-          <div className="flex-1 overflow-y-auto app-scroll space-y-1.5 pr-1">
-            {ARCH_PROFILES.map((profile) => {
-              const isSelected = selected === profile.id
-              return (
-                <button
-                  key={profile.id}
-                  onClick={() => onSelect(profile.id as ArchProfileId)}
-                  className={cn(
-                    'w-full flex items-center gap-2.5 rounded-lg p-2.5 text-left border transition-all duration-150',
-                    isSelected
-                      ? 'bg-blue-600/10 border-blue-500/30'
-                      : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'
-                  )}
-                >
-                  <div
-                    className={cn(
-                      'flex h-7.5 w-7.5 shrink-0 items-center justify-center rounded-md',
-                      isSelected ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-white/40'
-                    )}
-                  >
-                    <IconRenderer name={profile.icon} size={14} />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-bold text-white/90 truncate leading-tight">{profile.name}</p>
-                    <p className="text-[9.5px] text-white/30 truncate mt-0.5">{profile.pages.length} templates pages</p>
-                  </div>
-                  {isSelected && (
-                    <div className="h-4.5 w-4.5 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                      <Check size={9} className="text-white" />
-                    </div>
-                  )}
-                </button>
-              )
-            })}
-          </div>
-        </div>
+      <div className="flex flex-1 min-h-0 gap-5 py-3">
+        {/* Left: source tabs + panel */}
+        <div className="flex w-[42%] min-h-0 shrink-0 flex-col border-r border-white/5 pr-4">
+          <nav
+            className="flex shrink-0 flex-row gap-1 rounded-lg border border-white/[0.06] bg-black/25 p-1"
+            role="tablist"
+            aria-label="Architecture sources"
+            onKeyDown={handleSourceTabKeyDown}
+          >
+            <ArchLeftSourceTab
+              layout="horizontal"
+              active={sourceTab === 'blueprint'}
+              onClick={() => setSourceTab('blueprint')}
+              id={`${blueprintPanelId}-tab`}
+              controls={blueprintPanelId}
+              icon={LayoutTemplate}
+              label="Templates"
+            />
+            <ArchLeftSourceTab
+              layout="horizontal"
+              active={sourceTab === 'packs'}
+              onClick={() => setSourceTab('packs')}
+              id={`${packsPanelId}-tab`}
+              controls={packsPanelId}
+              icon={Package}
+              label="Page packs"
+            />
+          </nav>
 
-        {/* Right Column: Interactive pages checklist */}
-        <div className="flex-1 flex flex-col gap-2 min-w-0">
-          
-          {/* Checklist header filters */}
-          <div className="flex items-center gap-2">
-            <div className="flex-1 flex items-center bg-white/[0.03] border border-white/5 rounded-md px-2 h-7.5">
-              <Search size={11} className="text-white/30 mr-1.5 shrink-0" />
-              <input
-                type="text"
-                placeholder="Filter sitemap pages..."
-                value={pageSearch}
-                onChange={(e) => setPageSearch(e.target.value)}
-                className="w-full bg-transparent text-[11px] text-white outline-none placeholder:text-white/20"
-              />
-            </div>
-            
-            <button
-              onClick={toggleAll}
-              disabled={pagesList.length === 0}
-              className="text-[10px] font-bold h-7.5 px-2.5 rounded border border-white/10 text-white/60 hover:text-white hover:bg-white/5 transition-colors disabled:opacity-40"
-            >
-              {selectedPages.length === pagesList.length ? 'Deselect All' : 'Select All'}
-            </button>
+          <div className="mt-2 flex shrink-0 items-center gap-1.5 rounded-md border border-white/[0.08] bg-black/30 px-2 h-8">
+            <Search size={11} className="text-white/35 shrink-0" aria-hidden />
+            <input
+              type="search"
+              value={sourceSearch}
+              onChange={(e) => setSourceSearch(e.target.value)}
+              placeholder={sourceTab === 'blueprint' ? 'Search templates…' : 'Search page packs…'}
+              aria-label={
+                sourceTab === 'blueprint' ? 'Search architecture templates' : 'Search page packs'
+              }
+              className="min-w-0 flex-1 bg-transparent text-[11px] text-white outline-none placeholder:text-white/25 focus-visible:ring-0"
+            />
           </div>
 
-          {/* Checklist items viewport */}
-          <div className="flex-1 overflow-y-auto app-scroll bg-black/10 border border-white/5 rounded-lg p-2 min-h-0 space-y-1">
-            {pagesList.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-4">
-                <p className="text-[11px] text-white/30">Select a template on the left to review sitemap routes</p>
-              </div>
-            ) : filteredPages.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-4">
-                <p className="text-[11px] text-white/30">No matching pages found</p>
+          <div className="mt-2 flex min-h-0 flex-1 flex-col overflow-hidden">
+            {sourceTab === 'blueprint' ? (
+              <div
+                id={blueprintPanelId}
+                role="tabpanel"
+                aria-labelledby={`${blueprintPanelId}-tab`}
+                className="flex min-h-0 flex-1 flex-col"
+              >
+                <div className="flex-1 min-h-0 overflow-y-auto app-scroll space-y-3 pr-0.5">
+                  {ARCH_PROFILE_GROUPS.map((group) => {
+                    const profiles = group.ids.filter((id) => {
+                      const profile = ARCH_PROFILES_MAP[id]
+                      if (!profile) return false
+                      if (!sourceQuery) return true
+                      return (
+                        profile.name.toLowerCase().includes(sourceQuery) ||
+                        profile.description.toLowerCase().includes(sourceQuery)
+                      )
+                    })
+                    if (profiles.length === 0) return null
+                    return (
+                      <div key={group.label}>
+                        <p className="mb-1 text-[9px] font-bold uppercase tracking-wider text-white/35">
+                          {group.label}
+                        </p>
+                        <div className="space-y-1">
+                          {profiles.map((id) => {
+                            const profile = ARCH_PROFILES_MAP[id]
+                            const isSelected = selected === id
+                            return (
+                              <button
+                                key={id}
+                                type="button"
+                                onClick={() => onSelect(id)}
+                                className={cn(
+                                  'flex w-full items-center gap-2.5 rounded-lg border p-2 text-left transition-colors duration-150',
+                                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/35',
+                                  isSelected
+                                    ? 'border-blue-500/35 bg-blue-600/12'
+                                    : 'border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.05]',
+                                )}
+                              >
+                                <span
+                                  className={cn(
+                                    'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border',
+                                    isSelected
+                                      ? 'border-blue-500/25 bg-blue-500/15 text-blue-300'
+                                      : 'border-white/[0.06] bg-white/[0.04] text-white/40',
+                                  )}
+                                >
+                                  <IconRenderer name={profile.icon} size={14} />
+                                </span>
+                                <span className="min-w-0 flex-1">
+                                  <span className="block truncate text-[11px] font-semibold leading-tight text-white/90">
+                                    {profile.name}
+                                  </span>
+                                  <span className="mt-0.5 block truncate text-[9px] text-white/35">
+                                    {profile.pages.length} routes
+                                  </span>
+                                </span>
+                                {isSelected ? (
+                                  <span
+                                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-600"
+                                    aria-hidden
+                                  >
+                                    <Check size={10} className="text-white" />
+                                  </span>
+                                ) : null}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+                  {sourceQuery && blueprintMatchCount === 0 ? (
+                    <p className="px-1 py-6 text-center text-[11px] text-white/35">
+                      No templates match your search
+                    </p>
+                  ) : null}
+                </div>
               </div>
             ) : (
-              filteredPages.map((page) => {
-                const isChecked = selectedPages.includes(page.id)
-                return (
-                  <button
-                    key={page.id}
-                    onClick={() => togglePage(page.id)}
-                    className={cn(
-                      "w-full flex items-center gap-2 px-2.5 py-1.5 rounded text-left transition-colors border",
-                      isChecked 
-                        ? "bg-white/[0.03] border-white/5 text-white" 
-                        : "border-transparent text-white/40 hover:bg-white/[0.01]"
-                    )}
-                  >
-                    {isChecked ? (
-                      <CheckSquare size={13} className="text-blue-500 shrink-0" />
-                    ) : (
-                      <Square size={13} className="text-white/25 shrink-0" />
-                    )}
-                    <IconRenderer name={page.icon} size={11} className="shrink-0 opacity-60" />
-                    <div className="min-w-0 flex-1 flex items-baseline justify-between gap-2">
-                      <span className="text-[11px] font-bold truncate">{page.name}</span>
-                      <span className="text-[9px] font-mono opacity-40 select-all truncate">{page.route}</span>
-                    </div>
-                  </button>
-                )
-              })
+              <div
+                id={packsPanelId}
+                role="tabpanel"
+                aria-labelledby={`${packsPanelId}-tab`}
+                className="flex min-h-0 flex-1 flex-col"
+              >
+                <ArchPagePacksPicker
+                  showHeading={false}
+                  variant="onboarding"
+                  hideFilters
+                  searchQuery={sourceSearch}
+                />
+              </div>
             )}
           </div>
-
-          {/* Checklist counts footer */}
-          <div className="flex items-center justify-between text-[10px] text-white/30 px-1">
-            <span>{selectedPages.length} of {pagesList.length} pages selected</span>
-            {activeProfile && <span>Category: {activeProfile.name}</span>}
-          </div>
         </div>
+
+        {/* Right: sitemap pages (always visible) */}
+        <ArchSitemapPagesPanel
+          activeProfile={activeProfile}
+          pagesList={pagesList}
+          filteredPages={filteredPages}
+          selectedPages={selectedPages}
+          pageSearch={pageSearch}
+          setPageSearch={setPageSearch}
+          onTogglePage={togglePage}
+          onToggleAll={toggleAll}
+        />
       </div>
 
       {/* Navigation Actions */}
-      <div className="flex items-center justify-between border-t border-white/5 pt-3.5">
+      <div className="mt-3 flex shrink-0 items-center justify-between border-t border-white/5 pt-3.5">
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-[11px] font-bold text-white/45 hover:text-white transition-colors"
@@ -507,6 +582,184 @@ function ArchStep({
           Continue
           <ArrowRight size={13} />
         </button>
+      </div>
+    </div>
+  )
+}
+
+function ArchLeftSourceTab({
+  active,
+  onClick,
+  id,
+  controls,
+  icon: Icon,
+  label,
+  layout = 'vertical',
+  hint,
+}: {
+  active: boolean
+  onClick(): void
+  id: string
+  controls: string
+  icon: typeof LayoutTemplate
+  label: string
+  layout?: 'vertical' | 'horizontal'
+  hint?: string
+}) {
+  const isHorizontal = layout === 'horizontal'
+
+  return (
+    <button
+      type="button"
+      role="tab"
+      id={id}
+      aria-selected={active}
+      aria-controls={controls}
+      tabIndex={active ? 0 : -1}
+      onClick={onClick}
+      className={cn(
+        'rounded-md transition-colors duration-150',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-[#1E1F22]',
+        isHorizontal
+          ? cn(
+              'flex flex-1 min-w-0 items-center justify-center gap-1.5 px-2 py-2',
+              active
+                ? 'bg-blue-600/14 text-white ring-1 ring-inset ring-blue-500/25'
+                : 'text-white/50 hover:bg-white/[0.04] hover:text-white/75',
+            )
+          : cn(
+              'flex w-full items-center gap-2.5 px-2.5 py-2 text-left',
+              active
+                ? 'bg-blue-600/14 text-white ring-1 ring-inset ring-blue-500/25'
+                : 'text-white/50 hover:bg-white/[0.04] hover:text-white/75',
+            ),
+      )}
+    >
+      <span
+        className={cn(
+          'flex shrink-0 items-center justify-center rounded-md border transition-colors',
+          isHorizontal ? 'h-6 w-6' : 'h-7 w-7',
+          active
+            ? 'border-blue-500/25 bg-blue-500/15 text-blue-300'
+            : 'border-white/5 bg-white/[0.03] text-white/35',
+        )}
+      >
+        <Icon size={isHorizontal ? 12 : 13} strokeWidth={2.25} />
+      </span>
+      <span className={cn('min-w-0', isHorizontal ? 'text-center' : 'flex-1')}>
+        <span className="block text-[10.5px] font-bold leading-tight tracking-tight truncate">
+          {label}
+        </span>
+        {!isHorizontal && hint ? (
+          <span className={cn('block text-[9px] mt-0.5 truncate', active ? 'text-white/45' : 'text-white/25')}>
+            {hint}
+          </span>
+        ) : null}
+      </span>
+    </button>
+  )
+}
+
+type ArchProfileMeta = (typeof ARCH_PROFILES)[number]
+
+function ArchSitemapPagesPanel({
+  activeProfile,
+  pagesList,
+  filteredPages,
+  selectedPages,
+  pageSearch,
+  setPageSearch,
+  onTogglePage,
+  onToggleAll,
+}: {
+  activeProfile: ArchProfileMeta | null | undefined
+  pagesList: ArchProfileMeta['pages']
+  filteredPages: ArchProfileMeta['pages']
+  selectedPages: string[]
+  pageSearch: string
+  setPageSearch(val: string): void
+  onTogglePage(id: string): void
+  onToggleAll(): void
+}) {
+  const allSelected = pagesList.length > 0 && selectedPages.length === pagesList.length
+
+  return (
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2">
+      <div className="flex shrink-0 items-center justify-between gap-2">
+        <p className="text-[9.5px] font-bold uppercase tracking-wider text-white/40">Sitemap pages</p>
+        {activeProfile ? (
+          <span className="text-[9px] text-white/30 truncate max-w-[45%]">{activeProfile.name}</span>
+        ) : null}
+      </div>
+
+      <div className="flex shrink-0 items-center gap-2">
+        <div className="flex h-8 min-w-0 flex-1 items-center rounded-md border border-white/[0.08] bg-black/30 px-2">
+          <Search size={11} className="mr-1.5 shrink-0 text-white/35" aria-hidden />
+          <input
+            type="search"
+            placeholder="Filter routes…"
+            value={pageSearch}
+            onChange={(e) => setPageSearch(e.target.value)}
+            aria-label="Filter sitemap routes"
+            className="w-full min-w-0 bg-transparent text-[11px] text-white outline-none placeholder:text-white/25 focus-visible:ring-0"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={onToggleAll}
+          disabled={pagesList.length === 0}
+          className="h-8 shrink-0 rounded-md border border-white/10 px-2.5 text-[10px] font-bold text-white/60 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/35 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {allSelected ? 'Deselect all' : 'Select all'}
+        </button>
+      </div>
+
+      <div className="min-h-0 flex-1 space-y-1 overflow-y-auto rounded-lg border border-white/[0.06] bg-black/15 p-2 app-scroll">
+        {pagesList.length === 0 ? (
+          <div className="flex min-h-[8rem] h-full flex-col items-center justify-center p-4 text-center">
+            <p className="text-[11px] text-white/40">Choose a blueprint on the left to load routes</p>
+          </div>
+        ) : filteredPages.length === 0 ? (
+          <div className="flex min-h-[8rem] h-full flex-col items-center justify-center p-4 text-center">
+            <p className="text-[11px] text-white/40">No routes match this filter</p>
+          </div>
+        ) : (
+          filteredPages.map((page) => {
+            const isChecked = selectedPages.includes(page.id)
+            return (
+              <button
+                key={page.id}
+                type="button"
+                onClick={() => onTogglePage(page.id)}
+                aria-pressed={isChecked}
+                className={cn(
+                  'flex w-full items-center gap-2 rounded-md border px-2.5 py-1.5 text-left transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/35',
+                  isChecked
+                    ? 'border-white/10 bg-white/[0.05] text-white'
+                    : 'border-transparent text-white/45 hover:bg-white/[0.03]',
+                )}
+              >
+                {isChecked ? (
+                  <CheckSquare size={13} className="text-blue-500 shrink-0" />
+                ) : (
+                  <Square size={13} className="text-white/25 shrink-0" />
+                )}
+                <IconRenderer name={page.icon} size={11} className="shrink-0 opacity-60" />
+                <div className="min-w-0 flex-1 flex items-baseline justify-between gap-2">
+                  <span className="text-[11px] font-bold truncate">{page.name}</span>
+                  <span className="text-[9px] font-mono opacity-40 truncate shrink-0">{page.route}</span>
+                </div>
+              </button>
+            )
+          })
+        )}
+      </div>
+
+      <div className="flex shrink-0 items-center justify-between text-[10px] text-white/30 px-0.5">
+        <span>
+          {selectedPages.length} of {pagesList.length} selected
+        </span>
       </div>
     </div>
   )

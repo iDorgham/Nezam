@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "variants": [
+    { "id": "default", "label": "Primary", "shadcn": "default" },
+    { "id": "secondary", "label": "Secondary", "shadcn": "secondary" },
+    { "id": "outline", "label": "Outline", "shadcn": "outline" },
+    { "id": "ghost", "label": "Ghost", "shadcn": "ghost" },
+    { "id": "destructive", "label": "Destructive", "shadcn": "destructive" }
+  ],
+  "sizes": [
+    { "id": "sm", "label": "Small" },
+    { "id": "default", "label": "Default" },
+    { "id": "lg", "label": "Large" }
+  ]
+}

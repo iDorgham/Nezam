@@ -1,10 +1,15 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo, Sparkles } from 'lucide-react'
+import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
+import { MicroServicesServerRack } from '@/components/arch/MicroServicesServerRack'
+import { ArchCanvasContextMenu, type ArchCanvasMenuState } from '@/components/arch/ArchCanvasContextMenu'
+import { compareSitemapSiblings, getAppRoots } from '@/lib/arch/page-tree'
+import { menuPlacementLabel } from '@/lib/arch/migrate-legacy-nav-menus'
+import { isEditableTarget } from '@/lib/design-hub/keyboard'
 import type { ArchPage, ServiceKind } from '@/types/arch'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -65,6 +70,7 @@ const PAGE_TYPE_BADGE: Record<ArchPage['type'], string> = {
   page:     'text-app-subtle',
   subpage:  'text-slate-500 dark:text-slate-400',
   section:  'text-emerald-600 dark:text-emerald-400',
+  service:  'text-cyan-600 dark:text-cyan-400',
   group:    'text-amber-600 dark:text-amber-400',
   modal:    'text-purple-600 dark:text-purple-400',
   redirect: 'text-rose-600 dark:text-rose-400',
@@ -79,6 +85,7 @@ const LEVEL_STYLES: Record<
   page:     { border: 'border-app-border', bg: 'bg-app-surface', textClass: 'text-app-text', indicatorClass: 'bg-slate-300 dark:bg-slate-700' },
   subpage:  { border: 'border-app-border-subtle', bg: 'bg-app-bg/40 dark:bg-white/5', textClass: 'text-app-subtle', indicatorClass: 'bg-slate-200 dark:bg-slate-800' },
   section:  { border: 'border-dashed border-emerald-500/30', bg: 'bg-emerald-50/30 dark:bg-emerald-950/8', textClass: 'text-emerald-700 dark:text-emerald-300', indicatorClass: 'bg-emerald-500' },
+  service:  { border: 'border-cyan-500/30', bg: 'bg-cyan-50/40 dark:bg-cyan-950/15', textClass: 'text-cyan-700 dark:text-cyan-300', indicatorClass: 'bg-cyan-500' },
   group:    { border: 'border-amber-500/20', bg: 'bg-amber-50/30 dark:bg-amber-950/10', textClass: 'text-amber-700 dark:text-amber-300', indicatorClass: 'bg-amber-500' },
   modal:    { border: 'border-purple-500/20', bg: 'bg-purple-50/30 dark:bg-purple-950/10', textClass: 'text-purple-700 dark:text-purple-300', indicatorClass: 'bg-purple-500' },
   redirect: { border: 'border-rose-500/20', bg: 'bg-rose-50/30 dark:bg-rose-950/10', textClass: 'text-rose-700 dark:text-rose-300', indicatorClass: 'bg-rose-500' },
@@ -97,20 +104,89 @@ const ZOOM_STEP = 0.15
 
 // ─── Tree builder ─────────────────────────────────────────────────────────────
 
-function buildTree(pages: Record<string, ArchPage>, parentId: string | null, depth: number): TreeNode[] {
+function buildAppTree(
+  pages: Record<string, ArchPage>,
+  parentId: string,
+  depth: number,
+): TreeNode[] {
   return Object.values(pages)
-    .filter((p) => p.parentId === parentId)
-    .sort((a, b) => a.order - b.order)
+    .filter((p) => p.parentId === parentId && p.type !== 'service')
+    .sort(compareSitemapSiblings)
     .map((page) => ({
       page,
-      children: buildTree(pages, page.id, depth + 1),
+      children: buildAppTree(pages, page.id, depth + 1),
       depth,
     }))
 }
 
+/** Application roots (app + group) for sitemap canvas — matches left tree. */
+function buildAppForest(pages: Record<string, ArchPage>): TreeNode[] {
+  return getAppRoots(pages).map((page) => ({
+    page,
+    children: buildAppTree(pages, page.id, 1),
+    depth: 0,
+  }))
+}
+
+// ─── Wired service bubbles ───────────────────────────────────────────────────
+
+function WiredServiceBubbles({ page }: { page: ArchPage }) {
+  const pages = useHub((s) => s.arch.pages)
+  const wired = page.wiredServiceIds ?? []
+  if (wired.length === 0 && page.services?.length) {
+    return (
+      <div className="absolute -top-2 right-2 flex gap-0.5">
+        {page.services.map((svc) => {
+          const spec = SERVICE_METRICS[svc]
+          if (!spec) return null
+          return (
+            <span
+              key={svc}
+              className="flex h-3.5 w-3.5 items-center justify-center rounded-full text-[7.5px] font-bold border font-mono tracking-wide shadow-app-sm bg-app-surface"
+              style={{ borderColor: spec.dot, color: spec.color }}
+              title={`${spec.label} (legacy wire)`}
+            >
+              {spec.label[0]}
+            </span>
+          )
+        })}
+      </div>
+    )
+  }
+  if (!wired.length) return null
+  return (
+    <div className="absolute -top-2 right-2 flex gap-0.5 max-w-[72px] flex-wrap justify-end">
+      {wired.map((id) => {
+        const svcPage = pages[id]
+        if (!svcPage) return null
+        const kind = svcPage.serviceKind ?? 'api'
+        const spec = SERVICE_METRICS[kind]
+        return (
+          <span
+            key={id}
+            className="flex h-3.5 min-w-[14px] px-0.5 items-center justify-center rounded-full text-[7px] font-bold border font-mono tracking-wide shadow-app-sm bg-app-surface"
+            style={{ borderColor: spec.dot, color: spec.color }}
+            title={svcPage.name}
+          >
+            {svcPage.name.charAt(0).toUpperCase()}
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
 // ─── Page card ────────────────────────────────────────────────────────────────
 
-function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) {
+function PageCard({
+  node,
+  onSelect,
+  onContextMenu,
+}: {
+  node: TreeNode
+  onSelect: () => void
+  onContextMenu: (pageId: string, e: React.MouseEvent) => void
+}) {
   const selectedId     = useHub((s) => s.arch.selectedPageId)
   const archSelectPage = useHub((s) => s.archSelectPage)
   const archAddPage    = useHub((s) => s.archAddPage)
@@ -130,13 +206,18 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
       {/* Card */}
       <div
         onClick={handleClick}
+        onContextMenu={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          onContextMenu(node.page.id, e)
+        }}
         data-page-id={node.page.id}
         className={cn(
-          'group relative flex w-40 cursor-pointer flex-col gap-2 rounded-xl border p-3.5 transition-all duration-150 select-none',
+          'group relative flex w-40 cursor-pointer flex-col gap-2 rounded-app border p-3.5 transition-all duration-150 select-none',
           levelStyle.border,
           isSelected
-            ? 'shadow-lg border-app-accent bg-app-accent-subtle/10'
-            : cn('hover:border-app-border-strong hover:shadow-md', levelStyle.bg),
+            ? 'shadow-app border-app-accent bg-app-accent-subtle/10'
+            : cn('hover:border-app-border-strong hover:shadow-app-sm', levelStyle.bg),
         )}
         style={
           isSelected
@@ -154,32 +235,12 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
         />
 
         {/* Dynamic Microservice Bindings indicator bubbles */}
-        {node.page.services && node.page.services.length > 0 && (
-          <div className="absolute -top-2 right-2 flex gap-0.5">
-            {node.page.services.map((svc) => {
-              const spec = SERVICE_METRICS[svc]
-              if (!spec) return null
-              return (
-                <span
-                  key={svc}
-                  className="flex h-3.5 w-3.5 items-center justify-center rounded-full text-[7.5px] font-bold border font-mono tracking-wide shadow-sm bg-app-surface"
-                  style={{
-                    borderColor: spec.dot,
-                    color: spec.color,
-                  }}
-                  title={`${spec.label} microservice integration active on this page`}
-                >
-                  {spec.label[0]}
-                </span>
-              )
-            })}
-          </div>
-        )}
+        <WiredServiceBubbles page={node.page} />
 
         {/* Icon + type badge */}
         <div className="flex items-center justify-between pl-1">
           <div
-            className={cn("flex h-7 w-7 items-center justify-center rounded-lg", slotStyle.bgClass)}
+            className={cn("flex h-7 w-7 items-center justify-center rounded-app-sm", slotStyle.bgClass)}
           >
             <IconRenderer
               name={node.page.icon}
@@ -202,23 +263,35 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
           {node.page.route}
         </p>
 
-        {/* Nav slot badge */}
-        <div 
-          className="flex items-center gap-1 pl-1"
-          title={`Anchored to ${slotStyle.label} navigation placement`}
-        >
-          <span
-            className={cn("inline-block h-1.5 w-1.5 rounded-full", slotStyle.dotClass)}
-          />
-          <span className={cn("text-[9.5px] font-medium", slotStyle.textClass)}>
-            {slotStyle.label}
-          </span>
-        </div>
+        {/* Nav menu placement vs page shell slot */}
+        {node.page.type === 'navmenu' ? (
+          <div
+            className="flex items-center gap-1 pl-1"
+            title="Menu drives header and/or sidebar from one tree"
+          >
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500 dark:bg-violet-400" />
+            <span className="text-[9.5px] font-medium text-violet-700 dark:text-violet-300">
+              {menuPlacementLabel(node.page.menuPlacement)}
+            </span>
+          </div>
+        ) : (
+          <div
+            className="flex items-center gap-1 pl-1"
+            title={`Shell placement: ${slotStyle.label}`}
+          >
+            <span
+              className={cn('inline-block h-1.5 w-1.5 rounded-full', slotStyle.dotClass)}
+            />
+            <span className={cn('text-[9.5px] font-medium', slotStyle.textClass)}>
+              {slotStyle.label}
+            </span>
+          </div>
+        )}
 
         {/* Add child button — appears on hover */}
         {node.page.type !== 'section' && (
           <button
-            className="absolute -bottom-3 left-1/2 z-10 hidden h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full bg-app-accent text-white shadow-lg transition-transform hover:scale-110 group-hover:flex"
+            className="absolute -bottom-3 left-1/2 z-10 hidden h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full bg-app-accent text-white shadow-app transition-transform hover:scale-110 group-hover:flex"
             title={`Add a new child page nested under ${node.page.name}`}
             onClick={(e) => {
               e.stopPropagation()
@@ -241,7 +314,7 @@ function PageCard({ node, onSelect }: { node: TreeNode; onSelect: () => void }) 
             {node.children.map((child) => (
               <div key={child.page.id} className="flex flex-col items-center">
                 <div className="w-px h-5" />
-                <PageCard node={child} onSelect={onSelect} />
+                <PageCard node={child} onSelect={onSelect} onContextMenu={onContextMenu} />
               </div>
             ))}
           </div>
@@ -275,7 +348,7 @@ function CanvasToolbar({
   onRedo(): void
 }) {
   return (
-    <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 rounded-xl border border-app-border bg-app-surface/90 px-2 py-1.5 shadow-lg backdrop-blur-md">
+    <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 rounded-app border border-app-border bg-app-surface/90 px-2 py-1.5 shadow-app">
       {/* Zoom out */}
       <ToolBtn onClick={onZoomOut} disabled={zoom <= ZOOM_MIN} title="Zoom out to view more of the architecture sitemap canvas">
         <ZoomOut size={12} />
@@ -344,7 +417,7 @@ function ToolBtn({
       disabled={disabled}
       title={title}
       className={cn(
-        'flex h-6 w-6 items-center justify-center rounded-lg text-app-muted transition-all duration-100',
+        'flex h-6 w-6 items-center justify-center rounded-app-sm text-app-muted transition-all duration-150',
         disabled
           ? 'opacity-30 cursor-not-allowed'
           : 'hover:text-app-text hover:bg-app-elevated',
@@ -359,7 +432,7 @@ function ToolBtn({
 
 function NavLegend() {
   return (
-    <div className="absolute bottom-3 left-3 z-20 flex items-center gap-3 rounded-xl border border-app-border bg-app-surface/90 px-3 py-2 shadow-lg backdrop-blur-md">
+    <div className="absolute bottom-3 left-3 z-20 flex items-center gap-3 rounded-app border border-app-border bg-app-surface/90 px-3 py-2 shadow-app">
       {Object.values(NAV_SLOT_COLOR).map((slot) => (
         <div key={slot.label} className="flex items-center gap-1.5">
           <span className={cn("h-2 w-2 rounded-full", slot.dotClass)} />
@@ -378,7 +451,7 @@ function EmptyState({ onAdd }: { onAdd(): void }) {
       <div className="flex flex-col items-center gap-4 text-center max-w-sm">
         {/* Icon */}
         <div
-          className="flex h-16 w-16 items-center justify-center rounded-2xl"
+          className="flex h-16 w-16 items-center justify-center rounded-app-lg"
           style={{ background: 'rgba(38,128,235,0.1)', border: '1px solid rgba(38,128,235,0.2)' }}
         >
           <LayoutGrid size={28} className="text-app-accent opacity-70" />
@@ -414,17 +487,29 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   const [connections, setConnections] = useState<Array<{ fromX: number; fromY: number; toX: number; toY: number; color: string; serviceKind: ServiceKind }>>([])
   const [treeLines, setTreeLines] = useState<Array<{ pathD: string }>>([])
   const [hoveredService, setHoveredService] = useState<ServiceKind | null>(null)
-  
+  const [contextMenu, setContextMenu] = useState<ArchCanvasMenuState>(null)
+
   const contentRef   = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const roots    = buildTree(pages, null, 0)
-  const isEmpty  = roots.length === 0
-  const pageCount = Object.keys(pages).length
+  const appRoots = buildAppForest(pages)
+  const isEmpty =
+    appRoots.length === 0 &&
+    getAppRoots(pages).length === 0 &&
+    Object.keys(pages).length === 0
+  const pageCount = Object.values(pages).filter((p) => p.type !== 'service').length
 
   const zoomIn  = useCallback(() => setZoom((z) => Math.min(+(z + ZOOM_STEP).toFixed(2), ZOOM_MAX)), [])
   const zoomOut = useCallback(() => setZoom((z) => Math.max(+(z - ZOOM_STEP).toFixed(2), ZOOM_MIN)), [])
   const fitZoom = useCallback(() => setZoom(1), [])
+
+  const openPageContextMenu = useCallback((pageId: string, e: React.MouseEvent) => {
+    setContextMenu({ kind: 'page', pageId, x: e.clientX, y: e.clientY })
+  }, [])
+
+  const openCanvasContextMenu = useCallback((e: React.MouseEvent) => {
+    setContextMenu({ kind: 'canvas', x: e.clientX, y: e.clientY })
+  }, [])
 
   // Dynamic service and tree connections calculations
   const updateWires = useCallback(() => {
@@ -527,28 +612,33 @@ export function SitemapCanvas({ onSelectPage }: Props) {
       }
     })
 
-    // 2. Microservice connections
+    // 2. Microservice connections (instance ids)
     Object.values(pages).forEach((pg) => {
-      if (pg.services && pg.services.length > 0) {
-        const cardEl = contentRef.current?.querySelector(`[data-page-id="${pg.id}"]`)
-        if (cardEl) {
-          const cardRect = cardEl.getBoundingClientRect()
-          const fromX = cardRect.left + cardRect.width / 2 - containerRect.left
-          const fromY = cardRect.bottom - containerRect.top
+      if (pg.type === 'service') return
+      const wireIds =
+        pg.wiredServiceIds && pg.wiredServiceIds.length > 0
+          ? pg.wiredServiceIds
+          : []
+      if (!wireIds.length) return
 
-          pg.services.forEach((svc) => {
-            const svcEl = containerRef.current?.querySelector(`[data-service-id="${svc}"]`)
-            if (svcEl) {
-              const svcRect = svcEl.getBoundingClientRect()
-              const toX = svcRect.left + svcRect.width / 2 - containerRect.left
-              const toY = svcRect.top - containerRect.top
+      const cardEl = contentRef.current?.querySelector(`[data-page-id="${pg.id}"]`)
+      if (!cardEl) return
 
-              const color = SERVICE_METRICS[svc]?.color ?? '#38bdf8'
-              newConnections.push({ fromX, fromY, toX, toY, color, serviceKind: svc })
-            }
-          })
-        }
-      }
+      const cardRect = cardEl.getBoundingClientRect()
+      const fromX = cardRect.left + cardRect.width / 2 - containerRect.left
+      const fromY = cardRect.bottom - containerRect.top
+
+      wireIds.forEach((svcId) => {
+        const svcPage = pages[svcId]
+        const svcEl = containerRef.current?.querySelector(`[data-service-id="${svcId}"]`)
+        if (!svcEl || !svcPage) return
+        const svcRect = svcEl.getBoundingClientRect()
+        const toX = svcRect.left + svcRect.width / 2 - containerRect.left
+        const toY = svcRect.top - containerRect.top
+        const kind = svcPage.serviceKind ?? 'api'
+        const color = SERVICE_METRICS[kind]?.color ?? '#38bdf8'
+        newConnections.push({ fromX, fromY, toX, toY, color, serviceKind: kind })
+      })
     })
 
     setConnections(newConnections)
@@ -583,16 +673,7 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   // Keyboard shortcuts
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      const activeEl = document.activeElement
-      if (
-        activeEl &&
-        (activeEl.tagName === 'INPUT' ||
-          activeEl.tagName === 'TEXTAREA' ||
-          activeEl.tagName === 'SELECT' ||
-          activeEl.getAttribute('contenteditable') === 'true')
-      ) {
-        return
-      }
+      if (isEditableTarget(document.activeElement)) return
 
       // Undo / Redo
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
@@ -714,8 +795,18 @@ export function SitemapCanvas({ onSelectPage }: Props) {
         </svg>
       )}
 
+      <ArchCanvasContextMenu menu={contextMenu} onClose={() => setContextMenu(null)} />
+
       {/* Scrollable zoom container */}
-      <div className="h-full overflow-auto app-scroll" onScroll={updateWires}>
+      <div
+        className="h-full overflow-auto app-scroll"
+        onScroll={updateWires}
+        onContextMenu={(e) => {
+          if ((e.target as HTMLElement).closest('[data-page-id]')) return
+          e.preventDefault()
+          openCanvasContextMenu(e)
+        }}
+      >
         <div
           style={{
             position: 'relative',
@@ -727,11 +818,22 @@ export function SitemapCanvas({ onSelectPage }: Props) {
           }}
           ref={contentRef}
         >
+          <MicroServicesServerRack onSelectPage={onSelectPage} />
           {isEmpty ? (
             <EmptyState onAdd={() => archAddPage(null)} />
+          ) : appRoots.length === 0 ? (
+            <div className="rounded-app border border-dashed border-app-border px-6 py-8 text-center">
+              <p className="text-[11px] text-app-subtle">No applications yet.</p>
+              <button
+                type="button"
+                className="mt-2 text-[11px] font-semibold text-app-accent hover:underline"
+                onClick={() => archAddPage(null)}
+              >
+                + Add application
+              </button>
+            </div>
           ) : (
             <>
-              {/* Dynamic SVG Tree Connection Layer */}
               <svg className="absolute inset-0 pointer-events-none w-full h-full z-0 overflow-visible">
                 {treeLines.map((line, idx) => (
                   <path
@@ -745,56 +847,19 @@ export function SitemapCanvas({ onSelectPage }: Props) {
                 ))}
               </svg>
               <div className="flex flex-wrap gap-16 justify-start items-start relative z-10">
-                {roots.map((root) => (
-                  <PageCard key={root.page.id} node={root} onSelect={onSelectPage} />
+                {appRoots.map((root) => (
+                  <PageCard
+                    key={root.page.id}
+                    node={root}
+                    onSelect={onSelectPage}
+                    onContextMenu={openPageContextMenu}
+                  />
                 ))}
               </div>
             </>
           )}
         </div>
       </div>
-
-      {/* Microservices Hub Panel at the bottom-right */}
-      {!isEmpty && (
-        <div className="absolute bottom-16 right-3 z-20 flex flex-col gap-2 rounded-xl border border-app-border bg-app-surface/90 p-3 shadow-lg backdrop-blur-md w-52 select-none">
-          <div className="flex flex-col gap-0.5 border-b border-app-border pb-1">
-            <div className="flex items-center gap-1.5">
-              <Sparkles size={11} className="text-app-accent animate-pulse" />
-              <p className="text-[9.5px] font-bold text-app-subtle uppercase tracking-wider">
-                Backend Services Hub
-              </p>
-            </div>
-            <p className="text-[8px] text-app-subtle leading-normal">
-              Hover over a service to highlight network integrations on the canvas wires.
-            </p>
-          </div>
-            {Object.entries(SERVICE_METRICS).map(([kind, spec]) => {
-              const isHovered = hoveredService === kind
-              return (
-                <div
-                  key={kind}
-                  data-service-id={kind}
-                  onMouseEnter={() => setHoveredService(kind as ServiceKind)}
-                  onMouseLeave={() => setHoveredService(null)}
-                  className={cn(
-                    "flex items-center justify-between rounded-lg border px-2.5 py-1.5 transition-all cursor-pointer select-none",
-                    isHovered
-                      ? "border-app-accent bg-app-accent-subtle/15 shadow-sm scale-[1.02]"
-                      : "border-app-border/40 bg-app-elevated/45 hover:border-app-accent/30"
-                  )}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ backgroundColor: spec.dot }} />
-                    <span className="text-[10px] text-app-text font-medium">{spec.label}</span>
-                  </div>
-                  <span className="text-[8px] font-mono text-app-subtle font-semibold opacity-70">
-                    service
-                  </span>
-                </div>
-              )
-            })}
-        </div>
-      )}
 
       {/* Nav slot legend */}
       {!isEmpty && <NavLegend />}

@@ -1,0 +1,3059 @@
+{
+  "version": 1,
+  "generatedAt": "2026-05-27T20:59:21.708Z",
+  "categories": [
+    {
+      "id": "baas",
+      "label": "BaaS & Databases"
+    },
+    {
+      "id": "auth",
+      "label": "Authentication"
+    },
+    {
+      "id": "payments_mena",
+      "label": "Payments (MENA)"
+    },
+    {
+      "id": "payments_global",
+      "label": "Payments (Global)"
+    },
+    {
+      "id": "payments_egypt",
+      "label": "Payments (Egypt)"
+    },
+    {
+      "id": "search",
+      "label": "Search & Discovery"
+    },
+    {
+      "id": "storage",
+      "label": "Storage & CDN"
+    },
+    {
+      "id": "ai_llm",
+      "label": "AI & LLM"
+    },
+    {
+      "id": "email",
+      "label": "Email & Messaging"
+    },
+    {
+      "id": "analytics",
+      "label": "Analytics & Product"
+    },
+    {
+      "id": "hosting",
+      "label": "Hosting & Deploy"
+    },
+    {
+      "id": "monitoring",
+      "label": "Monitoring & Observability"
+    },
+    {
+      "id": "cms",
+      "label": "CMS & Content"
+    },
+    {
+      "id": "cache_realtime",
+      "label": "Cache & Realtime"
+    },
+    {
+      "id": "secrets",
+      "label": "Secrets & Config"
+    },
+    {
+      "id": "automation",
+      "label": "Automation & Jobs"
+    },
+    {
+      "id": "devtools",
+      "label": "Developer Tools"
+    }
+  ],
+  "providers": [
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Supabase — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-supabase-architect"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Free tier + usage",
+      "difficulty": "beginner",
+      "serviceKind": "database",
+      "simpleIconSlug": "supabase",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://supabase.com/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-supabase-architect/SKILL.md",
+      "ownerAgent": "lead-database-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Supabase dashboard (https://supabase.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): SUPABASE_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-supabase-architect/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "SUPABASE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Supabase (supabase) for Persistence, Migrations, Backups. Owner agent: lead-database-architect. Read https://supabase.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"supabase\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "supabase-auth",
+      "name": "Supabase Auth",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Supabase Auth — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Sign-in",
+        "Sessions",
+        "RBAC"
+      ],
+      "pricing": "Included with Supabase",
+      "difficulty": "beginner",
+      "serviceKind": "auth",
+      "simpleIconSlug": "supabase",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://supabase.com/docs/guides/auth",
+      "ownerAgent": "auth-security-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Supabase Auth dashboard (https://supabase.com/docs/guides/auth).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): SUPABASE_AUTH_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "SUPABASE_AUTH_API_KEY",
+          "SUPABASE_AUTH_SECRET"
+        ],
+        "agentPrompt": "Integrate Supabase Auth (supabase-auth) for Sign-in, Sessions, RBAC. Owner agent: auth-security-manager. Read https://supabase.com/docs/guides/auth and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "supabase-realtime",
+      "name": "Supabase Realtime",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Supabase Realtime — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Included with Supabase",
+      "difficulty": "intermediate",
+      "serviceKind": "database",
+      "simpleIconSlug": "supabase",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://supabase.com/docs/guides/realtime",
+      "ownerAgent": "real-time-streaming-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Supabase Realtime dashboard (https://supabase.com/docs/guides/realtime).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): SUPABASE_REALTIME_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "SUPABASE_REALTIME_API_KEY"
+        ],
+        "agentPrompt": "Integrate Supabase Realtime (supabase-realtime) for Persistence, Migrations, Backups. Owner agent: real-time-streaming-specialist. Read https://supabase.com/docs/guides/realtime and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "neon",
+      "name": "Neon Postgres",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Neon Postgres — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-neon-postgres"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Free tier + compute",
+      "difficulty": "beginner",
+      "serviceKind": "database",
+      "simpleIconSlug": "neon",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://neon.tech/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-neon-postgres/SKILL.md",
+      "ownerAgent": "neon-database-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Neon Postgres dashboard (https://neon.tech/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): NEON_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-neon-postgres/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "NEON_API_KEY"
+        ],
+        "agentPrompt": "Integrate Neon Postgres (neon) for Persistence, Migrations, Backups. Owner agent: neon-database-architect. Read https://neon.tech/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"neon\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "planetscale",
+      "name": "PlanetScale",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "PlanetScale — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Hobby + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "database",
+      "simpleIconSlug": "planetscale",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://planetscale.com/docs",
+      "ownerAgent": "lead-database-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the PlanetScale dashboard (https://planetscale.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PLANETSCALE_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "PLANETSCALE_API_KEY"
+        ],
+        "agentPrompt": "Integrate PlanetScale (planetscale) for Persistence, Migrations, Backups. Owner agent: lead-database-architect. Read https://planetscale.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "firebase",
+      "name": "Firebase",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Firebase — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-firebase"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Spark free + Blaze",
+      "difficulty": "beginner",
+      "serviceKind": "database",
+      "simpleIconSlug": "firebase",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://firebase.google.com/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-firebase/SKILL.md",
+      "ownerAgent": "lead-backend-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Firebase dashboard (https://firebase.google.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): FIREBASE_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-firebase/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "FIREBASE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Firebase (firebase) for Persistence, Migrations, Backups. Owner agent: lead-backend-architect. Read https://firebase.google.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"firebase\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "mongodb-atlas",
+      "name": "MongoDB Atlas",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "MongoDB Atlas — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Free M0 + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "database",
+      "simpleIconSlug": "mongodb",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://www.mongodb.com/docs/atlas",
+      "ownerAgent": "nosql-expert",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the MongoDB Atlas dashboard (https://www.mongodb.com/docs/atlas).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): MONGODB_ATLAS_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "MONGODB_ATLAS_API_KEY"
+        ],
+        "agentPrompt": "Integrate MongoDB Atlas (mongodb-atlas) for Persistence, Migrations, Backups. Owner agent: nosql-expert. Read https://www.mongodb.com/docs/atlas and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "drizzle-orm",
+      "name": "Drizzle ORM",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Drizzle ORM — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-drizzle-orm"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Open source",
+      "difficulty": "intermediate",
+      "serviceKind": "database",
+      "simpleIconSlug": "drizzle",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://orm.drizzle.team/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-drizzle-orm/SKILL.md",
+      "ownerAgent": "lead-database-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Drizzle ORM dashboard (https://orm.drizzle.team/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): DRIZZLE_ORM_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-drizzle-orm/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "DRIZZLE_ORM_API_KEY"
+        ],
+        "agentPrompt": "Integrate Drizzle ORM (drizzle-orm) for Persistence, Migrations, Backups. Owner agent: lead-database-architect. Read https://orm.drizzle.team/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g drizzle-orm  # or use npx drizzle-orm",
+          "usage": "drizzle-orm --help"
+        }
+      }
+    },
+    {
+      "id": "prisma",
+      "name": "Prisma",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Prisma — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-prisma-orm"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Open source + platform",
+      "difficulty": "intermediate",
+      "serviceKind": "database",
+      "simpleIconSlug": "prisma",
+      "hasCli": true,
+      "hasMcp": true,
+      "docsUrl": "https://www.prisma.io/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-prisma-orm/SKILL.md",
+      "ownerAgent": "lead-database-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Prisma dashboard (https://www.prisma.io/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PRISMA_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-prisma-orm/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "PRISMA_API_KEY"
+        ],
+        "agentPrompt": "Integrate Prisma (prisma) for Persistence, Migrations, Backups. Owner agent: lead-database-architect. Read https://www.prisma.io/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"prisma\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        },
+        "cli": {
+          "install": "npm install -g prisma  # or use npx prisma",
+          "usage": "prisma --help"
+        }
+      }
+    },
+    {
+      "id": "aiven",
+      "name": "Aiven",
+      "categoryId": "baas",
+      "categoryLabel": "BaaS & Databases",
+      "description": "Aiven — BaaS & Databases integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Trial + usage",
+      "difficulty": "advanced",
+      "serviceKind": "database",
+      "simpleIconSlug": "aiven",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://aiven.io/docs",
+      "ownerAgent": "lead-database-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Aiven dashboard (https://aiven.io/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): AIVEN_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "AIVEN_API_KEY"
+        ],
+        "agentPrompt": "Integrate Aiven (aiven) for Persistence, Migrations, Backups. Owner agent: lead-database-architect. Read https://aiven.io/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "clerk",
+      "name": "Clerk",
+      "categoryId": "auth",
+      "categoryLabel": "Authentication",
+      "description": "Clerk — Authentication integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-clerk-auth"
+      ],
+      "useCases": [
+        "Sign-in",
+        "Sessions",
+        "RBAC"
+      ],
+      "pricing": "Free dev + MAU",
+      "difficulty": "beginner",
+      "serviceKind": "auth",
+      "simpleIconSlug": "clerk",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://clerk.com/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-clerk-auth/SKILL.md",
+      "ownerAgent": "auth-security-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Clerk dashboard (https://clerk.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): CLERK_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-clerk-auth/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "CLERK_API_KEY",
+          "CLERK_SECRET"
+        ],
+        "agentPrompt": "Integrate Clerk (clerk) for Sign-in, Sessions, RBAC. Owner agent: auth-security-manager. Read https://clerk.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"clerk\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "auth0",
+      "name": "Auth0",
+      "categoryId": "auth",
+      "categoryLabel": "Authentication",
+      "description": "Auth0 — Authentication integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Sign-in",
+        "Sessions",
+        "RBAC"
+      ],
+      "pricing": "Free tier + B2B",
+      "difficulty": "intermediate",
+      "serviceKind": "auth",
+      "simpleIconSlug": "auth0",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://auth0.com/docs",
+      "ownerAgent": "auth-security-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Auth0 dashboard (https://auth0.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): AUTH0_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "AUTH0_API_KEY",
+          "AUTH0_SECRET"
+        ],
+        "agentPrompt": "Integrate Auth0 (auth0) for Sign-in, Sessions, RBAC. Owner agent: auth-security-manager. Read https://auth0.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"auth0\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "nextauth",
+      "name": "NextAuth.js",
+      "categoryId": "auth",
+      "categoryLabel": "Authentication",
+      "description": "NextAuth.js — Authentication integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Sign-in",
+        "Sessions",
+        "RBAC"
+      ],
+      "pricing": "Open source",
+      "difficulty": "intermediate",
+      "serviceKind": "auth",
+      "simpleIconSlug": "nextdotjs",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://authjs.dev",
+      "ownerAgent": "nextjs-app-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the NextAuth.js dashboard (https://authjs.dev).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): NEXTAUTH_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "NEXTAUTH_API_KEY",
+          "NEXTAUTH_SECRET"
+        ],
+        "agentPrompt": "Integrate NextAuth.js (nextauth) for Sign-in, Sessions, RBAC. Owner agent: nextjs-app-architect. Read https://authjs.dev and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "lucia",
+      "name": "Lucia Auth",
+      "categoryId": "auth",
+      "categoryLabel": "Authentication",
+      "description": "Lucia Auth — Authentication integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Sign-in",
+        "Sessions",
+        "RBAC"
+      ],
+      "pricing": "Open source",
+      "difficulty": "advanced",
+      "serviceKind": "auth",
+      "simpleIconSlug": "lucia",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://lucia-auth.com",
+      "ownerAgent": "auth-security-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Lucia Auth dashboard (https://lucia-auth.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): LUCIA_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "LUCIA_API_KEY",
+          "LUCIA_SECRET"
+        ],
+        "agentPrompt": "Integrate Lucia Auth (lucia) for Sign-in, Sessions, RBAC. Owner agent: auth-security-manager. Read https://lucia-auth.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "paymob",
+      "name": "Paymob",
+      "categoryId": "payments_mena",
+      "categoryLabel": "Payments (MENA)",
+      "description": "Paymob — Payments (MENA) integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-mena-payment-routing"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Per transaction",
+      "difficulty": "intermediate",
+      "serviceKind": "payment",
+      "simpleIconSlug": "paymob",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developers.paymob.com",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-mena-payment-routing/SKILL.md",
+      "ownerAgent": "mena-payments-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Paymob dashboard (https://developers.paymob.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PAYMOB_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-mena-payment-routing/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "PAYMOB_API_KEY"
+        ],
+        "agentPrompt": "Integrate Paymob (paymob) for Checkout, Subscriptions, Invoicing. Owner agent: mena-payments-specialist. Read https://developers.paymob.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "fawry",
+      "name": "Fawry",
+      "categoryId": "payments_mena",
+      "categoryLabel": "Payments (MENA)",
+      "description": "Fawry — Payments (MENA) integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Per transaction",
+      "difficulty": "intermediate",
+      "serviceKind": "payment",
+      "simpleIconSlug": "fawry",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://www.fawry.com/developers",
+      "ownerAgent": "mena-payments-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Fawry dashboard (https://www.fawry.com/developers).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): FAWRY_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "FAWRY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Fawry (fawry) for Checkout, Subscriptions, Invoicing. Owner agent: mena-payments-specialist. Read https://www.fawry.com/developers and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "tap-payments",
+      "name": "Tap Payments",
+      "categoryId": "payments_mena",
+      "categoryLabel": "Payments (MENA)",
+      "description": "Tap Payments — Payments (MENA) integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Per transaction",
+      "difficulty": "intermediate",
+      "serviceKind": "payment",
+      "simpleIconSlug": "tap",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developers.tap.company",
+      "ownerAgent": "mena-payments-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Tap Payments dashboard (https://developers.tap.company).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): TAP_PAYMENTS_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "TAP_PAYMENTS_API_KEY"
+        ],
+        "agentPrompt": "Integrate Tap Payments (tap-payments) for Checkout, Subscriptions, Invoicing. Owner agent: mena-payments-specialist. Read https://developers.tap.company and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "moyasar",
+      "name": "Moyasar",
+      "categoryId": "payments_mena",
+      "categoryLabel": "Payments (MENA)",
+      "description": "Moyasar — Payments (MENA) integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Per transaction",
+      "difficulty": "beginner",
+      "serviceKind": "payment",
+      "simpleIconSlug": "moyasar",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.moyasar.com",
+      "ownerAgent": "mena-payments-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Moyasar dashboard (https://docs.moyasar.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): MOYASAR_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "MOYASAR_API_KEY"
+        ],
+        "agentPrompt": "Integrate Moyasar (moyasar) for Checkout, Subscriptions, Invoicing. Owner agent: mena-payments-specialist. Read https://docs.moyasar.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "categoryId": "payments_global",
+      "categoryLabel": "Payments (Global)",
+      "description": "Stripe — Payments (Global) integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-stripe"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Per transaction",
+      "difficulty": "beginner",
+      "serviceKind": "payment",
+      "simpleIconSlug": "stripe",
+      "hasCli": true,
+      "hasMcp": true,
+      "docsUrl": "https://docs.stripe.com",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-stripe/SKILL.md",
+      "ownerAgent": "payments-lead",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Stripe dashboard (https://docs.stripe.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): STRIPE_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-stripe/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "STRIPE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Stripe (stripe) for Checkout, Subscriptions, Invoicing. Owner agent: payments-lead. Read https://docs.stripe.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"stripe\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        },
+        "cli": {
+          "install": "npm install -g stripe  # or use npx stripe",
+          "usage": "stripe --help"
+        }
+      }
+    },
+    {
+      "id": "paypal",
+      "name": "PayPal",
+      "categoryId": "payments_global",
+      "categoryLabel": "Payments (Global)",
+      "description": "PayPal — Payments (Global) integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Per transaction",
+      "difficulty": "intermediate",
+      "serviceKind": "payment",
+      "simpleIconSlug": "paypal",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developer.paypal.com/docs",
+      "ownerAgent": "payments-lead",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the PayPal dashboard (https://developer.paypal.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PAYPAL_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "PAYPAL_API_KEY"
+        ],
+        "agentPrompt": "Integrate PayPal (paypal) for Checkout, Subscriptions, Invoicing. Owner agent: payments-lead. Read https://developer.paypal.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "paddle",
+      "name": "Paddle",
+      "categoryId": "payments_global",
+      "categoryLabel": "Payments (Global)",
+      "description": "Paddle — Payments (Global) integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "Revenue share",
+      "difficulty": "intermediate",
+      "serviceKind": "payment",
+      "simpleIconSlug": "paddle",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developer.paddle.com",
+      "ownerAgent": "saas-billing-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Paddle dashboard (https://developer.paddle.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PADDLE_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "PADDLE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Paddle (paddle) for Checkout, Subscriptions, Invoicing. Owner agent: saas-billing-architect. Read https://developer.paddle.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "accept-paymob",
+      "name": "Accept (Paymob Egypt)",
+      "categoryId": "payments_egypt",
+      "categoryLabel": "Payments (Egypt)",
+      "description": "Accept (Paymob Egypt) — Payments (Egypt) integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Checkout",
+        "Subscriptions",
+        "Invoicing"
+      ],
+      "pricing": "EGP transactions",
+      "difficulty": "intermediate",
+      "serviceKind": "payment",
+      "simpleIconSlug": "paymob",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developers.paymob.com/egypt",
+      "ownerAgent": "mena-payments-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Accept (Paymob Egypt) dashboard (https://developers.paymob.com/egypt).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): ACCEPT_PAYMOB_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "ACCEPT_PAYMOB_API_KEY"
+        ],
+        "agentPrompt": "Integrate Accept (Paymob Egypt) (accept-paymob) for Checkout, Subscriptions, Invoicing. Owner agent: mena-payments-specialist. Read https://developers.paymob.com/egypt and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "algolia",
+      "name": "Algolia",
+      "categoryId": "search",
+      "categoryLabel": "Search & Discovery",
+      "description": "Algolia — Search & Discovery integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free trial + usage",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "algolia",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://www.algolia.com/doc",
+      "ownerAgent": "search-cache-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Algolia dashboard (https://www.algolia.com/doc).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): ALGOLIA_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "ALGOLIA_API_KEY"
+        ],
+        "agentPrompt": "Integrate Algolia (algolia) for API integration, Automation, Observability. Owner agent: search-cache-manager. Read https://www.algolia.com/doc and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "typesense",
+      "name": "Typesense",
+      "categoryId": "search",
+      "categoryLabel": "Search & Discovery",
+      "description": "Typesense — Search & Discovery integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-typesense-search"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Cloud + self-host",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "typesense",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://typesense.org/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-typesense-search/SKILL.md",
+      "ownerAgent": "search-cache-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Typesense dashboard (https://typesense.org/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): TYPESENSE_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-typesense-search/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "TYPESENSE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Typesense (typesense) for API integration, Automation, Observability. Owner agent: search-cache-manager. Read https://typesense.org/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "meilisearch",
+      "name": "Meilisearch",
+      "categoryId": "search",
+      "categoryLabel": "Search & Discovery",
+      "description": "Meilisearch — Search & Discovery integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Open source + cloud",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "meilisearch",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://www.meilisearch.com/docs",
+      "ownerAgent": "search-cache-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Meilisearch dashboard (https://www.meilisearch.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): MEILISEARCH_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "MEILISEARCH_API_KEY"
+        ],
+        "agentPrompt": "Integrate Meilisearch (meilisearch) for API integration, Automation, Observability. Owner agent: search-cache-manager. Read https://www.meilisearch.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "pinecone",
+      "name": "Pinecone",
+      "categoryId": "search",
+      "categoryLabel": "Search & Discovery",
+      "description": "Pinecone — Search & Discovery integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-vector-db-qdrant"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Serverless pricing",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "pinecone",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.pinecone.io",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-vector-db-qdrant/SKILL.md",
+      "ownerAgent": "vector-store-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Pinecone dashboard (https://docs.pinecone.io).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PINECONE_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-vector-db-qdrant/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "PINECONE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Pinecone (pinecone) for API integration, Automation, Observability. Owner agent: vector-store-specialist. Read https://docs.pinecone.io and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "qdrant",
+      "name": "Qdrant",
+      "categoryId": "search",
+      "categoryLabel": "Search & Discovery",
+      "description": "Qdrant — Search & Discovery integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-vector-db-qdrant"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Cloud + self-host",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "qdrant",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://qdrant.tech/documentation",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-vector-db-qdrant/SKILL.md",
+      "ownerAgent": "vector-store-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Qdrant dashboard (https://qdrant.tech/documentation).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): QDRANT_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-vector-db-qdrant/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "QDRANT_API_KEY"
+        ],
+        "agentPrompt": "Integrate Qdrant (qdrant) for API integration, Automation, Observability. Owner agent: vector-store-specialist. Read https://qdrant.tech/documentation and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "cloudinary",
+      "name": "Cloudinary",
+      "categoryId": "storage",
+      "categoryLabel": "Storage & CDN",
+      "description": "Cloudinary — Storage & CDN integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + credits",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "cloudinary",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://cloudinary.com/documentation",
+      "ownerAgent": "visual-asset-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Cloudinary dashboard (https://cloudinary.com/documentation).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): CLOUDINARY_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "CLOUDINARY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Cloudinary (cloudinary) for API integration, Automation, Observability. Owner agent: visual-asset-manager. Read https://cloudinary.com/documentation and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "aws-s3",
+      "name": "AWS S3",
+      "categoryId": "storage",
+      "categoryLabel": "Storage & CDN",
+      "description": "AWS S3 — Storage & CDN integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-aws-infra"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Pay per use",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "amazons3",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://docs.aws.amazon.com/s3",
+      "nezamSkillPath": ".cursor/skills/infrastructure/nezam-aws-infra/SKILL.md",
+      "ownerAgent": "lead-devops-performance",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the AWS S3 dashboard (https://docs.aws.amazon.com/s3).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): AWS_S3_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/infrastructure/nezam-aws-infra/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "AWS_S3_API_KEY"
+        ],
+        "agentPrompt": "Integrate AWS S3 (aws-s3) for API integration, Automation, Observability. Owner agent: lead-devops-performance. Read https://docs.aws.amazon.com/s3 and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g aws-s3  # or use npx aws-s3",
+          "usage": "aws-s3 --help"
+        }
+      }
+    },
+    {
+      "id": "vercel-blob",
+      "name": "Vercel Blob",
+      "categoryId": "storage",
+      "categoryLabel": "Storage & CDN",
+      "description": "Vercel Blob — Storage & CDN integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Usage-based",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "vercel",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://vercel.com/docs/storage/vercel-blob",
+      "ownerAgent": "lead-devops-performance",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Vercel Blob dashboard (https://vercel.com/docs/storage/vercel-blob).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): VERCEL_BLOB_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "VERCEL_BLOB_API_KEY"
+        ],
+        "agentPrompt": "Integrate Vercel Blob (vercel-blob) for API integration, Automation, Observability. Owner agent: lead-devops-performance. Read https://vercel.com/docs/storage/vercel-blob and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"vercel-blob\"\n}",
+          "registryNote": "Verify MCP availability before enabling"
+        }
+      }
+    },
+    {
+      "id": "uploadthing",
+      "name": "UploadThing",
+      "categoryId": "storage",
+      "categoryLabel": "Storage & CDN",
+      "description": "UploadThing — Storage & CDN integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "uploadthing",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.uploadthing.com",
+      "ownerAgent": "frontend-lead",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the UploadThing dashboard (https://docs.uploadthing.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): UPLOADTHING_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "UPLOADTHING_API_KEY"
+        ],
+        "agentPrompt": "Integrate UploadThing (uploadthing) for API integration, Automation, Observability. Owner agent: frontend-lead. Read https://docs.uploadthing.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI API",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "OpenAI API — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-vercel-ai-sdk"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Token usage",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "openai",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://platform.openai.com/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-vercel-ai-sdk/SKILL.md",
+      "ownerAgent": "prompt-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the OpenAI API dashboard (https://platform.openai.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): OPENAI_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-vercel-ai-sdk/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "OPENAI_API_KEY"
+        ],
+        "agentPrompt": "Integrate OpenAI API (openai) for API integration, Automation, Observability. Owner agent: prompt-engineer. Read https://platform.openai.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic API",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "Anthropic API — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Token usage",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "anthropic",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.anthropic.com",
+      "ownerAgent": "prompt-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Anthropic API dashboard (https://docs.anthropic.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): ANTHROPIC_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "ANTHROPIC_API_KEY"
+        ],
+        "agentPrompt": "Integrate Anthropic API (anthropic) for API integration, Automation, Observability. Owner agent: prompt-engineer. Read https://docs.anthropic.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "OpenRouter — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-openrouter"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Pass-through + fee",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "openrouter",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://openrouter.ai/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-openrouter/SKILL.md",
+      "ownerAgent": "prompt-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the OpenRouter dashboard (https://openrouter.ai/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): OPENROUTER_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-openrouter/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "OPENROUTER_API_KEY"
+        ],
+        "agentPrompt": "Integrate OpenRouter (openrouter) for API integration, Automation, Observability. Owner agent: prompt-engineer. Read https://openrouter.ai/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"openrouter\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "vercel-ai-sdk",
+      "name": "Vercel AI SDK",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "Vercel AI SDK — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-vercel-ai-sdk"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Open source",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "vercel",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://sdk.vercel.ai/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-vercel-ai-sdk/SKILL.md",
+      "ownerAgent": "lead-modern-frontend-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Vercel AI SDK dashboard (https://sdk.vercel.ai/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): VERCEL_AI_SDK_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-vercel-ai-sdk/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "VERCEL_AI_SDK_API_KEY"
+        ],
+        "agentPrompt": "Integrate Vercel AI SDK (vercel-ai-sdk) for API integration, Automation, Observability. Owner agent: lead-modern-frontend-architect. Read https://sdk.vercel.ai/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "gemini",
+      "name": "Google Gemini",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "Google Gemini — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-gemini-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "googlegemini",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://ai.google.dev/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-gemini-integration/SKILL.md",
+      "ownerAgent": "prompt-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Google Gemini dashboard (https://ai.google.dev/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): GEMINI_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-gemini-integration/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "GEMINI_API_KEY"
+        ],
+        "agentPrompt": "Integrate Google Gemini (gemini) for API integration, Automation, Observability. Owner agent: prompt-engineer. Read https://ai.google.dev/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "helicone",
+      "name": "Helicone",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "Helicone — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + usage",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "helicone",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.helicone.ai",
+      "ownerAgent": "lead-ai-ethics-officer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Helicone dashboard (https://docs.helicone.ai).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): HELICONE_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "HELICONE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Helicone (helicone) for API integration, Automation, Observability. Owner agent: lead-ai-ethics-officer. Read https://docs.helicone.ai and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "langsmith",
+      "name": "LangSmith",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "LangSmith — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Developer free + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "langchain",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.smith.langchain.com",
+      "ownerAgent": "prompt-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the LangSmith dashboard (https://docs.smith.langchain.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): LANGSMITH_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "LANGSMITH_API_KEY"
+        ],
+        "agentPrompt": "Integrate LangSmith (langsmith) for API integration, Automation, Observability. Owner agent: prompt-engineer. Read https://docs.smith.langchain.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "tavily",
+      "name": "Tavily",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "Tavily — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-tavily-research"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Credits",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "tavily",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.tavily.com",
+      "nezamSkillPath": ".cursor/skills/system/nezam-tavily-research/SKILL.md",
+      "ownerAgent": "prompt-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Tavily dashboard (https://docs.tavily.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): TAVILY_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/system/nezam-tavily-research/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "TAVILY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Tavily (tavily) for API integration, Automation, Observability. Owner agent: prompt-engineer. Read https://docs.tavily.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "apify",
+      "name": "Apify",
+      "categoryId": "ai_llm",
+      "categoryLabel": "AI & LLM",
+      "description": "Apify — AI & LLM integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-apify-scraper"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + compute units",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "apify",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://docs.apify.com",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-apify-scraper/SKILL.md",
+      "ownerAgent": "automation-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Apify dashboard (https://docs.apify.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): APIFY_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-apify-scraper/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "APIFY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Apify (apify) for API integration, Automation, Observability. Owner agent: automation-manager. Read https://docs.apify.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g apify  # or use npx apify",
+          "usage": "apify --help"
+        }
+      }
+    },
+    {
+      "id": "resend",
+      "name": "Resend",
+      "categoryId": "email",
+      "categoryLabel": "Email & Messaging",
+      "description": "Resend — Email & Messaging integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-resend-email"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + volume",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "resend",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://resend.com/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-resend-email/SKILL.md",
+      "ownerAgent": "lead-backend-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Resend dashboard (https://resend.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): RESEND_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-resend-email/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "RESEND_API_KEY"
+        ],
+        "agentPrompt": "Integrate Resend (resend) for API integration, Automation, Observability. Owner agent: lead-backend-architect. Read https://resend.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g resend  # or use npx resend",
+          "usage": "resend --help"
+        }
+      }
+    },
+    {
+      "id": "sendgrid",
+      "name": "SendGrid",
+      "categoryId": "email",
+      "categoryLabel": "Email & Messaging",
+      "description": "SendGrid — Email & Messaging integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "sendgrid",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.sendgrid.com",
+      "ownerAgent": "lead-backend-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the SendGrid dashboard (https://docs.sendgrid.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): SENDGRID_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "SENDGRID_API_KEY"
+        ],
+        "agentPrompt": "Integrate SendGrid (sendgrid) for API integration, Automation, Observability. Owner agent: lead-backend-architect. Read https://docs.sendgrid.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "brevo",
+      "name": "Brevo",
+      "categoryId": "email",
+      "categoryLabel": "Email & Messaging",
+      "description": "Brevo — Email & Messaging integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "brevo",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developers.brevo.com",
+      "ownerAgent": "content-workflow-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Brevo dashboard (https://developers.brevo.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): BREVO_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "BREVO_API_KEY"
+        ],
+        "agentPrompt": "Integrate Brevo (brevo) for API integration, Automation, Observability. Owner agent: content-workflow-manager. Read https://developers.brevo.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "loops",
+      "name": "Loops.so",
+      "categoryId": "email",
+      "categoryLabel": "Email & Messaging",
+      "description": "Loops.so — Email & Messaging integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "loops",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://loops.so/docs",
+      "ownerAgent": "content-strategist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Loops.so dashboard (https://loops.so/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): LOOPS_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "LOOPS_API_KEY"
+        ],
+        "agentPrompt": "Integrate Loops.so (loops) for API integration, Automation, Observability. Owner agent: content-strategist. Read https://loops.so/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "onesignal",
+      "name": "OneSignal",
+      "categoryId": "email",
+      "categoryLabel": "Email & Messaging",
+      "description": "OneSignal — Email & Messaging integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "onesignal",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://documentation.onesignal.com",
+      "ownerAgent": "mobile-push-notifications-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the OneSignal dashboard (https://documentation.onesignal.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): ONESIGNAL_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "ONESIGNAL_API_KEY"
+        ],
+        "agentPrompt": "Integrate OneSignal (onesignal) for API integration, Automation, Observability. Owner agent: mobile-push-notifications-specialist. Read https://documentation.onesignal.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "novu",
+      "name": "Novu",
+      "categoryId": "email",
+      "categoryLabel": "Email & Messaging",
+      "description": "Novu — Email & Messaging integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Open source + cloud",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "novu",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.novu.co",
+      "ownerAgent": "mobile-push-notifications-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Novu dashboard (https://docs.novu.co).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): NOVU_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "NOVU_API_KEY"
+        ],
+        "agentPrompt": "Integrate Novu (novu) for API integration, Automation, Observability. Owner agent: mobile-push-notifications-specialist. Read https://docs.novu.co and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "posthog",
+      "name": "PostHog",
+      "categoryId": "analytics",
+      "categoryLabel": "Analytics & Product",
+      "description": "PostHog — Analytics & Product integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-product-analytics"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + usage",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "posthog",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://posthog.com/docs",
+      "nezamSkillPath": ".cursor/skills/infrastructure/nezam-product-analytics/SKILL.md",
+      "ownerAgent": "lead-analytics-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the PostHog dashboard (https://posthog.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): POSTHOG_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/infrastructure/nezam-product-analytics/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "POSTHOG_API_KEY"
+        ],
+        "agentPrompt": "Integrate PostHog (posthog) for API integration, Automation, Observability. Owner agent: lead-analytics-architect. Read https://posthog.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"posthog\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "mixpanel",
+      "name": "Mixpanel",
+      "categoryId": "analytics",
+      "categoryLabel": "Analytics & Product",
+      "description": "Mixpanel — Analytics & Product integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + growth",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "mixpanel",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.mixpanel.com",
+      "ownerAgent": "analytics-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Mixpanel dashboard (https://docs.mixpanel.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): MIXPANEL_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "MIXPANEL_API_KEY"
+        ],
+        "agentPrompt": "Integrate Mixpanel (mixpanel) for API integration, Automation, Observability. Owner agent: analytics-engineer. Read https://docs.mixpanel.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "amplitude",
+      "name": "Amplitude",
+      "categoryId": "analytics",
+      "categoryLabel": "Analytics & Product",
+      "description": "Amplitude — Analytics & Product integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + enterprise",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "amplitude",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://www.docs.developers.amplitude.com",
+      "ownerAgent": "analytics-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Amplitude dashboard (https://www.docs.developers.amplitude.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): AMPLITUDE_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "AMPLITUDE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Amplitude (amplitude) for API integration, Automation, Observability. Owner agent: analytics-engineer. Read https://www.docs.developers.amplitude.com and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "plausible",
+      "name": "Plausible",
+      "categoryId": "analytics",
+      "categoryLabel": "Analytics & Product",
+      "description": "Plausible — Analytics & Product integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Subscription",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "plausibleanalytics",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://plausible.io/docs",
+      "ownerAgent": "seo-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Plausible dashboard (https://plausible.io/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PLAUSIBLE_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "PLAUSIBLE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Plausible (plausible) for API integration, Automation, Observability. Owner agent: seo-specialist. Read https://plausible.io/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "google-analytics",
+      "name": "Google Analytics 4",
+      "categoryId": "analytics",
+      "categoryLabel": "Analytics & Product",
+      "description": "Google Analytics 4 — Analytics & Product integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "googleanalytics",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developers.google.com/analytics",
+      "ownerAgent": "seo-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Google Analytics 4 dashboard (https://developers.google.com/analytics).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): GOOGLE_ANALYTICS_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "GOOGLE_ANALYTICS_API_KEY"
+        ],
+        "agentPrompt": "Integrate Google Analytics 4 (google-analytics) for API integration, Automation, Observability. Owner agent: seo-specialist. Read https://developers.google.com/analytics and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "categoryId": "hosting",
+      "categoryLabel": "Hosting & Deploy",
+      "description": "Vercel — Hosting & Deploy integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-vercel-deploy"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Hobby + Pro",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "vercel",
+      "hasCli": true,
+      "hasMcp": true,
+      "docsUrl": "https://vercel.com/docs",
+      "nezamSkillPath": ".cursor/skills/infrastructure/nezam-vercel-deploy/SKILL.md",
+      "ownerAgent": "lead-devops-performance",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Vercel dashboard (https://vercel.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): VERCEL_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/infrastructure/nezam-vercel-deploy/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "VERCEL_API_KEY"
+        ],
+        "agentPrompt": "Integrate Vercel (vercel) for API integration, Automation, Observability. Owner agent: lead-devops-performance. Read https://vercel.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"vercel\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        },
+        "cli": {
+          "install": "npm install -g vercel  # or use npx vercel",
+          "usage": "vercel --help"
+        }
+      }
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "categoryId": "hosting",
+      "categoryLabel": "Hosting & Deploy",
+      "description": "Netlify — Hosting & Deploy integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "netlify",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://docs.netlify.com",
+      "ownerAgent": "devops-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Netlify dashboard (https://docs.netlify.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): NETLIFY_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "NETLIFY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Netlify (netlify) for API integration, Automation, Observability. Owner agent: devops-manager. Read https://docs.netlify.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g netlify  # or use npx netlify",
+          "usage": "netlify --help"
+        }
+      }
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "categoryId": "hosting",
+      "categoryLabel": "Hosting & Deploy",
+      "description": "Cloudflare — Hosting & Deploy integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-cloudflare-edge"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "cloudflare",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://developers.cloudflare.com",
+      "nezamSkillPath": ".cursor/skills/infrastructure/nezam-cloudflare-edge/SKILL.md",
+      "ownerAgent": "lead-devops-performance",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Cloudflare dashboard (https://developers.cloudflare.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): CLOUDFLARE_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/infrastructure/nezam-cloudflare-edge/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "CLOUDFLARE_API_KEY"
+        ],
+        "agentPrompt": "Integrate Cloudflare (cloudflare) for API integration, Automation, Observability. Owner agent: lead-devops-performance. Read https://developers.cloudflare.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"cloudflare\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "railway",
+      "name": "Railway",
+      "categoryId": "hosting",
+      "categoryLabel": "Hosting & Deploy",
+      "description": "Railway — Hosting & Deploy integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Usage-based",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "railway",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://docs.railway.app",
+      "ownerAgent": "devops-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Railway dashboard (https://docs.railway.app).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): RAILWAY_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "RAILWAY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Railway (railway) for API integration, Automation, Observability. Owner agent: devops-manager. Read https://docs.railway.app and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g railway  # or use npx railway",
+          "usage": "railway --help"
+        }
+      }
+    },
+    {
+      "id": "fly-io",
+      "name": "Fly.io",
+      "categoryId": "hosting",
+      "categoryLabel": "Hosting & Deploy",
+      "description": "Fly.io — Hosting & Deploy integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Pay as you go",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "flydotio",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://fly.io/docs",
+      "ownerAgent": "docker-k8s-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Fly.io dashboard (https://fly.io/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): FLY_IO_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "FLY_IO_API_KEY"
+        ],
+        "agentPrompt": "Integrate Fly.io (fly-io) for API integration, Automation, Observability. Owner agent: docker-k8s-specialist. Read https://fly.io/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g fly-io  # or use npx fly-io",
+          "usage": "fly-io --help"
+        }
+      }
+    },
+    {
+      "id": "render",
+      "name": "Render",
+      "categoryId": "hosting",
+      "categoryLabel": "Hosting & Deploy",
+      "description": "Render — Hosting & Deploy integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "render",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://render.com/docs",
+      "ownerAgent": "devops-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Render dashboard (https://render.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): RENDER_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "RENDER_API_KEY"
+        ],
+        "agentPrompt": "Integrate Render (render) for API integration, Automation, Observability. Owner agent: devops-manager. Read https://render.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "categoryId": "monitoring",
+      "categoryLabel": "Monitoring & Observability",
+      "description": "Sentry — Monitoring & Observability integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Developer free + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "sentry",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://docs.sentry.io",
+      "ownerAgent": "sre-incident-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Sentry dashboard (https://docs.sentry.io).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): SENTRY_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "SENTRY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Sentry (sentry) for API integration, Automation, Observability. Owner agent: sre-incident-specialist. Read https://docs.sentry.io and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"sentry\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "datadog",
+      "name": "Datadog",
+      "categoryId": "monitoring",
+      "categoryLabel": "Monitoring & Observability",
+      "description": "Datadog — Monitoring & Observability integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Trial + host pricing",
+      "difficulty": "advanced",
+      "serviceKind": "api",
+      "simpleIconSlug": "datadog",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://docs.datadoghq.com",
+      "ownerAgent": "observability-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Datadog dashboard (https://docs.datadoghq.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): DATADOG_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "DATADOG_API_KEY"
+        ],
+        "agentPrompt": "Integrate Datadog (datadog) for API integration, Automation, Observability. Owner agent: observability-specialist. Read https://docs.datadoghq.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"datadog\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "betterstack",
+      "name": "Better Stack",
+      "categoryId": "monitoring",
+      "categoryLabel": "Monitoring & Observability",
+      "description": "Better Stack — Monitoring & Observability integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "betterstack",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://betterstack.com/docs",
+      "ownerAgent": "sre-incident-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Better Stack dashboard (https://betterstack.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): BETTERSTACK_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "BETTERSTACK_API_KEY"
+        ],
+        "agentPrompt": "Integrate Better Stack (betterstack) for API integration, Automation, Observability. Owner agent: sre-incident-specialist. Read https://betterstack.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "grafana",
+      "name": "Grafana Cloud",
+      "categoryId": "monitoring",
+      "categoryLabel": "Monitoring & Observability",
+      "description": "Grafana Cloud — Monitoring & Observability integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + usage",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "grafana",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://grafana.com/docs",
+      "ownerAgent": "observability-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Grafana Cloud dashboard (https://grafana.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): GRAFANA_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "GRAFANA_API_KEY"
+        ],
+        "agentPrompt": "Integrate Grafana Cloud (grafana) for API integration, Automation, Observability. Owner agent: observability-specialist. Read https://grafana.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "sanity",
+      "name": "Sanity",
+      "categoryId": "cms",
+      "categoryLabel": "CMS & Content",
+      "description": "Sanity — CMS & Content integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-cms-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + growth",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "sanity",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://www.sanity.io/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-cms-integration/SKILL.md",
+      "ownerAgent": "cms-headless-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Sanity dashboard (https://www.sanity.io/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): SANITY_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-cms-integration/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "SANITY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Sanity (sanity) for API integration, Automation, Observability. Owner agent: cms-headless-architect. Read https://www.sanity.io/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g sanity  # or use npx sanity",
+          "usage": "sanity --help"
+        }
+      }
+    },
+    {
+      "id": "contentful",
+      "name": "Contentful",
+      "categoryId": "cms",
+      "categoryLabel": "CMS & Content",
+      "description": "Contentful — CMS & Content integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "contentful",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://www.contentful.com/developers/docs",
+      "ownerAgent": "cms-headless-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Contentful dashboard (https://www.contentful.com/developers/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): CONTENTFUL_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "CONTENTFUL_API_KEY"
+        ],
+        "agentPrompt": "Integrate Contentful (contentful) for API integration, Automation, Observability. Owner agent: cms-headless-architect. Read https://www.contentful.com/developers/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "strapi",
+      "name": "Strapi",
+      "categoryId": "cms",
+      "categoryLabel": "CMS & Content",
+      "description": "Strapi — CMS & Content integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Open source + cloud",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "strapi",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.strapi.io",
+      "ownerAgent": "cms-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Strapi dashboard (https://docs.strapi.io).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): STRAPI_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "STRAPI_API_KEY"
+        ],
+        "agentPrompt": "Integrate Strapi (strapi) for API integration, Automation, Observability. Owner agent: cms-manager. Read https://docs.strapi.io and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "payload",
+      "name": "Payload CMS",
+      "categoryId": "cms",
+      "categoryLabel": "CMS & Content",
+      "description": "Payload CMS — CMS & Content integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Open source + cloud",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "payloadcms",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://payloadcms.com/docs",
+      "ownerAgent": "cms-headless-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Payload CMS dashboard (https://payloadcms.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PAYLOAD_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "PAYLOAD_API_KEY"
+        ],
+        "agentPrompt": "Integrate Payload CMS (payload) for API integration, Automation, Observability. Owner agent: cms-headless-architect. Read https://payloadcms.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "wordpress",
+      "name": "WordPress",
+      "categoryId": "cms",
+      "categoryLabel": "CMS & Content",
+      "description": "WordPress — CMS & Content integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-wordpress"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Hosting varies",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "wordpress",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developer.wordpress.org",
+      "nezamSkillPath": ".cursor/skills/cms-saas/nezam-wordpress/SKILL.md",
+      "ownerAgent": "cms-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the WordPress dashboard (https://developer.wordpress.org).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): WORDPRESS_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/cms-saas/nezam-wordpress/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "WORDPRESS_API_KEY"
+        ],
+        "agentPrompt": "Integrate WordPress (wordpress) for API integration, Automation, Observability. Owner agent: cms-manager. Read https://developer.wordpress.org and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "upstash-redis",
+      "name": "Upstash Redis",
+      "categoryId": "cache_realtime",
+      "categoryLabel": "Cache & Realtime",
+      "description": "Upstash Redis — Cache & Realtime integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Pay per request",
+      "difficulty": "beginner",
+      "serviceKind": "database",
+      "simpleIconSlug": "upstash",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://upstash.com/docs/redis",
+      "ownerAgent": "search-cache-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Upstash Redis dashboard (https://upstash.com/docs/redis).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): UPSTASH_REDIS_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "UPSTASH_REDIS_API_KEY"
+        ],
+        "agentPrompt": "Integrate Upstash Redis (upstash-redis) for Persistence, Migrations, Backups. Owner agent: search-cache-manager. Read https://upstash.com/docs/redis and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g upstash-redis  # or use npx upstash-redis",
+          "usage": "upstash-redis --help"
+        }
+      }
+    },
+    {
+      "id": "redis-cloud",
+      "name": "Redis Cloud",
+      "categoryId": "cache_realtime",
+      "categoryLabel": "Cache & Realtime",
+      "description": "Redis Cloud — Cache & Realtime integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "database",
+      "simpleIconSlug": "redis",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://redis.io/docs",
+      "ownerAgent": "search-cache-manager",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Redis Cloud dashboard (https://redis.io/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): REDIS_CLOUD_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "REDIS_CLOUD_API_KEY"
+        ],
+        "agentPrompt": "Integrate Redis Cloud (redis-cloud) for Persistence, Migrations, Backups. Owner agent: search-cache-manager. Read https://redis.io/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "aws-elasticache",
+      "name": "AWS ElastiCache",
+      "categoryId": "cache_realtime",
+      "categoryLabel": "Cache & Realtime",
+      "description": "AWS ElastiCache — Cache & Realtime integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "Persistence",
+        "Migrations",
+        "Backups"
+      ],
+      "pricing": "Instance hours",
+      "difficulty": "advanced",
+      "serviceKind": "database",
+      "simpleIconSlug": "amazonwebservices",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.aws.amazon.com/elasticache",
+      "ownerAgent": "lead-devops-performance",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the AWS ElastiCache dashboard (https://docs.aws.amazon.com/elasticache).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): AWS_ELASTICACHE_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "AWS_ELASTICACHE_API_KEY"
+        ],
+        "agentPrompt": "Integrate AWS ElastiCache (aws-elasticache) for Persistence, Migrations, Backups. Owner agent: lead-devops-performance. Read https://docs.aws.amazon.com/elasticache and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "pusher",
+      "name": "Pusher",
+      "categoryId": "cache_realtime",
+      "categoryLabel": "Cache & Realtime",
+      "description": "Pusher — Cache & Realtime integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + channels",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "pusher",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://pusher.com/docs",
+      "ownerAgent": "real-time-streaming-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Pusher dashboard (https://pusher.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): PUSHER_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "PUSHER_API_KEY"
+        ],
+        "agentPrompt": "Integrate Pusher (pusher) for API integration, Automation, Observability. Owner agent: real-time-streaming-specialist. Read https://pusher.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "ably",
+      "name": "Ably",
+      "categoryId": "cache_realtime",
+      "categoryLabel": "Cache & Realtime",
+      "description": "Ably — Cache & Realtime integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + usage",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "ably",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://ably.com/docs",
+      "ownerAgent": "real-time-streaming-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Ably dashboard (https://ably.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): ABLY_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "ABLY_API_KEY"
+        ],
+        "agentPrompt": "Integrate Ably (ably) for API integration, Automation, Observability. Owner agent: real-time-streaming-specialist. Read https://ably.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "doppler",
+      "name": "Doppler",
+      "categoryId": "secrets",
+      "categoryLabel": "Secrets & Config",
+      "description": "Doppler — Secrets & Config integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free team + paid",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "doppler",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://docs.doppler.com",
+      "ownerAgent": "encryption-privacy-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Doppler dashboard (https://docs.doppler.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): DOPPLER_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "DOPPLER_API_KEY"
+        ],
+        "agentPrompt": "Integrate Doppler (doppler) for API integration, Automation, Observability. Owner agent: encryption-privacy-specialist. Read https://docs.doppler.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g doppler  # or use npx doppler",
+          "usage": "doppler --help"
+        }
+      }
+    },
+    {
+      "id": "infisical",
+      "name": "Infisical",
+      "categoryId": "secrets",
+      "categoryLabel": "Secrets & Config",
+      "description": "Infisical — Secrets & Config integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Open source + cloud",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "infisical",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://infisical.com/docs",
+      "ownerAgent": "encryption-privacy-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Infisical dashboard (https://infisical.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): INFISICAL_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "INFISICAL_API_KEY"
+        ],
+        "agentPrompt": "Integrate Infisical (infisical) for API integration, Automation, Observability. Owner agent: encryption-privacy-specialist. Read https://infisical.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g infisical  # or use npx infisical",
+          "usage": "infisical --help"
+        }
+      }
+    },
+    {
+      "id": "hashicorp-vault",
+      "name": "HashiCorp Vault",
+      "categoryId": "secrets",
+      "categoryLabel": "Secrets & Config",
+      "description": "HashiCorp Vault — Secrets & Config integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "OSS + enterprise",
+      "difficulty": "advanced",
+      "serviceKind": "api",
+      "simpleIconSlug": "vault",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://developer.hashicorp.com/vault/docs",
+      "ownerAgent": "lead-security-officer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the HashiCorp Vault dashboard (https://developer.hashicorp.com/vault/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): HASHICORP_VAULT_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "HASHICORP_VAULT_API_KEY"
+        ],
+        "agentPrompt": "Integrate HashiCorp Vault (hashicorp-vault) for API integration, Automation, Observability. Owner agent: lead-security-officer. Read https://developer.hashicorp.com/vault/docs and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "inngest",
+      "name": "Inngest",
+      "categoryId": "automation",
+      "categoryLabel": "Automation & Jobs",
+      "description": "Inngest — Automation & Jobs integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free tier + usage",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "inngest",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://www.inngest.com/docs",
+      "ownerAgent": "task-automation-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Inngest dashboard (https://www.inngest.com/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): INNGEST_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "INNGEST_API_KEY"
+        ],
+        "agentPrompt": "Integrate Inngest (inngest) for API integration, Automation, Observability. Owner agent: task-automation-specialist. Read https://www.inngest.com/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g inngest  # or use npx inngest",
+          "usage": "inngest --help"
+        }
+      }
+    },
+    {
+      "id": "trigger-dev",
+      "name": "Trigger.dev",
+      "categoryId": "automation",
+      "categoryLabel": "Automation & Jobs",
+      "description": "Trigger.dev — Automation & Jobs integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-trigger-dev"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "triggerdotdev",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://trigger.dev/docs",
+      "nezamSkillPath": ".cursor/skills/backend/nezam-trigger-dev/SKILL.md",
+      "ownerAgent": "task-automation-specialist",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Trigger.dev dashboard (https://trigger.dev/docs).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): TRIGGER_DEV_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/backend/nezam-trigger-dev/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "TRIGGER_DEV_API_KEY"
+        ],
+        "agentPrompt": "Integrate Trigger.dev (trigger-dev) for API integration, Automation, Observability. Owner agent: task-automation-specialist. Read https://trigger.dev/docs and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g trigger-dev  # or use npx trigger-dev",
+          "usage": "trigger-dev --help"
+        }
+      }
+    },
+    {
+      "id": "temporal",
+      "name": "Temporal",
+      "categoryId": "automation",
+      "categoryLabel": "Automation & Jobs",
+      "description": "Temporal — Automation & Jobs integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Cloud + self-host",
+      "difficulty": "advanced",
+      "serviceKind": "api",
+      "simpleIconSlug": "temporal",
+      "hasCli": false,
+      "hasMcp": false,
+      "docsUrl": "https://docs.temporal.io",
+      "ownerAgent": "task-workflow-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Temporal dashboard (https://docs.temporal.io).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): TEMPORAL_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "TEMPORAL_API_KEY"
+        ],
+        "agentPrompt": "Integrate Temporal (temporal) for API integration, Automation, Observability. Owner agent: task-workflow-architect. Read https://docs.temporal.io and use governed tokens from DESIGN.md. Do not hardcode secrets."
+      }
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "categoryId": "devtools",
+      "categoryLabel": "Developer Tools",
+      "description": "GitHub — Developer Tools integration for NEZAM projects.",
+      "skills": [
+        "nezam-nezam-git-workflow"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + Teams",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "github",
+      "hasCli": true,
+      "hasMcp": true,
+      "docsUrl": "https://docs.github.com",
+      "nezamSkillPath": ".cursor/skills/external/nezam-git-workflow/SKILL.md",
+      "ownerAgent": "gitops-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the GitHub dashboard (https://docs.github.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): GITHUB_API_KEY or provider-specific vars.",
+          "Follow NEZAM skill `.cursor/skills/external/nezam-git-workflow/SKILL.md` for stack-specific patterns."
+        ],
+        "envVars": [
+          "GITHUB_API_KEY"
+        ],
+        "agentPrompt": "Integrate GitHub (github) for API integration, Automation, Observability. Owner agent: gitops-engineer. Read https://docs.github.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"github\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        },
+        "cli": {
+          "install": "npm install -g gh  # or use npx gh",
+          "usage": "gh --help"
+        }
+      }
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab",
+      "categoryId": "devtools",
+      "categoryLabel": "Developer Tools",
+      "description": "GitLab — Developer Tools integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + paid",
+      "difficulty": "intermediate",
+      "serviceKind": "api",
+      "simpleIconSlug": "gitlab",
+      "hasCli": false,
+      "hasMcp": true,
+      "docsUrl": "https://docs.gitlab.com",
+      "ownerAgent": "gitops-engineer",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the GitLab dashboard (https://docs.gitlab.com).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): GITLAB_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "GITLAB_API_KEY"
+        ],
+        "agentPrompt": "Integrate GitLab (gitlab) for API integration, Automation, Observability. Owner agent: gitops-engineer. Read https://docs.gitlab.com and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "mcp": {
+          "install": "See .nezam/core/memory/MCP_REGISTRY.md — enable the matching MCP server in Cursor settings.",
+          "config": "{\n  \"provider\": \"gitlab\"\n}",
+          "registryNote": "Listed in NEZAM MCP_REGISTRY"
+        }
+      }
+    },
+    {
+      "id": "expo",
+      "name": "Expo",
+      "categoryId": "devtools",
+      "categoryLabel": "Developer Tools",
+      "description": "Expo — Developer Tools integration for NEZAM projects.",
+      "skills": [
+        "system/nezam-llm-integration"
+      ],
+      "useCases": [
+        "API integration",
+        "Automation",
+        "Observability"
+      ],
+      "pricing": "Free + EAS",
+      "difficulty": "beginner",
+      "serviceKind": "api",
+      "simpleIconSlug": "expo",
+      "hasCli": true,
+      "hasMcp": false,
+      "docsUrl": "https://docs.expo.dev",
+      "ownerAgent": "lead-mobile-architect",
+      "integration": {
+        "apiSteps": [
+          "Sign up or open the Expo dashboard (https://docs.expo.dev).",
+          "Create a project/app and generate API keys or connection strings.",
+          "Add secrets to `.env.local` (never commit): EXPO_API_KEY or provider-specific vars.",
+          "Wire the SDK per official docs; validate in a staging environment."
+        ],
+        "envVars": [
+          "EXPO_API_KEY"
+        ],
+        "agentPrompt": "Integrate Expo (expo) for API integration, Automation, Observability. Owner agent: lead-mobile-architect. Read https://docs.expo.dev and use governed tokens from DESIGN.md. Do not hardcode secrets.",
+        "cli": {
+          "install": "npm install -g expo  # or use npx expo",
+          "usage": "expo --help"
+        }
+      }
+    }
+  ]
+}

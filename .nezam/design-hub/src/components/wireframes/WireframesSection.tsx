@@ -521,7 +521,7 @@ export function WireframesSection() {
               </button>
               <button
                 type="button"
-                data-spotlight="wireframes-lock-btn"
+                data-spotlight="wf-lock-button"
                 onClick={saveSession}
                 disabled={saveBusy || loadingSession || !selectedArchPageId}
                 className={cn(

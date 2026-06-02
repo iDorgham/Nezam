@@ -4,6 +4,7 @@ import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } fro
 import { DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useHub } from '@/store/hub.store'
+import { LayoutGrid } from 'lucide-react'
 import { DESIGN_PROFILES_MAP } from '@/data/design-profiles'
 import { useDesignPreviewScopeStyle } from '@/lib/use-design-preview-scope'
 import {
@@ -586,12 +587,26 @@ export function WireframesSection() {
                   </div>
                 ) : (
                   <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain app-scroll px-4 pt-4 pb-6">
-                    {sections.length === 0 ? (
-                      <div className="py-12 text-center">
-                        <p className="text-sm font-medium text-app-text">No blocks yet</p>
-                        <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-app-subtle">
-                          Add from the palette, or reset to the architecture template, then save the session.
+                    {!selectedArchPageId && wireframePages.length === 0 ? (
+                      <div className="flex flex-1 flex-col items-center justify-center text-center">
+                        <p className="text-[11.5px] text-app-muted leading-relaxed max-w-[280px]">
+                          ← Select a page from the panel to place wireframe blocks.
+                          <br />
+                          No pages yet? Build your sitemap in Architecture first.
                         </p>
+                      </div>
+                    ) : selectedArchPageId && sections.length === 0 && !loadingSession ? (
+                      <div className="flex flex-1 flex-col items-center justify-center text-center">
+                        <div className="flex flex-col items-center gap-3 max-w-[280px]">
+                          <LayoutGrid size={32} className="text-app-muted" />
+                          <div>
+                            <p className="text-[13px] font-semibold text-app-text">Empty page</p>
+                            <p className="text-[11.5px] text-app-muted leading-relaxed mt-1">
+                              Drag a block from the palette on the left.
+                              Start with Nav_TopBar at the top of every page.
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     ) : null}
 

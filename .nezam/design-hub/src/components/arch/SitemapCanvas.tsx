@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo } from 'lucide-react'
+import { ZoomIn, ZoomOut, Maximize2, Plus, LayoutGrid, Undo, Redo, Network } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { IconRenderer } from '@/lib/icons'
 import { cn } from '@/lib/utils'
@@ -445,32 +445,23 @@ function NavLegend() {
 
 // ─── Empty state ──────────────────────────────────────────────────────────────
 
-function EmptyState({ onAdd }: { onAdd(): void }) {
+function EmptyState() {
+  const setSection = useHub((s) => s.setSection)
   return (
-    <div className="flex h-full min-h-[400px] items-center justify-center">
-      <div className="flex flex-col items-center gap-4 text-center max-w-sm">
-        {/* Icon */}
-        <div
-          className="flex h-16 w-16 items-center justify-center rounded-app-lg"
-          style={{ background: 'rgba(38,128,235,0.1)', border: '1px solid rgba(38,128,235,0.2)' }}
-        >
-          <LayoutGrid size={28} className="text-app-accent opacity-70" />
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <p className="text-sm font-semibold text-app-text">Initialize Architecture Canvas</p>
-          <p className="text-xs text-app-subtle leading-relaxed">
-            Select a predefined blueprint profile from the left sidebar to populate a starter structure instantly, 
-            or click below to build your canvas nodes manually.
+    <div className="flex flex-1 flex-col items-center justify-center text-center">
+      <div className="flex flex-col items-center gap-3 max-w-[280px]">
+        <Network size={32} className="text-app-muted" />
+        <div>
+          <p className="text-[13px] font-semibold text-app-text">No sitemap yet</p>
+          <p className="text-[11.5px] text-app-muted leading-relaxed mt-1">
+            Pick a template on the left to populate pages, or add your first page with +.
           </p>
         </div>
-
         <button
-          onClick={onAdd}
-          className="flex items-center gap-1.5 h-8 px-4 rounded-app-sm text-xs font-semibold bg-app-accent text-app-on-accent hover:bg-app-accent-hover transition-colors"
+          onClick={() => setSection('architecture')}
+          className="h-7 px-4 rounded-full text-[11px] font-bold border border-app-border-strong text-app-text bg-app-elevated hover:bg-app-elevated/80 transition-colors"
         >
-          <Plus size={12} />
-          Create First Canvas Node
+          Browse Templates
         </button>
       </div>
     </div>
@@ -821,7 +812,7 @@ export function SitemapCanvas({ onSelectPage }: Props) {
         >
           <MicroServicesServerRack onSelectPage={onSelectPage} />
           {isEmpty ? (
-            <EmptyState onAdd={() => archAddPage(null)} />
+            <EmptyState />
           ) : appRoots.length === 0 ? (
             <div className="rounded-app border border-dashed border-app-border px-6 py-8 text-center">
               <p className="text-[11px] text-app-subtle">No applications yet.</p>

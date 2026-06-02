@@ -1,4 +1,5 @@
 'use client'
+import { useCallback, useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { useSession } from '@/store/session.store'
@@ -9,22 +10,28 @@ export function PostOnboardingBanner() {
   const setVisible = useHub((s) => s.setPostOnboardingBannerVisible)
   const dismissSpotlight = useSession((s) => s.dismissSpotlight)
   const prefersReducedMotion = useReducedMotion()
+  const [exiting, setExiting] = useState(false)
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const dismiss = useCallback(() => {
+    dismissSpotlight('post-onboarding-banner')
+    if (prefersReducedMotion) { setVisible(false); return }
+    setExiting(true)
+    exitTimerRef.current = setTimeout(() => setVisible(false), 100)
+  }, [dismissSpotlight, prefersReducedMotion, setVisible])
 
   if (!visible) return null
 
-  function dismiss() {
-    setVisible(false)
-    dismissSpotlight('post-onboarding-banner')
-  }
+  const enterAnim = prefersReducedMotion
+    ? 'post-onboarding-fade 160ms ease-out both'
+    : 'post-onboarding-enter 160ms cubic-bezier(0.23,1,0.32,1) both'
+
+  const exitAnim = 'post-onboarding-exit 100ms ease-out both'
 
   return (
     <div
       className="flex h-8 shrink-0 items-center justify-between px-4 border-b border-b-app-accent/20 bg-app-accent/[0.08]"
-      style={{
-        animation: prefersReducedMotion
-          ? 'post-onboarding-fade 160ms ease-out both'
-          : 'post-onboarding-enter 160ms cubic-bezier(0.23,1,0.32,1) both',
-      }}
+      style={{ animation: exiting ? exitAnim : enterAnim }}
     >
       <style>{`
         @keyframes post-onboarding-enter {
@@ -34,6 +41,10 @@ export function PostOnboardingBanner() {
         @keyframes post-onboarding-fade {
           from { opacity: 0; }
           to   { opacity: 1; }
+        }
+        @keyframes post-onboarding-exit {
+          from { opacity: 1; }
+          to   { opacity: 0; }
         }
       `}</style>
       <span className="text-[11px] text-app-subtle flex items-center gap-2">

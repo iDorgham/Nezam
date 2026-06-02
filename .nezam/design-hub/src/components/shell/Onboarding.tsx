@@ -1018,7 +1018,7 @@ function DesignStep({
                   value="user@example.com"
                   className="w-full text-[10px] px-2.5 py-1.5 outline-none bg-transparent"
                   style={{
-                    background: tokens.colors.surface.input || tokens.colors.surface.bg,
+                    background: tokens.colors.surface.bg,
                     border: `1px solid ${tokens.colors.surface.border}`,
                     borderRadius: tokens.radius.sm,
                     color: tokens.colors.text.primary,

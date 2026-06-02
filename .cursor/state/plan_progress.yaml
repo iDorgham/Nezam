@@ -23,14 +23,14 @@ canvas_graph_spec_date: "2026-05-18"
 
 # V3 additions
 scrumban_board:
-  backlog:
-    - T-P1-003  # RICE backlog prioritization (effort: S)
-    - T-P1-004  # Design excellence audit --strict (effort: M)
+  backlog: []
   in_progress: []
-  review:
-    - T-P1-002  # Public docs site — Nextra v4 scaffold, build green 2026-06-02
+  review: []
   done:
     - T-P1-001  # Token emit script design:tokens:emit — completed 2026-06-02
+    - T-P1-002  # Public docs site — Nextra v4, 12/12 routes, content parity verified 2026-06-02
+    - T-P1-003  # RICE backlog prioritization — PRIORITIZATION.md generated 2026-06-02
+    - T-P1-004  # Design excellence audit --strict — 6 gates passing 2026-06-02
   blocked: []
   wip_limit: 3
 phase_02_design: complete

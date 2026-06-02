@@ -27,6 +27,9 @@ while IFS= read -r spec; do
     echo "❌ Missing status: $spec"
     FAIL=1
   fi
+  if ! node .nezam/core/scripts/checks/validate-spec-schema.js "$spec"; then
+    FAIL=1
+  fi
 done < <(rg --files "$plans_root" -g "SPEC.md")
 if [ $FAIL -eq 0 ]; then
   echo "✅ All specs have version fields."

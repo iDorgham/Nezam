@@ -1,11 +1,9 @@
----
-role: Team Manager - Search & Cache
+---role: Team Manager - Search & Cache
 code-name: search-cache-manager
 swarm: data-database
 reports-to: lead-database-architect
 subagents: search, vector, cache-tiers
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

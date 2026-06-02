@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-external-ai-report
-name: "External Ai Report"
+name: "nezam-External Ai Report"
 tier: 3
 description: Generate concise progress reports for browser-based AI companions (Grok/Qwen/Gemini) with upload reminders.
 paths:

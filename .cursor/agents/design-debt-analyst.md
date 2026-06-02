@@ -1,5 +1,4 @@
----
-id: design-debt-analyst
+---id: design-debt-analyst
 tier: 3
 swarm: swarm-14
 version: 1.0.0

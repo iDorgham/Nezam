@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-reflection-loop-engine
-name: "Reflection Loop Engine"
+name: "nezam-Reflection Loop Engine"
 tier: 3
 description: Run bounded self-review loops to reduce mistakes before finalizing outputs.
 version: 1.0.0

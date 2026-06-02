@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-seo-ia-content
-name: "Seo Ia Content"
+name: "nezam-Seo Ia Content"
 tier: 3
 description: SEO fundamentals + keyword research → information architecture & menu labels → on-page content shells (AEO/GEO aware).
 paths:

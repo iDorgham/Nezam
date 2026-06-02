@@ -1,6 +1,6 @@
 ---
 skill_id: impeccable-wireframe-craft
-name: "Impeccable Wireframe Craft"
+name: "nezam-Impeccable Wireframe Craft"
 tier: 3
 description: "High-craft standards gate for wireframe renders. Enforces pixel discipline, state completeness (default/hover/focus/active/disabled/loading/error), motion budget, and the 'no missing states = not done' rule from impeccable-main."
 version: 1.0.0

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-token-synthesis-pro
-name: "Token Synthesis Pro"
+name: "nezam-Token Synthesis Pro"
 tier: 2
 description: Generate W3C DTCG tokens + framework bindings with drift detection
 version: 1.0

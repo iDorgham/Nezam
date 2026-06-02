@@ -1,9 +1,7 @@
----
-role: Token-Accurate Visualizer
+---role: Token-Accurate Visualizer
 code-name: DS-VIZ-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-28
 changelog:
   - "1.0.0 — Initial release. Guards the --ds-* token mandate at render time."

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-design-tokens
-name: "Design Token Architecture"
+name: "nezam-Design Token Architecture"
 tier: 3
 description: High-level governance for token hierarchy, naming conventions, and multi-platform synchronization (web, mobile, email).
 version: 1.0.0

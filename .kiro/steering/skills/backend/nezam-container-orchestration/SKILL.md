@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-container-orchestration
-name: "Container Orchestration"
+name: "nezam-Container Orchestration"
 description: Docker Compose locally; K8s manifests and Helm; probes; rollouts; secrets; multi-arch builds; Workers vs containers trade-offs.
 version: 1.0.0
 updated: 2026-05-12

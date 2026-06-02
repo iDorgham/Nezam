@@ -1,9 +1,7 @@
----
-role: AEO / GEO Optimizer
+---role: AEO / GEO Optimizer
 code-name: aeo
 subagents: answer-engine, geo-targeting
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

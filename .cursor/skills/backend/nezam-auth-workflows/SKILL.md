@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-auth-workflows
-name: "Auth Workflows"
+name: "nezam-Auth Workflows"
 tier: 3
 description: OAuth 2.1 / OIDC, JWT vs session, MFA, RBAC, and token rotation patterns for production auth.
 version: 1.0.0

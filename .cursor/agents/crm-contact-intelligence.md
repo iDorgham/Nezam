@@ -1,5 +1,4 @@
----
-name: crm-contact-intelligence
+---name: crm-contact-intelligence
 role: specialist
 domain: CRM
 tier: 4
@@ -8,7 +7,6 @@ code-name: INTEL-KAPPA
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CRM Contact Intelligence

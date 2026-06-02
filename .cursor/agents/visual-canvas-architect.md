@@ -1,5 +1,4 @@
----
-name: visual-canvas-architect
+---name: visual-canvas-architect
 role: architect
 domain: Visual Builder
 tier: 3
@@ -8,7 +7,6 @@ code-name: CANVAS-PRIME
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Visual Canvas Architect

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-analytics-chart-animations
-name: "Analytics Chart Animations"
+name: "nezam-Analytics Chart Animations"
 description: Implementing performant and meaningful animations for data transitions.
 tier: 3
 swarm: Swarm 8 (Analytics)

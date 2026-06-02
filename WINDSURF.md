@@ -278,7 +278,6 @@ pnpm ai:check  # verify no drift
 - `.cursor/rules/design-excellence-gates.mdc`
 - `.cursor/rules/design-external-skills.mdc`
 - `.cursor/rules/design-gates.mdc`
-- `.cursor/rules/design-hub-gates.mdc`
 - `.cursor/rules/docs-reports-policy.mdc`
 - `.cursor/rules/multi-tool-sync.mdc`
 - `.cursor/rules/plan-phase-scaffold.mdc`

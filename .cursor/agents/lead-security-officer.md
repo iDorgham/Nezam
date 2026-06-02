@@ -1,10 +1,8 @@
----
-role: Lead Security Officer (Swarm Manager - Security)
+---role: Lead Security Officer (Swarm Manager - Security)
 code-name: lead-security-officer
 legacy-code-names: security
 subagents: app-security-manager, infra-security-manager, compliance-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

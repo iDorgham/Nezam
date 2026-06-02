@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-database-optimization
-name: "Database Optimization"
+name: "nezam-Database Optimization"
 tier: 3
 description: Index strategies, query planning, connection pooling, and read-replica routing for predictable database performance.
 version: 1.0.0

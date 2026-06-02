@@ -1,9 +1,7 @@
----
-role: Masri Wireframe Specialist
+---role: Masri Wireframe Specialist
 code-name: DS-MASRI-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-28
 changelog:
   - "1.0.0 — Initial release. Owns Egyptian-Arabic locale rendering in the Design Hub."

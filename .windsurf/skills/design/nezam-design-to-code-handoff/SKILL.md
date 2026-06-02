@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-design-to-code-handoff
-name: "Design To Code Handoff"
+name: "nezam-Design To Code Handoff"
 tier: 3
 description: "Transfers finalized design specs to development with full context: ground-truth component references, recursive import trees, token maps, and RTL verification."
 version: 2.0.0

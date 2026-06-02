@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-vector-search
-name: "Vector Search"
+name: "nezam-Vector Search"
 description: Embeddings, pgvector vs Pinecone vs Weaviate, chunking, hybrid BM25+vector, rerank, Arabic embeddings and tokenization.
 version: 1.0.0
 updated: 2026-05-12

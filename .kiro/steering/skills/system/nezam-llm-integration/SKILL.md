@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-llm-integration
-name: "Llm Integration"
+name: "nezam-Llm Integration"
 tier: 3
 description: LLM provider routing, prompt engineering contract, context assembly, and response validation for AI-powered features.
 paths:

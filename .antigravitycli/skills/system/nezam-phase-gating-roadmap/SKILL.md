@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-phase-gating-roadmap
-name: "Phase Gating Roadmap"
+name: "nezam-Phase Gating Roadmap"
 tier: 3
 description: Enforce SDD phase transitions with hard-block exit criteria, versioning triggers, and traceable evidence.
 version: 1.0.0

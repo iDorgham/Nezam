@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-progress-narrator
-name: "Progress Narrator"
+name: "nezam-Progress Narrator"
 tier: 3
 description: Human-readable progress summaries for /guide and /check from NEZAM state files; adapts to solo vs team tone.
 version: 1.0.0

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-interaction-choreography
-name: "Interaction Choreography"
+name: "nezam-Interaction Choreography"
 tier: 3
 description: "Defines motion, transitions, and micro-interactions with structured 2-variation discipline, token enforcement, and branch vs replace mode decision logic."
 version: 2.0.0

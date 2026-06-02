@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-automated-report-engine
-name: "Automated Report Engine"
+name: "nezam-Automated Report Engine"
 tier: 3
 description: Architecture for scheduled generation and distribution of analytical reports.
 version: 1.0.0

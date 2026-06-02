@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-arabic-typography
-name: "Arabic Typography"
+name: "nezam-Arabic Typography"
 tier: 3
 version: 1.0.0
 updated: 2026-05-12

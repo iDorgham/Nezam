@@ -1,5 +1,5 @@
 ---
-name: source-library-loader
+name: "nezam-source-library-loader"
 description: "Pure-Markdown context loader for design tasks. Agents call this skill at the start of any design task to load the correct subset of reference material from docs/reference/. Equivalent to impeccable's load-context.mjs but works without Node.js — pure agent instruction."
 license: MIT
 metadata:

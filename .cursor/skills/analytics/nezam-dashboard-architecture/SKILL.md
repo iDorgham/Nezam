@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-dashboard-architecture
-name: "Dashboard Architecture"
+name: "nezam-Dashboard Architecture"
 description: Designing the layout and information architecture for complex analytics dashboards.
 tier: 3
 swarm: Swarm 8 (Analytics)

@@ -1,5 +1,4 @@
----
-name: nextjs-app-architect
+---name: nextjs-app-architect
 role: architect
 domain: Modern Frontend
 tier: 3
@@ -8,7 +7,6 @@ code-name: NEXT-COMMAND
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Next.js App Architect

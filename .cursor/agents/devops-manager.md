@@ -1,11 +1,9 @@
----
-role: Team Manager - DevOps & CI/CD
+---role: Team Manager - DevOps & CI/CD
 code-name: devops-manager
 swarm: performance-devops
 reports-to: lead-devops-performance
 subagents: ci-cd, environments, release-rollback
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

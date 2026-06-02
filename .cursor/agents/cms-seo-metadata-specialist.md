@@ -1,5 +1,4 @@
----
-name: cms-seo-metadata-specialist
+---name: cms-seo-metadata-specialist
 role: specialist
 domain: CMS Platform
 tier: 4
@@ -8,7 +7,6 @@ code-name: META-BOT
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CMS SEO Metadata Specialist

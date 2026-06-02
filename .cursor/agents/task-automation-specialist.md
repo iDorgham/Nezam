@@ -1,5 +1,4 @@
----
-name: task-automation-specialist
+---name: task-automation-specialist
 role: specialist
 domain: Task Management
 tier: 4
@@ -8,7 +7,6 @@ code-name: AUTO-THETA
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Task Automation Specialist

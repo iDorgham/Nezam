@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-user-flow-mapper
-name: "User Flow Mapper"
+name: "nezam-User Flow Mapper"
 tier: 3
 description: Define user journeys, edge cases, and navigation decisions before UI implementation.
 version: 1.0.0

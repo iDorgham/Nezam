@@ -1,5 +1,4 @@
----
-id: design-excellence-lead
+---id: design-excellence-lead
 code-name: DESIGN-10
 tier: 1
 swarm: [swarm-2, swarm-14]

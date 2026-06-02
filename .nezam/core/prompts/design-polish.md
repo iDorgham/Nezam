@@ -17,6 +17,7 @@ textPrimary:    #e8e8ed
 textSecondary:  #8e8e93
 textMuted:      #48484a
 textLabel:      #636366
+textLabel:      #636366
 ```
 
 ### Files Structure

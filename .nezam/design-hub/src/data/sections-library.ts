@@ -556,8 +556,8 @@ export const SECTIONS_LIBRARY: SectionDef[] = [
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-export function filterSections(query: string, category: string | null) {
-  const q = query.toLowerCase()
+export function filterSections(query?: string | null, category?: string | null) {
+  const q = (query || '').toLowerCase().trim()
   return SECTIONS_LIBRARY.filter((s) => {
     const matchCat = !category || s.category === category
     const matchQ   = !q || s.name.toLowerCase().includes(q) ||

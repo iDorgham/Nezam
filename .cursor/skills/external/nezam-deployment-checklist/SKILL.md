@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-deployment-checklist
-name: "Deployment Checklist"
+name: "nezam-Deployment Checklist"
 tier: 3
 description: Pre/post deployment checklist — environment validation, smoke tests, rollback plan, observability confirmation, and go/no-go decision for production releases.
 paths:

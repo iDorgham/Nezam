@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-testing-automation
-name: "Testing Automation"
+name: "nezam-Testing Automation"
 tier: 3
 description: Deterministic testing automation workflow for unit, E2E, and visual coverage with `/SCAN tests` integration.
 version: 1.0.0

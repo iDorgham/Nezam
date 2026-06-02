@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-register-detection
-name: "Register Detection"
+name: "nezam-Register Detection"
 tier: 3
 version: 1.0.0
 updated: 2026-05-12

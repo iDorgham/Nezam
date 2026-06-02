@@ -226,6 +226,12 @@ jobs:
         if: steps.designhub_changes.outputs.skip == 'false'
         run: pnpm -C .nezam/design-hub test
 
+      - name: Design Hub token check
+        run: pnpm --filter @nezam/design-hub run design:tokens:emit && pnpm run check:tokens
+
+      - name: Wireframe lock integrity
+        run: node .nezam/core/scripts/checks/check-wireframes-lock.js
+
   design-gate-readiness:
     runs-on: ubuntu-latest
     steps:

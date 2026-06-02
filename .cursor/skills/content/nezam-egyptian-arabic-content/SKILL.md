@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-egyptian-arabic-content
-name: "Egyptian Arabic Content Master"
+name: "nezam-Egyptian Arabic Content Master"
 tier: 3
 version: 1.0.0
 updated: 2026-05-08

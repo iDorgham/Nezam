@@ -1,11 +1,9 @@
----
-role: Team Manager - CMS
+---role: Team Manager - CMS
 code-name: cms-manager
 swarm: cms-saas
 reports-to: lead-cms-saas-architect
 subagents: content-models, preview-publishing, cms-integration
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

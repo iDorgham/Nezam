@@ -1,5 +1,5 @@
 ---
-name: frontend-design-pro
+name: "nezam-frontend-design-pro"
 tier: 3
 description: Apply high-quality frontend design patterns with token-first implementation rules and NEZAM gate compliance.
 version: 2.0.0

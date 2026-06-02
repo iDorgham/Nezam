@@ -1,5 +1,4 @@
----
-name: visual-interaction-designer
+---name: visual-interaction-designer
 role: specialist
 domain: Visual Builder
 tier: 4
@@ -8,7 +7,6 @@ code-name: INTERACT-VUE
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Visual Interaction Designer

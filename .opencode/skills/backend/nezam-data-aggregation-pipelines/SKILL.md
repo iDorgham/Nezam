@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-data-aggregation-pipelines
-name: "Data Aggregation Pipelines"
+name: "nezam-Data Aggregation Pipelines"
 tier: 3
 description: Pre-aggregation and materialized view strategies for high-performance analytics.
 version: 1.0.0

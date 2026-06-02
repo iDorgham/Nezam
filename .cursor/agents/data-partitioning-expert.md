@@ -1,5 +1,4 @@
----
-name: data-partitioning-expert
+---name: data-partitioning-expert
 role: specialist
 domain: Data & Backend
 tier: 4
@@ -8,7 +7,6 @@ code-name: SHARD-ALPHA
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Data Partitioning Expert

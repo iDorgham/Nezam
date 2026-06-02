@@ -1,5 +1,5 @@
 ---
-name: visual-canvas-engine
+name: "nezam-visual-canvas-engine"
 description: Orchestrates high-performance infinite canvas systems, viewport transforms, and spatial indexing.
 version: 1.0.0
 updated: 2026-05-13

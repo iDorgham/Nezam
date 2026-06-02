@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-decision-journal
-name: "Decision Journal"
+name: "nezam-Decision Journal"
 tier: 3
 description: Write plain-language decision entries to .nezam/core/memory/DECISIONS_PLAIN.md for founder-readable audit trails.
 version: 1.0.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-omnichannel-routing
-name: "Omnichannel Routing"
+name: "nezam-Omnichannel Routing"
 tier: 3
 description: Unified routing and logging for multi-channel customer communications.
 version: 1.0.0

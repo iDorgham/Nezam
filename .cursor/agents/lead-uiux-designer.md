@@ -1,10 +1,8 @@
----
-role: Lead UI/UX Designer (Swarm Manager - UI/UX Design)
+---role: Lead UI/UX Designer (Swarm Manager - UI/UX Design)
 code-name: lead-uiux-designer
 legacy-code-names: designer
 subagents: ux-research-strategy-manager, visual-design-manager, design-systems-token-architect
 version: 2.0.0
-certified: false
 updated: 2026-05-28
 changelog:
   - "2.0.0: Wired to design-intelligence-index, source-library-loader, impeccable full suite, anti-slop-validator, typeui fundamentals, brand DESIGN.md library, open-design style packs"

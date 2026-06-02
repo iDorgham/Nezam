@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-task-decomposition
-name: "Task Decomposition"
+name: "nezam-Task Decomposition"
 tier: 3
 description: Decompose epics into right-sized features and tasks with explicit dependencies, slice sizing, and acceptance hooks.
 version: 1.0.0

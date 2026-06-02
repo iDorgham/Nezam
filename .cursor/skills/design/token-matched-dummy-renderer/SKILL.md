@@ -1,6 +1,6 @@
 ---
 skill_id: token-matched-dummy-renderer
-name: "Token-Matched Dummy Renderer"
+name: "nezam-Token-Matched Dummy Renderer"
 tier: 2
 description: "Generates locale-aware dummy content (copy, logos, illustrations) that picks up the live --ds-* token theme. Output adapts color, radius, and typography to whichever DESIGN.md profile is active."
 version: 1.0.0

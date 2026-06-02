@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-visual-canvas-engine
-name: "Visual Canvas Engine"
+name: "nezam-Visual Canvas Engine"
 tier: 3
 description: Orchestrates high-performance infinite canvas systems, viewport transforms, and spatial indexing.
 version: 1.0.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-ux-research-protocol
-name: "Ux Research Protocol"
+name: "nezam-Ux Research Protocol"
 tier: 3
 description: Standardized framework for user research, persona creation, and empathy mapping within the SDD pipeline.
 version: 1.0.0

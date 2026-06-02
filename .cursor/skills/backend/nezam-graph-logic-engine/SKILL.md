@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-graph-logic-engine
-name: "Graph Logic Engine"
+name: "nezam-Graph Logic Engine"
 tier: 3
 description: Manages graph theory implementations, node connectivity validation, and execution flow logic.
 version: 1.0.0

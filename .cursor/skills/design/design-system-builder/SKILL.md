@@ -1,5 +1,5 @@
 ---
-name: design-system-builder
+name: "nezam-design-system-builder"
 description: Define tokenized design-system contracts (color, type, spacing, themes, a11y) for enforceable implementation.
 version: 1.0.0
 updated: 2026-05-08

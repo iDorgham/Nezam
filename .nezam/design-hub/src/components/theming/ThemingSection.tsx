@@ -321,7 +321,9 @@ export function ThemingSection() {
   const { width, startResize } = useSidebarResize()
   const initial = useMemo(() => initialThemeFromStore(), [])
   const [config, setConfig] = useState<ThemeConfig>(() => initial.config)
-  const [mode,   setMode]   = useState<Mode>(() => initial.mode)
+  const hubTheme = useHub((s) => s.hubTheme)
+  const setHubTheme = useHub((s) => s.setHubTheme)
+  const mode = hubTheme
   const [copied, setCopied] = useState(false)
   const [saveInput, setSaveInput]   = useState('')
   const [showSaveBox, setShowSaveBox] = useState(false)
@@ -343,7 +345,7 @@ export function ThemingSection() {
     if (syncedProfileRef.current === key) return
     syncedProfileRef.current = key
     setConfig(configFromEditorSnapshot(editorSnapshot))
-    setMode(editorSnapshot.defaultMode)
+    setHubTheme(editorSnapshot.defaultMode)
     const sansEntry = SANS_FONTS.find((f) => f.family === editorSnapshot.fontSans)
     const monoEntry = MONO_FONTS.find((f) => f.family === editorSnapshot.fontMono)
     loadGoogleFont(sansEntry)
@@ -456,7 +458,6 @@ export function ThemingSection() {
                 <Eye size={10} />
                 WCAG
               </button>
-              <ModePill mode={mode} setMode={setMode} />
             </div>
           }
         />

@@ -1,11 +1,9 @@
----
-role: Team Manager - Frontend Framework
+---role: Team Manager - Frontend Framework
 code-name: frontend-framework-manager
 swarm: frontend
 reports-to: lead-frontend-architect
 subagents: react-next, routing-rendering, state-data
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

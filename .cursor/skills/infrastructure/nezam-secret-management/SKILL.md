@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-secret-management
-name: "Secret Management"
+name: "nezam-Secret Management"
 tier: 3
 description: Secret stores (Vault / AWS SM / Vercel / Doppler), env injection, rotation policies, and least-privilege access.
 version: 1.0.0

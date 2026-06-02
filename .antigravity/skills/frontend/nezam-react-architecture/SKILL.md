@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-react-architecture
-name: "React Architecture"
+name: "nezam-React Architecture"
 tier: 3
 description: React 19 / Next.js 15 patterns — Server Components, Suspense, Server Actions, state strategy, and rendering modes.
 version: 2.0.0

@@ -42,7 +42,7 @@ All gate logic is enforced via .cursor/state/*.yaml files + gate-orchestrator sk
 
 Read `.cursor/state/onboarding.yaml` before any `/plan` subcommand:
 
-1. `prd_locked: true` — project PRD path (see `.nezam/core/gates/workspace.paths.yaml` `project.prd`, default `.nezam/core/prd/PRD.md`) is filled in (not template)
+1. `prd_locked: true` — project PRD path (see `.nezam/workspace.paths.yaml` `project.prd`, default `.nezam/core/prd/PRD.md`) is filled in (not template)
 2. `design_locked: true` — `DESIGN.md` exists and is not blank template
 
 If either is false → block `/plan` → redirect to `/start` with specific reason.

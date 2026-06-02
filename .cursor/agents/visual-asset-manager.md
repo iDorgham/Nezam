@@ -1,5 +1,4 @@
----
-name: visual-asset-manager
+---name: visual-asset-manager
 role: specialist
 domain: Visual Builder
 tier: 4
@@ -8,7 +7,6 @@ code-name: ASSET-LENS
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Visual Asset Manager

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-cultural-context-validator
-name: "Cultural Context Validator"
+name: "nezam-Cultural Context Validator"
 tier: 2
 description: Validate design against MENA cultural norms per dialect
 version: 1.0

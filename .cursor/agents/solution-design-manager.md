@@ -1,11 +1,9 @@
----
-role: Team Manager - Solution Design
+---role: Team Manager - Solution Design
 code-name: solution-design-manager
 swarm: architecture-planning
 reports-to: lead-solution-architect
 subagents: c4-design, adr-author, tradeoff-analyst
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

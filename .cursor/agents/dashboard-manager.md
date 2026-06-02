@@ -1,11 +1,9 @@
----
-role: Team Manager - Dashboards
+---role: Team Manager - Dashboards
 code-name: dashboard-manager
 swarm: analytics-dashboard
 reports-to: lead-analytics-architect
 subagents: dashboard-design, role-based-views, embedded-analytics
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

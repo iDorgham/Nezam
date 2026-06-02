@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-context-window-manager
-name: "Context Window Manager"
+name: "nezam-Context Window Manager"
 tier: 3
 description: Build the minimal high-signal working context for each command/session.
 version: 1.0.0

@@ -1,11 +1,9 @@
----
-role: Cross-Swarm Coordinator - Code Generation Supervisor
+---role: Cross-Swarm Coordinator - Code Generation Supervisor
 code-name: code-generation-supervisor
 tier: cross-swarm
 reports-to: deputy-orchestrator
 subagents: gen-policy, gen-quality, gen-attribution
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

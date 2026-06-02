@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-openrouter
-name: "Openrouter"
+name: "nezam-Openrouter"
 tier: 3
 description: Multi-model routing and fallback orchestration using OpenRouter.
 version: 1.0.0

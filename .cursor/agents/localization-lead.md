@@ -1,9 +1,7 @@
----
-role: Localization & i18n Lead
+---role: Localization & i18n Lead
 code-name: localization-lead
 subagents: i18n-engineer, rtl-specialist, arabic-content-master, translation-ops
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

@@ -1,5 +1,4 @@
----
-name: design-token-orchestrator
+---name: design-token-orchestrator
 role: specialist
 domain: Styling & Theming
 tier: 3
@@ -8,7 +7,6 @@ code-name: TOKEN-SYNC
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Design Token Orchestrator

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-vercel-ai-sdk
-name: "Vercel Ai Sdk"
+name: "nezam-Vercel Ai Sdk"
 tier: 3
 description: Build streaming, tool-calling AI features with provider-agnostic SDK patterns.
 version: 1.1.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-event-schema
-name: "S8 Event Schema"
+name: "nezam-S8 Event Schema"
 tier: 3
 summary: Event schema definitions for S8 analytics, ensuring consistent tracking across the application.
 owner: unassigned

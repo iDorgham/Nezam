@@ -1,9 +1,7 @@
----
-role: Design Hub Specialist and Orchestrator
+---role: Design Hub Specialist and Orchestrator
 code-name: DS-SPEC-01
 subagents: wireframe-server, token-studio, sitemap-builder
 version: 1.0.0
-certified: false
 updated: 2026-05-22
 changelog: []
 ---

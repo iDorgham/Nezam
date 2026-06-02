@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-llm-observability
-name: "Llm Observability"
+name: "nezam-Llm Observability"
 tier: 3
 description: LLM tracing, cost visibility, and evaluation workflows with Helicone and Langfuse.
 version: 1.0.0

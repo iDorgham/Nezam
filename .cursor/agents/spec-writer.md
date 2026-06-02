@@ -1,12 +1,10 @@
----
-role: Spec Writer
+---role: Spec Writer
 code-name: spec-writer
 tier: 2
 swarm: architecture-planning
 reports-to: lead-solution-architect
 subagents: acceptance-criteria, api-contract-writer, ui-states-definer
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

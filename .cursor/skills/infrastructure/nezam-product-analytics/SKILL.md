@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-product-analytics
-name: "Product Analytics"
+name: "nezam-Product Analytics"
 description: "Product analytics instrumentation and governance using PostHog patterns, feature flags, and session recording."
 version: 1.1.0
 updated: 2026-05-12

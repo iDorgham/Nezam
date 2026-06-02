@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-aws-infra
-name: "Aws Infra"
+name: "nezam-Aws Infra"
 tier: 3
 description: AWS CDK v2, IAM least-privilege, S3/CloudFront, and Secrets Manager patterns for production AWS deployments.
 version: 1.0.0

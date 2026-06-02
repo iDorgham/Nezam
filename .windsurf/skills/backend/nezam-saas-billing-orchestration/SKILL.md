@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-saas-billing-orchestration
-name: "Saas Billing Orchestration"
+name: "nezam-Saas Billing Orchestration"
 tier: 3
 description: Subscription management, usage metering, and billing lifecycle logic.
 version: 1.0.0

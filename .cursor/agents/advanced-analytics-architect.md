@@ -1,5 +1,4 @@
----
-name: advanced-analytics-architect
+---name: advanced-analytics-architect
 tier: 2
 swarm: Swarm 8 (Analytics)
 summary: Lead architect for complex analytical modeling, behavioral analysis, and predictive insights.

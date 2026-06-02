@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-accessibility-audit
-name: "Accessibility Audit"
+name: "nezam-Accessibility Audit"
 tier: 3
 description: Comprehensive framework for checking WCAG 2.2 AA compliance, keyboard navigation, and screen reader compatibility.
 version: 1.0.0

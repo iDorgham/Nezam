@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-ia-taxonomy
-name: "Ia Taxonomy"
+name: "nezam-Ia Taxonomy"
 tier: 3
 description: Define navigation hierarchy, URL structure, breadcrumb logic, and taxonomy maps before content creation.
 version: 1.0.0

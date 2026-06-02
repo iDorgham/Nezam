@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-design-md
-name: "Design Md"
+name: "nezam-Design Md"
 tier: 3
 description: Author DESIGN.md textual prototypes using the 71-brand reference library under docs/reference/awesome-design-md-main/design-md/ — including Apple, Stripe, Linear, Tesla, etc.
 paths:

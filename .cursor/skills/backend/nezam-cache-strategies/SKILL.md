@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-cache-strategies
-name: "Cache Strategies"
+name: "nezam-Cache Strategies"
 tier: 3
 description: HTTP, Redis, edge cache, and tag-based invalidation strategies that prevent stampedes and stale data.
 version: 1.0.0

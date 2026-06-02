@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-slash-command-router
-name: "Slash Command Router"
+name: "nezam-Slash Command Router"
 tier: 3
 description: Route slash commands to the correct skill chain with hardlock-first execution.
 version: 1.0.0

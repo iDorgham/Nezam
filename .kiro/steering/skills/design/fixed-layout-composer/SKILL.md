@@ -2,7 +2,7 @@
 
 ---
 skill_id: fixed-layout-composer
-name: "Fixed Layout Composer"
+name: "nezam-Fixed Layout Composer"
 tier: 2
 description: "Enforces the full-width header / max-width body / full-width footer chrome pattern. Implements the filter+split rendering technique so background bleeds reach the viewport edge while inner content stays constrained."
 version: 1.0.0

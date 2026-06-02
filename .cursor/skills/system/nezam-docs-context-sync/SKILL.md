@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-docs-context-sync
-name: "Docs Context Sync"
+name: "nezam-Docs Context Sync"
 tier: 3
 description: Deterministic documentation lifecycle workflow for syncing context docs, workspace index, and plan artifacts after repository changes.
 version: 1.0.0

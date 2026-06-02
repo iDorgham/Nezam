@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-monitoring-observability
-name: "Monitoring Observability"
+name: "nezam-Monitoring Observability"
 tier: 3
 description: OpenTelemetry, structured logging, distributed tracing, and alerting strategy for production observability.
 version: 1.0.0

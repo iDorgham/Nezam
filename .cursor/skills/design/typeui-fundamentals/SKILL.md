@@ -1,5 +1,5 @@
 ---
-name: typeui-fundamentals
+name: "nezam-typeui-fundamentals"
 description: "Universal design law baseline from the TypeUI system. Loads one or more of the 4 TypeUI fundamentals modules based on task type: ui-principles, ux-principles, typography-principles, accessibility. These are design-system-agnostic structural principles — the 'why' behind design decisions. WCAG 2.2 rules are non-negotiable and override aesthetic preferences."
 license: MIT
 metadata:

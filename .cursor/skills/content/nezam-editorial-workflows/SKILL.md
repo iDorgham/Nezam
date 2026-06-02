@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-editorial-workflows
-name: "Editorial Workflows"
+name: "nezam-Editorial Workflows"
 tier: 3
 description: Draft → review → publish pipelines, role permissions, and version control for content operations.
 version: 1.0.0

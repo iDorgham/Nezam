@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-testing-strategy
-name: "Testing Strategy"
+name: "nezam-Testing Strategy"
 tier: 3
 description: Unit, integration, E2E, and visual regression strategy with Playwright/Cypress/Vitest, mocking, and test data discipline.
 version: 1.0.0

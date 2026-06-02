@@ -46,7 +46,7 @@ Before responding, read these files in order when they exist:
 2. `.cursor/state/plan_progress.yaml` — which plan phases are done
 3. `.cursor/state/develop_phases.yaml` — which dev phases are done or locked
 4. `.cursor/state/agent-status.yaml` — last active agent and output (if exists)
-5. `.nezam/core/prd/PRD.md` — product name and type (resolve path via `.nezam/core/gates/workspace.paths.yaml` `project.prd` if relocated)
+5. `.nezam/core/prd/PRD.md` — product name and type (resolve path via `.nezam/workspace.paths.yaml` `project.prd` if relocated)
 6. `DESIGN.md` (repo root) — design profile / contract cues
 
 ---

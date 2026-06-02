@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-regression-detector
-name: "Regression Detector"
+name: "nezam-Regression Detector"
 tier: 3
 description: Detect likely regressions from change impact and define focused verification paths.
 version: 1.0.0

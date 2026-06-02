@@ -1,5 +1,4 @@
----
-name: cms-localization-architect
+---name: cms-localization-architect
 role: specialist
 domain: CMS Platform
 tier: 4
@@ -8,7 +7,6 @@ code-name: BABEL-TECH
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CMS Localization Architect

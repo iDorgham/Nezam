@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-guide-instructor-domains
-name: "Guide Instructor Domains"
+name: "nezam-Guide Instructor Domains"
 tier: 3
 description: Repo-grounded teaching map — which NEZAM paths to open for security, design, SEO, CI, and orchestration when explaining (not executing) workflows.
 paths:

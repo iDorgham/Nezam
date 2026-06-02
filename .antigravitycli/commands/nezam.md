@@ -32,7 +32,7 @@ Recommendation footer: required
 /nezam rules                   → List all rules in .cursor/rules/
 /nezam rules edit <name>       → Edit a .mdc rule file
 /nezam scripts                 → List .nezam/core/scripts/ with purpose descriptions
-/nezam paths                   → Show current .nezam/core/gates/workspace.paths.yaml
+/nezam paths                   → Show current .nezam/workspace.paths.yaml
 /nezam paths set <key> <value> → Change a path (e.g. /nezam paths set project.prd src/PRD.md)
 /nezam sync                    → Run pnpm ai:sync + pnpm ai:check, show result
 /nezam check                   → Validate workspace integrity (drift, skill frontmatter, SDD swarm)
@@ -54,7 +54,7 @@ Display a snapshot of the workspace state:
 ║  Version        1.0.0 (.nezam/core/meta/VERSIONING.md)       ║
 ║  Sync           ✅ in sync (last: pnpm ai:sync)              ║
 ╠══════════════════════════════════════════════════════════════╣
-║  Project Paths  (from .nezam/core/gates/workspace.paths.yaml)         ║
+║  Project Paths  (from .nezam/workspace.paths.yaml)         ║
 ║  PRD            .nezam/core/prd/PRD.md                             ║
 ║  Plans root     docs/plan/                           ║
 ║  Reports root   docs/reports/                               ║
@@ -255,7 +255,7 @@ Scripts — .nezam/core/scripts/
 Show the current path configuration:
 
 ```
-Workspace Paths — .nezam/core/gates/workspace.paths.yaml
+Workspace Paths — .nezam/workspace.paths.yaml
 
   PROJECT PATHS (user-configurable)
   prd          .nezam/core/prd/PRD.md
@@ -273,7 +273,7 @@ Workspace Paths — .nezam/core/gates/workspace.paths.yaml
 
 ### /nezam paths set \<key\> \<value\>
 
-1. Parse `.nezam/core/gates/workspace.paths.yaml`
+1. Parse `.nezam/workspace.paths.yaml`
 2. Set the given key to the given value (dot-notation: `project.prd`, `project.plans_root`)
 3. Validate: the new path must be a plausible file/folder path (no absolute paths outside repo)
 4. Write back

@@ -1,5 +1,4 @@
----
-id: a11y-rtl-integration-engineer
+---id: a11y-rtl-integration-engineer
 tier: 2
 swarm: swarm-14
 version: 1.0.0

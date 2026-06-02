@@ -1,11 +1,9 @@
----
-role: Team Manager - UI Component Library
+---role: Team Manager - UI Component Library
 code-name: ui-component-manager
 swarm: frontend
 reports-to: lead-frontend-architect
 subagents: components, storybook, a11y-defaults
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-pencil-design
-name: "Pencil Design"
+name: "nezam-Pencil Design"
 description: Create professional visual designs using the Pencil CLI.
 tier: 3
 version: 1.0.0

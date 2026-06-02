@@ -1,11 +1,9 @@
----
-role: Team Manager - Requirements & Analysis
+---role: Team Manager - Requirements & Analysis
 code-name: requirements-analysis-manager
 swarm: architecture-planning
 reports-to: lead-solution-architect
 subagents: discovery, user-stories, success-metrics
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

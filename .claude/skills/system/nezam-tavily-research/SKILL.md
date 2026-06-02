@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-tavily-research
-name: "Tavily Research"
+name: "nezam-Tavily Research"
 description: "Implements agentic search, extraction, and RAG optimization using Tavily."
 version: 1.0.0
 updated: 2026-05-12

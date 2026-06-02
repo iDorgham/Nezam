@@ -1,9 +1,7 @@
----
-role: Sitemap and Information Architect
+---role: Sitemap and Information Architect
 code-name: DS-SITEMAP-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-22
 changelog: []
 ---

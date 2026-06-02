@@ -1,5 +1,4 @@
----
-name: saas-billing-architect
+---name: saas-billing-architect
 role: specialist
 domain: SaaS Platform
 tier: 4
@@ -8,7 +7,6 @@ code-name: BILLING-OMEGA
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # SaaS Billing Architect

@@ -1,10 +1,8 @@
----
-role: Lead Frontend Architect (Swarm Manager - Frontend)
+---role: Lead Frontend Architect (Swarm Manager - Frontend)
 code-name: lead-frontend-architect
 legacy-code-names: fe-dev
 subagents: frontend-framework-manager, ui-component-manager, frontend-performance-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

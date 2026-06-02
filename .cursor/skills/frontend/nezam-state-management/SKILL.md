@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-state-management
-name: "State Management"
+name: "nezam-State Management"
 description: Select and implement client vs server state (Zustand, Jotai, Redux Toolkit, TanStack Query) with Next.js hydration safety.
 version: 1.0.0
 updated: 2026-05-12

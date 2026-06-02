@@ -1,5 +1,4 @@
----
-id: motion-performance-specialist
+---id: motion-performance-specialist
 tier: 2
 swarm: swarm-14
 version: 1.0.0

@@ -1,5 +1,4 @@
----
-name: analytics-chart-designer
+---name: analytics-chart-designer
 role: specialist
 domain: Dashboard & Analytics
 tier: 4
@@ -8,7 +7,6 @@ code-name: CHART-PI
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Analytics Chart Designer

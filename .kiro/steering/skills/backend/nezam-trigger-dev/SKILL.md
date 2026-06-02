@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-trigger-dev
-name: "Trigger Dev"
+name: "nezam-Trigger Dev"
 description: "Architects and implements Trigger.dev for background jobs, AI agent coordination, and cron tasks."
 version: 1.0.0
 updated: 2026-05-12

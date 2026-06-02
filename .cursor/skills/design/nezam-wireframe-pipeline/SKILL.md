@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-wireframe-pipeline
-name: "Wireframe Pipeline"
+name: "nezam-Wireframe Pipeline"
 tier: 3
 description: "Unified wireframe generation and spec engine with mandatory pixel-perfect reproduction gate, design-system fidelity enforcement, and 2-variation discipline."
 version: 4.0.0

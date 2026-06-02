@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-task-audit-logging
-name: "Task Audit Logging"
+name: "nezam-Task Audit Logging"
 tier: 3
 description: Implements comprehensive auditing for all task modifications and state changes.
 version: 1.0.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-chart-library-abstraction
-name: "Chart Library Abstraction"
+name: "nezam-Chart Library Abstraction"
 tier: 3
 description: Reusable frontend abstraction for consistent charting across the application.
 version: 1.0.0

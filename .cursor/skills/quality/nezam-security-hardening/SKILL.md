@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-security-hardening
-name: "Security Hardening"
+name: "nezam-Security Hardening"
 description: "Layered security hardening protocol: input validation, auth hardening, dependency audit, secret management, container security, and pre-release security gate."
 version: 1.0.0
 updated: 2026-05-12

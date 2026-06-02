@@ -1,9 +1,7 @@
----
-role: Wireframe and Layout Generator
+---role: Wireframe and Layout Generator
 code-name: DS-WIRE-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-22
 changelog: []
 ---

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-cloudflare-edge
-name: "Cloudflare Edge"
+name: "nezam-Cloudflare Edge"
 tier: 3
 description: Cloudflare Workers, KV/D1/R2, Pages, cache rules, and geographic routing patterns at the edge.
 version: 1.0.0

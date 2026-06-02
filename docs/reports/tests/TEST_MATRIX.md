@@ -71,6 +71,32 @@ Test paths are relative to `.nezam/design-hub/src/test/` unless otherwise noted.
 | AC-3 | `CONTENT_MAP.md` present | filesystem check | `ls docs/plan/03-content/CONTENT_MAP.md` | PT-F-017 | ✅ |
 | AC-4 | `PROJECT_SCAFFOLD.md` present | filesystem check | `ls docs/plan/scaffold/PROJECT_SCAFFOLD.md` | PT-F-018 | ✅ |
 
+## Phase 02 — P1 task coverage
+
+### T-P1-001 Token emit script (`pnpm design:tokens:emit`)
+
+| AC | Acceptance criterion | Test file | Test name | PT-ID | Status |
+|---|---|---|---|---|---|
+| AC-1 | `pnpm design:tokens:emit` exits 0 | `emit-tokens.test.ts` | "AC-1: script exits 0 and produces tokens.css" | PT-P1-001-1 | ✅ 2026-06-02 |
+| AC-2 | `tokens.css` contains all `--ds-color-*` vars | `emit-tokens.test.ts` | "AC-2: tokens.css contains all required --ds-color-* variables" | PT-P1-001-2 | ✅ 2026-06-02 |
+| AC-2 | `tokens.css` contains typography + spacing tokens | `emit-tokens.test.ts` | "AC-2: tokens.css contains typography and spacing tokens" | PT-P1-001-3 | ✅ 2026-06-02 |
+| AC-3 | `tokens.json` is valid JSON with required keys | `emit-tokens.test.ts` | "AC-3: tokens.json is valid JSON with required keys" | PT-P1-001-4 | ✅ 2026-06-02 |
+| AC-4 | Script is idempotent | `emit-tokens.test.ts` | "AC-4: script is idempotent — second run produces identical output" | PT-P1-001-5 | ✅ 2026-06-02 |
+| AC-5 | Script exits non-zero when DESIGN.md absent | `emit-tokens.test.ts` | "AC-5: script exits non-zero when NEZAM_ROOT has no DESIGN.md" | PT-P1-001-6 | ✅ 2026-06-02 |
+
+### T-P1-002 Public docs site
+
+| AC | Acceptance criterion | Test file | Test name | PT-ID | Status |
+|---|---|---|---|---|---|
+| AC-1 | `pnpm docs-site:build` exits 0 | CI build (manual 2026-06-02) | Next.js full build | PT-P1-002-1 | ✅ |
+| AC-2 | 5 routes generated (`/`, `/start`, `/commands/plan`, `/design-hub`, `/gates`) | build log | static page generation | PT-P1-002-2 | ✅ 5/5 |
+| AC-3 | Content matches CONTENT_MAP locked copy | manual review | hero, pillars, gate copy parity | PT-P1-002-3 | ✅ |
+| AC-4 | Dev server on port 4100 | `package.json` | `pnpm docs-site` | PT-P1-002-4 | ✅ |
+| AC-5 | Workspace member | `pnpm-workspace.yaml` | contains `.nezam/docs-site` | PT-P1-002-5 | ✅ |
+| AC-6 | Nextra v4 + App Router | `package.json` deps | `nextra ^4.0.0` + `app/` dir | PT-P1-002-6 | ✅ |
+
+---
+
 ## Auxiliary coverage (existing tests, not directly bound to a P0 AC)
 
 | Test file | Covers | Status |

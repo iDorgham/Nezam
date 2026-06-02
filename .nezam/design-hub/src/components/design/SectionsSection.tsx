@@ -17,15 +17,21 @@ import { PreviewSubTabs } from '@/components/preview/PreviewSubTabs'
 
 function SectionPreview({ section }: { section: SectionDef }) {
   const tokens = useHub((s) => s.design.tokens)
+  const hubTheme = useHub((s) => s.hubTheme)
+  const c = tokens.colors
+  const mode = hubTheme
+  const useDefault = mode === c.mode
+  const surface = useDefault ? c.surface : c.darkSurface
+  const textColors = useDefault ? c.text : c.darkText
 
-  const brand = tokens.colors.brand['500']
-  const brandSub = tokens.colors.brand['100']
-  const panel = tokens.colors.surface.panel
-  const border = tokens.colors.surface.border
-  const text = tokens.colors.text.primary
-  const muted = tokens.colors.text.muted
-  const bg = tokens.colors.surface.bg
-  const accent = tokens.colors.accent['500']
+  const brand = c.brand['500']
+  const brandSub = c.brand['100']
+  const panel = surface.panel
+  const border = surface.border
+  const text = textColors.primary
+  const muted = textColors.muted
+  const bg = surface.bg
+  const accent = c.accent['500']
   const radius = tokens.radius.md
 
   const containerStyle: React.CSSProperties = {
@@ -1398,7 +1404,7 @@ export function SectionsSection() {
 
   const filtered = useMemo(
     () => {
-      const q = query.toLowerCase()
+      const q = (query || '').toLowerCase().trim()
       return SECTIONS_LIBRARY.filter((s) => {
         const matchCat = !category || s.category === category
         const matchQ   = !q || s.name.toLowerCase().includes(q) ||

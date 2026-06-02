@@ -1,11 +1,9 @@
----
-role: Team Manager - Test Automation
+---role: Team Manager - Test Automation
 code-name: automation-manager
 swarm: qa
 reports-to: lead-qa-architect
 subagents: framework, ci-integration, visual-a11y
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

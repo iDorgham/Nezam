@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-vercel-deploy
-name: "Vercel Deploy"
+name: "nezam-Vercel Deploy"
 tier: 3
 description: Vercel CLI, vercel.json, Edge Config, ISR/SSR, and deployment hooks for Next.js and framework-aware projects.
 version: 1.0.0

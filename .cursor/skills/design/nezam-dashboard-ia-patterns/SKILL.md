@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-dashboard-ia-patterns
-name: "Dashboard Ia Patterns"
+name: "nezam-Dashboard Ia Patterns"
 tier: 3
 description: Design patterns for information architecture and hierarchical data display.
 version: 1.0.0

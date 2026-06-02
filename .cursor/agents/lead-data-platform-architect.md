@@ -1,5 +1,4 @@
----
-name: lead-data-platform-architect
+---name: lead-data-platform-architect
 role: lead-architect
 domain: Data & Backend
 tier: 2
@@ -8,7 +7,6 @@ code-name: DATA-GOD
 version: "1.1.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: ["neon-database-architect", "data-partitioning-expert", "auth-security-manager"]
-certified: false
 ---
 
 # Lead Data Platform Architect

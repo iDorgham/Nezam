@@ -1,5 +1,4 @@
----
-name: cms-workflow-manager
+---name: cms-workflow-manager
 role: manager
 domain: CMS Platform
 tier: 3
@@ -8,7 +7,6 @@ code-name: FLOW-GUARD
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CMS Workflow Manager

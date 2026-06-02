@@ -52,9 +52,10 @@ export const PageRenderer = memo(function PageRenderer({
   const previewOverride = useHub((s) => s.theme.previewOverride)
   const archPages = useHub((s) => s.arch.pages)
   const layerState = useHub((s) => s.preview.layerStateByPage?.[page.id])
+  const hubTheme = useHub((s) => s.hubTheme)
   const wrapStyle = useMemo(
-    () => mergePreviewScopeVars(tokens, previewOverride),
-    [tokens, previewOverride],
+    () => mergePreviewScopeVars(tokens, previewOverride, { hubTheme }),
+    [tokens, previewOverride, hubTheme],
   )
   const isMobile = device === 'mobile'
   const isTablet = device === 'tablet'

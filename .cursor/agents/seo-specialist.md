@@ -1,9 +1,7 @@
----
-role: SEO Specialist
+---role: SEO Specialist
 code-name: seo
 subagents: keyword, analytics, performance-seo
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

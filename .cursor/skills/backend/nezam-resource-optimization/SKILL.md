@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-resource-optimization
-name: "Resource Optimization"
+name: "nezam-Resource Optimization"
 tier: 3
 description: Algorithms and logic for optimal task assignment and capacity management.
 version: 1.0.0

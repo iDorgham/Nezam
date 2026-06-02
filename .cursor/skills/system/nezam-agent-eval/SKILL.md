@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-agent-eval
-name: "Agent Eval"
+name: "nezam-Agent Eval"
 tier: 3
 description: Evaluation framework for AI agent output quality — rubrics, scoring, automated tests, and regression detection for NEZAM swarm agents.
 paths:

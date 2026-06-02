@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-dashboard-layout-pro
-name: "Dashboard Layout Pro"
+name: "nezam-Dashboard Layout Pro"
 tier: 2
 description: Dense data layouts, KPI composition, filtering UX, responsive breakpoints, state matrices
 version: 1.0

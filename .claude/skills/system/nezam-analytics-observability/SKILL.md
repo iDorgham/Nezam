@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-analytics-observability
-name: "Analytics Observability"
+name: "nezam-Analytics Observability"
 tier: 3
 description: Tracks gate-crossings, hardlock violations, and overall workspace state telemetry in real-time.
 tags: [observability, governance, analytics, monitoring]

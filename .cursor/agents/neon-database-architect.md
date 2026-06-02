@@ -1,5 +1,4 @@
----
-name: neon-database-architect
+---name: neon-database-architect
 role: architect
 domain: Data & Backend
 tier: 3
@@ -8,7 +7,6 @@ code-name: NEON-PRIME
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Neon Database Architect

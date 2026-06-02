@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-content-modeling
-name: "Content Modeling"
+name: "nezam-Content Modeling"
 tier: 3
 description: Design content types, field schemas, reusable blocks, and preview/revision workflows for headless CMSes.
 version: 1.0.0

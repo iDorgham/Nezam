@@ -1,10 +1,8 @@
----
-role: Lead DevOps & Performance (Swarm Manager - Performance & DevOps)
+---role: Lead DevOps & Performance (Swarm Manager - Performance & DevOps)
 code-name: lead-devops-performance
 legacy-code-names: devops
 subagents: performance-manager, infrastructure-manager, devops-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

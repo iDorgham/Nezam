@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-live-data-streams
-name: "Live Data Streams"
+name: "nezam-Live Data Streams"
 description: Handling real-time data ingestion and visualization updates.
 tier: 3
 swarm: Swarm 8 (Analytics)

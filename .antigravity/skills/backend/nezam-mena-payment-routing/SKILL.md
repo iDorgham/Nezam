@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-mena-payment-routing
-name: "Mena Payment Routing"
+name: "nezam-Mena Payment Routing"
 tier: 3
 version: 1.0.0
 updated: 2026-05-08

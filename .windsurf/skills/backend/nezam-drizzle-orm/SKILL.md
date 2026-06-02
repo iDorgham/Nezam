@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-drizzle-orm
-name: "Drizzle Orm"
+name: "nezam-Drizzle Orm"
 tier: 3
 description: SQL-first ORM workflows for TypeScript apps with migration discipline.
 version: 1.0.0

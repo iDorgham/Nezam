@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-contact-enrichment
-name: "Contact Enrichment"
+name: "nezam-Contact Enrichment"
 tier: 3
 description: Integration patterns for third-party contact data enrichment.
 version: 1.0.0

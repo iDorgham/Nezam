@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-analytics-chart-types
-name: "Analytics Chart Types"
+name: "nezam-Analytics Chart Types"
 description: Selection and implementation of appropriate chart types for various data dimensions.
 tier: 3
 swarm: Swarm 8 (Analytics)

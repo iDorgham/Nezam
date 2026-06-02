@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-devops-pipeline
-name: "Devops Pipeline"
+name: "nezam-Devops Pipeline"
 tier: 3
 description: GitHub Actions / GitLab CI pipelines with environment promotion, artifact versioning, and rollback.
 version: 1.0.0

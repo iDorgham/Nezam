@@ -1,5 +1,4 @@
----
-id: visual-regression-automator
+---id: visual-regression-automator
 tier: 3
 swarm: swarm-14
 version: 1.0.0

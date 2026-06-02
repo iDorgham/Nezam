@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-arabic-content
-name: "Arabic Content Master"
+name: "nezam-Arabic Content Master"
 tier: 3
 version: 1.0.0
 updated: 2026-05-08

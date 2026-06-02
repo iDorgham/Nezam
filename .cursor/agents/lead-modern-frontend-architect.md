@@ -1,5 +1,4 @@
----
-name: lead-modern-frontend-architect
+---name: lead-modern-frontend-architect
 role: lead-architect
 domain: Modern Frontend
 tier: 2
@@ -8,7 +7,6 @@ code-name: FRONT-MODERN
 version: "1.1.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: ["nextjs-app-architect", "react-server-components-expert", "vite-build-specialist"]
-certified: false
 ---
 
 # Lead Modern Frontend Architect

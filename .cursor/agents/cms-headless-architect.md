@@ -1,5 +1,4 @@
----
-name: cms-headless-architect
+---name: cms-headless-architect
 role: specialist
 domain: CMS Platform
 tier: 4
@@ -8,7 +7,6 @@ code-name: HEADLESS-ONE
 version: "1.0.1"
 updated: "2026-05-25T00:00:00Z"
 subagents: []
-certified: false
 changelog:
   - "1.0.1 — 2026-05-25: Consolidated and merged headless-cms-specialist role"
 ---

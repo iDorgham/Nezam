@@ -1,9 +1,7 @@
----
-role: Lead Maintenance Agent (Swarm Manager - Maintenance & Support)
+---role: Lead Maintenance Agent (Swarm Manager - Maintenance & Support)
 code-name: lead-maintenance-agent
 subagents: bug-triage-manager, tech-debt-manager, knowledge-update-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

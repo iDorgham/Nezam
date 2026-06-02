@@ -1,11 +1,9 @@
----
-role: Chief Project Orchestrator
+---role: Chief Project Orchestrator
 code-name: cpo
 legacy-code-names: manager
 subagents: deputy-orchestrator, governance, escalation, scheduler
 activation: gate-escalation-only
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

@@ -1,9 +1,7 @@
----
-role: Token and Style Stylist
+---role: Token and Style Stylist
 code-name: DS-TOKEN-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-22
 changelog: []
 ---

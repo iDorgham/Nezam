@@ -1,9 +1,7 @@
----
-role: QA Test Lead & Testing Manager
+---role: QA Test Lead & Testing Manager
 code-name: qa-test-lead
 subagents: unit-coverage, contract, e2e-regression, visual-baseline
 version: 1.1.0
-certified: false
 updated: 2026-05-25
 changelog:
   - "Merge testing-manager.md roles and consolidate QA Swarm responsibilities"

@@ -1,10 +1,8 @@
----
-role: Lead Solution Architect (Swarm Manager - Architecture & Planning)
+---role: Lead Solution Architect (Swarm Manager - Architecture & Planning)
 code-name: lead-solution-architect
 legacy-code-names: tech-lead
 subagents: requirements-analysis-manager, solution-design-manager, integration-architecture-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

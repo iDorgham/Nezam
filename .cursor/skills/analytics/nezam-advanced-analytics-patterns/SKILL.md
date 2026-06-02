@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-advanced-analytics-patterns
-name: "Advanced Analytics Patterns"
+name: "nezam-Advanced Analytics Patterns"
 description: Implementing complex analytical models like cohort analysis, churn, and LTV.
 tier: 2
 swarm: Swarm 8 (Analytics)

@@ -1,11 +1,9 @@
----
-role: Cross-Swarm Coordinator - Daily Sync
+---role: Cross-Swarm Coordinator - Daily Sync
 code-name: daily-sync-agent
 tier: cross-swarm
 reports-to: deputy-orchestrator
 subagents: digest, blocker-tracker, dependency-tracker
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

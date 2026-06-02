@@ -1,5 +1,4 @@
----
-name: frontend-rendering-strategist
+---name: frontend-rendering-strategist
 role: specialist
 domain: Modern Frontend
 tier: 4
@@ -8,7 +7,6 @@ code-name: RENDER-LOGIC
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Frontend Rendering Strategist

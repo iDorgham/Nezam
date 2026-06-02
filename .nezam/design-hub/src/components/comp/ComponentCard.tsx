@@ -28,7 +28,7 @@ export function ComponentCard({ component, scale = 1 }: ComponentCardProps) {
   const [copied, setCopied] = useState(false)
   const previewScopeStyle = useDesignPreviewScopeStyle({
     fillHeight: false,
-    matchHubChrome: true,
+    matchHubChrome: false,
   })
 
   function handleCopy() {

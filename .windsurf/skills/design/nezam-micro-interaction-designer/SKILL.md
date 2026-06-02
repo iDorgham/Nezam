@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-micro-interaction-designer
-name: "Micro Interaction Designer"
+name: "nezam-Micro Interaction Designer"
 tier: 3
 description: Define professional motion and micro-interactions with performance and accessibility constraints.
 version: 1.0.0

@@ -1,5 +1,4 @@
----
-name: analytics-charts-architect
+---name: analytics-charts-architect
 tier: 3
 swarm: Swarm 8 (Analytics)
 summary: Architect responsible for selecting and configuring charting libraries and reusable visualization components.

@@ -1,5 +1,4 @@
----
-name: task-workflow-architect
+---name: task-workflow-architect
 role: specialist
 domain: Task Management
 tier: 4
@@ -8,7 +7,6 @@ code-name: FLOW-SIGMA
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Task Workflow Architect

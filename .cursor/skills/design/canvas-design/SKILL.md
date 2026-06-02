@@ -1,5 +1,5 @@
 ---
-name: canvas-design
+name: "nezam-canvas-design"
 tier: 3
 description: "Workspace-level visual asset and canvas pipeline for generating documents, slides, and posters with rich layouts."
 version: 1.0.0

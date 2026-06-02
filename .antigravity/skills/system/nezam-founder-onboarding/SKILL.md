@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-founder-onboarding
-name: "Founder Onboarding"
+name: "nezam-Founder Onboarding"
 tier: 3
 description: Convert a plain-language founder idea into complete gate-ready project artifacts without requiring technical ceremony.
 version: 1.0.0

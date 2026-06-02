@@ -71,8 +71,9 @@ export function buildDesignPreviewCssVars(
 ): CSSProperties {
   const c = tokens.colors
   const mode = options?.mode ?? c.mode
-  const surface = mode === 'dark' ? c.darkSurface : c.surface
-  const text = mode === 'dark' ? c.darkText : c.text
+  const useDefault = mode === c.mode
+  const surface = useDefault ? c.surface : c.darkSurface
+  const text = useDefault ? c.text : c.darkText
   const { brand, accent, neutral, semantic } = c
 
   return {
@@ -191,13 +192,13 @@ export function mergePreviewScopeVars(
     hubTheme?: HubThemeMode
   },
 ): CSSProperties {
-  const hubTheme = options?.hubTheme ?? 'dark'
-  const effectiveMode = options?.matchHubChrome ? hubTheme : tokens.colors.mode
+  const hubTheme = options?.hubTheme ?? tokens.colors.mode
+  const effectiveMode = options?.matchHubChrome ? (options?.hubTheme ?? 'dark') : hubTheme
 
   return {
     ...buildDesignPreviewCssVars(tokens, { mode: effectiveMode }),
     ...(override ? buildThemeOverridePreviewCssVars(override, effectiveMode) : {}),
-    ...(options?.matchHubChrome ? buildHubShellPreviewCssVars(hubTheme) : {}),
+    ...(options?.matchHubChrome ? buildHubShellPreviewCssVars(options.hubTheme ?? 'dark') : {}),
     ...(options?.fillHeight !== false ? { minHeight: '100%' } : {}),
   }
 }

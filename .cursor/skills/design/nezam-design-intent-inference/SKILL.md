@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-design-intent-inference
-name: "Design Intent Inference"
+name: "nezam-Design Intent Inference"
 tier: 2
 description: Parse PRD + research to produce a structured design brief with acceptance criteria
 version: 1.0

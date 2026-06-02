@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-security-compliance
-name: "Gh Security Compliance"
+name: "nezam-Gh Security Compliance"
 tier: 3
 description: Security and compliance workflow for GitHub repositories covering secret scanning, dependency audits, code scanning, and policy enforcement.
 version: 1.0.0

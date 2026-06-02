@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-crm-erp-sync
-name: "Crm Erp Sync"
+name: "nezam-Crm Erp Sync"
 tier: 3
 description: Design and implementation of data synchronization between CRM and ERP systems.
 version: 1.0.0

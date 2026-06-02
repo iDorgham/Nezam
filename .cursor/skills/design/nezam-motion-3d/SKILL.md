@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-motion-3d
-name: "Motion 3d Progressive"
+name: "nezam-Motion 3d Progressive"
 tier: 3
 description: Motion systems (Framer Motion / GSAP), GPU-composited animation, prefers-reduced-motion, and progressive 3D fallback chains.
 version: 1.0.0

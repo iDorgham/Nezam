@@ -46,6 +46,21 @@ Before writing any response, generating code, or initiating a file edit, you MUS
 3. **Evidence Log Verification**: Confirm that the actions taken generate concrete, verifiable evidence files under `docs/reports/` or `.nezam/core/plans/`.
 4. **Confidence Score Triage**: Score the execution against the four dimensions of `EVAL_FRAMEWORK.md` and verify the score is Elite (≥90%) or Certified (≥75%) before returning the final output. If the score falls below, refine the output recursively before ending your turn.
 
+### Required Confidence Score Output Format
+
+Before every gated action, output this table:
+
+| Dimension | Score (0-12.5) | Evidence |
+|---|---|---|
+| Path Integrity | _ | Files verified: [list] |
+| Zero-Primitive Styling | _ | Token check: pass/fail |
+| Evidence Log | _ | Output paths: [list] |
+| Spec Compliance | _ | AC-IDs referenced: [list] |
+| **Total** | **/50** | |
+
+Threshold: Certified ≥ 37.5 (75%), Elite ≥ 45 (90%).
+Below threshold → refine output before proceeding.
+
 ## Runtime Team Routing
 
 - Assign one manager, one leader, and non-overlapping specialists per workstream.
@@ -56,7 +71,7 @@ Before writing any response, generating code, or initiating a file edit, you MUS
 ## Session Start Protocol
 
 At session start:
-1. Read `.nezam/core/gates/workspace.paths.yaml` → resolve all paths
+1. Read `.nezam/workspace.paths.yaml` → resolve all paths
 2. Read `.cursor/state/onboarding.yaml`:
    - If `prd_locked: false` → route user to `/start` immediately
    - If `design_locked: false` → route user to `/start` (design step)

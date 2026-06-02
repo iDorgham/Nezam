@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-prisma-orm
-name: "Prisma Orm"
+name: "nezam-Prisma Orm"
 tier: 3
 description: Prisma 6 schema, migrations, type-safe client, seeding, and relations for typed database access.
 version: 1.1.0

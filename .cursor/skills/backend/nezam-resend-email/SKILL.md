@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-resend-email
-name: "Resend Email"
+name: "nezam-Resend Email"
 tier: 3
 description: Transactional email delivery patterns using Resend with reliability safeguards.
 version: 1.1.0

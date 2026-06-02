@@ -1,5 +1,5 @@
 ---
-name: open-design-style-selector
+name: "nezam-open-design-style-selector"
 description: "Workspace-level skill for selecting and applying an open-design aesthetic style from the 67 available families in docs/reference/open-design-main/. Use when agents need to go beyond NEZAM's default Precision Console aesthetic and apply a specific named visual style (neobrutalism, luxury, editorial, glassmorphism, etc.)."
 license: MIT
 metadata:

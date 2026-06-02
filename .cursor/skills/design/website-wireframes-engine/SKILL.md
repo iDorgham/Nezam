@@ -1,6 +1,6 @@
 ---
 skill_id: website-wireframes-engine
-name: "Website Wireframes Engine"
+name: "nezam-Website Wireframes Engine"
 tier: 3
 description: "End-to-end rendered-wireframe pipeline for marketing & SaaS pages: reads wireframes_locked.json, dispatches block components, applies fixed-layout chrome (full-width header/footer), and enforces DESIGN.md §7 contract."
 version: 1.0.0

@@ -1,5 +1,4 @@
----
-name: node-logic-specialist
+---name: node-logic-specialist
 role: specialist
 domain: Visual Builder
 tier: 4
@@ -8,7 +7,6 @@ code-name: NODE-FLOW
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Node Logic Specialist

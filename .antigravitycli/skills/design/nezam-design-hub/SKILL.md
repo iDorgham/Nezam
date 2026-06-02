@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-design-hub
-name: "Design Hub"
+name: "nezam-Design Hub"
 tier: 3
 description: Operate the NEZAM Design Hub to build the design contract (sitemap, tokens, theming) and export the outputs used by SDD.
 category: design

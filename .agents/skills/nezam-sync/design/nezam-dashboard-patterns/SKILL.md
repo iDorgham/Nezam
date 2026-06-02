@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-dashboard-patterns
-name: "Dashboard Patterns"
+name: "nezam-Dashboard Patterns"
 tier: 3
 description: Dense data layouts, filtering/sorting UX, KPI cards, responsive tables, and admin panel composition.
 version: 1.0.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-a11y-rtl-fusion
-name: "A11y Rtl Fusion"
+name: "nezam-A11y Rtl Fusion"
 tier: 2
 description: Merge accessibility + RTL logic for MENA-native UX
 version: 1.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-prioritize-rice
-name: "Prioritize Rice"
+name: "nezam-Prioritize Rice"
 tier: 2
 description: Score backlog items using RICE and update MASTER_TASKS.md
 version: 1.0

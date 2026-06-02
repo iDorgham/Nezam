@@ -1,5 +1,4 @@
----
-name: api-logic-manager
+---name: api-logic-manager
 role: specialist
 domain: Data & Backend
 tier: 3
@@ -8,7 +7,6 @@ code-name: LOGIC-PRIME
 version: "1.1.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: ["contracts", "validation", "error-handling"]
-certified: false
 ---
 
 # API Logic Manager

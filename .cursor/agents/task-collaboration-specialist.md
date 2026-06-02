@@ -1,5 +1,4 @@
----
-name: task-collaboration-specialist
+---name: task-collaboration-specialist
 role: specialist
 domain: Task Management
 tier: 4
@@ -8,7 +7,6 @@ code-name: COLLAB-PHI
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Task Collaboration Specialist

@@ -1,9 +1,7 @@
----
-role: Design Hub Architecture IA
+---role: Design Hub Architecture IA
 code-name: DS-ARCH-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-27
 changelog: []
 ---

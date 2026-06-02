@@ -1,5 +1,4 @@
----
-name: vite-build-specialist
+---name: vite-build-specialist
 role: specialist
 domain: Modern Frontend
 tier: 4
@@ -8,7 +7,6 @@ code-name: VITE-SPEED
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Vite Build Specialist

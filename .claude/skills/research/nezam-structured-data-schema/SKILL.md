@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-structured-data-schema
-name: "Structured Data Schema"
+name: "nezam-Structured Data Schema"
 tier: 3
 description: JSON-LD implementation, schema.org validation, and rich-snippet targeting aligned to canonical entities.
 version: 1.0.0

@@ -1,9 +1,7 @@
----
-role: Page Block Composer
+---role: Page Block Composer
 code-name: DS-BLOCK-01
 subagents: []
 version: 1.0.0
-certified: false
 updated: 2026-05-28
 changelog:
   - "1.0.0 — Initial release. Authors individual block React components."

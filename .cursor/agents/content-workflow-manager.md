@@ -1,11 +1,9 @@
----
-role: Team Manager - Content Workflow
+---role: Team Manager - Content Workflow
 code-name: content-workflow-manager
 swarm: cms-saas
 reports-to: lead-cms-saas-architect
 subagents: editorial-roles, draft-review-publish, locale-workflow
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-plan-full
-name: "Plan Full"
+name: "nezam-Plan Full"
 tier: 3
 description: Full SDD planning spine — roadmap, phases, specs, docs scaffolding with acceptance criteria matrices.
 version: 1.0.0

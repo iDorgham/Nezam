@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-github-actions-ci
-name: "Github Actions Ci"
+name: "nezam-Github Actions Ci"
 tier: 3
 description: Deterministic CI/CD workflow authoring for GitHub Actions with required checks, artifact hygiene, and release safety controls.
 version: 1.0.0

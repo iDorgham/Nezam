@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-wireframe-catalog
-name: "Wireframe Catalog"
+name: "nezam-Wireframe Catalog"
 tier: 3
 description: Generate precise high-fidelity ASCII wireframes as implementation contracts during /PLAN design wireframes.
 version: 2.0.0

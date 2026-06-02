@@ -1,5 +1,4 @@
----
-name: crm-pipeline-manager
+---name: crm-pipeline-manager
 role: specialist
 domain: CRM
 tier: 4
@@ -8,7 +7,6 @@ code-name: PIPE-CHI
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CRM Pipeline Manager

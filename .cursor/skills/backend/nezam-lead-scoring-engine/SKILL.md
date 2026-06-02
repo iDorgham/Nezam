@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-lead-scoring-engine
-name: "Lead Scoring Engine"
+name: "nezam-Lead Scoring Engine"
 tier: 3
 description: Logic and scoring models for lead qualification and prioritization.
 version: 1.0.0

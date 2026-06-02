@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-saas-feature-gating
-name: "Saas Feature Gating"
+name: "nezam-Saas Feature Gating"
 tier: 3
 description: Feature toggle and entitlement logic for tiered SaaS offerings.
 version: 1.0.0

@@ -1,5 +1,4 @@
----
-name: crm-integration-architect
+---name: crm-integration-architect
 role: specialist
 domain: CRM
 tier: 4
@@ -8,7 +7,6 @@ code-name: SYNC-XI
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CRM Integration Architect

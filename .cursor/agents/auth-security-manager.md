@@ -1,5 +1,4 @@
----
-name: auth-security-manager
+---name: auth-security-manager
 role: specialist
 domain: Data & Backend
 tier: 3
@@ -8,7 +7,6 @@ code-name: AUTH-GUARD
 version: "1.1.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Auth Security Manager

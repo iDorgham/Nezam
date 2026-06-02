@@ -1,5 +1,5 @@
 ---
-name: theme-factory
+name: "nezam-theme-factory"
 tier: 3
 description: "Workspace-level theme manager that curates and builds 10 design themes (color + typography pairings) for NEZAM's applications."
 version: 1.0.0

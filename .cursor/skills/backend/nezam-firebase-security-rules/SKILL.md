@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-firebase-security-rules
-name: "Firebase Security Rules"
+name: "nezam-Firebase Security Rules"
 description: "Red-team audit of Firebase Security Rules before every deploy. Scores rules 1–5 on 5 critical checks. Deploy blocked if score <4."
 version: 1.0.0
 updated: 2026-05-12

@@ -1,5 +1,4 @@
----
-id: token-architect-pro
+---id: token-architect-pro
 tier: 2
 swarm: swarm-14
 version: 1.0.0

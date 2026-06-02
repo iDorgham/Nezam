@@ -1,5 +1,4 @@
----
-name: white-label-theming-specialist
+---name: white-label-theming-specialist
 role: specialist
 domain: Styling & Theming
 tier: 4
@@ -8,7 +7,6 @@ code-name: THEME-VAR
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # White-Label Theming Specialist

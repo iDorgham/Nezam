@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-spec-generator
-name: "Spec Generator"
+name: "nezam-Spec Generator"
 tier: 3
 description: Generate complete SDD SPEC.md files for feature slices following the 10-field contract.
 version: 1.0.0

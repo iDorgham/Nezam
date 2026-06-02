@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-ai-ux-patterns
-name: "Ai Ux Patterns"
+name: "nezam-Ai Ux Patterns"
 tier: 3
 description: UI/UX design patterns for AI-powered product features — loading states, confidence indicators, streaming, error recovery, and MENA-specific AI UX.
 paths:

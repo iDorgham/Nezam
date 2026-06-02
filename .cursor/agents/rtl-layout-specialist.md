@@ -1,5 +1,4 @@
----
-name: rtl-layout-specialist
+---name: rtl-layout-specialist
 role: specialist
 domain: Styling & Theming
 tier: 4
@@ -8,7 +7,6 @@ code-name: RTL-FLIP
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # RTL Layout Specialist

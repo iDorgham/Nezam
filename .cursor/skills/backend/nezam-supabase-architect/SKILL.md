@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-supabase-architect
-name: "Supabase Architect"
+name: "nezam-Supabase Architect"
 description: Architecting and managing Supabase projects, including DB schema, Auth, and Edge Functions.
 tier: 3
 swarm: Swarm 4 (Backend)

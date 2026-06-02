@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-a11y-automation
-name: "A11y Automation"
+name: "nezam-A11y Automation"
 tier: 3
 description: axe-core integration, keyboard-nav testing, screen-reader audits, and contrast checks in CI for WCAG 2.2 AA.
 version: 1.0.0

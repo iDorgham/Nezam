@@ -1,5 +1,4 @@
----
-name: react-server-components-expert
+---name: react-server-components-expert
 role: specialist
 domain: Modern Frontend
 tier: 4
@@ -8,7 +7,6 @@ code-name: RSC-CORE
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # React Server Components Expert

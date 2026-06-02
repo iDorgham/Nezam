@@ -1,5 +1,4 @@
----
-name: lead-visual-builder-architect
+---name: lead-visual-builder-architect
 role: lead-architect
 domain: Visual Builder
 tier: 2
@@ -8,7 +7,6 @@ code-name: VISUAL-GOD
 version: "1.1.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: ["visual-canvas-architect", "node-logic-specialist", "visual-interaction-designer"]
-certified: false
 ---
 
 # Lead Visual Builder Architect

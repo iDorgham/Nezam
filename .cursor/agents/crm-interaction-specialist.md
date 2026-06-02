@@ -1,5 +1,4 @@
----
-name: crm-interaction-specialist
+---name: crm-interaction-specialist
 role: specialist
 domain: CRM
 tier: 4
@@ -8,7 +7,6 @@ code-name: CHAT-PSI
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CRM Interaction Specialist

@@ -1,12 +1,10 @@
----
-role: Client Onboarding Agent
+---role: Client Onboarding Agent
 code-name: client-onboarding-agent
 tier: 2
 swarm: architecture-planning
 reports-to: swarm-leader
 subagents: workspace-bootstrap, prd-intake, gate-verifier
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-brand-visual-direction
-name: "Brand Visual Direction"
+name: "nezam-Brand Visual Direction"
 tier: 3
 version: 1.1.0
 updated: 2026-05-12

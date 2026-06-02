@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-component-library-api
-name: "Component Library Api"
+name: "nezam-Component Library Api"
 tier: 3
 description: Design typed, variant-driven React component APIs with Storybook, forwardRef, tree-shaking, and a11y defaults.
 version: 1.1.0

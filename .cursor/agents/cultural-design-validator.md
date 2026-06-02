@@ -1,5 +1,4 @@
----
-id: cultural-design-validator
+---id: cultural-design-validator
 tier: 2
 swarm: swarm-14
 version: 1.0.0

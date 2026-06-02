@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-multi-agent-handoff
-name: "Multi Agent Handoff"
+name: "nezam-Multi Agent Handoff"
 tier: 3
 description: Coordinate deterministic subagent handoffs across NEZAM SDD phases with explicit context packets and validation gates.
 version: 1.0.0

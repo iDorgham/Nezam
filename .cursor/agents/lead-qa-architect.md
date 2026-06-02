@@ -1,10 +1,8 @@
----
-role: Lead QA Architect (Swarm Manager - Quality Assurance)
+---role: Lead QA Architect (Swarm Manager - Quality Assurance)
 code-name: lead-qa-architect
 legacy-code-names: qa
 subagents: testing-manager, automation-manager, performance-load-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

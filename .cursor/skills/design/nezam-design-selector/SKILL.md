@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-design-selector
-name: "Design Selector"
+name: "nezam-Design Selector"
 tier: 3
 description: Orchestrates the full design selection flow. Detects product type, presents wireframe options sequentially using the wireframe-catalog, saves choices to DESIGN_CHOICES.md, then generates DESIGN.md from confirmed selections.
 version: 1.0.0

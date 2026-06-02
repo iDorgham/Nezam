@@ -1,5 +1,4 @@
----
-name: task-state-manager
+---name: task-state-manager
 role: specialist
 domain: Task Management
 tier: 4
@@ -8,7 +7,6 @@ code-name: STATE-OMEGA
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Task State Manager

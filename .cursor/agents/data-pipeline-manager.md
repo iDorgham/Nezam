@@ -1,11 +1,9 @@
----
-role: Team Manager - Data Pipelines (ELT/ETL)
+---role: Team Manager - Data Pipelines (ELT/ETL)
 code-name: data-pipeline-manager
 swarm: data-database
 reports-to: lead-database-architect
 subagents: ingestion, cdc-replication, warehousing
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

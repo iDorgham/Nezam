@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-api-gateway
-name: "Api Gateway"
+name: "nezam-Api Gateway"
 tier: 3
 description: Rate limiting, auth middleware, request transformation, routing policies, and gateway resilience.
 version: 1.0.0

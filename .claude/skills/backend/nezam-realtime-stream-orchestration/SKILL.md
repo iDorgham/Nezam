@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-realtime-stream-orchestration
-name: "Realtime Stream Orchestration"
+name: "nezam-Realtime Stream Orchestration"
 tier: 3
 description: Protocols and logic for managing live data streams for dashboards.
 version: 1.0.0

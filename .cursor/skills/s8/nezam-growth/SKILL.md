@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-growth
-name: "S8 Growth"
+name: "nezam-S8 Growth"
 tier: 3
 summary: Growth metrics and analysis for S8 analytics, tracking acquisition and viral loops.
 owner: unassigned

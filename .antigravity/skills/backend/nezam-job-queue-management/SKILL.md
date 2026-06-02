@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-job-queue-management
-name: "Job Queue Management"
+name: "nezam-Job Queue Management"
 tier: 3
 description: Governs the architecture and monitoring of background jobs and recurring tasks.
 version: 1.0.0

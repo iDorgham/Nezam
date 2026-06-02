@@ -1,5 +1,4 @@
----
-name: lead-styling-theming-architect
+---name: lead-styling-theming-architect
 role: lead-architect
 domain: Styling & Theming
 tier: 2
@@ -8,7 +7,6 @@ code-name: THEME-GOD
 version: "1.1.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: ["design-token-orchestrator", "rtl-layout-specialist", "animation-motion-specialist"]
-certified: false
 ---
 
 # Lead Styling & Theming Architect

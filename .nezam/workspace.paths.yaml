@@ -33,7 +33,8 @@ paths:
   # B. DESIGNING PHASE PATHS
   # ────────────────────────────────────────────────────────────────────────────
   # Root brand/styling profile design hub folder
-  design_hub_folder: ".nezam/design-hub"
+  design_hub_app_folder: ".nezam/design-hub"
+  design_hub_artifacts_folder: ".nezam/design-hub/design"
   # Unified UI design token definition registry file
   design_tokens_file: ".nezam/design-hub/design/tokens.json"
   # Active branding layout and UI components contract spec

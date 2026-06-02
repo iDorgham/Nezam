@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-saas-tenancy-isolation
-name: "Saas Tenancy Isolation"
+name: "nezam-Saas Tenancy Isolation"
 tier: 3
 description: Implementation patterns for multi-tenant data isolation and security.
 version: 1.0.0

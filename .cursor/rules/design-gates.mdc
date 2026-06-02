@@ -40,6 +40,7 @@ Use these agents as reasoning charters:
 - Container queries are required for component-level responsiveness where components are reusable across layouts.
 - Breakpoint matrix must be explicit: `mobile -> tablet -> desktop -> wide`.
 - No one-off layout constants that bypass the token/grid contract.
+- **Token consistency**: All components generated after the design lock must use the tokens defined in `wireframes_locked.json` or `DESIGN.md`. No hardcoded colors or spacing that deviate from the locked profile.
 
 ## Gate 3: Animation and Motion Budget
 

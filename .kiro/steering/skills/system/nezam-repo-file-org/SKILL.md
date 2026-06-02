@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-repo-file-org
-name: "Repo File Org"
+name: "nezam-Repo File Org"
 tier: 3
 description: Deterministic repository organization workflow for safe file moves, import updates, and clean directory governance.
 version: 1.0.0

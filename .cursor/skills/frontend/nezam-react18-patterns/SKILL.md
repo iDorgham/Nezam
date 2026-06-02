@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-react18-patterns
-name: "React18 Patterns"
+name: "nezam-React18 Patterns"
 description: "Implements React 18+ concurrent features, automatic batching, and modern rendering patterns."
 version: 1.0.0
 updated: 2026-05-12

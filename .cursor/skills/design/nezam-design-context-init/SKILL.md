@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-design-context-init
-name: "Design Context Init"
+name: "nezam-Design Context Init"
 description: "Run before any design work on an unfamiliar codebase — extracts full UI context (components, layouts, routes, tokens, pages, extractable components) into 6 structured files in .cursor/context/design-init/."
 version: 1.0.0
 updated: 2026-05-12

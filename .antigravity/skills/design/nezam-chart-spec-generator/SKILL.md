@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-chart-spec-generator
-name: "Chart Spec Generator"
+name: "nezam-Chart Spec Generator"
 tier: 2
 description: Framework-agnostic chart specs with a11y, RTL parity, theme token mappings
 version: 1.0

@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-collab-ui-patterns
-name: "Collab Ui Patterns"
+name: "nezam-Collab Ui Patterns"
 tier: 3
 description: UI/UX patterns and frontend logic for real-time collaboration.
 version: 1.0.0

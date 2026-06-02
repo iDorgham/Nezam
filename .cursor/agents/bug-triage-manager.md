@@ -1,11 +1,9 @@
----
-role: Team Manager - Bug Triage
+---role: Team Manager - Bug Triage
 code-name: bug-triage-manager
 swarm: maintenance-support
 reports-to: lead-maintenance-agent
 subagents: intake, severity-routing, sla-tracking
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

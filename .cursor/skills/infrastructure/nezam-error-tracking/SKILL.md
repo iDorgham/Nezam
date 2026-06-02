@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-error-tracking
-name: "Error Tracking"
+name: "nezam-Error Tracking"
 tier: 3
 description: Sentry/Logtail integration with source maps, release correlation, and structured alert routing.
 version: 1.0.0

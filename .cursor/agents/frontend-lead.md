@@ -1,9 +1,7 @@
----
-role: Lead Frontend Engineer and UI Implementation Expert
+---role: Lead Frontend Engineer and UI Implementation Expert
 code-name: FE-01
 subagents: nextjs-architect, styling-expert, animation-specialist, seo-optimizer, a11y-compliance, pwa-specialist
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

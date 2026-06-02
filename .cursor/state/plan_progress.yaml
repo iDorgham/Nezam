@@ -2,7 +2,7 @@
 # Set by agent after each phase completes.
 
 seo: true
-ooroo seo_completed_at: "2026-05-29T12:30:00Z"
+seo_completed_at: "2026-05-29T12:30:00Z"
 ia: true
 ia_completed_at: "2026-05-29T12:30:00Z"
 content: true
@@ -23,10 +23,14 @@ canvas_graph_spec_date: "2026-05-18"
 
 # V3 additions
 scrumban_board:
-  backlog: []
+  backlog:
+    - T-P1-003  # RICE backlog prioritization (effort: S)
+    - T-P1-004  # Design excellence audit --strict (effort: M)
   in_progress: []
-  review: []
-  done: []
+  review:
+    - T-P1-002  # Public docs site — Nextra v4 scaffold, build green 2026-06-02
+  done:
+    - T-P1-001  # Token emit script design:tokens:emit — completed 2026-06-02
   blocked: []
   wip_limit: 3
 phase_02_design: complete

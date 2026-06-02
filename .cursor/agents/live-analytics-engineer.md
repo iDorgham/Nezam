@@ -1,5 +1,4 @@
----
-name: live-analytics-engineer
+---name: live-analytics-engineer
 tier: 4
 swarm: Swarm 8 (Analytics)
 summary: Specialist in implementing real-time data streaming and live visualization updates.

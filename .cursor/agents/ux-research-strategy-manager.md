@@ -1,11 +1,9 @@
----
-role: Team Manager - UX Research & Strategy
+---role: Team Manager - UX Research & Strategy
 code-name: ux-research-strategy-manager
 swarm: ui-ux-design
 reports-to: lead-uiux-designer
 subagents: user-research, journey-mapping, ia-strategy
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

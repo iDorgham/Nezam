@@ -1,11 +1,9 @@
----
-role: Team Manager - Tech Debt
+---role: Team Manager - Tech Debt
 code-name: tech-debt-manager
 swarm: maintenance-support
 reports-to: lead-maintenance-agent
 subagents: debt-register, debt-sprints, dep-updates
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

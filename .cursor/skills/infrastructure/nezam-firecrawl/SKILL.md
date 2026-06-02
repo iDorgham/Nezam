@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-firecrawl
-name: "Firecrawl"
+name: "nezam-Firecrawl"
 description: "Web content extraction for AI pipelines using Firecrawl — converts URLs to clean markdown or structured data for RAG ingestion, competitive research, and content pipelines."
 version: 1.0.0
 updated: 2026-05-12

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-performance-optimization
-name: "Performance Optimization"
+name: "nezam-Performance Optimization"
 tier: 3
 description: Core Web Vitals budgeting, code splitting, bundle analysis, and lazy-loading strategy for sustained perf.
 version: 1.0.0

@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-sdd-gate-validator
-name: "Sdd Gate Validator"
+name: "nezam-Sdd Gate Validator"
 tier: 2
 description: Deterministic gate validation for SDD phase transitions
 version: 1.0

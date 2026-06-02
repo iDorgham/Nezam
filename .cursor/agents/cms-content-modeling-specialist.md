@@ -1,5 +1,4 @@
----
-name: cms-content-modeling-specialist
+---name: cms-content-modeling-specialist
 role: specialist
 domain: CMS Platform
 tier: 4
@@ -8,7 +7,6 @@ code-name: SCHEMA-WEAVER
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # CMS Content Modeling Specialist

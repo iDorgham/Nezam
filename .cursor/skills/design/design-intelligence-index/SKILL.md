@@ -1,5 +1,5 @@
 ---
-name: design-intelligence-index
+name: "nezam-design-intelligence-index"
 description: "Master routing table for NEZAM's design reference library. Use this skill first on any design task to identify which reference documents to load. Maps design intents, aesthetic moods, component needs, and brand targets to the correct source-of-truth files in docs/reference/."
 license: MIT
 metadata:

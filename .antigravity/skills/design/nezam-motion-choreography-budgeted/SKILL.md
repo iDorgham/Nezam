@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-motion-choreography-budgeted
-name: "Motion Choreography Budgeted"
+name: "nezam-Motion Choreography Budgeted"
 tier: 2
 description: Animation choreography with hard perf budgets, GPU hints, reduced-motion fallbacks
 version: 1.0

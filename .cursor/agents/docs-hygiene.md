@@ -1,9 +1,7 @@
----
-role: Documentation Hygiene Steward
+---role: Documentation Hygiene Steward
 code-name: docs-hygiene
 subagents: structure-keeper, context-sync, spec-freshness
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

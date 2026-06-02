@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-cdn-optimization
-name: "Cdn Optimization"
+name: "nezam-Cdn Optimization"
 tier: 3
 description: Image optimization, prefetch/preload, cache tags, and edge routing for fast global delivery.
 version: 1.0.0

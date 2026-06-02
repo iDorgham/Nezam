@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-kanban-pipeline-ui
-name: "Kanban Pipeline Ui"
+name: "nezam-Kanban Pipeline Ui"
 tier: 3
 description: UI/UX patterns for drag-and-drop sales pipelines and Kanban boards.
 version: 1.0.0

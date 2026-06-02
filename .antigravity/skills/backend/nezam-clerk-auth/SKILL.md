@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-clerk-auth
-name: "Clerk Auth"
+name: "nezam-Clerk Auth"
 tier: 3
 description: Implement hosted authentication and organization-aware auth flows with Clerk.
 version: 1.0.0

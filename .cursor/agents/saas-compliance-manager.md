@@ -1,5 +1,4 @@
----
-name: saas-compliance-manager
+---name: saas-compliance-manager
 role: manager
 domain: SaaS Platform
 tier: 3
@@ -8,7 +7,6 @@ code-name: AUDIT-SHIELD
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # SaaS Compliance Manager

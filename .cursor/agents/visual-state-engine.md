@@ -1,5 +1,4 @@
----
-name: visual-state-engine
+---name: visual-state-engine
 role: specialist
 domain: Visual Builder
 tier: 4
@@ -8,7 +7,6 @@ code-name: STATE-FLOW
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Visual State Engine

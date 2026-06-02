@@ -1,9 +1,7 @@
----
-role: CI Automation Engineer
+---role: CI Automation Engineer
 code-name: ci-automation
 subagents: workflow-optimizer, release-guard, artifact-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

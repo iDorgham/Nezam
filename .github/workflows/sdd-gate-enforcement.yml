@@ -79,3 +79,6 @@ jobs:
             exit 1
           fi
           echo "✅ At most one phase active (count=$active)"
+
+      - name: State and Artifact Integrity Check
+        run: pnpm run check:state

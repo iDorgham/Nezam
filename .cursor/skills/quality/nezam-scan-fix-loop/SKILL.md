@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-scan-fix-loop
-name: "Scan Fix Loop"
+name: "nezam-Scan Fix Loop"
 tier: 3
 description: Deterministic scan-to-fix orchestration that triages `/SCAN` output, applies targeted patches, verifies results, and updates planning artifacts.
 version: 1.0.0

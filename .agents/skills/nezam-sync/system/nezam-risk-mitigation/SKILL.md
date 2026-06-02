@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-risk-mitigation
-name: "Risk Mitigation"
+name: "nezam-Risk Mitigation"
 tier: 3
 description: Track technical debt, run failure-mode analysis, and define fallback plans for high-risk slices before /DEVELOP.
 version: 1.0.0

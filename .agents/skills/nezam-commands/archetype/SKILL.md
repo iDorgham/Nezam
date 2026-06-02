@@ -46,7 +46,7 @@ Read the following before proceeding:
 2. **PRD** — resolved `intake.prd` path
 3. **DESIGN.md** — repo root `DESIGN.md` (profile must be applied)
 4. **AGENT_REGISTRY** — `.cursor/state/AGENT_REGISTRY.yaml`
-5. **Workspace paths** — `.nezam/core/gates/workspace.paths.yaml`
+5. **Workspace paths** — `.nezam/workspace.paths.yaml`
 
 Show a pre-flight table before scaffolding:
 

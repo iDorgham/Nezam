@@ -1,11 +1,9 @@
----
-role: Chief Product Officer — Final Go/No-Go Authority
+---role: Chief Product Officer — Final Go/No-Go Authority
 code-name: cpo
 tier: executive
 swarm: executive
 reports-to: human (Dorgham)
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog:
   - "1.0.0 — 2026-05-12: Created to resolve dead escalation link in subagent-controller.md"

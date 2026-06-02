@@ -1,6 +1,6 @@
 ---
 skill_id: nezam-api-design
-name: "Api Design"
+name: "nezam-Api Design"
 tier: 3
 description: OpenAPI 3.1 contracts, REST/GraphQL guidelines, versioning, idempotency, and error schemas before implementation.
 version: 1.0.0

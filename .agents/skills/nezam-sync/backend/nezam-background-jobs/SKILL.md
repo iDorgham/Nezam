@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-background-jobs
-name: "Background Jobs"
+name: "nezam-Background Jobs"
 tier: 3
 description: Durable async job orchestration with Trigger.dev and Inngest patterns.
 version: 1.0.0

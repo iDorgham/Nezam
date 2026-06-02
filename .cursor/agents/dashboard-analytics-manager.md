@@ -1,5 +1,4 @@
----
-name: dashboard-analytics-manager
+---name: dashboard-analytics-manager
 tier: 3
 swarm: Swarm 8 (Analytics)
 summary: Manager responsible for dashboard information architecture and KPI alignment.

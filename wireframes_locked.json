@@ -1,18 +1,73 @@
 {
-  "blocks": [],
+  "blocks": [
+    {
+      "block_id": "BLK-001",
+      "component": "Nav_TopBar",
+      "props_schema": {
+        "title": { "type": "string", "default": "NEZAM" }
+      },
+      "states": ["default", "compact", "transparent"],
+      "accessibility_notes": "Main navigation landmark, keyboard focusable menu items, aria-label controls"
+    },
+    {
+      "block_id": "BLK-002",
+      "component": "Hero_Centered",
+      "props_schema": {
+        "headline": { "type": "string", "default": "Governance-first AI workspace orchestration" }
+      },
+      "states": ["default", "with-image", "minimalist"],
+      "accessibility_notes": "Clear H1 heading, high contrast background, legible display typography"
+    },
+    {
+      "block_id": "BLK-003",
+      "component": "Content_Logos",
+      "props_schema": {
+        "logos": { "type": "array" }
+      },
+      "states": ["default", "grayscale", "marquee"],
+      "accessibility_notes": "Images with appropriate alternative descriptions, list format semantic structure"
+    },
+    {
+      "block_id": "BLK-004",
+      "component": "Content_Features",
+      "props_schema": {
+        "features": { "type": "array" }
+      },
+      "states": ["default", "grid-3-col", "list-rows"],
+      "accessibility_notes": "Descriptive feature card elements, structured headers, high readability"
+    },
+    {
+      "block_id": "BLK-005",
+      "component": "Content_CTA",
+      "props_schema": {
+        "button_text": { "type": "string", "default": "Get Started" }
+      },
+      "states": ["default", "split-view", "centered-banner"],
+      "accessibility_notes": "Prominent interactive elements, clear tabbed index order, aria-live alerts"
+    },
+    {
+      "block_id": "BLK-006",
+      "component": "Nav_Footer",
+      "props_schema": {
+        "copyright": { "type": "string", "default": "© 2026 NEZAM" }
+      },
+      "states": ["default", "compact", "sitemap-columns"],
+      "accessibility_notes": "Semantic footer landmark, visible link hover states, strict contrast ratios"
+    }
+  ],
   "meta": {
     "project_name": "NEZAM",
     "project_slug": "nezam",
     "session_id": "11111111-1111-1111-1111-111111111111",
-    "locked_at": "2026-05-27T08:59:11.418Z",
-    "generatedAt": "2026-05-27T08:59:11.418Z",
+    "locked_at": "2026-06-01T07:50:00.000Z",
+    "generatedAt": "2026-06-01T07:50:00.000Z",
     "profile": "minimal",
     "canvas_mode": "saas-dashboard",
-    "nezam_version": "v7",
+    "nezam_version": "v3",
     "locked_by": "local",
     "source_context": "project_context.json"
   },
-  "locked_at": "2026-05-27T08:59:11.418Z",
+  "locked_at": "2026-06-01T07:50:00.000Z",
   "design_decisions": {
     "layout_direction": "ltr",
     "color_mode": "auto",
@@ -25,9 +80,52 @@
         "title": "Home",
         "route": "/",
         "type": "public",
-        "access": [
-          "anon"
-        ],
+        "access": ["anon"],
+        "status": "approved",
+        "priority": "P0"
+      },
+      {
+        "id": "PAGE-002",
+        "title": "Dashboard",
+        "route": "/dashboard",
+        "type": "public",
+        "access": ["user"],
+        "status": "approved",
+        "priority": "P0"
+      },
+      {
+        "id": "PAGE-003",
+        "title": "Wireframes",
+        "route": "/wireframe",
+        "type": "public",
+        "access": ["user"],
+        "status": "approved",
+        "priority": "P0"
+      },
+      {
+        "id": "PAGE-004",
+        "title": "Design",
+        "route": "/design",
+        "type": "public",
+        "access": ["user"],
+        "status": "approved",
+        "priority": "P0"
+      },
+      {
+        "id": "PAGE-005",
+        "title": "Export",
+        "route": "/export",
+        "type": "public",
+        "access": ["user"],
+        "status": "approved",
+        "priority": "P0"
+      },
+      {
+        "id": "PAGE-006",
+        "title": "Sign In",
+        "route": "/sign-in",
+        "type": "public",
+        "access": ["anon"],
         "status": "approved",
         "priority": "P0"
       }
@@ -41,75 +139,105 @@
       "canvas_mode": "saas-dashboard",
       "layout_approved": true,
       "sections": [
-        {
-          "section_id": "SEC-001",
-          "block_type": "Hero",
-          "order": 0,
-          "approved": true
-        }
+        { "section_id": "SEC-001", "block_type": "Nav_TopBar", "order": 0, "approved": true },
+        { "section_id": "SEC-002", "block_type": "Hero_Centered", "order": 1, "approved": true },
+        { "section_id": "SEC-003", "block_type": "Content_Logos", "order": 2, "approved": true },
+        { "section_id": "SEC-004", "block_type": "Content_Features", "order": 3, "approved": true },
+        { "section_id": "SEC-005", "block_type": "Content_CTA", "order": 4, "approved": true },
+        { "section_id": "SEC-006", "block_type": "Nav_Footer", "order": 5, "approved": true }
+      ]
+    },
+    {
+      "page_id": "PAGE-002",
+      "title": "Dashboard",
+      "route": "/dashboard",
+      "canvas_mode": "saas-dashboard",
+      "layout_approved": true,
+      "sections": [
+        { "section_id": "SEC-201", "block_type": "Nav_TopBar", "order": 0, "approved": true },
+        { "section_id": "SEC-202", "block_type": "Hero_Centered", "order": 1, "approved": true },
+        { "section_id": "SEC-203", "block_type": "Nav_Footer", "order": 2, "approved": true }
+      ]
+    },
+    {
+      "page_id": "PAGE-003",
+      "title": "Wireframes",
+      "route": "/wireframe",
+      "canvas_mode": "saas-dashboard",
+      "layout_approved": true,
+      "sections": [
+        { "section_id": "SEC-301", "block_type": "Nav_TopBar", "order": 0, "approved": true },
+        { "section_id": "SEC-302", "block_type": "Content_Features", "order": 1, "approved": true },
+        { "section_id": "SEC-303", "block_type": "Nav_Footer", "order": 2, "approved": true }
+      ]
+    },
+    {
+      "page_id": "PAGE-004",
+      "title": "Design",
+      "route": "/design",
+      "canvas_mode": "saas-dashboard",
+      "layout_approved": true,
+      "sections": [
+        { "section_id": "SEC-401", "block_type": "Nav_TopBar", "order": 0, "approved": true },
+        { "section_id": "SEC-402", "block_type": "Content_Features", "order": 1, "approved": true },
+        { "section_id": "SEC-403", "block_type": "Nav_Footer", "order": 2, "approved": true }
+      ]
+    },
+    {
+      "page_id": "PAGE-005",
+      "title": "Export",
+      "route": "/export",
+      "canvas_mode": "saas-dashboard",
+      "layout_approved": true,
+      "sections": [
+        { "section_id": "SEC-501", "block_type": "Nav_TopBar", "order": 0, "approved": true },
+        { "section_id": "SEC-502", "block_type": "Content_CTA", "order": 1, "approved": true },
+        { "section_id": "SEC-503", "block_type": "Nav_Footer", "order": 2, "approved": true }
+      ]
+    },
+    {
+      "page_id": "PAGE-006",
+      "title": "Sign In",
+      "route": "/sign-in",
+      "canvas_mode": "saas-dashboard",
+      "layout_approved": true,
+      "sections": [
+        { "section_id": "SEC-601", "block_type": "Hero_Centered", "order": 0, "approved": true }
       ]
     }
   ],
   "design_system": {
     "color_profile": {
       "profile_name": "minimal",
-      "primary": "#5e6ad2",
-      "secondary": "#7a7aa1",
-      "accent": "#ff4d8f",
-      "background": "#0b0c12",
-      "surface": "#121426",
-      "text_primary": "#e9eaf5",
-      "text_secondary": "#c7c9dc",
-      "text_muted": "#9ea1bb",
-      "text_on_primary": "#e9eaf5",
-      "success": "#16a34a",
-      "warning": "#f59e0b",
-      "error": "#ef4444",
-      "border": "#2a2d44",
-      "border_strong": "#2a2d44",
-      "primary_hover": "#4d57a8",
-      "surface_raised": "#16183a"
+      "primary": "#0F172A",
+      "secondary": "#4F46E5",
+      "accent": "#F43F5E",
+      "background": "#FAF9F6",
+      "surface": "#FAF9F6",
+      "text_primary": "#0F172A",
+      "text_secondary": "#0F172A",
+      "text_muted": "#4F46E5",
+      "text_on_primary": "#FAF9F6",
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444",
+      "border": "#0F172A"
     },
     "typography": {
-      "heading_font": "Sora, ui-sans-serif",
-      "body_font": "Inter, ui-sans-serif",
-      "mono_font": "JetBrains Mono, ui-monospace",
-      "arabic_font": "Inter, ui-sans-serif",
-      "base_size_px": 1,
-      "scale_ratio": "custom",
-      "scale_ratio_value": 1.125,
-      "line_height": 1.5,
-      "font_load_strategy": "system-stack"
+      "heading_font": "Inter, ui-sans-serif",
+      "body_font": "Open Sans, ui-sans-serif",
+      "mono_font": "Inconsolata, ui-monospace",
+      "base_size_px": 16,
+      "scale_ratio": "desktop-first expressive",
+      "line_height": 1.5
     },
     "spacing": {
-      "base_unit_px": 8,
-      "density": "default",
-      "scale": {
-        "xs": 4,
-        "sm": 8,
-        "md": 16,
-        "lg": 24,
-        "xl": 32,
-        "2xl": 48,
-        "3xl": 64
-      }
+      "base_unit_px": 4,
+      "density": "comfortable"
     },
     "borders": {
-      "radius_style": "rounded",
-      "radius_values": {
-        "sm": "6px",
-        "md": "12px",
-        "lg": "16px",
-        "full": "9999px"
-      },
-      "shadow_depth": "subtle",
-      "shadow_values": {
-        "sm": "0 1px 2px rgba(0,0,0,0.2)",
-        "md": "0 6px 20px rgba(0,0,0,0.35)",
-        "lg": "0 12px 40px rgba(0,0,0,0.45)",
-        "xl": "0 18px 60px rgba(0,0,0,0.55)"
-      },
-      "border_width_default": 1
+      "radius_style": "subtle",
+      "shadow_depth": "subtle"
     }
   }
 }

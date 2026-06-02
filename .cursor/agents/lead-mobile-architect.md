@@ -1,10 +1,8 @@
----
-role: Lead Mobile Architect (Swarm Manager - Mobile)
+---role: Lead Mobile Architect (Swarm Manager - Mobile)
 code-name: lead-mobile-architect
 legacy-code-names: mobile-lead
 subagents: ios-manager, android-manager, cross-platform-manager
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

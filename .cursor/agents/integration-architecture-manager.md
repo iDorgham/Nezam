@@ -1,11 +1,9 @@
----
-role: Team Manager - Integration Architecture
+---role: Team Manager - Integration Architecture
 code-name: integration-architecture-manager
 swarm: architecture-planning
 reports-to: lead-solution-architect
 subagents: api-integrations, payments-router, auth-idp
 version: 1.0.0
-certified: false
 updated: 2026-05-12
 changelog: []
 ---

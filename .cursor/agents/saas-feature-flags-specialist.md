@@ -1,5 +1,4 @@
----
-name: saas-feature-flags-specialist
+---name: saas-feature-flags-specialist
 role: specialist
 domain: SaaS Platform
 tier: 4
@@ -8,7 +7,6 @@ code-name: FLAG-RUNNER
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # SaaS Feature Flags Specialist

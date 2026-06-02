@@ -1,0 +1,21 @@
+/* Generated from DESIGN.md by emit-tokens.js - DO NOT EDIT MANUALLY */
+
+:root {
+  --ds-color-primary: #0F172A;
+  --ds-color-secondary: #4F46E5;
+  --ds-color-accent: #F43F5E;
+  --ds-color-neutral: #FAF9F6;
+  --ds-color-success: #10B981;
+  --ds-color-warning: #F59E0B;
+  --ds-color-danger: #EF4444;
+  --ds-color-text: #0F172A;
+  --ds-font-primary: Open Sans;
+  --ds-font-display: Inter;
+  --ds-font-mono: Inconsolata;
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 24px;
+  --ds-space-6: 32px;
+}

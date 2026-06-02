@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-geo-optimization
-name: "Geo Optimization"
+name: "nezam-Geo Optimization"
 tier: 3
 description: Generative Engine Optimization — entity mapping, topical depth, and AI-citation readiness for LLM-powered search.
 version: 1.0.0

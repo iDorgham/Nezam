@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-i18n-next-intl
-name: "I18n Next Intl"
+name: "nezam-I18n Next Intl"
 description: "Implements locale routing, translations, middleware, and RTL config using next-intl."
 version: 1.0.0
 updated: 2026-05-12

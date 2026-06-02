@@ -2,18 +2,19 @@ phases:
   phase_1:
     name: "Foundation"
     description: "Core architecture, auth, database schema, base UI"
-    status: "testing"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     unlocked_at: "2026-05-28T20:58:17Z"
-    completed_at: ""
+    completed_at: "2026-06-02T06:56:00Z"
 
   phase_2:
     name: "Core Features"
     description: "Primary user-facing features from MASTER_TASKS.md"
-    status: "unlocked"
+    status: "in_progress"
     testing_passed: false
     depends_on: "phase_1"
-    unlocked_at: ""
+    unlocked_at: "2026-06-02T06:56:00Z"
+    started_at: "2026-06-02T07:00:00Z"
     completed_at: ""
 
   phase_3:

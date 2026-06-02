@@ -1,5 +1,4 @@
----
-name: analytics-real-time-manager
+---name: analytics-real-time-manager
 role: specialist
 domain: Dashboard & Analytics
 tier: 4
@@ -8,7 +7,6 @@ code-name: STREAM-UPSILON
 version: "1.0.0"
 updated: "2026-05-13T00:00:00Z"
 subagents: []
-certified: false
 ---
 
 # Analytics Real-Time Manager

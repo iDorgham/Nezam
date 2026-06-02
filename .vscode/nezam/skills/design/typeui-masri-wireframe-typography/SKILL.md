@@ -2,7 +2,7 @@
 
 ---
 skill_id: typeui-masri-wireframe-typography
-name: "TypeUI Masri Wireframe Typography"
+name: "nezam-TypeUI Masri Wireframe Typography"
 tier: 3
 description: "Arabic-first wireframe typography system. Combines typeui-main's modular scale with Masri letterforms (Cairo, IBM Plex Sans Arabic) and the +30% RTL expansion rule from DESIGN.md §9."
 version: 1.0.0

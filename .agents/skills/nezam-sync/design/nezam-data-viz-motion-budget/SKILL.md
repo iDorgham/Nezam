@@ -2,7 +2,7 @@
 
 ---
 skill_id: nezam-data-viz-motion-budget
-name: "Data Viz Motion Budget"
+name: "nezam-Data Viz Motion Budget"
 tier: 2
 description: Animation choreography for charts/dashboards with hard perf budgets
 version: 1.0

@@ -47,7 +47,7 @@ export function WireframePageTree({
 
   return (
     <div
-      data-spotlight="wireframes-page-tree"
+      data-spotlight="wf-page-tree"
       className={cn(
         'flex min-h-0 flex-1 flex-col overflow-hidden',
         bleed && '-mx-4 -mt-4',

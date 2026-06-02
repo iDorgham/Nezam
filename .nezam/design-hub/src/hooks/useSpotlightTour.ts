@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { useSession, type HubSection, SECTION_SPOT_IDS } from '@/store/session.store'
+import { useSession, type HubSection } from '@/store/session.store'
 import { SPOTLIGHT_TOURS } from '@/config/spotlight-tours.config'
 
 interface SpotlightTourState {

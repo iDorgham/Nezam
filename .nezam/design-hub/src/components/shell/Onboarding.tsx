@@ -269,7 +269,7 @@ function WelcomeStep({ onNext, onSkip }: { onNext(): void; onSkip(): void }) {
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-3 gap-3 my-2">
+      <div className="grid grid-cols-3 gap-3 my-1">
         {FEATURES.map(({ icon: Icon, color, bg, title, badge, desc }) => (
           <div
             key={title}
@@ -289,6 +289,22 @@ function WelcomeStep({ onNext, onSkip }: { onNext(): void; onSkip(): void }) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Workflow order strip */}
+      <div className="text-center my-1">
+        <p className="text-[9.5px] text-white/30">
+          Recommended flow:{'  '}
+          <span className="text-white/50 font-semibold">Architecture</span>
+          <span className="text-white/15 mx-1">→</span>
+          <span className="text-white/50 font-semibold">Wireframes</span>
+          <span className="text-white/15 mx-1">→</span>
+          <span className="text-white/50 font-semibold">Design System</span>
+          <span className="text-white/15 mx-1">→</span>
+          <span className="text-white/50 font-semibold">Preview</span>
+          <span className="text-white/15 mx-1">→</span>
+          <span className="text-white/50 font-semibold">Export</span>
+        </p>
       </div>
 
       {/* Centered Actions */}
@@ -760,6 +776,23 @@ function ArchSitemapPagesPanel({
         <span>
           {selectedPages.length} of {pagesList.length} selected
         </span>
+        <span className="text-[9.5px] px-0.5" style={{
+          color: selectedPages.length === 0
+            ? 'rgba(248,113,113,0.8)'   // red-400/80
+            : selectedPages.length <= 3
+            ? 'rgba(255,255,255,0.35)'  // white/35
+            : selectedPages.length <= 8
+            ? 'rgba(52,211,153,0.6)'    // emerald-400/60
+            : 'rgba(251,191,36,0.6)',   // amber-400/60
+        }}>
+          {selectedPages.length === 0
+            ? 'Select at least one page to continue.'
+            : selectedPages.length <= 3
+            ? 'Good start — you can add more pages later.'
+            : selectedPages.length <= 8
+            ? 'Solid foundation.'
+            : 'Large project — consider splitting into phases after setup.'}
+        </span>
       </div>
     </div>
   )
@@ -781,7 +814,19 @@ function DesignStep({
 
   return (
     <div className="flex flex-col h-full justify-between p-6">
-      
+      <style>{`
+        @keyframes profileFadeIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes profileFadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+          }
+        }
+      `}</style>
+
       {/* Title & Subtitle */}
       <div className="flex flex-col gap-1 border-b border-white/5 pb-3">
         <p className="text-[10px] font-extrabold text-purple-400 uppercase tracking-widest">Step 2 of 2</p>
@@ -809,6 +854,10 @@ function DesignStep({
                       ? 'bg-purple-600/10 border-purple-500/30'
                       : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'
                   )}
+                  style={{
+                    animation: 'profileFadeIn 200ms cubic-bezier(0.23, 1, 0.32, 1) both',
+                    animationDelay: `${Math.min(DESIGN_PROFILES.indexOf(profile), 7) * 40}ms`,
+                  }}
                 >
                   <div
                     className="flex h-7.5 w-7.5 shrink-0 items-center justify-center rounded-md text-[13px]"
@@ -893,7 +942,7 @@ function DesignStep({
               {/* Live Render Geometry components sandbox mockup */}
               <div className="flex flex-col gap-2 mt-1">
                 <p className="text-[8.5px] text-white/30 font-bold uppercase">Geometric Token Mechanics</p>
-                <div 
+                <div
                   className="rounded p-3 border flex flex-col gap-2.5 transition-all duration-200"
                   style={{
                     backgroundColor: tokens.colors.surface.panel,
@@ -905,7 +954,7 @@ function DesignStep({
                     <span className="text-[9.5px] font-bold" style={{ color: tokens.colors.text.primary }}>
                       Interactive Card Demo
                     </span>
-                    <span 
+                    <span
                       className="text-[8.5px] font-extrabold px-1.5 py-0.2 uppercase"
                       style={{
                         background: tokens.colors.brand['50'] || 'rgba(0,0,0,0.1)',
@@ -919,18 +968,18 @@ function DesignStep({
 
                   {/* Simulated buttons showing chosen radius and brand colors */}
                   <div className="flex items-center gap-2">
-                    <button 
+                    <button
                       className="flex-1 h-6.5 text-[9.5px] font-bold border-none text-white transition-opacity hover:opacity-90"
-                      style={{ 
+                      style={{
                         backgroundColor: tokens.colors.brand['500'],
                         borderRadius: tokens.radius.sm,
                       }}
                     >
                       Primary
                     </button>
-                    <button 
+                    <button
                       className="flex-1 h-6.5 text-[9.5px] font-bold bg-transparent transition-colors"
-                      style={{ 
+                      style={{
                         border: `1px solid ${tokens.colors.surface.border}`,
                         color: tokens.colors.text.secondary,
                         borderRadius: tokens.radius.sm,
@@ -940,6 +989,41 @@ function DesignStep({
                     </button>
                   </div>
                 </div>
+              </div>
+
+              {/* Additional components */}
+              <div className="flex flex-col gap-2">
+                <p className="text-[8.5px] font-bold text-white/30 uppercase tracking-wider">Additional components</p>
+
+                {/* Badge strip */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  {[
+                    { label: 'Active',   bg: tokens.colors.brand['50'] || 'rgba(0,0,0,0.2)',    color: tokens.colors.brand['600'] || tokens.colors.brand['500'] },
+                    { label: 'Draft',    bg: 'rgba(255,255,255,0.06)',  color: tokens.colors.text.secondary || tokens.colors.text.muted },
+                    { label: 'Archived', bg: 'rgba(255,255,255,0.03)',  color: tokens.colors.text.muted },
+                  ].map(({ label, bg, color }) => (
+                    <span
+                      key={label}
+                      className="text-[9px] font-extrabold px-2 py-0.5 uppercase tracking-wide"
+                      style={{ background: bg, color, borderRadius: tokens.radius.full }}
+                    >
+                      {label}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Input field */}
+                <input
+                  readOnly
+                  value="user@example.com"
+                  className="w-full text-[10px] px-2.5 py-1.5 outline-none bg-transparent"
+                  style={{
+                    background: tokens.colors.surface.input || tokens.colors.surface.bg,
+                    border: `1px solid ${tokens.colors.surface.border}`,
+                    borderRadius: tokens.radius.sm,
+                    color: tokens.colors.text.primary,
+                  }}
+                />
               </div>
             </div>
           ) : (

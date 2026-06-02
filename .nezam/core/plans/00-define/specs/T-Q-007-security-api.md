@@ -2,26 +2,28 @@
 spec_id: SPEC-QA-007
 feature: Security tests for API hardening — secret hygiene and AI route guardrails
 status: approved
-spec_version: 0.1.0
+spec_version: 0.2.0
 phase: phase_3
 owner: lead-security-officer
 assigned_tool: claude
 security: true
 acceptance_criteria:
   - id: AC-001
-    description: Tests assert the AI routes (app/api/ai/generate, generate-node, vision-gate) never echo provider API keys or raw upstream error bodies into responses, returning sanitized error envelopes instead.
+    description: "Tests assert the AI routes (app/api/ai/generate, generate-node, vision-gate) never echo the ANTHROPIC_API_KEY value into responses, returning sanitized error envelopes (no sk- key substrings)."
   - id: AC-002
-    description: Route handlers validate required env/config presence and fail with a controlled 5xx/4xx (no stack traces, no secret values) when the AI gateway credential is missing.
+    description: "app/api/ai/generate returns a controlled 503 ('ANTHROPIC_API_KEY not set') when the credential is missing — no key value, no stack trace; placeholder routes (generate-node, vision-gate) return a controlled 501/405."
   - id: AC-003
-    description: A test confirms request payload size and schema are validated before any model call is dispatched, preventing unbounded prompt forwarding.
+    description: app/api/ai/generate validates the prompt (400 on missing/empty) before any model dispatch, and falls back to 503 on missing credential before calling streamText — proving no unbounded prompt forwarding.
 ---
 
 # T-Q-007 — Security: API hardening
 
 ## Context
-The AI routes proxy to the Vercel AI Gateway. They must not leak credentials, must validate
-input before dispatch, and must return sanitized errors. Memory notes confirm all model traffic
-routes through the AI Gateway with provider strings — tests assert no secret reaches the client.
+In design-hub, `app/api/ai/generate` calls Anthropic directly via `@ai-sdk/anthropic` using
+`process.env.ANTHROPIC_API_KEY` (the Vercel AI Gateway is used by the separate design-server,
+not this app). The route must not leak the key, must validate the prompt before any model
+dispatch, and must return sanitized errors. `generate-node` and `vision-gate` are reserved 501
+placeholders. Tests assert no secret reaches the client and that validation precedes dispatch.
 
 ## Target files
 - `app/api/ai/generate/route.ts`

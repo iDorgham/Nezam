@@ -5,7 +5,7 @@ status: active
 updated: 2026-05-29
 phase: 01-foundation
 references:
-  - docs/plan/MASTER_TASKS.md
+  - .nezam/core/plans/MASTER_TASKS.md
   - .nezam/design-hub/vitest.config.ts
   - DESIGN.md
 ---
@@ -66,10 +66,10 @@ Test paths are relative to `.nezam/design-hub/src/test/` unless otherwise noted.
 
 | AC | Acceptance criterion | Test file | Test name | PT-ID | Status |
 |---|---|---|---|---|---|
-| AC-1 | `SEO_RESEARCH.md` present | filesystem check | `ls docs/plan/01-research/SEO_RESEARCH.md` | PT-F-015 | ✅ |
-| AC-2 | `IA_CONTENT.md` present | filesystem check | `ls docs/plan/02-ia/IA_CONTENT.md` | PT-F-016 | ✅ |
-| AC-3 | `CONTENT_MAP.md` present | filesystem check | `ls docs/plan/03-content/CONTENT_MAP.md` | PT-F-017 | ✅ |
-| AC-4 | `PROJECT_SCAFFOLD.md` present | filesystem check | `ls docs/plan/scaffold/PROJECT_SCAFFOLD.md` | PT-F-018 | ✅ |
+| AC-1 | `SEO_RESEARCH.md` present | filesystem check | `ls .nezam/core/plans/01-research/SEO_RESEARCH.md` | PT-F-015 | ✅ |
+| AC-2 | `IA_CONTENT.md` present | filesystem check | `ls .nezam/core/plans/02-ia/IA_CONTENT.md` | PT-F-016 | ✅ |
+| AC-3 | `CONTENT_MAP.md` present | filesystem check | `ls .nezam/core/plans/03-content/CONTENT_MAP.md` | PT-F-017 | ✅ |
+| AC-4 | `PROJECT_SCAFFOLD.md` present | filesystem check | `ls .nezam/core/plans/scaffold/PROJECT_SCAFFOLD.md` | PT-F-018 | ✅ |
 
 ## Phase 02 — P1 task coverage
 

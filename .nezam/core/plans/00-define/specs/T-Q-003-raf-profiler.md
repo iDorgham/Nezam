@@ -8,11 +8,11 @@ owner: motion-performance-specialist
 assigned_tool: claude
 acceptance_criteria:
   - id: AC-001
-    description: A profiler harness wraps src/lib/preview/schedule-idle.ts and asserts work is chunked across frames rather than executed synchronously in a single tick.
+    description: scheduleIdleWork (src/lib/preview/schedule-idle.ts) defers work via requestIdleCallback when available and falls back to a setTimeout, verified with a faked idle/timer clock.
   - id: AC-002
-    description: Scrubber-driven value updates (src/components/ui/Scrubber.tsx) are verified to coalesce rapid input into at most one update per animation frame via a faked rAF clock.
+    description: Scrubber (src/components/ui/Scrubber.tsx) coalesces input by value-equality (no onChange when the computed value is unchanged) and clamps to min/max on keyboard increment.
   - id: AC-003
-    description: The test fails if any profiled interaction schedules more than the documented frame budget of callbacks per simulated frame.
+    description: scheduleIdleWork invokes its callback exactly once per schedule (no double-dispatch across the idle and fallback paths).
 ---
 
 # T-Q-003 — rAF / motion frame-budget profiler

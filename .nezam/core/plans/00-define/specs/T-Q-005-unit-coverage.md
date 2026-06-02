@@ -8,9 +8,9 @@ owner: lead-qa-architect
 assigned_tool: claude
 acceptance_criteria:
   - id: AC-001
-    description: The empty stubs tests/unit/lib/{canvas-math,token-injection}.test.ts are implemented against src/lib/canvas-math.ts and src/lib/token-injection.ts covering core transforms and edge cases.
+    description: "DEFERRED (reserved stubs — canvas-math.ts, token-injection.ts not yet implemented): tests/unit/lib/{canvas-math,token-injection}.test.ts to be implemented once the modules exist in a feature phase. Excluded from phase-3 exit gate."
   - id: AC-002
-    description: The empty store stubs tests/unit/store/{tokens,session}.store.test.ts are implemented against src/store/tokens.store.ts and src/store/session.store.ts asserting state transitions and selectors.
+    description: The store stub tests/unit/store/session.store.test.ts is implemented against the real src/store/session.store.ts asserting state transitions and selectors. tokens.store.ts is deferred (reserved stub).
   - id: AC-003
     description: All implemented unit tests pass under `pnpm --filter design-hub test` with zero skipped assertions and no reliance on network or real filesystem.
 ---

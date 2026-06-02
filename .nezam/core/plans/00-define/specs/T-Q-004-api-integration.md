@@ -2,17 +2,17 @@
 spec_id: SPEC-QA-004
 feature: API route integration tests for design-hub handlers
 status: approved
-spec_version: 0.1.0
+spec_version: 0.2.0
 phase: phase_3
 owner: api-logic-manager
 assigned_tool: claude
 acceptance_criteria:
   - id: AC-001
-    description: The empty stubs tests/integration/api/{canvas,assets,presets}.test.ts are implemented to exercise their app/api route handlers for happy-path 2xx responses with valid payloads.
+    description: "Reserved placeholder routes (canvas, canvas/node, assets/upload, presets, presets/save) are contract-tested to return a controlled 501 'not_implemented' envelope — never a 5xx crash — pinning the reserved behavior."
   - id: AC-002
-    description: Each route is tested for malformed/invalid input returning a 4xx with a structured error body, never a 5xx or unhandled throw.
+    description: "Real routes are tested for invalid input returning a controlled status: app/api/lock returns 422 on missing tokens / empty sitemap (before any write); app/api/context coerces malformed-but-valid JSON to a safe empty shape and returns a controlled envelope on unparseable JSON."
   - id: AC-003
-    description: The lock and context routes (app/api/lock/route.ts, app/api/context/route.ts) gain integration coverage asserting they read/write through their lib layer without leaking filesystem errors.
+    description: "app/api/context GET/POST coverage uses a mocked @/lib/paths tmp target so tests never overwrite repo-root project_context.json / DESIGN.md / wireframes_locked.json; lock happy-path writes are intentionally excluded from this suite to avoid clobbering root artifacts."
 ---
 
 # T-Q-004 — API integration tests

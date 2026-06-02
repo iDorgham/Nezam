@@ -6,11 +6,23 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   hint?: string
 }
 
-export function Input({ label, hint, className, ...props }: InputProps) {
+export function Input({ label, hint, className, id, ...props }: InputProps) {
+  const reactId = React.useId()
+  const inputId = id ?? reactId
+  const hintId = hint ? `${inputId}-hint` : undefined
   return (
     <div className="flex flex-col gap-1">
-      {label && <label className="text-[11px] text-app-muted font-medium uppercase tracking-wide">{label}</label>}
+      {label && (
+        <label
+          htmlFor={inputId}
+          className="text-[11px] text-app-muted font-medium uppercase tracking-wide"
+        >
+          {label}
+        </label>
+      )}
       <input
+        id={inputId}
+        aria-describedby={hintId}
         className={cn(
           'h-7 w-full rounded-app-sm border border-app-border bg-app-inset px-2.5 text-xs text-app-text placeholder:text-app-subtle',
           'focus:outline-none focus:border-app-accent focus:ring-1 focus:ring-app-accent',
@@ -20,7 +32,7 @@ export function Input({ label, hint, className, ...props }: InputProps) {
         )}
         {...props}
       />
-      {hint && <p className="text-[11px] text-app-subtle">{hint}</p>}
+      {hint && <p id={hintId} className="text-[11px] text-app-subtle">{hint}</p>}
     </div>
   )
 }

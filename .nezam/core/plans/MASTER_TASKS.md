@@ -101,6 +101,30 @@
 
 ---
 
+## Phase 3 — Quality, Hardlock Verification, RTL Audit (T-Q-*)
+
+Gate: `develop_phases.phase_3`. Surface: `.nezam/design-hub`. Specs in `00-define/specs/`.
+
+| ID | Task | Spec | Owner | Surface |
+|---|---|---|---|---|
+| T-Q-001 | axe-core a11y coverage for UI primitives | SPEC-QA-001 | a11y-performance-auditor | `src/components/ui/*`, `src/lib/color-a11y.ts` |
+| T-Q-002 | RTL rendering audit (logical properties) | SPEC-QA-002 | rtl-layout-specialist | `src/lib/wireframe/sidebar-shell-layout.ts`, `src/styles/*` |
+| T-Q-003 | rAF / motion frame-budget profiler | SPEC-QA-003 | motion-performance-specialist | `src/lib/preview/schedule-idle.ts`, `Scrubber.tsx` |
+| T-Q-004 | API route integration tests | SPEC-QA-004 | api-logic-manager | `app/api/{canvas,assets,presets,lock,context}` |
+| T-Q-005 | Unit coverage (lib + stores) | SPEC-QA-005 | lead-qa-architect | `src/lib/{canvas-math,token-injection}.ts`, `src/store/*` |
+| T-Q-006 | Security: SVG sanitization + upload validation | SPEC-QA-006 | app-security-manager | `src/lib/svg-sanitizer.ts`, `app/api/assets/upload` |
+| T-Q-007 | Security: AI route hardening + secret hygiene | SPEC-QA-007 | lead-security-officer | `app/api/ai/*` |
+| T-Q-008 | Context compression / overflow handling | SPEC-QA-008 | prompt-engineer | `src/lib/context-compression.ts`, `app/api/context` |
+| T-Q-009 | Hardlock / SDD gate behavior tests | SPEC-QA-009 | lead-qa-architect | `src/lib/hardlock-check.ts`, gate scripts |
+
+**In scope (build + test):** T-Q-006, T-Q-008, T-Q-009 modules are reserved `export {}` stubs and are being implemented as security/safety hardening, then tested.
+**Test now (already real):** T-Q-001, T-Q-002, T-Q-003, and T-Q-005 (`session.store` only).
+**Deferred to a feature phase (reserved stubs, not security-critical):** `canvas-math.ts`, `token-injection.ts`, `tokens.store.ts` — their T-Q-005 ACs are excluded from the phase-3 exit gate until the features are built.
+
+Exit criteria: in-scope T-Q suites green under `pnpm --filter design-hub test`; a11y gate (WCAG 2.2 AA) passes; no TODO/FIXME in touched files; `develop review` checklist satisfied before `develop complete phase_3`.
+
+---
+
 ## Traceability
 
 | AC-ID | Spec | Implementation target |
@@ -108,6 +132,7 @@
 | F-001-AC-1 | F-001 | `.nezam/design-hub/` |
 | F-002-AC-1 | F-002 | `.nezam/core/scripts/sync/` |
 | F-003-AC-1 | F-003 | `.nezam/core/scripts/checks/` |
+| SPEC-QA-001..009 | T-Q-001..009 | `.nezam/design-hub/{src,app,tests}` |
 
 ---
 

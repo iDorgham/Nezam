@@ -2,7 +2,7 @@
 
 Tracks external design references and vendoring work for the NEZAM design skills platform.
 
-**Active guide:** [`docs/plan/design/DESIGN_SKILLS.md`](plan/design/DESIGN_SKILLS.md)
+**Active guide:** [`.nezam/core/plans/plans-design/DESIGN_SKILLS.md`](../.nezam/core/plans/plans-design/DESIGN_SKILLS.md)
 
 ## Status
 

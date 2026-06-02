@@ -1,8 +1,7 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
-import { cn } from '@/lib/cn'
 import { useRTL } from '@/hooks/useRTL'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
@@ -28,20 +27,22 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
   const [mounted, setMounted] = useState(false)
   const xButtonRef = useRef<HTMLButtonElement>(null)
   const triggerRef = useRef<Element | null>(null)
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isRTL = useRTL()
   const prefersReducedMotion = useReducedMotion()
 
   const skipAnimation = Date.now() - lastDismissedAt < 500
 
-  function handleDismiss() {
+  const handleDismiss = useCallback(() => {
     lastDismissedAt = Date.now()
     if (prefersReducedMotion) { onDismiss(); return }
     setExiting(true)
-    setTimeout(() => onDismiss(), 100)
-  }
+    exitTimerRef.current = setTimeout(() => onDismiss(), 100)
+  }, [prefersReducedMotion, onDismiss])
 
   useEffect(() => {
     setMounted(true)
+    return () => { if (exitTimerRef.current) clearTimeout(exitTimerRef.current) }
   }, [])
 
   useEffect(() => {
@@ -66,7 +67,7 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
       window.removeEventListener('scroll', updateRect, true)
       target.removeEventListener('click', handleTargetClick)
     }
-  }, [mounted, id, delayMs, skipAnimation, onDismiss])
+  }, [mounted, id, delayMs, skipAnimation, handleDismiss])
 
   useEffect(() => {
     if (visible) {
@@ -83,7 +84,7 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
     }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [visible, onDismiss])
+  }, [visible, handleDismiss])
 
   if (!mounted || !targetRect) return null
 
@@ -196,7 +197,7 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
               ) : <span />}
               {cta && (
                 <button
-                  onClick={cta.onClick}
+                  onClick={() => { cta.onClick(); onNext?.() }}
                   className="h-6 px-3 rounded-full text-[11px] font-bold bg-app-accent text-app-on-accent hover:bg-app-accent-hover transition-colors"
                 >
                   {cta.label}

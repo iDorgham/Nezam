@@ -23,6 +23,7 @@ export interface SpotlightTooltipProps {
 
 export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, total, delayMs = 700, onDismiss, onNext }: SpotlightTooltipProps) {
   const [visible, setVisible] = useState(false)
+  const [exiting, setExiting] = useState(false)
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null)
   const [mounted, setMounted] = useState(false)
   const xButtonRef = useRef<HTMLButtonElement>(null)
@@ -31,6 +32,13 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
   const prefersReducedMotion = useReducedMotion()
 
   const skipAnimation = Date.now() - lastDismissedAt < 500
+
+  function handleDismiss() {
+    lastDismissedAt = Date.now()
+    if (prefersReducedMotion) { onDismiss(); return }
+    setExiting(true)
+    setTimeout(() => onDismiss(), 100)
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -49,7 +57,7 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
 
     const timer = setTimeout(() => setVisible(true), skipAnimation ? 0 : delayMs)
 
-    const handleTargetClick = () => { lastDismissedAt = Date.now(); onDismiss() }
+    const handleTargetClick = () => handleDismiss()
     target.addEventListener('click', handleTargetClick)
 
     return () => {
@@ -69,8 +77,7 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && visible) {
-        lastDismissedAt = Date.now()
-        onDismiss()
+        handleDismiss()
         if (triggerRef.current instanceof HTMLElement) triggerRef.current.focus()
       }
     }
@@ -160,7 +167,9 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
           style={{
             ...positionStyle,
             transformOrigin: transformOrigin[effectiveSide],
-            animation: `spotlight-enter ${animDuration} ${animEasing} both`,
+            animation: exiting
+              ? `spotlight-exit 100ms ease-out both`
+              : `spotlight-enter ${animDuration} ${animEasing} both`,
           }}
           className="w-[260px] rounded-app border border-app-border-strong bg-app-elevated p-3 shadow-app-lg"
         >
@@ -170,7 +179,7 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
             <span className="text-[12px] font-bold text-app-text leading-tight">{title}</span>
             <button
               ref={xButtonRef}
-              onClick={() => { lastDismissedAt = Date.now(); onDismiss() }}
+              onClick={handleDismiss}
               aria-label="Dismiss tip"
               className="shrink-0 flex items-center justify-center w-5 h-5 rounded text-app-muted hover:text-app-text transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-accent"
             >
@@ -202,6 +211,10 @@ export function SpotlightTooltip({ id, title, body, side = 'bottom', cta, step, 
         @keyframes spotlight-enter {
           from { opacity: 0; transform: scale(0.95) ${sideTransform[effectiveSide]}; }
           to   { opacity: 1; transform: scale(1) ${sideTransform[effectiveSide]}; }
+        }
+        @keyframes spotlight-exit {
+          from { opacity: 1; }
+          to   { opacity: 0; }
         }
         @keyframes spotlight-pulse {
           0%   { opacity: 0.5; transform: scale(1); }

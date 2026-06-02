@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useHub } from '@/store/hub.store'
+import type { HubSection } from '@/store/hub.store'
 import type { ArchPageType, NavSlot } from '@/types/arch'
 import { TopBar } from './TopBar'
 import { Onboarding } from './Onboarding'
@@ -10,6 +11,9 @@ import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog'
 import { SectionProgressBar } from './SectionProgressBar'
 import { PostOnboardingBanner } from './PostOnboardingBanner'
 import { useDesignHubShortcuts } from '@/hooks/useDesignHubShortcuts'
+import { useSpotlightTour } from '@/hooks/useSpotlightTour'
+import { SpotlightTooltip } from '@/components/ui/SpotlightTooltip'
+import { SPOTLIGHT_TOURS } from '@/config/spotlight-tours.config'
 
 // Lazy-import sections to keep initial bundle small
 import dynamic from 'next/dynamic'
@@ -23,6 +27,30 @@ const ComponentsSection = dynamic(
   { ssr: false },
 )
 const PreviewSection = dynamic(() => import('@/components/preview/PreviewSection').then(m => ({ default: m.PreviewSection })), { ssr: false })
+
+function SectionTour({ section }: { section: HubSection }) {
+  const { activeSpotId, activeStep, totalSteps, advance, skipTour } = useSpotlightTour(section)
+  const tours = SPOTLIGHT_TOURS[section] ?? []
+  const activeConfig = activeSpotId ? tours.find((t) => t.id === activeSpotId) : null
+
+  if (!activeConfig) return null
+
+  return (
+    <SpotlightTooltip
+      key={activeSpotId}
+      id={activeSpotId}
+      title={activeConfig.title}
+      body={activeConfig.body}
+      side={activeConfig.side}
+      step={activeStep}
+      total={totalSteps}
+      cta={activeConfig.cta ? { label: activeConfig.cta.label, onClick: advance } : undefined}
+      onDismiss={advance}
+      onNext={advance}
+    />
+  )
+}
+
 export function DesignHub() {
   const section = useHub((s) => s.section)
   const hubTheme = useHub((s) => s.hubTheme)
@@ -126,6 +154,7 @@ export function DesignHub() {
       <TopBar onOpenShortcuts={() => setShortcutsOpen(true)} />
       <SectionProgressBar />
       <PostOnboardingBanner />
+      <SectionTour section={section} />
       <div className="flex min-h-0 min-w-0 w-full flex-1">
         {section === 'architecture' && (
           <div id="topbar-panel-architecture" role="tabpanel" aria-labelledby="topbar-tab-architecture" className="flex min-h-0 min-w-0 w-full flex-1">

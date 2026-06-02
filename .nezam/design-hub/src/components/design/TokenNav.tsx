@@ -66,6 +66,7 @@ export function TokenNav() {
   return (
     <aside
       style={{ width }}
+      data-spotlight="design-token-nav"
       className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
     >
       <LeftPanelTitleRow title="Design panel" />

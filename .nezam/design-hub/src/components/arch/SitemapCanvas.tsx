@@ -720,6 +720,7 @@ export function SitemapCanvas({ onSelectPage }: Props) {
   return (
     <div
       ref={containerRef}
+      data-spotlight="arch-sitemap-canvas"
       className="canvas-grid flex-1 overflow-hidden relative"
       onWheel={handleWheel}
     >

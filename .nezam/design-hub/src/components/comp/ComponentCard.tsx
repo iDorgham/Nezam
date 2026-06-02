@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import { Copy, Check } from 'lucide-react'
 import { IconRenderer } from '@/lib/icons'
 import {
   CODE_BLOCK_PREVIEW,
@@ -23,10 +25,18 @@ interface ComponentCardProps {
 }
 
 export function ComponentCard({ component, scale = 1 }: ComponentCardProps) {
+  const [copied, setCopied] = useState(false)
   const previewScopeStyle = useDesignPreviewScopeStyle({
     fillHeight: false,
     matchHubChrome: true,
   })
+
+  function handleCopy() {
+    void navigator.clipboard.writeText(component.name).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    })
+  }
 
   const iconName = GROUP_ICONS[component.group] ?? 'Box'
   const pad = Math.round(12 * scale)
@@ -58,7 +68,18 @@ export function ComponentCard({ component, scale = 1 }: ComponentCardProps) {
             {component.name}
           </p>
         </div>
-        <StatusBadge status={component.status} />
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            data-spotlight="components-copy-button"
+            onClick={handleCopy}
+            title="Copy component name"
+            className="flex items-center justify-center h-5 w-5 rounded text-app-subtle opacity-0 group-hover:opacity-100 hover:bg-app-elevated hover:text-app-text transition-all duration-150"
+          >
+            {copied ? <Check size={10} /> : <Copy size={10} />}
+          </button>
+          <StatusBadge status={component.status} />
+        </div>
       </div>
 
       {/* Preview stage */}

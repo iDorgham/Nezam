@@ -32,7 +32,7 @@ export const useSession = create<SessionState>()(
         const ids = SECTION_SPOT_IDS[section] ?? []
         set((s) => ({ dismissedSpotlights: [...new Set([...s.dismissedSpotlights, ...ids])] }))
       },
-      resetAllSpotlights: () => set({ dismissedSpotlights: [], sectionsEntered: [] }),
+      resetAllSpotlights: () => set({ dismissedSpotlights: [], sectionsEntered: [], hintsEnabled: true, firstLaunchAt: null }),
       markSectionEntered: (s) =>
         set((st) => ({ sectionsEntered: [...new Set([...st.sectionsEntered, s])] })),
       setHintsEnabled: (v) => set({ hintsEnabled: v }),

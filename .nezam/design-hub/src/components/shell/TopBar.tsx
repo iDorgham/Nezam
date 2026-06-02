@@ -1,9 +1,10 @@
 'use client'
 
-import { Network, Palette, Eye, Download, RotateCcw, Sun, Moon, Layers, Puzzle, LayoutTemplate, ArrowRight } from 'lucide-react'
-import { useHub, type HubSection, type DesignSubTab, HUB_VERSION } from '@/store/hub.store'
+import { Network, Palette, Eye, Download, Sun, Moon, Layers, Puzzle, LayoutTemplate, ArrowRight } from 'lucide-react'
+import { useHub, type HubSection, HUB_VERSION } from '@/store/hub.store'
 import { cn } from '@/lib/utils'
 import { PREMIUM_ICON, PREMIUM_MOTION, PREMIUM_SPACE, PREMIUM_TYPE } from '@/lib/design/premium-standards'
+import { HelpMenu } from './HelpMenu'
 
 const SECTIONS: { id: HubSection; label: string; Icon: React.FC<{ size?: number; className?: string }> }[] = [
   { id: 'architecture', label: 'Architecture',  Icon: Network },
@@ -23,10 +24,9 @@ const SECTION_ORDER: HubSection[] = [
   'preview',
 ]
 
-export function TopBar() {
+export function TopBar({ onOpenShortcuts }: { onOpenShortcuts(): void }) {
   const section         = useHub((s) => s.section)
   const setSection      = useHub((s) => s.setSection)
-  const onboardingReset = useHub((s) => s.onboardingReset)
   const hubTheme        = useHub((s) => s.hubTheme)
   const setHubTheme     = useHub((s) => s.setHubTheme)
   const visitedSections = useHub((s) => s.visitedSections)
@@ -155,13 +155,7 @@ export function TopBar() {
             {hubTheme === 'light' ? <Moon size={12} /> : <Sun size={12} />}
           </button>
 
-          <button
-            onClick={onboardingReset}
-            title="Re-initialize onboarding walkthrough wizard and workspace configuration guides"
-            className="flex items-center justify-center h-6 w-6 rounded-app-sm text-app-subtle hover:text-app-muted hover:bg-app-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent transition-colors"
-          >
-            <RotateCcw size={11} />
-          </button>
+          <HelpMenu onOpenShortcuts={onOpenShortcuts} />
           {section !== 'preview' ? (
             <button
               onClick={() => {

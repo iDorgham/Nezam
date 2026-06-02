@@ -56,6 +56,7 @@ export function ComponentsCategoryTabs({
   return (
     <div
       ref={listRef}
+      data-spotlight="components-category-tabs"
       role="tablist"
       aria-label="Component categories"
       onKeyDown={onKeyDown}

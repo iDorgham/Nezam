@@ -264,7 +264,7 @@ export function ThemingPreview({
   } as React.CSSProperties), [tokens, radius, fontSans, fontMono, letterSpacing])
 
   return (
-    <div style={style} className="min-h-full p-8 transition-colors duration-300">
+    <div data-spotlight="theming-preview-pane" style={style} className="min-h-full p-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
 
         {/* Dynamic Interactive Header */}

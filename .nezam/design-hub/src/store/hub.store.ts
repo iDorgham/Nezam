@@ -249,6 +249,10 @@ interface HubStore {
 
   // ── Lock / export state ──────────────────────────────────────────────────
   setLockedAt(ts: string | null): void
+
+  // ── Post-onboarding banner ───────────────────────────────────────────────
+  postOnboardingBannerVisible: boolean
+  setPostOnboardingBannerVisible(v: boolean): void
 }
 
 // ─── Helper: derive next order among siblings ──────────────────────────────
@@ -329,6 +333,7 @@ export const useHub = create<HubStore>()(
       },
 
       lockedAt: null,
+      postOnboardingBannerVisible: false,
 
       arch: {
         pages: {},
@@ -866,6 +871,10 @@ export const useHub = create<HubStore>()(
       onboardingComplete: () =>
         set((state) => {
           state.onboarding.completed = true
+          state.postOnboardingBannerVisible = true
+          setTimeout(() => {
+            useHub.getState().setPostOnboardingBannerVisible(false)
+          }, 6000)
         }),
 
       onboardingReset: () =>
@@ -901,6 +910,12 @@ export const useHub = create<HubStore>()(
       setLockedAt: (ts) =>
         set((state) => {
           state.lockedAt = ts
+        }),
+
+      // ── Post-onboarding banner ──
+      setPostOnboardingBannerVisible: (v) =>
+        set((state) => {
+          state.postOnboardingBannerVisible = v
         }),
     })),
     {

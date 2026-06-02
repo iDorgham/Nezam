@@ -42,7 +42,7 @@ export function ArchProfilesPicker({ compact }: Props) {
   const q = query.toLowerCase()
 
   return (
-    <div className={cn('flex flex-col min-h-0', compact ? 'gap-2' : 'flex-1')}>
+    <div data-spotlight="arch-profiles-picker" className={cn('flex flex-col min-h-0', compact ? 'gap-2' : 'flex-1')}>
       {!compact && (
         <input
           type="text"

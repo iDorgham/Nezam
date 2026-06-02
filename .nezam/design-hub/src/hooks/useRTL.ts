@@ -1,6 +1,16 @@
-/**
- * Reserved module — implementation deferred to a later phase.
- * Currently has zero importers; stub keeps the path reserved without
- * breaking the production build.
- */
-export {}
+'use client'
+import { useState, useEffect } from 'react'
+
+export function useRTL(): boolean {
+  const [isRTL, setIsRTL] = useState(() =>
+    typeof document !== 'undefined' ? document.documentElement.dir === 'rtl' : false
+  )
+  useEffect(() => {
+    const check = () => setIsRTL(document.documentElement.dir === 'rtl')
+    check()
+    const observer = new MutationObserver(check)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] })
+    return () => observer.disconnect()
+  }, [])
+  return isRTL
+}

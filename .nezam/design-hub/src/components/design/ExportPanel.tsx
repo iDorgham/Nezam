@@ -444,7 +444,7 @@ export function ExportPanel() {
   const pageCount = Object.keys(arch.pages).length
 
   return (
-    <div className="border-t border-app-border">
+    <div data-spotlight="ds-export" className="border-t border-app-border">
       <div className="px-3 py-2.5">
         <p className="text-[10px] font-semibold text-app-muted uppercase tracking-wide mb-2">Export</p>
 

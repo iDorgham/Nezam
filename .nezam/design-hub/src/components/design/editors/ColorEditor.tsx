@@ -731,7 +731,7 @@ export function ColorEditor() {
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-12">
+    <div data-spotlight="ds-color-editor" className="flex flex-col gap-8 pb-12">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-app-border/40 pb-5">
         <div>

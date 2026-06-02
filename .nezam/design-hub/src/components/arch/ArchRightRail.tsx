@@ -17,24 +17,28 @@ export function ArchRightRail({ onClose }: Props) {
 
   if (selectedServiceId && pages[selectedServiceId]?.type === 'service') {
     return (
-      <ServiceIntegrationGuide
-        servicePage={pages[selectedServiceId]}
-        onClose={() => {
-          archSelectService(null)
-          onClose()
-        }}
-      />
+      <div data-spotlight="arch-right-rail" className="contents">
+        <ServiceIntegrationGuide
+          servicePage={pages[selectedServiceId]}
+          onClose={() => {
+            archSelectService(null)
+            onClose()
+          }}
+        />
+      </div>
     )
   }
 
   if (selectedPageId && pages[selectedPageId]) {
     return (
-      <PageDetail
-        onClose={() => {
-          archSelectPage(null)
-          onClose()
-        }}
-      />
+      <div data-spotlight="arch-right-rail" className="contents">
+        <PageDetail
+          onClose={() => {
+            archSelectPage(null)
+            onClose()
+          }}
+        />
+      </div>
     )
   }
 

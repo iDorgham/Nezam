@@ -339,6 +339,7 @@ export function PreviewSection() {
   const selectPage = useHub((s) => s.previewSelectPage)
   const subTab = useHub((s) => s.preview.subTab)
   const archProfileId = useHub((s) => s.arch.activeProfileId)
+  const lockedAt = useHub((s) => s.lockedAt)
 
   const previewablePages = useMemo(
     () => Object.values(pages).filter(isPreviewableNode),
@@ -383,7 +384,25 @@ export function PreviewSection() {
             <>
               <PreviewSubTabs />
               <div id="preview-subpanel-preview" role="tabpanel" aria-labelledby="preview-subtab-preview" className="flex min-h-0 flex-1">
-                {selectedPage ? (
+                {lockedAt === null ? (
+                  <div className="flex flex-1 flex-col items-center justify-center text-center">
+                    <div className="flex flex-col items-center gap-3 max-w-[280px]">
+                      <Eye size={32} className="text-app-muted" />
+                      <div>
+                        <p className="text-[13px] font-semibold text-app-text">Nothing to preview yet</p>
+                        <p className="text-[11.5px] text-app-muted leading-relaxed mt-1">
+                          Complete your wireframes and lock them to render a live preview here.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => useHub.getState().setSection('wireframes')}
+                        className="h-7 px-4 rounded-full text-[11px] font-bold border border-app-border-strong text-app-text bg-app-elevated hover:bg-app-elevated/80 transition-colors"
+                      >
+                        Go to Wireframes
+                      </button>
+                    </div>
+                  </div>
+                ) : selectedPage ? (
                   <BrowserPreview page={selectedPage} />
                 ) : (
                   <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center h-full">

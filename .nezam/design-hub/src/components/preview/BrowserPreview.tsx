@@ -1,6 +1,6 @@
 'use client'
 
-import { Monitor, Tablet, Smartphone, Lock, RotateCw, ArrowLeft, ArrowRight, Sparkles, X } from 'lucide-react'
+import { Monitor, Tablet, Smartphone, Lock, RotateCw, ArrowLeft, ArrowRight, Sparkles, X, Download } from 'lucide-react'
 import { memo, useState, useMemo, useEffect } from 'react'
 import { useHub, type CommentPin, type PreviewDevice } from '@/store/hub.store'
 import { PageRenderer } from './DeviceFrame'
@@ -250,7 +250,7 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
             </div>
           )}
 
-          <div className="ml-auto flex items-center gap-0.5 p-0.5 rounded-app-sm bg-app-elevated border border-app-border">
+          <div data-spotlight="preview-device-switcher" className="ml-auto flex items-center gap-0.5 p-0.5 rounded-app-sm bg-app-elevated border border-app-border">
             {(['desktop', 'tablet', 'mobile'] as const).map((d) => {
               const Icon = DEVICE_ICONS[d]
               const active = device === d
@@ -322,6 +322,14 @@ export function BrowserPreview({ page }: { page: ArchPage }) {
           >
             {sessionSource === 'saved' ? 'saved session' : 'seeded'}
           </span>
+          <button
+            type="button"
+            data-spotlight="preview-export-btn"
+            title="Export handoff ZIP"
+            className="flex items-center justify-center h-6 w-6 rounded text-app-subtle hover:bg-app-elevated hover:text-app-text transition-colors"
+          >
+            <Download size={11} />
+          </button>
         </div>
       </div>
 

@@ -191,6 +191,7 @@ export function ArchLeftPanel() {
   return (
     <aside
       style={{ width }}
+      data-spotlight="arch-left-panel"
       className="relative flex shrink-0 flex-col border-r border-app-border bg-app-surface overflow-hidden select-none"
     >
       <LeftPanelTitleRow

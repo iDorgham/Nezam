@@ -506,7 +506,7 @@ export function ThemingSection() {
 
           {/* TAB 1: PRESETS & HARMONIES */}
           {controlTab === 'presets' && (
-            <div id="theme-panel-presets" role="tabpanel" aria-labelledby="theme-tab-presets" className="flex flex-col gap-10">
+            <div id="theme-panel-presets" data-spotlight="theming-presets-panel" role="tabpanel" aria-labelledby="theme-tab-presets" className="flex flex-col gap-10">
               {/* Generator / Randomize */}
               <Group label="AI randomizer" hint="Dynamic brand-tinted HSL generator">
                 <button

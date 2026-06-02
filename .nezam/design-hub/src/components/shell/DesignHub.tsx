@@ -7,6 +7,8 @@ import { TopBar } from './TopBar'
 import { Onboarding } from './Onboarding'
 import { ExportSuccessModal } from './ExportSuccessModal'
 import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog'
+import { SectionProgressBar } from './SectionProgressBar'
+import { PostOnboardingBanner } from './PostOnboardingBanner'
 import { useDesignHubShortcuts } from '@/hooks/useDesignHubShortcuts'
 
 // Lazy-import sections to keep initial bundle small
@@ -121,7 +123,9 @@ export function DesignHub() {
 
       <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
 
-      <TopBar />
+      <TopBar onOpenShortcuts={() => setShortcutsOpen(true)} />
+      <SectionProgressBar />
+      <PostOnboardingBanner />
       <div className="flex min-h-0 min-w-0 w-full flex-1">
         {section === 'architecture' && (
           <div id="topbar-panel-architecture" role="tabpanel" aria-labelledby="topbar-tab-architecture" className="flex min-h-0 min-w-0 w-full flex-1">

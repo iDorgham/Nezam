@@ -38,7 +38,7 @@ function SectionTour({ section }: { section: HubSection }) {
   return (
     <SpotlightTooltip
       key={activeSpotId}
-      id={activeSpotId}
+      id={activeConfig.targetAttr}
       title={activeConfig.title}
       body={activeConfig.body}
       side={activeConfig.side}

@@ -1,0 +1,31 @@
+---
+title: "/plan: Planning"
+---
+
+# `/plan`: Planning
+
+Run the SDD planning sequence: SEO, IA, content, architecture, design wireframes, scaffold, tasks.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="error">
+**Hardlock:** `/plan` is blocked until PRD, PROJECT_PROMPT, `DESIGN.md`, and at least one feature spec exist in `docs/plan/00-define/specs/`.
+</Callout>
+
+## Subcommands
+
+| Subcommand | Purpose |
+|---|---|
+| `/plan all` | Run the full sequence end-to-end |
+| `/plan seo` | SEO research only |
+| `/plan ia` | Information architecture |
+| `/plan content` | Content map and copy |
+| `/plan arch` | Architecture diagrams |
+| `/plan wireframes` | Trigger Design Hub wireframe sessions |
+| `/plan scaffold` | Generate `PROJECT_SCAFFOLD.md` |
+| `/plan tasks` | Synthesize `MASTER_TASKS.md` |
+| `/plan prioritize` | RICE-score the full backlog |
+
+## Output
+
+When complete, `.cursor/state/plan_progress.yaml` sets `planning_complete: true` and `/develop` unlocks.

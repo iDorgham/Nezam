@@ -1,0 +1,33 @@
+---
+title: Gates
+---
+
+# Gates
+
+NEZAM enforces three hardlocks. Each one blocks unsafe work and tells you exactly what's missing.
+
+## `/plan`
+
+Planning requires a filled PRD and a locked design profile.
+
+> **Hardlock:** `/plan` needs a completed PRD, PROJECT_PROMPT, root `DESIGN.md`, and at least one spec in `docs/plan/00-define/specs/`. Run `/START all` first.
+
+## `/develop`
+
+Development requires completed planning, scaffold, and a wireframe lock for UI work.
+
+> **Hardlock:** Planning or scaffold incomplete. Run `/plan scaffold` and confirm `PROJECT_SCAFFOLD.md`.
+
+> **Hardlock:** `wireframes_locked.json` missing. Run Design Hub export or `/wireframe`.
+
+## Token gate
+
+No hardcoded colors or spacing in components. Use design tokens from `DESIGN.md` via `pnpm design:tokens:emit`.
+
+The check is: `pnpm check:tokens`. CI runs it on every PR.
+
+## Sync drift
+
+> **Sync drift:** Run `pnpm ai:sync` then `pnpm ai:check`. Do not edit mirror folders by hand.
+
+The mirrors (`AGENTS.md`, `.claude/`, `GEMINI.md`, etc.) are generated from `.cursor/`. CI fails any PR with drift.

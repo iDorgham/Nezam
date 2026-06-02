@@ -1,0 +1,26 @@
+---
+title: Start here
+---
+
+# Start here
+
+Complete onboarding in one pass with `/START all`.
+
+## Steps
+
+1. **Install deps** — `pnpm install`
+2. **Lock PRD** — Fill `docs/start/PRD.md` and set `prd_locked: true` in state.
+3. **Apply design profile** — `pnpm run design:apply -- <brand>` (e.g. `minimal`)
+4. **Create P0 specs** — Add feature specs to `docs/plan/00-define/specs/`
+5. **Run readiness script** — `bash .nezam/core/scripts/checks/check-onboarding-readiness.sh`
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+Do not edit generated `AGENTS.md` or `.claude/`. Instead, edit `.cursor/` and run `pnpm ai:sync`.
+Mirror folders drift if hand-edited and `pnpm ai:check` will fail in CI.
+</Callout>
+
+## Next
+
+Once onboarding is green, head to [`/plan`](/commands/plan) to start the planning pipeline.

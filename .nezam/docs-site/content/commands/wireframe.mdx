@@ -1,0 +1,27 @@
+---
+title: "/wireframe: Layouts"
+---
+
+# `/wireframe`: Layouts
+
+The `/wireframe` command acts as the bridge between sitemap planning and front-end development, ensuring visual structure is approved before code is written.
+
+## Design Hub Wireframes
+
+Wireframe layouts are designed visually on the canvas at `localhost:4000`.
+
+- **1:1 Binding**: Each page node in the architecture tree maps directly to a single wireframe session file under `.session/pages/{archPageId}.json`.
+- **Canvas Shell**: Renders sitemaps, onboarding flows, sitemap pages, and interactive blocks in a full-bleed center canvas.
+
+## Exporting the Lock Contract
+
+Once layouts are finalized and approved, click **Export** or run the export utility to write the layout contract:
+
+```bash
+pnpm design:export-stitch
+```
+
+This generates `wireframes_locked.json` at the repository root.
+
+- **Gate Lock**: The `/develop` phase requires `wireframes_locked.json` to exist. Without it, development commands will halt and notify you that the visual contract is missing.
+- **Deterministic**: The export is byte-identical for matching inputs, keeping visual changes traceable under Git version control.

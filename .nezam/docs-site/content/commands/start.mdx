@@ -1,0 +1,53 @@
+---
+title: "/start: Onboarding"
+---
+
+# `/start`: Onboarding
+
+The `/start` command initializes new projects in the NEZAM workspace, verifying system requirements, building the Product Requirements Document (PRD), setting up design contracts, and checking readiness gates.
+
+## Path Resolution
+
+Before running operations, NEZAM reads `.nezam/core/gates/hardlock-paths.json` to resolve paths for:
+- `intake.prd` (defaults to `docs/plan/00-define/01-product/PRD.md`)
+- `intake.projectPrompt` (defaults to `docs/plan/00-define/01-product/PROJECT_PROMPT.md`)
+- `planning.changelog` (defaults to `.nezam/CHANGELOG.md`)
+
+## Subcommands
+
+| Subcommand | Description |
+|---|---|
+| `/start` | Run the interactive step-by-step onboarding flow. |
+| `/start prd` | Guided deep-interview mode to build the PRD. |
+| `/start repo` | Initialize or link the git repository. |
+| `/start design` | Browse available brand design profiles and apply to `DESIGN.md`. |
+| `/start docs` | Scaffold folder structures for plans and reports. |
+| `/start companion` | Generate briefing context to paste into external AI clients. |
+| `/start gates` | Run all prerequisite checks and report status. |
+| `/start all` | Run the full sequence: onboarding, prd, design, docs, and gates. |
+
+## Interactive Onboarding Steps
+
+### 1. Workspace Verification
+Verifies that system templates, scripts, and path definitions are intact.
+
+### 2. Project Identity Collection
+Prompts for name, repository, target market (setting RTL layouts if regional MENA is selected), team size, and build mode (e.g. SDD, TDD, Lean).
+
+### 3. Product Discovery Intake
+Extracts project details from a raw PRD draft in `docs/start/` or launches the interactive interview system.
+
+### 4. Deep PRD Generation
+Synthesizes the product specs, user flows, entities, endpoints, navigation, and screen states, and saves to `docs/plan/00-define/01-product/PRD.md`.
+
+### 5. Design System Choice
+Applies a design token profile from `.nezam/design/` directly to root `DESIGN.md`.
+
+### 6. PROJECT_PROMPT Scaffolding
+Creates `docs/plan/00-define/01-product/PROJECT_PROMPT.md`, representing the foundational rules and conventions that every agent reads.
+
+### 7. Feature Specs
+Generates discrete specifications under `docs/plan/00-define/specs/` for each P0 feature.
+
+### 8. Verification Gates
+Runs checks on PRD completeness, design presence, git status, and state files. If green, the `/plan` pipeline unlocks.

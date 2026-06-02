@@ -1,0 +1,35 @@
+---
+title: Design Hub
+---
+
+# Design Hub
+
+Local Next.js app on port **4000**. The architecture tree drives wireframe sessions **1:1**, where every page node maps to exactly one wireframe session via `arch_page_id`.
+
+## Run
+
+```bash
+pnpm design-hub
+# or
+pnpm --filter design-hub dev
+```
+
+## Export gate
+
+The Design Hub export produces `wireframes_locked.json` at repo root. **This file is required for `/develop`** — without it, any `/develop` UI command is blocked.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+The exported lock is deterministic. Two runs from the same approved state produce byte-identical JSON.
+</Callout>
+
+## What lives where
+
+| Artifact | Path |
+|---|---|
+| Source design profile | `.nezam/design-hub/design/<brand>/design.md` |
+| Repo design contract | `DESIGN.md` (root) |
+| Emitted CSS tokens | `.nezam/design-hub/src/styles/tokens.css` |
+| Emitted JSON tokens | `.nezam/design-hub/design/tokens.json` |
+| Wireframe lock | `wireframes_locked.json` (root) |

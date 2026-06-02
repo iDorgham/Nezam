@@ -1,0 +1,52 @@
+---
+title: "/develop: Development"
+---
+
+# `/develop`: Development
+
+The `/develop` command manages feature implementation, code writing, and iterative UI/API builds under the NEZAM governance structure.
+
+## Subcommands
+
+| Subcommand | Description |
+|---|---|
+| `/develop start` | Begin implementation on the active phase. |
+| `/develop ui` | Build components, pages, and layout shells using design tokens. |
+| `/develop api` | Build backend logic, controllers, and data services. |
+| `/develop db` | Manage migrations, schema changes, and security policies (RLS). |
+| `/develop feature` | Implement a vertical feature slice end-to-end. |
+| `/develop review` | Run pre-merge criteria checks and verification scripts. |
+| `/develop complete` | Mark current phase complete and unlock the next phase. |
+
+## Sequential Phase Hardlock
+
+Development is strictly split into six progressive phases inside `.cursor/state/develop_phases.yaml`:
+
+1. **Foundation** (core structure, database schema, base UI)
+2. **Core Features** (primary user-facing flows)
+3. **Secondary Features** (supporting flows, integrations, admin features)
+4. **Polish & Optimization** (performance tuning, accessibility, SEO)
+5. **Hardening** (security, load tests, diagnostics)
+6. **Ship** (deployment and production checks)
+
+### Phase Constraints
+
+- Only one phase can be `in_progress` or `testing` at any time.
+- A phase cannot be started until the preceding phase is marked `complete`.
+- Phases remain `locked` until unlocked via `/develop review` and `/develop complete`.
+
+## Transition Protocol
+
+When a phase is ready for review, running `/develop review` checks:
+- Phase-specific acceptance criteria.
+- Component compliance with `DESIGN.md` (no literal colors or sizes).
+- Zero remaining `TODO` or `FIXME` comments in phase files.
+- Automated test coverage and accessibility checks passing.
+
+If all gates pass, running `/develop complete [phase_n]` sets its status to `complete` and unlocks the next phase.
+
+## WIP Limits (Scrumban V3)
+
+- Maximum of three tasks in `in_progress` globally.
+- Maximum of one task assigned per subagent.
+- Blocked tasks auto-demote to `blocked` after two hours.

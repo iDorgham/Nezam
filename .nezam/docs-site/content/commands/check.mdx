@@ -1,0 +1,21 @@
+---
+title: "/check: Verification"
+---
+
+# `/check`: Verification
+
+The `/check` command performs workspace diagnostics, linting checks, token validation, and synchronizes files to prevent drift.
+
+## Verification Routines
+
+| Script | Purpose |
+|---|---|
+| `pnpm check:tokens` | Verifies that all components use design tokens and contain zero hardcoded colors or spacing. |
+| `pnpm check:specs` | Confirms specification documents use matching semantic versioning. |
+| `pnpm check:state` | Audits state file integrity (`develop_phases.yaml`, `plan_progress.yaml`). |
+| `pnpm check:gate-5-a11y` | Performs accessibility checks against WCAG guidelines. |
+| `pnpm ai:check` | Verifies mirror sync status for Claude, Gemini, Codex, and other synced agents. |
+
+## Sync Drift Check
+
+NEZAM templates reside under `.cursor/` and are mirrored across folders like `.claude/`, `.gemini/`, and `AGENTS.md`. Running `pnpm ai:sync` mirrors these configurations. The `/check` verification ensures no files are edited by hand in mirror folders, as CI will fail on any sync drift.

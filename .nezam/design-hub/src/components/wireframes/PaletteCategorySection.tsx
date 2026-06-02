@@ -19,7 +19,8 @@ export function PaletteCategorySection({ category, blocks, expanded, onToggle, o
   const label = formatPaletteCategoryLabel(category)
 
   return (
-    <section data-spotlight="wireframes-block-palette" aria-labelledby={`palette-cat-${category}`}>
+    <section data-spotlight="wf-palette" aria-labelledby={`palette-cat-${category}`}>
+
       <button
         type="button"
         id={`palette-cat-${category}`}

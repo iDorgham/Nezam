@@ -31,26 +31,33 @@ phases:
   phase_4:
     name: "Polish & Optimization"
     description: "Performance, a11y, SEO, UX refinement"
-    status: "unlocked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "phase_3"
     unlocked_at: "2026-06-03T03:50:00Z"
-    completed_at: ""
+    started_at: "2026-06-03T03:55:00Z"
+    review_passed_at: "2026-06-03T04:20:00Z"
+    completed_at: "2026-06-03T04:25:00Z"
 
   phase_5:
     name: "Hardening"
     description: "Security audit, load testing, monitoring, edge cases"
-    status: "locked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "phase_4"
-    unlocked_at: ""
-    completed_at: ""
+    unlocked_at: "2026-06-03T04:25:00Z"
+    started_at: "2026-06-03T04:30:00Z"
+    review_passed_at: "2026-06-03T05:55:00Z"
+    completed_at: "2026-06-03T06:00:00Z"
 
   phase_6:
     name: "Ship"
     description: "Staging deploy, QA sign-off, production release"
-    status: "locked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "phase_5"
-    unlocked_at: ""
-    completed_at: ""
+    unlocked_at: "2026-06-03T06:00:00Z"
+    started_at: "2026-06-03T06:05:00Z"
+    review_passed_at: "2026-06-03T06:20:00Z"
+    completed_at: "2026-06-03T06:25:00Z"
+    notes: "Ship-prep complete (readiness GO, CHANGELOG 0.2.0, release branch fix, PR #41). Production deploy intentionally deferred — human-gated; see docs/reports/release/readiness.md."

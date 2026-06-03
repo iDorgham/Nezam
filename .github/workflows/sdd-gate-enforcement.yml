@@ -71,8 +71,10 @@ jobs:
       - name: Phase-transition consistency
         run: |
           set -euo pipefail
-          # Only one phase can be in_progress or testing at a time
-          active=$(grep -E "^\s+status:\s+\"(in_progress|testing)\"" .cursor/state/develop_phases.yaml | wc -l | tr -d ' ')
+          # Only one phase can be in_progress or testing at a time.
+          # `grep -c ... || true` so zero matches (all phases complete) yields "0"
+          # instead of grep's exit 1 aborting the step under set -e / pipefail.
+          active=$(grep -cE "^\s+status:\s+\"(in_progress|testing)\"" .cursor/state/develop_phases.yaml || true)
           if [ "$active" -gt 1 ]; then
             echo "❌ Multiple phases active simultaneously (count=$active). Sequential hardlock violated."
             grep -nE "^\s+status:\s+\"(in_progress|testing)\"" .cursor/state/develop_phases.yaml

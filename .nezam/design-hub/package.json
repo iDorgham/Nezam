@@ -12,8 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "regenerate:sessions": "REGENERATE_SESSIONS=1 vitest run src/test/regenerate-page-sessions.integration.test.ts",
-    "test:a11y": "vitest run src/test/color-a11y.wcag.test.ts src/test/ui-button.a11y.test.tsx src/test/ui-primitives.a11y.test.tsx",
-    "a11y:report": "vitest run src/test/color-a11y.wcag.test.ts src/test/ui-button.a11y.test.tsx src/test/ui-primitives.a11y.test.tsx --reporter=verbose",
+    "test:a11y": "vitest run src/test/color-a11y.wcag.test.ts src/test/ui-button.a11y.test.tsx src/test/ui-primitives.a11y.test.tsx src/test/radix-components.a11y.test.tsx",
+    "a11y:report": "vitest run src/test/color-a11y.wcag.test.ts src/test/ui-button.a11y.test.tsx src/test/ui-primitives.a11y.test.tsx src/test/radix-components.a11y.test.tsx --reporter=verbose",
     "design:tokens:emit": "node scripts/emit-tokens.js"
   },
   "dependencies": {

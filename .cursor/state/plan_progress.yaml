@@ -27,6 +27,17 @@ scrumban_board:
   in_progress: []
   review: []
   done:
+    - T-P6-001  # Release-readiness report (GO tag+PR / HOLD prod deploy) — phase_6 complete 2026-06-03
+    - T-P6-002  # CHANGELOG 0.2.0 finalized — phase_6 complete 2026-06-03
+    - T-P6-003  # Release branch fix (main→Master) — phase_6 complete 2026-06-03
+    - T-P6-004  # PR #41 opened (iDorgham/Nezam) — phase_6 complete 2026-06-03
+    - T-P5-001  # Path-traversal regression tests (23 tests) — phase_5 complete 2026-06-03
+    - T-P5-002  # Dependency CVE audit (2 moderate documented) + security:audit script — phase_5 complete 2026-06-03
+    - T-P5-003  # Error/secret-leakage sweep (context/lock/ai) — phase_5 complete 2026-06-03
+    - T-P5-004  # Edge-case fuzz of security modules (17 tests) — phase_5 complete 2026-06-03
+    - T-P4-001  # a11y Radix + Select label fix + gate wiring — phase_4 complete 2026-06-03
+    - T-P4-002  # perf budget test (lhci config + RSC guard) + perf:lhci script — phase_4 complete 2026-06-03
+    - T-P4-003  # UX states (loading/error/not-found) + EmptyState impl — phase_4 complete 2026-06-03
     - T-P1-001  # Token emit script design:tokens:emit — completed 2026-06-02
     - T-P1-002  # Public docs site — Nextra v4, 12/12 routes, content parity verified 2026-06-02
     - T-P1-003  # RICE backlog prioritization — PRIORITIZATION.md generated 2026-06-02

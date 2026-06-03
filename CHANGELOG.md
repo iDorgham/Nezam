@@ -17,6 +17,30 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
+## [0.2.0] - 2026-06-03
+
+Design Hub quality, hardening, and polish milestone (develop phases 3–5). 180 tests green, type-check clean.
+
+### Added
+
+- **Quality (Phase 3):** test suites for a11y (axe), RTL audit, motion/scheduler, API integration, AI-route security, session store; implemented `hardlock-check`, `context-compression`, `svg-sanitizer` modules (specs SPEC-QA-001..009).
+- **Polish (Phase 4):** axe coverage for Radix Dialog/Tabs/DropdownMenu/Tooltip/Select; App Router `loading.tsx`/`error.tsx`/`not-found.tsx`; `EmptyState` primitive; Lighthouse budget validation + RSC-boundary guard; `perf:lhci` script (specs SPEC-AX/PERF/UX-001).
+- **Hardening (Phase 5):** path-traversal regression tests; dependency CVE audit report + `security:audit` script; error/secret-leakage sweep; security-module fuzzing (specs SPEC-SEC-001..004).
+
+### Changed
+
+- a11y gate (`test:a11y`) extended to cover UI primitives and Radix components.
+- Test setup adds in-memory `localStorage` + Radix-friendly polyfills (ResizeObserver, pointer-capture, scrollIntoView, matchMedia).
+
+### Fixed
+
+- Associated unlabeled `Input` and `Select` labels (`useId`/`htmlFor`) — WCAG label violations.
+- `release.config.cjs` / `release.yml` now target the real default branch `Master` (was `main`).
+
+### Security
+
+- Documented 2 moderate dependency CVEs (postcss `<8.5.10` → next) with a CI-verified remediation plan in `docs/reports/security/dependency-audit.md`.
+
 ## [0.1.0] - 2026-05-28
 
 Workspace Kit baseline — onboarding gates, design contract, and core planning artifacts.

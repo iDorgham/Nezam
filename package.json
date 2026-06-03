@@ -50,6 +50,8 @@
     "wireframe:server": "pnpm design-hub",
     "design-hub:build": "cd .nezam/design-hub && pnpm build",
     "design-hub:install": "cd .nezam/design-hub && pnpm install",
+    "perf:lhci": "pnpm dlx @lhci/cli@0.14.0 autorun --config=.lighthouserc.json",
+    "security:audit": "npm audit --registry=https://registry.npmjs.org --audit-level=high",
     "docs-site": "cd .nezam/docs-site && pnpm dev",
     "docs-site:build": "cd .nezam/docs-site && pnpm build",
     "dev": "next dev",
@@ -69,6 +71,7 @@
     "@semantic-release/release-notes-generator": "^14.0.0",
     "@types/react": "19.2.16",
     "impeccable": "^2.1.9",
+    "js-yaml": "^4.1.0",
     "semantic-release": "^25.0.3",
     "typescript": "6.0.3"
   },

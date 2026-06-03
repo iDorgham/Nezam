@@ -10,7 +10,7 @@ on:
       target:
         description: "Branch or commit SHA to tag"
         required: false
-        default: "main"
+        default: "Master"
         type: string
       prerelease:
         description: "Mark GitHub release as prerelease"

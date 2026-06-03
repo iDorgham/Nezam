@@ -6,7 +6,8 @@
  * @type {import('semantic-release').Options}
  */
 module.exports = {
-  branches: ['main'],
+  // Repo default branch is `Master` (origin/HEAD → origin/Master); there is no `main`.
+  branches: ['Master'],
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',

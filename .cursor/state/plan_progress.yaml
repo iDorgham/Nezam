@@ -24,13 +24,17 @@ canvas_graph_spec_date: "2026-05-18"
 # V3 additions
 scrumban_board:
   backlog: []
-  in_progress: []
+  in_progress:
+    - T-P6-001  # Release-readiness report — phase_6 started 2026-06-03
+    - T-P6-002  # CHANGELOG 0.2.0 finalize — phase_6 started 2026-06-03
+    - T-P6-003  # Release branch fix (main→Master) — phase_6 started 2026-06-03
   review:
-    - T-P5-001  # Path-traversal regression tests (23 tests) — 2026-06-03
-    - T-P5-002  # Dependency CVE audit (2 moderate documented) + security:audit script — 2026-06-03
-    - T-P5-003  # Error/secret-leakage sweep (context/lock/ai) — 2026-06-03
-    - T-P5-004  # Edge-case fuzz of svg-sanitizer/context-compression/hardlock (17 tests) — 2026-06-03
+    - T-P6-004  # Open PR — pending push + gh pr create
   done:
+    - T-P5-001  # Path-traversal regression tests (23 tests) — phase_5 complete 2026-06-03
+    - T-P5-002  # Dependency CVE audit (2 moderate documented) + security:audit script — phase_5 complete 2026-06-03
+    - T-P5-003  # Error/secret-leakage sweep (context/lock/ai) — phase_5 complete 2026-06-03
+    - T-P5-004  # Edge-case fuzz of security modules (17 tests) — phase_5 complete 2026-06-03
     - T-P4-001  # a11y Radix + Select label fix + gate wiring — phase_4 complete 2026-06-03
     - T-P4-002  # perf budget test (lhci config + RSC guard) + perf:lhci script — phase_4 complete 2026-06-03
     - T-P4-003  # UX states (loading/error/not-found) + EmptyState impl — phase_4 complete 2026-06-03

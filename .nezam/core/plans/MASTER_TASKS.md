@@ -161,6 +161,25 @@ Gate: `develop_phases.phase_5`. Surface: `.nezam/design-hub` + root deps. Specs 
 
 Exit criteria: T-P5 suites green; CVE findings documented + remediation planned; no TODO/FIXME; `develop review` satisfied before `develop complete phase_5`.
 
+**Status: ✅ complete 2026-06-03** — all T-P5 tasks done; 180 tests green; type-check clean; committed on `feature/phase4-5-hardening-polish`.
+
+---
+
+## Phase 6 — Ship (T-P6-*)
+
+Gate: `develop_phases.phase_6`. Release-prep only — **no live deploy** (human-gated).
+
+| ID | Task | Spec | Owner | Surface |
+|---|---|---|---|---|
+| T-P6-001 | Release-readiness go/no-go report | SPEC-SHIP-001 | devops-manager | `docs/reports/release/readiness.md` |
+| T-P6-002 | Finalize CHANGELOG (0.2.0) | SPEC-SHIP-002 | docs-hygiene | `CHANGELOG.md` |
+| T-P6-003 | Fix release tooling branch (main→Master) | SPEC-SHIP-003 | gitops-engineer | `release.config.cjs`, `.github/workflows/release.yml` |
+| T-P6-004 | Open PR for the branch | SPEC-SHIP-004 | ci-automation | GitHub PR |
+
+**Deploy deferred:** no `vercel.json`/`vercel.ts` in repo; a live staging/production deploy requires Vercel linking + env/secrets + explicit human approval (see readiness report). **CVE hold:** postcss `>=8.5.10` override must be CI-verified before a production cut.
+
+Exit criteria: readiness GO for tag+PR; CHANGELOG 0.2.0 finalized; release config targets `Master`; PR opened; `develop review` satisfied before `develop complete phase_6`.
+
 ---
 
 ## Traceability

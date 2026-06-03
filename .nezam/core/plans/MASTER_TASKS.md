@@ -123,6 +123,44 @@ Gate: `develop_phases.phase_3`. Surface: `.nezam/design-hub`. Specs in `00-defin
 
 Exit criteria: in-scope T-Q suites green under `pnpm --filter design-hub test`; a11y gate (WCAG 2.2 AA) passes; no TODO/FIXME in touched files; `develop review` checklist satisfied before `develop complete phase_3`.
 
+**Status: ✅ complete 2026-06-03** — all in-scope T-Q tasks done; 124 tests green; deferred feature-module unit tests tracked separately.
+
+---
+
+## Phase 4 — Polish & Optimization (T-P4-*)
+
+Gate: `develop_phases.phase_4`. Surface: `.nezam/design-hub`. Specs in `00-define/specs/`.
+
+| ID | Task | Spec | Owner | Surface |
+|---|---|---|---|---|
+| T-P4-001 | a11y coverage for complex Radix components | SPEC-AX-001 | a11y-performance-auditor | `src/components/ui/{dialog,select,tabs,dropdown-menu,tooltip}.tsx` |
+| T-P4-002 | Performance budget gate (Lighthouse CI + RSC guard) | SPEC-PERF-001 | frontend-performance-manager | `.lighthouserc.json`, `app/*/page.tsx` |
+| T-P4-003 | UX states (loading / error / not-found) | SPEC-UX-001 | lead-uiux-designer | `app/{loading,error,not-found}.tsx`, UX primitives |
+
+**Selected scope:** a11y deepening, Performance/Lighthouse, UX states. **Deferred:** per-route SEO metadata (not selected this phase).
+**Runtime note:** the full Lighthouse run requires headless Chrome and executes in CI; the locally-verifiable T-P4-002 surface is the budget-config validation + RSC-boundary guard.
+
+Exit criteria: T-P4 suites green under `pnpm --filter design-hub test`; a11y gate passes incl. Radix components; no new hex/px primitives; `develop review` satisfied before `develop complete phase_4`.
+
+**Status: ✅ complete 2026-06-03** — all T-P4 tasks done; 137 tests green; type-check clean; a11y gate 14 tests.
+
+---
+
+## Phase 5 — Hardening (T-P5-*)
+
+Gate: `develop_phases.phase_5`. Surface: `.nezam/design-hub` + root deps. Specs in `00-define/specs/`.
+
+| ID | Task | Spec | Owner | Surface |
+|---|---|---|---|---|
+| T-P5-001 | Path-traversal regression tests | SPEC-SEC-001 | app-security-manager | `app/api/pages/[pageId]` |
+| T-P5-002 | Dependency CVE audit + CI wiring | SPEC-SEC-002 | lead-security-officer | root `package.json`, `docs/reports/security/` |
+| T-P5-003 | Error/secret-leakage sweep | SPEC-SEC-003 | lead-security-officer | `app/api/{context,lock,ai}` |
+| T-P5-004 | Edge-case fuzz of security modules | SPEC-SEC-004 | app-security-manager | `src/lib/{svg-sanitizer,context-compression,hardlock-check}.ts` |
+
+**Builds on Phase 3:** extends T-Q-006/007 (no duplication). **Audit note:** `pnpm audit` is unavailable on the configured mirror; `npm audit` against the public registry surfaced 2 moderate CVEs (postcss <8.5.10 → next), documented in `docs/reports/security/dependency-audit.md`.
+
+Exit criteria: T-P5 suites green; CVE findings documented + remediation planned; no TODO/FIXME; `develop review` satisfied before `develop complete phase_5`.
+
 ---
 
 ## Traceability
@@ -133,6 +171,7 @@ Exit criteria: in-scope T-Q suites green under `pnpm --filter design-hub test`; 
 | F-002-AC-1 | F-002 | `.nezam/core/scripts/sync/` |
 | F-003-AC-1 | F-003 | `.nezam/core/scripts/checks/` |
 | SPEC-QA-001..009 | T-Q-001..009 | `.nezam/design-hub/{src,app,tests}` |
+| SPEC-AX/PERF/UX-001 | T-P4-001..003 | `.nezam/design-hub/{app,src}` |
 
 ---
 

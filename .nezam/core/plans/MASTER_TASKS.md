@@ -180,6 +180,8 @@ Gate: `develop_phases.phase_6`. Release-prep only — **no live deploy** (human-
 
 Exit criteria: readiness GO for tag+PR; CHANGELOG 0.2.0 finalized; release config targets `Master`; PR opened; `develop review` satisfied before `develop complete phase_6`.
 
+**Status: ✅ complete 2026-06-03** — ship-prep done (PR #41). Production deploy deferred (human-gated). **All 6 develop phases complete.**
+
 ---
 
 ## Traceability

@@ -24,13 +24,13 @@ canvas_graph_spec_date: "2026-05-18"
 # V3 additions
 scrumban_board:
   backlog: []
-  in_progress:
-    - T-P6-001  # Release-readiness report — phase_6 started 2026-06-03
-    - T-P6-002  # CHANGELOG 0.2.0 finalize — phase_6 started 2026-06-03
-    - T-P6-003  # Release branch fix (main→Master) — phase_6 started 2026-06-03
-  review:
-    - T-P6-004  # Open PR — pending push + gh pr create
+  in_progress: []
+  review: []
   done:
+    - T-P6-001  # Release-readiness report (GO tag+PR / HOLD prod deploy) — phase_6 complete 2026-06-03
+    - T-P6-002  # CHANGELOG 0.2.0 finalized — phase_6 complete 2026-06-03
+    - T-P6-003  # Release branch fix (main→Master) — phase_6 complete 2026-06-03
+    - T-P6-004  # PR #41 opened (iDorgham/Nezam) — phase_6 complete 2026-06-03
     - T-P5-001  # Path-traversal regression tests (23 tests) — phase_5 complete 2026-06-03
     - T-P5-002  # Dependency CVE audit (2 moderate documented) + security:audit script — phase_5 complete 2026-06-03
     - T-P5-003  # Error/secret-leakage sweep (context/lock/ai) — phase_5 complete 2026-06-03

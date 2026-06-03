@@ -53,9 +53,11 @@ phases:
   phase_6:
     name: "Ship"
     description: "Staging deploy, QA sign-off, production release"
-    status: "in_progress"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "phase_5"
     unlocked_at: "2026-06-03T06:00:00Z"
     started_at: "2026-06-03T06:05:00Z"
-    completed_at: ""
+    review_passed_at: "2026-06-03T06:20:00Z"
+    completed_at: "2026-06-03T06:25:00Z"
+    notes: "Ship-prep complete (readiness GO, CHANGELOG 0.2.0, release branch fix, PR #41). Production deploy intentionally deferred — human-gated; see docs/reports/release/readiness.md."

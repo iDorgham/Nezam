@@ -9,12 +9,10 @@ import type { ArchPage } from '@/types/arch'
 
 function page(partial: Partial<ArchPage> & Pick<ArchPage, 'id' | 'type'>): ArchPage {
   return {
-    id: partial.id,
     name: partial.name ?? 'Node',
     route: partial.route ?? '/',
     parentId: partial.parentId ?? null,
     order: partial.order ?? 0,
-    type: partial.type,
     navSlot: partial.navSlot ?? 'hidden',
     icon: partial.icon ?? 'FileText',
     description: partial.description ?? '',

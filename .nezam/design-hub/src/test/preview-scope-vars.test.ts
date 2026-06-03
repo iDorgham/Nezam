@@ -8,8 +8,9 @@ describe('buildDesignPreviewCssVars', () => {
     const profile = DESIGN_PROFILES_MAP.vibrant
     const vars = buildDesignPreviewCssVars(profile.tokens)
 
-    expect(vars['--brand']).toBe(profile.tokens.colors.brand['500'])
-    expect(vars['--app-accent']).toBe(profile.tokens.colors.brand['500'])
-    expect(vars['--app-surface']).toBe(profile.tokens.colors.surface.bg)
+    const cssVars = vars as Record<string, string>
+    expect(cssVars['--brand']).toBe(profile.tokens.colors.brand['500'])
+    expect(cssVars['--app-accent']).toBe(profile.tokens.colors.brand['500'])
+    expect(cssVars['--app-surface']).toBe(profile.tokens.colors.surface.bg)
   })
 })

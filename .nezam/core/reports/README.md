@@ -18,6 +18,6 @@ Approved categories:
 
 Rolling health snapshots live under `progress/` (for example `HEALTH.latest.md`), not at `docs/reports/` root.
 
-Canonical working docs (PRD, SDD, plans, templates) live under [`docs/core/`](../core/).
+Canonical working docs (PRD, SDD, plans, templates) live under [`.nezam/core/`](../../core/).
 
 See each category `README.md` for naming and ownership.

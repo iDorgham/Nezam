@@ -60,12 +60,13 @@ jobs:
         run: |
           set -euo pipefail
           violations=0
-          if grep -rln "\.cursor/templates/" .cursor .nezam docs 2>/dev/null; then
-            echo "❌ Legacy .cursor/templates/ references found"
+          # Scope to markdown only — scripts intentionally contain these strings as grep patterns.
+          if grep -rln "\.cursor/templates/" --include='*.md' --include='*.mdc' .cursor .nezam docs 2>/dev/null; then
+            echo "❌ Legacy .cursor/templates/ references found in markdown files"
             violations=$((violations + 1))
           fi
-          if grep -rln "docs/core/" . --exclude-dir=node_modules --exclude-dir=.git 2>/dev/null; then
-            echo "❌ Legacy docs/core/ references found"
+          if grep -rln "docs/core/" --include='*.md' --include='*.mdc' . --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.claude 2>/dev/null; then
+            echo "❌ Legacy docs/core/ references found in markdown files"
             violations=$((violations + 1))
           fi
           if [ "$violations" -ne 0 ]; then

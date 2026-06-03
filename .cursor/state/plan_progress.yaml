@@ -25,21 +25,21 @@ canvas_graph_spec_date: "2026-05-18"
 scrumban_board:
   backlog: []
   in_progress: []
-  review:
-    - T-Q-001  # axe a11y coverage (Button/Input/Switch/Badge) + Input label fix — 2026-06-03
-    - T-Q-002  # RTL audit (dir=rtl render, sidebar split, physical-CSS guard) — 2026-06-03
-    - T-Q-003  # schedule-idle + Scrubber coalesce/clamp tests — 2026-06-03
-    - T-Q-004  # API route integration tests (stub 501 contract, lock 422, context tmp-mocked) — 2026-06-03
-    - T-Q-005  # session.store unit coverage (tokens/canvas-math/token-injection deferred) — 2026-06-03
-    - T-Q-006  # svg-sanitizer impl + security tests — 2026-06-03
-    - T-Q-007  # AI route security (secret hygiene, validation-before-dispatch, 501 contracts) — 2026-06-03
-    - T-Q-008  # context-compression impl + overflow tests — 2026-06-03
-    - T-Q-009  # hardlock-check impl + SDD gate tests — 2026-06-03
+  review: []
   done:
     - T-P1-001  # Token emit script design:tokens:emit — completed 2026-06-02
     - T-P1-002  # Public docs site — Nextra v4, 12/12 routes, content parity verified 2026-06-02
     - T-P1-003  # RICE backlog prioritization — PRIORITIZATION.md generated 2026-06-02
     - T-P1-004  # Design excellence audit --strict — 6 gates passing 2026-06-02
+    - T-Q-001  # axe a11y coverage + Input label fix + gate wiring — phase_3 complete 2026-06-03
+    - T-Q-002  # RTL audit (dir=rtl render, sidebar split, physical-CSS guard) — phase_3 complete 2026-06-03
+    - T-Q-003  # schedule-idle + Scrubber coalesce/clamp tests — phase_3 complete 2026-06-03
+    - T-Q-004  # API route integration tests (stub 501, lock 422, context tmp-mocked) — phase_3 complete 2026-06-03
+    - T-Q-005  # session.store unit coverage — phase_3 complete 2026-06-03 (feature modules deferred)
+    - T-Q-006  # svg-sanitizer impl + security tests — phase_3 complete 2026-06-03
+    - T-Q-007  # AI route security (secret hygiene, validation-before-dispatch, 501 contracts) — phase_3 complete 2026-06-03
+    - T-Q-008  # context-compression impl + overflow tests — phase_3 complete 2026-06-03
+    - T-Q-009  # hardlock-check impl + SDD gate tests — phase_3 complete 2026-06-03
   blocked:
     - T-Q-005-feature  # canvas-math/token-injection/tokens.store unit tests blocked: reserved stubs, deferred to a feature phase
   wip_limit: 3

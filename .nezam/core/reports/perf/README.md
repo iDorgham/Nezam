@@ -6,4 +6,4 @@
 
 **Naming:** `perf-<topic>-<YYYYMMDD>-<HHMM>.md`.
 
-**Do not** place perf reports under `docs/core/` or repo root.
+**Do not** place perf reports under `.nezam/core/` or repo root.

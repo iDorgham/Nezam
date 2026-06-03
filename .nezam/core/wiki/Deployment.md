@@ -51,7 +51,7 @@ Configured via `release.config.cjs`.
 
 ## Gate Matrix
 
-The GitHub Gate Matrix at `.nezam/core/plans/gates/GITHUB_GATE_MATRIX.json` defines what must pass before each phase transition. Structure:
+The GitHub Gate Matrix at `.nezam/core/gates/GITHUB_GATE_MATRIX.json` defines what must pass before each phase transition. Structure:
 
 ```json
 {
@@ -103,7 +103,7 @@ NEZAM follows [SemVer](https://semver.org/):
 - `fix:` commits → patch bump (0.0.X)
 - `BREAKING CHANGE:` → major bump (X.0.0)
 
-Version history is tracked in `docs/core/VERSIONING.md`.
+Version history is tracked in `.nezam/core/memory/VERSIONING.md`.
 
 ---
 

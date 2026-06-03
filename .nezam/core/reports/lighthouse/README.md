@@ -6,4 +6,4 @@
 
 **Naming:** `lighthouse-<url-or-slug>-<YYYYMMDD>.md` or `perf-scan-<YYYYMMDD>-<HHMM>.md`.
 
-**Do not** place Lighthouse JSON/HTML under `docs/core/` or repo root (summaries here; raw artifacts in CI when possible).
+**Do not** place Lighthouse JSON/HTML under `.nezam/core/` or repo root (summaries here; raw artifacts in CI when possible).

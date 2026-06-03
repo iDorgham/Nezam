@@ -88,4 +88,4 @@ Each phase has:
 
 The hardlock system in `.cursor/rules/` prevents phase skipping. When a prerequisite is unmet, agents will refuse to execute the next phase and will explain exactly what's missing.
 
-Hardlock paths are catalogued in `docs/core/hardlock-paths.json`.
+Hardlock paths are catalogued in `.nezam/core/gates/hardlock-paths.json`.

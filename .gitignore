@@ -14,3 +14,5 @@ build/
 .qwen/cache/
 docs/reference/
 .cursor/design/references/
+# git worktrees checked out inside .claude/ should never be staged as submodules
+.claude/worktrees/

@@ -6,4 +6,4 @@
 
 **Naming:** `fix-triage-<YYYYMMDD>-<HHMM>.md`, `audit-<slug>-<YYYYMMDD>.md`.
 
-**Do not** place audit logs under `docs/core/` or repo root.
+**Do not** place audit logs under `.nezam/core/` or repo root.

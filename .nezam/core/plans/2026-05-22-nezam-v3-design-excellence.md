@@ -19,7 +19,7 @@
 | `.cursor/rules/` | `agent-lazy-load.mdc`, `design-gates.mdc` | `design-excellence-gates.mdc`, `dashboard-design-gates.mdc`, updated lazy-load |
 | `.cursor/state/` | AGENT_REGISTRY, plan_progress | `design_health.yaml`, `dashboard_health.yaml`, `workspace.settings.yaml`, updated registry + progress |
 | `.cursor/agents/` | 100+ agents | 7 new V3 design-excellence agents |
-| `.cursor/templates/` | nothing | `ui-ux/design/DESIGN-v2.template.md`, `DASHBOARD_SPEC.template.md` |
+| `.nezam/templates/` | nothing | `ui-ux/design/DESIGN-v2.template.md`, `DASHBOARD_SPEC.template.md` |
 | `DESIGN_SYSTEM.md` | nothing | Create with chart tokens + OKLCH system |
 | `.nezam/design-server/` | nothing | `docs/VISUAL_BUILDER_V2.md`, `styles/global.template.css` |
 | `scripts/scaffold-nezam-v3.js` | nothing | Create |
@@ -1189,8 +1189,8 @@ git commit -m "feat(state): add design_health, dashboard_health, workspace setti
 
 **Files:**
 - Create: `DESIGN_SYSTEM.md`
-- Create: `.cursor/templates/ui-ux/design/DESIGN-v2.template.md`
-- Create: `.cursor/templates/ui-ux/design/DASHBOARD_SPEC.template.md`
+- Create: `.nezam/templates/ui-ux/design/DESIGN-v2.template.md`
+- Create: `.nezam/templates/ui-ux/design/DASHBOARD_SPEC.template.md`
 
 **Step 1: Create `DESIGN_SYSTEM.md`**
 
@@ -1208,23 +1208,23 @@ Create `DESIGN_SYSTEM.md` at the project root. Content:
 **Step 2: Create template directory**
 
 ```bash
-mkdir -p .cursor/templates/ui-ux/design
+mkdir -p .nezam/templates/ui-ux/design
 ```
 
 **Step 3: Create `DESIGN-v2.template.md`**
 
-Create `.cursor/templates/ui-ux/design/DESIGN-v2.template.md` with sections:
+Create `.nezam/templates/ui-ux/design/DESIGN-v2.template.md` with sections:
 - Intent, Tokens (OKLCH + tinted neutrals), Components, Motion (with budget table), Accessibility, RTL Parity, Cultural Context, Anti-Pattern Checklist (9 items), Handoff Checklist (7 items including `sdd-gate-validator: PASS`)
 
 **Step 4: Create `DASHBOARD_SPEC.template.md`**
 
-Create `.cursor/templates/ui-ux/design/DASHBOARD_SPEC.template.md` with sections:
+Create `.nezam/templates/ui-ux/design/DASHBOARD_SPEC.template.md` with sections:
 - Intent, Layout Architecture (grid + KPI pattern + filter strategy), Chart Specifications table, Motion Timeline table, State Matrix (loading/empty/error), Handoff Checklist
 
 **Step 5: Commit**
 
 ```bash
-git add DESIGN_SYSTEM.md .cursor/templates/
+git add DESIGN_SYSTEM.md .nezam/templates/
 git commit -m "feat(design): add DESIGN_SYSTEM.md with OKLCH tokens + V2 design templates"
 ```
 
@@ -1318,8 +1318,8 @@ const required = [
   '.cursor/state/dashboard_health.yaml',
   '.cursor/state/workspace.settings.yaml',
   'DESIGN_SYSTEM.md',
-  '.cursor/templates/ui-ux/design/DESIGN-v2.template.md',
-  '.cursor/templates/ui-ux/design/DASHBOARD_SPEC.template.md',
+  '.nezam/templates/ui-ux/design/DESIGN-v2.template.md',
+  '.nezam/templates/ui-ux/design/DASHBOARD_SPEC.template.md',
   '.nezam/design-server/docs/VISUAL_BUILDER_V2.md',
 ];
 

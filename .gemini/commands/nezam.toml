@@ -58,7 +58,7 @@ Display a snapshot of the workspace state:
 ╠══════════════════════════════════════════════════════════════╣
 ║  Project Paths  (from .nezam/workspace.paths.yaml)         ║
 ║  PRD            .nezam/core/prd/PRD.md                             ║
-║  Plans root     docs/plan/                           ║
+║  Plans root     .nezam/core/plans/                           ║
 ║  Reports root   docs/reports/                               ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  Templates      .nezam/templates/   (56 files, 8 categories)║
@@ -261,7 +261,7 @@ Workspace Paths — .nezam/workspace.paths.yaml
 
   PROJECT PATHS (user-configurable)
   prd          .nezam/core/prd/PRD.md
-  plans_root   docs/plan/
+  plans_root   .nezam/core/plans/
   reports_root docs/reports/
 
   WORKSPACE INTERNALS (advanced)

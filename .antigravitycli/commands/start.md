@@ -5,8 +5,8 @@
 ## Path resolution
 
 Before any file operation, read `.nezam/core/gates/hardlock-paths.json` and resolve:
-- `intake.prd` → default `docs/plan/00-define/01-product/PRD.md`
-- `intake.projectPrompt` → default `docs/plan/00-define/01-product/PROJECT_PROMPT.md`
+- `intake.prd` → default `.nezam/core/plans/00-define/01-product/PRD.md`
+- `intake.projectPrompt` → default `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md`
 - `planning.changelog` → default `.nezam/CHANGELOG.md`
 
 All path references in this command use these resolved values.
@@ -20,7 +20,7 @@ All path references in this command use these resolved values.
   /START gates       → Run all prerequisite checks. Shows ✅/❌ per gate.
   /START repo        → Link or initialize the git repository
   /START design      → Browse `.nezam/design/<brand>/`, pick one, apply to root DESIGN.md
-  /START docs        → Scaffold docs/plan/ and docs/reports/ folder structure
+  /START docs        → Scaffold .nezam/core/plans/ and docs/reports/ folder structure
   /START companion   → Generate a briefing to paste into any external AI
   /START all         → Run full sequence: onboarding → prd → design → docs → gates
 
@@ -194,7 +194,7 @@ Generate the full PRD using `.nezam/templates/specs/PRD.template.md` as structur
 - Section 14: explicit out-of-scope list
 - Zero `{{PLACEHOLDER}}` tokens remaining
 
-Save to: `docs/plan/00-define/01-product/PRD.md`
+Save to: `.nezam/core/plans/00-define/01-product/PRD.md`
 
 Show summary card:
 ```
@@ -252,7 +252,7 @@ Using the completed PRD and design system, generate `PROJECT_PROMPT.md` using `.
 - Section 13 conventions: complete file/folder structure
 - Zero `{{PLACEHOLDER}}` tokens remaining
 
-Save to: `docs/plan/00-define/01-product/PROJECT_PROMPT.md`
+Save to: `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md`
 
 ---
 
@@ -265,7 +265,7 @@ For every P0 feature in the PRD Feature Registry:
 - Every API endpoint specified
 - Every edge case listed
 - Definition of Done checklist populated
-- Save to: `docs/plan/00-define/specs/{{FEATURE_ID}}-{{slug}}.md`
+- Save to: `.nezam/core/plans/00-define/specs/{{FEATURE_ID}}-{{slug}}.md`
 
 Show progress per feature. Do not move on until all P0 specs are complete.
 
@@ -319,9 +319,9 @@ If passes:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  ONBOARDING COMPLETE — {{PROJECT_NAME}}
 
-✅  PRD              → docs/plan/00-define/01-product/PRD.md
-✅  PROJECT_PROMPT   → docs/plan/00-define/01-product/PROJECT_PROMPT.md
-✅  Feature Specs    → docs/plan/00-define/specs/ ({{N}} specs)
+✅  PRD              → .nezam/core/plans/00-define/01-product/PRD.md
+✅  PROJECT_PROMPT   → .nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md
+✅  Feature Specs    → .nezam/core/plans/00-define/specs/ ({{N}} specs)
 ✅  Design Contract  → DESIGN.md
 ✅  CHANGELOG        → .nezam/CHANGELOG.md
 
@@ -369,9 +369,9 @@ Run checks and report ✅ / ❌:
 | Gate | Check |
 |---|---|
 | NEZAM workspace | `.nezam/core/gates/hardlock-paths.json` exists |
-| PRD | `docs/plan/00-define/01-product/PRD.md` — exists, populated, no placeholder tokens |
-| PROJECT_PROMPT | `docs/plan/00-define/01-product/PROJECT_PROMPT.md` — exists, populated |
-| Feature Specs | At least 1 `.md` file in `docs/plan/00-define/specs/` |
+| PRD | `.nezam/core/plans/00-define/01-product/PRD.md` — exists, populated, no placeholder tokens |
+| PROJECT_PROMPT | `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md` — exists, populated |
+| Feature Specs | At least 1 `.md` file in `.nezam/core/plans/00-define/specs/` |
 | Design contract | `DESIGN.md` exists at repo root |
 | onboarding.yaml | `prd_locked: true` AND `design_locked: true` |
 | CHANGELOG | `.nezam/CHANGELOG.md` exists |
@@ -386,8 +386,8 @@ If any gate fails → show exact command to fix it.
 ```
 .nezam/                     ← NEZAM system — DO NOT MODIFY during /start
 .nezam/CHANGELOG.md         ← NEZAM system changelog
-docs/plan/                  ← User's project plans
-docs/plan/00-define/        ← PRD, PROJECT_PROMPT, feature specs
+.nezam/core/plans/                  ← User's project plans
+.nezam/core/plans/00-define/        ← PRD, PROJECT_PROMPT, feature specs
 docs/reports/               ← User's project reports
 DESIGN.md                   ← User's design contract (root)
 CHANGELOG.md (root)         ← User's project changelog (created during /develop)
@@ -412,9 +412,9 @@ session_history:
     summary: "Completed onboarding for {{PROJECT_NAME}}. PRD, PROJECT_PROMPT, and {{N}} feature specs generated."
     phases_advanced: ["onboarding"]
     artifacts_created:
-      - docs/plan/00-define/01-product/PRD.md
-      - docs/plan/00-define/01-product/PROJECT_PROMPT.md
-      - docs/plan/00-define/specs/*.md
+      - .nezam/core/plans/00-define/01-product/PRD.md
+      - .nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md
+      - .nezam/core/plans/00-define/specs/*.md
       - DESIGN.md
     ended_at: "<ISO_TIMESTAMP>"
 ```

@@ -5,9 +5,9 @@
 ## Path resolution
 
 Before any file operation, read `.nezam/core/gates/hardlock-paths.json`:
-- `intake.prd` → default `docs/plan/00-define/01-product/PRD.md`
-- `intake.projectPrompt` → default `docs/plan/00-define/01-product/PROJECT_PROMPT.md`
-- `subphasePrompts.plansRoot` → default `docs/plan`
+- `intake.prd` → default `.nezam/core/plans/00-define/01-product/PRD.md`
+- `intake.projectPrompt` → default `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md`
+- `subphasePrompts.plansRoot` → default `.nezam/core/plans`
 
 All PRD and plans path references below use these resolved values.
 
@@ -30,12 +30,12 @@ Aliases: /PLAN menus → /PLAN ia | /PLAN copy → /PLAN content | /PLAN spec �
 
 Hard block:
   /plan (any subcommand) requires ALL of:
-  1. `docs/plan/00-define/01-product/PRD.md` exists and is not a blank template
+  1. `.nezam/core/plans/00-define/01-product/PRD.md` exists and is not a blank template
      (check: file has content, no `{{PLACEHOLDER}}` tokens)
-  2. `docs/plan/00-define/01-product/PROJECT_PROMPT.md` exists and has content
+  2. `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md` exists and has content
   3. `DESIGN.md` exists at repo root and is not a blank template
   4. `.cursor/state/onboarding.yaml` has `prd_locked: true` AND `design_locked: true`
-  5. At least 1 feature spec exists in `docs/plan/00-define/specs/`
+  5. At least 1 feature spec exists in `.nezam/core/plans/00-define/specs/`
 
 If any check fails:
   → Read `.cursor/state/onboarding.yaml` to detect which step is missing
@@ -45,7 +45,7 @@ If any check fails:
 
 Example gate failure message:
 > **HARDLOCK VIOLATION:** /plan blocked.
-> **Missing:** PRD at `docs/plan/00-define/01-product/PRD.md`
+> **Missing:** PRD at `.nezam/core/plans/00-define/01-product/PRD.md`
 > **Required gate:** Onboarding must be completed first.
 > Run `/START` to begin onboarding.
 
@@ -225,9 +225,9 @@ After user responds → PRD generated → PROJECT_PROMPT generated → Feature S
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  SPECS LOCKED — [Product Name]
 
-📋  PRD              → docs/plan/00-define/01-product/PRD.md
-📝  PROJECT_PROMPT   → docs/plan/00-define/01-product/PROJECT_PROMPT.md
-🔖  Feature Specs    → docs/plan/00-define/specs/ ([N] specs)
+📋  PRD              → .nezam/core/plans/00-define/01-product/PRD.md
+📝  PROJECT_PROMPT   → .nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md
+🔖  Feature Specs    → .nezam/core/plans/00-define/specs/ ([N] specs)
 
 Product:     [name]
 Type:        [Web App / SaaS / Mobile App / Website / API]
@@ -252,7 +252,7 @@ Runs AFTER arch, design, and IA are complete. Hard-blocked until all three exist
 **Behavior:**
 1. Reads: PRD.md + ARCHITECTURE.md + DESIGN.md + IA_CONTENT.md
 2. Detects product type (SaaS, website, mobile, API)
-3. Produces `docs/plan/scaffold/PROJECT_SCAFFOLD.md` with:
+3. Produces `.nezam/core/plans/scaffold/PROJECT_SCAFFOLD.md` with:
    - Complete directory tree (every folder and file, including empty stubs)
    - Each file annotated: purpose / owner agent / SDD phase when created
    - Config file inventory (env, tsconfig, CI configs, package.json, etc.)
@@ -303,10 +303,10 @@ Runs after IA is complete. Generates DESIGN.md covering:
 After design artifacts are written for a subphase folder, populate opt-in external skills:
 
 ```bash
-pnpm skills:assemble-design-prompt --phase plan_design --write --dir docs/plan/04-design/<subphase>
+pnpm skills:assemble-design-prompt --phase plan_design --write --dir .nezam/core/plans/04-design/<subphase>
 ```
 
-This merges `designSkillStack` into `prompt.json` and adds a **Design skill stack** section to `PROMPT.md`. See `docs/plan/design/DESIGN_SKILLS.md` and `@.cursor/skills/design/nezam-design-prompt-assembler/SKILL.md`.
+This merges `designSkillStack` into `prompt.json` and adds a **Design skill stack** section to `PROMPT.md`. See `.nezam/core/plans/design/DESIGN_SKILLS.md` and `@.cursor/skills/design/nezam-design-prompt-assembler/SKILL.md`.
 
 ### /PLAN design wireframes — High-Fidelity ASCII Wireframe System
 
@@ -423,7 +423,7 @@ For Webapp/SaaS also add:
 
 Generate:
 
-**1. `docs/plan/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
+**1. `.nezam/core/plans/04-design/DESIGN_CHOICES.md`** — YAML of all selections:
 ```yaml
 wireframe_selections:
   navigation:
@@ -445,7 +445,7 @@ wireframe_selections:
 - Dark mode token overrides
 - Each screen mapped to its wireframe selection
 
-**3. `docs/plan/04-design/WIREFRAMES.md`** — complete wireframe doc:
+**3. `.nezam/core/plans/04-design/WIREFRAMES.md`** — complete wireframe doc:
 - All screens with full ASCII wireframes as shown above
 - Every screen_id mapped to its page from IA_CONTENT.md
 - States documented (default, hover, loading, empty, error)
@@ -492,12 +492,12 @@ When planning_complete becomes true, show:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  PLANNING COMPLETE
 
-✅  SEO Research      → docs/plan/01-research/SEO_RESEARCH.md
-✅  Info Architecture → docs/plan/02-ia/IA_CONTENT.md
-✅  Content Map       → docs/plan/03-content/CONTENT_MAP.md
-✅  Architecture      → docs/plan/04-arch/ARCHITECTURE.md
-✅  Design Wireframes → docs/plan/04-design/DESIGN_CHOICES.md
-✅  Project Scaffold  → docs/plan/scaffold/PROJECT_SCAFFOLD.md
+✅  SEO Research      → .nezam/core/plans/01-research/SEO_RESEARCH.md
+✅  Info Architecture → .nezam/core/plans/02-ia/IA_CONTENT.md
+✅  Content Map       → .nezam/core/plans/03-content/CONTENT_MAP.md
+✅  Architecture      → .nezam/core/plans/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → .nezam/core/plans/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → .nezam/core/plans/scaffold/PROJECT_SCAFFOLD.md
 
 🔓  /develop  → UNLOCKED — ready to use
 
@@ -523,7 +523,7 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 
 ## /PLAN tasks — Settings-Aware Task Tool Tagging
 
-When generating `docs/plan/MASTER_TASKS.md`, apply routing metadata when
+When generating `.nezam/core/plans/MASTER_TASKS.md`, apply routing metadata when
 `tools.routing.auto_assign_tasks: true` in `.cursor/workspace.settings.yaml`.
 
 ### Task Tool Tagging
@@ -584,12 +584,12 @@ When planning_complete becomes true, show:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅  PLANNING COMPLETE
 
-✅  SEO Research      → docs/plan/01-research/SEO_RESEARCH.md
-✅  Info Architecture → docs/plan/02-ia/IA_CONTENT.md
-✅  Content Map       → docs/plan/03-content/CONTENT_MAP.md
-✅  Architecture      → docs/plan/04-arch/ARCHITECTURE.md
-✅  Design Wireframes → docs/plan/04-design/DESIGN_CHOICES.md
-✅  Project Scaffold  → docs/plan/scaffold/PROJECT_SCAFFOLD.md
+✅  SEO Research      → .nezam/core/plans/01-research/SEO_RESEARCH.md
+✅  Info Architecture → .nezam/core/plans/02-ia/IA_CONTENT.md
+✅  Content Map       → .nezam/core/plans/03-content/CONTENT_MAP.md
+✅  Architecture      → .nezam/core/plans/04-arch/ARCHITECTURE.md
+✅  Design Wireframes → .nezam/core/plans/04-design/DESIGN_CHOICES.md
+✅  Project Scaffold  → .nezam/core/plans/scaffold/PROJECT_SCAFFOLD.md
 
 🔓  /develop  → UNLOCKED — ready to use
 
@@ -628,6 +628,6 @@ Do NOT execute any /develop action. Do NOT show partial results. Full stop.
 ## Anti-Hallucination & Self-Reflection Check
 
 Before rendering any `/PLAN` output or scaffolding files:
-- Verify that every output path targeted is physically situated under the correct consolidated directory: `.nezam/core/plans/` (not legacy `docs/plans/` or `.nezam/core/context/`).
+- Verify that every output path targeted is physically situated under the correct consolidated directory: `.nezam/core/plans/` (not legacy `.nezam/core/plans/` or `.nezam/core/context/`).
 - Perform a strict evaluation loop to calculate the Confidence Score (0%-100%) against accuracy, determinism, scope, and evidence metrics. Ensure score ≥75% (Certified) before finalized output.
 - Check that zero placeholders or generic `{{PLACEHOLDER}}` are generated in output files. Every generated plan or spec must contain real, contextual descriptions.

@@ -629,7 +629,7 @@ MONOREPO.md must define:
 SDD planning docs are scoped by app within one shared docs tree:
 
 ```
-docs/plan/
+.nezam/core/plans/
 ├── 00-define/
 │   ├── PRD.md                         ← project-wide PRD
 │   └── MONOREPO.md                    ← workspace package map

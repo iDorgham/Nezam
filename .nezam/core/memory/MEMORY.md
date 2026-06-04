@@ -8,10 +8,10 @@
 
 ## Active Context
 
-**Last updated:** ""
-**Active project:** ""
+**Last updated:** "2026-06-04"
+**Active project:** "NEZAM workspace kit"
 **Active swarm:** ""
-**Current phase:** "onboarding"
+**Current phase:** "release"
 **Build mode:** ""
 
 ---
@@ -20,7 +20,7 @@
 
 | Date | Command | Phase | Decision | PM-01 |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| 2026-06-04 | `/GIT release` | Release | Shipped v0.3.0 — foundation milestone R1+R2. Annotated tag pushed to origin/Master. CHANGELOG updated. AI mirrors synced. | Claude |
 
 ---
 
@@ -44,6 +44,13 @@ Notes: [one line]
 ---
 
 ## Key Decisions
+
+### 2026-06-04 — v0.3.0 Release
+
+- **Version chosen:** 0.3.0 (minor, not patch) — R1 + R2 treated as a feature milestone given the scope of foundation changes.
+- **Included in release commit:** 6 audit/planning docs from `docs/reports/`, CHANGELOG v0.3.0 entry, synced AI mirrors (`.antigravitycli`, `.windsurf`).
+- **Tag:** annotated `v0.3.0` on commit `0e0a00e6`, pushed to `origin`.
+- **Pre-commit hook:** `pnpm ai:sync` was required to resolve drift in `.antigravitycli/commands/git.md` and `.windsurf/commands/git.md` before commit could land.
 
 ---
 

@@ -6,6 +6,15 @@ Subcommands:
   /GIT save         → Stage changes and create a conventional commit with auto-generated message
   /GIT branch       → Create a feature/fix/release branch following naming conventions
   /GIT push         → Push current branch, verify CI status
+
+Branch naming policy (enforced by .githooks/pre-push and CI):
+  feature/<slug>           e.g. feature/r1-foundation-fixes
+  release/<major>.<minor>.<patch>   e.g. release/1.2.0
+  hotfix/<major>.<minor>.<patch>    e.g. hotfix/1.2.1
+  main | Master            protected long-lived branches
+
+Regex: ^(main|Master|feature/.+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+)$
+Rename: git branch -m <old> <new>
   /GIT tag          → Create a SemVer release tag (follows VERSIONING.md rules)
   /GIT release      → Full release flow: tag → CHANGELOG update → release notes → push
   /GIT rollback     → Revert last deployment or commit with safe rollback plan

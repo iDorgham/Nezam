@@ -92,22 +92,22 @@ jobs:
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
           # Create/update phase state
-          {
-            echo "phase: $PHASE"
-            echo "status: in_progress"
-            echo "created_at: $TIMESTAMP"
-            echo "branch: ${{ steps.check-branch.outputs.branch_name }}"
-            echo 'git_user: "NEZAM Bot"'
-            echo "requirements_checklist:"
-            echo "  - status: pending"
-            echo '    item: "Phase objectives defined"'
-            echo "  - status: pending"
-            echo '    item: "Documentation updated"'
-            echo "  - status: pending"
-            echo '    item: "Team notified"'
-            echo "  - status: pending"
-            echo '    item: "Review requested"'
-          } > ".cursor/state/phase-${PHASE}.yaml"
+          cat > ".cursor/state/phase-${PHASE}.yaml" <<EOF
+phase: $PHASE
+status: in_progress
+created_at: $TIMESTAMP
+branch: ${{ steps.check-branch.outputs.branch_name }}
+git_user: "NEZAM Bot"
+requirements_checklist:
+  - status: pending
+    item: "Phase objectives defined"
+  - status: pending
+    item: "Documentation updated"
+  - status: pending
+    item: "Team notified"
+  - status: pending
+    item: "Review requested"
+EOF
 
           echo "✅ Created phase state file: .cursor/state/phase-${PHASE}.yaml"
 
@@ -119,37 +119,37 @@ jobs:
 
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
-          {
-            echo "# ${{ inputs.phase | upper }} Phase Progress"
-            echo ""
-            echo "**Started**: $TIMESTAMP"
-            echo "**Branch**: ${{ steps.check-branch.outputs.branch_name }}"
-            echo ""
-            echo "## Objectives"
-            echo ""
-            echo "- [ ] Define phase requirements"
-            echo "- [ ] Document scope"
-            echo "- [ ] Plan resources"
-            echo "- [ ] Setup timeline"
-            echo ""
-            echo "## Deliverables"
-            echo ""
-            echo "- [ ] Phase specification"
-            echo "- [ ] Design review (if applicable)"
-            echo "- [ ] Documentation"
-            echo "- [ ] Quality assurance"
-            echo ""
-            echo "## Status Checklist"
-            echo ""
-            echo "- [ ] In Progress"
-            echo "- [ ] Ready for Review"
-            echo "- [ ] Approved"
-            echo "- [ ] Merged to Main"
-            echo ""
-            echo "## Notes"
-            echo ""
-            echo "_Add notes and updates here during phase execution._"
-          } > "$PHASE_DIR/progress.md"
+          cat > "$PHASE_DIR/progress.md" <<EOF
+# ${{ inputs.phase | upper }} Phase Progress
+
+**Started**: $TIMESTAMP
+**Branch**: ${{ steps.check-branch.outputs.branch_name }}
+
+## Objectives
+
+- [ ] Define phase requirements
+- [ ] Document scope
+- [ ] Plan resources
+- [ ] Setup timeline
+
+## Deliverables
+
+- [ ] Phase specification
+- [ ] Design review (if applicable)
+- [ ] Documentation
+- [ ] Quality assurance
+
+## Status Checklist
+
+- [ ] In Progress
+- [ ] Ready for Review
+- [ ] Approved
+- [ ] Merged to Main
+
+## Notes
+
+_Add notes and updates here during phase execution._
+EOF
 
           echo "✅ Created phase progress file: $PHASE_DIR/progress.md"
 
@@ -159,14 +159,12 @@ jobs:
           PHASE="${{ inputs.phase }}"
           git add ".cursor/state/phase-${PHASE}.yaml"
           git add ".nezam/core/plans/${PHASE}/"
-          {
-            echo "ci: Initialize $PHASE phase"
-            echo ""
-            echo "- Create phase state file"
-            echo "- Setup progress tracking"
-            echo "- Configure branch: ${{ steps.check-branch.outputs.branch_name }}"
-            echo "- Phase status: in_progress"
-          } | git commit -F -
+          git commit -m "ci: Initialize $PHASE phase
+
+- Create phase state file
+- Setup progress tracking
+- Configure branch: ${{ steps.check-branch.outputs.branch_name }}
+- Phase status: in_progress"
           echo "✅ Committed phase initialization files"
 
       - name: Push phase branch
@@ -186,42 +184,40 @@ jobs:
             const phaseTitle = phase.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
             const prTitle = `🚀 [${phaseTitle}] Initialize $${phaseTitle} Phase`;
-            const prBody = [
-              `## Phase: ${phaseTitle}`,
-              '',
-              '### Overview',
-              `Automated branch and PR creation for the **${phaseTitle}** phase of the SDD pipeline.`,
-              '',
-              '### Phase Details',
-              `- **Phase Name**: ${phase}`,
-              `- **Branch**: ${branchName}`,
-              `- **Created**: ${new Date().toISOString()}`,
-              '',
-              '### Phase Objectives',
-              '- [ ] Define requirements',
-              '- [ ] Document specifications',
-              '- [ ] Setup resources',
-              '- [ ] Plan timeline',
-              '',
-              '### What to Do',
-              '1. Review this PR for phase-specific changes',
-              '2. Add phase requirements to the progress file',
-              '3. Update team on phase timeline',
-              '4. Merge when ready to begin phase work',
-              '',
-              '### Gate Requirements',
-              `This PR unlocks the **${phaseTitle}** phase. Merge to proceed with phase-specific development.`,
-              '',
-              '### Checklist',
-              '- [ ] Phase requirements defined',
-              '- [ ] Team notified',
-              '- [ ] Resources allocated',
-              '- [ ] Ready to proceed',
-              '',
-              '---',
-              '',
-              '*Generated by NEZAM Bot | SDD Phase Automation*',
-            ].join('\n');
+            const prBody = `## Phase: ${phaseTitle}
+
+### Overview
+Automated branch and PR creation for the **${phaseTitle}** phase of the SDD pipeline.
+
+### Phase Details
+- **Phase Name**: ${phase}
+- **Branch**: ${branchName}
+- **Created**: ${new Date().toISOString()}
+
+### Phase Objectives
+- [ ] Define requirements
+- [ ] Document specifications
+- [ ] Setup resources
+- [ ] Plan timeline
+
+### What to Do
+1. Review this PR for phase-specific changes
+2. Add phase requirements to the progress file
+3. Update team on phase timeline
+4. Merge when ready to begin phase work
+
+### Gate Requirements
+This PR unlocks the **${phaseTitle}** phase. Merge to proceed with phase-specific development.
+
+### Checklist
+- [ ] Phase requirements defined
+- [ ] Team notified
+- [ ] Resources allocated
+- [ ] Ready to proceed
+
+---
+
+*Generated by NEZAM Bot | SDD Phase Automation*`;
 
             const { data: pr } = await github.rest.pulls.create({
               owner: context.repo.owner,
@@ -255,54 +251,52 @@ jobs:
             const branchName = '${{ steps.check-branch.outputs.branch_name }}';
 
             const issueTitle = `📋 ${phaseTitle} Phase Tracking`;
-            const issueBody = [
-              `## ${phaseTitle} Phase Execution`,
-              '',
-              '### Phase Information',
-              `- **Phase**: ${phase}`,
-              `- **Branch**: \`${branchName}\``,
-              `- **Started**: ${new Date().toISOString()}`,
-              '',
-              '### Phase Checklist',
-              '',
-              '#### Requirements',
-              '- [ ] Requirements document created',
-              '- [ ] Scope defined',
-              '- [ ] Success criteria established',
-              '- [ ] Team assigned',
-              '',
-              '#### Execution',
-              '- [ ] Phase work in progress',
-              '- [ ] Documentation updated',
-              '- [ ] Code reviews completed',
-              '- [ ] Tests passing',
-              '',
-              '#### Completion',
-              '- [ ] All requirements met',
-              '- [ ] Quality gates passed',
-              '- [ ] PR reviewed and approved',
-              '- [ ] Ready to merge',
-              '',
-              '#### Merge & Transition',
-              '- [ ] PR merged to main',
-              '- [ ] Next phase branch created',
-              '- [ ] Documentation updated',
-              '- [ ] Team notified',
-              '',
-              '### Related Links',
-              `- 📝 [Phase Progress](.nezam/core/plans/${phase}/progress.md)`,
-              `- 🔗 [Phase Branch](https://github.com/${{ github.repository }}/tree/${branchName})`,
-              '- 🎯 [SDD Documentation](.nezam/core/prd/PRD.md)',
-              '',
-              '### Notes',
-              `_Use this issue to track progress, blockers, and decisions for the ${phaseTitle} phase._`,
-              '',
-              '---',
-              '',
-              '**Status**: 🟡 In Progress',
-              '**Assignee**: Team',
-              '**Phase Gate**: Unlocked',
-            ].join('\n');
+            const issueBody = `## ${phaseTitle} Phase Execution
+
+### Phase Information
+- **Phase**: ${phase}
+- **Branch**: \`${branchName}\`
+- **Started**: ${new Date().toISOString()}
+
+### Phase Checklist
+
+#### Requirements
+- [ ] Requirements document created
+- [ ] Scope defined
+- [ ] Success criteria established
+- [ ] Team assigned
+
+#### Execution
+- [ ] Phase work in progress
+- [ ] Documentation updated
+- [ ] Code reviews completed
+- [ ] Tests passing
+
+#### Completion
+- [ ] All requirements met
+- [ ] Quality gates passed
+- [ ] PR reviewed and approved
+- [ ] Ready to merge
+
+#### Merge & Transition
+- [ ] PR merged to main
+- [ ] Next phase branch created
+- [ ] Documentation updated
+- [ ] Team notified
+
+### Related Links
+- 📝 [Phase Progress](.nezam/core/plans/${phase}/progress.md)
+- 🔗 [Phase Branch](https://github.com/${{ github.repository }}/tree/${branchName})
+- 🎯 [SDD Documentation](.nezam/core/prd/PRD.md)
+
+### Notes
+_Use this issue to track progress, blockers, and decisions for the ${phaseTitle} phase._
+
+---
+
+**Status**: 🟡 In Progress
+**Assignee**: Team
+**Phase Gate**: Unlocked`;
 
             const { data: issue } = await github.rest.issues.create({
               owner: context.repo.owner,

@@ -73,7 +73,7 @@ execute: "Proceeding with steps in order..."
 - `/DEVELOP feature <description>` must route through this skill before implementation.
 - `/START mena` should bias routing toward MENA-aware skills.
 - Pairs with command router and hardlock manager checks.
-- For UI tasks, also consult `.nezam/core/gates/design-skills.yaml` and subphase `prompt.json` → `designSkillStack` (see `docs/plan/design/DESIGN_SKILLS.md`).
+- For UI tasks, also consult `.nezam/core/gates/design-skills.yaml` and subphase `prompt.json` → `designSkillStack` (see `.nezam/core/plans/design/DESIGN_SKILLS.md`).
 
 # Anti-Patterns
 - Do not require users to name skills explicitly.

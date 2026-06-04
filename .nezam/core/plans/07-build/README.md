@@ -5,7 +5,7 @@ Per-feature subfolders hold SDD **prompt packs** for `/DEVELOP` slices: `prompt.
 ## Layout
 
 ```
-docs/plan/07-build/
+.nezam/core/plans/07-build/
 └── <feature-slug>/
     ├── prompt.json      # Machine-readable prompt + optional designSkillStack
     ├── PROMPT.md        # Human/agent prompt body
@@ -24,7 +24,7 @@ External design skills are **opt-in** per subphase via `designSkillStack` in `pr
 
 ```bash
 # Example: refresh F-001 develop stack
-pnpm skills:assemble-design-prompt --phase develop_ui --write --dir docs/plan/07-build/f-001-design-hub
+pnpm skills:assemble-design-prompt --phase develop_ui --write --dir .nezam/core/plans/07-build/f-001-design-hub
 ```
 
 Full guide: [`../design/DESIGN_SKILLS.md`](../design/DESIGN_SKILLS.md)

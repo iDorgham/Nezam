@@ -7,7 +7,7 @@
 | Product type | Developer tool / open-source framework |
 | Primary surface | GitHub README, future docs site, npm package discovery |
 | Last updated | 2026-05-29 |
-| PRD | `docs/plan/00-define/01-product/PRD.md` |
+| PRD | `.nezam/core/plans/00-define/01-product/PRD.md` |
 
 ---
 
@@ -46,7 +46,7 @@
 | Rule | Policy |
 |---|---|
 | Docs slugs | Lowercase kebab-case, English only |
-| No dates in URLs | Use `docs/plan/` versioning in repo, not public URLs |
+| No dates in URLs | Use `.nezam/core/plans/` versioning in repo, not public URLs |
 | Command pages | `/docs/commands/<command>` mirrors slash command name |
 | Anchor stability | Slug changes require redirect note in CHANGELOG |
 
@@ -94,7 +94,7 @@
 |---|---|---|
 | P0 | README keywords + shields + deep links to `docs/start/` | Ship (done in README v2) |
 | P0 | `docs/start/PRD.md` + `PROJECT_PROMPT.md` indexable on GitHub | Define |
-| P1 | Dedicated docs site (Astro/Next SSG) from `docs/plan/03-content/` | Build |
+| P1 | Dedicated docs site (Astro/Next SSG) from `.nezam/core/plans/03-content/` | Build |
 | P1 | Blog/changelog entries per major gate (v2.1 Design Hub) | Ship |
 | P2 | Arabic/MENA landing variant if `target_market` includes mena | Research extension |
 

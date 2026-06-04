@@ -10,8 +10,8 @@ description: "Project Archetype Generator"
 ## Path resolution
 
 Before any file operation, read `.nezam/core/gates/hardlock-paths.json` and resolve:
-- `intake.prd`          → default `docs/plan/00-define/01-product/PRD.md`
-- `planning.plansRoot`  → default `docs/plan/`
+- `intake.prd`          → default `.nezam/core/plans/00-define/01-product/PRD.md`
+- `planning.plansRoot`  → default `.nezam/core/plans/`
 - `planning.changelog`  → default `.nezam/CHANGELOG.md`
 
 All path references below use these resolved values.
@@ -53,7 +53,7 @@ Show a pre-flight table before scaffolding:
 ```
 /ARCHETYPE Pre-flight
 
-  PRD             ✅ docs/plan/00-define/01-product/PRD.md
+  PRD             ✅ .nezam/core/plans/00-define/01-product/PRD.md
   DESIGN.md       ✅ Profile "Minimal Pro" applied
   Phase gate      ✅ Phase 01 (requirements) passed
   Handoff queue   ✅ No pending handoffs
@@ -91,7 +91,7 @@ Lightweight archetypes (landing-page, portfolio, blog) use a reduced swarm:
 
 ### Phase 2 — Generate page inventory
 
-Write one spec file per page into `docs/plan/04-arch/pages/<group>/`.
+Write one spec file per page into `.nezam/core/plans/04-arch/pages/<group>/`.
 
 **Group mapping per archetype:**
 
@@ -111,7 +111,7 @@ Write one spec file per page into `docs/plan/04-arch/pages/<group>/`.
 **SaaS Platform full page list (reference):**
 
 ```
-docs/plan/04-arch/pages/
+.nezam/core/plans/04-arch/pages/
 ├── marketing/
 │   ├── landing.md          # Hero · Features · Pricing preview · CTA
 │   ├── features.md         # Feature showcase · demos
@@ -147,7 +147,7 @@ Each spec file must include:
 
 ### Phase 3 — Wire navigation
 
-Write `docs/plan/04-arch/NAVIGATION.yaml`:
+Write `.nezam/core/plans/04-arch/NAVIGATION.yaml`:
 
 ```yaml
 navigation:
@@ -329,11 +329,11 @@ Write or update:
 
 | File | Content |
 |------|---------|
-| `docs/plan/04-arch/ARCHITECTURE.md` | Full stack diagram · tech choices · data flow |
-| `docs/plan/04-arch/PAGES.md` | Route table · component hierarchy |
-| `docs/plan/04-arch/SERVICES.md` | Service matrix · API docs · webhook map |
-| `docs/plan/04-arch/NAVIGATION.yaml` | Navigation tree (Phase 3 output) |
-| `docs/plan/INDEX.md` | Mark phase 04 complete |
+| `.nezam/core/plans/04-arch/ARCHITECTURE.md` | Full stack diagram · tech choices · data flow |
+| `.nezam/core/plans/04-arch/PAGES.md` | Route table · component hierarchy |
+| `.nezam/core/plans/04-arch/SERVICES.md` | Service matrix · API docs · webhook map |
+| `.nezam/core/plans/04-arch/NAVIGATION.yaml` | Navigation tree (Phase 3 output) |
+| `.nezam/core/plans/INDEX.md` | Mark phase 04 complete |
 
 Update `plan_progress.yaml`:
 ```yaml
@@ -397,7 +397,7 @@ Append to `HANDOFF_QUEUE.yaml`:
   Services        github · supabase · prisma · vercel · stripe · resend
 
   Structure
-  ✓ docs/plan/04-arch/pages/ (4 groups · 18 files)
+  ✓ .nezam/core/plans/04-arch/pages/ (4 groups · 18 files)
   ✓ src/app/ (3 route groups)
   ✓ src/components/ (4 categories)
   ✓ src/server/ (api · db · services)
@@ -461,7 +461,7 @@ Append to `HANDOFF_QUEUE.yaml`:
 ## Recommendation footer
 
 ```
-🔧  /ARCHETYPE complete → docs/plan/04-arch/
+🔧  /ARCHETYPE complete → .nezam/core/plans/04-arch/
 → Run pnpm ai:sync to propagate changes to all AI clients
 → Run /ARCHETYPE gates to re-validate prerequisites
 → Run /DEVELOP to start implementation swarm

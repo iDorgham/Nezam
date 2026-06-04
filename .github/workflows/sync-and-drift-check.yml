@@ -69,6 +69,16 @@ jobs:
             echo "❌ Legacy docs/core/ references found in markdown files"
             violations=$((violations + 1))
           fi
+          # Guard: docs/plan/ or docs/plans/ must never appear in contracts.
+          # Canonical root is .nezam/core/plans/ (see RELEASE_PLAN.md C1).
+          # HANDOFF_QUEUE.yaml is a historical log and is intentionally excluded.
+          if grep -rlnE "\bdocs/plans?/" \
+               --include='*.md' --include='*.mdc' --include='*.yaml' --include='*.json' \
+               .cursor .nezam/core/plans .nezam/core/scripts docs 2>/dev/null \
+             | grep -v "HANDOFF_QUEUE.yaml"; then
+            echo "❌ Legacy docs/plan(s)/ path found — use .nezam/core/plans/ instead"
+            violations=$((violations + 1))
+          fi
           if [ "$violations" -ne 0 ]; then
             exit 1
           fi

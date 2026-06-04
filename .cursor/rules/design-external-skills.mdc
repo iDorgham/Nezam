@@ -9,7 +9,7 @@ alwaysApply: false
 
 When implementing UI-facing work under SDD **develop** or **design** phases:
 
-1. Read the active subphase `prompt.json` at `docs/plan/<phase>/<subphase>/prompt.json` (path per workspace conventions).
+1. Read the active subphase `prompt.json` at `.nezam/core/plans/<phase>/<subphase>/prompt.json` (path per workspace conventions).
 2. If `designSkillStack.enabled` is **true**, load only the listed skills via `@` path references — never paste full skill bodies.
 3. Respect `readFirst`: root `DESIGN.md` and `.nezam/core/gates/design-skills.yaml`.
 4. Impeccable CLI (`npx impeccable detect`) complements but does not replace NEZAM design-gates token checks.

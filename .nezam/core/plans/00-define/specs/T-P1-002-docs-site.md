@@ -15,7 +15,7 @@ last_updated: "2026-06-02"
 | Field | Value |
 |---|---|
 | Task ID | T-P1-002 |
-| Feature Name | Public docs site from `docs/plan/03-content/CONTENT_MAP.md` |
+| Feature Name | Public docs site from `.nezam/core/plans/03-content/CONTENT_MAP.md` |
 | Phase | Phase 2 (P1) |
 | Effort | L |
 | Priority | P1 |

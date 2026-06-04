@@ -69,45 +69,40 @@ turborepo, nx, or when project contains both web + mobile + api targets.
 ### SDD Folder Structure (Website)
 
 ```
-docs/
-├── workspace/
-│   ├── plans/
-│   │   ├── 00-define/
-│   │   │   ├── PRD.md
-│   │   │   ├── PROJECT_PROMPT.md
-│   │   │   └── FOUNDER_MODE.md
-│   │   ├── 01-research/
-│   │   │   ├── SEO_RESEARCH.md          ← keyword clusters, intent map
-│   │   │   ├── COMPETITOR_ANALYSIS.md
-│   │   │   └── AUDIENCE_PERSONAS.md
-│   │   ├── 02-ia/
-│   │   │   ├── IA_CONTENT.md            ← page list, nav labels, URL map
-│   │   │   ├── SITEMAP.md
-│   │   │   └── NAVIGATION_CONTRACT.md
-│   │   ├── 03-content/
-│   │   │   ├── CONTENT_MAP.md           ← per-page copy briefs
-│   │   │   ├── VOICE_TONE.md
-│   │   │   └── SEO_METADATA.md          ← title tags, descriptions per page
-│   │   ├── 04-architecture/
-│   │   │   └── ARCHITECTURE.md          ← CMS, hosting, CDN, image pipeline
-│   │   ├── 05-design/
-│   │   │   ├── DESIGN.md                ← tokens, typography, components
-│   │   │   └── COMPONENT_INVENTORY.md
-│   │   ├── 06-scaffold/
-│   │   │   └── PROJECT_SCAFFOLD.md
-│   │   ├── 07-build/
-│   │   │   └── <page-slug>/SPEC.md      ← one spec per page
-│   │   ├── 08-harden/
-│   │   │   ├── LIGHTHOUSE_REPORT.md
-│   │   │   ├── SEO_AUDIT.md
-│   │   │   ├── A11Y_AUDIT.md
-│   │   │   └── SECURITY_AUDIT.md
-│   │   └── 09-ship/
-│   │       ├── DEPLOY_CHECKLIST.md
-│   │       └── SEARCH_CONSOLE_SETUP.md
-│   └── context/
-│       ├── MEMORY.md
-│       └── MASTER_TASKS.md
+.nezam/core/plans/
+├── 00-define/
+│   ├── PRD.md
+│   ├── PROJECT_PROMPT.md
+│   └── FOUNDER_MODE.md
+├── 01-research/
+│   ├── SEO_RESEARCH.md          ← keyword clusters, intent map
+│   ├── COMPETITOR_ANALYSIS.md
+│   └── AUDIENCE_PERSONAS.md
+├── 02-ia/
+│   ├── IA_CONTENT.md            ← page list, nav labels, URL map
+│   ├── SITEMAP.md
+│   └── NAVIGATION_CONTRACT.md
+├── 03-content/
+│   ├── CONTENT_MAP.md           ← per-page copy briefs
+│   ├── VOICE_TONE.md
+│   └── SEO_METADATA.md          ← title tags, descriptions per page
+├── 04-architecture/
+│   └── ARCHITECTURE.md          ← CMS, hosting, CDN, image pipeline
+├── 05-design/
+│   ├── DESIGN.md                ← tokens, typography, components
+│   └── COMPONENT_INVENTORY.md
+├── 06-scaffold/
+│   └── PROJECT_SCAFFOLD.md
+├── 07-build/
+│   └── <page-slug>/SPEC.md      ← one spec per page
+├── 08-harden/
+│   ├── LIGHTHOUSE_REPORT.md
+│   ├── SEO_AUDIT.md
+│   ├── A11Y_AUDIT.md
+│   └── SECURITY_AUDIT.md
+└── 09-ship/
+    ├── DEPLOY_CHECKLIST.md
+    └── SEARCH_CONSOLE_SETUP.md
 
 Project source (Next.js / Astro / Nuxt):
 src/
@@ -185,44 +180,42 @@ src/
 ### SDD Folder Structure (Web App)
 
 ```
-docs/
-├── workspace/
-│   ├── plans/
-│   │   ├── 00-define/
-│   │   │   ├── PRD.md
-│   │   │   ├── PROJECT_PROMPT.md
-│   │   │   └── FOUNDER_MODE.md
-│   │   ├── 01-research/
-│   │   │   ├── MARKET_RESEARCH.md
-│   │   │   └── COMPETITOR_FEATURES.md
-│   │   ├── 02-architecture/
-│   │   │   ├── ARCHITECTURE.md          ← stack, data model, API design
-│   │   │   ├── DATA_MODEL.md            ← full entity-relationship diagram
-│   │   │   ├── API_CONTRACT.md          ← all endpoints, request/response shapes
-│   │   │   ├── AUTH_MODEL.md            ← roles, permissions, session strategy
-│   │   │   └── COST_ESTIMATE.md
-│   │   ├── 03-ia/
-│   │   │   ├── IA_CONTENT.md            ← screen map, user flows
-│   │   │   ├── USER_FLOWS.md            ← per-role flow diagrams
-│   │   │   └── NAVIGATION_CONTRACT.md
-│   │   ├── 04-design/
-│   │   │   ├── DESIGN.md
-│   │   │   ├── COMPONENT_INVENTORY.md
-│   │   │   └── DESIGN_STATES.md         ← loading, empty, error, success states
-│   │   ├── 05-content/
-│   │   │   ├── CONTENT_MAP.md           ← UI copy, empty states, error messages
-│   │   │   └── ONBOARDING_COPY.md
-│   │   ├── 06-scaffold/
-│   │   │   └── PROJECT_SCAFFOLD.md
-│   │   ├── 07-build/
-│   │   │   └── <feature-slug>/SPEC.md
-│   │   ├── 08-harden/
-│   │   │   ├── SECURITY_AUDIT.md
-│   │   │   ├── PERF_AUDIT.md
-│   │   │   └── A11Y_AUDIT.md
-│   │   └── 09-ship/
-│   │       ├── DEPLOY_CHECKLIST.md
-│   │       └── MONITORING_SETUP.md
+.nezam/core/plans/
+├── 00-define/
+│   ├── PRD.md
+│   ├── PROJECT_PROMPT.md
+│   └── FOUNDER_MODE.md
+├── 01-research/
+│   ├── MARKET_RESEARCH.md
+│   └── COMPETITOR_FEATURES.md
+├── 02-ia/
+│   ├── IA_CONTENT.md            ← screen map, user flows
+│   ├── USER_FLOWS.md            ← per-role flow diagrams
+│   └── NAVIGATION_CONTRACT.md
+├── 03-content/
+│   ├── CONTENT_MAP.md           ← UI copy, empty states, error messages
+│   └── ONBOARDING_COPY.md
+├── 04-architecture/
+│   ├── ARCHITECTURE.md          ← stack, data model, API design
+│   ├── DATA_MODEL.md            ← full entity-relationship diagram
+│   ├── API_CONTRACT.md          ← all endpoints, request/response shapes
+│   ├── AUTH_MODEL.md            ← roles, permissions, session strategy
+│   └── COST_ESTIMATE.md
+├── 05-design/
+│   ├── DESIGN.md
+│   ├── COMPONENT_INVENTORY.md
+│   └── DESIGN_STATES.md         ← loading, empty, error, success states
+├── 06-scaffold/
+│   └── PROJECT_SCAFFOLD.md
+├── 07-build/
+│   └── <feature-slug>/SPEC.md
+├── 08-harden/
+│   ├── SECURITY_AUDIT.md
+│   ├── PERF_AUDIT.md
+│   └── A11Y_AUDIT.md
+└── 09-ship/
+    ├── DEPLOY_CHECKLIST.md
+    └── MONITORING_SETUP.md
 
 Project source (Next.js App Router):
 src/
@@ -307,57 +300,54 @@ src/
 ### SDD Folder Structure (SaaS)
 
 ```
-docs/
-├── workspace/
-│   ├── plans/
-│   │   ├── 00-define/
-│   │   │   ├── PRD.md
-│   │   │   ├── PROJECT_PROMPT.md
-│   │   │   └── ICP.md                    ← Ideal Customer Profile
-│   │   ├── 01-research/
-│   │   │   ├── MARKET_RESEARCH.md
-│   │   │   ├── PRICING_RESEARCH.md
-│   │   │   └── COMPETITOR_FEATURES.md
-│   │   ├── 02-architecture/
-│   │   │   ├── ARCHITECTURE.md
-│   │   │   ├── MULTI_TENANCY_MODEL.md    ← schema-per-tenant vs row isolation
-│   │   │   ├── DATA_MODEL.md
-│   │   │   ├── API_CONTRACT.md
-│   │   │   ├── AUTH_MODEL.md             ← roles: owner, admin, member, viewer
-│   │   │   ├── BILLING_MODEL.md          ← plans, limits, upgrade/downgrade
-│   │   │   └── COST_ESTIMATE.md
-│   │   ├── 03-ia/
-│   │   │   ├── IA_CONTENT.md
-│   │   │   ├── APP_FLOWS.md              ← authenticated app user flows
-│   │   │   ├── ADMIN_FLOWS.md            ← super-admin / internal flows
-│   │   │   ├── ONBOARDING_FLOW.md        ← signup → first value moment
-│   │   │   └── NAVIGATION_CONTRACT.md
-│   │   ├── 04-design/
-│   │   │   ├── DESIGN.md
-│   │   │   ├── DASHBOARD_PATTERNS.md
-│   │   │   ├── COMPONENT_INVENTORY.md
-│   │   │   └── DESIGN_STATES.md
-│   │   ├── 05-content/
-│   │   │   ├── CONTENT_MAP.md
-│   │   │   ├── ONBOARDING_COPY.md
-│   │   │   ├── EMAIL_SEQUENCES.md        ← welcome, trial expiry, upgrade
-│   │   │   └── IN_APP_COPY.md
-│   │   ├── 06-seo/
-│   │   │   ├── SEO_RESEARCH.md
-│   │   │   └── SEO_METADATA.md
-│   │   ├── 07-scaffold/
-│   │   │   └── PROJECT_SCAFFOLD.md
-│   │   ├── 08-build/
-│   │   │   └── <feature-slug>/SPEC.md
-│   │   ├── 09-harden/
-│   │   │   ├── SECURITY_AUDIT.md
-│   │   │   ├── COMPLIANCE_CHECKLIST.md   ← GDPR, SOC2 readiness
-│   │   │   ├── PERF_AUDIT.md
-│   │   │   └── A11Y_AUDIT.md
-│   │   └── 10-ship/
-│   │       ├── DEPLOY_CHECKLIST.md
-│   │       ├── BILLING_LAUNCH_CHECKLIST.md
-│   │       └── MONITORING_SETUP.md
+.nezam/core/plans/
+├── 00-define/
+│   ├── PRD.md
+│   ├── PROJECT_PROMPT.md
+│   └── ICP.md                    ← Ideal Customer Profile
+├── 01-research/
+│   ├── MARKET_RESEARCH.md
+│   ├── PRICING_RESEARCH.md
+│   ├── COMPETITOR_FEATURES.md
+│   ├── SEO_RESEARCH.md           ← public pages keyword research (done after arch)
+│   └── SEO_METADATA.md
+├── 02-ia/
+│   ├── IA_CONTENT.md
+│   ├── APP_FLOWS.md              ← authenticated app user flows
+│   ├── ADMIN_FLOWS.md            ← super-admin / internal flows
+│   ├── ONBOARDING_FLOW.md        ← signup → first value moment
+│   └── NAVIGATION_CONTRACT.md
+├── 03-content/
+│   ├── CONTENT_MAP.md
+│   ├── ONBOARDING_COPY.md
+│   ├── EMAIL_SEQUENCES.md        ← welcome, trial expiry, upgrade
+│   └── IN_APP_COPY.md
+├── 04-architecture/
+│   ├── ARCHITECTURE.md
+│   ├── MULTI_TENANCY_MODEL.md    ← schema-per-tenant vs row isolation
+│   ├── DATA_MODEL.md
+│   ├── API_CONTRACT.md
+│   ├── AUTH_MODEL.md             ← roles: owner, admin, member, viewer
+│   ├── BILLING_MODEL.md          ← plans, limits, upgrade/downgrade
+│   └── COST_ESTIMATE.md
+├── 05-design/
+│   ├── DESIGN.md
+│   ├── DASHBOARD_PATTERNS.md
+│   ├── COMPONENT_INVENTORY.md
+│   └── DESIGN_STATES.md
+├── 06-scaffold/
+│   └── PROJECT_SCAFFOLD.md
+├── 07-build/
+│   └── <feature-slug>/SPEC.md
+├── 08-harden/
+│   ├── SECURITY_AUDIT.md
+│   ├── COMPLIANCE_CHECKLIST.md   ← GDPR, SOC2 readiness
+│   ├── PERF_AUDIT.md
+│   └── A11Y_AUDIT.md
+└── 09-ship/
+    ├── DEPLOY_CHECKLIST.md
+    ├── BILLING_LAUNCH_CHECKLIST.md
+    └── MONITORING_SETUP.md
 
 Project source (Next.js — app + marketing in one repo, or Monorepo):
 src/
@@ -440,50 +430,48 @@ src/
 ### SDD Folder Structure (Mobile — React Native)
 
 ```
-docs/
-├── workspace/
-│   ├── plans/
-│   │   ├── 00-define/
-│   │   │   ├── PRD.md
-│   │   │   ├── PROJECT_PROMPT.md
-│   │   │   └── PLATFORM_CONTRACT.md      ← iOS / Android / both + min OS version
-│   │   ├── 01-research/
-│   │   │   ├── MARKET_RESEARCH.md
-│   │   │   ├── APP_STORE_RESEARCH.md     ← category rankings, keywords, screenshots
-│   │   │   └── COMPETITOR_APPS.md
-│   │   ├── 02-architecture/
-│   │   │   ├── ARCHITECTURE.md
-│   │   │   ├── OFFLINE_STRATEGY.md       ← sync model, conflict resolution
-│   │   │   ├── PUSH_STRATEGY.md          ← notification types, permission flow
-│   │   │   ├── DATA_MODEL.md
-│   │   │   ├── API_CONTRACT.md
-│   │   │   └── NATIVE_APIS.md            ← camera, location, biometrics, etc.
-│   │   ├── 03-ia/
-│   │   │   ├── IA_CONTENT.md
-│   │   │   ├── NAVIGATION_PATTERN.md     ← tab/stack/drawer decisions LOCKED
-│   │   │   ├── SCREEN_MAP.md
-│   │   │   └── USER_FLOWS.md
-│   │   ├── 04-design/
-│   │   │   ├── DESIGN.md
-│   │   │   ├── TOUCH_TARGETS.md          ← min sizes, gesture zones
-│   │   │   ├── SAFE_AREAS.md             ← notch, home indicator, status bar
-│   │   │   └── COMPONENT_INVENTORY.md
-│   │   ├── 05-content/
-│   │   │   ├── CONTENT_MAP.md
-│   │   │   ├── PUSH_COPY.md              ← notification copy by type
-│   │   │   └── ONBOARDING_COPY.md
-│   │   ├── 06-scaffold/
-│   │   │   └── PROJECT_SCAFFOLD.md
-│   │   ├── 07-build/
-│   │   │   └── <feature-slug>/SPEC.md
-│   │   ├── 08-harden/
-│   │   │   ├── PERF_AUDIT.md
-│   │   │   ├── OFFLINE_TEST_REPORT.md
-│   │   │   ├── A11Y_AUDIT.md
-│   │   │   └── APP_STORE_CHECKLIST.md
-│   │   └── 09-ship/
-│   │       ├── STORE_SUBMISSION.md
-│   │       └── CRASH_MONITORING_SETUP.md
+.nezam/core/plans/
+├── 00-define/
+│   ├── PRD.md
+│   ├── PROJECT_PROMPT.md
+│   └── PLATFORM_CONTRACT.md      ← iOS / Android / both + min OS version
+├── 01-research/
+│   ├── MARKET_RESEARCH.md
+│   ├── APP_STORE_RESEARCH.md     ← category rankings, keywords, screenshots
+│   └── COMPETITOR_APPS.md
+├── 02-ia/
+│   ├── IA_CONTENT.md
+│   ├── NAVIGATION_PATTERN.md     ← tab/stack/drawer decisions LOCKED
+│   ├── SCREEN_MAP.md
+│   └── USER_FLOWS.md
+├── 03-content/
+│   ├── CONTENT_MAP.md
+│   ├── PUSH_COPY.md              ← notification copy by type
+│   └── ONBOARDING_COPY.md
+├── 04-architecture/
+│   ├── ARCHITECTURE.md
+│   ├── OFFLINE_STRATEGY.md       ← sync model, conflict resolution
+│   ├── PUSH_STRATEGY.md          ← notification types, permission flow
+│   ├── DATA_MODEL.md
+│   ├── API_CONTRACT.md
+│   └── NATIVE_APIS.md            ← camera, location, biometrics, etc.
+├── 05-design/
+│   ├── DESIGN.md
+│   ├── TOUCH_TARGETS.md          ← min sizes, gesture zones
+│   ├── SAFE_AREAS.md             ← notch, home indicator, status bar
+│   └── COMPONENT_INVENTORY.md
+├── 06-scaffold/
+│   └── PROJECT_SCAFFOLD.md
+├── 07-build/
+│   └── <feature-slug>/SPEC.md
+├── 08-harden/
+│   ├── PERF_AUDIT.md
+│   ├── OFFLINE_TEST_REPORT.md
+│   ├── A11Y_AUDIT.md
+│   └── APP_STORE_CHECKLIST.md
+└── 09-ship/
+    ├── STORE_SUBMISSION.md
+    └── CRASH_MONITORING_SETUP.md
 
 Project source (React Native):
 src/
@@ -629,7 +617,7 @@ MONOREPO.md must define:
 SDD planning docs are scoped by app within one shared docs tree:
 
 ```
-docs/plan/
+.nezam/core/plans/
 ├── 00-define/
 │   ├── PRD.md                         ← project-wide PRD
 │   └── MONOREPO.md                    ← workspace package map
@@ -637,22 +625,22 @@ docs/plan/
 │   ├── apps/
 │   │   ├── web/SEO_RESEARCH.md        ← website-specific SEO
 │   │   └── app/MARKET_RESEARCH.md     ← app-specific research
-├── 02-architecture/
+├── 04-architecture/
 │   ├── ARCHITECTURE.md                ← system-wide architecture
 │   ├── apps/
 │   │   ├── web/ARCHITECTURE.md        ← app-specific overrides
 │   │   └── api/ARCHITECTURE.md
 │   └── packages/
 │       └── db/SCHEMA.md
-├── 03-ia/
+├── 02-ia/
 │   ├── apps/
 │   │   ├── web/IA_CONTENT.md
 │   │   └── app/IA_CONTENT.md
-├── 04-design/
+├── 05-design/
 │   ├── DESIGN.md                      ← shared design system
 │   └── apps/
 │       └── web/MARKETING_DESIGN.md    ← website-specific extensions
-├── 05-content/
+├── 03-content/
 │   ├── apps/
 │   │   ├── web/CONTENT_MAP.md
 │   │   └── app/CONTENT_MAP.md
@@ -698,7 +686,7 @@ Before `/DEVELOP` on any app, confirm:
 To ensure planning quality far exceeds standard AI spec generators (like Kiro or Spec Kit), every feature SPEC MUST undergo a 3-stage Swarm Cross-Examination before a single line of code is written:
 
 1. **Drafting (The Architect Phase):**
-   - Spec created at: `.nezam/core/plans/0N-build/<feature-slug>/SPEC.md`
+   - Spec created at: `.nezam/core/plans/07-build/<feature-slug>/SPEC.md`
    - Must contain: Data model delta, API contract (shapes/payloads), exact UI state matrix (Empty, Loading, Error, Success), and hard edge cases.
 
 2. **Swarm Red-Teaming (The Cross-Examination Phase):**

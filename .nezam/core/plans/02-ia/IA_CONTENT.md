@@ -5,7 +5,7 @@
 | Document | IA_CONTENT.md |
 | Status | Locked |
 | Last updated | 2026-05-29 |
-| PRD | `docs/plan/00-define/01-product/PRD.md` |
+| PRD | `.nezam/core/plans/00-define/01-product/PRD.md` |
 | Wireframe lock | `wireframes_locked.json` (PAGE-001 Home / dashboard shell) |
 
 ---
@@ -72,7 +72,7 @@ Primary nav sections (left rail — shared `LeftPanelHeader` pattern):
 | `/docs/design-hub` | Design Hub | `.nezam/design-hub/README` |
 | `/docs/gates` | Gates | `.nezam/core/gates/` |
 | `/docs/agents` | Agents | `.cursor/agents/README.md` |
-| `/docs/plan` | Planning | `docs/plan/` |
+| `/docs/plan` | Planning | `.nezam/core/plans/` |
 
 Nav contract: max 6 top-level items; commands grouped under `/docs/commands/*`.
 
@@ -117,7 +117,7 @@ Edit .cursor/ only → pnpm ai:sync → pnpm ai:check
 | DH-WF | Wireframe canvas | Design Hub | empty page, seeded blocks, saved |
 | DH-EXPORT | Export / lock review | Design Hub | pre-lock, locked, validation error |
 
-*Full ASCII wireframes: `docs/plan/04-design/WIREFRAMES.md`*
+*Full ASCII wireframes: `.nezam/core/plans/04-design/WIREFRAMES.md`*
 
 ---
 

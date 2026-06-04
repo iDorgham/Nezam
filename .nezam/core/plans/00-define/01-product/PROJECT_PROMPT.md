@@ -64,9 +64,9 @@ DESIGN.md                           → token + component contract
 
 | ID | Feature | Spec path |
 |---|---|---|
-| F-001 | Design Hub wireframe lock pipeline | `docs/plan/00-define/specs/F-001-design-hub.md` |
-| F-002 | Multi-client AI sync (`pnpm ai:sync`) | `docs/plan/00-define/specs/F-002-ai-sync.md` |
-| F-003 | SDD slash commands & hardlock gates | `docs/plan/00-define/specs/F-003-sdd-gates.md` |
+| F-001 | Design Hub wireframe lock pipeline | `.nezam/core/plans/00-define/specs/F-001-design-hub.md` |
+| F-002 | Multi-client AI sync (`pnpm ai:sync`) | `.nezam/core/plans/00-define/specs/F-002-ai-sync.md` |
+| F-003 | SDD slash commands & hardlock gates | `.nezam/core/plans/00-define/specs/F-003-sdd-gates.md` |
 
 ---
 
@@ -140,7 +140,7 @@ Use `agent-bus.yaml` for MODE B/C handoffs.
 .nezam/core/      ← PRD, plans, gates, scripts
 .nezam/design-hub/ ← Design Hub app
 docs/start/       ← intake PRD + PROJECT_PROMPT
-docs/plan/        ← user project phase docs
+.nezam/core/plans/        ← user project phase docs
 docs/reports/     ← generated outputs only
 DESIGN.md         ← active design contract
 ```

@@ -259,6 +259,7 @@ Do not proceed to development unless all exist:
 
 ## Synced skill index
 - `analytics`
+- `archive`
 - `backend`
 - `cms-saas`
 - `content`

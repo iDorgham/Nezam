@@ -36,3 +36,11 @@ Frontend implementation cannot proceed until design outputs are complete and app
 
 - Communication contract: `.nezam/core/memory/AGENT_COMM_PROTOCOL.md`
 - Error and recovery protocol: `.nezam/core/memory/ERROR_HANDLING_PROTOCOL.md`
+
+## Swarm & Skills Dependencies
+
+- `@nezam-emil-design-eng`
+- `@nezam-design-taste-frontend`
+- `@nezam-stitch-design-taste`
+- `@nezam-impeccable`
+

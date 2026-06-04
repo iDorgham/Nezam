@@ -226,6 +226,7 @@ When conflicts appear, follow:
 
 ## Synced skill index
 - `analytics`
+- `archive`
 - `backend`
 - `cms-saas`
 - `content`

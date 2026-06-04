@@ -1,0 +1,64 @@
+name: NEZAM Weekly Sync Drift Check
+
+on:
+  schedule:
+    - cron: '0 10 * * 1' # Mondays 10:00 AM UTC
+  workflow_dispatch: # Enable manual triggering
+
+permissions:
+  contents: read
+
+jobs:
+  weekly-drift-check:
+    name: Weekly Health and Drift Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run YAML State Verification
+        run: pnpm verify:yaml
+
+      - name: Run Nezam Swarm and Drift Audit
+        id: check_drift
+        run: |
+          # Run the standard check suite
+          pnpm ai:check
+          
+          # Compute metrics for report
+          orphaned_count=$(node -e "const r = require('./.cursor/state/skills-registry.json'); console.log(r.orphaned_skills.length)")
+          unresolved_count=$(node -e "const r = require('./.cursor/state/skills-registry.json'); console.log(r.unresolved_skill_refs.length)")
+          
+          echo "Orphaned Skills: $orphaned_count"
+          echo "Unresolved Refs: $unresolved_count"
+          
+          # Check active drift against git status
+          pnpm ai:sync --status
+          
+          # Print out reports
+          echo "weekly_health_report=success" >> $GITHUB_OUTPUT
+
+      - name: Slack Alert on Failure
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -n "$SLACK_WEBHOOK_URL" ]; then
+            curl -X POST -H 'Content-type: application/json' \
+              --data '{"text":"🚨 *NEZAM Weekly Sync Drift Check Failed!* One or more validation checks (drift, YAML, or swarm integrity) are failing in the repository. Please review the GitHub Actions run immediately."}' \
+              $SLACK_WEBHOOK_URL
+          else
+            echo "Slack Webhook URL is not configured. Skipping alert."
+          fi

@@ -214,6 +214,7 @@ Edit `.cursor/` artifacts and run `pnpm ai:sync`.
 
 ## Synced skill index
 - `analytics`
+- `archive`
 - `backend`
 - `cms-saas`
 - `content`

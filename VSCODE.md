@@ -275,6 +275,7 @@ pnpm ai:check  # verify no drift
 
 ## Synced skill index
 - `analytics`
+- `archive`
 - `backend`
 - `cms-saas`
 - `content`

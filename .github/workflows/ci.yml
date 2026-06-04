@@ -227,6 +227,7 @@ jobs:
         run: pnpm -C .nezam/design-hub test
 
       - name: Design Hub token check
+        if: steps.designhub_changes.outputs.skip == 'false'
         run: pnpm --filter @nezam/design-hub run design:tokens:emit && pnpm run check:tokens
 
       - name: Wireframe lock integrity

@@ -55,13 +55,13 @@ pnpm skills:doctor-design
 pnpm skills:assemble-design-prompt --phase develop_ui
 
 # Write prompt.json + PROMPT.md section into a subphase folder
-pnpm skills:assemble-design-prompt --phase develop_ui --write --dir docs/plan/07-build/f-001-design-hub
+pnpm skills:assemble-design-prompt --phase develop_ui --write --dir .nezam/core/plans/07-build/f-001-design-hub
 
 # Enable/disable via workspace override (does not delete vendored files)
 node .nezam/core/scripts/skills/design-skills-toggle.js disable emil-design-eng
 node .nezam/core/scripts/skills/design-skills-toggle.js enable emil-design-eng
 
-# Stitch export bundle (root DESIGN.md → docs/plan/design/stitch-export/)
+# Stitch export bundle (root DESIGN.md → .nezam/core/plans/design/stitch-export/)
 bash .nezam/core/scripts/design/export-stitch-design-md.sh
 
 # Impeccable slop scan (warn in CI; IMPECCABLE_SLOP_MODE=fail to hard-fail)
@@ -74,7 +74,7 @@ Do **not** paste angle-bracket placeholders literally. In zsh, `<feature>` is in
 
 | Wrong | Right |
 |-------|--------|
-| `--dir docs/plan/07-build/<feature>` | `--dir docs/plan/07-build/f-001-design-hub` |
+| `--dir .nezam/core/plans/07-build/<feature>` | `--dir .nezam/core/plans/07-build/f-001-design-hub` |
 | `--phaseHint develop_ui` | `--phase develop_ui` |
 
 Use a real directory path. `--write` creates the folder if missing.
@@ -103,16 +103,16 @@ After assembling the `develop_ui` stack:
 
 | File | Role |
 |------|------|
-| `docs/plan/07-build/f-001-design-hub/prompt.json` | `designSkillStack` metadata for agents |
-| `docs/plan/07-build/f-001-design-hub/PROMPT.md` | Human-readable stack with `@` skill paths |
+| `.nezam/core/plans/07-build/f-001-design-hub/prompt.json` | `designSkillStack` metadata for agents |
+| `.nezam/core/plans/07-build/f-001-design-hub/PROMPT.md` | Human-readable stack with `@` skill paths |
 
 Regenerate after manifest or stack changes:
 
 ```bash
-pnpm skills:assemble-design-prompt --phase develop_ui --write --dir docs/plan/07-build/f-001-design-hub
+pnpm skills:assemble-design-prompt --phase develop_ui --write --dir .nezam/core/plans/07-build/f-001-design-hub
 ```
 
-Feature spec (requirements): `docs/plan/00-define/specs/F-001-design-hub.md`
+Feature spec (requirements): `.nezam/core/plans/00-define/specs/F-001-design-hub.md`
 
 ## Upstream install (first time)
 
@@ -147,6 +147,6 @@ Optional field: `designSkillStack` (see `PROMPT_SCHEMA.template.json`).
 |-------|------|
 | Root design contract | `DESIGN.md` |
 | Wireframe develop hardlock | `wireframes_locked.json` (repo root or `.session/`) |
-| Wireframe spec | `docs/plan/04-design/WIREFRAMES.md` |
+| Wireframe spec | `.nezam/core/plans/04-design/WIREFRAMES.md` |
 | Ingest / vendor queue | `docs/INGEST_QUEUE.md` |
 | Rule (agents) | `.cursor/rules/design-external-skills.mdc` |

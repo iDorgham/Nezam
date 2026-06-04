@@ -104,7 +104,7 @@
 
 | Trigger | Message |
 |---|---|
-| `/plan` blocked | **Hardlock:** `/plan` needs a completed PRD, PROJECT_PROMPT, root `DESIGN.md`, and at least one spec in `docs/plan/00-define/specs/`. Run `/START all` first. |
+| `/plan` blocked | **Hardlock:** `/plan` needs a completed PRD, PROJECT_PROMPT, root `DESIGN.md`, and at least one spec in `.nezam/core/plans/00-define/specs/`. Run `/START all` first. |
 | `/develop` blocked | **Hardlock:** Planning or scaffold incomplete. Run `/plan scaffold` and confirm `PROJECT_SCAFFOLD.md`. |
 | Missing wireframes | **Hardlock:** `wireframes_locked.json` missing. Run Design Hub export or `/wireframe`. |
 | ai:check fail | **Sync drift:** Run `pnpm ai:sync` then `pnpm ai:check`. Do not edit mirror folders by hand. |

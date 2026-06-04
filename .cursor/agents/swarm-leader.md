@@ -39,7 +39,7 @@ Route commands, enforce SDD hardlocks, and keep all 13 active swarms aligned to 
 
 Before writing any response, generating code, or initiating a file edit, you MUST execute this 4-step reflection loop:
 
-1. **Path Integrity Verification**: Check that all targeted file paths actually exist in the workspace. Never reference legacy directories like `.nezam/core/context/` or `docs/plans/`—immediately correct all references to `.nezam/core/memory/` and `.nezam/core/plans/`.
+1. **Path Integrity Verification**: Check that all targeted file paths actually exist in the workspace. Never reference legacy directories like `.nezam/core/context/` or `.nezam/core/plans/`—immediately correct all references to `.nezam/core/memory/` and `.nezam/core/plans/`.
 2. **Zero-Primitive Styling Check**: Verify that no raw pixel values (`px`) or hardcoded hex colors (`#`) are introduced in styling. Every UI component must bind strictly to the semantic design tokens declared in `docs/DESIGN.md` (root).
 3. **Evidence Log Verification**: Confirm that the actions taken generate concrete, verifiable evidence files under `docs/reports/` or `.nezam/core/plans/`.
 4. **Confidence Score Triage**: Score the execution against the four dimensions of `EVAL_FRAMEWORK.md` and verify the score is Elite (≥90%) or Certified (≥75%) before returning the final output. If the score falls below, refine the output recursively before ending your turn.

@@ -8,7 +8,7 @@
 | Last updated | 2026-05-29 |
 
 > **Single source of truth:** `.nezam/core/architecture/ARCHITECTURE.md`  
-> This file exists under `docs/plan/04-arch/` for SDD pipeline traceability. On conflict, follow the canonical file.
+> This file exists under `.nezam/core/plans/04-arch/` for SDD pipeline traceability. On conflict, follow the canonical file.
 
 ---
 
@@ -28,9 +28,9 @@ NEZAM is a **workspace governance layer**, not a hosted product:
 
 | Entity | Storage | Notes |
 |---|---|---|
-| PRD | `.nezam/core/prd/PRD.md` | Intake mirror in `docs/plan/00-define/` |
+| PRD | `.nezam/core/prd/PRD.md` | Intake mirror in `.nezam/core/plans/00-define/` |
 | Plans | `.nezam/core/plans/` | Phase folders + INDEX |
-| Feature specs | `docs/plan/00-define/specs/F-*.md` | AC-IDs trace to develop |
+| Feature specs | `.nezam/core/plans/00-define/specs/F-*.md` | AC-IDs trace to develop |
 | Design contract | `DESIGN.md` | Root; token export target |
 | Wireframe lock | `wireframes_locked.json` | Root or `.session/` |
 | Agent bus | `.cursor/state/agent-bus.yaml` | Handoffs between agents |

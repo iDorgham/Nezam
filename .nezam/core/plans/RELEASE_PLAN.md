@@ -26,11 +26,11 @@ Three roots in active use, only one exists on disk:
 
 | Reference | Files | Status |
 |---|---|---|
-| `docs/plan/` | `commands/start.md`, `commands/plan.md`, `commands/nezam.md`, `state/schemas/plan_progress.schema.yaml` | ❌ Dir does not exist |
-| `docs/plans/` | 8 legacy design skills (unprefixed) | ❌ Dir does not exist; skills scheduled for deletion (C4) |
+| `.nezam/core/plans/` | `commands/start.md`, `commands/plan.md`, `commands/nezam.md`, `state/schemas/plan_progress.schema.yaml` | ❌ Dir does not exist |
+| `.nezam/core/plans/` | 8 legacy design skills (unprefixed) | ❌ Dir does not exist; skills scheduled for deletion (C4) |
 | `.nezam/core/plans/` | `agents/swarm-leader.md`, `agents/deputy-swarm-leader.md`, `commands/plan.md:629` | ✅ Only path on disk |
 
-**Fix:** global find-replace `docs/plan/` and `docs/plans/` → `.nezam/core/plans/` across `commands/`, `rules/`, `state/`, surviving skills (~41 files after C4 dedup).
+**Fix:** global find-replace `.nezam/core/plans/` and `.nezam/core/plans/` → `.nezam/core/plans/` across `commands/`, `rules/`, `state/`, surviving skills (~41 files after C4 dedup).
 
 ---
 
@@ -84,7 +84,7 @@ Migration:
 
 ### C4 — 22 duplicate design skill pairs (release blocker)
 
-Unprefixed versions use `docs/plans/` paths (C1) and will be deleted. `nezam-` versions are the current generation and stay.
+Unprefixed versions use `.nezam/core/plans/` paths (C1) and will be deleted. `nezam-` versions are the current generation and stay.
 
 Pairs to delete (22 unprefixed skills):
 

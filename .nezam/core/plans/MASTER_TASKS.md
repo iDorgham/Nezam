@@ -74,10 +74,10 @@
 |---|---|
 | **Owner** | `project-architect` |
 | **Status** | ✅ Complete (2026-05-29) |
-| **AC-1** | `docs/plan/01-research/SEO_RESEARCH.md` |
-| **AC-2** | `docs/plan/02-ia/IA_CONTENT.md` |
-| **AC-3** | `docs/plan/03-content/CONTENT_MAP.md` |
-| **AC-4** | `docs/plan/scaffold/PROJECT_SCAFFOLD.md` |
+| **AC-1** | `.nezam/core/plans/01-research/SEO_RESEARCH.md` |
+| **AC-2** | `.nezam/core/plans/02-ia/IA_CONTENT.md` |
+| **AC-3** | `.nezam/core/plans/03-content/CONTENT_MAP.md` |
+| **AC-4** | `.nezam/core/plans/scaffold/PROJECT_SCAFFOLD.md` |
 
 ---
 
@@ -86,7 +86,7 @@
 | ID | Task | Owner | Effort |
 |---|---|---|---|
 | T-P1-001 | Token emit script `design:tokens:emit` from DESIGN.md | design-systems-token-architect | M |
-| T-P1-002 | Public docs site from `docs/plan/03-content/` | content-strategist + frontend-lead | L |
+| T-P1-002 | Public docs site from `.nezam/core/plans/03-content/` | content-strategist + frontend-lead | L |
 | T-P1-003 | RICE prioritize full backlog (`/plan prioritize`) | swarm-leader | S |
 | T-P1-004 | Design excellence audit `--strict` | design-excellence-lead | M |
 

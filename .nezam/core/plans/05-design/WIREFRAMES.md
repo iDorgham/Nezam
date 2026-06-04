@@ -123,7 +123,7 @@ States: empty page (seed suggested blocks) · saved · validation error on expor
 ## Verification
 
 ```bash
-grep -c "screen_id" docs/plan/04-design/WIREFRAMES.md
+grep -c "screen_id" .nezam/core/plans/04-design/WIREFRAMES.md
 # Expect: ≥1 (PAGE-001 + DH-* entries)
 ```
 
@@ -132,5 +132,5 @@ grep -c "screen_id" docs/plan/04-design/WIREFRAMES.md
 For wireframe authoring prompts, use manifest phase `wireframe` (see [`../design/DESIGN_SKILLS.md`](../design/DESIGN_SKILLS.md)):
 
 ```bash
-pnpm skills:assemble-design-prompt --phase wireframe --write --dir docs/plan/04-design/wireframes
+pnpm skills:assemble-design-prompt --phase wireframe --write --dir .nezam/core/plans/04-design/wireframes
 ```

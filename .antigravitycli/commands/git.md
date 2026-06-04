@@ -13,7 +13,7 @@ Branch naming policy (enforced by .githooks/pre-push and CI):
   hotfix/<major>.<minor>.<patch>    e.g. hotfix/1.2.1
   main | Master            protected long-lived branches
 
-Regex: ^(main|Master|feature/.+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+)$
+Regex: ^(main|Master|feature/.+|fix/.+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+)$
 Rename: git branch -m <old> <new>
   /GIT tag          → Create a SemVer release tag (follows VERSIONING.md rules)
   /GIT release      → Full release flow: tag → CHANGELOG update → release notes → push

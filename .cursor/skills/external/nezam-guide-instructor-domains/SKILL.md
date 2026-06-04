@@ -26,7 +26,7 @@ Adapted from [`docs/skills/guide_instructor_domains/skill.md`](../../../docs/ski
 
 ## Anti-patterns
 
-- Pointing at `factory/`, `.ai/docs/plan/`, or Antigravity-only paths unless this repo adds them.
+- Pointing at `factory/`, `.ai/.nezam/core/plans/`, or Antigravity-only paths unless this repo adds them.
 - Storing durable teaching state only in chat — persist in `.nezam/core/memory/MEMORY.md` or specs when decisions stick.
 
 ## Reference provenance

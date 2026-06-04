@@ -35,7 +35,7 @@ Before executing a handoff update or modifying `HANDOFF_QUEUE.yaml` or `PHASE_HA
 1. All required inputs and deliverables exist in the designated memory paths (`.nezam/core/memory/`).
 2. There are zero unresolved `pending` or `in_progress` blockers in the active stream.
 3. Every task has been evaluated using the mathematical Confidence Scoring matrix, scoring ≥75% (Certified) or ≥90% (Elite). Refuse transitions on lower scores.
-4. Verify that zero legacy paths (such as `.nezam/core/context/` or `docs/plans/`) are introduced. Only use `.nezam/core/memory/` and `.nezam/core/plans/`.
+4. Verify that zero legacy paths (such as `.nezam/core/context/` or `.nezam/core/plans/`) are introduced. Only use `.nezam/core/memory/` and `.nezam/core/plans/`.
 5. **Active Agent Bus Logging Mandate:** You MUST execute the active bus-logger CLI utility to append a schema-compliant YAML log message to `.cursor/state/agent-bus.yaml` on every handoff transition, status update, or escalation:
    `node .nezam/core/scripts/bus/log-message.js --from deputy-orchestrator --to <target_agent> --type <handoff/escalation/blocker/decision-request> --phase <phase> --mode <mode> --subject "<brief_subject>" --artifact "<artifact_path>" --summary "<action_summary>" --action "<required_response_action>"`
 

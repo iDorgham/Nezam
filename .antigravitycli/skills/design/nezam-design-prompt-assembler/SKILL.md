@@ -35,7 +35,7 @@ changelog:
 
 ```bash
 node .nezam/core/scripts/skills/assemble-design-prompt.js --phase plan_design
-node .nezam/core/scripts/skills/assemble-design-prompt.js --prompt docs/plan/04-design/prompt.json
+node .nezam/core/scripts/skills/assemble-design-prompt.js --prompt .nezam/core/plans/04-design/prompt.json
 ```
 
 5. In `PROMPT.md`, add a **Design skill stack** section with `@` path references:

@@ -45,7 +45,7 @@ Typical slash commands and subcommands:
 ## Output contract
 
 - Changed-doc inventory with reason and affected pipeline stage.
-- Freshness verdict for `.nezam/core/memory/`, specs, and `docs/plan/`.
+- Freshness verdict for `.nezam/core/memory/`, specs, and `.nezam/core/plans/`.
 - Follow-up queue for unresolved documentation debt.
 
 ## Escalation

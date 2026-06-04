@@ -30,14 +30,14 @@ When scaffolding subphase `prompt.json` for UI-related phases, include optional 
 Generate or refresh:
 
 ```bash
-pnpm skills:assemble-design-prompt --phase develop_ui --write --dir docs/plan/<phase>/<subphase>
+pnpm skills:assemble-design-prompt --phase develop_ui --write --dir .nezam/core/plans/<phase>/<subphase>
 ```
 
 ---
 
 ## /CREATE task — Tool Tagging Rules
 
-When creating a task entry in `docs/plan/MASTER_TASKS.md`, include routing fields:
+When creating a task entry in `.nezam/core/plans/MASTER_TASKS.md`, include routing fields:
 
 1. Determine task `type` (for example: `documentation`, `scan`, `boilerplate`, `architecture-decision`).
 2. Read active tool state from `.cursor/workspace.settings.yaml`.

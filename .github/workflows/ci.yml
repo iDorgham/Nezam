@@ -211,7 +211,7 @@ jobs:
       - uses: actions/setup-node@v6
         if: steps.designhub_changes.outputs.skip == 'false'
         with:
-          node-version: 18
+          node-version: 20
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -227,6 +227,7 @@ jobs:
         run: pnpm -C .nezam/design-hub test
 
       - name: Design Hub token check
+        if: steps.designhub_changes.outputs.skip == 'false'
         run: pnpm --filter @nezam/design-hub run design:tokens:emit && pnpm run check:tokens
 
       - name: Wireframe lock integrity
@@ -267,8 +268,8 @@ jobs:
           # Hardening performance contract must be populated (non-empty).
           perf_populated=0
           for candidate in \
-            ".nezam/core/plans/05-harden/02-performance/perf.md" \
-            "docs/plans/05-harden/02-performance/perf.md"; do
+            ".nezam/core/plans/08-harden/02-performance/perf.md" \
+            ".nezam/core/plans/05-harden/02-performance/perf.md"; do
             if [[ -s "$candidate" ]]; then
               perf_populated=1
               break
@@ -276,8 +277,7 @@ jobs:
           done
           if [[ "$perf_populated" -ne 1 ]]; then
             echo "Performance hardening contract must exist and be non-empty. Tried:"
-            echo "  .nezam/core/plans/05-harden/02-performance/perf.md"
-            echo "  docs/plans/05-harden/02-performance/perf.md"
+            echo "  .nezam/core/plans/08-harden/02-performance/perf.md"
             exit 1
           fi
 

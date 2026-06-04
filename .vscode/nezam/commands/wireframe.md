@@ -31,10 +31,10 @@ Before running this command, verify ALL of the following exist:
 
 | File | Gate |
 |---|---|
-| `docs/plan/00-define/01-product/PRD.md` | ✅ required |
-| `docs/plan/00-define/01-product/PROJECT_PROMPT.md` | ✅ required |
+| `.nezam/core/plans/00-define/01-product/PRD.md` | ✅ required |
+| `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md` | ✅ required |
 | `DESIGN.md` | ✅ required |
-| `docs/plan/02-ia/IA_CONTENT.md` | ✅ required |
+| `.nezam/core/plans/02-ia/IA_CONTENT.md` | ✅ required |
 
 If any are missing:
 > ❌ Wireframe gate blocked. Missing: [list files]. Complete planning phases first.
@@ -55,10 +55,10 @@ If any are missing:
 ### STEP 1 — Read all source documents
 
 Read in this order:
-1. `docs/plan/00-define/01-product/PRD.md` — full PRD
-2. `docs/plan/00-define/01-product/PROJECT_PROMPT.md` — tech stack, decisions
+1. `.nezam/core/plans/00-define/01-product/PRD.md` — full PRD
+2. `.nezam/core/plans/00-define/01-product/PROJECT_PROMPT.md` — tech stack, decisions
 3. `DESIGN.md` — design tokens, color profile, typography
-4. `docs/plan/02-ia/IA_CONTENT.md` — sitemap, navigation structure, user flows
+4. `.nezam/core/plans/02-ia/IA_CONTENT.md` — sitemap, navigation structure, user flows
 
 Extract from these documents:
 - All pages with routes, types (public/auth/admin), and access controls

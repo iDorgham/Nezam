@@ -38,7 +38,7 @@
 | `nezam-visual-canvas-engine` | Only 51 lines — no anti-patterns, no library decision criteria, no touch/gesture support | **Medium** — thin for Tier 3 |
 | `nezam-brand-visual-direction` | References `docs/DESIGN.md` but other skills reference root `DESIGN.md` | **Medium** — path inconsistency |
 | Cross-skill | DESIGN.md path: `DESIGN.md` (root) vs `docs/DESIGN.md` vs `.nezam/core/plans/04-design/DESIGN.md` | **High** — path inconsistency |
-| Cross-skill | DESIGN_CHOICES path: `.nezam/core/plans/04-design/DESIGN_CHOICES.md` vs `docs/plan/design/DESIGN_CHOICES.yaml` | **High** — path inconsistency |
+| Cross-skill | DESIGN_CHOICES path: `.nezam/core/plans/04-design/DESIGN_CHOICES.md` vs `.nezam/core/plans/design/DESIGN_CHOICES.yaml` | **High** — path inconsistency |
 | Cross-skill | `screen_id` format in wireframe-pipeline has `nezam-"[id]"` double nesting bug | **Medium** |
 
 ## Gap Analysis — Skills We Should Create

@@ -17,6 +17,29 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
+## [0.3.0] - 2026-06-04
+
+Foundation milestone: R1 path unification + R2 performance & branch-policy enforcement. Dependency stack fully updated.
+
+### Added
+
+- Release planning and audit documentation under `docs/reports/` (release plan, pre/post-release task checklists, follow-up audit, task index).
+
+### Changed
+
+- **R1:** Unified SDD path structure, deduplicated skill registrations, migrated plan tree to `.nezam/core/plans/` (#65).
+- **R2:** Branch policy enforcement via `pre-push` hook and CI; performance pass reducing cold-start overhead (#66).
+- Dependency upgrades: `typescript` 5→6, `@types/node` 22→25, `react-dom` 19.2.6→19.2.7, `ai` 6.0.195→6.0.196, `zod` 4.3.6→4.4.3, `playwright` 1.51→1.60, `happy-dom` 20.9→20.10, `js-yaml` 4.1.1→4.2.0, `axe-core` 4.11→4.12, `actions/checkout` 4→6, `actions/setup-node` 4→6.
+
+### Fixed
+
+- Legacy-path CI failures and stray submodule gitlink (#52).
+- Branch policy regex now enforced pre-push so feature/release/hotfix naming is blocked at the client (#66).
+
+### Security
+
+- (none beyond inherited 0.2.0 CVE remediations)
+
 ## [0.2.0] - 2026-06-03
 
 Design Hub quality, hardening, and polish milestone (develop phases 3–5). 180 tests green, type-check clean.

@@ -155,7 +155,7 @@ fallback_status() {
   for branch in reports/v3.2 plans/v3.2-health prompts/phase2-execution docs/quick-start; do
     if git rev-parse --verify "$branch" &>/dev/null; then
       local last_commit
-      last_commit=$(git log -1 --format="%h - %s (%cr)" "$branch")
+      last_commit=$(git log -1 --format="%h - %s (%cr)" "refs/heads/$branch" --)
       echo -e "🟢 ${GREEN}$branch${NC}: $last_commit"
     else
       echo -e "🔴 ${RED}$branch${NC}: Does not exist"

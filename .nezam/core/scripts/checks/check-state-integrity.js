@@ -1,6 +1,97 @@
 const fs = require('fs')
 const path = require('path')
-const yaml = require('js-yaml')
+
+let yaml;
+try {
+  yaml = require('js-yaml')
+} catch (e) {
+  function parseSimpleYaml(content) {
+    const lines = content.split('\n');
+    const result = {};
+    const stack = [{ indent: -1, obj: result }];
+    
+    for (let line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      
+      const indent = line.length - line.trimStart().length;
+      
+      while (stack.length > 1 && stack[stack.length - 1].indent >= indent) {
+        stack.pop();
+      }
+      
+      const parentInfo = stack[stack.length - 1];
+      const parent = parentInfo.obj;
+      
+      if (trimmed.startsWith('-')) {
+        let valStr = trimmed.substring(1).trim();
+        const commentIdx = valStr.indexOf('#');
+        if (commentIdx !== -1) {
+          valStr = valStr.substring(0, commentIdx).trim();
+        }
+        let val = valStr.replace(/^['"]|['"]$/g, '');
+        if (val === 'true') val = true;
+        else if (val === 'false') val = false;
+        else if (val === 'null') val = null;
+        else if (!isNaN(val) && val !== '') val = Number(val);
+        
+        if (Array.isArray(parent)) {
+          parent.push(val);
+        } else if (parent && typeof parent === 'object' && Object.keys(parent).length === 0) {
+          const parentKey = parentInfo.parentKey;
+          const parentObj = parentInfo.parentObj;
+          if (parentObj && parentKey) {
+            parentObj[parentKey] = [val];
+            parentInfo.obj = parentObj[parentKey];
+          }
+        }
+        continue;
+      }
+      
+      const colonIdx = trimmed.indexOf(':');
+      if (colonIdx === -1) continue;
+      
+      const key = trimmed.substring(0, colonIdx).trim().replace(/^['"]|['"]$/g, '');
+      let valStr = trimmed.substring(colonIdx + 1).trim();
+      
+      const commentIdx = valStr.indexOf('#');
+      if (commentIdx !== -1) {
+        valStr = valStr.substring(0, commentIdx).trim();
+      }
+      
+      let val;
+      if (valStr === '') {
+        val = {};
+      } else {
+        val = valStr;
+        if (valStr === 'true') val = true;
+        else if (valStr === 'false') val = false;
+        else if (valStr === 'null') val = null;
+        else if (valStr.startsWith('"') && valStr.endsWith('"')) val = valStr.slice(1, -1);
+        else if (valStr.startsWith("'") && valStr.endsWith("'")) val = valStr.slice(1, -1);
+        else if (!isNaN(valStr) && valStr !== '') val = Number(valStr);
+      }
+      
+      if (!Array.isArray(parent)) {
+        parent[key] = val;
+      }
+      
+      if (valStr === '') {
+        stack.push({
+          indent: indent,
+          obj: val,
+          parentObj: parent,
+          parentKey: key
+        });
+      }
+    }
+    return result;
+  }
+  yaml = {
+    load: parseSimpleYaml
+  }
+}
+
 
 const REPO_ROOT = path.resolve(__dirname, '../../..')
 const DEVELOP_PHASES_PATH = path.join(REPO_ROOT, '.cursor/state/develop_phases.yaml')

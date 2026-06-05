@@ -17,6 +17,30 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
+## [0.3.2] - 2026-06-05
+
+Milestone: **v3.2 Health Hardening** (strategic plan for 100/100 system health, CI/CD automation, and multi-client parity).
+
+### Added
+
+- Comprehensive `ROADMAP_v3.2_HEALTH_100.md` planning framework, index, release plan, and RICE prioritized backlog.
+- Release checklists, executive briefs, post-release checkups, and sync analysis reports under `.nezam/core/reports/`.
+- `.nezam/core/tools/antigravity-phase2-branching.md` and Phase 2 setup documentation.
+- Client agent mappings and commands for `.gemini/`, `.qwen/`, `.kiro/`, `.kilocode/`, `.opencode/`, and `.codex/`.
+- New scripts including `create-phase-branch.sh` and `phase2-orchestrate.sh` for branch automation and Phase 2 orchestration.
+- Phase-gating automation workflows (`sdd-phase-automation.yml` and `sdd-phase-gates.yml`) in GitHub actions.
+
+### Changed
+
+- Unified the plans tree directory: moved plans, roadmaps, specs, and checklists to `.nezam/core/plans/` and `.nezam/core/gates/`.
+- Updated `.github/workflows/` (sync, lint, test, release, CI, and PR gates) to align with unified paths.
+- Synchronized all workspace client contracts across Claude, Copilot, VS Code, and Windsurf, resolving sync drift.
+
+### Fixed
+
+- Hardlock and spec version paths in `check-sdd-integrity.sh` and other core validation scripts.
+- Registry paths inside changelog automation scripts (`draft-from-tasks.js` and `finalize-from-commit.js`) to point to `.nezam/core/gates/hardlock-paths.json`.
+
 ## [0.3.0] - 2026-06-04
 
 Foundation milestone: R1 path unification + R2 performance & branch-policy enforcement. Dependency stack fully updated.
@@ -94,5 +118,9 @@ Workspace Kit baseline — onboarding gates, design contract, and core planning 
 
 ## Drafts (auto-generated — do not edit by hand)
 
-This section is managed by automation (`pnpm changelog:draft`, finalize via `/SAVE commit`).
-To correct a draft entry, update the source task in `.nezam/core/plans/` or plan metadata.
+<!--
+This section is managed by automation.
+If you need to correct a draft, update the source task or plan metadata instead.
+-->
+
+_No drafts yet._

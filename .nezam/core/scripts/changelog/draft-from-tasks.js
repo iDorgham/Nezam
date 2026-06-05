@@ -104,7 +104,7 @@ function upsertDraftsSection(changelog, draftLines) {
 
 function main() {
   const repoRoot = process.cwd();
-  const registryPath = path.join(repoRoot, "docs/gates/hardlock-paths.json");
+  const registryPath = path.join(repoRoot, ".nezam/core/gates/hardlock-paths.json");
   if (!fileExists(registryPath)) {
     console.error(`Missing hardlock path registry: ${registryPath}`);
     process.exit(1);
@@ -119,7 +119,7 @@ function main() {
     process.exit(1);
   }
 
-  const plansDir = path.join(repoRoot, ".cursor/plans");
+  const plansDir = path.join(repoRoot, ".nezam/core/plans");
   const planFiles = listPlanFiles(plansDir);
 
   const completed = [];

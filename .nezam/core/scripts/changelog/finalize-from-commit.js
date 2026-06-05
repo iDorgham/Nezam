@@ -112,7 +112,7 @@ function appendToUnreleasedChanged(changelog, linesToAppend) {
 
 function main() {
   const repoRoot = process.cwd();
-  const registryPath = path.join(repoRoot, "docs/gates/hardlock-paths.json");
+  const registryPath = path.join(repoRoot, ".nezam/core/gates/hardlock-paths.json");
   if (!fileExists(registryPath)) {
     console.error(`Missing hardlock path registry: ${registryPath}`);
     process.exit(1);

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-05T10:07:09.204Z",
+  "generated": "2026-06-05T14:39:56.355Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -741,6 +741,22 @@
       "version": "2.0.0",
       "referenced_by": [
         "lead-uiux-designer",
+        "visual-design-manager"
+      ],
+      "orphaned": false
+    },
+    {
+      "path": "../../../.cursor/skills/design/nezam-design-tokens/SKILL.md",
+      "id": "nezam-design-tokens",
+      "version": "2.0.0",
+      "referenced_by": [
+        "a11y-performance-auditor",
+        "dashboard-manager",
+        "design-systems-token-architect",
+        "lead-frontend-architect",
+        "lead-uiux-designer",
+        "motion-3d-choreographer",
+        "subagent-controller",
         "visual-design-manager"
       ],
       "orphaned": false
@@ -1799,7 +1815,6 @@
   "orphaned_skills": [],
   "unresolved_skill_refs": [
     "nezam-motion-3d",
-    "nezam-design-tokens",
     "nezam-dashboard-ia-patterns",
     "nezam-brand-guidelines",
     "nezam-css-architecture",

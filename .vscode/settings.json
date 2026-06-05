@@ -13,7 +13,11 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.preferences.importModuleSpecifier": "relative",
   "files.exclude": {
-    "**/.DS_Store": true
+    "**/.DS_Store": true,
+    ".nezam/design-hub/node_modules/**": true,
+    ".nezam/design-hub/.next/**": true,
+    ".nezam/docs-site/node_modules/**": true,
+    ".nezam/docs-site/.next/**": true
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
@@ -22,6 +26,9 @@
     ".nezam/design-hub/node_modules/**": true,
     ".nezam/design-hub/.next/**": true,
     ".nezam/design-hub/tsconfig.tsbuildinfo": true,
+    ".nezam/docs-site/node_modules/**": true,
+    ".nezam/docs-site/.next/**": true,
+    ".nezam/docs-site/tsconfig.tsbuildinfo": true,
     "tsconfig.tsbuildinfo": true,
     ".antigravity/**": true,
     ".antigravitycli/**": true,
@@ -50,7 +57,9 @@
     ".claude/**": true,
     "node_modules/**": true,
     ".nezam/design-hub/node_modules/**": true,
-    ".nezam/design-hub/.next/**": true
+    ".nezam/design-hub/.next/**": true,
+    ".nezam/docs-site/node_modules/**": true,
+    ".nezam/docs-site/.next/**": true
   },
   "specstory.cloudSync.enabled": "always",
   "claudeCodeChat.permissions.yoloMode": true,

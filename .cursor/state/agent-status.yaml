@@ -29,3 +29,17 @@ pending_handoff:
 open_blockers: []
 
 session_resume_prompt: "Phase 2 complete. Run /develop start to begin Phase 3 (Quality, Hardlock Verification, RTL Audit — T-Q-001 through T-Q-009)."
+
+last_sync: "2026-06-05T00:20:00Z"
+certified_agents:
+  - "swarm-leader"
+  - "deputy-swarm-leader"
+  - "subagent-controller"
+  - "lead-analytics-architect"
+  - "lead-task-management-architect"
+  - "lead-crm-platform-architect"
+  - "analytics-ui-ux-architect"
+versioning: "1.0.0"
+sync_drift_threshold: 0.005
+drift_check_interval: "weekly"
+

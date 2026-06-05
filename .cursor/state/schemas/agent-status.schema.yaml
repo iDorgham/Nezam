@@ -26,6 +26,11 @@ defaults:
     status: "none"
   open_blockers: []
   session_resume_prompt: ""
+  last_sync: ""
+  certified_agents: []
+  versioning: "1.0.0"
+  sync_drift_threshold: 0.005
+  drift_check_interval: "weekly"
 
 fields:
   last_updated:
@@ -72,6 +77,18 @@ fields:
       type: string
 
   session_resume_prompt:
+    type: string
+  last_sync:
+    type: string
+  certified_agents:
+    type: array
+    items:
+      type: string
+  versioning:
+    type: string
+  sync_drift_threshold:
+    type: float
+  drift_check_interval:
     type: string
 
 rules:

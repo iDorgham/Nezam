@@ -1,28 +1,31 @@
 #!/bin/sh
 # NEZAM — Pre-commit sync drift guard
 # created: 2026-05-10
-# version: 1.0.0
-# Blocks commits if .cursor/ canonical files have drifted from generated mirrors.
+# version: 1.1.0
+# Automatically runs sync and stages changed mirrors.
 
-echo "🔍 NEZAM: Checking AI sync drift..."
+echo "🔍 NEZAM: Syncing AI mirrors..."
 
 if command -v pnpm >/dev/null 2>&1; then
+  # Run sync to ensure all mirrors match canonical .cursor/
+  pnpm ai:sync
+  
+  # Re-stage any generated mirror changes so they are included in the commit
+  git add .claude/ .windsurf/ .gemini/ AGENTS.md CLAUDE.md GEMINI.md KIRO.md QWEN.md VSCODE.md WINDSURF.md 2>/dev/null || true
+  
+  # Verify status
   pnpm ai:check
   STATUS=$?
   if [ $STATUS -ne 0 ]; then
     echo ""
-    echo "❌ COMMIT BLOCKED: AI sync drift detected."
-    echo "   Generated mirrors are out of sync with .cursor/ canonical sources."
-    echo ""
-    echo "   Fix: pnpm ai:sync"
-    echo "   Then: pnpm ai:check to verify"
-    echo "   Then: re-stage and commit."
+    echo "❌ COMMIT BLOCKED: AI check suite failed."
+    echo "   Please fix any remaining validation issues before committing."
     echo ""
     exit 1
   fi
-  echo "✅ NEZAM: No sync drift — commit allowed."
+  echo "✅ NEZAM: All checks passed — commit allowed."
 else
-  echo "⚠️  pnpm not found — skipping sync check."
+  echo "⚠️  pnpm not found — skipping sync."
 fi
 
 exit 0

@@ -1,0 +1,340 @@
+name: SDD Phase Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: 'SDD Phase to create branch and PR for'
+        required: true
+        default: 'planning'
+        type: choice
+        options:
+          - planning
+          - seo-aeo
+          - ia
+          - content
+          - design
+          - development
+          - release
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  GIT_COMMITTER_NAME: 'NEZAM Bot'
+  GIT_COMMITTER_EMAIL: 'bot@nezam.dev'
+
+jobs:
+  create-phase-branch:
+    name: Create ${{ inputs.phase }} branch and PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config --local user.name "NEZAM Bot"
+          git config --local user.email "bot@nezam.dev"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate phase input
+        run: |
+          VALID_PHASES=("planning" "seo-aeo" "ia" "content" "design" "development" "release")
+          PHASE="${{ inputs.phase }}"
+
+          if [[ ! " ${VALID_PHASES[@]} " =~ " ${PHASE} " ]]; then
+            echo "❌ Invalid phase: $PHASE"
+            exit 1
+          fi
+
+          echo "✅ Phase validation passed: $PHASE"
+
+      - name: Check if branch exists
+        id: check-branch
+        run: |
+          BRANCH_NAME="phase/${{ inputs.phase }}/$(date +%Y-%m-%d)"
+          if git rev-parse --verify origin/$BRANCH_NAME &>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Branch already exists: $BRANCH_NAME"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "✅ Branch does not exist (will create): $BRANCH_NAME"
+          fi
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create phase branch
+        if: steps.check-branch.outputs.exists == 'false'
+        run: |
+          BRANCH_NAME="${{ steps.check-branch.outputs.branch_name }}"
+          git checkout -b "$BRANCH_NAME"
+          echo "✅ Created branch: $BRANCH_NAME"
+
+      - name: Update phase state file
+        run: |
+          PHASE="${{ inputs.phase }}"
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          # Create/update phase state
+          cat > ".cursor/state/phase-${PHASE}.yaml" <<EOF
+phase: $PHASE
+status: in_progress
+created_at: $TIMESTAMP
+branch: ${{ steps.check-branch.outputs.branch_name }}
+git_user: "NEZAM Bot"
+requirements_checklist:
+  - status: pending
+    item: "Phase objectives defined"
+  - status: pending
+    item: "Documentation updated"
+  - status: pending
+    item: "Team notified"
+  - status: pending
+    item: "Review requested"
+EOF
+
+          echo "✅ Created phase state file: .cursor/state/phase-${PHASE}.yaml"
+
+      - name: Create phase documentation
+        run: |
+          PHASE="${{ inputs.phase }}"
+          PHASE_DIR=".nezam/core/plans/${PHASE}"
+          mkdir -p "$PHASE_DIR"
+
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+          cat > "$PHASE_DIR/progress.md" <<EOF
+# ${{ inputs.phase | upper }} Phase Progress
+
+**Started**: $TIMESTAMP
+**Branch**: ${{ steps.check-branch.outputs.branch_name }}
+
+## Objectives
+
+- [ ] Define phase requirements
+- [ ] Document scope
+- [ ] Plan resources
+- [ ] Setup timeline
+
+## Deliverables
+
+- [ ] Phase specification
+- [ ] Design review (if applicable)
+- [ ] Documentation
+- [ ] Quality assurance
+
+## Status Checklist
+
+- [ ] In Progress
+- [ ] Ready for Review
+- [ ] Approved
+- [ ] Merged to Main
+
+## Notes
+
+_Add notes and updates here during phase execution._
+EOF
+
+          echo "✅ Created phase progress file: $PHASE_DIR/progress.md"
+
+      - name: Commit phase files
+        if: steps.check-branch.outputs.exists == 'false'
+        run: |
+          PHASE="${{ inputs.phase }}"
+          git add ".cursor/state/phase-${PHASE}.yaml"
+          git add ".nezam/core/plans/${PHASE}/"
+          git commit -m "ci: Initialize $PHASE phase
+
+- Create phase state file
+- Setup progress tracking
+- Configure branch: ${{ steps.check-branch.outputs.branch_name }}
+- Phase status: in_progress"
+          echo "✅ Committed phase initialization files"
+
+      - name: Push phase branch
+        if: steps.check-branch.outputs.exists == 'false'
+        run: |
+          BRANCH_NAME="${{ steps.check-branch.outputs.branch_name }}"
+          git push origin "$BRANCH_NAME"
+          echo "✅ Pushed branch: $BRANCH_NAME"
+
+      - name: Create Pull Request
+        if: steps.check-branch.outputs.exists == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const phase = '${{ inputs.phase }}';
+            const branchName = '${{ steps.check-branch.outputs.branch_name }}';
+            const phaseTitle = phase.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+            const prTitle = `🚀 [${phaseTitle}] Initialize $${phaseTitle} Phase`;
+            const prBody = `## Phase: ${phaseTitle}
+
+### Overview
+Automated branch and PR creation for the **${phaseTitle}** phase of the SDD pipeline.
+
+### Phase Details
+- **Phase Name**: ${phase}
+- **Branch**: ${branchName}
+- **Created**: ${new Date().toISOString()}
+
+### Phase Objectives
+- [ ] Define requirements
+- [ ] Document specifications
+- [ ] Setup resources
+- [ ] Plan timeline
+
+### What to Do
+1. Review this PR for phase-specific changes
+2. Add phase requirements to the progress file
+3. Update team on phase timeline
+4. Merge when ready to begin phase work
+
+### Gate Requirements
+This PR unlocks the **${phaseTitle}** phase. Merge to proceed with phase-specific development.
+
+### Checklist
+- [ ] Phase requirements defined
+- [ ] Team notified
+- [ ] Resources allocated
+- [ ] Ready to proceed
+
+---
+
+*Generated by NEZAM Bot | SDD Phase Automation*`;
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: prTitle,
+              head: branchName,
+              base: 'main',
+              body: prBody,
+              draft: false
+            });
+
+            console.log(`✅ Pull Request created: #${pr.number}`);
+            console.log(`📍 URL: ${pr.html_url}`);
+
+            // Add labels
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: [`sdd-phase:${phase}`, 'automation', 'phase-gate']
+            });
+
+            console.log(`✅ Labels added: sdd-phase:${phase}, automation, phase-gate`);
+
+      - name: Create GitHub Issue for Phase
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const phase = '${{ inputs.phase }}';
+            const phaseTitle = phase.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            const branchName = '${{ steps.check-branch.outputs.branch_name }}';
+
+            const issueTitle = `📋 ${phaseTitle} Phase Tracking`;
+            const issueBody = `## ${phaseTitle} Phase Execution
+
+### Phase Information
+- **Phase**: ${phase}
+- **Branch**: \`${branchName}\`
+- **Started**: ${new Date().toISOString()}
+
+### Phase Checklist
+
+#### Requirements
+- [ ] Requirements document created
+- [ ] Scope defined
+- [ ] Success criteria established
+- [ ] Team assigned
+
+#### Execution
+- [ ] Phase work in progress
+- [ ] Documentation updated
+- [ ] Code reviews completed
+- [ ] Tests passing
+
+#### Completion
+- [ ] All requirements met
+- [ ] Quality gates passed
+- [ ] PR reviewed and approved
+- [ ] Ready to merge
+
+#### Merge & Transition
+- [ ] PR merged to main
+- [ ] Next phase branch created
+- [ ] Documentation updated
+- [ ] Team notified
+
+### Related Links
+- 📝 [Phase Progress](.nezam/core/plans/${phase}/progress.md)
+- 🔗 [Phase Branch](https://github.com/${{ github.repository }}/tree/${branchName})
+- 🎯 [SDD Documentation](.nezam/core/prd/PRD.md)
+
+### Notes
+_Use this issue to track progress, blockers, and decisions for the ${phaseTitle} phase._
+
+---
+
+**Status**: 🟡 In Progress
+**Assignee**: Team
+**Phase Gate**: Unlocked`;
+
+            const { data: issue } = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody
+            });
+
+            console.log(`✅ Issue created: #${issue.number}`);
+            console.log(`📍 URL: ${issue.html_url}`);
+
+            // Add labels
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: [`sdd-phase:${phase}`, 'tracking', 'phase']
+            });
+
+      - name: Summary
+        run: |
+          echo "════════════════════════════════════════"
+          echo "✅ SDD Phase Automation Complete"
+          echo "════════════════════════════════════════"
+          echo ""
+          echo "Phase: ${{ inputs.phase }}"
+          echo "Branch: ${{ steps.check-branch.outputs.branch_name }}"
+          echo "Status: Ready for development"
+          echo ""
+          echo "🔗 Next Steps:"
+          echo "  1. Visit the created PR on GitHub"
+          echo "  2. Review and approve phase requirements"
+          echo "  3. Begin phase-specific work"
+          echo "  4. Track progress in the linked issue"
+          echo ""
+          echo "📖 Resources:"
+          echo "  - Phase Progress: .nezam/core/plans/${{ inputs.phase }}/progress.md"
+          echo "  - Phase State: .cursor/state/phase-${{ inputs.phase }}.yaml"
+          echo "  - Branch: origin/${{ steps.check-branch.outputs.branch_name }}"
+          echo ""
+          echo "════════════════════════════════════════"

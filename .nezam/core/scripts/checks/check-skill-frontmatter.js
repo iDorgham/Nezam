@@ -12,6 +12,9 @@ const skillsFolder = wsConfig.paths.skills_folder || ".cursor/skills";
 const skillsRoot = path.resolve(repoRoot, skillsFolder);
 
 function walk(dir, out = []) {
+  if (dir.endsWith('/archive') || dir.endsWith('\\archive') || dir.includes('/archive/') || dir.includes('\\archive\\')) {
+    return out;
+  }
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);

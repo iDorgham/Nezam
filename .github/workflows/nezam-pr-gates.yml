@@ -20,10 +20,10 @@ jobs:
           BRANCH: ${{ github.head_ref }}
         run: |
           set -euo pipefail
-          PATTERN='^(main|Master|feature/[^/]+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+)$'
+          PATTERN='^(main|Master|feature/[^/]+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+|plans/[^/]+|reports/[^/]+|prompts/[^/]+|docs/[^/]+|phase/[^/]+(/[^/]+)?)$'
           if [[ ! "$BRANCH" =~ $PATTERN ]]; then
             echo "❌ Branch '$BRANCH' violates NEZAM naming policy."
-            echo "   Allowed: main | Master | feature/<slug> | release/x.y.z | hotfix/x.y.z"
+            echo "   Allowed: main | Master | feature/<slug> | release/x.y.z | hotfix/x.y.z | plans/<slug> | reports/<slug> | prompts/<slug> | docs/<slug> | phase/<phase>/<date>"
             exit 1
           fi
           echo "✅ Branch name '$BRANCH' is valid."

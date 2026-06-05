@@ -136,7 +136,7 @@ fallback_pr() {
         print_warning "PR already exists for $branch"
       else
         print_info "Pushing $branch and creating PR..."
-        if git push origin "$branch" 2>/dev/null || git push -u origin "$branch" 2>/dev/null; then
+        if git push --force-with-lease origin "$branch" 2>/dev/null || git push -f origin "$branch" 2>/dev/null; then
           gh pr create --title "$title" --body "$body" --head "$branch" --base Master --label phase2 || print_warning "Could not create PR via gh CLI. Create manually."
         else
           print_warning "Could not push $branch. Push it manually to create PR."
@@ -386,7 +386,7 @@ main() {
 
       for branch in reports/v3.2 plans/v3.2-health prompts/phase2-execution docs/quick-start; do
         print_info "Pushing $branch..."
-        git push origin "$branch" || git push -u origin "$branch" || print_warning "Could not push $branch"
+        git push --force-with-lease origin "$branch" || git push -f origin "$branch" || print_warning "Could not push $branch"
       done
 
       print_success "Push complete"

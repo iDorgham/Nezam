@@ -65,8 +65,8 @@ jobs:
             echo "❌ Legacy .cursor/templates/ references found in markdown files"
             violations=$((violations + 1))
           fi
-          if grep -rln "docs/core/" --include='*.md' --include='*.mdc' . --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.claude 2>/dev/null; then
-            echo "❌ Legacy docs/core/ references found in markdown files"
+          if grep -rln "docs/[c]ore/" --include='*.md' --include='*.mdc' . --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.claude --exclude-dir=.github 2>/dev/null; then
+            echo "❌ Legacy docs/""core/ references found in markdown files"
             violations=$((violations + 1))
           fi
           # Guard: docs/plan/ or docs/plans/ must never appear in contracts.

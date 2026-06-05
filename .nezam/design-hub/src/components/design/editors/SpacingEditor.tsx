@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
 import {
-  ArrowLeftRight,
+  ArrowRightLeft,
   Move,
   Settings2,
   RefreshCw,
@@ -71,7 +71,7 @@ export function SpacingEditor() {
       <div className="flex items-center justify-between border-b border-app-border/40 pb-5">
         <div>
           <h2 className="text-base font-bold text-app-text tracking-tight flex items-center gap-2">
-            <ArrowLeftRight className="h-5 w-5 text-app-accent" />
+            <ArrowRightLeft className="h-5 w-5 text-app-accent" />
             Geometry & Space
           </h2>
           <p className="text-xs text-app-subtle mt-0.5 font-medium">Define your base unit, spatial layout scale, and box system rhythms</p>

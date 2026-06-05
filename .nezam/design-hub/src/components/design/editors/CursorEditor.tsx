@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
-import { MousePointer, Eye, Focus, Sparkles, AlertCircle } from 'lucide-react'
+import { MousePointer, Eye, Focus, Sparkles, CircleAlert } from 'lucide-react'
 
 const CURSORS = [
   { key: 'interactive', label: 'Interactive (Buttons)', value: 'pointer', desc: 'Used for links and clickables' },

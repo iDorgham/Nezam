@@ -3,7 +3,7 @@
 import { memo } from 'react'
 import {
   ArrowRight,
-  BarChart2,
+  ChartBar,
   Check,
   ChevronRight,
   Code2,
@@ -461,7 +461,7 @@ function RenderBlock({
         <Zap key="zap" size={22} className="text-app-accent" />,
         <Shield key="shield" size={22} className="text-app-accent" />,
         <Users key="users" size={22} className="text-app-accent" />,
-        <BarChart2 key="bar" size={22} className="text-app-accent" />,
+        <ChartBar key="bar" size={22} className="text-app-accent" />,
         <Code2 key="code" size={22} className="text-app-accent" />,
         <Globe key="globe" size={22} className="text-app-accent" />,
       ]

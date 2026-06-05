@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { axe } from 'vitest-axe'
+import { axe } from 'vi-axe'
 import Loading from '../../app/loading'
 import NotFound from '../../app/not-found'
 import ErrorBoundary from '../../app/error'

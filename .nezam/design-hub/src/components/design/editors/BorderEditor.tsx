@@ -1,7 +1,7 @@
 'use client'
 
 import { useHub } from '@/store/hub.store'
-import { Square, Sparkles, Sliders, CheckCircle, Target, Layers } from 'lucide-react'
+import { Square, Sparkles, SlidersHorizontal, CircleCheck, Target, Layers } from 'lucide-react'
 
 export function BorderEditor() {
   const borders  = useHub((s) => s.design.tokens.borders)
@@ -32,7 +32,7 @@ export function BorderEditor() {
         {/* Width */}
         <div className="rounded-app-lg border border-app-border bg-app-surface p-5">
           <h3 className="text-xs font-semibold text-app-text mb-4 flex items-center gap-1.5">
-            <Sliders className="h-3.5 w-3.5 text-app-accent" />
+            <SlidersHorizontal className="h-3.5 w-3.5 text-app-accent" />
             Border Width
           </h3>
           <div className="grid grid-cols-2 gap-3">
@@ -154,7 +154,7 @@ export function BorderEditor() {
       {/* Live demo */}
       <div className="rounded-app-lg border border-app-border bg-app-surface p-5">
         <h3 className="text-xs font-semibold text-app-text mb-4 flex items-center gap-1.5">
-          <CheckCircle className="h-4 w-4 text-emerald-500" />
+          <CircleCheck className="h-4 w-4 text-emerald-500" />
           Proportional Border Radii Preview
         </h3>
         <div className="grid grid-cols-4 gap-4">

@@ -5,7 +5,7 @@
 | Document | MASTER_TASKS.md |
 | Status | Active |
 | Source | PRD P0/P1 + specs F-001..F-003 + `.nezam/core/plans/MASTER_TASKS.md` |
-| Last updated | 2026-05-29 |
+| Last updated | 2026-06-05 |
 | Planning gate | `planning_complete: true` |
 
 ---
@@ -184,7 +184,138 @@ Exit criteria: readiness GO for tag+PR; CHANGELOG 0.2.0 finalized; release confi
 
 ---
 
-## Traceability
+## v3.2 — Health 100/100 (T-V32-*)
+
+> Added 2026-06-05. Target: 2026-06-25. Source: `ROADMAP_v3.2_HEALTH_100.md` + ADR-0002..0005.
+> Gate: all v3.2 tasks complete before `v3.2` tag. Critical path: P1 + P2 (done by 2026-06-14).
+
+### Phase map (v3.2)
+
+| Phase | Focus | Target window | Status |
+|---|---|---|---|
+| **v3.2-P1** | Foundation: sync, state, Husky | 2026-06-04 → 2026-06-07 | ⏳ |
+| **v3.2-P2** | CI/CD pipeline validation | 2026-06-08 → 2026-06-14 | 🔒 |
+| **v3.2-P3** | Security scanning automation | 2026-06-08 → 2026-06-14 | 🔒 |
+| **v3.2-P4** | Design system + wireframe bridge | 2026-06-10 → 2026-06-16 | 🔒 |
+| **v3.2-P5** | Content ops + observability | 2026-06-12 → 2026-06-18 | 🔒 |
+| **v3.2-P6** | Integration, docs, QA, release | 2026-06-16 → 2026-06-21 | 🔒 |
+
+---
+
+### v3.2-P1 — Foundation: Sync & State (T-V32-1-*)
+
+Gate: all v3.2-P1 tasks done → v3.2-P2 unlocked. Owner: DevOps Lead.
+
+| ID | Task | ADR | Owner | Surface | AC |
+|---|---|---|---|---|---|
+| T-V32-1-001 | Run `pnpm ai:sync` + `pnpm ai:check`; zero drift baseline | — | devops-manager | `.cursor/` → mirrors | `ai:check` exits 0; drift < 0.5% |
+| T-V32-1-002 | Audit + remove orphaned skills; update registry | — | devops-manager | `.cursor/skills/archive/` | 0 orphaned skills in registry |
+| T-V32-1-003 | Run `pnpm verify:yaml` on all state files; fix parse errors | — | devops-manager | `.cursor/state/*.yaml` | `verify:yaml` exits 0 |
+| T-V32-1-004 | Extend `agent-status.yaml`: `last_sync`, `certified_agents`, `versioning`, `sync_drift_threshold` | — | deputy-swarm-leader | `.cursor/state/agent-status.yaml` | Schema valid; no missing fields |
+| T-V32-1-005 | Add weekly drift detection to CI (`sync-drift-check.yml` promoted to blocking) | ADR-0002 | devops-manager | `.github/workflows/sync-drift-check.yml` | Workflow runs on schedule; Slack alert if drift > 1% |
+| T-V32-1-006 | Write sync runbook | — | docs-hygiene | `.nezam/core/docs/SYNC_RUNBOOK.md` | File exists; covers recovery + rollback |
+| T-V32-1-007 | Verify Husky pre-commit on all dev machines; add to CONTRIBUTING.md | ADR-0002 | devops-manager | `.husky/pre-commit`, `CONTRIBUTING.md` | Hook runs `pnpm ai:sync` on `.cursor/` stage |
+
+**assigned_tool:** cursor  
+**Exit criteria:** drift = 0, YAML clean, runbook written, Husky enforced.
+
+---
+
+### v3.2-P2 — CI/CD Pipeline (T-V32-2-*)
+
+Gate: v3.2-P1 complete. Depends on ADR-0002. Owner: DevOps Lead + SRE.
+
+| ID | Task | ADR | Owner | Surface | AC |
+|---|---|---|---|---|---|
+| T-V32-2-001 | Test full Tier-1 CI pipeline end-to-end on feature branch | ADR-0002 | devops-manager | `.github/workflows/nezam-pr-gates.yml` | All 7 design gates + lint + typecheck green on test PR |
+| T-V32-2-002 | Validate release workflow targets `Master`; test tag creation | ADR-0002 | gitops-engineer | `.github/workflows/release.yml` | Release runs, tag created, rollback step present |
+| T-V32-2-003 | Add `codeql-analysis.yml`; set critical/high threshold | ADR-0003 | app-security-manager | `.github/workflows/codeql-analysis.yml` | CodeQL runs on PR; critical findings block merge |
+| T-V32-2-004 | Add `lhci` perf budget step to nightly workflow | ADR-0004 | frontend-performance-manager | `.github/workflows/nezam-nightly.yml` | LCP < 2.5s · CLS < 0.1 · INP < 200ms gated |
+| T-V32-2-005 | Create `ci-health-check.yml` weekly summary | ADR-0004 | devops-manager | `.github/workflows/ci-health-check.yml` | Runs every Monday; summary posted to Actions |
+| T-V32-2-006 | Write `CI_FAILURE_GUIDE.md` covering all gate failure modes | ADR-0002 | docs-hygiene | `.nezam/core/docs/CI_FAILURE_GUIDE.md` | 20+ failure scenarios documented; rollback steps per stage |
+
+**assigned_tool:** cursor  
+**Exit criteria:** Tier-1 gates green on test PR; release workflow tested; CI failure guide written.
+
+---
+
+### v3.2-P3 — Security Scanning (T-V32-3-*)
+
+Gate: v3.2-P1 complete. Parallel with P2. Depends on ADR-0003. Owner: Security Officer.
+
+| ID | Task | ADR | Owner | Surface | AC | security |
+|---|---|---|---|---|---|---|
+| T-V32-3-001 | Enable GitHub CodeQL; configure JS/TS; test on feature branch | ADR-0003 | lead-security-officer | `.github/workflows/codeql-analysis.yml` | Critical/high block PR merge | true |
+| T-V32-3-002 | Enable GitHub DependaBot; weekly pnpm; major = manual | ADR-0003 | lead-security-officer | `.github/dependabot.yml` | Auto-PR for patch/minor lands weekly | true |
+| T-V32-3-003 | Enable GitHub secret scanning + push protection | ADR-0003 | lead-security-officer | GitHub repo settings | Push blocked on known secret patterns | true |
+| T-V32-3-004 | Run `/scan security`; document findings in `SECURITY_AUDIT_v3.2.md` | ADR-0003 | lead-security-officer | `docs/reports/security/` | All findings categorized by severity; remediation plan |true |
+| T-V32-3-005 | Define secrets rotation schedule; document in runbook | ADR-0003 | lead-security-officer | `.nezam/core/docs/SECURITY_RUNBOOK.md` | Auth0 quarterly; GitHub tokens on team change; in runbook | true |
+| T-V32-3-006 | Capture `SECURITY_BASELINE.md` snapshot | ADR-0003 | lead-security-officer | `.nezam/core/meta/SECURITY_BASELINE.md` | CodeQL status + DependaBot status + scan results recorded | true |
+
+**assigned_tool:** cursor (security: true tasks stay on primary reasoning lane)  
+**Exit criteria:** All 3 GitHub scanning tools enabled; audit complete; runbook written; baseline captured.
+
+---
+
+### v3.2-P4 — Design System + Wireframe Bridge (T-V32-4-*)
+
+Gate: v3.2-P1 complete. Parallel with P2/P3. Depends on ADR-0005. Owner: Design Lead + Frontend Lead.
+
+| ID | Task | ADR | Owner | Surface | AC |
+|---|---|---|---|---|---|
+| T-V32-4-001 | Fix empty blocks in `block_registry.json`; add `pnpm design:validate-blocks` | ADR-0005 | design-hub-specialist | `.nezam/design-hub/` | `validate-blocks` exits 0; no empty `properties` arrays |
+| T-V32-4-002 | Bump `wireframes_locked.json` schema to v2.0 | ADR-0005 | frontend-lead | `wireframes_locked.json` | Schema includes `block_count`, `figma_synced`, `figma_frame_ids` |
+| T-V32-4-003 | Add `GATE-WF-02` to `GITHUB_GATE_MATRIX.json` | ADR-0005 | devops-manager | `.nezam/core/gates/GITHUB_GATE_MATRIX.json` | Gate fails if `block_registry.json` has empty properties |
+| T-V32-4-004 | Test lock→unlock cycle on 3 project types | ADR-0005 | design-hub-specialist | Design Hub wireframe session | All 3 project types lock/unlock without data loss |
+| T-V32-4-005 | Provision Figma MCP auth (optional); document token setup | ADR-0005 | design-lead | `.env.local`, `.nezam/core/docs/WIREFRAME_RUNBOOK.md` | Token documented; sync script (`design:figma:sync`) implemented |
+| T-V32-4-006 | Write `DESIGN_TO_CODE.md` workflow | ADR-0005 | docs-hygiene | `.nezam/core/docs/DESIGN_TO_CODE.md` | Covers lock→implement flow; no pixel-guessing required |
+| T-V32-4-007 | Design token audit: verify no raw hex/px in governed CSS paths | ADR-0004 | lead-styling-theming-architect | `.nezam/design-hub/src/` | `check:tokens` exits 0; all 7 design gates green |
+
+**assigned_tool:** cursor  
+**Exit criteria:** Empty blocks resolved; lock schema v2.0; GATE-WF-02 active; design-to-code workflow documented.
+
+---
+
+### v3.2-P5 — Observability + Content Ops (T-V32-5-*)
+
+Gate: v3.2-P2 complete. Parallel with P4. Depends on ADR-0004. Owner: Frontend Performance Lead + Analytics Engineer + Content Strategist.
+
+| ID | Task | ADR | Owner | Surface | AC |
+|---|---|---|---|---|---|
+| T-V32-5-001 | Add `@sentry/nextjs` to Design Hub; upload source maps on build | ADR-0004 | frontend-performance-manager | `.nezam/design-hub/` | Sentry captures errors in production; source maps resolve |
+| T-V32-5-002 | Instrument `web-vitals` reporting (LCP, CLS, INP) in Design Hub | ADR-0004 | frontend-performance-manager | `.nezam/design-hub/app/layout.tsx` | Vitals reported; values meet perf budget thresholds |
+| T-V32-5-003 | Document perf baseline in `PERF_BASELINE.md` | ADR-0004 | frontend-performance-manager | `.nezam/core/reports/PERF_BASELINE.md` | LCP/CLS/INP per route; bundle size gzipped; API p50+p99 |
+| T-V32-5-004 | Write `OBSERVABILITY_RUNBOOK.md` | ADR-0004 | docs-hygiene | `.nezam/core/docs/OBSERVABILITY_RUNBOOK.md` | Covers: debug with Sentry, investigate perf, escalation |
+| T-V32-5-005 | Run `/plan seo` on first real project; validate SEO/AEO baseline | — | arabic-seo-aeo-specialist | `.nezam/core/reports/SEO_BASELINE.md` | SEO strategy documented; AEO tested on ≥ 2 AI engines |
+| T-V32-5-006 | Create content templates (blog, product page, hub page, landing page) | — | content-strategist | `.nezam/templates/content/` | 4 templates with embedded SEO + AEO checklist |
+| T-V32-5-007 | Write `CONTENT_OPS.md` workflow | — | content-strategist | `.nezam/core/docs/CONTENT_OPS.md` | Covers: intake → outline → draft → review → publish |
+
+**assigned_tool:** cursor  
+**Exit criteria:** Sentry live; vitals reported; perf baseline documented; SEO/AEO baseline established.
+
+---
+
+### v3.2-P6 — Integration, Docs, QA + Release (T-V32-6-*)
+
+Gate: v3.2-P1..P5 all complete. Owner: Technical Writer + Swarm Leader + QA Lead.
+
+| ID | Task | ADR | Owner | Surface | AC |
+|---|---|---|---|---|---|
+| T-V32-6-001 | Index all v3.2 runbooks in `RUNBOOKS.md` | — | docs-hygiene | `.nezam/core/docs/RUNBOOKS.md` | 6+ runbooks indexed; each has current status |
+| T-V32-6-002 | Write `TROUBLESHOOTING.md` (20+ scenarios) | — | docs-hygiene | `.nezam/core/docs/TROUBLESHOOTING.md` | FAQ format; links to runbooks; escalation path |
+| T-V32-6-003 | Write `ONBOARDING.md` for new developers | — | docs-hygiene | `.nezam/core/docs/ONBOARDING.md` | Covers: Husky setup, first commit, first PR, CI gates |
+| T-V32-6-004 | Full system regression: plan → develop → scan → fix | — | lead-qa-architect | Full workspace | No regressions vs v3.1; all 6 develop phases still pass |
+| T-V32-6-005 | Load test CI: 5 simultaneous PRs; verify no race conditions | ADR-0002 | devops-manager | `.github/workflows/nezam-pr-gates.yml` | All 5 PRs complete; no timeouts; no gate flakes |
+| T-V32-6-006 | Production readiness checklist: all systems > 90% | — | swarm-leader | `.nezam/core/reports/v3.2_RELEASE_APPROVAL.md` | Checklist 100%; each role lead sign-off captured |
+| T-V32-6-007 | Update README + CHANGELOG with v3.2 features + release notes | — | docs-hygiene | `README.md`, `CHANGELOG.md` | v3.2 section in CHANGELOG; README health table updated |
+| T-V32-6-008 | Tag `v3.2.0` on Master; trigger release workflow | ADR-0002 | gitops-engineer | GitHub / `release.yml` | Tag created; release artifact generated; deploy-deferred note in release |
+
+**assigned_tool:** cursor  
+**Exit criteria:** All runbooks indexed; regression clean; release approval documented; v3.2.0 tagged.
+
+---
+
+## Traceability (extended for v3.2)
 
 | AC-ID | Spec | Implementation target |
 |---|---|---|
@@ -193,13 +324,17 @@ Exit criteria: readiness GO for tag+PR; CHANGELOG 0.2.0 finalized; release confi
 | F-003-AC-1 | F-003 | `.nezam/core/scripts/checks/` |
 | SPEC-QA-001..009 | T-Q-001..009 | `.nezam/design-hub/{src,app,tests}` |
 | SPEC-AX/PERF/UX-001 | T-P4-001..003 | `.nezam/design-hub/{app,src}` |
+| ADR-0002 | T-V32-2-001..006 | `.github/workflows/`, `.nezam/core/docs/` |
+| ADR-0003 | T-V32-3-001..006 | `.github/`, `.nezam/core/{docs,meta,reports}/` |
+| ADR-0004 | T-V32-5-001..004 | `.nezam/design-hub/`, `.nezam/core/reports/` |
+| ADR-0005 | T-V32-4-001..006 | `.nezam/design-hub/`, `.nezam/core/gates/`, `wireframes_locked.json` |
 
 ---
 
 ## Next legal command
 
 ```
-/develop start
+/develop start   # begin v3.2-P1 (Foundation hardening)
 ```
 
 Prerequisites: `planning_complete: true`, `PROJECT_SCAFFOLD.md` confirmed, `wireframes_locked.json` present.

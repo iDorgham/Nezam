@@ -97,7 +97,7 @@ Before any design output leaves DESIGN-10:
 - `.agents/skills/impeccable/reference/color-and-contrast.md`
 - `.agents/skills/impeccable/reference/responsive-design.md`
 - `.gemini/config/plugins/design-intelligence/skills/anti-slop-validator/SKILL.md`
-- `.gemini/config/plugins/design-intelligence/skills/typeui-fundamentals-loader/SKILL.md`
+- `.cursor/skills/design/nezam-design-tokens/SKILL.md`
 - `docs/reference/typeui-main/skills/fundamentals/ux-principles.md`
 - `docs/reference/typeui-main/skills/fundamentals/accessibility.md`
 

@@ -26,7 +26,7 @@ This agent is the **conductor**. It does not write blocks itself — it dispatch
 | Block layout | `wireframes_locked.json#pages[].block_layout[]` |
 | Active theme | `DESIGN.md` frontmatter |
 | Locale | runtime (`ltr` / `rtl`) |
-| Skills | `website-wireframes-engine`, `fixed-layout-composer`, `impeccable-wireframe-craft` |
+| Skills | `nezam-wireframe-pipeline`, `nezam-impeccable` |
 
 ## Workflow
 

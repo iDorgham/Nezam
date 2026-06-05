@@ -1,16 +1,28 @@
-name: NEZAM Weekly Sync Drift Check
+name: NEZAM Sync Drift Check
 
 on:
+  pull_request:
+    paths:
+      - '.cursor/**'
+      - '.claude/**'
+      - '.gemini/**'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'GEMINI.md'
+      - '.nezam/core/scripts/sync/**'
+      - 'package.json'
   schedule:
     - cron: '0 10 * * 1' # Mondays 10:00 AM UTC
-  workflow_dispatch: # Enable manual triggering
+  workflow_dispatch:
 
 permissions:
   contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
-  weekly-drift-check:
-    name: Weekly Health and Drift Audit
+  drift-check:
+    name: Sync Drift Check
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -28,37 +40,80 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run YAML State Verification
+      - name: Run YAML state verification
         run: pnpm verify:yaml
 
-      - name: Run Nezam Swarm and Drift Audit
-        id: check_drift
+      - name: Compute sync drift
+        id: drift
         run: |
-          # Run the standard check suite
-          pnpm ai:check
-          
-          # Compute metrics for report
-          orphaned_count=$(node -e "const r = require('./.cursor/state/skills-registry.json'); console.log(r.orphaned_skills.length)")
-          unresolved_count=$(node -e "const r = require('./.cursor/state/skills-registry.json'); console.log(r.unresolved_skill_refs.length)")
-          
-          echo "Orphaned Skills: $orphaned_count"
-          echo "Unresolved Refs: $unresolved_count"
-          
-          # Check active drift against git status
-          pnpm ai:sync --status
-          
-          # Print out reports
-          echo "weekly_health_report=success" >> $GITHUB_OUTPUT
+          set -euo pipefail
 
-      - name: Slack Alert on Failure
-        if: failure()
+          # Regenerate all AI mirror targets from canonical .cursor/
+          pnpm ai:sync
+
+          # Count files that changed after sync (mirrors were stale)
+          drifted=$(git diff --name-only -- ':!pnpm-lock.yaml' ':!node_modules' | wc -l | tr -d ' ')
+
+          # Denominator: total files managed across all mirror targets
+          total=$(git ls-files -- '.claude' '.gemini' 'AGENTS.md' 'CLAUDE.md' 'GEMINI.md' | wc -l | tr -d ' ')
+          # Fallback: if mirror targets not yet tracked, count committed candidates
+          if [ "$total" -eq 0 ]; then
+            total=$(find .claude .gemini -type f 2>/dev/null | wc -l | tr -d ' ')
+          fi
+
+          if [ "$total" -gt 0 ]; then
+            drift_pct=$(awk "BEGIN {printf \"%.2f\", $drifted * 100 / $total}")
+          else
+            drift_pct="0.00"
+          fi
+
+          echo "drifted=$drifted" >> "$GITHUB_OUTPUT"
+          echo "total=$total" >> "$GITHUB_OUTPUT"
+          echo "drift_pct=$drift_pct" >> "$GITHUB_OUTPUT"
+
+          echo "Drift: $drifted / $total mirror files = ${drift_pct}%"
+
+          if [ "$drifted" -gt 0 ]; then
+            echo ""
+            echo "❌ Mirror drift detected — ${drift_pct}% of managed files out of sync."
+            echo "   Run \`pnpm ai:sync\` locally and commit the diff."
+            echo ""
+            git diff --stat -- ':!pnpm-lock.yaml' ':!node_modules' | head -50
+            exit 1
+          fi
+
+          echo "✅ All mirrors in sync — 0 / $total files drifted (0.00%)"
+
+      - name: Run AI check suite
+        run: pnpm ai:check
+
+      # Slack alert runs on scheduled/manual runs only when drift exceeds 1%.
+      # PR failures are surfaced directly in GitHub checks — no Slack needed there.
+      - name: Slack alert on drift > 1%
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DRIFT_PCT: ${{ steps.drift.outputs.drift_pct }}
+          DRIFTED: ${{ steps.drift.outputs.drifted }}
+          TOTAL: ${{ steps.drift.outputs.total }}
         run: |
-          if [ -n "$SLACK_WEBHOOK_URL" ]; then
-            curl -X POST -H 'Content-type: application/json' \
-              --data '{"text":"🚨 *NEZAM Weekly Sync Drift Check Failed!* One or more validation checks (drift, YAML, or swarm integrity) are failing in the repository. Please review the GitHub Actions run immediately."}' \
-              $SLACK_WEBHOOK_URL
-          else
-            echo "Slack Webhook URL is not configured. Skipping alert."
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL not configured. Skipping Slack alert."
+            exit 0
           fi
+
+          # Only page Slack if the numeric drift threshold was exceeded (> 1%).
+          # Other failures (YAML errors, ai:check) use a softer warning message.
+          threshold_exceeded=false
+          if [ -n "${DRIFT_PCT:-}" ] && awk "BEGIN {exit (${DRIFT_PCT} > 1) ? 0 : 1}" 2>/dev/null; then
+            threshold_exceeded=true
+          fi
+
+          if [ "$threshold_exceeded" = "true" ]; then
+            payload=$(printf '{"text":"🚨 *NEZAM Sync Drift Alert* — drift exceeded 1%% threshold!\nDrifted: %s/%s files (%s%%)\nRun `pnpm ai:sync` locally and commit the diff.\nRun: %s"}' \
+              "${DRIFTED:-?}" "${TOTAL:-?}" "${DRIFT_PCT:-?}" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID")
+          else
+            payload='{"text":"⚠️ *NEZAM Weekly Drift Check Failed* — YAML validation or AI check suite failing. Review the Actions run: '"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'"}'
+          fi
+
+          curl -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"

@@ -275,12 +275,68 @@ Architecture doc must stay aligned with `DESIGN.md` and locked wireframes before
 
 ---
 
+## 13. v3.2 Architecture amendments
+
+> Added 2026-06-05. Targets health 65/100 → 100/100 by 2026-06-25.
+
+### 13.1 CI/CD (ADR-0002)
+
+Two-tier gate model:
+- **Tier 1** (PR, < 4 min): lint · typecheck · sync-drift · SDD gates · 7 design gates
+- **Tier 2** (nightly/release): full tests · lhci perf budget · CodeQL · semantic-release
+
+Branch strategy: `feature/*` → `Master` (PR + Tier-1); `Master` → `release/*` (Tier-2 + human gate).
+
+New files: `.github/workflows/codeql-analysis.yml`, `.nezam/core/docs/CI_FAILURE_GUIDE.md`.
+
+### 13.2 Security (ADR-0003)
+
+GitHub-native scanning only (no external service):
+- **CodeQL**: PR + push to Master; critical/high block merge
+- **DependaBot**: weekly pnpm updates; patch/minor auto-PR, major = manual
+- **Secret scanning + push protection**: all pushes
+
+Severity thresholds: critical → block; high → 48h SLA; moderate → advisory.
+
+New files: `.github/dependabot.yml`, `.nezam/core/docs/SECURITY_RUNBOOK.md`, `.nezam/core/meta/SECURITY_BASELINE.md`.
+
+### 13.3 Observability (ADR-0004)
+
+Design Hub runtime:
+- **Sentry** (`@sentry/nextjs`): error + perf tracking
+- **Vercel Analytics** or `web-vitals`: Web Vitals per route in production
+- **PostHog** (optional): product event analytics
+
+Kit-level:
+- `ci-health-check.yml` (weekly summary)
+- `sync-drift-check.yml` alerts at > 1% drift
+
+Perf budget: LCP < 2.5s · CLS < 0.1 · INP < 200ms enforced in nightly lhci.
+
+New files: `.nezam/core/reports/PERF_BASELINE.md`, `.nezam/core/docs/OBSERVABILITY_RUNBOOK.md`.
+
+### 13.4 Wireframe bridge (ADR-0005)
+
+- `wireframes_locked.json` schema bumped to v2.0 (adds `block_count`, `figma_synced`, `figma_frame_ids`)
+- SCAFFOLD gate: `GATE-WF-02` — `block_registry.json` must have no empty `properties` arrays
+- Figma MCP: optional bridge; `FIGMA_ACCESS_TOKEN` in `.env.local`; does not alter core SDD contract
+- New runbooks: `WIREFRAME_RUNBOOK.md`, `DESIGN_TO_CODE.md`
+
+### 13.5 Agent orchestration improvements
+
+- `agent-status.yaml` extended: `last_sync`, `certified_agents`, `versioning`, `sync_drift_threshold`
+- Weekly drift detection via `sync-drift-check.yml`
+- Lazy-load protocol stays in `agent-lazy-load.mdc`; no architectural change needed
+
+---
+
 ## Decision amendments
 
 | Date | Field | Previous | New | Reason | Approved by |
 |---|---|---|---|---|---|
 | 2026-05-28 | Canonical path | (none) | `.nezam/core/architecture/ARCHITECTURE.md` | `/PLAN architecture` output location | PM-01 |
+| 2026-06-05 | Document version | 1.0 | 1.1 | v3.2 additions: §13 CI/CD, Security, Observability, Wireframe bridge | PM-01 |
 
 ---
 
-*Sources: PRD v2.0.0 · `DESIGN.md` · `.nezam/design-hub/package.json` · `plan_progress.yaml` · archive design-server stub*
+*Sources: PRD v2.0.0 · `DESIGN.md` · `.nezam/design-hub/package.json` · `plan_progress.yaml` · ROADMAP_v3.2_HEALTH_100.md · ADR-0002 through ADR-0005*

@@ -1,8 +1,9 @@
 # NEZAM State Schema — agent-status.yaml
-# schema_version: 1.0.0
+# schema_version: 2.0.0
 # Used by: sdd-gate-validator, /check repair
+# v2.0.0: Formalized v3.2 fields — last_sync, certified_agents, versioning, sync_drift_threshold, drift_check_interval
 
-schema_version: "1.0.0"
+schema_version: "2.0.0"
 
 defaults:
   created: ""
@@ -78,18 +79,40 @@ fields:
 
   session_resume_prompt:
     type: string
+    required: false
+
   last_sync:
     type: string
+    format: "ISO8601"
+    required: false
+    note: "ISO 8601 datetime — e.g. 2026-06-05T00:20:00Z. Set by pnpm ai:sync."
+
   certified_agents:
     type: array
+    required: false
+    min_items: 0
     items:
       type: string
+    note: "Agent IDs confirmed present and schema-valid in .cursor/agents/"
+
   versioning:
     type: string
+    required: false
+    pattern: "\\d+\\.\\d+\\.\\d+"
+    note: "SemVer — bumped on schema or swarm structure changes"
+
   sync_drift_threshold:
     type: float
+    required: false
+    min: 0.0
+    max: 1.0
+    note: "Fraction (0.0–1.0). Drift above this value triggers ai:check alert."
+
   drift_check_interval:
     type: string
+    required: false
+    allowed: ["weekly", "daily", "monthly"]
+    default: "weekly"
 
 rules:
   - id: R1
@@ -97,3 +120,21 @@ rules:
     check: "pending_handoff.status in [pending, delivered, none]"
     auto_repair: true
     repair_logic: "Set to none"
+
+  - id: R2
+    description: "sync_drift_threshold must be between 0.0 and 1.0 inclusive"
+    check: "sync_drift_threshold >= 0.0 and sync_drift_threshold <= 1.0"
+    auto_repair: false
+    on_violation: "warn — surface to user, default is 0.005"
+
+  - id: R3
+    description: "drift_check_interval must be a valid enum value"
+    check: "drift_check_interval in [weekly, daily, monthly]"
+    auto_repair: true
+    repair_value: "weekly"
+
+  - id: R4
+    description: "versioning must follow SemVer pattern"
+    check: "versioning matches \\d+\\.\\d+\\.\\d+"
+    auto_repair: false
+    on_violation: "warn — surface to user"

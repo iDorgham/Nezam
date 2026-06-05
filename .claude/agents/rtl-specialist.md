@@ -26,9 +26,8 @@ when: ["/PLAN localization", "/PLAN design", "RTL regression", "Arabic typograph
 - Bidi text test cases (LTR-in-RTL, numbers, punctuation, embedded URLs).
 
 # @skill nezam-Dependencies
-- `@css-architecture-runtime`
-- `@token-grid-typography`
-- `@brand-visual-direction`
+- `@nezam-design-tokens`
+- `@nezam-brand-visual-direction`
 - `@motion-3d-progressive`
 - `@nezam-a11y-automation`
 

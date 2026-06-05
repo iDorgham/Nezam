@@ -251,7 +251,7 @@ jobs:
 
             const comment = `## 🚀 SDD Phase Gate Report
 
-**Phase**: \`${phase}\`
+Phase: \`${phase}\`
 
 ### Gate Status
 | Gate | Status |

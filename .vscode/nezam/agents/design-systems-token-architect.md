@@ -35,7 +35,7 @@ when: ["/PLAN design", "token audit", "component review", "/SCAN code", "/SCAN p
 # @skill nezam-Dependencies
 - `@nezam-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-motion-3d`
+- `@nezam-motion-choreography-budgeted`
 
 # Anti-Patterns
 - Token duplication or semantic alias collisions.
@@ -72,11 +72,10 @@ Design Systems Token Architect governs the design-token contract and component-l
 - Component token consumption contract examples.
 
 # @skill nezam-Dependencies
-- `@token-grid-typography`
-- `@css-architecture-runtime`
-- `@component-library-api`
-- `@brand-visual-direction`
-- `@motion-3d-progressive`
+- `@nezam-design-tokens`
+- `@nezam-component-library-api`
+- `@nezam-brand-visual-direction`
+- `@nezam-motion-choreography-budgeted`
 
 # Anti-Patterns
 - Duplicate or conflicting token names for identical intent.

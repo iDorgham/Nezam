@@ -1,0 +1,120 @@
+name: Silent Deploy (Vercel + Slack)
+
+on:
+  push:
+    branches: [Master]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deploy to staging or prod'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - prod
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging (Vercel)
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/Master'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel (Staging)
+        uses: vercel/action@v5
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_STAGING }}
+          environment: staging
+        id: vercel
+
+      - name: Log deployment
+        run: |
+          mkdir -p .nezam/logs
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | Staging | ${{ github.ref }} | ${{ steps.vercel.outputs.deployment-url }} | ✅" >> .nezam/logs/deployments.log
+
+      - name: Notify Slack (Staging)
+        uses: slackapi/slack-github-action@v1.24.0
+        if: success()
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "🚀 Deployed to staging",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Design Hub → Staging\n*Version:* ${{ github.ref }}\n*URL:* <${{ steps.vercel.outputs.deployment-url }}|View staging>\n*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                  }
+                }
+              ]
+            }
+
+  deploy-prod:
+    name: Deploy to Production (Vercel)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'prod'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel (Production)
+        uses: vercel/action@v5
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_PROD }}
+          environment: production
+        id: vercel
+
+      - name: Log deployment
+        run: |
+          mkdir -p .nezam/logs
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | Production | ${{ github.ref }} | ${{ steps.vercel.outputs.deployment-url }} | ✅" >> .nezam/logs/deployments.log
+
+      - name: Notify Slack (Production)
+        uses: slackapi/slack-github-action@v1.24.0
+        if: success()
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "🚀 🚀 🚀 Deployed to PRODUCTION",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Design Hub → Production\n*Version:* ${{ github.ref }}\n*URL:* <https://design-hub.vercel.app|View production>\n*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>"
+                  }
+                }
+              ]
+            }
+
+  notify-deployment-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Notify Slack (Failure)
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "❌ Deployment failed",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Deployment failed for Design Hub\n*Commit:* <${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|${{ github.sha }}>\n*Action:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
+                  }
+                }
+              ]
+            }
+

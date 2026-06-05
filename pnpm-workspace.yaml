@@ -1,3 +1,4 @@
 packages:
   - '.nezam/design-hub'
   - '.nezam/docs-site'
+  - 'packages/antigravity'

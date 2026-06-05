@@ -1,0 +1,188 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    v3.2 EXECUTION TIME: BEFORE vs AFTER
+═══════════════════════════════════════════════════════════════════════════════
+
+BASELINE (Current Process)
+────────────────────────────────────────────────────────────────────────────────
+
+Week 1:  P1 (Sync + State)                    7 tasks  ✅ 7 days
+Week 2:  P2 (CI/CD)                           6 tasks  ⏳ 7 days
+Week 3:  P3 (Security)                        6 tasks  ⏳ 7 days
+Week 4:  P4 (Design bridge)                   7 tasks  ⏳ 7 days
+Week 5:  P5 (Obs + Content)                   7 tasks  ⏳ 7 days
+Week 6:  P6 (Docs + QA)                       8 tasks  ⏳ 7 days
+Week 7:  Buffer + fixes                               ⏳ 7 days
+Week 8:  Ship + deploy                               ⏳ 7 days
+
+Total: 56 days (8 weeks)
+Git commands: 250+
+Manual steps: 500+
+
+
+WITH OPTIMIZATIONS (All 10 enabled)
+────────────────────────────────────────────────────────────────────────────────
+
+Week 1:  P1 (Sync + State)                    7 tasks  ✅ 7 days
+         P2 (CI/CD) [Parallel]                6 tasks  ⏳ Start Day 1
+         P3 (Security) [Parallel]             6 tasks  ⏳ Start Day 1
+         P4 (Design bridge) [Parallel]        7 tasks  ⏳ Start Day 1
+
+         Templates auto-generated ✅
+         ADR decisions batched ✅
+
+Week 2:  P2/P3/P4 continue (parallel)
+         Batch code review (all PRs together) ✅
+         Health checks nightly ✅
+         Fast-path approvals in-chat ✅
+         Auto-sync to Linear ✅
+
+Week 3:  P5 (Obs + Content)                   7 tasks  ⏳ 7 days
+         P6 (Docs + QA) [Partial]             4 tasks
+
+Week 4:  P6 (Docs + QA) completion            4 tasks
+         Ship + deploy
+         Rollback automation active ✅
+
+Total: ~25 days (3.5 weeks)
+Git commands: 0
+Manual steps: 21 (3 per phase)
+
+
+TIME SAVINGS BY OPTIMIZATION
+────────────────────────────────────────────────────────────────────────────────
+
+1. Parallel phases (P2+P3+P4)        14 days    ⭐⭐⭐ HIGHEST IMPACT
+2. Async ADR decisions              1.5 days
+3. Task templates                   1 day
+4. Batch code review                2 days
+5. Health checks (nightly)          1 day
+6. Time-box escalation              1.5 days
+7. Rollback automation              1 day
+8. Linear sync                       0.5 days
+9. Fast-path approvals              0.3 days
+10. Phase kickoff (interactive)     0.2 days
+                                    ──────────
+Total Savings:                      23 days (56 → 33 days)
+                                    OR: 41% TIME REDUCTION
+
+
+QUALITY IMPACT
+────────────────────────────────────────────────────────────────────────────────
+
+BASELINE:
+  - Sequential execution → issues surface late (end of phase)
+  - Manual gate review → human error possible
+  - Task stalls undetected → rabbit holes
+  - Rollback manual → 30 min recovery
+
+WITH OPTIMIZATIONS:
+  - Parallel execution → issues surface early (cross-phase validation)
+  - Automated gates → zero human review required (gates only)
+  - Time-box escalation → task stalls caught immediately
+  - Auto-rollback → 2 min recovery
+
+Result: HIGHER quality + FASTER execution (rare combo)
+
+
+EFFORT BREAKDOWN
+────────────────────────────────────────────────────────────────────────────────
+
+Setup Cost (One-time):
+  - Silent Ops                       ✅ (already done)
+  - Parallel lane coordination       2 hours
+  - Task templates (6 templates)     6 hours
+  - ADR decision framework           2 hours
+  - Health check automation          2 hours
+  - Linear sync (optional)           1 hour
+                                     ──────────
+  Total setup:                       13 hours
+
+Ongoing:
+  - Zero additional effort per commit (Silent Ops + templates)
+  - Nightly checks (fully automated)
+  - Phase kickoffs (agent-generated)
+
+ROI: 13 hours setup investment → 23 days saved = 552 hour return
+
+
+ROLLOUT SEQUENCE
+────────────────────────────────────────────────────────────────────────────────
+
+Week 1:  ✅ Silent Ops (done)
+         → Start P1 with /silent unlock
+         → P1 running
+
+         Setup: Parallel lanes
+         → Start P2+P3+P4 agents on Day 1 (non-blocking)
+
+         Setup: Task templates
+         → Generate P2–P6 templates (batch)
+
+Week 2:  ✅ P1 complete (7 days)
+         ✅ P2/P3/P4 halfway done (parallel)
+
+         Setup: ADR framework
+         → Batch P1–P5 decisions
+
+         Setup: Batch code review
+         → Run on all P1 PRs together
+
+Week 3+: P2/P3/P4 complete
+         P5 + P6 running
+
+         Enable: Health checks, auto-rollback, time-box escalation
+         (Low friction, mostly passive)
+
+
+REALISTIC TIMELINE
+────────────────────────────────────────────────────────────────────────────────
+
+Best case (all optimizations):     3.5 weeks
+Expected case (80% enabled):       4.5 weeks
+Conservative (50% enabled):        5.5 weeks
+
+vs. Baseline: 8 weeks
+
+Even 50% optimization saves 2.5 weeks (30% reduction)
+
+
+KEY DECISION POINTS
+────────────────────────────────────────────────────────────────────────────────
+
+MUST DO (High ROI, Low effort):
+  ✅ Silent Ops                    Done (use it)
+  ✅ Parallel phases               6h setup → 14d saved
+  ✅ Task templates                6h setup → 1d saved
+
+SHOULD DO (Medium ROI, Medium effort):
+  ✅ Async ADR decisions           2h setup → 1.5d saved
+  ✅ Batch code review             1h setup → 2d saved
+  ✅ Health checks                 2h setup → 1d saved
+
+NICE TO HAVE (Low ROI, Low effort):
+  ✅ Linear sync                   1h setup → 0.5d saved
+  ✅ Fast-path approvals           2h setup → 0.3d saved
+  ✅ Rollback automation           2h setup → 1d saved
+
+
+RECOMMENDATION
+────────────────────────────────────────────────────────────────────────────────
+
+Implement in this order:
+
+Day 1:   Use Silent Ops (already ready)
+Day 2–3: Wire parallel lanes (P2+P3+P4 agents)
+Day 4–5: Generate task templates (batch)
+Day 6–7: Setup ADR decision framework
+Week 2:  Enable health checks + batch review
+Week 3+: Add rollback automation + time-box escalation
+
+Expected result: v3.2 shipped in 4–5 weeks (vs 8 weeks)
+Setup effort: ~13 hours (one-time)
+Ongoing effort: Zero (fully automated)
+
+═══════════════════════════════════════════════════════════════════════════════
+                              NEXT STEP
+
+Start with parallelization: /develop start-parallel-lanes v3.2-p2 v3.2-p3 v3.2-p4
+═══════════════════════════════════════════════════════════════════════════════

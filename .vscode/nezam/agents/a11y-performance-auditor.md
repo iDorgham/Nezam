@@ -25,7 +25,7 @@ when: ["pre-/DEVELOP gate", "/SCAN a11y", "/SCAN perf", "motion audit", "release
 - Prioritized remediation plan aligned to `/FIX`.
 
 # @skill nezam-Dependencies
-- `@nezam-motion-3d`
+- `@nezam-motion-choreography-budgeted`
 - `@nezam-component-library-api`
 - `@nezam-design-tokens`
 - `@nezam-multi-agent-handoff`
@@ -62,11 +62,10 @@ A11y & Performance Auditor is the final gatekeeper for interaction quality, rend
 - Remediation priority list with smallest-safe-fix guidance.
 
 # @skill nezam-Dependencies
-- `@css-architecture-runtime`
-- `@motion-3d-progressive`
-- `@component-library-api`
-- `@token-grid-typography`
-- `@brand-visual-direction`
+- `@nezam-design-tokens`
+- `@nezam-motion-choreography-budgeted`
+- `@nezam-component-library-api`
+- `@nezam-brand-visual-direction`
 
 # Anti-Patterns
 - Waiving failing gates without documented decision records.

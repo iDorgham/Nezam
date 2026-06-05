@@ -25,7 +25,7 @@ when: ["/PLAN design", "motion spec validation", "3d fallback review", "/SCAN pe
 - Reduced-motion parity checklist and test notes.
 
 # @skill nezam-Dependencies
-- `@nezam-motion-3d`
+- `@nezam-motion-choreography-budgeted`
 - `@nezam-design-tokens`
 - `@nezam-component-library-api`
 
@@ -61,11 +61,10 @@ Motion & 3D Choreographer designs interaction motion and progressive 3D storytel
 - Audit checklist for layout-safe animation behavior.
 
 # @skill nezam-Dependencies
-- `@motion-3d-progressive`
-- `@token-grid-typography`
-- `@css-architecture-runtime`
-- `@component-library-api`
-- `@brand-visual-direction`
+- `@nezam-motion-choreography-budgeted`
+- `@nezam-design-tokens`
+- `@nezam-component-library-api`
+- `@nezam-brand-visual-direction`
 
 # Anti-Patterns
 - Layout-triggering animations (top/left/width/height).

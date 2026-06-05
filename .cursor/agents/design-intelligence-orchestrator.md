@@ -20,7 +20,7 @@ Lead agent for all design tasks in the NEZAM swarm. Receives design requests, de
 
 ## Skills Used (Always Load)
 1. `.cursor/skills/design/design-intelligence-index/SKILL.md` — routing table
-2. `.cursor/skills/design/source-library-loader/SKILL.md` — reference loading
+2. `.cursor/skills/design/design-intelligence-index/SKILL.md` — reference loading
 3. `.cursor/skills/impeccable/SKILL.md` — design methodology
 
 ## Opt-in external design stacks
@@ -42,7 +42,7 @@ a11y-level: AA | AAA
 ```
 
 ### Step 2: Load References
-Run `source-library-loader` skill with the classified profile.
+Run `nezam-design-intelligence-index` skill with the classified profile.
 
 ### Step 3: Select Style
 - If brand named → `design-md-lookup` skill → load brand DESIGN.md

@@ -17,6 +17,14 @@ tasks: true
 tasks_completed_at: "2026-05-29T12:30:00Z"
 planning_complete: true
 planning_completed_at: "2026-05-29T12:30:00Z"
+
+# v3.2 planning cycle
+v32_arch_complete: true
+v32_arch_completed_at: "2026-06-05T00:00:00Z"
+v32_tasks_complete: true
+v32_tasks_completed_at: "2026-06-05T00:00:00Z"
+v32_task_count: 38
+v32_adrs: ["ADR-0002", "ADR-0003", "ADR-0004", "ADR-0005"]
 canvas_graph_spec: true
 canvas_graph_spec_version: "SPEC-DS-CANVAS-001-v1.0.0"
 canvas_graph_spec_date: "2026-05-18"
@@ -27,6 +35,13 @@ scrumban_board:
   in_progress: []
   review: []
   done:
+    - T-V32-1-007  # Husky pre-commit verified (executable, runs ai:sync + re-stages mirrors + ai:check); CONTRIBUTING.md expanded — 2026-06-05
+    - T-V32-1-006  # SYNC_RUNBOOK.md — 10 sections: recovery, rollback, drift alert response, certified agents, archive — 2026-06-05
+    - T-V32-1-005  # sync-drift-check.yml promoted to blocking PR gate — PR trigger + numeric drift % + Slack alert >1% — 2026-06-05
+    - T-V32-1-004  # agent-status schema v2.0.0 — formalized last_sync/certified_agents/versioning/sync_drift_threshold/drift_check_interval — 2026-06-05
+    - T-V32-1-003  # verify:yaml exits 0 — fixed onboarding.schema.yaml + workflow warn-only, extended to 44 files — 2026-06-05
+    - T-V32-1-002  # Orphaned skills audit — 21 archived, DEPRECATED.md created, 16 agents fixed, 0 orphaned refs — 2026-06-05
+    - T-V32-1-001  # pnpm ai:sync + ai:check — 0 drift, exits 0 — 2026-06-05
     - T-P6-001  # Release-readiness report (GO tag+PR / HOLD prod deploy) — phase_6 complete 2026-06-03
     - T-P6-002  # CHANGELOG 0.2.0 finalized — phase_6 complete 2026-06-03
     - T-P6-003  # Release branch fix (main→Master) — phase_6 complete 2026-06-03

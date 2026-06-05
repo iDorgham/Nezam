@@ -1,0 +1,64 @@
+name: Silent Release (semantic-release on Master)
+
+on:
+  push:
+    branches: [Master]
+
+jobs:
+  release:
+    name: Create Release & Tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm dlx semantic-release
+
+      - name: Get new version
+        id: version
+        run: |
+          VERSION=$(cat package.json | grep '"version"' | head -1 | awk -F'"' '{print $4}')
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Comment on commit with release info
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.git.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: '✅ **Released v${{ steps.version.outputs.VERSION }}**\n\nChangelog updated, tag created, ready for deploy.'
+            });
+
+      - name: Update .nezam/logs/releases.log
+        run: |
+          mkdir -p .nezam/logs
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) | v${{ steps.version.outputs.VERSION }} | Master | semantic-release" >> .nezam/logs/releases.log
+
+      - name: Commit release log
+        if: success()
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: Master
+          force: false
+          message: 'chore: log release v${{ steps.version.outputs.VERSION }}'
+

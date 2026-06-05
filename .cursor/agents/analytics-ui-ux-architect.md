@@ -61,7 +61,7 @@ Mastery of bidirectional (RTL/LTR) grid layouts, card alignments, Masri numerals
 - `analytics-chart-designer.md`
 
 ## Related Skills
-- `@nezam-dashboard-ia-patterns`
+- `@nezam-dashboard-patterns`
 - `@nezam-analytics-observability`
 - `@nezam-analytics-chart-types`
 - `@nezam-analytics-chart-styles`

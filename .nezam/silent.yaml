@@ -1,0 +1,273 @@
+# Silent Operations Configuration
+# Controls automated branching, commits, PRs, merging, releases, and deploys
+
+version: 1.0
+tier: standard  # lite | standard | enterprise
+
+# TIER DEFINITIONS:
+# - lite: Solo MVP, move fast (auto-merge, single gate, no review)
+# - standard: Small team, quality matters (auto-merge with approval, 5 gates)
+# - enterprise: Large team, compliance (full gates, multi-stage deploy, audit)
+
+branching:
+  # Feature branch naming
+  prefix: feature/
+  pattern: "{version}-{phase}-{description}"
+  # Example: feature/v3.2-p1-foundation
+
+commits:
+  # Semantic commit format
+  conventional: true
+  # Automatically link task IDs in commit body
+  task_linking: true
+  # Auto-format commit messages
+  auto_format: true
+  # Example: "feat(v3.2-P1): pnpm ai:sync [T-V32-1-001]"
+
+pr:
+  # Create PR automatically
+  auto_create: true
+
+  # Draft PRs for all tiers
+  draft_lite: false
+  draft_standard: true
+  draft_enterprise: true
+
+  # Require approval
+  require_approval_lite: false
+  require_approval_standard: true
+  require_approval_enterprise: true
+
+  # Auto-add reviewers
+  auto_reviewers:
+    lite: []
+    standard: [dorgham]
+    enterprise: [dorgham]
+
+  # Auto-comment with task checklist
+  auto_checklist: true
+
+  # Example checklist:
+  # - [ ] AC1: pnpm ai:check < 0.5%
+  # - [ ] AC2: All gates pass
+  # - [ ] AC3: Task AC met
+
+gates:
+  # Which gates run for each tier
+  lite:
+    - lint
+    - test
+  standard:
+    - lint
+    - test
+    - security
+    - design-gates
+    - integration
+  enterprise:
+    - lint
+    - test
+    - security
+    - design-gates
+    - integration
+    - a11y
+    - performance
+
+  # Timeout per gate (seconds)
+  timeout: 600  # 10 minutes
+
+  # Retry failed gates
+  retry_failed: false
+  retry_attempts: 0
+
+  # Comment on PR for failed gates
+  comment_failures: true
+
+merge:
+  # Auto-merge when gates pass
+  auto_merge_lite: true
+  auto_merge_standard: false
+  auto_merge_enterprise: false
+
+  # Merge strategy
+  squash_lite: true
+  squash_standard: false
+  squash_enterprise: false
+
+  # Delete branch after merge
+  delete_branch: true
+
+  # Require all reviews dismissed
+  dismiss_reviews: false
+
+release:
+  # Auto-release on Master push
+  auto_release: true
+
+  # Release tool
+  tool: semantic-release
+
+  # Version bumping
+  conventional_commits: true
+
+  # CHANGELOG generation
+  generate_changelog: true
+
+  # Auto-tag
+  auto_tag: true
+
+deploy:
+  # Deploy strategies per tier
+  staging:
+    lite:
+      auto: true         # Auto-deploy on Master
+      environment: staging
+    standard:
+      auto: true
+      environment: staging
+    enterprise:
+      auto: false        # Approval-gated
+      environment: staging
+
+  production:
+    lite:
+      auto: false        # Always approval-gated
+      environment: production
+    standard:
+      auto: false
+      environment: production
+    enterprise:
+      auto: false
+      approval_required: true
+      # Multi-region deploy
+      regions: [us, eu]
+
+  # Webhook notifications
+  notify:
+    slack: true
+    github: true
+    datadog: false
+
+  # Health checks after deploy
+  health_check: true
+  health_check_timeout: 300  # 5 minutes
+
+logging:
+  # Log all operations
+  enabled: true
+
+  # Log location
+  directory: .nezam/logs
+
+  # Log files
+  silent_ops: silent-ops.log
+  deployments: deployments.log
+  releases: releases.log
+
+  # Log level
+  level: info  # debug | info | warn | error
+
+  # Audit trail (for enterprise)
+  audit_trail: true
+
+notifications:
+  # Slack integration
+  slack:
+    enabled: true
+    webhook: ${{ secrets.SLACK_WEBHOOK }}
+    channels:
+      commits: '#dev'
+      prs: '#dev'
+      merges: '#dev'
+      deploys: '#deploys'
+      failures: '#alerts'
+
+  # GitHub integration
+  github:
+    enabled: true
+    # Auto-comment on PRs/issues
+    auto_comment: true
+
+  # Email (optional)
+  email:
+    enabled: false
+    on: ['failure', 'deploy']
+
+approval:
+  # Approval strategy
+  strategy_lite: none
+  strategy_standard: single_review
+  strategy_enterprise: multiple_reviews
+
+  # Approval timeout (seconds)
+  timeout: 86400  # 24 hours
+
+  # Auto-dismiss stale approvals
+  auto_dismiss_on_push: true
+
+scheduling:
+  # Run gates only during business hours (optional)
+  business_hours: false
+
+  # Run nightly extended tests
+  nightly_tests: true
+  nightly_time: "02:00"  # 2 AM UTC
+
+  # Batch commits before submitting PR
+  batch_commits: false
+  batch_window: 3600  # 1 hour
+
+# OVERRIDE TIER SETTINGS PER BRANCH
+branch_overrides:
+  release/*:
+    tier: enterprise
+    auto_merge: false
+    require_approval: true
+
+  hotfix/*:
+    tier: standard
+    auto_merge: false
+    require_approval: true
+
+  docs/*:
+    tier: lite
+    gates: [lint]
+    auto_merge: true
+
+# TASK LINKING
+tasks:
+  # Link commits to task tracking system
+  enabled: true
+
+  # Extract task IDs from commit messages
+  pattern: 'T-[A-Z0-9]+-[0-9]+-[0-9]+'
+
+  # Update task status automatically
+  update_status: true
+
+  # Task status transitions
+  statuses:
+    on_commit: 'In Review'
+    on_pr_ready: 'In Review'
+    on_merge: 'Done'
+    on_deploy: 'Deployed'
+
+# COMPLIANCE & AUDIT (Enterprise only)
+compliance:
+  # Require DCO (Developer Certificate of Origin)
+  dco: false
+
+  # Signed commits
+  signed_commits: false
+
+  # Audit trail
+  audit_trail: true
+
+  # Compliance checks
+  checks:
+    - no_secrets
+    - no_vendor_lock_in
+    - license_check
+
+  # Export audit log
+  export_location: .nezam/logs/audit.log
+

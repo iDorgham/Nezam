@@ -37,7 +37,7 @@ DESIGN-01: Design Intelligence Orchestrator (Lead)
 │   └── DESIGN-13: visual-regression-automator.md
 │
 └── DESIGN-14: Lead Frontend Architect (Implementation)
-    ├── DESIGN-15: shadcn-advisor (skill, not agent)
+    ├── DESIGN-15: nezam-shadcn-ui (skill, not agent)
     ├── DESIGN-16: lead-modern-frontend-architect.md
     └── DESIGN-17: a11y-rtl-integration-engineer.md
 ```

@@ -1,0 +1,1 @@
+{"timestamp":"2026-06-05T23:02:29.689Z","level":"INFO","message":"Test structured log message","traceId":"12345","userId":"usr-1","env":"test"}

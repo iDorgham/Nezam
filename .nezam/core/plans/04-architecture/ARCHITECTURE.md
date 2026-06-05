@@ -4,8 +4,8 @@
 |---|---|
 | Document | ARCHITECTURE.md (planning copy) |
 | Canonical source | `.nezam/core/architecture/ARCHITECTURE.md` |
-| Status | Locked |
-| Last updated | 2026-05-29 |
+| Status | Amended (v3.2) |
+| Last updated | 2026-06-05 |
 
 > **Single source of truth:** `.nezam/core/architecture/ARCHITECTURE.md`  
 > This file exists under `.nezam/core/plans/04-arch/` for SDD pipeline traceability. On conflict, follow the canonical file.

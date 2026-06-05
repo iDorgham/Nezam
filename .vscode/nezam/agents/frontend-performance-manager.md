@@ -39,7 +39,7 @@ Hold the line on Core Web Vitals (LCP < 2.5s, CLS < 0.1, INP < 200ms), bundle si
 ## Primary skills / lenses
 
 - [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
-- [`.cursor/skills/nezam-motion-3d/SKILL.md`](../skills/nezam-motion-3d/SKILL.md)
+- [`.cursor/skills/design/nezam-motion-choreography-budgeted/SKILL.md`](../skills/design/nezam-motion-choreography-budgeted/SKILL.md)
 - [`.cursor/skills/nezam-cdn-optimization/SKILL.md`](../skills/infrastructure/nezam-cdn-optimization/SKILL.md)
 - [`.cursor/skills/nezam-cache-strategies/SKILL.md`](../skills/backend/nezam-cache-strategies/SKILL.md)
 

@@ -1,79 +1,280 @@
 # NEZAM Sync & Drift Recovery Runbook
 
-This runbook describes the workflow and maintenance procedures for keeping client IDE mirrors (`.claude/`, `.windsurf/`, etc.) in sync with the canonical `.cursor/` configuration, identifying sync drift, and recovering from state file corruption.
+**Owner:** docs-hygiene · **ADR:** ADR-0002 · **Last updated:** 2026-06-05
+
+This runbook covers keeping all AI tool mirrors in sync with canonical `.cursor/` configuration, detecting drift, recovering from failures, and rolling back bad sync states.
 
 ---
 
-## 1. When to Sync
+## 1. Mirror Architecture
 
-Mirrors must be kept in perfect synchronization to ensure all local AI agents are operating on the same design system guidelines and commands.
+The `.cursor/` folder is the **canonical source of truth** for all NEZAM workspace contracts (agents, skills, commands, rules). `pnpm ai:sync` generates read-only mirror copies for every supported AI tool:
 
-- **On Every Commit:** You must run `pnpm ai:sync` before pushing. A pre-commit hook is configured to handle this automatically on local commits.
-- **After Adding or Modifying Agents/Skills:** Any changes to `.cursor/agents/`, `.cursor/skills/`, `.cursor/rules/`, or `.cursor/commands/` require running `pnpm ai:sync` to propagate modifications to all tool client mirrors.
-- **On Pulling Main:** When pulling changes from remote, run `pnpm ai:sync` to ensure your local workspace mirrors are updated.
+| Tool ID | Mirror location | Files mirrored |
+|---|---|---|
+| `claude` | `.claude/` | commands, agents, skills, rules |
+| `gemini` | `.gemini/` | commands, agents, skills |
+| `copilot` | (root) | `AGENTS.md` |
+| `codex` | (root) | `AGENTS.md` |
+| `opencode` | (root) | `CLAUDE.md`, `AGENTS.md` |
+| `antigravity` | `.antigravity/` | commands, skills |
+| `qwen` | (root) | `AGENTS.md` |
+| `kilo` | (root) | `AGENTS.md` |
 
----
-
-## 2. Validation Checks
-
-Running `pnpm ai:check` performs an automated audit and reports on the following five core metrics:
-
-1. **Mirror File Drift:** Asserts that all generated files in mirrored client trees match the canonical source of truth exactly.
-2. **SDD Swarm Integrity:** Validates that the active swarm configuration does not contain circular dependencies or missing target agents.
-3. **Skill Frontmatter Validity:** Checks that every `SKILL.md` contains proper `version:`, `updated:`, and valid `tier:` declarations (must be exactly 1, 2, or 3).
-4. **Design Skills Parity:** Verifies that all design skills declared in `.nezam/core/gates/design-skills.yaml` exist and are correctly vendored.
-5. **YAML State Syntax:** Running `pnpm verify:yaml` ensures all system state configurations are well-formed and parseable.
+Never edit mirror files directly — changes are overwritten on next `pnpm ai:sync`.
 
 ---
 
-## 3. Resolving Common Drift Issues
+## 2. When to Sync
 
-### Issue: "Mirror drift detected" in CI
-**Cause:** Changes were committed to `.cursor/` files directly without running `pnpm ai:sync`.
-**Solution:**
-1. Pull the branch locally.
-2. Run `pnpm ai:sync` to regenerate the mirrors.
-3. Stage and commit the changed mirror files.
-4. Push to remote.
+Run `pnpm ai:sync` whenever any of these paths change:
 
-### Issue: "Missing SKILL.md" or "Design skill not vendored"
-**Cause:** An external design skill is listed in `.nezam/core/gates/design-skills.yaml` but missing from the local workspace.
-**Solution:**
-1. Run `pnpm skills:vendor-design` to re-vendor external skills.
-2. Run `pnpm ai:sync` to update client mirrors.
-3. Re-run `pnpm ai:check` to verify.
+| Changed path | Reason |
+|---|---|
+| `.cursor/agents/` | Agent definitions propagate to all tool mirrors |
+| `.cursor/skills/` | Skill SKILL.md files mirror to tool skill directories |
+| `.cursor/commands/` | Command prompt files mirror to tool command directories |
+| `.cursor/rules/` | Rules propagate to CLAUDE.md and other root contracts |
+| `.cursor/state/` | State YAML consumed by `ai:check` on next run |
+| `package.json` | Sync script version/config may have changed |
+
+The Husky pre-commit hook (`.husky/pre-commit`) runs `pnpm ai:sync` automatically on staged `.cursor/` changes. On CI, `sync-drift-check.yml` and `sync-and-drift-check.yml` both enforce this as a blocking gate.
 
 ---
 
-## 4. Recovery Steps for State File Corruption
+## 3. Daily Commands Reference
 
-If state files under `.cursor/state/` (e.g. `plan_progress.yaml` or `agent-status.yaml`) become corrupted or unparseable:
+```bash
+# Regenerate all mirrors from .cursor/ (standard sync)
+pnpm ai:sync
 
-1. **Verify parse errors:**
-   ```bash
-   pnpm verify:yaml
+# Check sync status without writing — exits 1 if any tool is drifted
+pnpm ai:status
+
+# Sync only one tool mirror (faster for targeted fixes)
+pnpm ai:sync --target=claude
+pnpm ai:sync --target=gemini
+
+# Run full check suite: drift + SDD integrity + skill frontmatter + design skills
+pnpm ai:check
+
+# Verify all governance YAML files parse cleanly
+pnpm verify:yaml
+
+# Run all checks together (used by CI)
+pnpm ai:check && pnpm verify:yaml
+```
+
+---
+
+## 4. Diagnosing Drift
+
+### Step 1 — Identify what drifted
+
+```bash
+pnpm ai:status
+# Output: per-tool ✓ / ⚠ status with file counts
+# Exit 1 if any tool is drifted
+```
+
+### Step 2 — Run full check
+
+```bash
+pnpm ai:check
+# Reports:
+# 1. Mirror file drift (files out of sync with .cursor/)
+# 2. SDD swarm integrity (no circular deps, no missing agents)
+# 3. Skill frontmatter validity (version/updated/tier fields)
+# 4. Design skills parity (.nezam/core/gates/design-skills.yaml)
+```
+
+### Step 3 — Verify YAML integrity
+
+```bash
+pnpm verify:yaml
+# Scans: .cursor/state/ (strict), .github/workflows/ (warn-only), .nezam/core/ (strict)
+# Exit 1 on any strict parse error
+```
+
+---
+
+## 5. Recovery — Common Failures
+
+### "Mirror drift detected" in CI (`sync-and-drift-check.yml` or `sync-drift-check.yml`)
+
+```
+❌ Mirror drift detected — X% of managed files out of sync.
+   Run `pnpm ai:sync` locally and commit the diff.
+```
+
+**Resolution:**
+1. Pull the branch
+2. `pnpm ai:sync`
+3. `git add .claude .gemini AGENTS.md CLAUDE.md GEMINI.md`
+4. `git commit -m "chore: sync AI mirrors after .cursor/ changes"`
+5. Push — CI will re-run and pass
+
+### "YAML parse error" in `.cursor/state/`
+
+**Resolution:**
+1. `pnpm verify:yaml` — identifies the specific file and line
+2. Open the file and fix the YAML syntax error
+3. Re-run `pnpm verify:yaml` until exit 0
+4. If the file is a critical state file and the error is not obvious, restore from git (see Section 6)
+
+### "Skill frontmatter invalid"
+
+```
+❌ .cursor/skills/design/nezam-some-skill/SKILL.md — missing field: tier
+```
+
+**Resolution:**
+1. Open the flagged SKILL.md
+2. Ensure the frontmatter has all three required fields:
+   ```yaml
+   ---
+   version: "1.0.0"
+   updated: "2026-06-05"
+   tier: 2
+   ---
    ```
-2. **Restore from Git:**
-   If the corruption is local and uncommitted, revert the state files to the last known good commit:
+3. `tier` must be exactly `1`, `2`, or `3` — no strings, no decimals
+4. Re-run `pnpm ai:check`
+
+### "Design skill not vendored"
+
+**Resolution:**
+1. Check `.nezam/core/gates/design-skills.yaml` to find the expected skill path
+2. Confirm the skill exists at the listed path
+3. If missing, either restore from git or re-vendor:
    ```bash
-   git restore .cursor/state/plan_progress.yaml .cursor/state/agent-status.yaml
+   pnpm skills:vendor-design
    ```
-3. **Run state recovery script:**
-   If the state was broken during an interactive session, run the repair script:
-   ```bash
-   bash .nezam/core/scripts/checks/repair-sdd-state.sh
-   ```
-4. **Check state integrity:**
-   Confirm the restored files match their schemas:
-   ```bash
-   pnpm check:state
-   ```
+4. `pnpm ai:sync` → `pnpm ai:check`
+
+### "Unresolved skill refs" in `skills-registry.json`
+
+These appear when agent files reference a skill ID that has no corresponding `SKILL.md`:
+
+1. Check `.cursor/state/skills-registry.json` → `unresolved_skill_refs` array
+2. For each unresolved ID, check `.cursor/skills/archive/DEPRECATED.md` to find the active replacement
+3. Update the agent file(s) that reference the stale ID
+4. `pnpm ai:sync && pnpm ai:check`
 
 ---
 
-## 5. Escalation Procedure
+## 6. Rollback Procedures
 
-If you encounter persistent sync issues or validation failures that cannot be resolved:
-1. Open a Slack thread in **#engineering-nezam** with the stdout output of `pnpm ai:check`.
-2. Attach the generated log from `.cursor/state/skills-registry.json`.
-3. Contact the **DevOps / Quality Lead** (`@devops-lead`) for manual pipeline overrides.
+### Rollback — Single state file (local, uncommitted corruption)
+
+```bash
+# Restore a single state file to last committed version
+git restore .cursor/state/agent-status.yaml
+git restore .cursor/state/plan_progress.yaml
+git restore .cursor/state/develop_phases.yaml
+```
+
+### Rollback — All state files (full state reset)
+
+```bash
+# Restore all .cursor/state/ files to last committed version
+git restore .cursor/state/
+```
+
+### Rollback — Mirror files only (re-sync from canonical)
+
+```bash
+# Discard all mirror changes and re-generate from .cursor/
+git restore .claude/ .gemini/ AGENTS.md CLAUDE.md GEMINI.md 2>/dev/null; true
+pnpm ai:sync
+```
+
+### Rollback — Full workspace to a known-good commit
+
+```bash
+# Find the last green commit (check CI for last passing run)
+git log --oneline --all | head -20
+
+# Create a recovery branch from the last known-good commit
+git checkout -b fix/workspace-recovery <commit-sha>
+
+# Verify the recovery branch is clean
+pnpm ai:check && pnpm verify:yaml
+```
+
+### Rollback — After a bad `pnpm ai:sync --write` in CI
+
+If a CI run committed bad mirror files to the branch:
+1. `git revert HEAD --no-edit` — creates a revert commit undoing the sync
+2. Fix the root issue in `.cursor/` (bad agent/skill/rule)
+3. `pnpm ai:sync` locally
+4. `git add .claude .gemini AGENTS.md CLAUDE.md GEMINI.md && git commit -m "chore: re-sync after revert"`
+
+---
+
+## 7. Responding to the Drift > 1% Slack Alert
+
+When `sync-drift-check.yml` fires the "🚨 NEZAM Sync Drift Alert — drift exceeded 1% threshold" Slack message:
+
+1. Open the linked Actions run URL in the alert
+2. Expand the **Compute sync drift** step — it shows the diff stat (which files drifted)
+3. Pull the `Master`/`main` branch locally
+4. `pnpm ai:sync` — this regenerates all mirrors from `.cursor/`
+5. Inspect the diff: `git diff --stat -- ':!pnpm-lock.yaml'`
+6. If the diff looks expected (someone merged a `.cursor/` change without syncing):
+   - `git add .claude .gemini AGENTS.md CLAUDE.md GEMINI.md && git commit -m "chore: sync AI mirrors after drift detected by weekly check"`
+   - Push to `Master`
+7. If the diff looks unexpected (unknown source of drift):
+   - Do NOT push — escalate to **#engineering-nezam**
+   - Attach the Actions run output and `git diff` output
+
+The soft alert ("⚠️ Weekly check failing") indicates YAML or `ai:check` failures, not file drift. Follow Section 5 diagnosis steps.
+
+---
+
+## 8. Certified Agents Audit
+
+`agent-status.yaml` maintains `certified_agents` — the list of agent IDs confirmed present and schema-valid in `.cursor/agents/`. This list is updated by the `swarm-leader` after any agent modification cycle.
+
+To verify the list is accurate:
+
+```bash
+# List all actual agent files
+ls .cursor/agents/*.md | xargs -I{} basename {} .md | sort
+
+# Compare against certified_agents in agent-status.yaml
+grep -A 20 "certified_agents" .cursor/state/agent-status.yaml
+```
+
+If the lists diverge, update `agent-status.yaml:certified_agents` to match the actual agent files and run `pnpm ai:sync`.
+
+---
+
+## 9. Archived Skills Management
+
+Skills are archived (not deleted) to preserve history. The active archive registry is:
+
+```
+.cursor/skills/archive/DEPRECATED.md
+```
+
+This file lists every archived skill with its replacement. Before removing any `@skill-id` reference from an agent, check `DEPRECATED.md` to confirm the correct active replacement.
+
+To archive a skill:
+1. Move the skill directory to `.cursor/skills/archive/<category>/<skill-id>/`
+2. Add an entry to `DEPRECATED.md` with: ID, category, reason, active replacement, archived-at
+3. Update all agent files referencing the old skill ID → new replacement
+4. `pnpm ai:check` — confirm `unresolved_skill_refs` is empty
+
+---
+
+## 10. Escalation
+
+If the above steps do not resolve the issue:
+
+1. Open a thread in **#engineering-nezam** with:
+   - Output of `pnpm ai:check`
+   - Output of `pnpm verify:yaml`
+   - `git diff --stat`
+2. Tag `@devops-lead` for pipeline overrides
+3. For schema corruption that `git restore` cannot fix: tag `@swarm-leader` for manual state repair

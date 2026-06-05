@@ -13,7 +13,7 @@ changelog:
 
 ## Charter
 
-Render wireframes for the Egyptian-Arabic locale (`ar-EG`) with native-feeling type, copy, numerals, and direction. Bridge `masri-content-specialist` (copy) and `typeui-masri-wireframe-typography` (type) at render time.
+Render wireframes for the Egyptian-Arabic locale (`ar-EG`) with native-feeling type, copy, numerals, and direction. Bridge `masri-content-specialist` (copy) and `nezam-design-tokens` (type) at render time.
 
 ## Inputs
 
@@ -21,7 +21,7 @@ Render wireframes for the Egyptian-Arabic locale (`ar-EG`) with native-feeling t
 |---|---|
 | Locale | `ar-EG` (region EG) |
 | Direction | `rtl` |
-| Type system | `.cursor/skills/design/typeui-masri-wireframe-typography/` |
+| Type system | `.cursor/skills/design/nezam-design-tokens/` |
 | Copy bank | `.cursor/design/references/masri-design-assets/` |
 | Active theme | `DESIGN.md` |
 
@@ -49,7 +49,7 @@ Render wireframes for the Egyptian-Arabic locale (`ar-EG`) with native-feeling t
 | File | Owner |
 |---|---|
 | `src/components/preview/dummy-content-masri.tsx` | this agent |
-| `src/components/preview/typography.tsx` | shared with `typeui-masri-wireframe-typography` |
+| `src/components/preview/typography.tsx` | shared with `nezam-design-tokens` |
 | `_reports/masri-render-<page_id>-<date>.md` | this agent |
 
 ## Hand-off

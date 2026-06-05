@@ -7,28 +7,28 @@ owner: "PM-01"
 # Do not edit manually. Updated by /GUIDE and swarm commands.
 # Source of truth for session resume.
 
-last_updated: "2026-06-02"
+last_updated: "2026-06-05"
 active_swarm: "swarm-1"
-active_agent: "lead-qa-architect"
-active_phase: "phase_3_ready"
+active_agent: "swarm-leader"
+active_phase: "v32_phase_2_3_4"
 active_feature_slice: ""
 active_spec: ".nezam/core/plans/MASTER_TASKS.md"
 
 last_output:
-  type: "phase_complete"
+  type: "task_complete"
   artifact_path: ".cursor/state/develop_phases.yaml"
-  status: "complete"
-  summary: "Phase 2 Core Features complete — T-P1-001 token emit, T-P1-002 docs site (Nextra v4, 12/12 routes), T-P1-003 RICE prioritization, T-P1-004 design audit --strict (6 gates green). Phase 3 (Quality + RTL audit) unlocked."
+  status: "in_progress"
+  summary: "v3.2-P1 complete (2026-06-05). v32_phase_2 (CI/CD), v32_phase_3 (Security), v32_phase_4 (Design) all unlocked. Next: choose a lane and run /develop start."
 
 pending_handoff:
-  from_agent: "swarm-leader"
-  to_agent: "lead-frontend-architect"
+  from_agent: ""
+  to_agent: ""
   handoff_packet_path: ""
   status: "none"
 
 open_blockers: []
 
-session_resume_prompt: "Phase 2 complete. Run /develop start to begin Phase 3 (Quality, Hardlock Verification, RTL Audit — T-Q-001 through T-Q-009)."
+session_resume_prompt: "v3.2-P1 complete. P2/P3/P4 all unlocked. Choose next lane: P2 (CI/CD — T-V32-2-*), P3 (Security — T-V32-3-*, security: true lane), P4 (Design — T-V32-4-*). Run /develop start after picking a lane."
 
 last_sync: "2026-06-05T00:20:00Z"
 certified_agents:
@@ -39,7 +39,7 @@ certified_agents:
   - "lead-task-management-architect"
   - "lead-crm-platform-architect"
   - "analytics-ui-ux-architect"
-versioning: "1.0.0"
+versioning: "2.0.0"
 sync_drift_threshold: 0.005
 drift_check_interval: "weekly"
 

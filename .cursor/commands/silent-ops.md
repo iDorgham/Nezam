@@ -1,0 +1,493 @@
+# `/silent-ops` — Orchestrated Automation Framework
+
+> **Silent Operations:** Branching, commits, PRs, merging, CI/CD all run autonomously. You write code, gates run, ship happens.
+
+## Philosophy
+
+**You never touch git.** The framework owns:
+- Branch creation (feature/bugfix) ✅
+- Commit staging & messages ✅
+- Push to origin ✅
+- PR auto-creation ✅
+- PR status monitoring ✅
+- Auto-merge (with conditions) ✅
+- Release tagging ✅
+- Deploy webhooks ✅
+
+**You only:** code → save → approve (optional).
+
+---
+
+## How It Works
+
+### **Phase 1: Silent Unlock**
+```bash
+/silent unlock v3.2-P1
+```
+→ Creates `feature/v3.2-p1-foundation` silently
+→ Switches to it
+→ Stages all workspace files
+→ Outputs: "✅ Unlocked on feature/v3.2-p1-foundation"
+
+### **Phase 2: Silent Develop**
+You write code. When you're ready:
+```bash
+/silent commit "T-V32-1-001: pnpm ai:sync"
+```
+→ Stages all changes
+→ Commits with semantic prefix (T-V32-1-001)
+→ Pushes to origin
+→ Monitors GitHub Actions (silently polls)
+→ Outputs only when gates fail or succeed
+
+### **Phase 3: Silent PR**
+```bash
+/silent review
+```
+→ Auto-creates PR if not exists
+→ Links to MASTER_TASKS.md task
+→ Runs all gates (lint, test, security)
+→ Adds checklist comment with AC criteria
+→ Waits for approval (if STANDARD/ENTERPRISE tier)
+→ Outputs PR URL + gate status
+
+### **Phase 4: Silent Merge**
+```bash
+/silent merge
+```
+→ Waits for all gates to pass
+→ Squash/rebase per tier config
+→ Merges to Master
+→ Deletes feature branch
+→ Triggers release workflow
+→ Outputs: "✅ Merged + released v3.2.0-alpha.1"
+
+### **Phase 5: Silent Deploy**
+```bash
+/silent ship [staging|prod]
+```
+→ Waits for Vercel build
+→ Runs e2e tests
+→ Deploys to target env
+→ Posts deployment link
+→ Outputs: "✅ Live at https://design-hub-v3.vercel.app"
+
+---
+
+## Command Reference
+
+### Core Commands
+
+| Command | What It Does | Silent? |
+|---------|-------------|---------|
+| `/silent unlock <phase>` | Create branch, stage workspace | ✅ Yes |
+| `/silent commit "<msg>"` | Stage all, commit, push | ✅ Yes |
+| `/silent review` | Auto-PR, run gates, wait for approval | Polls gates silently |
+| `/silent merge` | Merge when gates pass, release tag | ✅ Yes |
+| `/silent ship [env]` | Deploy to staging/prod | ✅ Yes |
+| `/silent status` | Show current branch, PR, deploy status | — |
+| `/silent revert` | Undo last commit (if not merged) | ✅ Yes |
+| `/silent abort` | Cancel phase, switch to Master, cleanup | ✅ Yes |
+
+### Advanced Commands
+
+| Command | What It Does |
+|---------|-------------|
+| `/silent batch <tasks>` | Run multiple commits + review in one go (e.g., `T-V32-1-001 T-V32-1-002`) |
+| `/silent watch` | Real-time CI/CD stream (only if you enable it) |
+| `/silent approve` | Approve your own PR (LITE tier only) |
+| `/silent force-merge` | Force merge without waiting (use with care) |
+
+---
+
+## Behind-the-Scenes Automation
+
+### **Silent Polls (No Output Unless Action Needed)**
+
+Every 30 seconds:
+- GitHub Actions status → if failed, notify + suggest fix
+- PR approval status → if ready, auto-merge (if tier allows)
+- Deployment status → if live, post link
+
+### **Silent Commits**
+
+```bash
+/silent commit "T-V32-1-001: pnpm ai:sync"
+```
+
+Actually does:
+```bash
+git add .
+git commit -m "T-V32-1-001: pnpm ai:sync
+
+- Ran pnpm ai:sync + ai:check
+- Drift: 0.2% → 0.0%
+- All state files synced"
+
+git push origin feature/v3.2-p1-foundation
+```
+
+All silent. Output: ✅ "Committed & pushed."
+
+### **Silent PR Creation**
+
+```bash
+/silent review
+```
+
+Actually does:
+```bash
+gh pr create \
+  --title "feat(v3.2-P1): Foundation hardening [T-V32-1-001]" \
+  --body "## Task: T-V32-1-001\n- AC1: pnpm ai:check < 0.5%\n- AC2: Orphaned skills = 0\n\n## Blocked on\n- GitHub Actions (lint, test, security)" \
+  --draft \
+  --reviewer dorgham
+
+# Wait for gates...
+gh pr checks [id] --watch  # Polls silently every 10s
+```
+
+---
+
+## Configuration
+
+### **Tier Settings** (`.nezam/silent.yaml`)
+
+```yaml
+tier: standard  # lite | standard | enterprise
+
+auto_merge:
+  lite: true           # Merge on all gates pass
+  standard: false      # Wait for approval
+  enterprise: false    # Wait for approval + multi-stage deploy
+
+commit:
+  squash_lite: true
+  squash_standard: false
+  conventional: true   # Use semantic commit format
+
+pr:
+  draft_lite: false
+  draft_standard: true
+  draft_enterprise: true
+  require_approval_lite: false
+  require_approval_standard: true
+  require_approval_enterprise: true
+
+ci:
+  timeout: 10m
+  retry_failed: false
+
+deploy:
+  staging_auto: false
+  prod_auto: false    # Always requires approval
+  webhook_slack: true # Post deploy link to Slack
+```
+
+### **Task Linking** (Auto-detect from commit)
+
+```bash
+/silent commit "T-V32-1-001: pnpm ai:sync"
+```
+
+→ Parses task ID `T-V32-1-001`  
+→ Finds in MASTER_TASKS.md  
+→ Adds to PR body: "Closes #81" (from task metadata)  
+→ Updates task status in MASTER_TASKS.md to "In Review"
+
+---
+
+## Workflows (GitHub Actions)
+
+### **`.github/workflows/silent-gates.yml`**
+
+```yaml
+name: Silent Gates
+
+on:
+  push:
+    branches: [feature/*, bugfix/*, v3.*]
+  pull_request:
+    branches: [Master]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pnpm lint
+      - uses: actions/github-script@v7
+        if: failure()
+        with:
+          script: |
+            core.setFailed('Lint failed — run `pnpm lint --fix`')
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pnpm test
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: github/super-linter@v4
+      - uses: dependabot/dependabot-action@v1
+
+  design-gates:
+    if: contains(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pnpm verify:yaml
+      - run: pnpm design:check
+```
+
+### **`.github/workflows/silent-auto-merge.yml`**
+
+```yaml
+name: Silent Auto-Merge
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+jobs:
+  auto_merge:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check tier
+        id: tier
+        run: echo "TIER=$(cat .nezam/silent.yaml | grep 'tier:' | awk '{print $2}')" >> $GITHUB_OUTPUT
+
+      - name: Auto-merge on green (LITE)
+        if: steps.tier.outputs.TIER == 'lite'
+        uses: pascalgn/automerge-action@v0.15.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_METHOD: squash
+
+      - name: Wait for approval (STANDARD/ENTERPRISE)
+        if: steps.tier.outputs.TIER != 'lite'
+        run: echo "Waiting for manual approval..."
+```
+
+### **`.github/workflows/silent-deploy.yml`**
+
+```yaml
+name: Silent Deploy
+
+on:
+  push:
+    branches: [Master]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx semantic-release
+
+  vercel_staging:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: vercel/action@v5
+        with:
+          environment: staging
+
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "🚀 Deployed to staging",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Design Hub v3.2 → staging\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>"
+                  }
+                }
+              ]
+            }
+```
+
+---
+
+## Real-World Flow
+
+### **You just write code:**
+
+```bash
+# Your entire workflow:
+1. /silent unlock v3.2-P1
+2. [Edit files in IDE]
+3. /silent commit "T-V32-1-001: pnpm ai:sync"
+4. /silent commit "T-V32-1-002: Audit orphaned skills"
+5. /silent review
+   # (waits silently for gates to pass)
+6. /silent merge
+   # (waits silently for approval if STANDARD, auto-merges if LITE)
+7. /silent ship staging
+   # (deploys, posts link)
+
+# Total commands: 7
+# Total git commands you typed: 0
+```
+
+### **What runs silently in background:**
+
+```
+✅ Branch creation
+✅ All file changes staged & committed
+✅ Semantic versioning (based on commit type)
+✅ Push to origin
+✅ PR created + linked to task
+✅ Lint, test, security gates run
+✅ Design system gates run
+✅ Auto-merge (LITE) or waits for approval (STANDARD)
+✅ GitHub Actions on merge
+✅ Release tag created
+✅ semantic-release bumps version
+✅ Vercel deploy triggered
+✅ Slack notified
+✅ Everything logged to `.nezam/logs/silent-ops.log`
+```
+
+---
+
+## Status & Monitoring
+
+### **`/silent status`** — One-liner view
+
+```
+Branch:     feature/v3.2-p1-foundation (3 commits)
+PR:         #82 (WAITING FOR APPROVAL) — 2 gates pass, 0 fail
+Gates:      ✅ lint  ✅ test  ⏳ security  ✅ design-gates
+Deploy:     Staging ready (Vercel build passed)
+Last push:  2 min ago
+Last commit: "T-V32-1-002: Audit orphaned skills"
+```
+
+### **`/silent watch`** — Real-time stream (optional)
+
+```
+[14:32] ✅ Lint passed in 42s
+[14:45] ✅ Test passed in 13s
+[14:52] ⏳ Security scan in progress...
+[15:03] ✅ Security scan passed
+[15:04] 🟡 Waiting for your approval to merge
+[15:05] ✅ Approved! Merging...
+[15:06] ✅ Merged to Master + tagged v3.2.0-alpha.1
+[15:12] 🚀 Deployed to staging
+```
+
+---
+
+## Escape Hatches
+
+### **Manual Override**
+
+```bash
+/silent force-merge          # Skip approval wait (DANGEROUS)
+/silent abort                # Cancel phase, revert to Master
+/silent revert               # Undo last commit (if not merged)
+```
+
+### **Emergency Rollback**
+
+```bash
+/silent rollback             # Git revert last merge commit
+```
+
+---
+
+## Integration Points
+
+### **With MASTER_TASKS.md**
+
+Each `/silent commit` **auto-updates task status:**
+
+```yaml
+T-V32-1-001:
+  task: "pnpm ai:sync + ai:check"
+  status: ⏳ In Review      # Updated by /silent commit
+  pr: "#82"                  # Auto-linked
+  estimated: 30m
+```
+
+### **With Slack**
+
+```bash
+# Post on commit
+[Slack] 🔄 T-V32-1-001 committed → https://github.com/.../commits/abc123
+
+# Post on PR ready
+[Slack] 📋 T-V32-1-001 in review → https://github.com/.../pull/82
+
+# Post on merge
+[Slack] ✅ T-V32-1-001 merged → v3.2.0-alpha.1
+
+# Post on deploy
+[Slack] 🚀 Deployed to staging → https://design-hub-v3.vercel.app
+```
+
+### **With Linear / Asana** (optional)
+
+```bash
+# /silent commit auto-moves task to "In Review"
+# /silent merge auto-moves task to "Done"
+# /silent ship auto-creates postmortem if deploy fails
+```
+
+---
+
+## Exit Criteria for Silent Ops
+
+✅ **All phases can run** `/silent unlock`, `/silent commit`, `/silent merge`  
+✅ **Zero manual git commands needed**  
+✅ **All gates run automatically** (lint, test, security, design)  
+✅ **PRs auto-created** with task linkage  
+✅ **Deploys** to staging automatically  
+✅ **Release notes** auto-generated from commits  
+✅ **Logs** stored at `.nezam/logs/silent-ops.log` for audit
+
+---
+
+## Next: Implementation
+
+1. **Build `/silent unlock`** — branch creation + workspace staging
+2. **Build `/silent commit`** — semantic commits + push
+3. **Build `/silent review`** — PR creation + gate polling
+4. **Build `/silent merge`** — auto-merge logic per tier
+5. **Build `/silent ship`** — deploy orchestration
+6. **Wire GitHub Actions** — all 4 workflows above
+7. **Add Slack integration** — notifications on state changes
+
+**Start with #1–#3** (core dev loop) — ~6 hours.  
+**Then #4–#7** (merge + deploy) — ~4 hours.
+
+---
+
+## Tier Adaptations
+
+### **LITE:**
+- `/silent unlock` → feature branch
+- `/silent commit` → auto-pushes
+- `/silent review` → skips approval
+- `/silent merge` → auto-merges when gates pass
+- `/silent ship` → auto-deploys to staging
+
+### **STANDARD:**
+- Same, but `/silent review` waits for your 👍 on PR
+- `/silent ship` waits for explicit approval
+
+### **ENTERPRISE:**
+- All gates + approval required
+- `/silent ship` → staging auto, prod requires approval
+- Multi-region deploy (US, EU)
+

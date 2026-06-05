@@ -1,0 +1,113 @@
+name: Silent Auto-Merge (LITE tier only)
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+  workflow_run:
+    workflows: ["Silent Gates"]
+    types: [completed]
+
+jobs:
+  check-tier-and-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read tier from silent.yaml
+        id: tier
+        run: |
+          TIER=$(grep '^tier:' .nezam/silent.yaml | awk '{print $2}' | tr -d ' ')
+          echo "TIER=$TIER" >> $GITHUB_OUTPUT
+          echo "Tier: $TIER"
+
+      - name: Get PR info
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            core.setOutput('number', pr.data.number);
+            core.setOutput('isDraft', pr.data.draft);
+
+      - name: Check if all gates passed
+        id: gates
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const checks = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha
+            });
+
+            const allPassed = checks.data.check_runs.every(
+              check => check.status === 'completed' && check.conclusion === 'success'
+            );
+
+            const failedChecks = checks.data.check_runs
+              .filter(check => check.conclusion === 'failure')
+              .map(check => check.name);
+
+            core.setOutput('allPassed', allPassed);
+            core.setOutput('failedChecks', failedChecks.join(', '));
+
+      - name: Auto-merge for LITE tier
+        if: steps.tier.outputs.TIER == 'lite' && steps.gates.outputs.allPassed == 'true' && steps.pr.outputs.isDraft == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              merge_method: 'squash',
+              commit_title: `${{ github.event.pull_request.title }}`,
+              commit_message: `${{ github.event.pull_request.body }}`
+            });
+
+            // Delete branch
+            github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${{ github.event.pull_request.head.ref }}`
+            });
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ **Auto-merged!** (LITE tier) 🚀 Squashed commits, deleted branch.'
+            });
+
+      - name: Comment for STANDARD/ENTERPRISE (requires approval)
+        if: steps.tier.outputs.TIER != 'lite' && steps.gates.outputs.allPassed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🟡 **Gates passed!** Waiting for approval to merge. (STANDARD/ENTERPRISE tier)'
+            });
+
+      - name: Notify if gates failed
+        if: steps.gates.outputs.allPassed == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Gates failed.** Fix these and push:
+\`\`\`
+${{ steps.gates.outputs.failedChecks }}
+\`\`\``
+            });
+

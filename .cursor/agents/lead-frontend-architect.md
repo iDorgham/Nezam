@@ -53,7 +53,7 @@ Swarm Manager for the Frontend swarm. Own the web frontend implementation: frame
 - [`.cursor/skills/nezam-component-library-api/SKILL.md`](../skills/design/nezam-component-library-api/SKILL.md)
 - [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-design-tokens`, includes Frontend Integration Mode)
 - [`.cursor/skills/nezam-performance-optimization/SKILL.md`](../skills/quality/nezam-performance-optimization/SKILL.md)
-- [`.cursor/skills/nezam-motion-3d/SKILL.md`](../skills/nezam-motion-3d/SKILL.md)
+- [`.cursor/skills/design/nezam-motion-choreography-budgeted/SKILL.md`](../skills/design/nezam-motion-choreography-budgeted/SKILL.md)
 - SSR vs CSR trade log; design tokens.
 
 ## When to invoke

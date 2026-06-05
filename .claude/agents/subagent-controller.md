@@ -258,7 +258,7 @@ when: ["/PLAN all", "subagent handoff", "phase gate transition", "multi-agent re
 - `@nezam-cli-orchestration`
 - `@nezam-design-tokens`
 - `@nezam-component-library-api`
-- `@nezam-motion-3d`
+- `@nezam-motion-choreography-budgeted`
 
 # References
 - Canonical 4-tier hierarchy and 12-swarm catalog: [`README.md`](./README.md).

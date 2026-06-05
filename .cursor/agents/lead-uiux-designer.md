@@ -5,7 +5,8 @@ subagents: ux-research-strategy-manager, visual-design-manager, design-systems-t
 version: 2.0.0
 updated: 2026-05-28
 changelog:
-  - "2.0.0: Wired to design-intelligence-index, source-library-loader, impeccable full suite, anti-slop-validator, typeui fundamentals, brand DESIGN.md library, open-design style packs"
+  - "2.0.0: Wired to design-intelligence-index, nezam-design-tokens, impeccable full suite, anti-slop-validator, brand DESIGN.md library, open-design style packs"
+  - "2.1.0: Removed orphaned skill references (source-library-loader, typeui-fundamentals, nezam-css-architecture, nezam-visual-canvas-engine, nezam-wireframe-to-spec) — T-V32-1-002"
 ---
 
 # Lead UI/UX Designer (DESIGN-02)
@@ -30,7 +31,7 @@ Swarm Manager for UI/UX Design. Reports to DESIGN-01 (design-intelligence-orches
 **Before generating any UI code, component, or spec:**
 
 1. **Load design intelligence index**: Read `.cursor/skills/design/design-intelligence-index/SKILL.md`
-2. **Run source library loader**: Read `.cursor/skills/design/source-library-loader/SKILL.md` with task profile
+2. **Run design intelligence index**: Read `.cursor/skills/design/design-intelligence-index/SKILL.md` with task profile
 3. **Resolve opt-in stack**: Read active `prompt.json` → `designSkillStack` when present (see `.nezam/core/gates/design-skills.yaml`)
 4. **Load impeccable context**: `node .cursor/skills/impeccable/scripts/load-context.mjs` (or read DESIGN.md + PRODUCT.md manually)
 5. **Identify register**: brand or product (from DESIGN-01 handoff or task context)
@@ -62,14 +63,11 @@ Swarm Manager for UI/UX Design. Reports to DESIGN-01 (design-intelligence-orches
 - `@nezam-accessibility-audit`
 - `@nezam-brand-visual-direction`
 - `@nezam-chart-spec-generator`
-- `@nezam-css-architecture`
 - `@nezam-cultural-context-validator`
 - `@nezam-dashboard-layout-pro`
 - `@nezam-data-viz-motion-budget`
-- `@nezam-design-context-init`
 - `@nezam-design-hub`
 - `@nezam-design-intent-inference`
-- `@nezam-design-iteration-protocol`
 - `@nezam-design-md`
 - `@nezam-design-selector`
 - `@nezam-design-to-code-handoff`
@@ -81,16 +79,13 @@ Swarm Manager for UI/UX Design. Reports to DESIGN-01 (design-intelligence-orches
 - `@nezam-ui-ux-design`
 - `@nezam-user-flow-mapper`
 - `@nezam-ux-research-protocol`
-- `@nezam-visual-canvas-engine`
 - `@nezam-wireframe-catalog`
 - `@nezam-wireframe-pipeline`
-- `@nezam-wireframe-to-spec`
+- `@nezam-design-to-code-handoff`
 - [`@design-md`](../skills/design/nezam-design-md/SKILL.md)
 - [`.cursor/skills/nezam-ui-ux-design/SKILL.md`](../skills/design/nezam-ui-ux-design/SKILL.md)
 - [`.cursor/skills/brand-visual-direction/SKILL.md`](../skills/design/nezam-brand-visual-direction/SKILL.md)
-- [`.cursor/skills/nezam-design-tokens/SKILL.md`](../skills/nezam-design-tokens/SKILL.md)
-- [`.cursor/skills/token-grid-typography/SKILL.md`](../skills/token-grid-typography/SKILL.md)
-- [`.cursor/skills/design/design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-design-tokens`, includes Frontend Integration Mode)
+- [`.cursor/skills/design/nezam-design-tokens/SKILL.md`](../skills/design/nezam-design-tokens/SKILL.md) (`@nezam-design-tokens`, includes Frontend Integration Mode)
 - Alignment with SEO-driven labels from `docs/specs/seo/SEO_RESEARCH.md`.
 
 ## When to invoke

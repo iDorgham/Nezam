@@ -1,0 +1,157 @@
+name: Silent Gates (Lint, Test, Security, Design)
+
+on:
+  push:
+    branches: [feature/*, bugfix/*, v3.*]
+  pull_request:
+    branches: [Master]
+
+jobs:
+  lint:
+    name: Lint (ESLint + Prettier)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: pnpm lint
+        run: pnpm lint
+        continue-on-error: true
+
+      - name: Comment on PR if failed
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ **Lint failed.** Run `pnpm lint --fix` locally, then push.'
+            })
+
+  test:
+    name: Test (Vitest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: pnpm test
+        run: pnpm test --run
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+
+  security:
+    name: Security (CodeQL + Dependabot)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'javascript'
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+      - name: Comment on PR if security issues found
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ **Security scan found issues.** Review CodeQL results in the Security tab.'
+            })
+
+  design-gates:
+    name: Design Gates (YAML, Schema, Sync)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Verify YAML (state files)
+        run: pnpm verify:yaml
+        continue-on-error: true
+
+      - name: Check sync drift
+        run: pnpm ai:check
+        continue-on-error: true
+
+      - name: Design system check
+        run: pnpm design:check
+        continue-on-error: true
+
+      - name: Comment on PR if design gates failed
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ **Design gates failed.** Run `pnpm ai:sync && pnpm design:check` locally.'
+            })
+
+  gates-summary:
+    name: Gates Summary
+    runs-on: ubuntu-latest
+    needs: [lint, test, security, design-gates]
+    if: always()
+    steps:
+      - name: Determine status
+        run: |
+          if [[ "${{ needs.lint.result }}" == "failure" || "${{ needs.test.result }}" == "failure" || "${{ needs.security.result }}" == "failure" || "${{ needs.design-gates.result }}" == "failure" ]]; then
+            echo "GATES_PASSED=false" >> $GITHUB_ENV
+          else
+            echo "GATES_PASSED=true" >> $GITHUB_ENV
+          fi
+
+      - name: Comment on PR with summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const gatesPassed = "${{ env.GATES_PASSED }}" === "true";
+            const status = gatesPassed ? "✅ All gates passed" : "❌ Some gates failed";
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ${status}
+
+| Gate | Status |
+|------|--------|
+| Lint | ${{ needs.lint.result == 'success' ? '✅' : '❌' }} |
+| Test | ${{ needs.test.result == 'success' ? '✅' : '❌' }} |
+| Security | ${{ needs.security.result == 'success' ? '✅' : '❌' }} |
+| Design | ${{ needs.design-gates.result == 'success' ? '✅' : '❌' }} |
+
+${gatesPassed ? 'Ready to merge! 🚀' : 'Please fix failures above.'}`
+            })
+

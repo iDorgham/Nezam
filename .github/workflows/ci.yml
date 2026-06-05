@@ -67,6 +67,10 @@ jobs:
 
           for SHA in $COMMITS; do
             SUBJECT="$(git log --format=%s -n 1 "$SHA")"
+            # Skip merge commits — they are allowed
+            if [[ "$SUBJECT" =~ ^Merge ]]; then
+              continue
+            fi
             if [[ ! "$SUBJECT" =~ $REGEX ]]; then
               echo "Invalid conventional commit: $SHA -> $SUBJECT"
               INVALID=1

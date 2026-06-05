@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
-import { Layers, HelpCircle, CheckCircle, Info } from 'lucide-react'
+import { Layers, CircleHelp, CircleCheck, Info } from 'lucide-react'
 
 const ZINDEX_KEYS = [
   { key: 'hide', label: 'Hide (-1)', desc: 'Completely hidden from view', color: 'bg-red-500/10 border-red-500/30' },

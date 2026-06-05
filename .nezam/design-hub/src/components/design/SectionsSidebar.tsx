@@ -12,7 +12,7 @@ import {
 } from '@/data/sections-library'
 import { 
   Compass, Layers, LayoutTemplate, MessageSquare, DollarSign, Sparkles, 
-  BookOpen, Lock, BarChart2, Dock, Inbox, Flag, Table, FileText, Grid3x3 
+  BookOpen, Lock, ChartBar, Dock, Inbox, Flag, Table, FileText, Grid3x3 
 } from 'lucide-react'
 
 // Match category keys with explicit icons
@@ -25,7 +25,7 @@ const CATEGORY_ICONS: Record<SectionCategory, React.ComponentType<any>> = {
   cta: Sparkles,
   content: BookOpen,
   auth: Lock,
-  dashboard: BarChart2,
+  dashboard: ChartBar,
   footer: Dock,
   'empty-states': Inbox,
   banners: Flag,

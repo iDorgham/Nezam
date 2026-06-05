@@ -1,8 +1,5 @@
 // Vitest setup file referenced by `vitest.config.ts`.
-import * as matchers from 'vitest-axe/matchers'
-import { expect } from 'vitest'
-
-expect.extend(matchers)
+import 'vi-axe/extend-expect'
 
 // In-memory localStorage shim so persisted Zustand stores work under the
 // happy-dom test environment (which does not expose a global `localStorage`).

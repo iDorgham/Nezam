@@ -29,7 +29,7 @@
 
 **Evidence:**
 - `.nezam/core/plans/` directory exists and is used as canonical
-- No conflicting `.nezam/core/plans/` or `docs/plans/` in contracts
+- No conflicting `.nezam/core/plans/` path references in contracts
 - `.cursor/commands/`, `.cursor/rules/`, `.cursor/state/` all reference `.nezam/core/plans/`
 
 **Status:** Green. No action needed.

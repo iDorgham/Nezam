@@ -1,6 +1,6 @@
 'use client'
 
-import { Eye, MessageSquare, Plus, Trash, Search, Layers3, GripVertical, EyeOff, Lock, Unlock } from 'lucide-react'
+import { Eye, MessageSquare, Plus, Trash, Search, Layers3, GripVertical, EyeOff, Lock, LockOpen } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { DndContext, PointerSensor, type DragEndEvent, useSensor, useSensors } from '@dnd-kit/core'
 import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
@@ -100,7 +100,7 @@ function SortableLayerRow({
         className="h-5 w-5 rounded border border-app-border/80 bg-app-surface/50 flex items-center justify-center text-app-subtle hover:text-app-text"
         title={locked ? 'Unlock layer' : 'Lock layer'}
       >
-        {locked ? <Lock size={11} /> : <Unlock size={11} />}
+        {locked ? <Lock size={11} /> : <LockOpen size={11} />}
       </button>
     </div>
   )

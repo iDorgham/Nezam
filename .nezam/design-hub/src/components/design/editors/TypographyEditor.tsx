@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
-import { Type, Sparkles, Sliders, CheckCircle, RefreshCw, Layers, AlignLeft, Bold } from 'lucide-react'
+import { Type, Sparkles, SlidersHorizontal, CircleCheck, RefreshCw, Layers, AlignLeft, Bold } from 'lucide-react'
 
 const POPULAR_FONTS = [
   'Inter', 'Geist', 'Manrope', 'Sora', 'Plus Jakarta Sans',

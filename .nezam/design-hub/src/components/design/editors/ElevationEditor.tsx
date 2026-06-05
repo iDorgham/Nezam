@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
-import { Layers, Eye, ShieldAlert, Sparkles, HelpCircle } from 'lucide-react'
+import { Layers, Eye, ShieldAlert, Sparkles, CircleHelp } from 'lucide-react'
 
 export function ElevationEditor() {
   const tokens = useHub((s) => s.design.tokens)

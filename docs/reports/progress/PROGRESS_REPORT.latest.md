@@ -22,7 +22,7 @@
 ### R1 — Foundation Fixes (#65)
 - Unified SDD path structure across `.nezam/`, `.cursor/`, and mirrored AI folders
 - Deduplicated skill registrations (removed ghost entries across `.claude/`, `.windsurf/`, `.antigravitycli/`)
-- Migrated plan tree from `docs/plan/` → `.nezam/core/plans/` (canonical path per ARCHITECTURE.md)
+- Migrated plan tree to `.nezam/core/plans/` as the canonical path per ARCHITECTURE.md
 
 ### R2 — Performance + Branch Policy (#66)
 - Added `pre-push` hook enforcing branch naming regex: `^(main|Master|feature/.+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+)$`
@@ -110,7 +110,7 @@
 
 - **v0.3.0 bump chosen as minor (not patch):** R1+R2 treated as a feature milestone due to structural scope of path unification and enforcement of branch policy.
 - **AI mirror sync enforced at commit time:** pre-commit hook catches drift in `.antigravitycli/` and `.windsurf/` mirrors before any commit lands.
-- **Canonical plan path:** `.nezam/core/plans/` (not `docs/plan/`).
+- **Canonical plan path:** `.nezam/core/plans/` — enforced by the path-normalization CI gate.
 
 ---
 

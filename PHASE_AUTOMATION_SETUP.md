@@ -298,18 +298,18 @@ pnpm run changelog:draft
 
 ## ✅ Verification Checklist
 
-- [x] Read this file completely
-- [x] Review [PHASE_QUICK_START.md](.github/PHASE_QUICK_START.md)
-- [x] Review [PHASE_AUTOMATION.md](docs/PHASE_AUTOMATION.md) for details
-- [x] Test: `pnpm phase:planning` to create first phase
-- [x] Verify branch created: `phase/planning/YYYY-MM-DD`
-- [ ] Check PR created on GitHub (Requires manual push to remote host)
-- [x] Review phase state file: `.cursor/state/phase-planning.yaml`
-- [x] Review progress file: `.nezam/core/plans/planning/progress.md`
-- [x] Verify all gates pass
-- [ ] Merge first phase PR to test workflow (Requires manual merge on GitHub)
-- [x] Create second phase: `pnpm phase:seo` (Prerequisite blocking logic verified)
-- [x] Confirm sequential gates work
+- [ ] Read this file completely
+- [ ] Review [PHASE_QUICK_START.md](.github/PHASE_QUICK_START.md)
+- [ ] Review [PHASE_AUTOMATION.md](docs/PHASE_AUTOMATION.md) for details
+- [ ] Test: `pnpm phase:planning` to create first phase
+- [ ] Verify branch created: `phase/planning/YYYY-MM-DD`
+- [ ] Check PR created on GitHub
+- [ ] Review phase state file: `.cursor/state/phase-planning.yaml`
+- [ ] Review progress file: `.nezam/core/plans/planning/progress.md`
+- [ ] Verify all gates pass
+- [ ] Merge first phase PR to test workflow
+- [ ] Create second phase: `pnpm phase:seo`
+- [ ] Confirm sequential gates work
 
 ## 🎉 You're All Set!
 

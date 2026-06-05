@@ -13,7 +13,7 @@ echo "Checking for legacy .nezam/memory/ references..."
 MEMORY_REFS=$(grep -rn ".nezam/memory/" .cursor/ docs/ .nezam/core/scripts/ .github/ 2>/dev/null | grep -v ".nezam/core/" | grep -v "check-sdd-integrity.sh" || true)
 
 if [ -n "$MEMORY_REFS" ]; then
-    echo "❌ Legacy path '.nezam/memory/' found (should be '.nezam/memory/'):"
+    echo "❌ Legacy path '.nezam/memory/' found (should be '.nezam/core/memory/'):"
     echo "$MEMORY_REFS"
     FAIL=1
 else

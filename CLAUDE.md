@@ -50,6 +50,7 @@ When conflicts appear, follow:
 - `plan.md`
 - `scan.md`
 - `settings.md`
+- `silent-ops.md`
 - `start.md`
 - `wireframe.md`
 
@@ -195,6 +196,7 @@ When conflicts appear, follow:
 - `security-auditor.md`
 - `seo-specialist.md`
 - `services-microservices-manager.md`
+- `silent-orchestration-manager.md`
 - `solution-design-manager.md`
 - `spec-writer.md`
 - `sql-expert.md`

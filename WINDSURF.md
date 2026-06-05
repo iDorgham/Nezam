@@ -77,6 +77,7 @@ pnpm ai:check  # verify no drift
 - `plan.md`
 - `scan.md`
 - `settings.md`
+- `silent-ops.md`
 - `start.md`
 - `wireframe.md`
 
@@ -222,6 +223,7 @@ pnpm ai:check  # verify no drift
 - `security-auditor.md`
 - `seo-specialist.md`
 - `services-microservices-manager.md`
+- `silent-orchestration-manager.md`
 - `solution-design-manager.md`
 - `spec-writer.md`
 - `sql-expert.md`

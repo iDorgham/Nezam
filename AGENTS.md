@@ -83,6 +83,7 @@ Do not proceed to development unless all exist:
 - `plan.md`
 - `scan.md`
 - `settings.md`
+- `silent-ops.md`
 - `start.md`
 - `wireframe.md`
 
@@ -228,6 +229,7 @@ Do not proceed to development unless all exist:
 - `security-auditor.md`
 - `seo-specialist.md`
 - `services-microservices-manager.md`
+- `silent-orchestration-manager.md`
 - `solution-design-manager.md`
 - `spec-writer.md`
 - `sql-expert.md`

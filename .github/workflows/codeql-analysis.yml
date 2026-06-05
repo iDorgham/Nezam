@@ -1,0 +1,49 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: [ "Master", "main" ]
+  pull_request:
+    branches: [ "Master", "main" ]
+  schedule:
+    - cron: '0 0 * * 0' # Run weekly on Sunday
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze JS/TS Codebase
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript-typescript' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        # Scanning JS/TS using extended security and quality profiles
+        queries: security-extended,security-and-quality
+
+    # Auto-compile Javascript/Typescript dependencies
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
+        # Enforce fail-on-severity to prevent code with critical/high warnings from bypassing gate
+        fail-on-severity: error

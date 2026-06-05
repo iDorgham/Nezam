@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEZAM Workspace CI Performance Stub and Lighthouse audit target.">
+  <title>NEZAM Performance Baseline</title>
+  <style>
+    :root {
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --bg-dark: #09090b;
+      --card-bg: #18181b;
+      --border-color: #27272a;
+      --text-primary: #f4f4f5;
+      --text-secondary: #a1a1aa;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 600px;
+      padding: 2.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 0 40px var(--accent-glow);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-4px);
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin: 0 0 1rem;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 9999px;
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="badge">Performance & Accessibility Baseline</div>
+    <h1>NEZAM Workspace</h1>
+    <p>This is a performance measurement target for Lighthouse CI audit verification. The system optimizes Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and Total Blocking Time (TBT) to maintain premium client UI rendering speed.</p>
+  </main>
+</body>
+</html>

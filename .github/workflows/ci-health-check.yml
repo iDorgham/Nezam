@@ -1,0 +1,77 @@
+name: CI Health Check Summary
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sundays at 00:00 UTC
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: read
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    name: Weekly Repository Health Audit
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run all workspace integrity checks
+        id: run_checks
+        run: |
+          echo "### Running repository integrity checks..."
+          
+          # Initialize summary
+          echo "## 📊 NEZAM CI Health Audit Summary" > summary.md
+          echo "Ran on: $(date -u)" >> summary.md
+          echo "" >> summary.md
+          
+          CHECKS_FAILED=0
+          
+          echo "#### 🔍 Verification Details" >> summary.md
+          echo "| Check | Command | Status |" >> summary.md
+          echo "|---|---|---|" >> summary.md
+          
+          run_check() {
+            local name=$1
+            local cmd=$2
+            echo "Running check: $name ($cmd)"
+            if $cmd; then
+              echo "| $name | \`$cmd\` | ✅ Passed |" >> summary.md
+            else
+              echo "| $name | \`$cmd\` | ❌ Failed |" >> summary.md
+              CHECKS_FAILED=1
+            fi
+          }
+          
+          run_check "Design Tokens" "pnpm check:tokens"
+          run_check "Spec Versions" "pnpm check:specs"
+          run_check "AI Swarm & Drift" "pnpm ai:check"
+          run_check "Agent Bus Schema" "pnpm check:agent-bus"
+          run_check "State Integrity" "pnpm check:state"
+          run_check "Skills Registry" "pnpm skills:registry"
+          
+          echo "" >> summary.md
+          if [ $CHECKS_FAILED -eq 0 ]; then
+            echo "### 🎉 All repository health gates are green!" >> summary.md
+          else
+            echo "### ⚠️ Some repository health gates failed. Please review details above." >> summary.md
+          fi
+          
+          cat summary.md >> $GITHUB_STEP_SUMMARY
+          
+          if [ $CHECKS_FAILED -ne 0 ]; then
+            exit 1
+          fi

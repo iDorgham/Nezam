@@ -79,10 +79,12 @@ phases:
   v32_phase_2:
     name: "v3.2-P2: CI/CD Pipeline"
     description: "Tier-1 gate validation, release workflow test, CodeQL, lhci perf budget, ci-health-check, CI_FAILURE_GUIDE"
-    status: "unlocked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "v32_phase_1"
     unlocked_at: "2026-06-05T00:00:00Z"
+    started_at: "2026-06-05T00:00:00Z"
+    completed_at: "2026-06-06T02:35:00Z"
     tasks: ["T-V32-2-001", "T-V32-2-002", "T-V32-2-003", "T-V32-2-004", "T-V32-2-005", "T-V32-2-006"]
 
   v32_phase_3:
@@ -106,9 +108,10 @@ phases:
   v32_phase_5:
     name: "v3.2-P5: Observability + Content Ops"
     description: "Sentry, web-vitals, perf baseline, observability runbook, SEO/AEO baseline, content templates, CONTENT_OPS"
-    status: "locked"
+    status: "unlocked"
     testing_passed: false
     depends_on: "v32_phase_2"
+    unlocked_at: "2026-06-06T02:35:00Z"
     tasks: ["T-V32-5-001", "T-V32-5-002", "T-V32-5-003", "T-V32-5-004", "T-V32-5-005", "T-V32-5-006", "T-V32-5-007"]
 
   v32_phase_6:

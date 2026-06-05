@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-05T14:39:56.355Z",
+  "generated": "2026-06-05T23:41:50.383Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -619,7 +619,11 @@
       "id": "nezam-brand-visual-direction",
       "version": "1.1.0",
       "referenced_by": [
+        "a11y-performance-auditor",
+        "design-systems-token-architect",
         "lead-uiux-designer",
+        "motion-3d-choreographer",
+        "rtl-specialist",
         "visual-design-manager"
       ],
       "orphaned": false
@@ -672,6 +676,7 @@
       "id": "nezam-dashboard-patterns",
       "version": "1.0.0",
       "referenced_by": [
+        "analytics-ui-ux-architect",
         "data-visualization"
       ],
       "orphaned": false
@@ -756,6 +761,7 @@
         "lead-frontend-architect",
         "lead-uiux-designer",
         "motion-3d-choreographer",
+        "rtl-specialist",
         "subagent-controller",
         "visual-design-manager"
       ],
@@ -786,7 +792,11 @@
       "id": "nezam-motion-choreography-budgeted",
       "version": "1.0",
       "referenced_by": [
+        "a11y-performance-auditor",
+        "design-systems-token-architect",
         "lead-uiux-designer",
+        "motion-3d-choreographer",
+        "subagent-controller",
         "visual-design-manager"
       ],
       "orphaned": false
@@ -1814,13 +1824,6 @@
   ],
   "orphaned_skills": [],
   "unresolved_skill_refs": [
-    "nezam-motion-3d",
-    "nezam-dashboard-ia-patterns",
-    "nezam-brand-guidelines",
-    "nezam-css-architecture",
-    "nezam-design-context-init",
-    "nezam-design-iteration-protocol",
-    "nezam-visual-canvas-engine",
-    "nezam-wireframe-to-spec"
+    "nezam-brand-guidelines"
   ]
 }

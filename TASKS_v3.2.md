@@ -76,7 +76,7 @@
 
 ---
 
-## v3.2 NEW: P1 Foundation (6 Tasks) ⏳ IN PROGRESS
+## v3.2 NEW: P1 Foundation (6 Tasks) ✅ COMPLETE
 
 **Phase:** Foundation: Sync & State  
 **Owner:** DevOps Lead  
@@ -85,23 +85,23 @@
 
 | Task ID | Title | Owner | Status | Deliverable | Due |
 |---|---|---|---|---|---|
-| T-V32-1-001 | Run `pnpm ai:sync` + `pnpm ai:check` | devops-manager | ⏳ | drift < 0.5% | 2026-06-04 |
-| T-V32-1-002 | Audit + remove orphaned skills | devops-manager | ⏳ | registry audit | 2026-06-04 |
-| T-V32-1-003 | Run `pnpm verify:yaml` on state files | devops-manager | ⏳ | YAML clean | 2026-06-04 |
-| T-V32-1-004 | Extend `agent-status.yaml` | deputy-swarm-leader | ⏳ | schema v2 | 2026-06-05 |
-| T-V32-1-005 | Add weekly drift detection (CI blocking) | devops-manager | ⏳ | sync-drift-check.yml | 2026-06-05 |
-| T-V32-1-006 | Write sync runbook | docs-hygiene | ⏳ | SYNC_RUNBOOK.md | 2026-06-06 |
-| T-V32-1-007 | Verify Husky pre-commit on dev machines | devops-manager | ⏳ | pre-commit hooked | 2026-06-07 |
-| **T-HEALTH-1-001** | **Archive `.cursor/design/references/`** | **devops-manager** | **⏳** | **Repo size 3GB** | **2026-06-05** |
-| **T-HEALTH-1-002** | **Implement esbuild (replace webpack)** | **frontend-lead** | **⏳** | **Build 8s < 15s** | **2026-06-06** |
-| **T-HEALTH-1-003** | **Optimize pnpm hoisting** | **devops-manager** | **⏳** | **node_modules -1GB** | **2026-06-06** |
-| **T-HEALTH-1-004** | **Git repo compression** | **devops-manager** | **⏳** | **.git -2GB** | **2026-06-07** |
+| T-V32-1-001 | Run `pnpm ai:sync` + `pnpm ai:check` | devops-manager | ✅ | drift < 0.5% | 2026-06-04 |
+| T-V32-1-002 | Audit + remove orphaned skills | devops-manager | ✅ | registry audit | 2026-06-04 |
+| T-V32-1-003 | Run `pnpm verify:yaml` on state files | devops-manager | ✅ | YAML clean | 2026-06-04 |
+| T-V32-1-004 | Extend `agent-status.yaml` | deputy-swarm-leader | ✅ | schema v2 | 2026-06-05 |
+| T-V32-1-005 | Add weekly drift detection (CI blocking) | devops-manager | ✅ | sync-drift-check.yml | 2026-06-05 |
+| T-V32-1-006 | Write sync runbook | docs-hygiene | ✅ | SYNC_RUNBOOK.md | 2026-06-06 |
+| T-V32-1-007 | Verify Husky pre-commit on dev machines | devops-manager | ✅ | pre-commit hooked | 2026-06-07 |
+| **T-HEALTH-1-001** | **Archive `.cursor/design/references/`** | **devops-manager** | **✅** | **Repo size 3GB** | **2026-06-05** |
+| **T-HEALTH-1-002** | **Implement esbuild (replace webpack)** | **frontend-lead** | **✅** | **Build 8s < 15s** | **2026-06-06** |
+| **T-HEALTH-1-003** | **Optimize pnpm hoisting** | **devops-manager** | **✅** | **node_modules -1GB** | **2026-06-06** |
+| **T-HEALTH-1-004** | **Git repo compression** | **devops-manager** | **✅** | **.git -2GB** | **2026-06-07** |
 
 **Blocker status:** None · Ready to execute · **Health target: 35/100 by end of week**
 
 ---
 
-## v3.2 NEW: P2 CI/CD Pipeline (6 Tasks) 🔒 LOCKED
+## v3.2 NEW: P2 CI/CD Pipeline (6 Tasks) ✅ COMPLETE
 
 **Phase:** CI/CD Pipeline validation  
 **Owner:** DevOps Lead + SRE  
@@ -111,21 +111,21 @@
 
 | Task ID | Title | Owner | Status | AC | Due |
 |---|---|---|---|---|---|
-| T-V32-2-001 | Test full Tier-1 CI pipeline end-to-end | devops-manager | 🔒 | All 7 gates green | 2026-06-08 |
-| T-V32-2-002 | Validate release workflow | gitops-engineer | 🔒 | Tag created; rollback | 2026-06-09 |
-| T-V32-2-003 | Add CodeQL analysis | app-security-manager | 🔒 | Critical/high blocks | 2026-06-10 |
-| T-V32-2-004 | Add LightHouse CI perf budget | frontend-performance-manager | 🔒 | LCP < 2.5s gated | 2026-06-11 |
-| T-V32-2-005 | Create CI health check workflow | devops-manager | 🔒 | Weekly summary | 2026-06-12 |
-| T-V32-2-006 | Write CI failure guide (20+ scenarios) | docs-hygiene | 🔒 | CI_FAILURE_GUIDE.md | 2026-06-13 |
-| **T-HEALTH-2-001** | **Implement parallel CI gates** | **devops-manager** | **🔒** | **CI gates 3min < 5min** | **2026-06-10** |
-| **T-HEALTH-2-002** | **Add dependency caching** | **devops-manager** | **🔒** | **Restore < 5s** | **2026-06-11** |
-| **T-HEALTH-2-003** | **Implement Lighthouse CI budgets** | **frontend-performance-manager** | **🔒** | **LCP/CLS/INP gated** | **2026-06-12** |
+| T-V32-2-001 | Test full Tier-1 CI pipeline end-to-end | devops-manager | ✅ | All 7 gates green | 2026-06-08 |
+| T-V32-2-002 | Validate release workflow | gitops-engineer | ✅ | Tag created; rollback | 2026-06-09 |
+| T-V32-2-003 | Add CodeQL analysis | app-security-manager | ✅ | Critical/high blocks | 2026-06-10 |
+| T-V32-2-004 | Add LightHouse CI perf budget | frontend-performance-manager | ✅ | LCP < 2.5s gated | 2026-06-11 |
+| T-V32-2-005 | Create CI health check workflow | devops-manager | ✅ | Weekly summary | 2026-06-12 |
+| T-V32-2-006 | Write CI failure guide (20+ scenarios) | docs-hygiene | ✅ | CI_FAILURE_GUIDE.md | 2026-06-13 |
+| **T-HEALTH-2-001** | **Implement parallel CI gates** | **devops-manager** | **✅** | **CI gates 3min < 5min** | **2026-06-10** |
+| **T-HEALTH-2-002** | **Add dependency caching** | **devops-manager** | **✅** | **Restore < 5s** | **2026-06-11** |
+| **T-HEALTH-2-003** | **Implement Lighthouse CI budgets** | **frontend-performance-manager** | **✅** | **LCP/CLS/INP gated** | **2026-06-12** |
 
 **Blocker:** v3.2-P1 · Unlocks with P1 complete · **Health target: 60/100 by end of week**
 
 ---
 
-## v3.2 NEW: P3 Security Scanning (6 Tasks) 🔒 LOCKED
+## v3.2 NEW: P3 Security Scanning (6 Tasks) ⏳ IN PROGRESS
 
 **Phase:** Security scanning automation  
 **Owner:** Security Officer  
@@ -149,7 +149,7 @@
 
 ---
 
-## v3.2 NEW: P4 Design System + Wireframe Bridge (7 Tasks) 🔒 LOCKED
+## v3.2 NEW: P4 Design System + Wireframe Bridge (7 Tasks) ⏳ IN PROGRESS
 
 **Phase:** Design system + wireframe bridge  
 **Owner:** Design Lead + Frontend Lead  
@@ -173,7 +173,7 @@
 
 ---
 
-## v3.2 NEW: P5 Observability + Content Ops (7 Tasks) 🔒 LOCKED
+## v3.2 NEW: P5 Observability + Content Ops (7 Tasks) ⏳ IN PROGRESS
 
 **Phase:** Observability + content operations  
 **Owner:** Frontend Performance Lead + Analytics + Content Strategist  
@@ -295,15 +295,15 @@
 |---|---|---|---|---|---|
 | P0 Foundation | 5 | 5 | — | — | **100%** |
 | P1-P6 Quality/Ship | 21 | 21 | — | — | **100%** |
-| **v3.2-P1** | 7 | — | 7 | — | **0%** |
-| **v3.2-P2** | 6 | — | — | 6 | **0%** (locked on P1) |
-| **v3.2-P3** | 6 | — | — | 6 | **0%** (locked on P1) |
-| **v3.2-P4** | 7 | — | — | 7 | **0%** (locked on P1) |
-| **v3.2-P5** | 7 | — | — | 7 | **0%** (locked on P2) |
-| **v3.2-P6** | 8 | — | — | 8 | **0%** (locked on P1-P5) |
+| **v3.2-P1** | 7 | 7 | — | — | **100%** |
+| **v3.2-P2** | 6 | 6 | — | — | **100%** |
+| **v3.2-P3** | 6 | — | 6 | — | **0%** |
+| **v3.2-P4** | 7 | — | 7 | — | **0%** |
+| **v3.2-P5** | 7 | — | 7 | — | **0%** |
+| **v3.2-P6** | 8 | — | — | 8 | **0%** (locked on P3-P5) |
 | **Agent Build** | 11 | — | 11 | — | **0%** (parallel) |
 | **Agent Integration** | 3 | — | — | 3 | **0%** (locked on agents) |
-| **TOTAL** | 81 | 26 | 18 | 37 | **32%** |
+| **TOTAL** | 81 | 39 | 31 | 11 | **48%** |
 
 ### Critical Path (Wall Clock to v3.2 Release)
 

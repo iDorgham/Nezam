@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# pre-push — enforce NEZAM branch naming policy before any push
+# Policy: feature/<slug>  |  release/x.y.z  |  hotfix/x.y.z  |  main  |  Master
+# Source: .cursor/skills/external/nezam-git-workflow/SKILL.md
+
+set -euo pipefail
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PATTERN='^(main|Master|feature/.+|release/[0-9]+\.[0-9]+\.[0-9]+|hotfix/[0-9]+\.[0-9]+\.[0-9]+|plans/[^/]+|reports/[^/]+|prompts/[^/]+|docs/[^/]+|phase/[^/]+(/[^/]+)?)$'
+
+if [[ ! "$BRANCH" =~ $PATTERN ]]; then
+  echo ""
+  echo "❌ PUSH BLOCKED — branch name violates NEZAM policy."
+  echo "   Branch: '$BRANCH'"
+  echo "   Allowed patterns:"
+  echo "     main | Master"
+  echo "     feature/<slug>"
+  echo "     release/x.y.z"
+  echo "     hotfix/x.y.z"
+  echo "     plans/<slug> | reports/<slug> | prompts/<slug> | docs/<slug>"
+  echo "     phase/<phase>/<date>"
+  echo ""
+  echo "   Rename with: git branch -m '$BRANCH' 'feature/<your-slug>'"
+  echo ""
+  exit 1
+fi
+
+exit 0

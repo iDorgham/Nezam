@@ -24,13 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'pnpm'
@@ -65,8 +65,18 @@ jobs:
             echo "❌ Legacy .cursor/templates/ references found in markdown files"
             violations=$((violations + 1))
           fi
-          if grep -rln "docs/core/" --include='*.md' --include='*.mdc' . --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.claude 2>/dev/null; then
-            echo "❌ Legacy docs/core/ references found in markdown files"
+          if grep -rln "docs/[c]ore/" --include='*.md' --include='*.mdc' . --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.claude --exclude-dir=.github 2>/dev/null; then
+            echo "❌ Legacy docs/""core/ references found in markdown files"
+            violations=$((violations + 1))
+          fi
+          # Guard: docs/plan/ or docs/plans/ must never appear in contracts.
+          # Canonical root is .nezam/core/plans/ (see RELEASE_PLAN.md C1).
+          # HANDOFF_QUEUE.yaml is a historical log and is intentionally excluded.
+          if grep -rlnE "\bdocs/plans?/" \
+               --include='*.md' --include='*.mdc' --include='*.yaml' --include='*.json' \
+               .cursor .nezam/core/plans .nezam/core/scripts docs 2>/dev/null \
+             | grep -v "HANDOFF_QUEUE.yaml"; then
+            echo "❌ Legacy docs/plan(s)/ path found — use .nezam/core/plans/ instead"
             violations=$((violations + 1))
           fi
           # Guard: docs/plan/ or docs/plans/ must never appear in contracts.

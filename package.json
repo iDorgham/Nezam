@@ -8,6 +8,7 @@
     "ai:status": "node .nezam/core/scripts/sync/sync-ai-folders.js --status",
     "ai:check": "node .nezam/core/scripts/checks/check-ai-drift.js && node .nezam/core/scripts/checks/check-sdd-swarm-integrity.js && node .nezam/core/scripts/checks/check-skill-frontmatter.js && node .nezam/core/scripts/checks/check-design-skills.js",
     "ai:check:sdd": "node .nezam/core/scripts/checks/check-sdd-swarm-integrity.js",
+    "verify:yaml": "node .nezam/core/scripts/checks/verify-yaml.js",
     "check:design-excellence": "bash scripts/checks/check-design-excellence.sh",
     "check:design-excellence:strict": "bash scripts/checks/check-design-excellence-strict.sh",
     "design:audit": "bash scripts/checks/check-design-excellence.sh",
@@ -46,6 +47,24 @@
     "hooks:install": "bash .nezam/core/scripts/context/install-context-hooks.sh && bash .nezam/core/scripts/context/auto-memory-hooks.sh --install",
     "docs:wiki": "pnpm dlx docsify-cli@4.4.4 serve docs/wiki --port 3040 --no-open",
     "state:set": "node .nezam/core/scripts/state/write-state.js",
+    "phase:create": "bash .nezam/core/scripts/phase/create-phase-branch.sh",
+    "phase:planning": "bash .nezam/core/scripts/phase/create-phase-branch.sh planning",
+    "phase:seo": "bash .nezam/core/scripts/phase/create-phase-branch.sh seo-aeo",
+    "phase:ia": "bash .nezam/core/scripts/phase/create-phase-branch.sh ia",
+    "phase:content": "bash .nezam/core/scripts/phase/create-phase-branch.sh content",
+    "phase:design": "bash .nezam/core/scripts/phase/create-phase-branch.sh design",
+    "phase:develop": "bash .nezam/core/scripts/phase/create-phase-branch.sh development",
+    "phase:release": "bash .nezam/core/scripts/phase/create-phase-branch.sh release",
+    "antigravity:phase2:setup": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh setup",
+    "antigravity:phase2:sync": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh sync",
+    "antigravity:phase2:pr": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh pr",
+    "antigravity:phase2:status": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh status",
+    "antigravity:phase2:health": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh health",
+    "antigravity:phase2:dashboard": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh dashboard",
+    "antigravity:phase2:push": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh push",
+    "antigravity:phase2:merge": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh merge",
+    "antigravity:phase2:full": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh full",
+    "antigravity:phase2:daily": "bash .nezam/core/scripts/antigravity/phase2-orchestrate.sh daily",
     "design-hub": "cd .nezam/design-hub && pnpm dev",
     "wireframe:server": "pnpm design-hub",
     "design-hub:build": "cd .nezam/design-hub && pnpm build",
@@ -71,12 +90,13 @@
     "@semantic-release/release-notes-generator": "^14.0.0",
     "@types/react": "19.2.16",
     "impeccable": "^2.1.9",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.2.0",
     "semantic-release": "^25.0.3",
     "typescript": "6.0.3"
   },
   "pnpm": {
     "overrides": {
+      "postcss": ">=8.5.10",
       "zod": "4.4.3"
     }
   }

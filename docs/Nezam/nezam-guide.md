@@ -489,7 +489,7 @@ Each skill lives at: `.cursor/skills/<category>/<skill-id>/SKILL.md`.
 | system | build-modes | Development method overlays for NEZAM. Modifies phase execution and gate thresholds without changing the SDD pipeline structure. |
 | system | cli-orchestration | Route tasks to the cheapest available CLI tool. Save Claude/Cursor tokens for reasoning tasks. |
 | system | context-window-manager | Build the minimal high-signal working context for each command/session. |
-| system | decision-journal | Write plain-language decision entries to `.nezam/memory/DECISIONS_PLAIN.md` for founder-readable audit trails. |
+| system | decision-journal | Write plain-language decision entries to `.nezam/core/memory/DECISIONS_PLAIN.md` for founder-readable audit trails. |
 | system | docs-context-sync | Deterministic documentation lifecycle workflow for syncing context docs, workspace index, and plan artifacts after repository changes. |
 | system | founder-onboarding | Convert a plain-language founder idea into complete gate-ready project artifacts without requiring technical ceremony. |
 | system | health-score | Generate and refresh root HEALTH.md with a plain-language 0-100 project health score across six dimensions. |
@@ -716,7 +716,7 @@ Skills `context-window-manager`, `token-budget-manager`, and rules in `workspace
 | Priority | Item |
 |----------|------|
 | P0 | Fix broken internal links (`SWARM_WORKFLOW.md`, `.nezam/memory/...`) or add stub pages that redirect to `.nezam/core/wiki/`. |
-| P0 | Normalize memory paths in `AGENTS.md` template + rules to `.nezam/memory/`. |
+| P0 | Normalize memory paths in `AGENTS.md` template + rules to `.nezam/core/memory/`. |
 | P1 | Add lightweight **validator script** that greps agents/commands for `](../*.md)` targets and fails CI if missing. |
 | P1 | Clarify **swarm-3** naming (`frontend-lead` vs `frontend-framework-manager`) vs `agent-lazy-load.mdc` table (drift). |
 | P2 | Optional **machine-readable export** of `agents_catalog` and skills to JSON for external tools (Grok plugins). |

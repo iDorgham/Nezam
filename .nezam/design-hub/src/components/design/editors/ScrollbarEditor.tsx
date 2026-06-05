@@ -1,7 +1,7 @@
 'use client'
 
 import { useHub } from '@/store/hub.store'
-import { Sliders, Eye, Sparkles, HelpCircle } from 'lucide-react'
+import { SlidersHorizontal, Eye, Sparkles, CircleHelp } from 'lucide-react'
 
 const WIDTHS = ['4px', '6px', '8px', '10px', '12px', '14px']
 
@@ -15,7 +15,7 @@ export function ScrollbarEditor() {
       <div className="flex items-center justify-between border-b border-app-border/40 pb-5">
         <div>
           <h2 className="text-base font-bold text-app-text tracking-tight flex items-center gap-2">
-            <Sliders className="h-5 w-5 text-app-accent" />
+            <SlidersHorizontal className="h-5 w-5 text-app-accent" />
             Scrollbar Styles
           </h2>
           <p className="text-xs text-app-subtle mt-0.5 font-medium">
@@ -29,7 +29,7 @@ export function ScrollbarEditor() {
         <div className="col-span-3 p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm flex flex-col gap-5">
           <div>
             <h3 className="text-xs font-semibold text-app-text mb-1 flex items-center gap-1.5">
-              <Sliders className="h-4 w-4 text-app-accent" />
+              <SlidersHorizontal className="h-4 w-4 text-app-accent" />
               Scrollbar Geometry
             </h3>
             <p className="text-[10px] text-app-subtle leading-normal">

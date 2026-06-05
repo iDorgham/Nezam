@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Optional Impeccable slop detect (WARN-only — does not fail CI by default).
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
 TARGET="${1:-$ROOT/.nezam/design-hub/src}"
 MODE="${IMPECCABLE_SLOP_MODE:-warn}"
 

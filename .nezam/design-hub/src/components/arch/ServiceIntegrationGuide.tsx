@@ -1,6 +1,6 @@
 'use client'
 
-import { X, Copy, ExternalLink } from 'lucide-react'
+import { X, Copy, SquareArrowOutUpRight } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { getCatalogProvider } from '@/lib/arch/service-catalog'
 import { BrandIcon } from '@/components/arch/BrandIcon'
@@ -124,7 +124,7 @@ export function ServiceIntegrationGuide({ servicePage, onClose }: Props) {
                   className="inline-flex items-center gap-1 text-[11px] text-app-accent hover:underline"
                 >
                   Official docs
-                  <ExternalLink size={12} />
+                  <SquareArrowOutUpRight size={12} />
                 </a>
               </>
             )}

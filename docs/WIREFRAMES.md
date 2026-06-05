@@ -98,7 +98,12 @@ Test coverage: `.nezam/design-hub/src/test/lock-session-resolution.test.ts` (ass
 
 | Lock id (`id`) | Architecture id (`arch_page_id`) | Title | Route |
 |---|---|---|---|
-| PAGE-001 | (not yet bound — minimal profile baseline) | Home | `/` |
+| PAGE-001 | home | Home | `/` |
+| PAGE-002 | dashboard | Dashboard | `/dashboard` |
+| PAGE-003 | wireframe | Wireframes | `/wireframe` |
+| PAGE-004 | design | Design | `/design` |
+| PAGE-005 | export | Export | `/export` |
+| PAGE-006 | signin | Sign In | `/sign-in` |
 
 When the next lock export runs through `buildLockPayload`, each entry will carry both ids per the binding rule above.
 

@@ -57,7 +57,7 @@ Cells auto-decompose via `task-decomposition` skill. Lazy-load enforced via `age
 - **Drift Detection**: Compare implementation against `SPEC.md`/`DESIGN.md`. Any deviation → block pipeline until resolved via `sdd-gate-validator`.
 - **Independent Auditor Routing**: `swarm-auditor` never implements. Validates, scores, approves/rejects. Reports to `docs/reports/audits/`.
 - **Audit Triggers**: Weekly deep scan (`/SCAN swarm --deep`), post-P0 completion, certification review, or threshold breach.
-- **Root Cause Logging**: All escalations/audits log to `.nezam/memory/DECISIONS_PLAIN.md` with remediation steps.
+- **Root Cause Logging**: All escalations/audits log to `.nezam/core/memory/DECISIONS_PLAIN.md` with remediation steps.
 
 ## 🎓 Certification, Rating & Qualification Matrix
 Directly addresses `certified_agents: []` gap in `AGENT_REGISTRY.yaml`:
@@ -140,7 +140,7 @@ Track in `.cursor/state/swarm_metrics.yaml` + daily/weekly reports:
 ## 🔄 Self-Improvement & Continuous Learning Loop
 Post-handoff protocol:
 1. Self-score against `SPEC.md` criteria
-2. Log lessons to `.nezam/memory/AGENT_LEARNINGS.md`
+2. Log lessons to `.nezam/core/memory/AGENT_LEARNINGS.md`
 3. Suggest prompt/skill improvements to `grok.md` maintainer
 4. Update experience ledger in agent frontmatter:
 ```yaml

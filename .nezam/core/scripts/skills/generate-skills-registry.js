@@ -28,6 +28,9 @@ const unresolvedSkillRefs = [];
 
 // 1. Find all SKILL.md files
 walkDir(skillsDir, (filePath) => {
+  if (filePath.includes('/archive/') || filePath.includes('\\archive\\') || filePath.includes('/archive\\') || filePath.includes('\\archive/')) {
+    return;
+  }
   if (path.basename(filePath) === 'SKILL.md') {
     const content = fs.readFileSync(filePath, 'utf8');
     const match = content.match(/^---([\s\S]*?)---/);

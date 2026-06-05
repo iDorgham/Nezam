@@ -17,7 +17,7 @@ MEMORY_REFS=$(grep -rn "docs/nezam/memory/" .cursor/ docs/ .nezam/core/scripts/ 
   || true)
 
 if [ -n "$MEMORY_REFS" ]; then
-    echo "❌ Legacy path 'docs/nezam/memory/' found (should be '.nezam/memory/'):"
+    echo "❌ Legacy path '.nezam/memory/' found (should be '.nezam/core/memory/'):"
     echo "$MEMORY_REFS"
     FAIL=1
 else

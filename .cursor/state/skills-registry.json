@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-01T07:48:22.260Z",
+  "generated": "2026-06-05T10:07:09.204Z",
   "skills": [
     {
       "path": "../../../.cursor/skills/analytics/nezam-advanced-analytics-patterns/SKILL.md",
@@ -586,189 +586,13 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/accessibility-audit/SKILL.md",
-      "id": "nezam-accessibility-audit",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/brand-visual-direction/SKILL.md",
-      "id": "nezam-brand-visual-direction",
-      "version": "1.1.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/canvas-design/SKILL.md",
-      "id": "canvas-design",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/component-library-api/SKILL.md",
-      "id": "nezam-component-library-api",
-      "version": "1.1.0",
-      "referenced_by": [
-        "a11y-performance-auditor",
-        "design-systems-token-architect",
-        "mobile-cross-platform",
-        "motion-3d-choreographer",
-        "subagent-controller"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/css-architecture/SKILL.md",
-      "id": "nezam-css-architecture-runtime",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/dashboard-ia-patterns/SKILL.md",
-      "id": "dashboard-ia-patterns",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/dashboard-patterns/SKILL.md",
-      "id": "nezam-dashboard-patterns",
-      "version": "1.0.0",
-      "referenced_by": [
-        "data-visualization"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-context-init/SKILL.md",
-      "id": "design/design-context-init",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
       "path": "../../../.cursor/skills/design/design-intelligence-index/SKILL.md",
-      "id": "design-intelligence-index",
+      "id": "nezam-design-intelligence-index",
       "version": "1.0.0",
       "referenced_by": [
         "art-director-brand"
       ],
       "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-iteration-protocol/SKILL.md",
-      "id": "design/design-iteration-protocol",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-md/SKILL.md",
-      "id": "nezam-design-md",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-selector/SKILL.md",
-      "id": "nezam-design-selector",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-system-builder/SKILL.md",
-      "id": "design-system-builder",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-to-code-handoff/SKILL.md",
-      "id": "nezam-design-to-code-handoff",
-      "version": "2.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-token-architecture/SKILL.md",
-      "id": "nezam-design-token-architecture",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/design-tokens/SKILL.md",
-      "id": "nezam-pro-design-tokens",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/fixed-layout-composer/SKILL.md",
-      "id": "fixed-layout-composer",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/frontend-design-pro/SKILL.md",
-      "id": "frontend-design-pro",
-      "version": "2.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/impeccable-wireframe-craft/SKILL.md",
-      "id": "impeccable-wireframe-craft",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/interaction-choreography/SKILL.md",
-      "id": "nezam-interaction-choreography",
-      "version": "2.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/micro-interaction-designer/SKILL.md",
-      "id": "nezam-micro-interaction-designer",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/motion-3d/SKILL.md",
-      "id": "nezam-motion-3d-progressive",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
     },
     {
       "path": "../../../.cursor/skills/design/nezam-a11y-rtl-fusion/SKILL.md",
@@ -824,31 +648,12 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/nezam-css-architecture/SKILL.md",
-      "id": "nezam-css-architecture",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
       "path": "../../../.cursor/skills/design/nezam-cultural-context-validator/SKILL.md",
       "id": "nezam-cultural-context-validator",
       "version": "1.0",
       "referenced_by": [
         "lead-uiux-designer",
         "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/nezam-dashboard-ia-patterns/SKILL.md",
-      "id": "nezam-dashboard-ia-patterns",
-      "version": "1.0.0",
-      "referenced_by": [
-        "analytics-ui-ux-architect"
       ],
       "orphaned": false
     },
@@ -882,16 +687,6 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/nezam-design-context-init/SKILL.md",
-      "id": "nezam-design-context-init",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
       "path": "../../../.cursor/skills/design/nezam-design-hub/SKILL.md",
       "id": "nezam-design-hub",
       "version": "1.0.0",
@@ -905,16 +700,6 @@
       "path": "../../../.cursor/skills/design/nezam-design-intent-inference/SKILL.md",
       "id": "nezam-design-intent-inference",
       "version": "1.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/nezam-design-iteration-protocol/SKILL.md",
-      "id": "nezam-design-iteration-protocol",
-      "version": "1.0.0",
       "referenced_by": [
         "lead-uiux-designer",
         "visual-design-manager"
@@ -961,22 +746,6 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/nezam-design-tokens/SKILL.md",
-      "id": "nezam-design-tokens",
-      "version": "1.0.0",
-      "referenced_by": [
-        "a11y-performance-auditor",
-        "dashboard-manager",
-        "design-systems-token-architect",
-        "lead-frontend-architect",
-        "lead-uiux-designer",
-        "motion-3d-choreographer",
-        "subagent-controller",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
       "path": "../../../.cursor/skills/design/nezam-interaction-choreography/SKILL.md",
       "id": "nezam-interaction-choreography",
       "version": "2.0.0",
@@ -993,18 +762,6 @@
       "referenced_by": [
         "lead-uiux-designer",
         "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/nezam-motion-3d/SKILL.md",
-      "id": "nezam-motion-3d",
-      "version": "1.0.0",
-      "referenced_by": [
-        "a11y-performance-auditor",
-        "design-systems-token-architect",
-        "motion-3d-choreographer",
-        "subagent-controller"
       ],
       "orphaned": false
     },
@@ -1069,16 +826,6 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/nezam-visual-canvas-engine/SKILL.md",
-      "id": "nezam-visual-canvas-engine",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
       "path": "../../../.cursor/skills/design/nezam-wireframe-catalog/SKILL.md",
       "id": "nezam-wireframe-catalog",
       "version": "2.0.0",
@@ -1099,41 +846,17 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/nezam-wireframe-to-spec/SKILL.md",
-      "id": "nezam-wireframe-to-spec",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
       "path": "../../../.cursor/skills/design/open-design-style-selector/SKILL.md",
-      "id": "open-design-style-selector",
+      "id": "nezam-open-design-style-selector",
       "version": "1.0.0",
       "referenced_by": [
         "art-director-brand"
       ],
       "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/shadcn-advisor/SKILL.md",
-      "id": "shadcn-advisor",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/source-library-loader/SKILL.md",
-      "id": "source-library-loader",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
     },
     {
       "path": "../../../.cursor/skills/design/theme-factory/SKILL.md",
-      "id": "theme-factory",
+      "id": "nezam-theme-factory",
       "version": "1.0.0",
       "referenced_by": [
         "art-director-brand"
@@ -1141,117 +864,22 @@
       "orphaned": false
     },
     {
-      "path": "../../../.cursor/skills/design/token-grid-typography/SKILL.md",
-      "id": "nezam-token-grid-typography",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/token-matched-dummy-renderer/SKILL.md",
-      "id": "token-matched-dummy-renderer",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/typeui-fundamentals/SKILL.md",
-      "id": "typeui-fundamentals",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/typeui-masri-wireframe-typography/SKILL.md",
-      "id": "typeui-masri-wireframe-typography",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/ui-ux-design/SKILL.md",
-      "id": "nezam-ui-ux-design",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/user-flow-mapper/SKILL.md",
-      "id": "nezam-user-flow-mapper",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/ux-research-protocol/SKILL.md",
-      "id": "nezam-ux-research-protocol",
-      "version": "1.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/visual-canvas-engine/SKILL.md",
-      "id": "visual-canvas-engine",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/website-wireframes-engine/SKILL.md",
-      "id": "website-wireframes-engine",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
-      "path": "../../../.cursor/skills/design/wireframe-catalog/SKILL.md",
-      "id": "nezam-wireframe-catalog",
-      "version": "2.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/wireframe-pipeline/SKILL.md",
-      "id": "nezam-wireframe-pipeline",
-      "version": "4.0.0",
-      "referenced_by": [
-        "lead-uiux-designer",
-        "visual-design-manager"
-      ],
-      "orphaned": false
-    },
-    {
-      "path": "../../../.cursor/skills/design/wireframe-to-spec/SKILL.md",
-      "id": "nezam-wireframe-to-spec-converter",
-      "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
-    },
-    {
       "path": "../../../.cursor/skills/design-taste-frontend/SKILL.md",
-      "id": "design-taste-frontend",
+      "id": "nezam-design-taste-frontend",
       "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
+      "referenced_by": [
+        "design-lead"
+      ],
+      "orphaned": false
     },
     {
       "path": "../../../.cursor/skills/emil-design-eng/SKILL.md",
-      "id": "emil-design-eng",
+      "id": "nezam-emil-design-eng",
       "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
+      "referenced_by": [
+        "design-lead"
+      ],
+      "orphaned": false
     },
     {
       "path": "../../../.cursor/skills/external/nezam-api-testing/SKILL.md",
@@ -1450,10 +1078,12 @@
     },
     {
       "path": "../../../.cursor/skills/impeccable/SKILL.md",
-      "id": "impeccable",
+      "id": "nezam-impeccable",
       "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
+      "referenced_by": [
+        "design-lead"
+      ],
+      "orphaned": false
     },
     {
       "path": "../../../.cursor/skills/infrastructure/nezam-aws-infra/SKILL.md",
@@ -1820,10 +1450,12 @@
     },
     {
       "path": "../../../.cursor/skills/stitch-design-taste/SKILL.md",
-      "id": "stitch-design-taste",
+      "id": "nezam-stitch-design-taste",
       "version": "1.0.0",
-      "referenced_by": [],
-      "orphaned": true
+      "referenced_by": [
+        "design-lead"
+      ],
+      "orphaned": false
     },
     {
       "path": "../../../.cursor/skills/system/nezam-adr/SKILL.md",
@@ -2164,34 +1796,16 @@
       "orphaned": false
     }
   ],
-  "orphaned_skills": [
-    "canvas-design",
-    "nezam-css-architecture-runtime",
-    "dashboard-ia-patterns",
-    "design/design-context-init",
-    "design/design-iteration-protocol",
-    "design-system-builder",
-    "nezam-design-token-architecture",
-    "nezam-pro-design-tokens",
-    "fixed-layout-composer",
-    "frontend-design-pro",
-    "impeccable-wireframe-craft",
-    "nezam-motion-3d-progressive",
-    "shadcn-advisor",
-    "source-library-loader",
-    "nezam-token-grid-typography",
-    "token-matched-dummy-renderer",
-    "typeui-fundamentals",
-    "typeui-masri-wireframe-typography",
-    "visual-canvas-engine",
-    "website-wireframes-engine",
-    "nezam-wireframe-to-spec-converter",
-    "design-taste-frontend",
-    "emil-design-eng",
-    "impeccable",
-    "stitch-design-taste"
-  ],
+  "orphaned_skills": [],
   "unresolved_skill_refs": [
-    "nezam-brand-guidelines"
+    "nezam-motion-3d",
+    "nezam-design-tokens",
+    "nezam-dashboard-ia-patterns",
+    "nezam-brand-guidelines",
+    "nezam-css-architecture",
+    "nezam-design-context-init",
+    "nezam-design-iteration-protocol",
+    "nezam-visual-canvas-engine",
+    "nezam-wireframe-to-spec"
   ]
 }

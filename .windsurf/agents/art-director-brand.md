@@ -29,9 +29,9 @@ when: ["/PLAN design", "brand direction review", "theme selection", "open-design
 
 # Swarm & Skills Dependencies
 - `@nezam-brand-guidelines`
-- `@theme-factory` (10 pre-set design themes)
-- `@open-design-style-selector` (67 style families)
-- `@design-intelligence-index`
+- `@nezam-theme-factory` (10 pre-set design themes)
+- `@nezam-open-design-style-selector` (67 style families)
+- `@nezam-design-intelligence-index`
 
 # Anti-Patterns
 - Using random Google Font pairings or unapproved hex values.

@@ -1,5 +1,5 @@
 'use client'
-import { HelpCircle, RotateCcw, Keyboard, PlayCircle, EyeOff, Eye } from 'lucide-react'
+import { CircleHelp, RotateCcw, Keyboard, PlayCircle, EyeOff, Eye } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,7 +37,7 @@ export function HelpMenu({ onOpenShortcuts }: { onOpenShortcuts(): void }) {
           aria-label="Help menu"
           className="flex items-center justify-center h-6 w-6 rounded-app-sm text-app-subtle hover:text-app-muted hover:bg-app-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accent transition-colors"
         >
-          <HelpCircle size={12} />
+          <CircleHelp size={12} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-52">

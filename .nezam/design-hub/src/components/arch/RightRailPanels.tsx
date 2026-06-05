@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Sparkles, Sliders, Type, Grid, HelpCircle, Sun, Moon } from 'lucide-react'
+import { Sparkles, SlidersHorizontal, Type, Grid, CircleHelp, Sun, Moon } from 'lucide-react'
 import { useHub } from '@/store/hub.store'
 import { THEME_PRESETS } from '@/components/theming/theme-presets'
 import { Button } from '@/components/ui/button'
@@ -65,7 +65,7 @@ export function RightRailPanels() {
               : 'text-app-subtle hover:text-app-muted hover:bg-app-elevated/40'
           }`}
         >
-          <Sliders size={11} className={activeTab === 'design' ? 'text-app-accent' : ''} />
+          <SlidersHorizontal size={11} className={activeTab === 'design' ? 'text-app-accent' : ''} />
           Design Tokens
         </button>
       </div>
@@ -206,7 +206,7 @@ export function RightRailPanels() {
             {/* Token Blueprint Selector */}
             <div className="flex flex-col gap-2">
               <span className="text-[10px] font-bold text-app-subtle uppercase tracking-wider flex items-center gap-1">
-                <Sliders size={11} /> Tokens System Presets
+                <SlidersHorizontal size={11} /> Tokens System Presets
               </span>
               <div className="grid grid-cols-2 gap-1.5">
                 {['minimal', 'glassmorphism', 'playful', 'terminal'].map((preset) => (
@@ -224,7 +224,7 @@ export function RightRailPanels() {
             {/* Custom CSS Variable mapper info */}
             <div className="rounded-xl border border-app-accent/20 bg-app-accent-subtle/5 p-3 flex flex-col gap-2">
               <p className="text-[10.5px] font-bold text-app-accent flex items-center gap-1">
-                <HelpCircle size={12} /> Design System Mapper
+                <CircleHelp size={12} /> Design System Mapper
               </p>
               <p className="text-[10px] text-app-subtle leading-relaxed">
                 Tokens automatically map fluid scales to CSS variables:

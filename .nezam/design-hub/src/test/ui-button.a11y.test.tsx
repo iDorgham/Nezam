@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { axe } from 'vitest-axe'
+import { axe } from 'vi-axe'
 import { Button } from '@/components/ui/button'
 
 describe('Button · axe smoke', () => {

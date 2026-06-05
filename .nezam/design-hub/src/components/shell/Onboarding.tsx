@@ -4,7 +4,7 @@ import { useState, useEffect, useId, type KeyboardEvent } from 'react'
 import {
   Network, Palette, Eye, Puzzle, ArrowRight, Check,
   Sparkles, Layers, Globe, Zap, ChevronLeft, Search,
-  CheckSquare, Square, Sliders, Info, LayoutTemplate, Package,
+  SquareCheckBig, Square, SlidersHorizontal, Info, LayoutTemplate, Package,
 } from 'lucide-react'
 import { useHub, HUB_VERSION } from '@/store/hub.store'
 import { ARCH_PROFILES, ARCH_PROFILES_MAP, ARCH_PROFILE_GROUPS } from '@/data/arch-profiles'
@@ -757,7 +757,7 @@ function ArchSitemapPagesPanel({
                 )}
               >
                 {isChecked ? (
-                  <CheckSquare size={13} className="text-blue-500 shrink-0" />
+                  <SquareCheckBig size={13} className="text-blue-500 shrink-0" />
                 ) : (
                   <Square size={13} className="text-white/25 shrink-0" />
                 )}

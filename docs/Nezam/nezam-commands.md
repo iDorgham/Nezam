@@ -28,7 +28,7 @@ NEZAM uses slash commands to trigger governed workflows. Commands are defined in
 Initializes the workspace for a session. Loads context, checks prerequisites, and orients the AI.
 
 **What it does:**
-1. Reads `.nezam/memory/CONTEXT.md` and `.nezam/memory/MEMORY.md`
+1. Reads `.nezam/core/memory/CONTEXT.md` and `.nezam/core/memory/MEMORY.md`
 2. Checks `.nezam/core/prd/PRD.md` exists
 3. Identifies the current SDD phase from `.nezam/core/plans/INDEX.md`
 4. Loads the relevant agents for that phase

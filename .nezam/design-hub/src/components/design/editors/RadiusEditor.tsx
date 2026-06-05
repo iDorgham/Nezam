@@ -7,8 +7,8 @@ import {
   Sparkles,
   Layers,
   Settings2,
-  Sliders,
-  CheckCircle,
+  SlidersHorizontal,
+  CircleCheck,
   AlertTriangle,
   Info,
   Maximize2
@@ -144,7 +144,7 @@ export function RadiusEditor() {
         <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Sliders className="h-4 w-4 text-app-accent" />
+              <SlidersHorizontal className="h-4 w-4 text-app-accent" />
               <h3 className="text-xs font-semibold text-app-text">Precision Sliders</h3>
             </div>
             <p className="text-[10px] text-app-subtle leading-normal mb-4">
@@ -236,7 +236,7 @@ export function RadiusEditor() {
       <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm">
         <div className="flex items-center gap-2 mb-3.5">
           {nestingPass ? (
-            <CheckCircle className="h-4 w-4 text-emerald-500" />
+            <CircleCheck className="h-4 w-4 text-emerald-500" />
           ) : (
             <AlertTriangle className="h-4 w-4 text-amber-500" />
           )}

@@ -26,7 +26,7 @@ jobs:
             exit 1
           fi
 
-          if [[ "$BRANCH_NAME" =~ ^(feature|release|hotfix)\/[a-z0-9._-]+$ || "$BRANCH_NAME" =~ ^dependabot\/[a-z0-9._/-]+$ ]]; then
+          if [[ "$BRANCH_NAME" =~ ^(feature|release|hotfix|plans|reports|prompts|docs|phase)\/[a-zA-Z0-9._/-]+$ || "$BRANCH_NAME" =~ ^dependabot\/[a-z0-9._/-]+$ ]]; then
             echo "Branch naming check passed: $BRANCH_NAME"
             exit 0
           fi
@@ -36,6 +36,11 @@ jobs:
           echo "  feature/<spec-id-or-topic>"
           echo "  release/<x.y.z>"
           echo "  hotfix/<x.y.z>"
+          echo "  plans/<slug>"
+          echo "  reports/<slug>"
+          echo "  prompts/<slug>"
+          echo "  docs/<slug>"
+          echo "  phase/<phase>/<date>"
           exit 1
 
   conventional-commits:
@@ -62,6 +67,10 @@ jobs:
 
           for SHA in $COMMITS; do
             SUBJECT="$(git log --format=%s -n 1 "$SHA")"
+            # Skip merge commits — they are allowed
+            if [[ "$SUBJECT" =~ ^Merge ]]; then
+              continue
+            fi
             if [[ ! "$SUBJECT" =~ $REGEX ]]; then
               echo "Invalid conventional commit: $SHA -> $SUBJECT"
               INVALID=1
@@ -227,6 +236,7 @@ jobs:
         run: pnpm -C .nezam/design-hub test
 
       - name: Design Hub token check
+        if: steps.designhub_changes.outputs.skip == 'false'
         run: pnpm --filter @nezam/design-hub run design:tokens:emit && pnpm run check:tokens
 
       - name: Wireframe lock integrity

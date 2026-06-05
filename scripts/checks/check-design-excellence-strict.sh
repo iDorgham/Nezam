@@ -11,6 +11,14 @@ FAILS=0
 WARNINGS=0
 HEALTH_YAML=".cursor/state/design_health.yaml"
 
+TMP_DIR="${ROOT_DIR}/.nezam/tmp"
+mkdir -p "$TMP_DIR"
+cleanup() {
+  rm -rf "$TMP_DIR"
+}
+trap cleanup EXIT
+
+
 red()   { printf '\033[0;31m%s\033[0m\n' "$*"; }
 green() { printf '\033[0;32m%s\033[0m\n' "$*"; }
 yellow(){ printf '\033[0;33m%s\033[0m\n' "$*"; }
@@ -45,11 +53,11 @@ echo
 
 # --- Gate 2: Token drift (no hardcoded primitives in components) ----------
 bold "Gate 2 · Token drift"
-if bash .nezam/core/scripts/checks/check-design-tokens.sh > /tmp/token-check.log 2>&1; then
+if bash .nezam/core/scripts/checks/check-design-tokens.sh > "$TMP_DIR/token-check.log" 2>&1; then
   pass "no hardcoded primitives"
 else
   fail "token drift detected:"
-  sed -n '1,10p' /tmp/token-check.log | sed 's/^/      /'
+  sed -n '1,10p' "$TMP_DIR/token-check.log" | sed 's/^/      /'
 fi
 echo
 
@@ -94,11 +102,11 @@ echo
 # --- Gate 4: Impeccable slop detect (strict) ------------------------------
 bold "Gate 4 · Impeccable slop (fail-mode)"
 if [[ -d ".nezam/design-hub/src" ]]; then
-  if IMPECCABLE_SLOP_MODE=fail bash .nezam/core/scripts/checks/check-impeccable-slop.sh > /tmp/slop.log 2>&1; then
+  if IMPECCABLE_SLOP_MODE=fail bash .nezam/core/scripts/checks/check-impeccable-slop.sh > "$TMP_DIR/slop.log" 2>&1; then
     pass "no slop signals"
   else
-    fail "impeccable slop signals (see /tmp/slop.log)"
-    tail -5 /tmp/slop.log | sed 's/^/      /'
+    fail "impeccable slop signals"
+    tail -5 "$TMP_DIR/slop.log" | sed 's/^/      /'
   fi
 else
   warn "design-hub src missing — skipped"
@@ -107,11 +115,11 @@ echo
 
 # --- Gate 5: ai:check + sync drift ----------------------------------------
 bold "Gate 5 · Workspace integrity"
-if pnpm ai:check > /tmp/aicheck.log 2>&1; then
+if pnpm ai:check > "$TMP_DIR/aicheck.log" 2>&1; then
   pass "ai:check passes (no sync drift)"
 else
   fail "ai:check failed"
-  tail -5 /tmp/aicheck.log | sed 's/^/      /'
+  tail -5 "$TMP_DIR/aicheck.log" | sed 's/^/      /'
 fi
 echo
 

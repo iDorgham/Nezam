@@ -13,7 +13,34 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.preferences.importModuleSpecifier": "relative",
   "files.exclude": {
-    "**/.DS_Store": true
+    "**/.DS_Store": true,
+    ".nezam/design-hub/node_modules/**": true,
+    ".nezam/design-hub/.next/**": true,
+    ".nezam/docs-site/node_modules/**": true,
+    ".nezam/docs-site/.next/**": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    ".nezam/design-hub/node_modules/**": true,
+    ".nezam/design-hub/.next/**": true,
+    ".nezam/design-hub/tsconfig.tsbuildinfo": true,
+    ".nezam/docs-site/node_modules/**": true,
+    ".nezam/docs-site/.next/**": true,
+    ".nezam/docs-site/tsconfig.tsbuildinfo": true,
+    "tsconfig.tsbuildinfo": true,
+    ".antigravity/**": true,
+    ".antigravitycli/**": true,
+    ".agents/**": true,
+    ".codex/**": true,
+    ".gemini/**": true,
+    ".qwen/**": true,
+    ".opencode/**": true,
+    ".kilocode/**": true,
+    ".windsurf/**": true,
+    ".kiro/**": true,
+    ".cursor/design/**": true
   },
   "search.exclude": {
     ".antigravity/**": true,
@@ -28,7 +55,11 @@
     ".windsurf/**": true,
     ".kiro/**": true,
     ".claude/**": true,
-    "node_modules/**": true
+    "node_modules/**": true,
+    ".nezam/design-hub/node_modules/**": true,
+    ".nezam/design-hub/.next/**": true,
+    ".nezam/docs-site/node_modules/**": true,
+    ".nezam/docs-site/.next/**": true
   },
   "specstory.cloudSync.enabled": "always",
   "claudeCodeChat.permissions.yoloMode": true,

@@ -1,0 +1,21 @@
+phase: planning
+status: in_progress
+created_at: 2026-06-04T22:13:30Z
+branch: phase/planning/2026-06-05
+created_by: "Nezam CI Bot"
+email: "action@users.noreply.github.com"
+
+requirements_checklist:
+  - item: "Define phase requirements"
+    status: pending
+  - item: "Document specifications"
+    status: pending
+  - item: "Update team"
+    status: pending
+  - item: "Request reviews"
+    status: pending
+
+git_info:
+  branch: phase/planning/2026-06-05
+  commit_hash: "50599f9ac4ff44e008453915c3aa7b46b31886c4"
+  remote_url: "git@github.com:iDorgham/Nezam.git"

@@ -1,7 +1,7 @@
 'use client'
 
 import { useHub } from '@/store/hub.store'
-import { SlidersHorizontal, Eye, Sparkles } from 'lucide-react'
+import { SlidersVertical, Eye, Sparkles } from 'lucide-react'
 
 const MODES = ['compact', 'comfortable', 'spacious'] as const
 
@@ -28,7 +28,7 @@ export function DensityEditor() {
       <div className="flex items-center justify-between border-b border-app-border/40 pb-5">
         <div>
           <h2 className="text-base font-bold text-app-text tracking-tight flex items-center gap-2">
-            <SlidersHorizontal className="h-5 w-5 text-app-accent" />
+            <SlidersVertical className="h-5 w-5 text-app-accent" />
             UI Information Density
           </h2>
           <p className="text-xs text-app-subtle mt-0.5 font-medium">

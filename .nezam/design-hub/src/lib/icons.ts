@@ -1,11 +1,5 @@
 'use client'
 
-/**
- * Centralized icon registry — maps string keys (stored in data/types)
- * to lucide-react components. Use `IconRenderer` wherever an icon name
- * string needs to be rendered as a real SVG icon.
- */
-
 import {
   Home,
   FileText,
@@ -15,17 +9,17 @@ import {
   Key,
   Sparkles,
   Lock,
-  Unlock,
+  LockOpen,
   LayoutDashboard,
-  FileEdit,
+  FilePen,
   Image,
   Users,
   User,
   Settings,
-  BarChart2,
+  ChartBar,
   FolderOpen,
   Folder,
-  CheckSquare,
+  SquareCheckBig,
   Inbox,
   Calendar,
   Bell,
@@ -37,7 +31,7 @@ import {
   BookOpen,
   Tag,
   Wrench,
-  ClipboardList,
+  ClipboardPenLine,
   LayoutGrid,
   ShoppingBag,
   ShoppingCart,
@@ -46,12 +40,11 @@ import {
   Zap,
   Shield,
   Compass,
-  HelpCircle,
+  CircleHelp,
   UserPlus,
-  CheckCircle,
+  CircleCheck,
   Database,
-  FilePlus,
-  // Hub sections
+  FilePlus2,
   Network,
   Palette,
   Eye,
@@ -60,7 +53,6 @@ import {
   Monitor,
   Tablet,
   Smartphone,
-  // UI actions
   ChevronDown,
   ChevronRight,
   ChevronLeft,
@@ -68,7 +60,7 @@ import {
   Trash2,
   Pencil,
   ArrowUpRight,
-  MoreHorizontal,
+  Ellipsis,
   Moon,
   Sun,
   PanelRight,
@@ -77,31 +69,29 @@ import {
   CornerDownRight,
   Search,
   Copy,
-  ExternalLink,
-  AlertCircle,
-  XCircle,
+  SquareArrowOutUpRight,
+  CircleAlert,
+  CircleX,
   Star,
   Globe,
   Link,
   Hash,
-  // Token categories
-  Droplets,
+  Droplet,
   Type,
-  ArrowLeftRight,
+  ArrowRightLeft,
   Circle,
   Layers,
   Square,
   MousePointer,
   AlignLeft,
   Ruler,
-  SlidersHorizontal,
+  SlidersVertical,
   Shapes,
   Grid,
   Box,
-  // Extra
   FileCode,
   Columns,
-  Sliders,
+  SlidersHorizontal,
   ToggleLeft,
   MessageSquare,
   Navigation,
@@ -112,10 +102,7 @@ import {
 
 import React from 'react'
 
-// ─── Icon map ─────────────────────────────────────────────────────────────────
-
 export const ICON_MAP: Record<string, LucideIcon> = {
-  // Page / navigation icons
   Home,
   FileText,
   Info,
@@ -124,17 +111,17 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   Key,
   Sparkles,
   Lock,
-  Unlock,
+  LockOpen,
   LayoutDashboard,
-  FileEdit,
+  FilePen,
   Image,
   Users,
   User,
   Settings,
-  BarChart2,
+  ChartBar,
   FolderOpen,
   Folder,
-  CheckSquare,
+  SquareCheckBig,
   Inbox,
   Calendar,
   Bell,
@@ -146,7 +133,7 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   BookOpen,
   Tag,
   Wrench,
-  ClipboardList,
+  ClipboardPenLine,
   LayoutGrid,
   ShoppingBag,
   ShoppingCart,
@@ -155,18 +142,11 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   Zap,
   Shield,
   Compass,
-  HelpCircle,
+  CircleHelp,
   UserPlus,
-  CheckCircle,
+  CircleCheck,
   Database,
-  FilePlus,
-  Star,
-  Globe,
-  Link,
-  Hash,
-  FileCode,
-
-  // Hub sections
+  FilePlus2,
   Network,
   Palette,
   Eye,
@@ -175,8 +155,6 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   Monitor,
   Tablet,
   Smartphone,
-
-  // UI actions
   ChevronDown,
   ChevronRight,
   ChevronLeft,
@@ -184,7 +162,7 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   Trash2,
   Pencil,
   ArrowUpRight,
-  MoreHorizontal,
+  Ellipsis,
   Moon,
   Sun,
   PanelRight,
@@ -193,28 +171,29 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   CornerDownRight,
   Search,
   Copy,
-  ExternalLink,
-  AlertCircle,
-  XCircle,
-
-  // Token categories
-  Droplets,
+  SquareArrowOutUpRight,
+  CircleAlert,
+  CircleX,
+  Star,
+  Globe,
+  Link,
+  Hash,
+  Droplet,
   Type,
-  ArrowLeftRight,
+  ArrowRightLeft,
   Circle,
   Layers,
   Square,
   MousePointer,
   AlignLeft,
   Ruler,
-  SlidersHorizontal,
+  SlidersVertical,
   Shapes,
   Grid,
   Box,
+  FileCode,
   Columns,
-  Sliders,
-
-  // Misc
+  SlidersHorizontal,
   ToggleLeft,
   MessageSquare,
   Navigation,
@@ -222,17 +201,13 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   ListFilter,
 }
 
-// ─── PAGE_ICONS picker list (icon names for the arch page icon picker) ───────
-
 export const PAGE_ICON_NAMES: string[] = [
   'FileText', 'FolderOpen', 'Home', 'Settings', 'User', 'CreditCard',
-  'BarChart2', 'FileEdit', 'Key', 'Mail', 'BookOpen', 'Lock',
-  'Calendar', 'DollarSign', 'Zap', 'CheckSquare', 'Folder', 'Bell',
+  'ChartBar', 'FilePen', 'Key', 'Mail', 'BookOpen', 'Lock',
+  'Calendar', 'DollarSign', 'Zap', 'SquareCheckBig', 'Folder', 'Bell',
   'Image', 'Users', 'Inbox', 'Tag', 'Plug', 'LayoutDashboard',
-  'ClipboardList', 'Wrench', 'Shield', 'Compass', 'Heart', 'ShoppingBag',
+  'ClipboardPenLine', 'Wrench', 'Shield', 'Compass', 'Heart', 'ShoppingBag',
 ]
-
-// ─── IconRenderer component ───────────────────────────────────────────────────
 
 interface IconRendererProps {
   name: string
@@ -245,7 +220,6 @@ interface IconRendererProps {
 export function IconRenderer({ name, size = 16, className, strokeWidth = 1.5, style }: IconRendererProps) {
   const IconComponent = ICON_MAP[name]
   if (!IconComponent) {
-    // Fallback: render a generic file icon if name not found
     return React.createElement(FileText, { size, className, strokeWidth, style })
   }
   return React.createElement(IconComponent, { size, className, strokeWidth, style })

@@ -1,6 +1,78 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-app-bg: var(--app-bg);
+  --color-app-surface: var(--app-surface);
+  --color-app-elevated: var(--app-elevated);
+  --color-app-inset: var(--app-inset);
+  --color-app-deep: var(--app-deep);
+  --color-app-border: var(--app-border);
+  --color-app-border-strong: var(--app-border-strong);
+  --color-app-text: var(--app-text);
+  --color-app-muted: var(--app-muted);
+  --color-app-subtle: var(--app-subtle);
+  --color-app-accent: var(--app-accent);
+  --color-app-accent-hover: var(--app-accent-hover);
+  --color-app-accent-active: var(--app-accent-active);
+  --color-app-accent-subtle: var(--app-accent-subtle);
+  --color-app-on-accent: var(--app-on-accent);
+  --color-app-danger: var(--app-danger);
+  --color-app-warning: var(--app-warning);
+  --color-app-success: var(--app-success);
+
+  --color-n-brand: var(--n-brand);
+  --color-n-brand-hover: var(--n-brand-hover);
+  --color-n-brand-subtle: var(--n-brand-subtle);
+  --color-n-on-brand: var(--n-on-brand);
+  --color-n-accent: var(--n-accent);
+  --color-n-bg: var(--n-bg);
+  --color-n-surface: var(--n-surface);
+  --color-n-elevated: var(--n-elevated);
+  --color-n-text: var(--n-text);
+  --color-n-text-muted: var(--n-text-muted);
+  --color-n-text-subtle: var(--n-text-subtle);
+  --color-n-border: var(--n-border);
+  --color-n-border-strong: var(--n-border-strong);
+  --color-n-success: var(--n-success);
+  --color-n-warning: var(--n-warning);
+  --color-n-danger: var(--n-danger);
+  --color-n-info: var(--n-info);
+
+  --font-sans: var(--app-font-sans), system-ui, sans-serif;
+  --font-mono: var(--app-font-mono), ui-monospace, monospace;
+
+  --radius-app-sm: 6px;
+  --radius-app: 10px;
+  --radius-app-lg: 14px;
+  --radius-app-xl: 20px;
+
+  --shadow-app-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-app: 0 4px 16px -2px rgba(0,0,0,0.45);
+  --shadow-app-lg: 0 18px 48px -12px rgba(0,0,0,0.65);
+  --shadow-app-glow: 0 0 0 1px var(--app-accent-subtle), 0 8px 28px -8px var(--app-accent-subtle);
+
+  --ease-smooth: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-fade-in: fade-in 0.3s ease both;
+  --animate-rise-in: rise-in 0.4s cubic-bezier(0.32,0.72,0,1) both;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
 
 /* =============================================================
    NEZAM Design Hub — Professional design system workspace

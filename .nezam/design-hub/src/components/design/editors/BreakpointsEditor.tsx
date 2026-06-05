@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
-import { Monitor, Tablet, Smartphone, Sparkles, CheckCircle, Eye, Settings2 } from 'lucide-react'
+import { Monitor, Tablet, Smartphone, Sparkles, CircleCheck, Eye, Settings2 } from 'lucide-react'
 
 const BREAKPOINT_KEYS = [
   { key: 'xs', label: 'Extra Small (xs)', desc: 'Mobile phones portrait', width: '320px', icon: Smartphone },

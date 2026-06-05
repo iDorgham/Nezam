@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useHub } from '@/store/hub.store'
-import { Zap, Play, Sparkles, Sliders, CheckCircle, RefreshCw, Layers } from 'lucide-react'
+import { Zap, Play, Sparkles, SlidersHorizontal, CircleCheck, RefreshCw, Layers } from 'lucide-react'
 
 const DURATION_PRESETS = [
   { name: 'Fast (Mobile First)',   values: { fast: '80ms',  base: '150ms', slow: '250ms' } },
@@ -127,7 +127,7 @@ export function MotionEditor() {
         <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Sliders className="h-4 w-4 text-app-accent" />
+              <SlidersHorizontal className="h-4 w-4 text-app-accent" />
               <h3 className="text-xs font-semibold text-app-text">Precision Easing</h3>
             </div>
             <p className="text-[10px] text-app-subtle leading-normal mb-4">

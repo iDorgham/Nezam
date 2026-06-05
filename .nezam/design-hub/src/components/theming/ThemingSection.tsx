@@ -3,7 +3,7 @@
 import { type ComponentType, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Sun, Moon, Copy, Check, RotateCcw, Sparkles, Palette, Shuffle,
-  Wand2, Play, BookmarkPlus, Trash2, Sliders, Settings, SlidersHorizontal,
+  Wand2, Play, BookmarkPlus, Trash2, SlidersHorizontal, Settings, SlidersVertical,
   Download, Layers, Compass, Eye,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -477,7 +477,7 @@ export function ThemingSection() {
             controls="theme-panel-styles"
             active={controlTab === 'styles'}
             onClick={() => setControlTab('styles')}
-            Icon={Sliders}
+            Icon={SlidersHorizontal}
             label="Geometry"
           />
           <ControlTabButton

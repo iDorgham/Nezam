@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { cn } from '@/lib/utils'
 import {
   ArrowUpRight, Bell, Search, Star, TrendingUp, TrendingDown, User, Check, Play,
-  Sliders, Settings, AlertCircle, CheckCircle2, Info, AlertTriangle, Layers,
+  SlidersHorizontal, Settings, CircleAlert, CheckCircle2, Info, AlertTriangle, Layers,
   Compass, Plus, ChevronRight, Activity, Clock, ShieldCheck, Sparkles, LayoutGrid, Zap
 } from 'lucide-react'
 import type { ThemeTokens } from './theme-presets'
@@ -892,7 +892,7 @@ export function ThemingPreview({
           <div className={cn("p-5 flex flex-col justify-between gap-4", getInteractiveHoverClass())} style={containerStyle}>
             <div>
               <div className="flex items-center gap-2">
-                <Sliders size={14} style={{ color: 'var(--primary)' }} />
+                <SlidersHorizontal size={14} style={{ color: 'var(--primary)' }} />
                 <p className="text-[14px] font-extrabold tracking-tight">Interactive Controls</p>
               </div>
               <p className="text-[11px]" style={{ color: 'var(--muted-fg)' }}>Interactive state testing cockpit</p>
@@ -1050,7 +1050,7 @@ export function ThemingPreview({
                   borderWidth: borderWidth === 0 ? '0px' : surfaceStyle === 'brutalist' ? `${borderWidth}px` : '1px'
                 }}
               >
-                <AlertCircle size={13} style={{ color: 'var(--destructive)', marginTop: '2px' }} />
+                <CircleAlert size={13} style={{ color: 'var(--destructive)', marginTop: '2px' }} />
                 <div>
                   <p className="text-[10.5px] font-bold leading-tight" style={{ color: 'var(--destructive)' }}>Deprecation Warning</p>
                   <p className="text-[9px]" style={{ color: 'var(--muted-fg)' }}>Avoid using global root style override</p>

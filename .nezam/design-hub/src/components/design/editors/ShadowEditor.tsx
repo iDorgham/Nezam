@@ -5,8 +5,8 @@ import { useHub } from '@/store/hub.store'
 import {
   Layers,
   Sparkles,
-  Sliders,
-  CheckCircle,
+  SlidersHorizontal,
+  CircleCheck,
   Eye,
   Zap,
   Info
@@ -107,7 +107,7 @@ export function ShadowEditor() {
         <div className="p-5 rounded-2xl bg-app-inset border border-app-border/40 backdrop-blur-md shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Sliders className="h-4 w-4 text-app-accent" />
+              <SlidersHorizontal className="h-4 w-4 text-app-accent" />
               <h3 className="text-xs font-semibold text-app-text">Precision Tokens</h3>
             </div>
             <p className="text-[10px] text-app-subtle leading-normal mb-4">

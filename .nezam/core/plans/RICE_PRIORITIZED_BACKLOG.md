@@ -19,8 +19,8 @@
 | 2 | **T-P1-004** | Design excellence audit `--strict` on Design Hub | 10 | 3 | 0.85 | 2 | **12.75** | design-excellence-lead | ✅ Done |
 | 3 | **T-P0-003** | SDD gate enforcement — `check-onboarding-readiness.sh`, `wireframes_locked.json` CI validation | 10 | 3 | 0.85 | 2 | **12.75** | swarm-leader + lead-qa-architect | ✅ Done |
 | 4 | **T-P0-002** | AI mirror sync integrity — pre-commit hook, `pnpm ai:sync` / `ai:check` CI | 10 | 3 | 0.95 | 2 | **14.25** | devops-manager | ✅ Done |
-| 5 | **ROAD-4.1** | Wireframe server integration — Design Hub live preview bridge | 8 | 3 | 0.75 | 4 | **4.5** | design-lead + frontend-lead | ⚪ Open |
-| 6 | **ROAD-4.2** | Design tokens + motion budget enforcement (CI gate) | 8 | 3 | 0.80 | 2 | **9.6** | design-systems-token-architect | ⚪ Open |
+| 5 | **ROAD-4.1** | Wireframe server integration — Design Hub live preview bridge | 8 | 3 | 0.75 | 4 | **4.5** | design-lead + frontend-lead | ✅ Done |
+| 6 | **ROAD-4.2** | Design tokens + motion budget enforcement (CI gate) | 8 | 3 | 0.80 | 2 | **9.6** | design-systems-token-architect | ✅ Done |
 
 ---
 
@@ -46,7 +46,7 @@
 | 15 | **ROAD-6.3** | Final QA + release prep (v3.2 tag) | 8 | 3 | 0.85 | 4 | **5.1** | lead-qa-architect | ⚪ Open |
 | 16 | **T-P2-001** | Arabic/MENA SEO brief (Egyptian Arabic, Sahel context) | 5 | 3 | 0.70 | 2 | **5.25** | masri-content-specialist | ⚪ Open (conditional) |
 | 17 | **T-P2-002** | Plugin marketplace for NEZAM commands | 4 | 2 | 0.50 | 8 | **0.5** | community | ⚪ Deferred |
-| 18 | **T-P0-004** | Wireframe lock export path — `wireframes_locked.json` at repo root | 6 | 3 | 0.75 | 2 | **6.75** | design-hub-wireframe | ⚪ Open |
+| 18 | **T-P0-004** | Wireframe lock export path — `wireframes_locked.json` at repo root | 6 | 3 | 0.75 | 2 | **6.75** | design-hub-wireframe | ✅ Done |
 
 ---
 

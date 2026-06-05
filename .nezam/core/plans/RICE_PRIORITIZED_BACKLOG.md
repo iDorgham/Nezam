@@ -16,7 +16,7 @@
 | Rank | ID | Task | R | I | C | E | RICE | Owner | Status |
 |------|-----|------|---|---|---|---|------|-------|--------|
 | 1 | **T-P1-001** | `design:tokens:emit` — auto-emit design tokens from `DESIGN.md` into CSS vars + TS types | 10 | 3 | 0.9 | 2 | **13.5** | design-systems-token-architect | ✅ Done |
-| 2 | **T-P1-004** | Design excellence audit `--strict` on Design Hub | 10 | 3 | 0.85 | 2 | **12.75** | design-excellence-lead | ⚪ Open |
+| 2 | **T-P1-004** | Design excellence audit `--strict` on Design Hub | 10 | 3 | 0.85 | 2 | **12.75** | design-excellence-lead | ✅ Done |
 | 3 | **T-P0-003** | SDD gate enforcement — `check-onboarding-readiness.sh`, `wireframes_locked.json` CI validation | 10 | 3 | 0.85 | 2 | **12.75** | swarm-leader + lead-qa-architect | ✅ Done |
 | 4 | **T-P0-002** | AI mirror sync integrity — pre-commit hook, `pnpm ai:sync` / `ai:check` CI | 10 | 3 | 0.95 | 2 | **14.25** | devops-manager | ✅ Done |
 | 5 | **ROAD-4.1** | Wireframe server integration — Design Hub live preview bridge | 8 | 3 | 0.75 | 4 | **4.5** | design-lead + frontend-lead | ⚪ Open |

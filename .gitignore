@@ -16,3 +16,15 @@ docs/reference/
 .cursor/design/references/
 # git worktrees checked out inside .claude/ should never be staged as submodules
 .claude/worktrees/
+
+# Auto-generated (regenerate via pnpm ai:sync)
+CLAUDE.md
+
+# Consolidated task files (merged into MASTER_PLAN_v3.2.md, Phase 4)
+TASKS_v3.2.md
+
+# Build artifacts (regenerate via pnpm install)
+.pnpm/
+
+# Archives (historical reference only, not part of active codebase)
+_archive/

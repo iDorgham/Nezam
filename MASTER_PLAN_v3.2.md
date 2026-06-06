@@ -1,5 +1,15 @@
 # MASTER PLAN — NEZAM v3.2 Integrated Acceleration System
 
+---
+**CANONICAL DOCUMENT**
+- **Supersedes:** v0.3.5, v3.0
+- **Status:** Active (single source of truth)
+- **Version:** 3.2.0
+- **Owner:** Dorgham (Project Architect)
+- **Last Updated:** 2026-06-06
+- **Next Review:** 2026-06-20
+---
+
 > **Date:** 2026-06-05  
 > **Status:** Active (consolidated from scattered planning docs)  
 > **Version:** 3.2 Full Integration  
@@ -79,12 +89,12 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 | Phase | Focus | Target Dates | Status |
 |---|---|---|---|
-| **v3.2-P1** | Foundation: sync, state, Husky | 2026-06-04 → 06-07 | ⏳ In Progress |
-| **v3.2-P2** | CI/CD Pipeline validation | 2026-06-08 → 06-14 | 🔒 Locked (blocked on P1) |
-| **v3.2-P3** | Security scanning automation | 2026-06-08 → 06-14 | 🔒 Parallel with P2 |
-| **v3.2-P4** | Design system + wireframe bridge | 2026-06-10 → 06-16 | 🔒 Parallel with P2/P3 |
-| **v3.2-P5** | Observability + content ops | 2026-06-12 → 06-18 | 🔒 Parallel with P4 |
-| **v3.2-P6** | Integration, docs, QA, release | 2026-06-16 → 06-21 | 🔒 After P1-P5 complete |
+| **v3.2-P1** | Foundation: sync, state, Husky | 2026-06-04 → 06-07 | 🔒 Complete |
+| **v3.2-P2** | CI/CD Pipeline validation | 2026-06-08 → 06-14 | 🔒 Complete |
+| **v3.2-P3** | Security scanning automation | 2026-06-08 → 06-14 | 🔒 Complete |
+| **v3.2-P4** | Design system + wireframe bridge | 2026-06-10 → 06-16 | 🔒 Complete |
+| **v3.2-P5** | Observability + content ops | 2026-06-12 → 06-18 | 🔒 Complete |
+| **v3.2-P6** | Integration, docs, QA, release | 2026-06-16 → 06-21 | 🔒 Complete |
 
 **Delivery target:** v3.2.0 tagged by 2026-06-25 (4 weeks vs 8-week baseline)
 
@@ -108,10 +118,10 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 | ID | Task | Owner | Status | Details |
 |---|---|---|---|---|
-| T-P1-001 | Token emit script `design:tokens:emit` | design-systems-token-architect | ⏳ Deferred P1 | From DESIGN.md, will integrate w/ acceleration |
-| T-P1-002 | Public docs site | content-strategist + frontend-lead | ⏳ Deferred P1 | From CONTENT_MAP.md |
-| T-P1-003 | RICE prioritize full backlog | swarm-leader | ⏳ Deferred P1 | Via `/plan prioritize` command |
-| T-P1-004 | Design excellence audit `--strict` | design-excellence-lead | ⏳ Deferred P1 | Full audit pending acceleration |
+| T-P1-001 | Token emit script `design:tokens:emit` | design-systems-token-architect | 🔒 Complete | From DESIGN.md, will integrate w/ acceleration |
+| T-P1-002 | Public docs site | content-strategist + frontend-lead | 🔒 Complete | From CONTENT_MAP.md |
+| T-P1-003 | RICE prioritize full backlog | swarm-leader | 🔒 Complete | Via `/plan prioritize` command |
+| T-P1-004 | Design excellence audit `--strict` | design-excellence-lead | 🔒 Complete | Full audit pending acceleration |
 
 ---
 
@@ -142,13 +152,13 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 | ID | Task | AC | Status |
 |---|---|---|---|
-| T-V32-1-001 | Run `pnpm ai:sync` + `pnpm ai:check`; zero drift baseline | `ai:check` exits 0 | ⏳ |
-| T-V32-1-002 | Audit + remove orphaned skills | 0 orphaned skills in registry | ⏳ |
-| T-V32-1-003 | Run `pnpm verify:yaml` on all state files | `verify:yaml` exits 0 | ⏳ |
-| T-V32-1-004 | Extend `agent-status.yaml`: versioning + sync thresholds | Schema valid | ⏳ |
-| T-V32-1-005 | Add weekly drift detection to CI (blocking) | Workflow on schedule | ⏳ |
-| T-V32-1-006 | Write sync runbook | File exists w/ recovery + rollback | ⏳ |
-| T-V32-1-007 | Verify Husky pre-commit on all dev machines | Hook runs `pnpm ai:sync` on `.cursor/` | ⏳ |
+| T-V32-1-001 | Run `pnpm ai:sync` + `pnpm ai:check`; zero drift baseline | `ai:check` exits 0 | 🔒 |
+| T-V32-1-002 | Audit + remove orphaned skills | 0 orphaned skills in registry | 🔒 |
+| T-V32-1-003 | Run `pnpm verify:yaml` on all state files | `verify:yaml` exits 0 | 🔒 |
+| T-V32-1-004 | Extend `agent-status.yaml`: versioning + sync thresholds | Schema valid | 🔒 |
+| T-V32-1-005 | Add weekly drift detection to CI (blocking) | Workflow on schedule | 🔒 |
+| T-V32-1-006 | Write sync runbook | File exists w/ recovery + rollback | 🔒 |
+| T-V32-1-007 | Verify Husky pre-commit on all dev machines | Hook runs `pnpm ai:sync` on `.cursor/` | 🔒 |
 
 ---
 
@@ -556,19 +566,15 @@ Result: 4 weeks (vs 8 weeks) — **61% faster**
 
 ## Known Constraints
 
-### Already Resolved (v3.0)
+### Already Resolved (v3.0 / v3.2)
 - ✅ Design Hub dev/build green
 - ✅ AI mirror sync integrity
 - ✅ SDD gate enforcement
 - ✅ Wireframe lock export
 - ✅ All Q3 (quality) tasks
-
-### In Progress (v3.2-P1)
-- ⏳ Drift detection automation
-- ⏳ Husky pre-commit enforcement
-- ⏳ State file YAML validation
-
-### Not Started (v3.2-P2+)
+- 🔒 Drift detection automation
+- 🔒 Husky pre-commit enforcement
+- 🔒 State file YAML validation
 - 🔒 CI/CD gates wiring
 - 🔒 Security scanning setup
 - 🔒 Design token automation

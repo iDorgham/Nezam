@@ -35,6 +35,18 @@ scrumban_board:
   in_progress: []
   review: []
   done:
+    - T-V32-6-008  # Git release tag v3.2.0 cut on Master branch — 2026-06-06
+    - T-V32-6-007  # Bump README/CHANGELOG to version 3.2.0 — 2026-06-06
+    - T-V32-6-006  # Staging/production readiness report (readiness.md) — 2026-06-06
+    - T-V32-6-005  # CI load test verification — 2026-06-06
+    - T-V32-6-004  # System regression verification (pnpm check:all passes) — 2026-06-06
+    - T-V32-6-003  # Developer onboarding guide (ONBOARDING.md) — 2026-06-06
+    - T-V32-6-002  # Troubleshooting guide (TROUBLESHOOTING.md) — 2026-06-06
+    - T-V32-6-001  # Runbook index (RUNBOOKS.md) — 2026-06-06
+    - T-HEALTH-6-001 # Production readiness audit — 2026-06-06
+    - T-HEALTH-6-002 # Disaster recovery rollback drill — 2026-06-06
+    - T-HEALTH-6-003 # DAST/OWASP ZAP penetration scan — 2026-06-06
+    - T-HEALTH-6-004 # Deployment & rollback runbook (DEPLOYMENT_RUNBOOK.md) — 2026-06-06
     - T-V32-5-007  # Content lifecycle operations guide (CONTENT_OPS.md) — 2026-06-06
     - T-V32-5-006  # Four content briefs templates (blog, landing, release, email) — 2026-06-06
     - T-V32-5-005  # SEO/AEO baseline audit report (SEO_BASELINE.md) — 2026-06-06

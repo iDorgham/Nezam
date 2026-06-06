@@ -19,13 +19,16 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ## [0.3.6] - 2026-06-06
 
-Milestone: **v0.3.6 5-Phase Acceleration Release** (Unified task registries, automated git workflows, performance optimizations, and design system verification gates).
+Milestone: **v0.3.6 Health Acceleration Release** — 6-phase governance hardening cycle targeting system health 65 → 100. Covers sync integrity, CI/CD pipelines, security scanning, design system bridge, observability, content ops, and full release documentation (38 tasks, 0 open blockers).
 
 ### Added
-- **CI/CD Automation:** Added pre-commit and pre-push Husky validation gates for multi-client synchronizations and YAML schemas.
-- **Release Automation:** Configured automatic SemVer tagging, changelog creation, and deployment pipelines.
-- **Performance Optimization:** Reduced workspace memory footprints and startup times via directory exclusion configurations and external reference indexing.
-- **Task Consolidation:** Integrated all 105 workflow tasks into a single master plan contract (`MASTER_PLAN_v0.3.6.md`).
+
+- **Foundation Hardening (P1):** Orphaned skill audit — 21 skills archived, `DEPRECATED.md` created, 16 agent refs fixed. `verify:yaml` now validates 44 schema files and exits clean. `agent-status.yaml` promoted to schema v2.0.0 with `last_sync`, `certified_agents`, `sync_drift_threshold`, and `drift_check_interval` fields. Weekly sync-drift CI gate (`sync-drift-check.yml`) promoted to blocking PR check with Slack alert on >1% drift. `SYNC_RUNBOOK.md` written (10 sections: recovery, rollback, drift response, certified agents, archive). Husky pre-commit verified executable — runs `ai:sync` + re-stages mirrors + `ai:check`. `CONTRIBUTING.md` expanded.
+- **CI/CD Pipeline (P2):** Tier-1 gate validation on every PR. Release workflow smoke-tested end-to-end. CodeQL analysis integrated into the main CI matrix. Lighthouse CI performance budget enforced (`lhci` config + RSC guard). Weekly `ci-health-check` cron wired. `CI_FAILURE_GUIDE.md` authored.
+- **Security Scanning (P3):** CodeQL setup and integration verified. Dependabot configured with weekly intervals across all dependency ecosystems. Push protection and secret scanning guidelines documented. `SECURITY_AUDIT_v3.2.md` generated with full threat modeling. `SECURITY_RUNBOOK.md` with secrets rotation schedule and incident response procedures. `SECURITY_BASELINE.md` snapshot captured. OWASP ZAP DAST action automated on weekly schedule. postcss XSS vulnerability overrides validated.
+- **Design System + Wireframe Bridge (P4):** Empty-blocks registry validation script (`validate-blocks.mjs`). Wireframe lock schema promoted to v2.0 (`$schemaVersion: "2.0"`, `meta.validated_at`). `GATE-WF-02` gate wired into CI via `check-wireframe-schema-v2.js`. Three-mode lock-unlock cycle test (`test-lock-cycle.mjs`) validates `saas-dashboard`, `web-marketing`, and `mobile-app` canvases. `DESIGN_TO_CODE.md` bridge guide published to `docs/design/`. Design token compliance audit report (`token-audit.md`).
+- **Observability + Content Ops (P5):** Sentry SDK configured for client, server, and edge runtimes. `useReportWebVitals` telemetry hook + `/api/vitals` ingestion endpoint. `PERF_BASELINE.md` capturing Core Web Vitals targets. `OBSERVABILITY_RUNBOOK.md` for Sentry/vitals operations. `SEO_BASELINE.md` with AEO audit results. Four content brief templates (blog post, landing page, release note, email). `CONTENT_OPS.md` lifecycle operations guide.
+- **Docs, QA + Release (P6):** Master runbook index (`RUNBOOKS.md`). `TROUBLESHOOTING.md` FAQ guide. `ONBOARDING.md` developer onboarding guide. Full system regression run (`pnpm check:all` passes). CI load test verified. Staging/production readiness report (`readiness.md`). `v0.3.6` release tag cut on `Master`.
 
 ## [0.3.5] - 2026-06-06
 

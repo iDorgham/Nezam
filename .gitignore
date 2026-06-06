@@ -28,3 +28,8 @@ TASKS_v3.2.md
 
 # Archives (historical reference only, not part of active codebase)
 _archive/
+
+# Local state and logs
+.local/
+.nezam/logs/
+

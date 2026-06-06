@@ -406,10 +406,10 @@ main() {
             print_info "Merging $branch..."
             antigravity merge \
               --branch "$branch" \
-              --target main \
+              --target Master \
               --auto-delete
           done
-          print_success "Phase 2 merged to main"
+          print_success "Phase 2 merged to Master"
         else
           print_warning "Merge cancelled"
         fi

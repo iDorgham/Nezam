@@ -45,7 +45,7 @@ Output format:
                kilocode: ❌ | opencode: ❌ | copilot: ❌ | codex: ❌
   Routing      auto-assign: ON | enforce: ON | verbose: OFF
   Memory       auto-capture: ON | session-handoff: ON
-  GitHub       repo: (not set) | branch: main | drift-check: ON
+  GitHub       repo: (not set) | branch: Master | drift-check: ON
   MCP          prefer-mcp: ON | active servers: 0/8
   Guide        verbosity: normal | pipeline-bar: ON
   Onboarding   ❌ NOT COMPLETE — run /Settings ai-tools to finish setup

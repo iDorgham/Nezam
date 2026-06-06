@@ -3,7 +3,7 @@ name: SDD Phase Gates
 on:
   pull_request:
     branches:
-      - main
+      - Master
     paths:
       - '.cursor/state/phase-*.yaml'
       - '.nezam/core/plans/**'

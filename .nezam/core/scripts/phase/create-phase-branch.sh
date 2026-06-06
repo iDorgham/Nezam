@@ -184,7 +184,7 @@ EOF
 - [ ] Work in progress
 - [ ] Ready for review
 - [ ] Approved
-- [ ] Merged to main
+- [ ] Merged to Master
 
 ## Timeline
 
@@ -277,10 +277,10 @@ Created: $TIMESTAMP"
   echo "  5. Merge when phase is complete"
   echo ""
   echo "GitHub PR Command:"
-  echo "  Visit: https://github.com/$REPO_PATH/compare/main...$BRANCH_NAME"
+  echo "  Visit: https://github.com/$REPO_PATH/compare/Master...$BRANCH_NAME"
   echo ""
   echo "Or use GitHub CLI:"
-  echo "  gh pr create --base main --head $BRANCH_NAME --title '🚀 [$PHASE] Initialize Phase' --body 'Phase: $PHASE'"
+  echo "  gh pr create --base Master --head $BRANCH_NAME --title '🚀 [$PHASE] Initialize Phase' --body 'Phase: $PHASE'"
   echo ""
   echo "────────────────────────────────────────"
 }

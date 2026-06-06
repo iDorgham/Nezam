@@ -2,7 +2,7 @@ name: NEZAM CI
 
 on:
   pull_request:
-    branches: [ main, master ]
+    branches: [ Master ]
 
 permissions:
   contents: read

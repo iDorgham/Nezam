@@ -6,7 +6,7 @@ on:
       - '.cursor/**'
       - 'CLAUDE.md'
   push:
-    branches: [main]
+    branches: [Master]
     paths:
       - '.cursor/**'
 
@@ -48,17 +48,17 @@ jobs:
 
   validate-phases:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_ref, 'T-v3.2-P')
+    if: contains(github.event.head_ref, 'T-')
     steps:
       - uses: actions/checkout@v4
 
       - name: Validate phase ID format
         run: |
           BRANCH="${{ github.head_ref }}"
-          if [[ $BRANCH =~ T-v3\.2-P[0-9]+-[0-9]{3} ]]; then
+          if [[ $BRANCH =~ T-[vV]?[0-9.]+-P?[0-9]+-[0-9]+ ]]; then
             echo "✓ Phase ID format valid: $BRANCH"
           else
-            echo "⚠ Branch should include task ID: T-v3.2-PN-NNN"
+            echo "⚠ Branch should include task ID: T-v0.3.2-PN-NNN or T-V032-N-NNN"
           fi
 
       - name: Check for v0.3.5 references

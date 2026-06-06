@@ -2,10 +2,10 @@ name: Deploy Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [Master]
     tags: ['v*']
   pull_request:
-    branches: [main]
+    branches: [Master]
 
 jobs:
   test:
@@ -33,7 +33,7 @@ jobs:
 
   deploy-staging:
     needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/Master'
     runs-on: ubuntu-latest
     environment: staging
     steps:

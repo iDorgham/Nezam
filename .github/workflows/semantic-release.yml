@@ -1,11 +1,11 @@
-# Opt-in: analyzes conventional commits on `main` and publishes semver tag + GitHub release.
+# Opt-in: analyzes conventional commits on `Master` and publishes semver tag + GitHub release.
 #
 # Trade-off vs `.github/workflows/release.yml`:
 # - **release.yml** — explicit `version` input + target SHA (human-driven).
 # - **This workflow** — semantic-release decides version from commits (run manually via Actions UI).
 # Pick one primary strategy per repo to avoid duplicate tags.
 #
-# Trigger: workflow_dispatch ONLY (not auto on push to main).
+# Trigger: workflow_dispatch ONLY (not auto on push to Master).
 
 name: semantic-release
 

@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-automation-smoke:
-    name: Check automation-smoke on main
+    name: Check automation-smoke on Master
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -21,17 +21,17 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
-            // Get latest run for ci.yml on main
-            const runs = await github.rest.actions.listWorkflowRuns({ owner, repo, workflow_id: 'ci.yml', branch: 'main', per_page: 1 });
+            // Get latest run for ci.yml on Master
+            const runs = await github.rest.actions.listWorkflowRuns({ owner, repo, workflow_id: 'ci.yml', branch: 'Master', per_page: 1 });
             const run = runs.data.workflow_runs && runs.data.workflow_runs[0];
 
             if (!run) {
-              core.info('No workflow run found for ci.yml on main');
+              core.info('No workflow run found for ci.yml on Master');
               // create an issue unless one already exists
               const issues = await github.rest.issues.listForRepo({ owner, repo, state: 'open', per_page: 100 });
-              const title = 'automation-smoke missing: no recent ci.yml run on main';
+              const title = 'automation-smoke missing: no recent ci.yml run on Master';
               if (!issues.data.some(i => i.title === title)) {
-                await github.rest.issues.create({ owner, repo, title, body: 'No recent ci.yml workflow run was found for main. Investigate CI scheduling or workflow configuration.' });
+                await github.rest.issues.create({ owner, repo, title, body: 'No recent ci.yml workflow run was found for Master. Investigate CI scheduling or workflow configuration.' });
               }
               return;
             }
@@ -71,7 +71,7 @@ jobs:
               return;
             }
 
-            const title = `CI jobs failing on main — ${badJobs.join(', ')}`;
+            const title = `CI jobs failing on Master — ${badJobs.join(', ')}`;
             const body = `The following jobs for run ${runUrl} are failing or missing: ${badJobs.join(', ')}. Run: ${runUrl}`;
 
             // Avoid duplicate open issues with same title

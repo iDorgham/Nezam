@@ -32,7 +32,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkout main
+      - name: Checkout Master
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -144,7 +144,7 @@ jobs:
             echo "- [ ] In Progress"
             echo "- [ ] Ready for Review"
             echo "- [ ] Approved"
-            echo "- [ ] Merged to Main"
+            echo "- [ ] Merged to Master"
             echo ""
             echo "## Notes"
             echo ""
@@ -228,7 +228,7 @@ jobs:
               repo: context.repo.repo,
               title: prTitle,
               head: branchName,
-              base: 'main',
+              base: 'Master',
               body: prBody,
               draft: false
             });
@@ -284,7 +284,7 @@ jobs:
               '- [ ] Ready to merge',
               '',
               '#### Merge & Transition',
-              '- [ ] PR merged to main',
+              '- [ ] PR merged to Master',
               '- [ ] Next phase branch created',
               '- [ ] Documentation updated',
               '- [ ] Team notified',

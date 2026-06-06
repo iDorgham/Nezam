@@ -21,12 +21,12 @@ if [ -z "$TASK_DESC" ]; then
 fi
 
 # Extract task ID from description
-TASK_ID=$(echo "$TASK_DESC" | grep -oE "T-v3\.2-P[0-9]+-[0-9]{3}" || true)
+TASK_ID=$(echo "$TASK_DESC" | grep -oE "T-[vV]?[0-9.]+-P?[0-9]+-[0-9]+" || true)
 
 if [ -z "$TASK_ID" ]; then
     echo "❌ Task ID not found in description"
-    echo "   Format required: T-v3.2-PN-NNN"
-    echo "   Example: T-v3.2-P1-001 implement sync validation"
+    echo "   Format required: T-v0.3.2-PN-NNN or T-V032-N-NNN"
+    echo "   Example: T-v0.3.2-P1-001 implement sync validation"
     exit 1
 fi
 
@@ -57,7 +57,7 @@ fi
 
 # Create and checkout branch
 echo "🌿 Creating branch: $BRANCH_NAME"
-git checkout -b "$BRANCH_NAME" main
+git checkout -b "$BRANCH_NAME" Master
 
 # Set up branch configuration
 git config branch."$BRANCH_NAME".description "$TASK_DESC"

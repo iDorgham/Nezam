@@ -2,7 +2,7 @@ name: Auto-Tag Release
 
 on:
   push:
-    branches: [main]
+    branches: [Master]
 
 jobs:
   check-release:
@@ -117,7 +117,7 @@ jobs:
           git config user.email "bot@nezam.local"
           git add CHANGELOG.md
           git commit -m "chore: update changelog for release" || echo "No changelog changes"
-          git push origin main || echo "Already up to date"
+          git push origin Master || echo "Already up to date"
 
   create-github-release:
     needs: [auto-tag, generate-release-notes]

@@ -78,6 +78,12 @@ jobs:
             echo "This is acceptable in pre-design phase. Run the design server to start."
           fi
 
+      - name: Validate wireframes_locked.json schema v2
+        run: |
+          if [[ -f "wireframes_locked.json" ]]; then
+            node .nezam/core/scripts/checks/check-wireframe-schema-v2.js
+          fi
+
   a11y-gate:
     name: Gate 6 - Performance and Accessibility
     runs-on: ubuntu-latest

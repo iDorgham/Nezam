@@ -252,6 +252,25 @@
       "workflow": "ci.yml#design-server-validate"
     },
     {
+      "id": "wireframe-schema-v2",
+      "humanGateId": "G-WF-02",
+      "name": "Wireframe Schema v2",
+      "stage": "pre_merge",
+      "profile": "subphase",
+      "severity": "hard",
+      "taxonomy": "design",
+      "description": "Verifies wireframes_locked.json schema version is 2.0.0 or higher.",
+      "prerequisites": [
+        "wireframes_locked.json"
+      ],
+      "verifier": {
+        "type": "script",
+        "command": "node .nezam/core/scripts/checks/check-wireframe-schema-v2.js"
+      },
+      "blocks": ["/develop start"],
+      "workflow": "design-gates.yml"
+    },
+    {
       "id": "pr-gates-bundle",
       "humanGateId": "G-14",
       "name": "PR Quality Bundle",
@@ -361,7 +380,8 @@
     ],
     "04-design": [
       "design-tokens",
-      "wireframe-lock"
+      "wireframe-lock",
+      "wireframe-schema-v2"
     ],
     "05-scaffold": [
       "architecture-artifact",
@@ -385,7 +405,8 @@
       "design-tokens",
       "ai-sync-integrity",
       "sdd-state-integrity",
-      "pr-gates-bundle"
+      "pr-gates-bundle",
+      "wireframe-schema-v2"
     ],
     "nightly": [
       "nightly-ai-drift",

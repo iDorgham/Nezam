@@ -8,6 +8,7 @@
     "ai:status": "node .nezam/core/scripts/sync/sync-ai-folders.js --status",
     "ai:check": "node .nezam/core/scripts/checks/check-ai-drift.js && node .nezam/core/scripts/checks/check-sdd-swarm-integrity.js && node .nezam/core/scripts/checks/check-skill-frontmatter.js && node .nezam/core/scripts/checks/check-design-skills.js",
     "ai:check:sdd": "node .nezam/core/scripts/checks/check-sdd-swarm-integrity.js",
+    "validate:blocks": "node scripts/validate-blocks.mjs",
     "verify:yaml": "node .nezam/core/scripts/checks/verify-yaml.js",
     "check:design-excellence": "bash scripts/checks/check-design-excellence.sh",
     "check:design-excellence:strict": "bash scripts/checks/check-design-excellence-strict.sh",

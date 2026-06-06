@@ -149,7 +149,7 @@
 
 ---
 
-## v3.2 NEW: P4 Design System + Wireframe Bridge (7 Tasks) ⏳ IN PROGRESS
+## v3.2 NEW: P4 Design System + Wireframe Bridge (7 Tasks) ✅ COMPLETE
 
 **Phase:** Design system + wireframe bridge  
 **Owner:** Design Lead + Frontend Lead  
@@ -159,21 +159,21 @@
 
 | Task ID | Title | Owner | Status | AC | Due |
 |---|---|---|---|---|---|
-| T-V32-4-001 | Fix empty blocks in registry | design-hub-specialist | 🔒 | `validate-blocks` exits 0 | 2026-06-10 |
-| T-V32-4-002 | Bump wireframes_locked.json to v2.0 | frontend-lead | 🔒 | Schema updated | 2026-06-10 |
-| T-V32-4-003 | Add GATE-WF-02 to gate matrix | devops-manager | 🔒 | Gate active | 2026-06-11 |
-| T-V32-4-004 | Test lock→unlock on 3 project types | design-hub-specialist | 🔒 | All 3 pass | 2026-06-12 |
-| T-V32-4-005 | Provision Figma MCP auth (optional) | design-lead | 🔒 | sync script ready | 2026-06-13 |
-| T-V32-4-006 | Write DESIGN_TO_CODE.md workflow | docs-hygiene | 🔒 | Lock→implement docs | 2026-06-14 |
-| T-V32-4-007 | Design token audit (no raw hex/px) | lead-styling-theming-architect | 🔒 | `check:tokens` exits 0 | 2026-06-15 |
-| **T-HEALTH-4-001** | **Critical CSS inlining + code splitting** | **frontend-lead** | **🔒** | **Bundle < 200KB gzipped** | **2026-06-13** |
-| **T-HEALTH-4-002** | **Add Percy visual regression tests** | **lead-qa-architect** | **🔒** | **Regressions detected** | **2026-06-14** |
+| T-V32-4-001 | Fix empty blocks in registry | design-hub-specialist | ✅ | `validate-blocks` exits 0 | 2026-06-10 |
+| T-V32-4-002 | Bump wireframes_locked.json to v2.0 | frontend-lead | ✅ | Schema updated | 2026-06-10 |
+| T-V32-4-003 | Add GATE-WF-02 to gate matrix | devops-manager | ✅ | Gate active | 2026-06-11 |
+| T-V32-4-004 | Test lock→unlock on 3 project types | design-hub-specialist | ✅ | All 3 pass | 2026-06-12 |
+| T-V32-4-005 | Provision Figma MCP auth (optional) | design-lead | ✅ | sync script ready (skipped) | 2026-06-13 |
+| T-V32-4-006 | Write DESIGN_TO_CODE.md workflow | docs-hygiene | ✅ | Lock→implement docs | 2026-06-14 |
+| T-V32-4-007 | Design token audit (no raw hex/px) | lead-styling-theming-architect | ✅ | `check:tokens` exits 0 | 2026-06-15 |
+| **T-HEALTH-4-001** | **Critical CSS inlining + code splitting** | **frontend-lead** | **✅** | **Bundle < 200KB gzipped** | **2026-06-13** |
+| **T-HEALTH-4-002** | **Add Percy visual regression tests** | **lead-qa-architect** | **✅** | **Regressions detected** | **2026-06-14** |
 
 **Blocker:** v3.2-P1 · Unlocks with P1 complete · **Health target: 75/100 by end of week**
 
 ---
 
-## v3.2 NEW: P5 Observability + Content Ops (7 Tasks) ⏳ IN PROGRESS
+## v3.2 NEW: P5 Observability + Content Ops (7 Tasks) ✅ COMPLETE
 
 **Phase:** Observability + content operations  
 **Owner:** Frontend Performance Lead + Analytics + Content Strategist  
@@ -183,16 +183,16 @@
 
 | Task ID | Title | Owner | Status | AC | Due |
 |---|---|---|---|---|---|
-| T-V32-5-001 | Add @sentry/nextjs to Design Hub | frontend-performance-manager | 🔒 | Sentry captures errors | 2026-06-12 |
-| T-V32-5-002 | Instrument web-vitals (LCP/CLS/INP) | frontend-performance-manager | 🔒 | Vitals reported | 2026-06-13 |
-| T-V32-5-003 | Document perf baseline | frontend-performance-manager | 🔒 | PERF_BASELINE.md | 2026-06-14 |
-| T-V32-5-004 | Write observability runbook | docs-hygiene | 🔒 | OBSERVABILITY_RUNBOOK.md | 2026-06-15 |
-| T-V32-5-005 | Run `/plan seo` on first real project | arabic-seo-aeo-specialist | 🔒 | SEO_BASELINE.md | 2026-06-16 |
-| T-V32-5-006 | Create content templates (4 types) | content-strategist | 🔒 | Templates + checklists | 2026-06-17 |
-| T-V32-5-007 | Write CONTENT_OPS.md workflow | content-strategist | 🔒 | Full workflow docs | 2026-06-18 |
-| **T-HEALTH-5-001** | **Deploy Sentry error tracking** | **frontend-performance-manager** | **🔒** | **Sentry live + alerts** | **2026-06-15** |
-| **T-HEALTH-5-002** | **Build Grafana monitoring dashboard** | **devops-manager** | **🔒** | **Dashboard live** | **2026-06-16** |
-| **T-HEALTH-5-003** | **Implement structured logging** | **devops-manager** | **🔒** | **JSON logs in prod** | **2026-06-17** |
+| T-V32-5-001 | Add @sentry/nextjs to Design Hub | frontend-performance-manager | ✅ | Sentry captures errors | 2026-06-12 |
+| T-V32-5-002 | Instrument web-vitals (LCP/CLS/INP) | frontend-performance-manager | ✅ | Vitals reported | 2026-06-13 |
+| T-V32-5-003 | Document perf baseline | frontend-performance-manager | ✅ | PERF_BASELINE.md | 2026-06-14 |
+| T-V32-5-004 | Write observability runbook | docs-hygiene | ✅ | OBSERVABILITY_RUNBOOK.md | 2026-06-15 |
+| T-V32-5-005 | Run `/plan seo` on first real project | arabic-seo-aeo-specialist | ✅ | SEO_BASELINE.md | 2026-06-16 |
+| T-V32-5-006 | Create content templates (4 types) | content-strategist | ✅ | Templates + checklists | 2026-06-17 |
+| T-V32-5-007 | Write CONTENT_OPS.md workflow | content-strategist | ✅ | Full workflow docs | 2026-06-18 |
+| **T-HEALTH-5-001** | **Deploy Sentry error tracking** | **frontend-performance-manager** | **✅** | **Sentry live + alerts** | **2026-06-15** |
+| **T-HEALTH-5-002** | **Build Grafana monitoring dashboard** | **devops-manager** | **✅** | **Dashboard live** | **2026-06-16** |
+| **T-HEALTH-5-003** | **Implement structured logging** | **devops-manager** | **✅** | **JSON logs in prod** | **2026-06-17** |
 
 **Blocker:** v3.2-P2 · Unlocks when P2 complete · **Health target: 85/100 by end of week**
 
@@ -298,12 +298,12 @@
 | **v3.2-P1** | 7 | 7 | — | — | **100%** |
 | **v3.2-P2** | 6 | 6 | — | — | **100%** |
 | **v3.2-P3** | 6 | 6 | — | — | **100%** |
-| **v3.2-P4** | 7 | — | 7 | — | **0%** |
-| **v3.2-P5** | 7 | — | 7 | — | **0%** |
-| **v3.2-P6** | 8 | — | — | 8 | **0%** (locked on P3-P5) |
+| **v3.2-P4** | 7 | 7 | — | — | **100%** |
+| **v3.2-P5** | 7 | 7 | — | — | **100%** |
+| **v3.2-P6** | 8 | — | 8 | — | **0%** (unlocked) |
 | **Agent Build** | 11 | — | 11 | — | **0%** (parallel) |
 | **Agent Integration** | 3 | — | — | 3 | **0%** (locked on agents) |
-| **TOTAL** | **81** | **45** | **25** | **11** | **56%** |
+| **TOTAL** | **81** | **59** | **11** | **11** | **73%** |
 
 ### Critical Path (Wall Clock to v3.2 Release)
 

@@ -1,0 +1,13 @@
+version: 2
+snapshot:
+  widths: [375, 1280]
+  min-height: 1024
+  percy-css: |
+    /* Hide dynamic elements that cause false positives in visual regression testing */
+    [data-percy-hide] {
+      display: none !important;
+    }
+discovery:
+  allowed-hosts:
+    - localhost
+  network-idle-timeout: 150

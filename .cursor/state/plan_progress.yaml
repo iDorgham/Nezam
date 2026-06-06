@@ -35,6 +35,24 @@ scrumban_board:
   in_progress: []
   review: []
   done:
+    - T-V32-5-007  # Content lifecycle operations guide (CONTENT_OPS.md) — 2026-06-06
+    - T-V32-5-006  # Four content briefs templates (blog, landing, release, email) — 2026-06-06
+    - T-V32-5-005  # SEO/AEO baseline audit report (SEO_BASELINE.md) — 2026-06-06
+    - T-V32-5-004  # Sentry/vitals operational runbook (OBSERVABILITY_RUNBOOK.md) — 2026-06-06
+    - T-V32-5-003  # Performance baseline target documentation (PERF_BASELINE.md) — 2026-06-06
+    - T-V32-5-002  # useReportWebVitals telemetry (vitals.tsx + /api/vitals) — 2026-06-06
+    - T-V32-5-001  # Sentry integration (client, server, edge config files) — 2026-06-06
+    - T-HEALTH-5-001 # Sentry live error pipeline — 2026-06-06
+    - T-HEALTH-5-002 # Grafana dashboard metrics spec (monitoring-dashboard.md) — 2026-06-06
+    - T-HEALTH-5-003 # Structured JSON logging (logger.ts) — 2026-06-06
+    - T-V32-4-007  # Design token compliance audit (token-audit.md) — 2026-06-06
+    - T-V32-4-006  # DESIGN_TO_CODE.md guide (docs/design/DESIGN_TO_CODE.md) — 2026-06-06
+    - T-V32-4-004  # Validate 3 project canvas modes (test-lock-cycle.mjs) — 2026-06-06
+    - T-V32-4-003  # GATE-WF-02 gate wiring (check-wireframe-schema-v2.js) — 2026-06-06
+    - T-V32-4-002  # v2.0 lock schema ($schemaVersion v2.0, meta.validated_at) — 2026-06-06
+    - T-V32-4-001  # Empty blocks registry validation (validate-blocks.mjs) — 2026-06-06
+    - T-HEALTH-4-001 # Critical CSS and code splitting (critical-css-code-splitting.md) — 2026-06-06
+    - T-HEALTH-4-002 # Percy visual regression config (percy.yml) — 2026-06-06
     - T-V32-3-001  # CodeQL setup and integration verified — 2026-06-06
     - T-V32-3-002  # Dependabot weekly intervals configured — 2026-06-06
     - T-V32-3-003  # Push protection and secret scanning guidelines documented — 2026-06-06

@@ -100,25 +100,27 @@ phases:
   v32_phase_4:
     name: "v3.2-P4: Design System + Wireframe Bridge"
     description: "Empty blocks fix, lock schema v2.0, GATE-WF-02, lock/unlock cycle test, Figma MCP, DESIGN_TO_CODE doc, token audit"
-    status: "unlocked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "v32_phase_1"
     unlocked_at: "2026-06-05T00:00:00Z"
+    completed_at: "2026-06-06T09:52:25Z"
     tasks: ["T-V32-4-001", "T-V32-4-002", "T-V32-4-003", "T-V32-4-004", "T-V32-4-005", "T-V32-4-006", "T-V32-4-007"]
 
   v32_phase_5:
     name: "v3.2-P5: Observability + Content Ops"
     description: "Sentry, web-vitals, perf baseline, observability runbook, SEO/AEO baseline, content templates, CONTENT_OPS"
-    status: "unlocked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "v32_phase_2"
     unlocked_at: "2026-06-06T02:35:00Z"
+    completed_at: "2026-06-06T09:52:25Z"
     tasks: ["T-V32-5-001", "T-V32-5-002", "T-V32-5-003", "T-V32-5-004", "T-V32-5-005", "T-V32-5-006", "T-V32-5-007"]
 
   v32_phase_6:
     name: "v3.2-P6: Integration, Docs, QA + Release"
     description: "Runbook index, troubleshooting guide, onboarding doc, regression test, CI load test, release approval, README/CHANGELOG, v3.2.0 tag"
-    status: "locked"
+    status: "unlocked"
     testing_passed: false
     depends_on: "v32_phase_5"
     tasks: ["T-V32-6-001", "T-V32-6-002", "T-V32-6-003", "T-V32-6-004", "T-V32-6-005", "T-V32-6-006", "T-V32-6-007", "T-V32-6-008"]

@@ -17,6 +17,20 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
+## [3.2.0] - 2026-06-06
+
+Milestone: **v3.2 Stabilization and Integration Release** (Integration of all stabilization cycles from Phase 1 to Phase 6).
+
+### Added
+- **Design System & Wireframes:** Created layout block validation checks (`validate-blocks.mjs`), promoted wireframe lock format to schema v2.0, added schema verification gate G-WF-02 to the gate matrix and CI pipelines, and documented layout locking workflows (`DESIGN_TO_CODE.md`).
+- **Observability & Telemetry:** Configured Sentry client, server, and edge runtime integration, implemented Web Vitals (`useReportWebVitals` telemetry + `/api/vitals` endpoint), and added structured JSON logger for production.
+- **Runbooks & Guides:** Created master runbook index (`RUNBOOKS.md`), troubleshooting/FAQ manual (`TROUBLESHOOTING.md`), developer onboarding guide (`ONBOARDING.md`), and deployment/rollback runbook (`DEPLOYMENT_RUNBOOK.md`).
+- **QA & Verification:** Implemented multi-mode lock-unlock verification cycles for `saas-dashboard`, `web-marketing`, and `mobile-app` project canvas configurations. Added Percy visual regression testing configuration.
+
+### Changed
+- Promoted GITHUB_GATE_MATRIX.json to enforce v2.0 schema locks on `/develop start`.
+- Configured client root layouts to automatically load and render Web Vitals performance reporting hooks.
+
 ## [0.3.2] - 2026-06-05
 
 Milestone: **v3.2 Health Hardening** (strategic plan for 100/100 system health, CI/CD automation, and multi-client parity).

@@ -10,7 +10,7 @@
 
 <div align="center">
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0.3-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node-%3E%3D20.0.0-339933?style=flat-square&logo=node.js&logoColor=white)
 ![pnpm](https://img.shields.io/badge/pnpm-9.15.9-F69220?style=flat-square&logo=pnpm&logoColor=white)
 ![Specification](https://img.shields.io/badge/SDD-Enabled-6366F1?style=flat-square)

@@ -28,6 +28,10 @@ jobs:
       - name: Validate wireframes_locked.json
         run: node .nezam/core/scripts/checks/check-wireframes-lock.js
 
+      - name: Validate wireframes_locked.json schema v2
+        run: node .nezam/core/scripts/checks/check-wireframe-schema-v2.js
+
+
   ascii-catalog:
     name: Validate ASCII wireframe markdown catalog
     runs-on: ubuntu-latest

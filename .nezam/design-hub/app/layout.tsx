@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { WebVitals } from '@/lib/vitals'
 
 export const metadata: Metadata = {
   title: 'NEZAM Design Hub',
@@ -24,7 +25,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href={FONTS} />
       </head>
-      <body>{children}</body>
+      <body>
+        <WebVitals />
+        {children}
+      </body>
     </html>
   )
 }

@@ -1,6 +1,6 @@
 # Wireframe Lock/Unlock Cycle Test Report
 
-Generated on: 2026-06-06T18:06:54.950Z
+Generated on: 2026-06-06T18:09:00.972Z
 Tested By: Antigravity
 
 This report documents the schema v2.0 validation of the wireframe lock/unlock cycle across three target project types (canvas modes):

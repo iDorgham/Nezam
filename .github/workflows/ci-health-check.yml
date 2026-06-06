@@ -2,7 +2,7 @@ name: CI Health Check Summary
 
 on:
   schedule:
-    - cron: '0 0 * * 0' # Weekly on Sundays at 00:00 UTC
+    - cron: '0 0 * * 1' # Weekly on Mondays at 00:00 UTC
   workflow_dispatch: # Allow manual trigger
 
 permissions:

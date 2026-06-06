@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/Master'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Deploy to Vercel (Staging)
         uses: vercel/action@v5
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'prod'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Deploy to Vercel (Production)
         uses: vercel/action@v5

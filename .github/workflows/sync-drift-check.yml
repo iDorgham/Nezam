@@ -1,6 +1,18 @@
 name: NEZAM Sync Drift Check
 
 on:
+  push:
+    branches: [Master]
+    paths:
+      - '.cursor/**'
+      - '.claude/**'
+      - '.gemini/**'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'GEMINI.md'
+      - '.nezam/core/scripts/sync/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
   pull_request:
     paths:
       - '.cursor/**'
@@ -11,6 +23,7 @@ on:
       - 'GEMINI.md'
       - '.nezam/core/scripts/sync/**'
       - 'package.json'
+      - 'pnpm-lock.yaml'
   schedule:
     - cron: '0 10 * * 1' # Mondays 10:00 AM UTC
   workflow_dispatch:

@@ -88,13 +88,7 @@ main() {
 
   # Check git status
   if ! git diff-index --quiet HEAD --; then
-    print_warning "Working directory has uncommitted changes"
-    read -p "Continue anyway? (y/n) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      print_error "Aborted"
-      exit 1
-    fi
+    print_warning "Working directory has uncommitted changes — proceeding (use --force to suppress this warning)"
   fi
 
   # Create branch name
@@ -103,13 +97,7 @@ main() {
 
   # Check if branch exists
   if git rev-parse --verify "origin/$BRANCH_NAME" &>/dev/null; then
-    print_warning "Branch already exists on remote: $BRANCH_NAME"
-    read -p "Push new commits to existing branch? (y/n) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      print_error "Aborted"
-      exit 1
-    fi
+    print_warning "Branch already exists on remote: $BRANCH_NAME — checking it out"
     git checkout "$BRANCH_NAME"
   else
     # Create new branch

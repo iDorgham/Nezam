@@ -17,7 +17,7 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
-## [3.2.0] - 2026-06-06
+## [0.3.2] - 2026-06-06
 
 Milestone: **v3.2 Stabilization and Integration Release** (Integration of all stabilization cycles from Phase 1 to Phase 6).
 
@@ -31,7 +31,7 @@ Milestone: **v3.2 Stabilization and Integration Release** (Integration of all st
 - Promoted GITHUB_GATE_MATRIX.json to enforce v2.0 schema locks on `/develop start`.
 - Configured client root layouts to automatically load and render Web Vitals performance reporting hooks.
 
-## [0.3.2] - 2026-06-05
+## [0.3.1] - 2026-06-05
 
 Milestone: **v3.2 Health Hardening** (strategic plan for 100/100 system health, CI/CD automation, and multi-client parity).
 

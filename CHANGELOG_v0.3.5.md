@@ -2,14 +2,14 @@
 
 > **Version:** 0.3.5 (Polish Release)  
 > **Release Date:** June 28, 2026  
-> **Previous Version:** v3.2 (Core integration)  
+> **Previous Version:** v0.3.2 (Core integration)  
 > **Status:** Production-Ready
 
 ---
 
 ## Overview
 
-v0.3.5 rebrands NEZAM v3.2 as a pre-1.0 polish release, emphasizing development velocity and operational maturity. Three-tier rollout: **core** (Week 1) → **enhanced** (Week 2) → **polish** (Week 3-4).
+v0.3.5 rebrands NEZAM v0.3.2 as a pre-1.0 polish release, emphasizing development velocity and operational maturity. Three-tier rollout: **core** (Week 1) → **enhanced** (Week 2) → **polish** (Week 3-4).
 
 ---
 
@@ -85,7 +85,7 @@ v0.3.5 rebrands NEZAM v3.2 as a pre-1.0 polish release, emphasizing development 
 
 - Agent commands (agents 6-11) not yet available (ships v0.3.5-enhanced)
 - Grafana dashboard in beta (basic metrics only)
-- Some error messages still reference old v3.2 terminology (fixed by Week 3)
+- Some error messages still reference old v0.3.2 terminology (fixed by Week 3)
 
 ---
 
@@ -279,7 +279,7 @@ Complete documentation suite:
 
 ## Version Comparison
 
-### v3.2 (Baseline)
+### v0.3.2 (Baseline)
 
 ```
 Status: Foundation + Core features
@@ -321,7 +321,7 @@ Production: Fully automated + monitored + documented
 
 **None planned for v0.3.5.** All changes backward-compatible.
 
-Migration from v3.2 → v0.3.5: **Non-disruptive** (existing scripts still work, new commands available).
+Migration from v0.3.2 → v0.3.5: **Non-disruptive** (existing scripts still work, new commands available).
 
 ---
 
@@ -343,7 +343,7 @@ No deprecations in v0.3.5. Current APIs remain stable.
 ## How to Update
 
 ```bash
-# For current v3.2 users
+# For current v0.3.2 users
 git checkout main
 git pull origin main
 git tag v0.3.5

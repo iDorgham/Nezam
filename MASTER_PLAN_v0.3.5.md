@@ -13,7 +13,7 @@
 
 ## Release Philosophy
 
-**v0.3.5 = v3.2 Rebranded + Optimized for Antigravity Agents**
+**v0.3.5 = v0.3.2 Rebranded + Optimized for Antigravity Agents**
 
 ### Why Antigravity + Gemini 3.5 Flash?
 

@@ -28,6 +28,24 @@ Subcommands (in recommended execution order):
 
 Aliases: /PLAN menus → /PLAN ia | /PLAN copy → /PLAN content | /PLAN spec → /PLAN arch
 
+## SDD Automation Agent Integrations
+
+When executing `/PLAN` subcommands, Nezam routes task scopes to specific specialized agents to build structured design documents (SDDs):
+
+| Subcommand | Triggered Lead Agent | Input Artifacts | Output Artifacts |
+|------------|----------------------|-----------------|------------------|
+| `/PLAN idea` | [problem-statement-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/problem-statement-generator.md) | User brief, project context | `.nezam/core/plans/00-define/PLANNING_BRIEF.md` |
+| `/PLAN seo` | [seo-keyword-mapper](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/seo-keyword-mapper.md) | Planning brief, target audience | `.nezam/core/plans/01-research/SEO_RESEARCH.md` |
+| `/PLAN ia` | [sitemap-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/sitemap-generator.md) | Feature list, content pillars | `.nezam/core/plans/02-ia/IA_CONTENT.md` |
+| `/PLAN content` | [content-brief-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/content-brief-generator.md) | SEO Strategy, IA content | `.nezam/core/plans/03-content/briefs/*` |
+| `/PLAN design` | [design-system-applier](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/design-system-applier.md) | Brand guidelines, content briefs | `DESIGN.md` |
+| `/PLAN arch` | [adr-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/adr-generator.md), [architecture-diagram-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/architecture-diagram-generator.md) | Planning brief, DESIGN.md | `.nezam/core/plans/04-architecture/ADRs.yaml`, `.nezam/core/plans/04-architecture/ARCHITECTURE.md` |
+| `/PLAN scaffold` | [spec-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/spec-generator.md) | Architecture, ADRs | `.nezam/core/plans/scaffold/PROJECT_SCAFFOLD.md`, `REQUIREMENTS.yaml` |
+| `/PLAN tasks` | [dependency-graph-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/dependency-graph-generator.md) | Requirements, constraints | `.nezam/core/plans/scaffold/DEPENDENCIES.yaml` |
+| `/PLAN roadmap` | [release-plan-generator](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/release-plan-generator.md) | Requirements, checklist | `.nezam/core/plans/09-ship/RELEASE_PLAN.md` |
+
+*(Note: During component drafting or skeleton creation, the [code-generation-supervisor](./file:/Users/Dorgham/Documents/Work/Devleopment/NEZAM/.cursor/agents/code-generation-supervisor.md) is invoked to enforce boilerplates and tests.)*
+
 Hard block:
   /plan (any subcommand) requires ALL of:
   1. `.nezam/core/plans/00-define/01-product/PRD.md` exists and is not a blank template

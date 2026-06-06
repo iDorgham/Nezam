@@ -1,15 +1,15 @@
-# HEALTH 100 OPTIMIZATION PLAN — v3.2 System Hardening
+# HEALTH 100 OPTIMIZATION PLAN — v0.3.2 System Hardening
 
 > **Target:** 100% system health (performance, memory, speed, reliability)  
 > **Focus:** Fast execution, minimal footprint, zero waste  
-> **Timeline:** Integrate into v3.2-P1..P6 phases  
+> **Timeline:** Integrate into v0.3.2-P1..P6 phases  
 > **Owner:** DevOps Lead + Architect
 
 ---
 
 ## Executive Summary
 
-**Current State:** v3.2 foundation ready, but needs optimization for production.  
+**Current State:** v0.3.2 foundation ready, but needs optimization for production.  
 **Goal:** Achieve 100% health across 5 dimensions (Speed, Memory, Reliability, Quality, Operations).
 
 **Key Changes:**
@@ -40,7 +40,7 @@
   - ⏳ p99 < 500ms = +2 pts
   - ⏳ Error rate < 0.1% = +2 pts → **2/7**
 
-**Target by v3.2-P6:** 24/25 (optimize remaining after core release)
+**Target by v0.3.2-P6:** 24/25 (optimize remaining after core release)
 
 ---
 
@@ -63,7 +63,7 @@
   - ⏳ CSS-in-JS tree-shaking = +2 pts
   - ⏳ Image optimization (next/image) = +1 pt → **0/5**
 
-**Target by v3.2-P6:** 19/20 (reduce from 30GB → 3GB)
+**Target by v0.3.2-P6:** 19/20 (reduce from 30GB → 3GB)
 
 ---
 
@@ -80,7 +80,7 @@
   - ⏳ Zero-downtime deployments = +3 pts
   - ⏳ Instant rollback if needed = +2 pts → **0/10**
 
-**Target by v3.2-P6:** 20/20 (weekly releases, < 30min PR→production)
+**Target by v0.3.2-P6:** 20/20 (weekly releases, < 30min PR→production)
 
 ---
 
@@ -102,7 +102,7 @@
   - ⏳ Zero high-severity CVEs = +2 pts (1 postcss pending) → **2/4**
   - ⏳ Linting enforced (no TODO/FIXME in shipped code) = +1 pt → **0/1**
 
-**Target by v3.2-P6:** 20/20 (>90% test coverage, 99.9% uptime, zero critical bugs)
+**Target by v0.3.2-P6:** 20/20 (>90% test coverage, 99.9% uptime, zero critical bugs)
 
 ---
 
@@ -124,13 +124,13 @@
   - ⏳ Architecture decision log (ADRs) = +1 pt
   - ⏳ Design system documentation = +1 pt → **0/3**
 
-**Target by v3.2-P6:** 15/15 (all docs written, team onboarded, zero knowledge silos)
+**Target by v0.3.2-P6:** 15/15 (all docs written, team onboarded, zero knowledge silos)
 
 ---
 
 ## Optimization Roadmap by Phase
 
-### v3.2-P1: Foundation (⏳ Current)
+### v0.3.2-P1: Foundation (⏳ Current)
 
 **Memory:**
 - Move `.cursor/design/references/` to archive (saves 27GB)
@@ -141,14 +141,14 @@
 - Enable pnpm workspace hoisting to reduce duplication
 
 **Tasks:**
-- T-V32-1-008 (new): Archive `.cursor/design/references/` → external CDN
-- T-V32-1-009 (new): Optimize git repo size (shallow clone, object compression)
+- T-V032-1-008 (new): Archive `.cursor/design/references/` → external CDN
+- T-V032-1-009 (new): Optimize git repo size (shallow clone, object compression)
 
 **Target:** Memory 30GB → 10GB, build time 45s → 20s
 
 ---
 
-### v3.2-P2: CI/CD Pipeline (🔒 Locked)
+### v0.3.2-P2: CI/CD Pipeline (🔒 Locked)
 
 **Speed:**
 - Parallel gate execution (lint + test + security simultaneously)
@@ -161,15 +161,15 @@
 - Dependency vulnerability scanning (DependaBot + CodeQL)
 
 **Tasks:**
-- T-V32-2-007 (new): Implement CI job parallelization + caching
-- T-V32-2-008 (new): Add performance budgets to CI gates
-- T-V32-2-009 (new): Deploy distributed tracing (OpenTelemetry)
+- T-V032-2-007 (new): Implement CI job parallelization + caching
+- T-V032-2-008 (new): Add performance budgets to CI gates
+- T-V032-2-009 (new): Deploy distributed tracing (OpenTelemetry)
 
 **Target:** CI gates 12min → 3min, build artifacts 500MB → 150MB
 
 ---
 
-### v3.2-P3: Security (🔒 Locked)
+### v0.3.2-P3: Security (🔒 Locked)
 
 **Reliability:**
 - Zero high/critical CVEs (bump postcss, audit dependencies)
@@ -181,15 +181,15 @@
 - Security incident response plan
 
 **Tasks:**
-- T-V32-3-007 (new): Complete CVE remediation (postcss >= 8.5.10)
-- T-V32-3-008 (new): Enable DAST in CI pipeline
-- T-V32-3-009 (new): Write incident response runbook
+- T-V032-3-007 (new): Complete CVE remediation (postcss >= 8.5.10)
+- T-V032-3-008 (new): Enable DAST in CI pipeline
+- T-V032-3-009 (new): Write incident response runbook
 
 **Target:** Zero unpatched CVEs, security audit → 95% pass rate
 
 ---
 
-### v3.2-P4: Design System (🔒 Locked)
+### v0.3.2-P4: Design System (🔒 Locked)
 
 **Performance:**
 - Design token optimization (no redundant CSS variables)
@@ -201,15 +201,15 @@
 - Visual regression testing (Percy snapshots)
 
 **Tasks:**
-- T-V32-4-008 (new): Implement critical CSS inlining
-- T-V32-4-009 (new): Add Percy visual regression tests
-- T-V32-4-010 (new): Performance audit: bundle size breakdown
+- T-V032-4-008 (new): Implement critical CSS inlining
+- T-V032-4-009 (new): Add Percy visual regression tests
+- T-V032-4-010 (new): Performance audit: bundle size breakdown
 
 **Target:** Component bundle < 100KB gzipped, a11y coverage 100%
 
 ---
 
-### v3.2-P5: Observability (🔒 Locked)
+### v0.3.2-P5: Observability (🔒 Locked)
 
 **Reliability:**
 - Error tracking + alerting (Sentry with custom dashboards)
@@ -222,16 +222,16 @@
 - Write troubleshooting guide (20+ common scenarios)
 
 **Tasks:**
-- T-V32-5-008 (new): Deploy Sentry + configure alerts
-- T-V32-5-009 (new): Build monitoring dashboard (Grafana)
-- T-V32-5-010 (new): Write comprehensive troubleshooting guide
-- T-V32-5-011 (new): Implement structured logging (Winston/Pino)
+- T-V032-5-008 (new): Deploy Sentry + configure alerts
+- T-V032-5-009 (new): Build monitoring dashboard (Grafana)
+- T-V032-5-010 (new): Write comprehensive troubleshooting guide
+- T-V032-5-011 (new): Implement structured logging (Winston/Pino)
 
 **Target:** 99.9% uptime, MTTR < 15min, zero undetected production issues
 
 ---
 
-### v3.2-P6: Integration + Release (🔒 Locked)
+### v0.3.2-P6: Integration + Release (🔒 Locked)
 
 **Final Quality:**
 - Full system load test (5 simultaneous PRs, 100 concurrent users)
@@ -244,10 +244,10 @@
 - Team onboarding (new dev can ship code in 1 day)
 
 **Tasks:**
-- T-V32-6-009 (new): Execute production readiness checklist
-- T-V32-6-010 (new): Conduct penetration test
-- T-V32-6-011 (new): Write deployment + rollback runbook
-- T-V32-6-012 (new): Conduct disaster recovery drill
+- T-V032-6-009 (new): Execute production readiness checklist
+- T-V032-6-010 (new): Conduct penetration test
+- T-V032-6-011 (new): Write deployment + rollback runbook
+- T-V032-6-012 (new): Conduct disaster recovery drill
 
 **Target:** Production health = 100/100, team readiness = ready for 24/7 ops
 
@@ -428,27 +428,27 @@ coverageThreshold: {
 
 ## Health Score Milestones
 
-### Week 1 (v3.2-P1): 15/100 → 35/100
+### Week 1 (v0.3.2-P1): 15/100 → 35/100
 
 - ✅ Archive `.cursor/design/references/` (memory: -27GB)
 - ✅ Optimize git repo (memory: -2GB)
 - ✅ Implement esbuild (speed: build 45s → 8s)
 
-### Week 2 (v3.2-P2+P3): 35/100 → 60/100
+### Week 2 (v0.3.2-P2+P3): 35/100 → 60/100
 
 - ✅ Parallel CI gates (speed: CI 12min → 3min)
 - ✅ Dependency caching (speed: CI restore 30s → 5s)
 - ✅ CVE remediation (postcss bump)
 - ✅ Enable CodeQL + DependaBot
 
-### Week 3 (v3.2-P4+P5): 60/100 → 85/100
+### Week 3 (v0.3.2-P4+P5): 60/100 → 85/100
 
 - ✅ Performance budgets (LCP < 2.5s enforced)
 - ✅ Error tracking (Sentry active)
 - ✅ Monitoring dashboard (Grafana live)
 - ✅ E2E test coverage → 70%
 
-### Week 4 (v3.2-P6): 85/100 → **100/100**
+### Week 4 (v0.3.2-P6): 85/100 → **100/100**
 
 - ✅ Production readiness audit
 - ✅ Disaster recovery drill (rollback test)
@@ -487,17 +487,17 @@ coverageThreshold: {
 
 ---
 
-## Integration with v3.2-P1..P6
+## Integration with v0.3.2-P1..P6
 
 Each phase embeds 2-3 health tasks:
 
 ```
-v3.2-P1: Memory optimization (main blocker)
-v3.2-P2: Speed optimization (parallel gates, caching)
-v3.2-P3: Security quality (CVE audit, penetration test)
-v3.2-P4: Performance budgets (Web Vitals, bundle size)
-v3.2-P5: Observability + monitoring (Sentry, Grafana)
-v3.2-P6: Final quality + runbooks (99.9% readiness)
+v0.3.2-P1: Memory optimization (main blocker)
+v0.3.2-P2: Speed optimization (parallel gates, caching)
+v0.3.2-P3: Security quality (CVE audit, penetration test)
+v0.3.2-P4: Performance budgets (Web Vitals, bundle size)
+v0.3.2-P5: Observability + monitoring (Sentry, Grafana)
+v0.3.2-P6: Final quality + runbooks (99.9% readiness)
 ```
 
 ---
@@ -507,7 +507,7 @@ v3.2-P6: Final quality + runbooks (99.9% readiness)
 ### Week 1
 ```bash
 # Memory reduction
-/silent unlock v3.2-health-memory
+/silent unlock v0.3.2-health-memory
 tar -czf design-references-v1.tar.gz .cursor/design/references/
 rm -rf .cursor/design/references/
 pnpm install --shamefully-hoist
@@ -521,7 +521,7 @@ npm install --save-dev esbuild
 ### Week 2
 ```bash
 # Speed + reliability
-/silent unlock v3.2-health-ci
+/silent unlock v0.3.2-health-ci
 # Add parallel gates to .github/workflows/
 # Add Lighthouse CI config
 # Bump postcss to >= 8.5.10
@@ -531,7 +531,7 @@ npm install --save-dev esbuild
 ### Week 3-4
 ```bash
 # Performance budgets
-/silent unlock v3.2-health-perf
+/silent unlock v0.3.2-health-perf
 # Deploy Sentry
 # Deploy Grafana
 # Write runbooks
@@ -540,7 +540,7 @@ npm install --save-dev esbuild
 
 ---
 
-**Health 100 Roadmap:** In-flight with v3.2-P1..P6  
-**Target completion:** 2026-06-25 (v3.2.0 release)  
+**Health 100 Roadmap:** In-flight with v0.3.2-P1..P6  
+**Target completion:** 2026-06-25 (v0.3.2 release)  
 **Owner:** DevOps Lead + Architecture Team
 

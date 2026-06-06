@@ -86,6 +86,7 @@ pnpm ai:check  # verify no drift
 - `README.md`
 - `a11y-performance-auditor.md`
 - `a11y-rtl-integration-engineer.md`
+- `adr-generator.md`
 - `advanced-analytics-architect.md`
 - `aeo-specialist.md`
 - `analytics-chart-designer.md`
@@ -99,6 +100,7 @@ pnpm ai:check  # verify no drift
 - `app-security-manager.md`
 - `arabic-content-master.md`
 - `arabic-seo-aeo-specialist.md`
+- `architecture-diagram-generator.md`
 - `art-director-brand.md`
 - `auth-security-manager.md`
 - `automation-manager.md`
@@ -118,6 +120,7 @@ pnpm ai:check  # verify no drift
 - `code-review-specialist.md`
 - `compliance-manager.md`
 - `conflict-resolution-agent.md`
+- `content-brief-generator.md`
 - `content-strategist.md`
 - `content-workflow-manager.md`
 - `cost-optimization-analyst.md`
@@ -135,6 +138,7 @@ pnpm ai:check  # verify no drift
 - `data-pipeline-manager.md`
 - `data-visualization.md`
 - `database-design-manager.md`
+- `dependency-graph-generator.md`
 - `deputy-swarm-leader.md`
 - `design-debt-analyst.md`
 - `design-excellence-lead.md`
@@ -147,6 +151,7 @@ pnpm ai:check  # verify no drift
 - `design-intelligence-orchestrator.md`
 - `design-lead.md`
 - `design-swarm-leader.md`
+- `design-system-applier.md`
 - `design-systems-token-architect.md`
 - `design-token-orchestrator.md`
 - `devops-manager.md`
@@ -204,11 +209,13 @@ pnpm ai:check  # verify no drift
 - `nosql-expert.md`
 - `page-block-composer.md`
 - `payments-lead.md`
+- `problem-statement-generator.md`
 - `product-officer.md`
 - `project-architect.md`
 - `prompt-engineer.md`
 - `qa-test-lead.md`
 - `react-server-components-expert.md`
+- `release-plan-generator.md`
 - `requirements-analysis-manager.md`
 - `rtl-layout-specialist.md`
 - `rtl-specialist.md`
@@ -221,10 +228,13 @@ pnpm ai:check  # verify no drift
 - `scalability-resilience-architect.md`
 - `search-cache-manager.md`
 - `security-auditor.md`
+- `seo-keyword-mapper.md`
 - `seo-specialist.md`
 - `services-microservices-manager.md`
 - `silent-orchestration-manager.md`
+- `sitemap-generator.md`
 - `solution-design-manager.md`
+- `spec-generator.md`
 - `spec-writer.md`
 - `sql-expert.md`
 - `sre-incident-specialist.md`

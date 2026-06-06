@@ -91,20 +91,20 @@ phases:
   v036_phase_3:
     name: "v0.3.6-P3: Security Scanning"
     description: "CodeQL, DependaBot, secret scanning, security audit, secrets rotation schedule, SECURITY_BASELINE"
-    status: "in_progress"
+    status: "unlocked"
     testing_passed: false
     depends_on: "v036_phase_1"
     unlocked_at: "2026-06-06T17:40:00Z"
-    started_at: "2026-06-06T17:58:00Z"
     tasks: ["T-V32-3-001", "T-V32-3-002", "T-V32-3-003", "T-V32-3-004", "T-V32-3-005", "T-V32-3-006"]
 
   v036_phase_4:
     name: "v0.3.6-P4: Design System + Wireframe Bridge"
     description: "Empty blocks fix, lock schema v2.0, GATE-WF-02, lock/unlock cycle test, Figma MCP, DESIGN_TO_CODE doc, token audit"
-    status: "unlocked"
+    status: "in_progress"
     testing_passed: false
     depends_on: "v036_phase_1"
     unlocked_at: "2026-06-06T17:55:00Z"
+    started_at: "2026-06-06T18:00:00Z"
     tasks: ["T-V32-4-001", "T-V32-4-002", "T-V32-4-003", "T-V32-4-004", "T-V32-4-005", "T-V32-4-006", "T-V32-4-007"]
 
   v036_phase_5:

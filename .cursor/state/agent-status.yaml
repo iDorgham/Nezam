@@ -10,15 +10,15 @@ owner: "PM-01"
 last_updated: "2026-06-06"
 active_swarm: "swarm-1"
 active_agent: "swarm-leader"
-active_phase: ""
+active_phase: "v036_phase_2"
 active_feature_slice: ""
 active_spec: ".nezam/core/plans/MASTER_TASKS.md"
 
 last_output:
   type: "task_complete"
   artifact_path: ".cursor/state/develop_phases.yaml"
-  status: "complete"
-  summary: "v0.3.6-P1 (Foundation Hardening) complete. Parallel phases P2 (CI/CD Pipeline) and P3 (Security Scanning) are unlocked. Choose a phase and run /develop start."
+  status: "in_progress"
+  summary: "Started v0.3.6-P2 (CI/CD Pipeline) development."
 
 pending_handoff:
   from_agent: ""
@@ -28,7 +28,7 @@ pending_handoff:
 
 open_blockers: []
 
-session_resume_prompt: "v0.3.6-P1 complete. P2/P3 unlocked. Choose next lane: P2 (CI/CD Pipeline — T-V32-2-*), P3 (Security Scanning — T-V32-3-*). Run /develop start after picking a lane."
+session_resume_prompt: "Active phase is v036_phase_2. Execute tasks T-V32-2-001..006 (Tier-1 gates, CodeQL, LHCI, CI Failure Guide)."
 
 last_sync: "2026-06-05T00:20:00Z"
 certified_agents:

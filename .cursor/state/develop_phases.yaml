@@ -79,10 +79,11 @@ phases:
   v036_phase_2:
     name: "v0.3.6-P2: CI/CD Pipeline"
     description: "Tier-1 gate validation, release workflow test, CodeQL, lhci perf budget, ci-health-check, CI_FAILURE_GUIDE"
-    status: "unlocked"
+    status: "in_progress"
     testing_passed: false
     depends_on: "v036_phase_1"
     unlocked_at: "2026-06-06T17:40:00Z"
+    started_at: "2026-06-06T17:42:00Z"
     tasks: ["T-V32-2-001", "T-V32-2-002", "T-V32-2-003", "T-V32-2-004", "T-V32-2-005", "T-V32-2-006"]
 
   v036_phase_3:

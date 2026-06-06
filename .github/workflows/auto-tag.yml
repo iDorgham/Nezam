@@ -1,0 +1,146 @@
+name: Auto-Tag Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    outputs:
+      should_tag: ${{ steps.check.outputs.should_tag }}
+      bump_type: ${{ steps.check.outputs.bump_type }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for release commit
+        id: check
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+
+          if [[ "$COMMIT_MSG" =~ "chore: release" ]]; then
+            echo "should_tag=true" >> $GITHUB_OUTPUT
+
+            # Determine bump type from commit message
+            if [[ "$COMMIT_MSG" =~ "BREAKING" ]]; then
+              echo "bump_type=major" >> $GITHUB_OUTPUT
+            elif [[ "$COMMIT_MSG" =~ "feat:" ]]; then
+              echo "bump_type=minor" >> $GITHUB_OUTPUT
+            else
+              echo "bump_type=patch" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "should_tag=false" >> $GITHUB_OUTPUT
+          fi
+
+  auto-tag:
+    needs: check-release
+    if: needs.check-release.outputs.should_tag == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Get current version
+        id: version
+        run: |
+          CURRENT=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "v0.0.0")
+          CURRENT=${CURRENT#v}
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+
+      - name: Calculate next version
+        id: next
+        run: |
+          npm install -g semver
+          BUMP_TYPE="${{ needs.check-release.outputs.bump_type }}"
+          CURRENT="${{ steps.version.outputs.current }}"
+          NEXT=$(semver -i $BUMP_TYPE $CURRENT)
+          echo "next=$NEXT" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        run: |
+          VERSION="${{ steps.next.outputs.next }}"
+          git config user.name "NEZAM Bot"
+          git config user.email "bot@nezam.local"
+          git tag -a "v$VERSION" -m "Release v$VERSION (see CHANGELOG.md)"
+          git push origin "v$VERSION"
+          echo "✓ Tagged: v$VERSION"
+
+  generate-release-notes:
+    needs: auto-tag
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Generate changelog
+        run: |
+          echo "# Changelog" > CHANGELOG_SECTION.md
+          echo "" >> CHANGELOG_SECTION.md
+
+          # Get commits since last tag
+          LAST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null | head -1)
+
+          echo "## Features" >> CHANGELOG_SECTION.md
+          git log ${LAST_TAG}..HEAD --pretty=format:"%h - %s" | grep "feat:" | sed 's/^/- /' >> CHANGELOG_SECTION.md 2>/dev/null || echo "- None" >> CHANGELOG_SECTION.md
+
+          echo "" >> CHANGELOG_SECTION.md
+          echo "## Fixes" >> CHANGELOG_SECTION.md
+          git log ${LAST_TAG}..HEAD --pretty=format:"%h - %s" | grep "fix:" | sed 's/^/- /' >> CHANGELOG_SECTION.md 2>/dev/null || echo "- None" >> CHANGELOG_SECTION.md
+
+          echo "" >> CHANGELOG_SECTION.md
+          echo "## Other" >> CHANGELOG_SECTION.md
+          git log ${LAST_TAG}..HEAD --pretty=format:"%h - %s" | grep -v -E "feat:|fix:" | sed 's/^/- /' >> CHANGELOG_SECTION.md 2>/dev/null || echo "- None" >> CHANGELOG_SECTION.md
+
+      - name: Update CHANGELOG.md
+        run: |
+          (cat CHANGELOG_SECTION.md && echo "" && cat CHANGELOG.md) > CHANGELOG.md.tmp
+          mv CHANGELOG.md.tmp CHANGELOG.md
+          rm CHANGELOG_SECTION.md
+
+      - name: Commit changelog
+        run: |
+          git config user.name "NEZAM Bot"
+          git config user.email "bot@nezam.local"
+          git add CHANGELOG.md
+          git commit -m "chore: update changelog for release" || echo "No changelog changes"
+          git push origin main || echo "Already up to date"
+
+  create-github-release:
+    needs: [auto-tag, generate-release-notes]
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: tag
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          release_name: Release ${{ steps.tag.outputs.tag }}
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false

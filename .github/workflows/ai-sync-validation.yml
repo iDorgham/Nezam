@@ -1,0 +1,71 @@
+name: AI Sync Validation
+
+on:
+  pull_request:
+    paths:
+      - '.cursor/**'
+      - 'CLAUDE.md'
+  push:
+    branches: [main]
+    paths:
+      - '.cursor/**'
+
+jobs:
+  sync-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Sync AI configuration
+        run: pnpm ai:sync
+
+      - name: Validate AI configuration
+        run: pnpm ai:check
+
+      - name: Check for CLAUDE.md drift
+        run: |
+          if git diff --exit-code CLAUDE.md > /dev/null 2>&1; then
+            echo "✓ CLAUDE.md is in sync"
+          else
+            echo "❌ CLAUDE.md is out of sync"
+            echo "Run 'pnpm ai:sync' locally and commit the changes"
+            exit 1
+          fi
+
+  validate-phases:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_ref, 'T-v3.2-P')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate phase ID format
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          if [[ $BRANCH =~ T-v3\.2-P[0-9]+-[0-9]{3} ]]; then
+            echo "✓ Phase ID format valid: $BRANCH"
+          else
+            echo "⚠ Branch should include task ID: T-v3.2-PN-NNN"
+          fi
+
+      - name: Check for v0.3.5 references
+        run: |
+          if grep -r "v0.3.5" . --exclude-dir=_archive --exclude-dir=.git --exclude-dir=.github 2>/dev/null; then
+            echo "❌ Found v0.3.5 references (should be archived)"
+            exit 1
+          else
+            echo "✓ No stale v0.3.5 references found"
+          fi

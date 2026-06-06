@@ -10,15 +10,15 @@ owner: "PM-01"
 last_updated: "2026-06-06"
 active_swarm: "swarm-1"
 active_agent: "swarm-leader"
-active_phase: "v036_phase_5"
+active_phase: ""
 active_feature_slice: ""
 active_spec: ".nezam/core/plans/MASTER_TASKS.md"
 
 last_output:
   type: "task_complete"
   artifact_path: ".cursor/state/develop_phases.yaml"
-  status: "in_progress"
-  summary: "Started v0.3.6-P5 (Observability + Content Ops) development."
+  status: "complete"
+  summary: "Completed all tasks and phases for v0.3.6 release."
 
 pending_handoff:
   from_agent: ""
@@ -28,7 +28,7 @@ pending_handoff:
 
 open_blockers: []
 
-session_resume_prompt: "Active phase is v036_phase_5. Execute tasks T-V32-5-001..007 (Sentry, web-vitals, perf baseline, observability runbook, SEO/AEO baseline, content templates, CONTENT_OPS)."
+session_resume_prompt: "Nezam v0.3.6 cycle is fully completed and tagged. No pending tasks."
 
 last_sync: "2026-06-05T00:20:00Z"
 certified_agents:

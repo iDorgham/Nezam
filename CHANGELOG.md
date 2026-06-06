@@ -17,6 +17,16 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
+## [0.3.6] - 2026-06-06
+
+Milestone: **v0.3.6 5-Phase Acceleration Release** (Unified task registries, automated git workflows, performance optimizations, and design system verification gates).
+
+### Added
+- **CI/CD Automation:** Added pre-commit and pre-push Husky validation gates for multi-client synchronizations and YAML schemas.
+- **Release Automation:** Configured automatic SemVer tagging, changelog creation, and deployment pipelines.
+- **Performance Optimization:** Reduced workspace memory footprints and startup times via directory exclusion configurations and external reference indexing.
+- **Task Consolidation:** Integrated all 105 workflow tasks into a single master plan contract (`MASTER_PLAN_v0.3.6.md`).
+
 ## [0.3.5] - 2026-06-06
 
 Milestone: **v0.3.5 Polish Release** (Production-ready release with Gemini 3.5 Flash agents and rebranded phase prefixes).

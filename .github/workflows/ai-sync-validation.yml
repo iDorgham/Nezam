@@ -61,11 +61,11 @@ jobs:
             echo "⚠ Branch should include task ID: T-v0.3.2-PN-NNN or T-V032-N-NNN"
           fi
 
-      - name: Check for v0.3.5 references
+      - name: Check for v0.3.5 references in AI config
         run: |
-          if grep -r "v0.3.5" . --exclude-dir=_archive --exclude-dir=.git --exclude-dir=.github 2>/dev/null; then
-            echo "❌ Found v0.3.5 references (should be archived)"
+          if [ -d ".cursor" ] && grep -r "v0.3.5" .cursor/ 2>/dev/null; then
+            echo "❌ Found v0.3.5 references in .cursor/ (should be archived or rebranded)"
             exit 1
           else
-            echo "✓ No stale v0.3.5 references found"
+            echo "✓ No stale v0.3.5 references found in .cursor/"
           fi

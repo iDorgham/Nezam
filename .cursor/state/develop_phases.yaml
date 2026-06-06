@@ -62,66 +62,54 @@ phases:
     completed_at: "2026-06-03T06:25:00Z"
     notes: "Ship-prep complete (readiness GO, CHANGELOG 0.2.0, release branch fix, PR #41). Production deploy intentionally deferred — human-gated; see docs/reports/release/readiness.md."
 
-# ─── v0.3.2 cycle (health 65→100, target 2026-06-25) ───────────────────────────
+# ─── v0.3.6 cycle (health 65→100, target 2026-06-25) ───────────────────────────
 
-  v032_phase_1:
-    name: "v0.3.2-P1: Foundation Hardening"
+  v036_phase_1:
+    name: "v0.3.6-P1: Foundation Hardening"
     description: "Sync cleanup, orphaned skill removal, YAML integrity, Husky enforcement, agent-status.yaml extension, weekly drift CI, sync runbook"
-    status: "complete"
-    testing_passed: true
+    status: "in_progress"
+    testing_passed: false
     depends_on: "phase_6"
-    unlocked_at: "2026-06-05T00:00:00Z"
-    started_at: "2026-06-05T00:00:00Z"
-    review_at: "2026-06-05T00:00:00Z"
-    completed_at: "2026-06-05T00:00:00Z"
-    tasks: ["T-V032-1-001", "T-V032-1-002", "T-V032-1-003", "T-V032-1-004", "T-V032-1-005", "T-V032-1-006", "T-V032-1-007"]
+    unlocked_at: "2026-06-06T17:30:00Z"
+    started_at: "2026-06-06T17:35:00Z"
+    tasks: ["T-V32-1-001", "T-V32-1-002", "T-V32-1-003", "T-V32-1-004", "T-V32-1-005", "T-V32-1-006", "T-V32-1-007"]
 
-  v032_phase_2:
-    name: "v0.3.2-P2: CI/CD Pipeline"
+  v036_phase_2:
+    name: "v0.3.6-P2: CI/CD Pipeline"
     description: "Tier-1 gate validation, release workflow test, CodeQL, lhci perf budget, ci-health-check, CI_FAILURE_GUIDE"
-    status: "complete"
-    testing_passed: true
-    depends_on: "v032_phase_1"
-    unlocked_at: "2026-06-05T00:00:00Z"
-    started_at: "2026-06-05T00:00:00Z"
-    completed_at: "2026-06-06T02:35:00Z"
-    tasks: ["T-V032-2-001", "T-V032-2-002", "T-V032-2-003", "T-V032-2-004", "T-V032-2-005", "T-V032-2-006"]
+    status: "locked"
+    testing_passed: false
+    depends_on: "v036_phase_1"
+    tasks: ["T-V32-2-001", "T-V32-2-002", "T-V32-2-003", "T-V32-2-004", "T-V32-2-005", "T-V32-2-006"]
 
-  v032_phase_3:
-    name: "v0.3.2-P3: Security Scanning"
+  v036_phase_3:
+    name: "v0.3.6-P3: Security Scanning"
     description: "CodeQL, DependaBot, secret scanning, security audit, secrets rotation schedule, SECURITY_BASELINE"
-    status: "complete"
-    testing_passed: true
-    depends_on: "v032_phase_1"
-    unlocked_at: "2026-06-05T00:00:00Z"
-    completed_at: "2026-06-06T01:45:00Z"
-    tasks: ["T-V032-3-001", "T-V032-3-002", "T-V032-3-003", "T-V032-3-004", "T-V032-3-005", "T-V032-3-006"]
+    status: "locked"
+    testing_passed: false
+    depends_on: "v036_phase_1"
+    tasks: ["T-V32-3-001", "T-V32-3-002", "T-V32-3-003", "T-V32-3-004", "T-V32-3-005", "T-V32-3-006"]
 
-  v032_phase_4:
-    name: "v0.3.2-P4: Design System + Wireframe Bridge"
+  v036_phase_4:
+    name: "v0.3.6-P4: Design System + Wireframe Bridge"
     description: "Empty blocks fix, lock schema v2.0, GATE-WF-02, lock/unlock cycle test, Figma MCP, DESIGN_TO_CODE doc, token audit"
-    status: "complete"
-    testing_passed: true
-    depends_on: "v032_phase_1"
-    unlocked_at: "2026-06-05T00:00:00Z"
-    completed_at: "2026-06-06T09:52:25Z"
-    tasks: ["T-V032-4-001", "T-V032-4-002", "T-V032-4-003", "T-V032-4-004", "T-V032-4-005", "T-V032-4-006", "T-V032-4-007"]
+    status: "locked"
+    testing_passed: false
+    depends_on: "v036_phase_1"
+    tasks: ["T-V32-4-001", "T-V32-4-002", "T-V32-4-003", "T-V32-4-004", "T-V32-4-005", "T-V32-4-006", "T-V32-4-007"]
 
-  v032_phase_5:
-    name: "v0.3.2-P5: Observability + Content Ops"
+  v036_phase_5:
+    name: "v0.3.6-P5: Observability + Content Ops"
     description: "Sentry, web-vitals, perf baseline, observability runbook, SEO/AEO baseline, content templates, CONTENT_OPS"
-    status: "complete"
-    testing_passed: true
-    depends_on: "v032_phase_2"
-    unlocked_at: "2026-06-06T02:35:00Z"
-    completed_at: "2026-06-06T09:52:25Z"
-    tasks: ["T-V032-5-001", "T-V032-5-002", "T-V032-5-003", "T-V032-5-004", "T-V032-5-005", "T-V032-5-006", "T-V032-5-007"]
+    status: "locked"
+    testing_passed: false
+    depends_on: "v036_phase_2"
+    tasks: ["T-V32-5-001", "T-V32-5-002", "T-V32-5-003", "T-V32-5-004", "T-V32-5-005", "T-V32-5-006", "T-V32-5-007"]
 
-  v032_phase_6:
-    name: "v0.3.2-P6: Integration, Docs, QA + Release"
-    description: "Runbook index, troubleshooting guide, onboarding doc, regression test, CI load test, release approval, README/CHANGELOG, v0.3.2 tag"
-    status: "complete"
-    testing_passed: true
-    depends_on: "v032_phase_5"
-    completed_at: "2026-06-06T10:08:44Z"
-    tasks: ["T-V032-6-001", "T-V032-6-002", "T-V032-6-003", "T-V032-6-004", "T-V032-6-005", "T-V032-6-006", "T-V032-6-007", "T-V032-6-008"]
+  v036_phase_6:
+    name: "v0.3.6-P6: Integration, Docs, QA + Release"
+    description: "Runbook index, troubleshooting guide, onboarding doc, regression test, CI load test, release approval, README/CHANGELOG, v0.3.6 tag"
+    status: "locked"
+    testing_passed: false
+    depends_on: "v036_phase_5"
+    tasks: ["T-V32-6-001", "T-V32-6-002", "T-V32-6-003", "T-V32-6-004", "T-V32-6-005", "T-V32-6-006", "T-V32-6-007", "T-V32-6-008"]

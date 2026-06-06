@@ -1,4 +1,4 @@
-# MASTER PLAN — NEZAM v3.2 Integrated Acceleration System
+# MASTER PLAN — NEZAM v0.3.6 Integrated Acceleration System
 
 ---
 **CANONICAL DOCUMENT**
@@ -19,9 +19,9 @@
 
 ## Executive Summary
 
-This is the unified master plan for NEZAM v3.2. It consolidates:
+This is the unified master plan for NEZAM v0.3.6. It consolidates:
 1. **Previous v3.0 tasks** (P0, P1, P2-P6 phases + Quality phases)
-2. **v3.2 Health 100 initiative** (P1-P6 workstreams with SDD enhancement)
+2. **v0.3.6 Health 100 initiative** (P1-P6 workstreams with SDD enhancement)
 3. **New acceleration framework** (Adaptive SDD, Silent Ops, Workflow Acceleration, Agent Optimization)
 
 **Single source of truth:** Everything below. No scattered planning docs.
@@ -85,18 +85,18 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ## Phase Structure & Timeline
 
-### v3.2 High-Level Phases
+### v0.3.6 High-Level Phases
 
 | Phase | Focus | Target Dates | Status |
 |---|---|---|---|
-| **v3.2-P1** | Foundation: sync, state, Husky | 2026-06-04 → 06-07 | 🔒 Complete |
-| **v3.2-P2** | CI/CD Pipeline validation | 2026-06-08 → 06-14 | 🔒 Complete |
-| **v3.2-P3** | Security scanning automation | 2026-06-08 → 06-14 | 🔒 Complete |
-| **v3.2-P4** | Design system + wireframe bridge | 2026-06-10 → 06-16 | 🔒 Complete |
-| **v3.2-P5** | Observability + content ops | 2026-06-12 → 06-18 | 🔒 Complete |
-| **v3.2-P6** | Integration, docs, QA, release | 2026-06-16 → 06-21 | 🔒 Complete |
+| **v0.3.6-P1** | Foundation: sync, state, Husky | 2026-06-04 → 06-07 | 🔒 Complete |
+| **v0.3.6-P2** | CI/CD Pipeline validation | 2026-06-08 → 06-14 | 🔒 Complete |
+| **v0.3.6-P3** | Security scanning automation | 2026-06-08 → 06-14 | 🔒 Complete |
+| **v0.3.6-P4** | Design system + wireframe bridge | 2026-06-10 → 06-16 | 🔒 Complete |
+| **v0.3.6-P5** | Observability + content ops | 2026-06-12 → 06-18 | 🔒 Complete |
+| **v0.3.6-P6** | Integration, docs, QA, release | 2026-06-16 → 06-21 | 🔒 Complete |
 
-**Delivery target:** v3.2.0 tagged by 2026-06-25 (4 weeks vs 8-week baseline)
+**Delivery target:** v0.3.6.0 tagged by 2026-06-25 (4 weeks vs 8-week baseline)
 
 ---
 
@@ -142,11 +142,11 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ---
 
-### v3.2 New Phase Tasks (6 Workstreams)
+### v0.3.6 New Phase Tasks (6 Workstreams)
 
-#### v3.2-P1 — Foundation: Sync & State (T-V32-1-*)
+#### v0.3.6-P1 — Foundation: Sync & State (T-V32-1-*)
 
-**Gate:** All complete → v3.2-P2..P6 unlock  
+**Gate:** All complete → v0.3.6-P2..P6 unlock  
 **Owner:** DevOps Lead  
 **Depends on:** None
 
@@ -162,9 +162,9 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ---
 
-#### v3.2-P2 — CI/CD Pipeline (T-V32-2-*) — Parallel with P3
+#### v0.3.6-P2 — CI/CD Pipeline (T-V32-2-*) — Parallel with P3
 
-**Gate:** v3.2-P1 complete  
+**Gate:** v0.3.6-P1 complete  
 **Owner:** DevOps Lead + SRE  
 **Depends on:** ADR-0002
 
@@ -179,9 +179,9 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ---
 
-#### v3.2-P3 — Security Scanning (T-V32-3-*) — Parallel with P2
+#### v0.3.6-P3 — Security Scanning (T-V32-3-*) — Parallel with P2
 
-**Gate:** v3.2-P1 complete  
+**Gate:** v0.3.6-P1 complete  
 **Owner:** Security Officer  
 **Depends on:** ADR-0003  
 **Critical:** All marked `security: true`
@@ -191,15 +191,15 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 | T-V32-3-001 | Enable GitHub CodeQL; configure JS/TS | Critical/high blocks PR | 🔒 |
 | T-V32-3-002 | Enable GitHub DependaBot; weekly pnpm | Auto-PR for patch/minor | 🔒 |
 | T-V32-3-003 | Enable GitHub secret scanning + push protection | Push blocked on known patterns | 🔒 |
-| T-V32-3-004 | Run `/scan security`; document in `SECURITY_AUDIT_v3.2.md` | Findings categorized by severity | 🔒 |
+| T-V32-3-004 | Run `/scan security`; document in `SECURITY_AUDIT_v0.3.6.md` | Findings categorized by severity | 🔒 |
 | T-V32-3-005 | Define secrets rotation schedule | Auth0 quarterly; tokens on team change | 🔒 |
 | T-V32-3-006 | Capture `SECURITY_BASELINE.md` snapshot | CodeQL + DependaBot + scan results | 🔒 |
 
 ---
 
-#### v3.2-P4 — Design System + Wireframe Bridge (T-V32-4-*) — Parallel with P2/P3
+#### v0.3.6-P4 — Design System + Wireframe Bridge (T-V32-4-*) — Parallel with P2/P3
 
-**Gate:** v3.2-P1 complete  
+**Gate:** v0.3.6-P1 complete  
 **Owner:** Design Lead + Frontend Lead  
 **Depends on:** ADR-0005
 
@@ -215,9 +215,9 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ---
 
-#### v3.2-P5 — Observability + Content Ops (T-V32-5-*) — Parallel with P4
+#### v0.3.6-P5 — Observability + Content Ops (T-V32-5-*) — Parallel with P4
 
-**Gate:** v3.2-P2 complete  
+**Gate:** v0.3.6-P2 complete  
 **Owner:** Frontend Performance Lead + Analytics + Content Strategist  
 **Depends on:** ADR-0004
 
@@ -233,21 +233,21 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ---
 
-#### v3.2-P6 — Integration, Docs, QA + Release (T-V32-6-*) — After P1-P5
+#### v0.3.6-P6 — Integration, Docs, QA + Release (T-V32-6-*) — After P1-P5
 
-**Gate:** v3.2-P1..P5 all complete  
+**Gate:** v0.3.6-P1..P5 all complete  
 **Owner:** Technical Writer + Swarm Leader + QA Lead
 
 | ID | Task | AC | Status |
 |---|---|---|---|
-| T-V32-6-001 | Index all v3.2 runbooks in `RUNBOOKS.md` | 6+ runbooks indexed | 🔒 |
+| T-V32-6-001 | Index all v0.3.6 runbooks in `RUNBOOKS.md` | 6+ runbooks indexed | 🔒 |
 | T-V32-6-002 | Write `TROUBLESHOOTING.md` (20+ scenarios) | FAQ format; links to runbooks | 🔒 |
 | T-V32-6-003 | Write `ONBOARDING.md` for new developers | Covers Husky, first commit, PR, CI gates | 🔒 |
 | T-V32-6-004 | Full system regression: plan → develop → scan → fix | No regressions vs v3.1 | 🔒 |
 | T-V32-6-005 | Load test CI: 5 simultaneous PRs | All 5 complete; no race conditions | 🔒 |
 | T-V32-6-006 | Production readiness checklist | All systems > 90%; role lead sign-offs | 🔒 |
-| T-V32-6-007 | Update README + CHANGELOG with v3.2 features | v3.2 section; health table updated | 🔒 |
-| T-V32-6-008 | Tag `v3.2.0` on Master; trigger release | Tag created; artifact generated | 🔒 |
+| T-V32-6-007 | Update README + CHANGELOG with v0.3.6 features | v0.3.6 section; health table updated | 🔒 |
+| T-V32-6-008 | Tag `v0.3.6.0` on Master; trigger release | Tag created; artifact generated | 🔒 |
 
 ---
 
@@ -255,7 +255,7 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 
 ### 11 SDD Automation Agents (2-Week Build)
 
-**Building in parallel while v3.2-P1 executes:**
+**Building in parallel while v0.3.6-P1 executes:**
 
 | Agent | Focus | Build Time | Integration |
 |---|---|---|---|
@@ -272,9 +272,9 @@ This is the unified master plan for NEZAM v3.2. It consolidates:
 | 11. Release-Plan-Generator | Deployment plan + monitoring | Fri W2 | Release phase |
 
 **Integration roadmap:**
-- Week 1-2: Build agents (background, during v3.2-P1)
+- Week 1-2: Build agents (background, during v0.3.6-P1)
 - Week 3: Wire into `/plan` command + test on single feature
-- Week 4+: Use for v3.2-P2, P3, P4 (parallel phases)
+- Week 4+: Use for v0.3.6-P2, P3, P4 (parallel phases)
 
 ---
 
@@ -364,7 +364,7 @@ Time: 5 min (fully automated)
 ### Week 1: P1 Foundation + Agent Build (Parallel)
 
 **Monday-Friday:**
-- `/silent unlock v3.2-p1` (use current SDD + Silent Ops)
+- `/silent unlock v0.3.6-p1` (use current SDD + Silent Ops)
 - Agents 1-5 build in background
 - P1 tasks T-V32-1-001..007 execute
 
@@ -419,11 +419,11 @@ Time: 5 min (fully automated)
 - Staging → production verification
 
 **Thursday:**
-- `/ship v3.2-release-candidate`
+- `/ship v0.3.6-release-candidate`
 
 **Friday:**
 - Monitor prod deployment
-- **v3.2 live ✨**
+- **v0.3.6 live ✨**
 
 ---
 
@@ -485,22 +485,22 @@ Time: 5 min (fully automated)
 ### ADR-0002: Sync Drift Detection
 - **Decision:** Weekly CI workflow monitors `.cursor/` drift
 - **Impact:** Prevents Cursor/Claude mismatch
-- **Implemented in:** v3.2-P1, T-V32-1-005
+- **Implemented in:** v0.3.6-P1, T-V32-1-005
 
 ### ADR-0003: Security Gates
 - **Decision:** CodeQL + DependaBot + push protection (all three layers)
 - **Impact:** Zero-day response time < 24h
-- **Implemented in:** v3.2-P3, T-V32-3-001..003
+- **Implemented in:** v0.3.6-P3, T-V32-3-001..003
 
 ### ADR-0004: Observability & Performance
 - **Decision:** Sentry + web-vitals + perf budget gates
 - **Impact:** Production visibility + performance regression prevention
-- **Implemented in:** v3.2-P5, T-V32-5-001..003
+- **Implemented in:** v0.3.6-P5, T-V32-5-001..003
 
 ### ADR-0005: Design-to-Code Bridge
 - **Decision:** Wireframes locked → immutable contract → dev executes
 - **Impact:** No pixel-guessing, deterministic UI implementation
-- **Implemented in:** v3.2-P4, T-V32-4-001..007
+- **Implemented in:** v0.3.6-P4, T-V32-4-001..007
 
 ---
 
@@ -527,7 +527,7 @@ Time: 5 min (fully automated)
 - ✅ Zero context switching
 
 ### Week 4
-- ✅ v3.2 shipped to production
+- ✅ v0.3.6 shipped to production
 - ✅ Delivered in 4 weeks (vs 8 weeks)
 - ✅ Full monitoring configured
 - ✅ Team ready for next cycle
@@ -548,7 +548,7 @@ Release:      2h × 5 features = 10h
 Total: 155h spread over 8 weeks
 ```
 
-### New Way (v3.2, 4 weeks)
+### New Way (v0.3.6, 4 weeks)
 
 ```
 Planning:     3h × 5 features = 15h (adaptive SDD)
@@ -566,7 +566,7 @@ Result: 4 weeks (vs 8 weeks) — **61% faster**
 
 ## Known Constraints
 
-### Already Resolved (v3.0 / v3.2)
+### Already Resolved (v3.0 / v0.3.6)
 - ✅ Design Hub dev/build green
 - ✅ AI mirror sync integrity
 - ✅ SDD gate enforcement
@@ -593,7 +593,7 @@ Result: 4 weeks (vs 8 weeks) — **61% faster**
 1. Read Sections 1-3 (Four Pillars, Metrics, Timeline)
 2. Assign tasks from Section 5 (Unified Task Registry)
 3. Execute via `/silent` commands for git + `/plan` for specs
-4. Track completion in GitHub Issues with `v3.2` label
+4. Track completion in GitHub Issues with `v0.3.6` label
 
 **For progress tracking:**
 - Update task status cells (⏳ → ✅) as they complete
@@ -609,7 +609,7 @@ Result: 4 weeks (vs 8 weeks) — **61% faster**
 
 ## Health 100 Integration
 
-Embedded within v3.2 phases: optimize speed (15s), memory (3GB), reliability (99.9% uptime).
+Embedded within v0.3.6 phases: optimize speed (15s), memory (3GB), reliability (99.9% uptime).
 
 **Key optimizations:**
 - **Memory:** Archive `.cursor/design/references/` (30GB → 3GB)
@@ -617,7 +617,7 @@ Embedded within v3.2 phases: optimize speed (15s), memory (3GB), reliability (99
 - **Performance:** Web Vitals auto-enforcement (LCP < 2.5s, CLS < 0.1, INP < 200ms)
 - **Reliability:** 95%+ test coverage, zero unpatched CVEs, disaster recovery drills
 
-**Target:** 100/100 health score by v3.2-P6
+**Target:** 100/100 health score by v0.3.6-P6
 
 **Details:** See `HEALTH_100_OPTIMIZATION.md` + `.nezam/core/docs/PERFORMANCE_TUNING.md`
 
@@ -626,7 +626,7 @@ Embedded within v3.2 phases: optimize speed (15s), memory (3GB), reliability (99
 ## Next Legal Command
 
 ```bash
-/develop v3.2-p1-foundation
+/develop v0.3.6-p1-foundation
 
 # Uses Silent Ops + current SDD
 # Includes Health 100 optimizations:
@@ -653,5 +653,5 @@ Embedded within v3.2 phases: optimize speed (15s), memory (3GB), reliability (99
 
 **Master Plan maintained by:** Project Architect  
 **Last updated:** 2026-06-05  
-**Valid through:** v3.2.0 release (2026-06-25)
+**Valid through:** v0.3.6.0 release (2026-06-25)
 

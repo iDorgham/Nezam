@@ -1,21 +1,81 @@
-# NEZAM Platform Runbooks Index
+# NEZAM Runbooks
 
-This document serves as the master index for all operational, security, and developer runbooks in the NEZAM visual design hub.
+Quick index of all operational guides. Each runbook is a standalone document you can open when something goes wrong — or when you want to understand a system before touching it.
 
 ---
 
-## 1. Multi-Client Sync Runbook
-- **Path:** [.nezam/core/docs/SYNC_RUNBOOK.md](file:///Users/Dorgham/Documents/Work/Devleopment/NEZAM/.nezam/core/docs/SYNC_RUNBOOK.md)
-- **Purpose:** Outlines workflows for keeping `.cursor/` and other client governance folders synchronized with zero drift. Includes recovery, rollback, and drift-alert handling steps.
+## Runbooks
 
-## 2. Security Runbook
-- **Path:** [.nezam/core/docs/SECURITY_RUNBOOK.md](file:///Users/Dorgham/Documents/Work/Devleopment/NEZAM/.nezam/core/docs/SECURITY_RUNBOOK.md)
-- **Purpose:** Outlines secrets rotation schedules, push protection troubleshooting, vulnerability remediation paths, and incident response protocols.
+### Sync & Mirrors
+**File:** [`.nezam/core/docs/SYNC_RUNBOOK.md`](../.nezam/core/docs/SYNC_RUNBOOK.md)
 
-## 3. Observability Runbook
-- **Path:** [.nezam/core/docs/OBSERVABILITY_RUNBOOK.md](file:///Users/Dorgham/Documents/Work/Devleopment/NEZAM/.nezam/core/docs/OBSERVABILITY_RUNBOOK.md)
-- **Purpose:** Guides developers and SREs through Sentry alert triage, Web Vitals performance regression profiling, and Lighthouse budget failures.
+Use this when AI tool mirrors are out of sync, a drift alert fires, or the pre-commit hook keeps failing.
 
-## 4. Deployment & Rollback Runbook
-- **Path:** [docs/release/DEPLOYMENT_RUNBOOK.md](file:///Users/Dorgham/Documents/Work/Devleopment/NEZAM/docs/release/DEPLOYMENT_RUNBOOK.md)
-- **Purpose:** Complete step-by-step instructions for deploying to staging and production environments, smoke testing configurations, and fallback procedures.
+Covers:
+- How to recover from sync drift
+- Rolling back a bad sync
+- What to do when drift exceeds the 0.5% CI threshold
+- How certified agents are tracked
+- Archive and deprecation process
+
+---
+
+### Security
+**File:** [`.nezam/core/docs/SECURITY_RUNBOOK.md`](../.nezam/core/docs/SECURITY_RUNBOOK.md)
+
+Use this when a secret needs rotating, a vulnerability is reported, or a security alert fires.
+
+Covers:
+- Secret rotation schedule and steps
+- Push protection — how to unblock a rejected push
+- Dependency CVE remediation path
+- Incident response checklist
+
+---
+
+### Observability
+**File:** [`.nezam/core/docs/OBSERVABILITY_RUNBOOK.md`](../.nezam/core/docs/OBSERVABILITY_RUNBOOK.md)
+
+Use this when Sentry fires an alert, Core Web Vitals regress, or Lighthouse CI fails.
+
+Covers:
+- How to triage a Sentry error in production
+- Reading the Web Vitals dashboard
+- Diagnosing LCP, CLS, and INP regressions
+- Lighthouse budget failures and how to fix them
+
+---
+
+### Deployment & Rollback
+**File:** [`docs/release/DEPLOYMENT_RUNBOOK.md`](release/DEPLOYMENT_RUNBOOK.md)
+
+Use this when deploying to staging or production, or when you need to roll back a broken release.
+
+Covers:
+- Pre-deploy checklist
+- Staging deploy steps
+- Production release steps
+- How to roll back using git tags
+- Smoke test checklist after deploy
+
+---
+
+## Quick Reference
+
+| Problem | Runbook |
+|:---|:---|
+| AI tool mirror is out of sync | Sync & Mirrors |
+| Pre-commit hook keeps failing | Sync & Mirrors |
+| Leaked secret or CVE alert | Security |
+| Sentry alert in production | Observability |
+| Web Vitals dropped after a deploy | Observability |
+| Need to deploy to staging | Deployment & Rollback |
+| Need to roll back a bad release | Deployment & Rollback |
+
+---
+
+## Related Docs
+
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — common errors with quick fixes
+- [ONBOARDING.md](ONBOARDING.md) — getting started from scratch
+- [CONTRIBUTING.md](../CONTRIBUTING.md) — how to make changes safely

@@ -1,180 +1,142 @@
 # Contributing to NEZAM
 
-Welcome to the NEZAM workspace kit. Follow these guidelines to set up your environment, keep AI tool mirrors in sync, and ensure contributions pass all gates before merging.
+Thank you for contributing. This guide covers everything you need to set up your environment, make changes safely, and get your code merged.
 
 ---
 
-## 1. Initial Setup
+## 1. Setup
 
 ```bash
-# Install all dependencies
+# Clone and install
+git clone https://github.com/iDorgham/Nezam.git
+cd Nezam
 pnpm install
 
-# Install Husky pre-commit hook (one-time per machine)
-npx husky install
-
-# Install NEZAM context and auto-memory hooks
+# Install the git pre-commit hook
 pnpm hooks:install
 ```
 
-After `npx husky install`, the pre-commit hook at `.husky/pre-commit` will activate automatically on every `git commit`.
-
-Verify the hook is wired:
+Verify the hook is active:
 ```bash
-cat .git/hooks/pre-commit
-# Should show the Husky runner, not the raw script
+ls -la .husky/pre-commit
+# Should show the file exists and is executable
 ```
 
 ---
 
-## 2. Pre-commit Hook
+## 2. The Pre-commit Hook
 
-The Husky pre-commit hook at `.husky/pre-commit` enforces mirror consistency on every commit.
+Every `git commit` runs three things automatically:
 
-### What it does
+1. **`pnpm ai:sync`** — rebuilds all AI tool mirrors from `.cursor/`
+2. **Stages changed mirrors** — adds `.claude/`, `.gemini/`, `AGENTS.md`, `CLAUDE.md`, etc. to the commit automatically
+3. **`pnpm ai:check`** — validates everything is consistent
 
-Every `git commit` triggers this sequence:
-
-1. **Sync** — runs `pnpm ai:sync` to regenerate all AI tool mirrors from canonical `.cursor/`
-2. **Stage mirrors** — automatically stages any changed mirror files so they are included in the commit:
-   `.claude/`, `.gemini/`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, and other tool root files
-3. **Validate** — runs `pnpm ai:check` (drift + SDD integrity + skill frontmatter + design skills)
-4. **Block or pass** — if `ai:check` exits non-zero, the commit is blocked with an error message
-
-### What triggers the sync
-
-The hook runs on every commit regardless of which files are staged. This is intentional — it ensures mirrors can never fall behind even on unrelated commits.
-
-### When the hook blocks a commit
-
+If the check fails, the commit is blocked:
 ```
 ❌ COMMIT BLOCKED: AI check suite failed.
-   Please fix any remaining validation issues before committing.
 ```
 
-**Debug steps:**
+Fix it:
 ```bash
-# Run the check suite manually to see which check failed
-pnpm ai:check
-
-# Re-run sync if mirrors are the issue
-pnpm ai:sync
-
-# Verify YAML state files are valid
-pnpm verify:yaml
+pnpm ai:check    # see which check failed
+pnpm ai:sync     # rebuild mirrors if that is the issue
+pnpm verify:yaml # check YAML state files if that is the issue
 ```
 
-See `.nezam/core/docs/SYNC_RUNBOOK.md` for detailed failure recovery.
+Then commit again normally.
 
-### Emergency bypass (use sparingly)
-
-If you need to commit without running the hook (e.g., fixing a broken hook script itself):
-
-```bash
-git commit --no-verify -m "chore: emergency fix — hook bypassed"
-```
-
-Always follow up with a `pnpm ai:sync && pnpm ai:check` pass on the next commit.
-
-### Troubleshooting: hook not running
-
-If commits pass without triggering the hook:
-
-```bash
-# Confirm the hook file is executable
-ls -la .husky/pre-commit
-
-# Re-install if missing
-npx husky install
-```
-
-### Troubleshooting: `pnpm not found` in hook
-
-The hook gracefully skips sync if `pnpm` is not on PATH and prints a warning:
-```
-⚠️  pnpm not found — skipping sync.
-```
-
-Fix: add `pnpm` to your shell PATH. On macOS: `export PATH="$HOME/.local/share/pnpm:$PATH"`.
+> **Emergency only:** `git commit --no-verify` skips the hook. Use this only if the hook itself is broken. Always follow up with `pnpm ai:sync && pnpm ai:check` on your next commit.
 
 ---
 
-## 3. Syncing AI Mirrors
+## 3. The Rule: Edit `.cursor/` Only
 
-NEZAM mirrors the canonical `.cursor/` configuration to every supported AI tool:
+NEZAM uses `.cursor/` as the single source of truth. All other tool folders (`.claude/`, `.gemini/`, `AGENTS.md`, etc.) are generated mirrors.
 
-| Tool | Mirror location |
-|---|---|
-| Claude Code | `.claude/` |
-| Gemini | `.gemini/` |
-| GitHub Copilot | `AGENTS.md` |
-| Codex / OpenCode | `AGENTS.md`, `CLAUDE.md` |
+**Never edit mirror files directly.** They are overwritten by `pnpm ai:sync`.
 
-The pre-commit hook handles sync automatically. For manual sync or targeted updates:
+If you want to change how Claude or Gemini behaves → edit the file in `.cursor/`, then run `pnpm ai:sync`.
 
+---
+
+## 4. Syncing
+
+| Command | What It Does |
+|:---|:---|
+| `pnpm ai:sync` | Rebuild all mirrors from `.cursor/` |
+| `pnpm ai:sync --target=claude` | Sync one tool only |
+| `pnpm ai:status` | Check sync status without writing anything |
+| `pnpm ai:check` | Full validation (drift + integrity + frontmatter) |
+
+---
+
+## 5. Adding or Changing Agents and Skills
+
+**To add or change an agent:**
+1. Edit or create the file in `.cursor/agents/`
+2. Run `pnpm ai:sync` to push it to all mirrors
+3. Run `pnpm ai:check` to confirm no broken references
+
+**To add a skill:**
+1. Create `.cursor/skills/<category>/<skill-id>/SKILL.md`
+2. Add frontmatter with `version`, `updated`, and `tier` (1, 2, or 3)
+3. Run `pnpm ai:sync && pnpm ai:check`
+
+**To retire a skill:**
+1. Move it to `.cursor/skills/archive/<category>/<skill-id>/`
+2. Add an entry to `.cursor/skills/archive/DEPRECATED.md` with the replacement skill
+3. Update any agent files that referenced the old skill ID
+4. Run `pnpm ai:sync && pnpm ai:check` — confirm zero unresolved refs
+
+---
+
+## 6. Branches and PRs
+
+Branch naming — the CI will reject any branch that does not follow this format:
+
+| Type | Pattern | Example |
+|:---|:---|:---|
+| Feature | `feature/<slug>` | `feature/add-arabic-locale` |
+| Fix | `fix/<slug>` | `fix/sidebar-rtl-padding` |
+| Release | `release/<x.y.z>` | `release/0.3.7` |
+| Hotfix | `hotfix/<x.y.z>` | `hotfix/0.3.6.1` |
+| Docs | `docs/<slug>` | `docs/update-onboarding` |
+
+Before opening a PR, run:
 ```bash
-# Sync all tool mirrors
-pnpm ai:sync
-
-# Sync one tool only (faster)
-pnpm ai:sync --target=claude
-pnpm ai:sync --target=gemini
-
-# Check sync status without writing
-pnpm ai:status
+pnpm check:all
 ```
 
-**Never edit mirror files directly** — they are overwritten on next sync.
+All gates must pass. PRs that touch `.cursor/`, `.claude/`, `.gemini/`, or `AGENTS.md` also trigger a CI sync-drift check.
 
 ---
 
-## 4. Validation Checks
+## 7. Commit Message Format
 
-Before pushing, all three suites must pass:
-
-```bash
-# 1. YAML state file syntax
-pnpm verify:yaml
-
-# 2. Mirror drift + swarm integrity + skill frontmatter + design skills
-pnpm ai:check
-
-# 3. Run both together (same as CI gate)
-pnpm ai:check && pnpm verify:yaml
+```
+<type>(<scope>): <short description>
 ```
 
-The CI workflows `sync-drift-check.yml` and `sync-and-drift-check.yml` enforce these as blocking gates on every PR that touches `.cursor/`, `.claude/`, `.gemini/`, or `AGENTS.md`.
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
+
+Examples:
+```
+feat(agents): add arabic-content-master agent
+fix(design-hub): correct RTL padding in sidebar
+docs(onboarding): simplify setup steps
+chore(release): T-V32-6-008: cut v0.3.6 tag
+```
+
+If your commit is part of a tracked task, include the task ID:
+```
+feat(ci): T-V32-2-005: configure weekly ci-health-check cron
+```
 
 ---
 
-## 5. Working with Agents and Skills
+## 8. Need Help?
 
-### Adding or modifying an agent
-
-1. Edit (or create) the agent file in `.cursor/agents/`
-2. `pnpm ai:sync` — propagates to all tool mirrors
-3. `pnpm ai:check` — confirms no orphaned refs or frontmatter issues
-
-### Adding a skill
-
-1. Create the skill directory at `.cursor/skills/<category>/<skill-id>/SKILL.md`
-2. Ensure frontmatter has `version`, `updated`, and `tier` (1, 2, or 3)
-3. `pnpm ai:sync && pnpm ai:check`
-
-### Archiving a deprecated skill
-
-1. Move to `.cursor/skills/archive/<category>/<skill-id>/`
-2. Add an entry to `.cursor/skills/archive/DEPRECATED.md` with the active replacement
-3. Update all agent files referencing the archived skill ID
-4. `pnpm ai:sync && pnpm ai:check` — confirm zero unresolved refs
-
----
-
-## 6. Branch and PR Conventions
-
-- Branch names: `feature/<description>`, `fix/<description>`, `chore/<description>`
-- PRs targeting `Master` must pass all CI gates: sync drift, YAML, lint, typecheck, design gates
-- State file changes (`.cursor/state/`) must keep all YAML valid (`pnpm verify:yaml`)
-- Never commit generated mirror files without first running `pnpm ai:sync`
-
-For full sync failure recovery and rollback procedures, see `.nezam/core/docs/SYNC_RUNBOOK.md`.
+- See [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) for common issues
+- See [`docs/RUNBOOKS.md`](docs/RUNBOOKS.md) for operational guides
+- [Open an issue](https://github.com/iDorgham/Nezam/issues) on GitHub

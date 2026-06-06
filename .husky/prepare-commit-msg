@@ -1,0 +1,28 @@
+#!/bin/bash
+# NEZAM — Auto-populate commit message with task ID from branch
+# Version: 1.2.0
+
+# Exit early if this is a merge, squash, or rebase commit
+COMMIT_SOURCE="${2:-}"
+if [ "$COMMIT_SOURCE" = "merge" ] || [ "$COMMIT_SOURCE" = "squash" ]; then
+  exit 0
+fi
+
+# Get the current branch name
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
+
+# Extract task ID matching rebranded formats: T-v0.3.2-P1-001, T-V032-1-001, etc.
+TASK_ID=$(echo "$BRANCH" | grep -oE "T-[vV]?[0-9.]+-P?[0-9]+-[0-9]+" || true)
+
+if [ ! -z "$TASK_ID" ]; then
+  FILE_MSG="$1"
+  if [ -f "$FILE_MSG" ]; then
+    CURRENT_MSG=$(cat "$FILE_MSG")
+    
+    # Check if the commit message already starts with the task ID (ignoring leading spaces)
+    if [[ ! "$CURRENT_MSG" =~ ^[[:space:]]*$TASK_ID ]]; then
+      # Prepend the task ID to the commit message
+      echo "$TASK_ID: $CURRENT_MSG" > "$FILE_MSG"
+    fi
+  fi
+fi

@@ -112,10 +112,11 @@ phases:
   v036_phase_5:
     name: "v0.3.6-P5: Observability + Content Ops"
     description: "Sentry, web-vitals, perf baseline, observability runbook, SEO/AEO baseline, content templates, CONTENT_OPS"
-    status: "unlocked"
+    status: "in_progress"
     testing_passed: false
     depends_on: "v036_phase_2"
     unlocked_at: "2026-06-06T17:55:00Z"
+    started_at: "2026-06-06T21:12:00Z"
     tasks: ["T-V32-5-001", "T-V32-5-002", "T-V32-5-003", "T-V32-5-004", "T-V32-5-005", "T-V32-5-006", "T-V32-5-007"]
 
   v036_phase_6:

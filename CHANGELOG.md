@@ -17,6 +17,18 @@ Workspace governance releases are tracked here. NEZAM meta-kit history also live
 
 ### Security
 
+## [0.3.5] - 2026-06-06
+
+Milestone: **v0.3.5 Polish Release** (Production-ready release with Gemini 3.5 Flash agents and rebranded phase prefixes).
+
+### Added
+- **AI Agents Swarm:** Built and integrated 11 specialized planning and execution agents (Gemini 3.5 Flash) into the `/plan` command structure.
+- **SDD Automation:** Added FlowOrchestrator and SilentOpsExecutor for parallel execution and zero-friction git automation.
+- **Rebranding:** Completed rebranding of legacy `v3.2` / `3.2.0` references to `v0.3.2` / `0.3.2` across the documentation suite.
+
+### Changed
+- Promoted `/plan` subcommand architecture to support parallel lanes and type detection.
+
 ## [0.3.2] - 2026-06-06
 
 Milestone: **v3.2 Stabilization and Integration Release** (Integration of all stabilization cycles from Phase 1 to Phase 6).

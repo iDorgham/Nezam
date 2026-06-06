@@ -125,7 +125,7 @@
 
 ---
 
-## v3.2 NEW: P3 Security Scanning (6 Tasks) ⏳ IN PROGRESS
+## v3.2 NEW: P3 Security Scanning (6 Tasks) ✅ COMPLETE
 
 **Phase:** Security scanning automation  
 **Owner:** Security Officer  
@@ -136,14 +136,14 @@
 
 | Task ID | Title | Owner | Status | AC | Due |
 |---|---|---|---|---|---|
-| T-V32-3-001 | Enable GitHub CodeQL (JS/TS) | lead-security-officer | 🔒 | Critical/high blocks | 2026-06-08 |
-| T-V32-3-002 | Enable GitHub DependaBot (weekly pnpm) | lead-security-officer | 🔒 | Auto-PR patch/minor | 2026-06-08 |
-| T-V32-3-003 | Enable secret scanning + push protection | lead-security-officer | 🔒 | Push blocked | 2026-06-09 |
-| T-V32-3-004 | Run `/scan security` audit | lead-security-officer | 🔒 | SECURITY_AUDIT_v3.2.md | 2026-06-11 |
-| T-V32-3-005 | Define secrets rotation schedule | lead-security-officer | 🔒 | Runbook updated | 2026-06-12 |
-| T-V32-3-006 | Capture security baseline snapshot | lead-security-officer | 🔒 | SECURITY_BASELINE.md | 2026-06-13 |
-| **T-HEALTH-3-001** | **Complete CVE remediation (postcss bump)** | **lead-security-officer** | **🔒** | **Zero high/critical CVEs** | **2026-06-09** |
-| **T-HEALTH-3-002** | **Enable DAST testing in CI** | **app-security-manager** | **🔒** | **Security scanning active** | **2026-06-12** |
+| T-V32-3-001 | Enable GitHub CodeQL (JS/TS) | lead-security-officer | ✅ | Critical/high blocks | 2026-06-08 |
+| T-V32-3-002 | Enable GitHub DependaBot (weekly pnpm) | lead-security-officer | ✅ | Auto-PR patch/minor | 2026-06-08 |
+| T-V32-3-003 | Enable secret scanning + push protection | lead-security-officer | ✅ | Push blocked | 2026-06-09 |
+| T-V32-3-004 | Run `/scan security` audit | lead-security-officer | ✅ | SECURITY_AUDIT_v3.2.md | 2026-06-11 |
+| T-V32-3-005 | Define secrets rotation schedule | lead-security-officer | ✅ | Runbook updated | 2026-06-12 |
+| T-V32-3-006 | Capture security baseline snapshot | lead-security-officer | ✅ | SECURITY_BASELINE.md | 2026-06-13 |
+| **T-HEALTH-3-001** | **Complete CVE remediation (postcss bump)** | **lead-security-officer** | **✅** | **Zero high/critical CVEs** | **2026-06-09** |
+| **T-HEALTH-3-002** | **Enable DAST testing in CI** | **app-security-manager** | **✅** | **Security scanning active** | **2026-06-12** |
 
 **Blocker:** v3.2-P1 · Unlocks with P1 complete · **Health target: 70/100 by end of week**
 
@@ -297,13 +297,13 @@
 | P1-P6 Quality/Ship | 21 | 21 | — | — | **100%** |
 | **v3.2-P1** | 7 | 7 | — | — | **100%** |
 | **v3.2-P2** | 6 | 6 | — | — | **100%** |
-| **v3.2-P3** | 6 | — | 6 | — | **0%** |
+| **v3.2-P3** | 6 | 6 | — | — | **100%** |
 | **v3.2-P4** | 7 | — | 7 | — | **0%** |
 | **v3.2-P5** | 7 | — | 7 | — | **0%** |
 | **v3.2-P6** | 8 | — | — | 8 | **0%** (locked on P3-P5) |
 | **Agent Build** | 11 | — | 11 | — | **0%** (parallel) |
 | **Agent Integration** | 3 | — | — | 3 | **0%** (locked on agents) |
-| **TOTAL** | 81 | 39 | 31 | 11 | **48%** |
+| **TOTAL** | **81** | **45** | **25** | **11** | **56%** |
 
 ### Critical Path (Wall Clock to v3.2 Release)
 

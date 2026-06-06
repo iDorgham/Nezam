@@ -7,10 +7,10 @@ owner: "PM-01"
 # Do not edit manually. Updated by /GUIDE and swarm commands.
 # Source of truth for session resume.
 
-last_updated: "2026-06-05"
+last_updated: "2026-06-06"
 active_swarm: "swarm-1"
 active_agent: "swarm-leader"
-active_phase: "v32_phase_2_3_4"
+active_phase: "v32_phase_4"
 active_feature_slice: ""
 active_spec: ".nezam/core/plans/MASTER_TASKS.md"
 
@@ -18,7 +18,7 @@ last_output:
   type: "task_complete"
   artifact_path: ".cursor/state/develop_phases.yaml"
   status: "in_progress"
-  summary: "v3.2-P1 complete (2026-06-05). v32_phase_2 (CI/CD), v32_phase_3 (Security), v32_phase_4 (Design) all unlocked. Next: choose a lane and run /develop start."
+  summary: "v3.2-P2 (CI/CD) and v3.2-P3 (Security Scanning) complete. Phase 4 (Design System + Wireframe Bridge) and Phase 5 (Observability + Content Ops) are unlocked. Next: choose a lane and run /develop start."
 
 pending_handoff:
   from_agent: ""
@@ -28,7 +28,7 @@ pending_handoff:
 
 open_blockers: []
 
-session_resume_prompt: "v3.2-P1 complete. P2/P3/P4 all unlocked. Choose next lane: P2 (CI/CD — T-V32-2-*), P3 (Security — T-V32-3-*, security: true lane), P4 (Design — T-V32-4-*). Run /develop start after picking a lane."
+session_resume_prompt: "v3.2-P2 and v3.2-P3 complete. P4/P5 unlocked. Choose next lane: P4 (Design — T-V32-4-*), P5 (Observability — T-V32-5-*). Run /develop start after picking a lane."
 
 last_sync: "2026-06-05T00:20:00Z"
 certified_agents:

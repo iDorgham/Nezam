@@ -1,0 +1,59 @@
+name: DAST Scan
+
+on:
+  schedule:
+    - cron: "0 3 * * 0" # Weekly on Sunday at 3:00 AM UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  zap-scan:
+    name: OWASP ZAP Baseline Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Design Hub
+        run: pnpm design-hub:build
+
+      - name: Start Design Hub Server
+        run: |
+          pnpm design-hub &
+          # Wait for the next.js dashboard to respond on port 4000
+          npx wait-on http://localhost:4000 --timeout 60000
+
+      - name: OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.13.0
+        with:
+          target: 'http://localhost:4000'
+          fail_action: false # Report findings without failing CI immediately
+          allow_issue_writing: false

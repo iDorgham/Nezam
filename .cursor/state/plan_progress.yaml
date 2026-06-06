@@ -35,6 +35,14 @@ scrumban_board:
   in_progress: []
   review: []
   done:
+    - T-V32-3-001  # CodeQL setup and integration verified — 2026-06-06
+    - T-V32-3-002  # Dependabot weekly intervals configured — 2026-06-06
+    - T-V32-3-003  # Push protection and secret scanning guidelines documented — 2026-06-06
+    - T-V32-3-004  # SECURITY_AUDIT_v3.2.md generated with threat modeling — 2026-06-06
+    - T-V32-3-005  # SECURITY_RUNBOOK.md rotation and incident procedures written — 2026-06-06
+    - T-V32-3-006  # SECURITY_BASELINE.md snapshot captured — 2026-06-06
+    - T-HEALTH-3-001 # postcss XSS vulnerability overrides validated — 2026-06-06
+    - T-HEALTH-3-002 # DAST testing automated via weekly OWASP ZAP Action — 2026-06-06
     - T-V32-1-007  # Husky pre-commit verified (executable, runs ai:sync + re-stages mirrors + ai:check); CONTRIBUTING.md expanded — 2026-06-05
     - T-V32-1-006  # SYNC_RUNBOOK.md — 10 sections: recovery, rollback, drift alert response, certified agents, archive — 2026-06-05
     - T-V32-1-005  # sync-drift-check.yml promoted to blocking PR gate — PR trigger + numeric drift % + Slack alert >1% — 2026-06-05

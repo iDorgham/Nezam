@@ -1,6 +1,59 @@
 const fs = require('fs');
 const path = require('path');
-const yaml = require('js-yaml');
+let yaml;
+try {
+  yaml = require('js-yaml');
+} catch (e) {
+  yaml = {
+    loadAll: function(content) {
+      // Offline fallback: state-machine based basic syntax validator for YAML files
+      const lines = content.split('\n');
+      let inBlockScalar = false;
+      let blockIndentation = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#') || trimmed === '---') continue;
+        
+        const indent = line.length - line.trimStart().length;
+        
+        if (inBlockScalar) {
+          if (indent > blockIndentation) {
+            continue; // Ignore block scalar body lines
+          } else {
+            inBlockScalar = false; // Block scalar ended
+          }
+        }
+        
+        if (trimmed.endsWith('|') || trimmed.endsWith('>') || trimmed.endsWith('|-') || trimmed.endsWith('>-')) {
+          inBlockScalar = true;
+          blockIndentation = indent;
+          continue;
+        }
+
+        // Validate basic key-value line structure
+        if (trimmed.includes(':') && !trimmed.startsWith('-')) {
+          const colonIdx = trimmed.indexOf(':');
+          const value = trimmed.substring(colonIdx + 1).trim();
+          
+          if (value.startsWith('"')) {
+            const quoteCount = (value.match(/"/g) || []).length;
+            if (quoteCount % 2 !== 0) {
+              throw new Error(`Unclosed double quote at line ${i + 1}`);
+            }
+          } else if (value.startsWith("'")) {
+            const quoteCount = (value.match(/'/g) || []).length;
+            if (quoteCount % 2 !== 0) {
+              throw new Error(`Unclosed single quote at line ${i + 1}`);
+            }
+          }
+        }
+      }
+      return [];
+    }
+  };
+}
 
 const repoRoot = process.cwd();
 

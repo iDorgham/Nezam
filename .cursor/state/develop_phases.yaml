@@ -90,10 +90,11 @@ phases:
   v32_phase_3:
     name: "v3.2-P3: Security Scanning"
     description: "CodeQL, DependaBot, secret scanning, security audit, secrets rotation schedule, SECURITY_BASELINE"
-    status: "unlocked"
-    testing_passed: false
+    status: "complete"
+    testing_passed: true
     depends_on: "v32_phase_1"
     unlocked_at: "2026-06-05T00:00:00Z"
+    completed_at: "2026-06-06T01:45:00Z"
     tasks: ["T-V32-3-001", "T-V32-3-002", "T-V32-3-003", "T-V32-3-004", "T-V32-3-005", "T-V32-3-006"]
 
   v32_phase_4:

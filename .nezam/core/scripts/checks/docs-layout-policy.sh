@@ -59,7 +59,7 @@ if [[ -d "$reports_folder" ]]; then
     fi
 
     case "$base" in
-      a11y|audits|coverage|html|lighthouse|perf|progress|release|security|tests) ;;
+      a11y|audits|coverage|design|html|lighthouse|observability|perf|progress|release|security|tests) ;;
       *)
         echo "FAIL: unknown reports category: $base (allowed: a11y audits coverage html lighthouse perf progress release security tests)"
         fail=1

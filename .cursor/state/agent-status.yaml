@@ -10,15 +10,15 @@ owner: "PM-01"
 last_updated: "2026-06-06"
 active_swarm: "swarm-1"
 active_agent: "swarm-leader"
-active_phase: ""
+active_phase: "v036_phase_3"
 active_feature_slice: ""
 active_spec: ".nezam/core/plans/MASTER_TASKS.md"
 
 last_output:
   type: "task_complete"
   artifact_path: ".cursor/state/develop_phases.yaml"
-  status: "complete"
-  summary: "v0.3.6-P2 (CI/CD Pipeline) complete. Phase P5 (Observability + Content Ops) is unlocked. Available unlocked phases: P3 (Security), P4 (Design Bridge), P5 (Observability)."
+  status: "in_progress"
+  summary: "Started v0.3.6-P3 (Security Scanning) development."
 
 pending_handoff:
   from_agent: ""
@@ -28,7 +28,7 @@ pending_handoff:
 
 open_blockers: []
 
-session_resume_prompt: "v0.3.6-P2 complete. P3, P4, and P5 are unlocked. Choose a phase (P3 — Security, P4 — Design, P5 — Observability) and run /develop start."
+session_resume_prompt: "Active phase is v036_phase_3. Execute tasks T-V32-3-001..006 (CodeQL, DependaBot, Secret scanning, Security audit, secrets rotation, security baseline)."
 
 last_sync: "2026-06-05T00:20:00Z"
 certified_agents:
